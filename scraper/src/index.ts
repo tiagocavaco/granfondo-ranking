@@ -195,7 +195,7 @@ function transformResult(r: ApiResult): StoredResult {
     bib: r.dorsal,
     name: r.nome,
     nameLower: normalizeName(r.nome),
-    gender: r.sexo ?? "",
+    gender: r.sexo || "M",
     team: r.equipa ?? "",
     category: r.escalao ?? "",
     country: r.pais_nome ?? "",
@@ -442,7 +442,6 @@ function buildAggregateRanking(events: StoredEvent[]): AggregateRanking {
       const byGender = new Map<string, StoredResult[]>();
       for (const r of dist.results) {
         if (r.dnf || r.dns || r.pos < 1) continue;
-        if (r.gender !== "M" && r.gender !== "F") continue; // skip unknown gender
         if (!byGender.has(r.gender)) byGender.set(r.gender, []);
         byGender.get(r.gender)!.push(r);
       }
