@@ -10,7 +10,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Clássica"
+        "name": "Granfondo"
       }
     ],
     "participantCount": 1332,
@@ -76,11 +76,11 @@
     "distances": [
       {
         "id": "1",
-        "name": "BIG DAY"
+        "name": "Granfondo"
       },
       {
         "id": "2",
-        "name": "HALF DAY"
+        "name": "Mediofondo"
       }
     ],
     "participantCount": 727,
@@ -150,7 +150,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "GranFondo"
+        "name": "Granfondo"
       },
       {
         "id": "2",
@@ -176,7 +176,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "GranFondo"
+        "name": "Granfondo"
       },
       {
         "id": "2",
@@ -228,7 +228,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "GranFondo"
+        "name": "Granfondo"
       },
       {
         "id": "2",
@@ -458,7 +458,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Clássica"
+        "name": "Granfondo"
       }
     ],
     "participantCount": 1261,
@@ -524,7 +524,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "TIME TRIAL"
+        "name": "Time Trial"
       }
     ],
     "participantCount": 315,
@@ -559,9 +559,22 @@
     "year": 2026,
     "date": "2026-10-18",
     "location": "Ourém",
-    "resultsUrl": "https://results.stopandgo.pro/1828",
+    "resultsUrl": "https://bikeservice.pt/event/ourem-fatima-granfondo/",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
@@ -572,9 +585,22 @@
     "year": 2026,
     "date": "2026-09-27",
     "location": "Tavira",
-    "resultsUrl": "https://results.stopandgo.pro/1942",
+    "resultsUrl": "https://stopandgo.net/events/tavira-granfondo-2026",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
@@ -585,9 +611,22 @@
     "year": 2026,
     "date": "2026-09-13",
     "location": "Serra da Lousã",
-    "resultsUrl": "https://results.stopandgo.pro/1956",
+    "resultsUrl": "https://cabreirasolutions.com/evento/lousa-granfondo/",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
@@ -598,9 +637,22 @@
     "year": 2026,
     "date": "2026-07-12",
     "location": "Bragança",
-    "resultsUrl": "https://results.stopandgo.pro/1883",
+    "resultsUrl": "https://bikeservice.pt/event/braganca-granfondo/",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
@@ -611,9 +663,22 @@
     "year": 2026,
     "date": "2026-06-28",
     "location": "Seia",
-    "resultsUrl": "https://results.stopandgo.pro/1700",
+    "resultsUrl": "https://granfondoserradaestrela.com/",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
@@ -624,9 +689,22 @@
     "year": 2026,
     "date": "2026-06-07",
     "location": "Arronches",
-    "resultsUrl": "https://results.stopandgo.pro/1798",
+    "resultsUrl": "https://stopandgo.net/events/sao-mamede-granfondo-2026",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
@@ -637,9 +715,22 @@
     "year": 2026,
     "date": "2026-06-07",
     "location": "Terras de Bouro",
-    "resultsUrl": "https://results.stopandgo.pro/1806",
+    "resultsUrl": "https://bikeservice.pt/event/geres-granfondo/",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
@@ -650,9 +741,22 @@
     "year": 2026,
     "date": "2026-04-26",
     "location": "Peso da Régua",
-    "resultsUrl": "https://results.stopandgo.pro/1766",
+    "resultsUrl": "https://bikeservice.pt/event/douro-granfondo/",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
@@ -663,9 +767,22 @@
     "year": 2026,
     "date": "2026-04-19",
     "location": "Torres Vedras",
-    "resultsUrl": "https://results.stopandgo.pro/1751",
+    "resultsUrl": "https://cabreirasolutions.com/evento/granfondo-torres-vedras/",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
@@ -676,9 +793,22 @@
     "year": 2026,
     "date": "2026-04-12",
     "location": "Spain",
-    "resultsUrl": "https://results.stopandgo.pro/1741",
+    "resultsUrl": "https://bikeservice.pt/event/eurobec-granfondo/",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
@@ -689,9 +819,22 @@
     "year": 2026,
     "date": "2026-05-24",
     "location": "Tomar",
-    "resultsUrl": "https://results.stopandgo.pro/1977",
+    "resultsUrl": "https://cabreirasolutions.com/evento/granfondo-medio-tejo/",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
@@ -702,9 +845,22 @@
     "year": 2026,
     "date": "2026-09-20",
     "location": "Portugal",
-    "resultsUrl": "https://results.stopandgo.pro/1943",
+    "resultsUrl": "https://bikeservice.pt/event/moncao-e-melgaco-granfondo/",
     "hasResults": false,
-    "distances": [],
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
     "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null

@@ -133,6 +133,32 @@ const OFFICIAL_EVENT_URLS: Record<number, string> = {
   1700: "https://granfondoserradaestrela.com/",
 };
 
+/**
+ * Default distances for upcoming events where StopAndGo returns no participants yet.
+ * Format: { id: string (1-based), name: string }
+ */
+const DEFAULT_DISTANCES: Record<number, Array<{ id: string; name: string }>> = {
+  // BikeService events (GF + MF + Mini)
+  1741: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1766: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1806: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1883: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1943: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1828: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  // Cabreira Solutions events (GF + MF + Mini)
+  1751: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1977: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1956: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  // Figueira Champions Classic (BIG DAY = GF, HALF DAY = MF)
+  1880: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }],
+  // Aveiro Spring Classic (GF + MF)
+  1944: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }],
+  // São Mamede, Tavira, Serra da Estrela (GF + MF + Mini)
+  1798: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1942: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1700: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+};
+
 function isGranfondoName(name: string): boolean {
   const n = name.toLowerCase();
   return n.includes("granfondo") || n.includes("grandfondo");
@@ -252,8 +278,25 @@ function extractDistances(athletes: ApiAthlete[]): StoredDistance[] {
     }
   }
   return Array.from(seen.entries())
-    .map(([id, name]) => ({ id, name }))
+    .map(([id, rawName]) => ({ id, name: normalizeDistanceName(rawName) }))
     .sort((a, b) => Number(a.id) - Number(b.id));
+}
+
+/** Normalize a raw API distance name to canonical form using alias map. */
+function normalizeDistanceName(name: string): string {
+  const lower = name.toLowerCase().trim();
+  const DIST_ALIASES: Record<string, string> = {
+    granfondo: "Granfondo",
+    grandfondo: "Granfondo",
+    mediofondo: "Mediofondo",
+    minifondo: "Minifondo",
+    "time trial": "Time Trial",
+    "big day": "Granfondo",
+    "half day": "Mediofondo",
+    "clássica": "Granfondo",
+    "classica": "Granfondo",
+  };
+  return DIST_ALIASES[lower] ?? name;
 }
 
 // ── Result row transformation ─────────────────────────────────────────────────
@@ -319,7 +362,11 @@ async function scrapeEvent(event: StoredEvent): Promise<StoredEvent> {
     return event;
   }
 
-  const distances = extractDistances(athletes);
+  let distances = extractDistances(athletes);
+  // Fall back to hardcoded defaults when participants API returns nothing yet
+  if (distances.length === 0 && DEFAULT_DISTANCES[event.id]) {
+    distances = DEFAULT_DISTANCES[event.id]!;
+  }
   event.distances = distances;
   event.participantCount = athletes.length;
 
@@ -337,14 +384,21 @@ async function scrapeEvent(event: StoredEvent): Promise<StoredEvent> {
 
   if (isCachedForever(resultsFile)) {
     const cached = readJson<StoredEventResults>(resultsFile)!;
+    // Backfill: normalize non-standard distance names (e.g. "BIG DAY" → "Granfondo")
+    let dirty = false;
+    for (const d of cached.distances) {
+      const normalized = normalizeDistanceName(d.name);
+      if (normalized !== d.name) { d.name = normalized; dirty = true; }
+    }
     // Backfill genderPos if missing from older cached files
-    const needsBackfill = cached.distances.some((d) =>
+    const needsGenderPos = cached.distances.some((d) =>
       d.results.some((r) => !r.dnf && !r.dns && r.pos > 0 && !r.genderPos)
     );
-    if (needsBackfill) {
+    if (needsGenderPos) {
       assignGenderPositions(cached.distances);
-      writeJson(resultsFile, cached);
+      dirty = true;
     }
+    if (dirty) writeJson(resultsFile, cached);
     event.hasResults = true;
     event.finisherCount = cached.distances.reduce(
       (s, d) => s + d.finisherCount,
@@ -809,13 +863,19 @@ async function main() {
 
     if (isCachedForever(resultsFile)) {
       const cached = readJson<import("./types.js").StoredEventResults>(resultsFile)!;
-      const needsBackfill = cached.distances.some((d) =>
+      let dirty = false;
+      for (const d of cached.distances) {
+        const normalized = normalizeDistanceName(d.name);
+        if (normalized !== d.name) { d.name = normalized; dirty = true; }
+      }
+      const needsGenderPos = cached.distances.some((d) =>
         d.results.some((r) => !r.dnf && !r.dns && r.pos > 0 && !r.genderPos)
       );
-      if (needsBackfill) {
+      if (needsGenderPos) {
         assignGenderPositions(cached.distances);
-        writeJson(resultsFile, cached);
+        dirty = true;
       }
+      if (dirty) writeJson(resultsFile, cached);
       event.hasResults = true;
       event.finisherCount = cached.distances.reduce((s, d) => s + d.finisherCount, 0);
       event.scrapedAt = cached.scrapedAt;
