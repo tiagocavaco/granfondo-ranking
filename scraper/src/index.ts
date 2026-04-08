@@ -526,6 +526,8 @@ const DISTANCE_ALIASES: Record<string, string> = {
   // Aveiro Spring Classic uses "CLÁSSICA" / "Classica" branding
   "clássica": "Granfondo",
   "classica": "Granfondo",
+  // Etapa da Volta uses "Etapa" branding
+  "etapa": "Mediofondo",
 };
 
 function normalizeDistance(name: string): string {

@@ -81,7 +81,7 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     location: "Viseu",
     resultsUrl: "https://www.classificacoes.net/etapa-da-volta-2025",
     hasResults: false,
-    distances: [{ id: "1", name: "Mediofondo" }],
+    distances: [{ id: "1", name: "Etapa" }],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -137,7 +137,7 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
     location: "Viseu",
     resultsUrl: "https://www.classificacoes.net",
     hasResults: false,
-    distances: [{ id: "1", name: "Mediofondo" }],
+    distances: [{ id: "1", name: "Etapa" }],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -743,7 +743,7 @@ export async function scrapeEtapaDaVolta(): Promise<StoredEventResults> {
     distances: [
       {
         id: "1",
-        name: "Mediofondo",
+        name: "Etapa",
         finisherCount: results.length,
         results,
       },
