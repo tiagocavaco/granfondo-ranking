@@ -1,0 +1,617 @@
+[
+  {
+    "id": 1944,
+    "name": "Aveiro Spring Classic 2026",
+    "year": 2026,
+    "date": "2026-03-22",
+    "location": "Aveiro",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Clássica"
+      }
+    ],
+    "participantCount": 1332,
+    "finisherCount": 1156,
+    "scrapedAt": "2026-04-05T19:09:28.249Z"
+  },
+  {
+    "id": 1720,
+    "name": "VIANA Granfondo by KTM 2026",
+    "year": 2026,
+    "date": "2026-03-15",
+    "location": "Viana do Castelo",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 1979,
+    "finisherCount": 1673,
+    "scrapedAt": "2026-04-05T19:02:08.757Z"
+  },
+  {
+    "id": 1831,
+    "name": "Algarve Granfondo 2026",
+    "year": 2026,
+    "date": "2026-02-21",
+    "location": "Lagos",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      }
+    ],
+    "participantCount": 836,
+    "finisherCount": 716,
+    "scrapedAt": "2026-04-05T19:02:10.280Z"
+  },
+  {
+    "id": 1880,
+    "name": "Figueira Champions Classic 2026",
+    "year": 2026,
+    "date": "2026-02-15",
+    "location": "Figueira da Foz",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "BIG DAY"
+      },
+      {
+        "id": "2",
+        "name": "HALF DAY"
+      }
+    ],
+    "participantCount": 727,
+    "finisherCount": 562,
+    "scrapedAt": "2026-04-05T19:09:30.734Z"
+  },
+  {
+    "id": 1801,
+    "name": "Granfondo de Portimão 2025 ",
+    "year": 2025,
+    "date": "2025-11-02",
+    "location": "Portimão",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 1494,
+    "finisherCount": 1233,
+    "scrapedAt": "2026-04-05T19:02:12.403Z"
+  },
+  {
+    "id": 1780,
+    "name": "GRANFONDO SERRA D’OSSA 2025",
+    "year": 2025,
+    "date": "2025-10-05",
+    "location": "Ossa",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 1527,
+    "finisherCount": 1343,
+    "scrapedAt": "2026-04-05T19:02:14.516Z"
+  },
+  {
+    "id": 1612,
+    "name": "TAVIRA GRANFONDO 2025",
+    "year": 2025,
+    "date": "2025-09-28",
+    "location": "Tavira",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "GranFondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 434,
+    "finisherCount": 305,
+    "scrapedAt": "2026-04-05T19:02:16.465Z"
+  },
+  {
+    "id": 1553,
+    "name": "MONÇÃO e MELGAÇO GF 2025",
+    "year": 2025,
+    "date": "2025-09-21",
+    "location": "Monção",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "GranFondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 1151,
+    "finisherCount": 927,
+    "scrapedAt": "2026-04-05T19:02:18.645Z"
+  },
+  {
+    "id": 1759,
+    "name": "Lousã Granfondo 2025",
+    "year": 2025,
+    "date": "2025-09-14",
+    "location": "Lousã",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 1069,
+    "finisherCount": 869,
+    "scrapedAt": "2026-04-05T19:02:20.837Z"
+  },
+  {
+    "id": 1388,
+    "name": "Bragança Granfondo 2025",
+    "year": 2025,
+    "date": "2025-07-13",
+    "location": "Bragança",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "GranFondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 1199,
+    "finisherCount": 1017,
+    "scrapedAt": "2026-04-05T19:02:23.093Z"
+  },
+  {
+    "id": 1362,
+    "name": "Granfondo Serra da Estrela 2025",
+    "year": 2025,
+    "date": "2025-06-29",
+    "location": "Manteigas",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      }
+    ],
+    "participantCount": 1256,
+    "finisherCount": 880,
+    "scrapedAt": "2026-04-05T19:02:24.775Z"
+  },
+  {
+    "id": 1692,
+    "name": "GRANFONDO TERRAS DE BASTO 2025",
+    "year": 2025,
+    "date": "2025-06-15",
+    "location": "Basto",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 933,
+    "finisherCount": 774,
+    "scrapedAt": "2026-04-05T19:02:26.874Z"
+  },
+  {
+    "id": 1505,
+    "name": "SÃO MAMEDE GRANFONDO 2025",
+    "year": 2025,
+    "date": "2025-06-08",
+    "location": "Castelo de Vide",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 618,
+    "finisherCount": 492,
+    "scrapedAt": "2026-04-05T19:02:29.017Z"
+  },
+  {
+    "id": 1467,
+    "name": "Gerês Granfondo 2025",
+    "year": 2025,
+    "date": "2025-06-01",
+    "location": "Gerês",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 1090,
+    "finisherCount": 931,
+    "scrapedAt": "2026-04-05T19:02:31.164Z"
+  },
+  {
+    "id": 1681,
+    "name": "Grandfondo Médio Tejo 2025",
+    "year": 2025,
+    "date": "2025-05-25",
+    "location": "Tomar",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 1145,
+    "finisherCount": 970,
+    "scrapedAt": "2026-04-05T19:02:33.269Z"
+  },
+  {
+    "id": 1439,
+    "name": "Love Tiles Douro Granfondo 2025",
+    "year": 2025,
+    "date": "2025-05-11",
+    "location": "Douro",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 2359,
+    "finisherCount": 1954,
+    "scrapedAt": "2026-04-05T19:02:35.558Z"
+  },
+  {
+    "id": 1656,
+    "name": "Granfondo Torres Vedras 2025",
+    "year": 2025,
+    "date": "2025-04-27",
+    "location": "Torres Vedras",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 1203,
+    "finisherCount": 995,
+    "scrapedAt": "2026-04-05T19:02:37.641Z"
+  },
+  {
+    "id": 1401,
+    "name": "EuroBEC Granfondo 2025",
+    "year": 2025,
+    "date": "2025-04-06",
+    "location": "Campo Maior",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Minifondo"
+      },
+      {
+        "id": "3",
+        "name": "Mediofondo"
+      }
+    ],
+    "participantCount": 1801,
+    "finisherCount": 1493,
+    "scrapedAt": "2026-04-05T19:02:39.765Z"
+  },
+  {
+    "id": 1621,
+    "name": "Aveiro Spring Classic 2025",
+    "year": 2025,
+    "date": "2025-03-23",
+    "location": "Aveiro",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Clássica"
+      }
+    ],
+    "participantCount": 1261,
+    "finisherCount": 1009,
+    "scrapedAt": "2026-04-05T19:02:40.885Z"
+  },
+  {
+    "id": 1390,
+    "name": "VIANA Granfondo 2025",
+    "year": 2025,
+    "date": "2025-03-16",
+    "location": "Viana do Castelo",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 1551,
+    "finisherCount": 1395,
+    "scrapedAt": "2026-04-05T19:02:43.098Z"
+  },
+  {
+    "id": 1590,
+    "name": "GRANFONDO COIMBRA REGION 2025",
+    "year": 2025,
+    "date": "2025-03-02",
+    "location": "Coimbra",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "2",
+        "name": "Granfondo"
+      }
+    ],
+    "participantCount": 1193,
+    "finisherCount": 975,
+    "scrapedAt": "2026-04-05T19:02:46.061Z"
+  },
+  {
+    "id": 1592,
+    "name": "TIME TRIAL GRANFONDO COIMBRA REGION 2025",
+    "year": 2025,
+    "date": "2025-03-01",
+    "location": "Coimbra",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "TIME TRIAL"
+      }
+    ],
+    "participantCount": 315,
+    "finisherCount": 242,
+    "scrapedAt": "2026-04-05T19:02:47.152Z"
+  },
+  {
+    "id": 1494,
+    "name": "Algarve Granfondo 2025",
+    "year": 2025,
+    "date": "2025-02-22",
+    "location": "Algarve",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      }
+    ],
+    "participantCount": 1051,
+    "finisherCount": 941,
+    "scrapedAt": "2026-04-05T19:02:48.907Z"
+  },
+  {
+    "id": 90001,
+    "name": "Figueira Champions Day 2025",
+    "year": 2025,
+    "date": "2025-02-15",
+    "location": "Figueira da Foz",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      }
+    ],
+    "participantCount": 0,
+    "finisherCount": 829,
+    "scrapedAt": "2026-04-05T19:02:49.323Z"
+  },
+  {
+    "id": 90002,
+    "name": "Granfondo Agitágueda 2025",
+    "year": 2025,
+    "date": "2025-07-27",
+    "location": "Águeda",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      },
+      {
+        "id": "3",
+        "name": "Minifondo"
+      }
+    ],
+    "participantCount": 0,
+    "finisherCount": 602,
+    "scrapedAt": "2026-04-05T19:02:49.669Z"
+  },
+  {
+    "id": 90003,
+    "name": "Granfondo 5 Quinas Sabugal 2025",
+    "year": 2025,
+    "date": "2025-06-01",
+    "location": "Sabugal",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Granfondo"
+      },
+      {
+        "id": "2",
+        "name": "Mediofondo"
+      }
+    ],
+    "participantCount": 0,
+    "finisherCount": 247,
+    "scrapedAt": "2026-04-05T19:02:51.677Z"
+  },
+  {
+    "id": 90004,
+    "name": "Etapa da Volta 2025",
+    "year": 2025,
+    "date": "2025-08-12",
+    "location": "Viseu",
+    "hasResults": true,
+    "distances": [
+      {
+        "id": "1",
+        "name": "Mediofondo"
+      }
+    ],
+    "participantCount": 0,
+    "finisherCount": 716,
+    "scrapedAt": "2026-04-05T19:02:52.113Z"
+  }
+]

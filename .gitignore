@@ -1,0 +1,6 @@
+node_modules/
+dist/
+scraper/dist/
+*.js.map
+.env
+.env.*

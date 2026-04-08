@@ -1,0 +1,11 @@
+{
+  "name": "granfondo-ranking",
+  "private": true,
+  "workspaces": ["scraper", "frontend"],
+  "scripts": {
+    "scrape": "npm run scrape --workspace=scraper",
+    "scrape:force": "npm run scrape:force --workspace=scraper",
+    "dev": "npm run dev --workspace=frontend",
+    "build": "npm run build --workspace=frontend"
+  }
+}
