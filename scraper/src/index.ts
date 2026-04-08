@@ -372,6 +372,9 @@ const DISTANCE_ALIASES: Record<string, string> = {
   // Figueira Champions Classic uses "BIG DAY" / "HALF DAY" branding
   "big day": "Granfondo",
   "half day": "Mediofondo",
+  // Aveiro Spring Classic uses "CLÁSSICA" / "Classica" branding
+  "clássica": "Granfondo",
+  "classica": "Granfondo",
 };
 
 function normalizeDistance(name: string): string {
