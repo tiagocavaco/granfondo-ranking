@@ -67,7 +67,8 @@ export interface StoredEvent {
 }
 
 export interface StoredResult {
-  pos: number;
+  pos: number;       // overall finish position
+  genderPos: number; // position among own gender
   bib: string;
   name: string;
   nameLower: string;    // accent-stripped lowercase for search
@@ -156,9 +157,11 @@ export interface AggregateAthlete {
 }
 
 export interface AggregateRanking {
-  // year → distanceName → athletes sorted by totalPoints desc
+  // year → distanceName → gender ("M" | "F") → athletes sorted by totalPoints desc
   [year: string]: {
-    [distance: string]: AggregateAthlete[];
+    [distance: string]: {
+      [gender: string]: AggregateAthlete[];
+    };
   };
 }
 

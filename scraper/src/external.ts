@@ -125,6 +125,7 @@ function makeResult(fields: {
   const raceTimeSecs = timeToSeconds(fields.raceTime);
   return {
     pos: fields.pos,
+    genderPos: 0, // filled in by the caller after all results are collected
     bib: fields.bib,
     name: fields.name,
     nameLower: normalizeName(fields.name),

@@ -164,6 +164,22 @@ function extractDistances(athletes: ApiAthlete[]): StoredDistance[] {
 
 // ── Result row transformation ─────────────────────────────────────────────────
 
+/** Fill in genderPos for all results in a set of distances. */
+function assignGenderPositions(distances: StoredDistanceResults[]): void {
+  for (const dist of distances) {
+    const genderCounters = new Map<string, number>();
+    const finishers = dist.results
+      .filter((r) => !r.dnf && !r.dns && r.pos > 0)
+      .slice()
+      .sort((a, b) => a.raceTimeSecs - b.raceTimeSecs);
+    for (const r of finishers) {
+      const next = (genderCounters.get(r.gender) ?? 0) + 1;
+      genderCounters.set(r.gender, next);
+      r.genderPos = next;
+    }
+  }
+}
+
 function transformResult(r: ApiResult): StoredResult {
   const raceTimeSecs = parseFloat(r.temposeg) || 0;
   const gapSecs = timeToSeconds(r.diferenca);
@@ -175,6 +191,7 @@ function transformResult(r: ApiResult): StoredResult {
 
   return {
     pos: parseInt(r.pos, 10) || 0,
+    genderPos: 0, // filled in after all results are collected
     bib: r.dorsal,
     name: r.nome,
     nameLower: normalizeName(r.nome),
@@ -267,6 +284,8 @@ async function scrapeEvent(event: StoredEvent): Promise<StoredEvent> {
     console.log(`  ! no results scraped for ${label}`);
     return event;
   }
+
+  assignGenderPositions(distanceResults);
 
   const stored: StoredEventResults = {
     eventId: event.id,
@@ -382,7 +401,7 @@ function normalizeDistance(name: string): string {
 }
 
 function buildAggregateRanking(events: StoredEvent[]): AggregateRanking {
-  // year → distance → athleteKey → aggregation data
+  // year → distance → gender → athleteKey → aggregation data
   type AccEntry = {
     name: string;
     nameLower: string;
@@ -391,12 +410,12 @@ function buildAggregateRanking(events: StoredEvent[]): AggregateRanking {
     country: string;
     totalPoints: number;
     eventsScored: number;
-    bestPos: number;
+    bestPos: number; // gender-specific position
     results: AggregateAthlete["results"];
   };
-  const acc: Record<string, Record<string, Map<string, AccEntry>>> = {};
-  // year → distance → athleteKey → normalizedTeamKey → rawTeamName → count
-  const teamOcc: Record<string, Record<string, Map<string, Map<string, Map<string, number>>>>> = {};
+  const acc: Record<string, Record<string, Record<string, Map<string, AccEntry>>>> = {};
+  // year → distance → gender → athleteKey → normalizedTeamKey → rawTeamName → count
+  const teamOcc: Record<string, Record<string, Record<string, Map<string, Map<string, Map<string, number>>>>>> = {};
 
   for (const event of events.filter((e) => e.hasResults)) {
     const stored = readJson<StoredEventResults>(`${event.id}_results.json`);
@@ -408,96 +427,107 @@ function buildAggregateRanking(events: StoredEvent[]): AggregateRanking {
 
     for (const dist of stored.distances) {
       const distKey = normalizeDistance(dist.name);
-      if (!acc[yearKey][distKey]) acc[yearKey][distKey] = new Map();
-      if (!teamOcc[yearKey][distKey]) teamOcc[yearKey][distKey] = new Map();
-      const distMap = acc[yearKey][distKey];
-      const distTeams = teamOcc[yearKey][distKey];
+      if (!acc[yearKey][distKey]) acc[yearKey][distKey] = {};
+      if (!teamOcc[yearKey][distKey]) teamOcc[yearKey][distKey] = {};
 
-      const coeff = finisherCoefficient(dist.finisherCount);
-
+      // Group finishers by gender, sorted by race time for gender-specific positions
+      const byGender = new Map<string, StoredResult[]>();
       for (const r of dist.results) {
         if (r.dnf || r.dns || r.pos < 1) continue;
-        const basePoints = posToBasePoints(r.pos);
-        if (basePoints === 0) continue;
-        const pts = Math.round(basePoints * coeff * 10) / 10;
+        if (!byGender.has(r.gender)) byGender.set(r.gender, []);
+        byGender.get(r.gender)!.push(r);
+      }
 
-        const key = r.nameLower;
-        if (!distMap.has(key)) {
-          distMap.set(key, {
-            name: r.name,
-            nameLower: r.nameLower,
-            gender: r.gender,
-            team: r.team,
-            country: r.country,
-            totalPoints: 0,
-            eventsScored: 0,
-            bestPos: r.pos,
-            results: [],
+      for (const [gender, finishers] of byGender) {
+        finishers.sort((a, b) => a.raceTimeSecs - b.raceTimeSecs);
+        const genderFinisherCount = finishers.length;
+        const coeff = finisherCoefficient(genderFinisherCount);
+
+        if (!acc[yearKey][distKey][gender]) acc[yearKey][distKey][gender] = new Map();
+        if (!teamOcc[yearKey][distKey][gender]) teamOcc[yearKey][distKey][gender] = new Map();
+        const distMap = acc[yearKey][distKey][gender];
+        const distTeams = teamOcc[yearKey][distKey][gender];
+
+        finishers.forEach((r, idx) => {
+          const genderPos = idx + 1;
+          const basePoints = posToBasePoints(genderPos);
+          if (basePoints === 0) return;
+          const pts = Math.round(basePoints * coeff * 10) / 10;
+
+          const key = r.nameLower;
+          if (!distMap.has(key)) {
+            distMap.set(key, {
+              name: r.name,
+              nameLower: r.nameLower,
+              gender: r.gender,
+              team: r.team,
+              country: r.country,
+              totalPoints: 0,
+              eventsScored: 0,
+              bestPos: genderPos,
+              results: [],
+            });
+            distTeams.set(key, new Map());
+          }
+          const entry = distMap.get(key)!;
+          entry.totalPoints = Math.round((entry.totalPoints + pts) * 10) / 10;
+          entry.eventsScored += 1;
+          if (genderPos < entry.bestPos) entry.bestPos = genderPos;
+          entry.country = r.country || entry.country;
+          if (r.team) {
+            const teamKey = teamNormalKey(r.team);
+            const athleteTeams = distTeams.get(key)!;
+            if (!athleteTeams.has(teamKey)) athleteTeams.set(teamKey, new Map());
+            const rawMap = athleteTeams.get(teamKey)!;
+            const fixedName = fixRawTeamName(r.team);
+            rawMap.set(fixedName, (rawMap.get(fixedName) ?? 0) + 1);
+          }
+          entry.results.push({
+            eventId: event.id,
+            eventName: event.name,
+            eventDate: event.date,
+            distanceFinishers: genderFinisherCount,
+            coefficient: coeff,
+            pos: genderPos,
+            basePoints,
+            points: pts,
           });
-          distTeams.set(key, new Map());
-        }
-        const entry = distMap.get(key)!;
-        entry.totalPoints = Math.round((entry.totalPoints + pts) * 10) / 10;
-        entry.eventsScored += 1;
-        if (r.pos < entry.bestPos) entry.bestPos = r.pos;
-        entry.country = r.country || entry.country;
-        // Track team occurrences for canonical resolution
-        if (r.team) {
-          const teamKey = teamNormalKey(r.team);
-          const athleteTeams = distTeams.get(key)!;
-          if (!athleteTeams.has(teamKey)) athleteTeams.set(teamKey, new Map());
-          const rawMap = athleteTeams.get(teamKey)!;
-          const fixedName = fixRawTeamName(r.team);
-          rawMap.set(fixedName, (rawMap.get(fixedName) ?? 0) + 1);
-        }
-        entry.results.push({
-          eventId: event.id,
-          eventName: event.name,
-          eventDate: event.date,
-          distanceFinishers: dist.finisherCount,
-          coefficient: coeff,
-          pos: r.pos,
-          basePoints,
-          points: pts,
         });
       }
     }
   }
 
-  // Resolve canonical team for each athlete entry
-  for (const [yearKey, distances] of Object.entries(acc)) {
-    for (const [distKey, distMap] of Object.entries(distances)) {
-      const distTeams = teamOcc[yearKey]?.[distKey];
-      if (!distTeams) continue;
-      for (const [athleteKey, entry] of distMap) {
-        const athleteTeams = distTeams.get(athleteKey);
-        if (!athleteTeams || athleteTeams.size === 0) continue;
-        // Pick normalized group with highest total count
-        let bestNormKey = "";
-        let bestTotal = 0;
-        for (const [normKey, rawMap] of athleteTeams) {
-          const total = Array.from(rawMap.values()).reduce((s, n) => s + n, 0);
-          if (total > bestTotal) { bestTotal = total; bestNormKey = normKey; }
-        }
-        entry.team = canonicalTeam(athleteTeams.get(bestNormKey)!);
-      }
-    }
-  }
-
-  // Convert to sorted arrays with rank
+  // Resolve canonical team and convert to sorted arrays with rank
   const ranking: AggregateRanking = {};
   for (const [year, distances] of Object.entries(acc)) {
     ranking[year] = {};
-    for (const [dist, distMap] of Object.entries(distances)) {
-      const sorted = Array.from(distMap.values())
-        .sort((a, b) => b.totalPoints - a.totalPoints || a.bestPos - b.bestPos);
-      ranking[year][dist] = sorted.map((entry, i) => ({
-        ...entry,
-        rank: i + 1,
-        results: entry.results.sort((a, b) =>
-          new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
-        ),
-      }));
+    for (const [dist, genders] of Object.entries(distances)) {
+      ranking[year][dist] = {};
+      for (const [gender, distMap] of Object.entries(genders)) {
+        const distTeams = teamOcc[year]?.[dist]?.[gender];
+        if (distTeams) {
+          for (const [athleteKey, entry] of distMap) {
+            const athleteTeams = distTeams.get(athleteKey);
+            if (!athleteTeams || athleteTeams.size === 0) continue;
+            let bestNormKey = "";
+            let bestTotal = 0;
+            for (const [normKey, rawMap] of athleteTeams) {
+              const total = Array.from(rawMap.values()).reduce((s, n) => s + n, 0);
+              if (total > bestTotal) { bestTotal = total; bestNormKey = normKey; }
+            }
+            entry.team = canonicalTeam(athleteTeams.get(bestNormKey)!);
+          }
+        }
+        const sorted = Array.from(distMap.values())
+          .sort((a, b) => b.totalPoints - a.totalPoints || a.bestPos - b.bestPos);
+        ranking[year][dist][gender] = sorted.map((entry, i) => ({
+          ...entry,
+          rank: i + 1,
+          results: entry.results.sort((a, b) =>
+            new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
+          ),
+        }));
+      }
     }
   }
 
@@ -684,6 +714,7 @@ async function main() {
     } else {
       try {
         const results = await fn();
+        assignGenderPositions(results.distances);
         writeJson(resultsFile, results);
         event.hasResults = true;
         event.finisherCount = results.distances.reduce((s, d) => s + d.finisherCount, 0);

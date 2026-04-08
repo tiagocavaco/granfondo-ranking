@@ -49,7 +49,7 @@ export default function AggregateRankingPage() {
 
   const [year, setYear] = useState<string>("");
   const [distance, setDistance] = useState<string>("");
-  const [gender, setGender] = useState<"all" | "M" | "F">("all");
+  const [gender, setGender] = useState<"M" | "F">("M");
   const [expanded, setExpanded] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 
@@ -76,10 +76,9 @@ export default function AggregateRankingPage() {
 
   const athletes: AggregateAthlete[] = useMemo(() => {
     if (!data || !year || !distance) return [];
-    const list = data[year]?.[distance] ?? [];
-    const g = gender === "all" ? list : list.filter((a) => a.gender === gender);
-    if (!search) return g;
-    return g.filter(
+    const list = data[year]?.[distance]?.[gender] ?? [];
+    if (!search) return list;
+    return list.filter(
       (a) =>
         a.name.toLowerCase().includes(search.toLowerCase()) ||
         (a.team ?? "").toLowerCase().includes(search.toLowerCase())
@@ -144,24 +143,17 @@ export default function AggregateRankingPage() {
             "Time Trial": { active: "bg-amber-500 text-white", base: "text-amber-700 border-amber-200" },
           }}
         />
-        <div className="flex items-center gap-2.5">
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Gender</span>
-          <div className="flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
-            {(["all", "M", "F"] as const).map((g) => (
-              <button
-                key={g}
-                onClick={() => setGender(g)}
-                className={`px-4 py-1.5 text-sm font-semibold transition-all ${
-                  gender === g
-                    ? "bg-blue-600 text-white"
-                    : "text-slate-600 hover:bg-slate-50"
-                }`}
-              >
-                {g === "all" ? "All" : g === "M" ? "Men" : "Women"}
-              </button>
-            ))}
-          </div>
-        </div>
+        <SegmentedControl
+          label="Gender"
+          options={["M", "F"]}
+          value={gender}
+          onChange={(g) => { setGender(g as "M" | "F"); setExpanded(null); setSearch(""); }}
+          colorMap={{
+            M: { active: "bg-blue-600 text-white", base: "text-blue-700 border-blue-200" },
+            F: { active: "bg-pink-500 text-white", base: "text-pink-600 border-pink-200" },
+          }}
+          labelMap={{ M: "Men", F: "Women" }}
+        />
 
         <div className="ml-auto">
           <input
@@ -358,12 +350,14 @@ function SegmentedControl({
   value,
   onChange,
   colorMap,
+  labelMap,
 }: {
   label: string;
   options: string[];
   value: string;
   onChange: (v: string) => void;
   colorMap?: Record<string, { active: string; base: string }>;
+  labelMap?: Record<string, string>;
 }) {
   return (
     <div className="flex items-center gap-2.5">
@@ -381,7 +375,7 @@ function SegmentedControl({
                   : `text-slate-600 hover:bg-slate-50 ${colors ? "border-r last:border-r-0 " + colors.base : ""}`
               }`}
             >
-              {o}
+              {labelMap?.[o] ?? o}
             </button>
           );
         })}

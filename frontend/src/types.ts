@@ -19,7 +19,8 @@ export interface StoredEvent {
 }
 
 export interface StoredResult {
-  pos: number;
+  pos: number;       // overall finish position
+  genderPos: number; // position among own gender
   bib: string;
   name: string;
   nameLower: string;
@@ -96,7 +97,9 @@ export interface AggregateAthlete {
 
 export type AggregateRanking = {
   [year: string]: {
-    [distance: string]: AggregateAthlete[];
+    [distance: string]: {
+      [gender: string]: AggregateAthlete[]; // "M" | "F"
+    };
   };
 };
 
