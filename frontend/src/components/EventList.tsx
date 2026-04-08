@@ -35,7 +35,7 @@ export default function EventList() {
         (status === "past" && isPast) ||
         (status === "upcoming" && !isPast);
       return matchSeason && matchStatus;
-    });
+    }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }, [allEvents, season, status]);
 
   const totalFinishers = useMemo(
