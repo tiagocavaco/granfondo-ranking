@@ -243,6 +243,14 @@ async function scrapeEvent(event: StoredEvent): Promise<StoredEvent> {
 
   if (isCachedForever(resultsFile)) {
     const cached = readJson<StoredEventResults>(resultsFile)!;
+    // Backfill genderPos if missing from older cached files
+    const needsBackfill = cached.distances.some((d) =>
+      d.results.some((r) => !r.dnf && !r.dns && r.pos > 0 && !r.genderPos)
+    );
+    if (needsBackfill) {
+      assignGenderPositions(cached.distances);
+      writeJson(resultsFile, cached);
+    }
     event.hasResults = true;
     event.finisherCount = cached.distances.reduce(
       (s, d) => s + d.finisherCount,
@@ -434,6 +442,7 @@ function buildAggregateRanking(events: StoredEvent[]): AggregateRanking {
       const byGender = new Map<string, StoredResult[]>();
       for (const r of dist.results) {
         if (r.dnf || r.dns || r.pos < 1) continue;
+        if (r.gender !== "M" && r.gender !== "F") continue; // skip unknown gender
         if (!byGender.has(r.gender)) byGender.set(r.gender, []);
         byGender.get(r.gender)!.push(r);
       }
@@ -707,6 +716,13 @@ async function main() {
 
     if (isCachedForever(resultsFile)) {
       const cached = readJson<import("./types.js").StoredEventResults>(resultsFile)!;
+      const needsBackfill = cached.distances.some((d) =>
+        d.results.some((r) => !r.dnf && !r.dns && r.pos > 0 && !r.genderPos)
+      );
+      if (needsBackfill) {
+        assignGenderPositions(cached.distances);
+        writeJson(resultsFile, cached);
+      }
       event.hasResults = true;
       event.finisherCount = cached.distances.reduce((s, d) => s + d.finisherCount, 0);
       event.scrapedAt = cached.scrapedAt;
@@ -751,8 +767,10 @@ async function main() {
   const aggregateRanking = buildAggregateRanking(scraped);
   writeJson("aggregate_ranking.json", aggregateRanking);
   for (const [year, distances] of Object.entries(aggregateRanking)) {
-    for (const [dist, athletes] of Object.entries(distances)) {
-      console.log(`   ${year} ${dist}: ${athletes.length} athletes scored`);
+    for (const [dist, genders] of Object.entries(distances)) {
+      for (const [gender, athletes] of Object.entries(genders)) {
+        console.log(`   ${year} ${dist} ${gender}: ${athletes.length} athletes scored`);
+      }
     }
   }
   console.log(`✓ aggregate_ranking.json`);

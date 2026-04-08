@@ -4,8 +4,8 @@
       {
         "rank": 1,
         "team": "Love Tiles",
-        "totalPoints": 327.9,
-        "eventsScored": 15,
+        "totalPoints": 351.2,
+        "eventsScored": 16,
         "bestRank": 1,
         "results": [
           {
@@ -321,6 +321,32 @@
             ]
           },
           {
+            "eventId": 1621,
+            "eventName": "Aveiro Spring Classic 2025",
+            "eventDate": "2025-03-23",
+            "totalTeams": 300,
+            "eligibleTeams": 68,
+            "coefficient": 1.94,
+            "teamRank": 4,
+            "basePoints": 12,
+            "points": 23.3,
+            "combinedScore": 85,
+            "athletes": [
+              {
+                "name": "Ivan Sa",
+                "pos": 17
+              },
+              {
+                "name": "Tiago Novo",
+                "pos": 33
+              },
+              {
+                "name": "Ivo Almeida",
+                "pos": 35
+              }
+            ]
+          },
+          {
             "eventId": 1390,
             "eventName": "VIANA Granfondo 2025",
             "eventDate": "2025-03-16",
@@ -403,8 +429,8 @@
       {
         "rank": 2,
         "team": "C.B. Almodôvar / Banco Primus / Swick",
-        "totalPoints": 261.1,
-        "eventsScored": 10,
+        "totalPoints": 309.6,
+        "eventsScored": 11,
         "bestRank": 1,
         "results": [
           {
@@ -612,6 +638,32 @@
               {
                 "name": "Nuno Mendes",
                 "pos": 6
+              }
+            ]
+          },
+          {
+            "eventId": 1621,
+            "eventName": "Aveiro Spring Classic 2025",
+            "eventDate": "2025-03-23",
+            "totalTeams": 300,
+            "eligibleTeams": 68,
+            "coefficient": 1.94,
+            "teamRank": 1,
+            "basePoints": 25,
+            "points": 48.5,
+            "combinedScore": 15,
+            "athletes": [
+              {
+                "name": "Filipe Oliveira",
+                "pos": 2
+              },
+              {
+                "name": "Bruno Rosa",
+                "pos": 6
+              },
+              {
+                "name": "Daniel Marques",
+                "pos": 7
               }
             ]
           },
@@ -967,8 +1019,8 @@
       {
         "rank": 4,
         "team": "Brinox Cycling Team",
-        "totalPoints": 167.5,
-        "eventsScored": 13,
+        "totalPoints": 171.4,
+        "eventsScored": 14,
         "bestRank": 2,
         "results": [
           {
@@ -1228,6 +1280,32 @@
               {
                 "name": "Flávia Lopes",
                 "pos": 119
+              }
+            ]
+          },
+          {
+            "eventId": 1621,
+            "eventName": "Aveiro Spring Classic 2025",
+            "eventDate": "2025-03-23",
+            "totalTeams": 300,
+            "eligibleTeams": 68,
+            "coefficient": 1.94,
+            "teamRank": 9,
+            "basePoints": 2,
+            "points": 3.9,
+            "combinedScore": 205,
+            "athletes": [
+              {
+                "name": "Michel Machado",
+                "pos": 5
+              },
+              {
+                "name": "Aparício Coutinho",
+                "pos": 86
+              },
+              {
+                "name": "Luís Bogas",
+                "pos": 114
               }
             ]
           },
@@ -1592,10 +1670,36 @@
       {
         "rank": 7,
         "team": "Sintra Clube Ciclismo / Vvl / Planthiza",
-        "totalPoints": 35,
-        "eventsScored": 1,
+        "totalPoints": 64.1,
+        "eventsScored": 2,
         "bestRank": 1,
         "results": [
+          {
+            "eventId": 1621,
+            "eventName": "Aveiro Spring Classic 2025",
+            "eventDate": "2025-03-23",
+            "totalTeams": 300,
+            "eligibleTeams": 68,
+            "coefficient": 1.94,
+            "teamRank": 3,
+            "basePoints": 15,
+            "points": 29.1,
+            "combinedScore": 34,
+            "athletes": [
+              {
+                "name": "Diogo Pereira",
+                "pos": 4
+              },
+              {
+                "name": "Tiago Miranda",
+                "pos": 8
+              },
+              {
+                "name": "Alexandre Vilar",
+                "pos": 22
+              }
+            ]
+          },
           {
             "eventId": 1590,
             "eventName": "GRANFONDO COIMBRA REGION 2025",
@@ -1626,6 +1730,41 @@
       },
       {
         "rank": 8,
+        "team": "Escola Ciclismo De Oeiras / Parracho / Mr.Print / Reconco",
+        "totalPoints": 38.8,
+        "eventsScored": 1,
+        "bestRank": 2,
+        "results": [
+          {
+            "eventId": 1621,
+            "eventName": "Aveiro Spring Classic 2025",
+            "eventDate": "2025-03-23",
+            "totalTeams": 300,
+            "eligibleTeams": 68,
+            "coefficient": 1.94,
+            "teamRank": 2,
+            "basePoints": 20,
+            "points": 38.8,
+            "combinedScore": 27,
+            "athletes": [
+              {
+                "name": "Ruben Pais",
+                "pos": 1
+              },
+              {
+                "name": "Marco Domingos",
+                "pos": 12
+              },
+              {
+                "name": "João Pereira",
+                "pos": 14
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 9,
         "team": "Crp Ribafria",
         "totalPoints": 33.5,
         "eventsScored": 1,
@@ -1660,7 +1799,120 @@
         ]
       },
       {
-        "rank": 9,
+        "rank": 10,
+        "team": "Skoda Irmãos Leite Tourencinho",
+        "totalPoints": 32.4,
+        "eventsScored": 4,
+        "bestRank": 1,
+        "results": [
+          {
+            "eventId": 90003,
+            "eventName": "Granfondo 5 Quinas Sabugal 2025",
+            "eventDate": "2025-06-01",
+            "totalTeams": 45,
+            "eligibleTeams": 6,
+            "coefficient": 0.75,
+            "teamRank": 1,
+            "basePoints": 25,
+            "points": 18.8,
+            "combinedScore": 34,
+            "athletes": [
+              {
+                "name": "Luís Marques Gonçalves",
+                "pos": 6
+              },
+              {
+                "name": "Luis Lameira",
+                "pos": 12
+              },
+              {
+                "name": "Tiago Ribeiro",
+                "pos": 16
+              }
+            ]
+          },
+          {
+            "eventId": 1439,
+            "eventName": "Love Tiles Douro Granfondo 2025",
+            "eventDate": "2025-05-11",
+            "totalTeams": 155,
+            "eligibleTeams": 28,
+            "coefficient": 1.39,
+            "teamRank": 8,
+            "basePoints": 3,
+            "points": 4.2,
+            "combinedScore": 319,
+            "athletes": [
+              {
+                "name": "Filipe Vilas-Boas",
+                "pos": 75
+              },
+              {
+                "name": "João Cigarrosa",
+                "pos": 96
+              },
+              {
+                "name": "Antonio Prada",
+                "pos": 148
+              }
+            ]
+          },
+          {
+            "eventId": 1621,
+            "eventName": "Aveiro Spring Classic 2025",
+            "eventDate": "2025-03-23",
+            "totalTeams": 300,
+            "eligibleTeams": 68,
+            "coefficient": 1.94,
+            "teamRank": 8,
+            "basePoints": 3,
+            "points": 5.8,
+            "combinedScore": 158,
+            "athletes": [
+              {
+                "name": "Tiago Ribeiro",
+                "pos": 40
+              },
+              {
+                "name": "Luís Lameira",
+                "pos": 49
+              },
+              {
+                "name": "Carlos Lameira",
+                "pos": 69
+              }
+            ]
+          },
+          {
+            "eventId": 90001,
+            "eventName": "Figueira Champions Day 2025",
+            "eventDate": "2025-02-15",
+            "totalTeams": 116,
+            "eligibleTeams": 19,
+            "coefficient": 1.2,
+            "teamRank": 8,
+            "basePoints": 3,
+            "points": 3.6,
+            "combinedScore": 180,
+            "athletes": [
+              {
+                "name": "Luis Lameira",
+                "pos": 34
+              },
+              {
+                "name": "Jorge Machado",
+                "pos": 72
+              },
+              {
+                "name": "LuíS GonçAlves",
+                "pos": 74
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 11,
         "team": "TWO HUNDRED SPORTS / SJV",
         "totalPoints": 30,
         "eventsScored": 1,
@@ -1695,7 +1947,7 @@
         ]
       },
       {
-        "rank": 10,
+        "rank": 12,
         "team": "Cdasj / Cyclin´Team / Município Albufeira",
         "totalPoints": 29.5,
         "eventsScored": 1,
@@ -1730,7 +1982,7 @@
         ]
       },
       {
-        "rank": 11,
+        "rank": 13,
         "team": "Duros Do Pedal",
         "totalPoints": 28.7,
         "eventsScored": 2,
@@ -1791,7 +2043,7 @@
         ]
       },
       {
-        "rank": 12,
+        "rank": 14,
         "team": "Tany Nature Team",
         "totalPoints": 26.8,
         "eventsScored": 1,
@@ -1826,94 +2078,7 @@
         ]
       },
       {
-        "rank": 13,
-        "team": "Skoda Irmãos Leite Tourencinho",
-        "totalPoints": 26.6,
-        "eventsScored": 3,
-        "bestRank": 1,
-        "results": [
-          {
-            "eventId": 90003,
-            "eventName": "Granfondo 5 Quinas Sabugal 2025",
-            "eventDate": "2025-06-01",
-            "totalTeams": 45,
-            "eligibleTeams": 6,
-            "coefficient": 0.75,
-            "teamRank": 1,
-            "basePoints": 25,
-            "points": 18.8,
-            "combinedScore": 34,
-            "athletes": [
-              {
-                "name": "Luís Marques Gonçalves",
-                "pos": 6
-              },
-              {
-                "name": "Luis Lameira",
-                "pos": 12
-              },
-              {
-                "name": "Tiago Ribeiro",
-                "pos": 16
-              }
-            ]
-          },
-          {
-            "eventId": 1439,
-            "eventName": "Love Tiles Douro Granfondo 2025",
-            "eventDate": "2025-05-11",
-            "totalTeams": 155,
-            "eligibleTeams": 28,
-            "coefficient": 1.39,
-            "teamRank": 8,
-            "basePoints": 3,
-            "points": 4.2,
-            "combinedScore": 319,
-            "athletes": [
-              {
-                "name": "Filipe Vilas-Boas",
-                "pos": 75
-              },
-              {
-                "name": "João Cigarrosa",
-                "pos": 96
-              },
-              {
-                "name": "Antonio Prada",
-                "pos": 148
-              }
-            ]
-          },
-          {
-            "eventId": 90001,
-            "eventName": "Figueira Champions Day 2025",
-            "eventDate": "2025-02-15",
-            "totalTeams": 116,
-            "eligibleTeams": 19,
-            "coefficient": 1.2,
-            "teamRank": 8,
-            "basePoints": 3,
-            "points": 3.6,
-            "combinedScore": 180,
-            "athletes": [
-              {
-                "name": "Luis Lameira",
-                "pos": 34
-              },
-              {
-                "name": "Jorge Machado",
-                "pos": 72
-              },
-              {
-                "name": "LuíS GonçAlves",
-                "pos": 74
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 14,
+        "rank": 15,
         "team": "Ciclo Clube De Lagos",
         "totalPoints": 24.9,
         "eventsScored": 3,
@@ -2000,7 +2165,7 @@
         ]
       },
       {
-        "rank": 15,
+        "rank": 16,
         "team": "Grupo Btt De Manteigas",
         "totalPoints": 24.4,
         "eventsScored": 2,
@@ -2061,7 +2226,7 @@
         ]
       },
       {
-        "rank": 16,
+        "rank": 17,
         "team": "Escola de Ciclismo de Oeiras / Parracho / Reconco",
         "totalPoints": 24,
         "eventsScored": 1,
@@ -2096,7 +2261,7 @@
         ]
       },
       {
-        "rank": 17,
+        "rank": 18,
         "team": "Rubis Gás",
         "totalPoints": 23.5,
         "eventsScored": 4,
@@ -2209,7 +2374,7 @@
         ]
       },
       {
-        "rank": 18,
+        "rank": 19,
         "team": "Garra - Onebike",
         "totalPoints": 22.4,
         "eventsScored": 2,
@@ -2270,7 +2435,7 @@
         ]
       },
       {
-        "rank": 19,
+        "rank": 20,
         "team": "Escola Ciclismo De Oeiras / Parracho / Mr.Print",
         "totalPoints": 21,
         "eventsScored": 1,
@@ -2305,7 +2470,7 @@
         ]
       },
       {
-        "rank": 20,
+        "rank": 21,
         "team": "Grupo Btt Manteigas",
         "totalPoints": 19.1,
         "eventsScored": 1,
@@ -2340,7 +2505,7 @@
         ]
       },
       {
-        "rank": 21,
+        "rank": 22,
         "team": "Swick / Casa do Benfica de AlModôvar",
         "totalPoints": 18,
         "eventsScored": 1,
@@ -2375,7 +2540,7 @@
         ]
       },
       {
-        "rank": 22,
+        "rank": 23,
         "team": "Team Optical",
         "totalPoints": 17.7,
         "eventsScored": 2,
@@ -2436,7 +2601,7 @@
         ]
       },
       {
-        "rank": 23,
+        "rank": 24,
         "team": "Estofos Marques / Soutense / Garagem Paciências",
         "totalPoints": 17.5,
         "eventsScored": 1,
@@ -2471,7 +2636,7 @@
         ]
       },
       {
-        "rank": 24,
+        "rank": 25,
         "team": "Grupeta 9:30",
         "totalPoints": 16.8,
         "eventsScored": 1,
@@ -2506,7 +2671,7 @@
         ]
       },
       {
-        "rank": 25,
+        "rank": 26,
         "team": "Supergrupetta Polymark Bike Team",
         "totalPoints": 16.1,
         "eventsScored": 1,
@@ -2541,7 +2706,7 @@
         ]
       },
       {
-        "rank": 26,
+        "rank": 27,
         "team": "Uca - União Ciclismo Do Alentejo / Terralem Lda / Pracer Perfiles",
         "totalPoints": 16.1,
         "eventsScored": 1,
@@ -2576,7 +2741,7 @@
         ]
       },
       {
-        "rank": 27,
+        "rank": 28,
         "team": "Ciclo Clube Lagos",
         "totalPoints": 15.8,
         "eventsScored": 1,
@@ -2611,7 +2776,7 @@
         ]
       },
       {
-        "rank": 28,
+        "rank": 29,
         "team": "Ptz",
         "totalPoints": 15.4,
         "eventsScored": 2,
@@ -2672,7 +2837,7 @@
         ]
       },
       {
-        "rank": 29,
+        "rank": 30,
         "team": "Duros Do Pedal Cycling Team",
         "totalPoints": 15.2,
         "eventsScored": 1,
@@ -2707,7 +2872,7 @@
         ]
       },
       {
-        "rank": 30,
+        "rank": 31,
         "team": "Adn Bikers",
         "totalPoints": 14.6,
         "eventsScored": 1,
@@ -2742,7 +2907,7 @@
         ]
       },
       {
-        "rank": 31,
+        "rank": 32,
         "team": "TWO HUNDRED SPORT / SJV",
         "totalPoints": 14.4,
         "eventsScored": 1,
@@ -2777,7 +2942,7 @@
         ]
       },
       {
-        "rank": 32,
+        "rank": 33,
         "team": "Mirachoro Hotels - Centro De Ciclismo De Portimão- Churrasqueira Guerreiro",
         "totalPoints": 14.2,
         "eventsScored": 1,
@@ -2812,7 +2977,7 @@
         ]
       },
       {
-        "rank": 33,
+        "rank": 34,
         "team": "Cacb",
         "totalPoints": 13.8,
         "eventsScored": 2,
@@ -2873,7 +3038,42 @@
         ]
       },
       {
-        "rank": 34,
+        "rank": 35,
+        "team": "Proteu Cycling Team - Casa Do Povo De Retorta",
+        "totalPoints": 13.6,
+        "eventsScored": 1,
+        "bestRank": 5,
+        "results": [
+          {
+            "eventId": 1621,
+            "eventName": "Aveiro Spring Classic 2025",
+            "eventDate": "2025-03-23",
+            "totalTeams": 300,
+            "eligibleTeams": 68,
+            "coefficient": 1.94,
+            "teamRank": 5,
+            "basePoints": 7,
+            "points": 13.6,
+            "combinedScore": 91,
+            "athletes": [
+              {
+                "name": "Igor Alves",
+                "pos": 15
+              },
+              {
+                "name": "João Pina",
+                "pos": 23
+              },
+              {
+                "name": "Rui Rodrigues",
+                "pos": 53
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 36,
         "team": "Silvercoasters Cycling Club",
         "totalPoints": 12.8,
         "eventsScored": 1,
@@ -2908,7 +3108,7 @@
         ]
       },
       {
-        "rank": 35,
+        "rank": 37,
         "team": "Team Bora Mó",
         "totalPoints": 11.9,
         "eventsScored": 1,
@@ -2943,7 +3143,7 @@
         ]
       },
       {
-        "rank": 36,
+        "rank": 38,
         "team": "Falcões Btt",
         "totalPoints": 11.9,
         "eventsScored": 1,
@@ -2978,7 +3178,7 @@
         ]
       },
       {
-        "rank": 37,
+        "rank": 39,
         "team": "Ufcbarqueiros",
         "totalPoints": 11.6,
         "eventsScored": 4,
@@ -3091,7 +3291,7 @@
         ]
       },
       {
-        "rank": 38,
+        "rank": 40,
         "team": "AXPO / FirstBike Team / Vila do Conde",
         "totalPoints": 11.3,
         "eventsScored": 1,
@@ -3126,7 +3326,7 @@
         ]
       },
       {
-        "rank": 39,
+        "rank": 41,
         "team": "Cycling Viseu",
         "totalPoints": 10.5,
         "eventsScored": 2,
@@ -3187,7 +3387,7 @@
         ]
       },
       {
-        "rank": 40,
+        "rank": 42,
         "team": "Gdc Alcorochel",
         "totalPoints": 10.3,
         "eventsScored": 2,
@@ -3248,7 +3448,7 @@
         ]
       },
       {
-        "rank": 41,
+        "rank": 43,
         "team": "Bttgardunha / Fundão / Create",
         "totalPoints": 10.1,
         "eventsScored": 1,
@@ -3283,7 +3483,7 @@
         ]
       },
       {
-        "rank": 42,
+        "rank": 44,
         "team": "Oiã Bike Team",
         "totalPoints": 10,
         "eventsScored": 1,
@@ -3318,7 +3518,7 @@
         ]
       },
       {
-        "rank": 43,
+        "rank": 45,
         "team": "Spac",
         "totalPoints": 9.9,
         "eventsScored": 1,
@@ -3353,7 +3553,7 @@
         ]
       },
       {
-        "rank": 44,
+        "rank": 46,
         "team": "Lafões Bike Team",
         "totalPoints": 9.8,
         "eventsScored": 2,
@@ -3414,7 +3614,42 @@
         ]
       },
       {
-        "rank": 45,
+        "rank": 47,
+        "team": "Uca / Terralem Lda / Pracer Perfiles",
+        "totalPoints": 9.7,
+        "eventsScored": 1,
+        "bestRank": 6,
+        "results": [
+          {
+            "eventId": 1621,
+            "eventName": "Aveiro Spring Classic 2025",
+            "eventDate": "2025-03-23",
+            "totalTeams": 300,
+            "eligibleTeams": 68,
+            "coefficient": 1.94,
+            "teamRank": 6,
+            "basePoints": 5,
+            "points": 9.7,
+            "combinedScore": 96,
+            "athletes": [
+              {
+                "name": "Mario Ferreira",
+                "pos": 19
+              },
+              {
+                "name": "Pedro Cardoso",
+                "pos": 30
+              },
+              {
+                "name": "Luís Godinho",
+                "pos": 47
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 48,
         "team": "Sport Bici Cdc",
         "totalPoints": 9.5,
         "eventsScored": 1,
@@ -3449,7 +3684,7 @@
         ]
       },
       {
-        "rank": 46,
+        "rank": 49,
         "team": "CDC Pinheiro",
         "totalPoints": 9,
         "eventsScored": 1,
@@ -3484,7 +3719,7 @@
         ]
       },
       {
-        "rank": 47,
+        "rank": 50,
         "team": "Grupeta 9:30 Badajoz",
         "totalPoints": 8.9,
         "eventsScored": 1,
@@ -3519,7 +3754,7 @@
         ]
       },
       {
-        "rank": 48,
+        "rank": 51,
         "team": "Pca Team",
         "totalPoints": 8.5,
         "eventsScored": 2,
@@ -3580,7 +3815,7 @@
         ]
       },
       {
-        "rank": 49,
+        "rank": 52,
         "team": "Ths X Sjv",
         "totalPoints": 8.3,
         "eventsScored": 1,
@@ -3615,7 +3850,42 @@
         ]
       },
       {
-        "rank": 50,
+        "rank": 53,
+        "team": "Wokin",
+        "totalPoints": 7.8,
+        "eventsScored": 1,
+        "bestRank": 7,
+        "results": [
+          {
+            "eventId": 1621,
+            "eventName": "Aveiro Spring Classic 2025",
+            "eventDate": "2025-03-23",
+            "totalTeams": 300,
+            "eligibleTeams": 68,
+            "coefficient": 1.94,
+            "teamRank": 7,
+            "basePoints": 4,
+            "points": 7.8,
+            "combinedScore": 114,
+            "athletes": [
+              {
+                "name": "André Santos",
+                "pos": 20
+              },
+              {
+                "name": "Fernando Barreto",
+                "pos": 34
+              },
+              {
+                "name": "Antonio Pinho",
+                "pos": 60
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 54,
         "team": "North Bike La Bañeza",
         "totalPoints": 7.2,
         "eventsScored": 1,
@@ -3650,7 +3920,7 @@
         ]
       },
       {
-        "rank": 51,
+        "rank": 55,
         "team": "Assoc. Desp. Ílhavo",
         "totalPoints": 7.1,
         "eventsScored": 1,
@@ -3685,7 +3955,7 @@
         ]
       },
       {
-        "rank": 52,
+        "rank": 56,
         "team": "Secai / Gaiabike / Geoinerte / Forestcity",
         "totalPoints": 7,
         "eventsScored": 1,
@@ -3720,7 +3990,7 @@
         ]
       },
       {
-        "rank": 53,
+        "rank": 57,
         "team": "Cuatreros",
         "totalPoints": 6.8,
         "eventsScored": 1,
@@ -3755,7 +4025,7 @@
         ]
       },
       {
-        "rank": 54,
+        "rank": 58,
         "team": "La Cuna Bike",
         "totalPoints": 6.7,
         "eventsScored": 1,
@@ -3790,7 +4060,7 @@
         ]
       },
       {
-        "rank": 55,
+        "rank": 59,
         "team": "Cc Zi-Jara. La Siberia.",
         "totalPoints": 6.7,
         "eventsScored": 1,
@@ -3825,7 +4095,7 @@
         ]
       },
       {
-        "rank": 56,
+        "rank": 60,
         "team": "Lb Squad",
         "totalPoints": 6.4,
         "eventsScored": 1,
@@ -3860,7 +4130,7 @@
         ]
       },
       {
-        "rank": 57,
+        "rank": 61,
         "team": "Juventude Ouriense",
         "totalPoints": 6.2,
         "eventsScored": 2,
@@ -3921,7 +4191,7 @@
         ]
       },
       {
-        "rank": 58,
+        "rank": 62,
         "team": "Gruppetto Cycle Club",
         "totalPoints": 5.9,
         "eventsScored": 1,
@@ -3956,7 +4226,7 @@
         ]
       },
       {
-        "rank": 59,
+        "rank": 63,
         "team": "M.A Nunes / G-Ride / Burger Ranch",
         "totalPoints": 5.9,
         "eventsScored": 1,
@@ -3991,7 +4261,7 @@
         ]
       },
       {
-        "rank": 60,
+        "rank": 64,
         "team": "DAR-Desportivo Atlético de Recardães",
         "totalPoints": 5.8,
         "eventsScored": 1,
@@ -4026,7 +4296,7 @@
         ]
       },
       {
-        "rank": 61,
+        "rank": 65,
         "team": "Continental Advanced Antenna",
         "totalPoints": 5.6,
         "eventsScored": 1,
@@ -4061,7 +4331,7 @@
         ]
       },
       {
-        "rank": 62,
+        "rank": 66,
         "team": "Clube Bike Team Tavira",
         "totalPoints": 5.5,
         "eventsScored": 1,
@@ -4096,7 +4366,7 @@
         ]
       },
       {
-        "rank": 63,
+        "rank": 67,
         "team": "Licor Beirão Cycling Team",
         "totalPoints": 5.4,
         "eventsScored": 1,
@@ -4131,7 +4401,7 @@
         ]
       },
       {
-        "rank": 64,
+        "rank": 68,
         "team": "Vinapp",
         "totalPoints": 5.4,
         "eventsScored": 1,
@@ -4166,7 +4436,7 @@
         ]
       },
       {
-        "rank": 65,
+        "rank": 69,
         "team": "BANDARRA´S CLUBE CICLISMO DE TRANCOSO",
         "totalPoints": 5.3,
         "eventsScored": 1,
@@ -4201,7 +4471,7 @@
         ]
       },
       {
-        "rank": 66,
+        "rank": 70,
         "team": "Lncc",
         "totalPoints": 5.3,
         "eventsScored": 1,
@@ -4236,7 +4506,7 @@
         ]
       },
       {
-        "rank": 67,
+        "rank": 71,
         "team": "Ucb-Era / Cmeb / Msfitclub",
         "totalPoints": 5.2,
         "eventsScored": 1,
@@ -4271,7 +4541,7 @@
         ]
       },
       {
-        "rank": 68,
+        "rank": 72,
         "team": "Montehermoso C.C.",
         "totalPoints": 5.1,
         "eventsScored": 1,
@@ -4306,7 +4576,7 @@
         ]
       },
       {
-        "rank": 69,
+        "rank": 73,
         "team": "Amigos Do Pedal (Freguesia De Assentis)",
         "totalPoints": 5,
         "eventsScored": 1,
@@ -4341,7 +4611,7 @@
         ]
       },
       {
-        "rank": 70,
+        "rank": 74,
         "team": "Máster Morrazo",
         "totalPoints": 4.9,
         "eventsScored": 1,
@@ -4376,7 +4646,7 @@
         ]
       },
       {
-        "rank": 71,
+        "rank": 75,
         "team": "Município Terras De Bouro",
         "totalPoints": 4.7,
         "eventsScored": 1,
@@ -4411,7 +4681,7 @@
         ]
       },
       {
-        "rank": 72,
+        "rank": 76,
         "team": "Btt Loulé / Elevis",
         "totalPoints": 4.7,
         "eventsScored": 1,
@@ -4446,7 +4716,7 @@
         ]
       },
       {
-        "rank": 73,
+        "rank": 77,
         "team": "C.C Fucky Cáceres",
         "totalPoints": 4.2,
         "eventsScored": 1,
@@ -4481,7 +4751,7 @@
         ]
       },
       {
-        "rank": 74,
+        "rank": 78,
         "team": "Proteu Cycling Team - Casa Do Povo Retorta",
         "totalPoints": 4.2,
         "eventsScored": 1,
@@ -4516,7 +4786,7 @@
         ]
       },
       {
-        "rank": 75,
+        "rank": 79,
         "team": "Fortius Clinic BikeTeam",
         "totalPoints": 4.1,
         "eventsScored": 1,
@@ -4551,7 +4821,7 @@
         ]
       },
       {
-        "rank": 76,
+        "rank": 80,
         "team": "Tr8bike",
         "totalPoints": 4,
         "eventsScored": 1,
@@ -4586,7 +4856,7 @@
         ]
       },
       {
-        "rank": 77,
+        "rank": 81,
         "team": "Songo.Info",
         "totalPoints": 4,
         "eventsScored": 1,
@@ -4621,7 +4891,7 @@
         ]
       },
       {
-        "rank": 78,
+        "rank": 82,
         "team": "Xupa Rodas",
         "totalPoints": 4,
         "eventsScored": 1,
@@ -4656,7 +4926,7 @@
         ]
       },
       {
-        "rank": 79,
+        "rank": 83,
         "team": "C.C. Lamprea",
         "totalPoints": 3.9,
         "eventsScored": 1,
@@ -4691,7 +4961,7 @@
         ]
       },
       {
-        "rank": 80,
+        "rank": 84,
         "team": "Jornal A Guarda",
         "totalPoints": 3.8,
         "eventsScored": 1,
@@ -4726,7 +4996,7 @@
         ]
       },
       {
-        "rank": 81,
+        "rank": 85,
         "team": "Bicicletas Sánchez Pimienta",
         "totalPoints": 3.8,
         "eventsScored": 1,
@@ -4761,7 +5031,7 @@
         ]
       },
       {
-        "rank": 82,
+        "rank": 86,
         "team": "Sbr-Team",
         "totalPoints": 3.6,
         "eventsScored": 1,
@@ -4796,7 +5066,7 @@
         ]
       },
       {
-        "rank": 83,
+        "rank": 87,
         "team": "Club Ciclista Santa Isabel",
         "totalPoints": 3.4,
         "eventsScored": 1,
@@ -4831,7 +5101,7 @@
         ]
       },
       {
-        "rank": 84,
+        "rank": 88,
         "team": "Ontrisports",
         "totalPoints": 3.4,
         "eventsScored": 2,
@@ -4892,7 +5162,7 @@
         ]
       },
       {
-        "rank": 85,
+        "rank": 89,
         "team": "Sábados Infernais",
         "totalPoints": 3.3,
         "eventsScored": 1,
@@ -4927,7 +5197,7 @@
         ]
       },
       {
-        "rank": 86,
+        "rank": 90,
         "team": "Boninibike",
         "totalPoints": 3.1,
         "eventsScored": 1,
@@ -4962,7 +5232,7 @@
         ]
       },
       {
-        "rank": 87,
+        "rank": 91,
         "team": "Dive Into The Mountains",
         "totalPoints": 2.9,
         "eventsScored": 1,
@@ -4997,7 +5267,7 @@
         ]
       },
       {
-        "rank": 88,
+        "rank": 92,
         "team": "Explore Travel Sport",
         "totalPoints": 2.8,
         "eventsScored": 1,
@@ -5032,7 +5302,7 @@
         ]
       },
       {
-        "rank": 89,
+        "rank": 93,
         "team": "Winsig",
         "totalPoints": 2.8,
         "eventsScored": 1,
@@ -5067,7 +5337,7 @@
         ]
       },
       {
-        "rank": 90,
+        "rank": 94,
         "team": "Mrt Cycling",
         "totalPoints": 2.7,
         "eventsScored": 1,
@@ -5102,7 +5372,7 @@
         ]
       },
       {
-        "rank": 91,
+        "rank": 95,
         "team": "Zimbrabike Team",
         "totalPoints": 2.7,
         "eventsScored": 1,
@@ -5137,7 +5407,7 @@
         ]
       },
       {
-        "rank": 92,
+        "rank": 96,
         "team": "Fernando Torres Probikes",
         "totalPoints": 2.7,
         "eventsScored": 1,
@@ -5172,7 +5442,7 @@
         ]
       },
       {
-        "rank": 93,
+        "rank": 97,
         "team": "P.C. El Farolillo Rojo",
         "totalPoints": 2.7,
         "eventsScored": 1,
@@ -5207,7 +5477,7 @@
         ]
       },
       {
-        "rank": 94,
+        "rank": 98,
         "team": "Bike Matinal",
         "totalPoints": 2.6,
         "eventsScored": 2,
@@ -5268,7 +5538,7 @@
         ]
       },
       {
-        "rank": 95,
+        "rank": 99,
         "team": "Róódinhas / Master Vantagem",
         "totalPoints": 2.5,
         "eventsScored": 1,
@@ -5303,7 +5573,7 @@
         ]
       },
       {
-        "rank": 96,
+        "rank": 100,
         "team": "SuperGrupetta Polymarkbike Team",
         "totalPoints": 2.4,
         "eventsScored": 1,
@@ -5338,7 +5608,7 @@
         ]
       },
       {
-        "rank": 97,
+        "rank": 101,
         "team": "Sobe E Desce Team",
         "totalPoints": 2.1,
         "eventsScored": 1,
@@ -5373,7 +5643,7 @@
         ]
       },
       {
-        "rank": 98,
+        "rank": 102,
         "team": "Cachorros Alistanos",
         "totalPoints": 2.1,
         "eventsScored": 1,
@@ -5408,7 +5678,7 @@
         ]
       },
       {
-        "rank": 99,
+        "rank": 103,
         "team": "N13biketeam",
         "totalPoints": 2,
         "eventsScored": 1,
@@ -5443,7 +5713,7 @@
         ]
       },
       {
-        "rank": 100,
+        "rank": 104,
         "team": "Ciclomanos 3.0",
         "totalPoints": 1.9,
         "eventsScored": 1,
@@ -5478,7 +5748,42 @@
         ]
       },
       {
-        "rank": 101,
+        "rank": 105,
+        "team": "Bússola Btt",
+        "totalPoints": 1.9,
+        "eventsScored": 1,
+        "bestRank": 10,
+        "results": [
+          {
+            "eventId": 1621,
+            "eventName": "Aveiro Spring Classic 2025",
+            "eventDate": "2025-03-23",
+            "totalTeams": 300,
+            "eligibleTeams": 68,
+            "coefficient": 1.94,
+            "teamRank": 10,
+            "basePoints": 1,
+            "points": 1.9,
+            "combinedScore": 239,
+            "athletes": [
+              {
+                "name": "Diogo Pereira",
+                "pos": 45
+              },
+              {
+                "name": "Alexandre Cruz",
+                "pos": 83
+              },
+              {
+                "name": "Simão Costa",
+                "pos": 111
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 106,
         "team": "Lbsquad",
         "totalPoints": 1.8,
         "eventsScored": 1,
@@ -5513,7 +5818,7 @@
         ]
       },
       {
-        "rank": 102,
+        "rank": 107,
         "team": "Grupo Cicloturismo Montemor-O-Novo",
         "totalPoints": 1.7,
         "eventsScored": 1,
@@ -5548,7 +5853,7 @@
         ]
       },
       {
-        "rank": 103,
+        "rank": 108,
         "team": "Terminstac Cycling Team",
         "totalPoints": 1.4,
         "eventsScored": 1,
@@ -5583,7 +5888,7 @@
         ]
       },
       {
-        "rank": 104,
+        "rank": 109,
         "team": "Gr-100",
         "totalPoints": 1.3,
         "eventsScored": 1,
@@ -5618,7 +5923,7 @@
         ]
       },
       {
-        "rank": 105,
+        "rank": 110,
         "team": "Asr Mérida",
         "totalPoints": 1.3,
         "eventsScored": 1,
@@ -5653,7 +5958,7 @@
         ]
       },
       {
-        "rank": 106,
+        "rank": 111,
         "team": "Het Is Koers",
         "totalPoints": 1.2,
         "eventsScored": 1,
@@ -5688,7 +5993,7 @@
         ]
       },
       {
-        "rank": 107,
+        "rank": 112,
         "team": "TEAM PTZ",
         "totalPoints": 1.2,
         "eventsScored": 1,
@@ -5723,7 +6028,7 @@
         ]
       },
       {
-        "rank": 108,
+        "rank": 113,
         "team": "Mundimodulo Bike Team",
         "totalPoints": 1,
         "eventsScored": 1,
@@ -5758,7 +6063,7 @@
         ]
       },
       {
-        "rank": 109,
+        "rank": 114,
         "team": "Gatilho Team",
         "totalPoints": 1,
         "eventsScored": 1,
@@ -5793,7 +6098,7 @@
         ]
       },
       {
-        "rank": 110,
+        "rank": 115,
         "team": "Aventura Marao Clube",
         "totalPoints": 1,
         "eventsScored": 1,
@@ -16538,358 +16843,6 @@
         ]
       }
     ],
-    "Clássica": [
-      {
-        "rank": 1,
-        "team": "C.B. Almodôvar / Banco Primus / Swick",
-        "totalPoints": 48.5,
-        "eventsScored": 1,
-        "bestRank": 1,
-        "results": [
-          {
-            "eventId": 1621,
-            "eventName": "Aveiro Spring Classic 2025",
-            "eventDate": "2025-03-23",
-            "totalTeams": 300,
-            "eligibleTeams": 68,
-            "coefficient": 1.94,
-            "teamRank": 1,
-            "basePoints": 25,
-            "points": 48.5,
-            "combinedScore": 15,
-            "athletes": [
-              {
-                "name": "Filipe Oliveira",
-                "pos": 2
-              },
-              {
-                "name": "Bruno Rosa",
-                "pos": 6
-              },
-              {
-                "name": "Daniel Marques",
-                "pos": 7
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 2,
-        "team": "Escola Ciclismo De Oeiras / Parracho / Mr.Print / Reconco",
-        "totalPoints": 38.8,
-        "eventsScored": 1,
-        "bestRank": 2,
-        "results": [
-          {
-            "eventId": 1621,
-            "eventName": "Aveiro Spring Classic 2025",
-            "eventDate": "2025-03-23",
-            "totalTeams": 300,
-            "eligibleTeams": 68,
-            "coefficient": 1.94,
-            "teamRank": 2,
-            "basePoints": 20,
-            "points": 38.8,
-            "combinedScore": 27,
-            "athletes": [
-              {
-                "name": "Ruben Pais",
-                "pos": 1
-              },
-              {
-                "name": "Marco Domingos",
-                "pos": 12
-              },
-              {
-                "name": "João Pereira",
-                "pos": 14
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 3,
-        "team": "Sintra Clube Ciclismo / Vvl / Planthiza",
-        "totalPoints": 29.1,
-        "eventsScored": 1,
-        "bestRank": 3,
-        "results": [
-          {
-            "eventId": 1621,
-            "eventName": "Aveiro Spring Classic 2025",
-            "eventDate": "2025-03-23",
-            "totalTeams": 300,
-            "eligibleTeams": 68,
-            "coefficient": 1.94,
-            "teamRank": 3,
-            "basePoints": 15,
-            "points": 29.1,
-            "combinedScore": 34,
-            "athletes": [
-              {
-                "name": "Diogo Pereira",
-                "pos": 4
-              },
-              {
-                "name": "Tiago Miranda",
-                "pos": 8
-              },
-              {
-                "name": "Alexandre Vilar",
-                "pos": 22
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 4,
-        "team": "Love Tiles",
-        "totalPoints": 23.3,
-        "eventsScored": 1,
-        "bestRank": 4,
-        "results": [
-          {
-            "eventId": 1621,
-            "eventName": "Aveiro Spring Classic 2025",
-            "eventDate": "2025-03-23",
-            "totalTeams": 300,
-            "eligibleTeams": 68,
-            "coefficient": 1.94,
-            "teamRank": 4,
-            "basePoints": 12,
-            "points": 23.3,
-            "combinedScore": 85,
-            "athletes": [
-              {
-                "name": "Ivan Sa",
-                "pos": 17
-              },
-              {
-                "name": "Tiago Novo",
-                "pos": 33
-              },
-              {
-                "name": "Ivo Almeida",
-                "pos": 35
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 5,
-        "team": "Proteu Cycling Team - Casa Do Povo De Retorta",
-        "totalPoints": 13.6,
-        "eventsScored": 1,
-        "bestRank": 5,
-        "results": [
-          {
-            "eventId": 1621,
-            "eventName": "Aveiro Spring Classic 2025",
-            "eventDate": "2025-03-23",
-            "totalTeams": 300,
-            "eligibleTeams": 68,
-            "coefficient": 1.94,
-            "teamRank": 5,
-            "basePoints": 7,
-            "points": 13.6,
-            "combinedScore": 91,
-            "athletes": [
-              {
-                "name": "Igor Alves",
-                "pos": 15
-              },
-              {
-                "name": "João Pina",
-                "pos": 23
-              },
-              {
-                "name": "Rui Rodrigues",
-                "pos": 53
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 6,
-        "team": "Uca / Terralem Lda / Pracer Perfiles",
-        "totalPoints": 9.7,
-        "eventsScored": 1,
-        "bestRank": 6,
-        "results": [
-          {
-            "eventId": 1621,
-            "eventName": "Aveiro Spring Classic 2025",
-            "eventDate": "2025-03-23",
-            "totalTeams": 300,
-            "eligibleTeams": 68,
-            "coefficient": 1.94,
-            "teamRank": 6,
-            "basePoints": 5,
-            "points": 9.7,
-            "combinedScore": 96,
-            "athletes": [
-              {
-                "name": "Mario Ferreira",
-                "pos": 19
-              },
-              {
-                "name": "Pedro Cardoso",
-                "pos": 30
-              },
-              {
-                "name": "Luís Godinho",
-                "pos": 47
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 7,
-        "team": "Wokin",
-        "totalPoints": 7.8,
-        "eventsScored": 1,
-        "bestRank": 7,
-        "results": [
-          {
-            "eventId": 1621,
-            "eventName": "Aveiro Spring Classic 2025",
-            "eventDate": "2025-03-23",
-            "totalTeams": 300,
-            "eligibleTeams": 68,
-            "coefficient": 1.94,
-            "teamRank": 7,
-            "basePoints": 4,
-            "points": 7.8,
-            "combinedScore": 114,
-            "athletes": [
-              {
-                "name": "André Santos",
-                "pos": 20
-              },
-              {
-                "name": "Fernando Barreto",
-                "pos": 34
-              },
-              {
-                "name": "Antonio Pinho",
-                "pos": 60
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 8,
-        "team": "Skoda Irmãos Leite Tourencinho",
-        "totalPoints": 5.8,
-        "eventsScored": 1,
-        "bestRank": 8,
-        "results": [
-          {
-            "eventId": 1621,
-            "eventName": "Aveiro Spring Classic 2025",
-            "eventDate": "2025-03-23",
-            "totalTeams": 300,
-            "eligibleTeams": 68,
-            "coefficient": 1.94,
-            "teamRank": 8,
-            "basePoints": 3,
-            "points": 5.8,
-            "combinedScore": 158,
-            "athletes": [
-              {
-                "name": "Tiago Ribeiro",
-                "pos": 40
-              },
-              {
-                "name": "Luís Lameira",
-                "pos": 49
-              },
-              {
-                "name": "Carlos Lameira",
-                "pos": 69
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 9,
-        "team": "Brinox Cycling Team",
-        "totalPoints": 3.9,
-        "eventsScored": 1,
-        "bestRank": 9,
-        "results": [
-          {
-            "eventId": 1621,
-            "eventName": "Aveiro Spring Classic 2025",
-            "eventDate": "2025-03-23",
-            "totalTeams": 300,
-            "eligibleTeams": 68,
-            "coefficient": 1.94,
-            "teamRank": 9,
-            "basePoints": 2,
-            "points": 3.9,
-            "combinedScore": 205,
-            "athletes": [
-              {
-                "name": "Michel Machado",
-                "pos": 5
-              },
-              {
-                "name": "Aparício Coutinho",
-                "pos": 86
-              },
-              {
-                "name": "Luís Bogas",
-                "pos": 114
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 10,
-        "team": "Bússola Btt",
-        "totalPoints": 1.9,
-        "eventsScored": 1,
-        "bestRank": 10,
-        "results": [
-          {
-            "eventId": 1621,
-            "eventName": "Aveiro Spring Classic 2025",
-            "eventDate": "2025-03-23",
-            "totalTeams": 300,
-            "eligibleTeams": 68,
-            "coefficient": 1.94,
-            "teamRank": 10,
-            "basePoints": 1,
-            "points": 1.9,
-            "combinedScore": 239,
-            "athletes": [
-              {
-                "name": "Diogo Pereira",
-                "pos": 45
-              },
-              {
-                "name": "Alexandre Cruz",
-                "pos": 83
-              },
-              {
-                "name": "Simão Costa",
-                "pos": 111
-              }
-            ]
-          }
-        ]
-      }
-    ],
     "Time Trial": [
       {
         "rank": 1,
@@ -17244,12 +17197,12 @@
     ]
   },
   "2026": {
-    "Clássica": [
+    "Granfondo": [
       {
         "rank": 1,
         "team": "Casa Benfica Almodôvar",
-        "totalPoints": 48.3,
-        "eventsScored": 1,
+        "totalPoints": 71.8,
+        "eventsScored": 2,
         "bestRank": 1,
         "results": [
           {
@@ -17277,85 +17230,41 @@
                 "pos": 8
               }
             ]
+          },
+          {
+            "eventId": 1831,
+            "eventName": "Algarve Granfondo 2026",
+            "eventDate": "2026-02-21",
+            "totalTeams": 71,
+            "eligibleTeams": 10,
+            "coefficient": 0.94,
+            "teamRank": 1,
+            "basePoints": 25,
+            "points": 23.5,
+            "combinedScore": 22,
+            "athletes": [
+              {
+                "name": "Matteo Cigala",
+                "pos": 2
+              },
+              {
+                "name": "Ricardo Gil",
+                "pos": 8
+              },
+              {
+                "name": "Pedro Sousa",
+                "pos": 12
+              }
+            ]
           }
         ]
       },
       {
         "rank": 2,
-        "team": "Escola De Ciclismo De Oeiras / Parracho / Mr.Print / Reconco",
-        "totalPoints": 38.6,
-        "eventsScored": 1,
-        "bestRank": 2,
-        "results": [
-          {
-            "eventId": 1944,
-            "eventName": "Aveiro Spring Classic 2026",
-            "eventDate": "2026-03-22",
-            "totalTeams": 299,
-            "eligibleTeams": 78,
-            "coefficient": 1.93,
-            "teamRank": 2,
-            "basePoints": 20,
-            "points": 38.6,
-            "combinedScore": 44,
-            "athletes": [
-              {
-                "name": "Marco Domingos",
-                "pos": 3
-              },
-              {
-                "name": "João Pereira",
-                "pos": 13
-              },
-              {
-                "name": "Daniel Fernandes",
-                "pos": 28
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 3,
-        "team": "Sintra Clube Ciclismo / Vvl / Planthiza",
-        "totalPoints": 29,
-        "eventsScored": 1,
-        "bestRank": 3,
-        "results": [
-          {
-            "eventId": 1944,
-            "eventName": "Aveiro Spring Classic 2026",
-            "eventDate": "2026-03-22",
-            "totalTeams": 299,
-            "eligibleTeams": 78,
-            "coefficient": 1.93,
-            "teamRank": 3,
-            "basePoints": 15,
-            "points": 29,
-            "combinedScore": 49,
-            "athletes": [
-              {
-                "name": "Ricardo Esteves",
-                "pos": 9
-              },
-              {
-                "name": "Pedro Pinheiro",
-                "pos": 15
-              },
-              {
-                "name": "Rafael Basilio",
-                "pos": 25
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 4,
         "team": "Love Tiles",
-        "totalPoints": 23.2,
-        "eventsScored": 1,
-        "bestRank": 4,
+        "totalPoints": 58.1,
+        "eventsScored": 3,
+        "bestRank": 1,
         "results": [
           {
             "eventId": 1944,
@@ -17382,223 +17291,63 @@
                 "pos": 26
               }
             ]
-          }
-        ]
-      },
-      {
-        "rank": 5,
-        "team": "Proteu Cycling Team - Casa Do Povo Da Retorta",
-        "totalPoints": 13.5,
-        "eventsScored": 1,
-        "bestRank": 5,
-        "results": [
+          },
           {
-            "eventId": 1944,
-            "eventName": "Aveiro Spring Classic 2026",
-            "eventDate": "2026-03-22",
-            "totalTeams": 299,
-            "eligibleTeams": 78,
-            "coefficient": 1.93,
-            "teamRank": 5,
-            "basePoints": 7,
-            "points": 13.5,
-            "combinedScore": 79,
+            "eventId": 1720,
+            "eventName": "VIANA Granfondo by KTM 2026",
+            "eventDate": "2026-03-15",
+            "totalTeams": 127,
+            "eligibleTeams": 30,
+            "coefficient": 1.26,
+            "teamRank": 1,
+            "basePoints": 25,
+            "points": 31.5,
+            "combinedScore": 10,
             "athletes": [
               {
-                "name": "Igor Alves",
-                "pos": 11
+                "name": "Gonçalo Freitas",
+                "pos": 2
               },
               {
-                "name": "Claudio Costa",
-                "pos": 21
+                "name": "Pedro Merendeiro",
+                "pos": 3
               },
               {
-                "name": "Rui Rodrigues",
-                "pos": 47
+                "name": "Cesário Silva",
+                "pos": 5
               }
             ]
-          }
-        ]
-      },
-      {
-        "rank": 6,
-        "team": "Uca / Terralem / Pracer Perfiles",
-        "totalPoints": 9.7,
-        "eventsScored": 1,
-        "bestRank": 6,
-        "results": [
+          },
           {
-            "eventId": 1944,
-            "eventName": "Aveiro Spring Classic 2026",
-            "eventDate": "2026-03-22",
-            "totalTeams": 299,
-            "eligibleTeams": 78,
-            "coefficient": 1.93,
-            "teamRank": 6,
-            "basePoints": 5,
-            "points": 9.7,
-            "combinedScore": 103,
-            "athletes": [
-              {
-                "name": "Nuno Fitas",
-                "pos": 18
-              },
-              {
-                "name": "Pedro Cardoso",
-                "pos": 40
-              },
-              {
-                "name": "Helder Palma",
-                "pos": 45
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 7,
-        "team": "Skoda Irmãos Leite Tourencinho",
-        "totalPoints": 7.7,
-        "eventsScored": 1,
-        "bestRank": 7,
-        "results": [
-          {
-            "eventId": 1944,
-            "eventName": "Aveiro Spring Classic 2026",
-            "eventDate": "2026-03-22",
-            "totalTeams": 299,
-            "eligibleTeams": 78,
-            "coefficient": 1.93,
-            "teamRank": 7,
-            "basePoints": 4,
-            "points": 7.7,
-            "combinedScore": 142,
-            "athletes": [
-              {
-                "name": "Tiago Ribeiro",
-                "pos": 29
-              },
-              {
-                "name": "Luís Lameira",
-                "pos": 51
-              },
-              {
-                "name": "Carlos Borges",
-                "pos": 62
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 8,
-        "team": "Estofos Marques / Soutense / Garagem Paciência",
-        "totalPoints": 5.8,
-        "eventsScored": 1,
-        "bestRank": 8,
-        "results": [
-          {
-            "eventId": 1944,
-            "eventName": "Aveiro Spring Classic 2026",
-            "eventDate": "2026-03-22",
-            "totalTeams": 299,
-            "eligibleTeams": 78,
-            "coefficient": 1.93,
+            "eventId": 1880,
+            "eventName": "Figueira Champions Classic 2026",
+            "eventDate": "2026-02-15",
+            "totalTeams": 101,
+            "eligibleTeams": 9,
+            "coefficient": 1.12,
             "teamRank": 8,
             "basePoints": 3,
-            "points": 5.8,
-            "combinedScore": 190,
+            "points": 3.4,
+            "combinedScore": 192,
             "athletes": [
               {
-                "name": "Igor Resende",
-                "pos": 19
+                "name": "Bruno Carvalho",
+                "pos": 28
               },
               {
-                "name": "Pedro Batista",
-                "pos": 49
+                "name": "Romeu Sá",
+                "pos": 68
               },
               {
-                "name": "Luís Santos",
-                "pos": 122
+                "name": "Henrique Adão",
+                "pos": 96
               }
             ]
           }
         ]
       },
       {
-        "rank": 9,
-        "team": "Brinox Cycling Team",
-        "totalPoints": 3.9,
-        "eventsScored": 1,
-        "bestRank": 9,
-        "results": [
-          {
-            "eventId": 1944,
-            "eventName": "Aveiro Spring Classic 2026",
-            "eventDate": "2026-03-22",
-            "totalTeams": 299,
-            "eligibleTeams": 78,
-            "coefficient": 1.93,
-            "teamRank": 9,
-            "basePoints": 2,
-            "points": 3.9,
-            "combinedScore": 202,
-            "athletes": [
-              {
-                "name": "Sérgio Saleiro",
-                "pos": 6
-              },
-              {
-                "name": "Hernâni Gouveia",
-                "pos": 23
-              },
-              {
-                "name": "Marlene Seara",
-                "pos": 173
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 10,
-        "team": "Rubis Gás",
-        "totalPoints": 1.9,
-        "eventsScored": 1,
-        "bestRank": 10,
-        "results": [
-          {
-            "eventId": 1944,
-            "eventName": "Aveiro Spring Classic 2026",
-            "eventDate": "2026-03-22",
-            "totalTeams": 299,
-            "eligibleTeams": 78,
-            "coefficient": 1.93,
-            "teamRank": 10,
-            "basePoints": 1,
-            "points": 1.9,
-            "combinedScore": 234,
-            "athletes": [
-              {
-                "name": "José Amorim",
-                "pos": 56
-              },
-              {
-                "name": "João Pinto",
-                "pos": 74
-              },
-              {
-                "name": "José Cebola",
-                "pos": 104
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "Granfondo": [
-      {
-        "rank": 1,
+        "rank": 3,
         "team": "Penacova Firstbike Reconco",
         "totalPoints": 42,
         "eventsScored": 2,
@@ -17659,68 +17408,77 @@
         ]
       },
       {
-        "rank": 2,
-        "team": "Love Tiles",
-        "totalPoints": 34.9,
-        "eventsScored": 2,
-        "bestRank": 1,
+        "rank": 4,
+        "team": "Escola De Ciclismo De Oeiras / Parracho / Mr.Print / Reconco",
+        "totalPoints": 38.6,
+        "eventsScored": 1,
+        "bestRank": 2,
         "results": [
           {
-            "eventId": 1720,
-            "eventName": "VIANA Granfondo by KTM 2026",
-            "eventDate": "2026-03-15",
-            "totalTeams": 127,
-            "eligibleTeams": 30,
-            "coefficient": 1.26,
-            "teamRank": 1,
-            "basePoints": 25,
-            "points": 31.5,
-            "combinedScore": 10,
+            "eventId": 1944,
+            "eventName": "Aveiro Spring Classic 2026",
+            "eventDate": "2026-03-22",
+            "totalTeams": 299,
+            "eligibleTeams": 78,
+            "coefficient": 1.93,
+            "teamRank": 2,
+            "basePoints": 20,
+            "points": 38.6,
+            "combinedScore": 44,
             "athletes": [
               {
-                "name": "Gonçalo Freitas",
-                "pos": 2
-              },
-              {
-                "name": "Pedro Merendeiro",
+                "name": "Marco Domingos",
                 "pos": 3
               },
               {
-                "name": "Cesário Silva",
-                "pos": 5
-              }
-            ]
-          },
-          {
-            "eventId": 1880,
-            "eventName": "Figueira Champions Classic 2026",
-            "eventDate": "2026-02-15",
-            "totalTeams": 101,
-            "eligibleTeams": 9,
-            "coefficient": 1.12,
-            "teamRank": 8,
-            "basePoints": 3,
-            "points": 3.4,
-            "combinedScore": 192,
-            "athletes": [
+                "name": "João Pereira",
+                "pos": 13
+              },
               {
-                "name": "Bruno Carvalho",
+                "name": "Daniel Fernandes",
                 "pos": 28
-              },
-              {
-                "name": "Romeu Sá",
-                "pos": 68
-              },
-              {
-                "name": "Henrique Adão",
-                "pos": 96
               }
             ]
           }
         ]
       },
       {
-        "rank": 3,
+        "rank": 5,
+        "team": "Sintra Clube Ciclismo / Vvl / Planthiza",
+        "totalPoints": 29,
+        "eventsScored": 1,
+        "bestRank": 3,
+        "results": [
+          {
+            "eventId": 1944,
+            "eventName": "Aveiro Spring Classic 2026",
+            "eventDate": "2026-03-22",
+            "totalTeams": 299,
+            "eligibleTeams": 78,
+            "coefficient": 1.93,
+            "teamRank": 3,
+            "basePoints": 15,
+            "points": 29,
+            "combinedScore": 49,
+            "athletes": [
+              {
+                "name": "Ricardo Esteves",
+                "pos": 9
+              },
+              {
+                "name": "Pedro Pinheiro",
+                "pos": 15
+              },
+              {
+                "name": "Rafael Basilio",
+                "pos": 25
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 6,
         "team": "Dbl Bike",
         "totalPoints": 28,
         "eventsScored": 1,
@@ -17755,42 +17513,68 @@
         ]
       },
       {
-        "rank": 4,
-        "team": "Casa Benfica Almodovar",
-        "totalPoints": 23.5,
-        "eventsScored": 1,
-        "bestRank": 1,
+        "rank": 7,
+        "team": "Brinox Cycling Team",
+        "totalPoints": 22.8,
+        "eventsScored": 2,
+        "bestRank": 3,
         "results": [
           {
-            "eventId": 1831,
-            "eventName": "Algarve Granfondo 2026",
-            "eventDate": "2026-02-21",
-            "totalTeams": 71,
-            "eligibleTeams": 10,
-            "coefficient": 0.94,
-            "teamRank": 1,
-            "basePoints": 25,
-            "points": 23.5,
-            "combinedScore": 22,
+            "eventId": 1944,
+            "eventName": "Aveiro Spring Classic 2026",
+            "eventDate": "2026-03-22",
+            "totalTeams": 299,
+            "eligibleTeams": 78,
+            "coefficient": 1.93,
+            "teamRank": 9,
+            "basePoints": 2,
+            "points": 3.9,
+            "combinedScore": 202,
             "athletes": [
               {
-                "name": "Matteo Cigala",
-                "pos": 2
+                "name": "Sérgio Saleiro",
+                "pos": 6
               },
               {
-                "name": "Ricardo Gil",
+                "name": "Hernâni Gouveia",
+                "pos": 23
+              },
+              {
+                "name": "Marlene Seara",
+                "pos": 173
+              }
+            ]
+          },
+          {
+            "eventId": 1720,
+            "eventName": "VIANA Granfondo by KTM 2026",
+            "eventDate": "2026-03-15",
+            "totalTeams": 127,
+            "eligibleTeams": 30,
+            "coefficient": 1.26,
+            "teamRank": 3,
+            "basePoints": 15,
+            "points": 18.9,
+            "combinedScore": 36,
+            "athletes": [
+              {
+                "name": "Rodrigo Coimbra",
                 "pos": 8
               },
               {
-                "name": "Pedro Sousa",
-                "pos": 12
+                "name": "Rúben Machado",
+                "pos": 10
+              },
+              {
+                "name": "Igor Cruz",
+                "pos": 18
               }
             ]
           }
         ]
       },
       {
-        "rank": 5,
+        "rank": 8,
         "team": "Crp Ribafria -Grupo Parapedra",
         "totalPoints": 22.4,
         "eventsScored": 1,
@@ -17825,42 +17609,7 @@
         ]
       },
       {
-        "rank": 6,
-        "team": "Brinox Cycling Team",
-        "totalPoints": 18.9,
-        "eventsScored": 1,
-        "bestRank": 3,
-        "results": [
-          {
-            "eventId": 1720,
-            "eventName": "VIANA Granfondo by KTM 2026",
-            "eventDate": "2026-03-15",
-            "totalTeams": 127,
-            "eligibleTeams": 30,
-            "coefficient": 1.26,
-            "teamRank": 3,
-            "basePoints": 15,
-            "points": 18.9,
-            "combinedScore": 36,
-            "athletes": [
-              {
-                "name": "Rodrigo Coimbra",
-                "pos": 8
-              },
-              {
-                "name": "Rúben Machado",
-                "pos": 10
-              },
-              {
-                "name": "Igor Cruz",
-                "pos": 18
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 7,
+        "rank": 9,
         "team": "Clube Desportivo Pataiense",
         "totalPoints": 18.8,
         "eventsScored": 1,
@@ -17895,7 +17644,7 @@
         ]
       },
       {
-        "rank": 8,
+        "rank": 10,
         "team": "Estofos Marques / Soutense / Garagem",
         "totalPoints": 15.1,
         "eventsScored": 1,
@@ -17930,7 +17679,7 @@
         ]
       },
       {
-        "rank": 9,
+        "rank": 11,
         "team": "M&A Nunes / G-Ride / Burger Ranch",
         "totalPoints": 14.1,
         "eventsScored": 1,
@@ -17965,7 +17714,42 @@
         ]
       },
       {
-        "rank": 10,
+        "rank": 12,
+        "team": "Proteu Cycling Team - Casa Do Povo Da Retorta",
+        "totalPoints": 13.5,
+        "eventsScored": 1,
+        "bestRank": 5,
+        "results": [
+          {
+            "eventId": 1944,
+            "eventName": "Aveiro Spring Classic 2026",
+            "eventDate": "2026-03-22",
+            "totalTeams": 299,
+            "eligibleTeams": 78,
+            "coefficient": 1.93,
+            "teamRank": 5,
+            "basePoints": 7,
+            "points": 13.5,
+            "combinedScore": 79,
+            "athletes": [
+              {
+                "name": "Igor Alves",
+                "pos": 11
+              },
+              {
+                "name": "Claudio Costa",
+                "pos": 21
+              },
+              {
+                "name": "Rui Rodrigues",
+                "pos": 47
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 13,
         "team": "Escola Ciclismo Oeiras / Parracho / Mr.Print / Reconco",
         "totalPoints": 13.4,
         "eventsScored": 1,
@@ -18000,7 +17784,129 @@
         ]
       },
       {
-        "rank": 11,
+        "rank": 14,
+        "team": "Skoda Irmãos Leite Tourencinho",
+        "totalPoints": 12.2,
+        "eventsScored": 2,
+        "bestRank": 7,
+        "results": [
+          {
+            "eventId": 1944,
+            "eventName": "Aveiro Spring Classic 2026",
+            "eventDate": "2026-03-22",
+            "totalTeams": 299,
+            "eligibleTeams": 78,
+            "coefficient": 1.93,
+            "teamRank": 7,
+            "basePoints": 4,
+            "points": 7.7,
+            "combinedScore": 142,
+            "athletes": [
+              {
+                "name": "Tiago Ribeiro",
+                "pos": 29
+              },
+              {
+                "name": "Luís Lameira",
+                "pos": 51
+              },
+              {
+                "name": "Carlos Borges",
+                "pos": 62
+              }
+            ]
+          },
+          {
+            "eventId": 1880,
+            "eventName": "Figueira Champions Classic 2026",
+            "eventDate": "2026-02-15",
+            "totalTeams": 101,
+            "eligibleTeams": 9,
+            "coefficient": 1.12,
+            "teamRank": 7,
+            "basePoints": 4,
+            "points": 4.5,
+            "combinedScore": 175,
+            "athletes": [
+              {
+                "name": "Carlos Borges",
+                "pos": 37
+              },
+              {
+                "name": "Carlos Lameira",
+                "pos": 45
+              },
+              {
+                "name": "Alfredo Ribeiro",
+                "pos": 93
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 15,
+        "team": "Estofos Marques / Soutense / Garagem Paciência",
+        "totalPoints": 11.4,
+        "eventsScored": 2,
+        "bestRank": 6,
+        "results": [
+          {
+            "eventId": 1944,
+            "eventName": "Aveiro Spring Classic 2026",
+            "eventDate": "2026-03-22",
+            "totalTeams": 299,
+            "eligibleTeams": 78,
+            "coefficient": 1.93,
+            "teamRank": 8,
+            "basePoints": 3,
+            "points": 5.8,
+            "combinedScore": 190,
+            "athletes": [
+              {
+                "name": "Igor Resende",
+                "pos": 19
+              },
+              {
+                "name": "Pedro Batista",
+                "pos": 49
+              },
+              {
+                "name": "Luís Santos",
+                "pos": 122
+              }
+            ]
+          },
+          {
+            "eventId": 1880,
+            "eventName": "Figueira Champions Classic 2026",
+            "eventDate": "2026-02-15",
+            "totalTeams": 101,
+            "eligibleTeams": 9,
+            "coefficient": 1.12,
+            "teamRank": 6,
+            "basePoints": 5,
+            "points": 5.6,
+            "combinedScore": 90,
+            "athletes": [
+              {
+                "name": "Igor Resende",
+                "pos": 19
+              },
+              {
+                "name": "João Silva",
+                "pos": 31
+              },
+              {
+                "name": "Sérgio Oliveira",
+                "pos": 40
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 16,
         "team": "C.C. La Grupetta",
         "totalPoints": 11.3,
         "eventsScored": 1,
@@ -18035,7 +17941,42 @@
         ]
       },
       {
-        "rank": 12,
+        "rank": 17,
+        "team": "Uca / Terralem / Pracer Perfiles",
+        "totalPoints": 9.7,
+        "eventsScored": 1,
+        "bestRank": 6,
+        "results": [
+          {
+            "eventId": 1944,
+            "eventName": "Aveiro Spring Classic 2026",
+            "eventDate": "2026-03-22",
+            "totalTeams": 299,
+            "eligibleTeams": 78,
+            "coefficient": 1.93,
+            "teamRank": 6,
+            "basePoints": 5,
+            "points": 9.7,
+            "combinedScore": 103,
+            "athletes": [
+              {
+                "name": "Nuno Fitas",
+                "pos": 18
+              },
+              {
+                "name": "Pedro Cardoso",
+                "pos": 40
+              },
+              {
+                "name": "Helder Palma",
+                "pos": 45
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 18,
         "team": "C. E. Gonçalves Reconco",
         "totalPoints": 8.8,
         "eventsScored": 1,
@@ -18070,7 +18011,7 @@
         ]
       },
       {
-        "rank": 13,
+        "rank": 19,
         "team": "Om.Cc",
         "totalPoints": 7.8,
         "eventsScored": 1,
@@ -18105,7 +18046,7 @@
         ]
       },
       {
-        "rank": 14,
+        "rank": 20,
         "team": "Garra-Onebike",
         "totalPoints": 6.6,
         "eventsScored": 1,
@@ -18140,7 +18081,7 @@
         ]
       },
       {
-        "rank": 15,
+        "rank": 21,
         "team": "Paredes Aventura",
         "totalPoints": 6.3,
         "eventsScored": 1,
@@ -18175,42 +18116,7 @@
         ]
       },
       {
-        "rank": 16,
-        "team": "Estofos Marques / Soutense / Garagem Paciência",
-        "totalPoints": 5.6,
-        "eventsScored": 1,
-        "bestRank": 6,
-        "results": [
-          {
-            "eventId": 1880,
-            "eventName": "Figueira Champions Classic 2026",
-            "eventDate": "2026-02-15",
-            "totalTeams": 101,
-            "eligibleTeams": 9,
-            "coefficient": 1.12,
-            "teamRank": 6,
-            "basePoints": 5,
-            "points": 5.6,
-            "combinedScore": 90,
-            "athletes": [
-              {
-                "name": "Igor Resende",
-                "pos": 19
-              },
-              {
-                "name": "João Silva",
-                "pos": 31
-              },
-              {
-                "name": "Sérgio Oliveira",
-                "pos": 40
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 17,
+        "rank": 22,
         "team": "Cycling Viseu Genéve",
         "totalPoints": 5,
         "eventsScored": 1,
@@ -18245,7 +18151,7 @@
         ]
       },
       {
-        "rank": 18,
+        "rank": 23,
         "team": "24H Altimetria / On Track",
         "totalPoints": 4.7,
         "eventsScored": 1,
@@ -18280,42 +18186,7 @@
         ]
       },
       {
-        "rank": 19,
-        "team": "Skoda Irmãos Leite Tourencinho",
-        "totalPoints": 4.5,
-        "eventsScored": 1,
-        "bestRank": 7,
-        "results": [
-          {
-            "eventId": 1880,
-            "eventName": "Figueira Champions Classic 2026",
-            "eventDate": "2026-02-15",
-            "totalTeams": 101,
-            "eligibleTeams": 9,
-            "coefficient": 1.12,
-            "teamRank": 7,
-            "basePoints": 4,
-            "points": 4.5,
-            "combinedScore": 175,
-            "athletes": [
-              {
-                "name": "Carlos Borges",
-                "pos": 37
-              },
-              {
-                "name": "Carlos Lameira",
-                "pos": 45
-              },
-              {
-                "name": "Alfredo Ribeiro",
-                "pos": 93
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 20,
+        "rank": 24,
         "team": "Ciclo Clube De Lagos",
         "totalPoints": 3.8,
         "eventsScored": 1,
@@ -18350,7 +18221,7 @@
         ]
       },
       {
-        "rank": 21,
+        "rank": 25,
         "team": "Casa Peixoto",
         "totalPoints": 3.8,
         "eventsScored": 1,
@@ -18385,7 +18256,7 @@
         ]
       },
       {
-        "rank": 22,
+        "rank": 26,
         "team": "Cdasj / Cyclin´Team / Município Albufeira",
         "totalPoints": 2.8,
         "eventsScored": 1,
@@ -18420,7 +18291,7 @@
         ]
       },
       {
-        "rank": 23,
+        "rank": 27,
         "team": "Dac Endurance Coaching",
         "totalPoints": 2.5,
         "eventsScored": 1,
@@ -18455,7 +18326,7 @@
         ]
       },
       {
-        "rank": 24,
+        "rank": 28,
         "team": "Bio Team Cycle",
         "totalPoints": 2.2,
         "eventsScored": 1,
@@ -18490,7 +18361,7 @@
         ]
       },
       {
-        "rank": 25,
+        "rank": 29,
         "team": "Triatlo De Faro",
         "totalPoints": 1.9,
         "eventsScored": 1,
@@ -18525,7 +18396,42 @@
         ]
       },
       {
-        "rank": 26,
+        "rank": 30,
+        "team": "Rubis Gás",
+        "totalPoints": 1.9,
+        "eventsScored": 1,
+        "bestRank": 10,
+        "results": [
+          {
+            "eventId": 1944,
+            "eventName": "Aveiro Spring Classic 2026",
+            "eventDate": "2026-03-22",
+            "totalTeams": 299,
+            "eligibleTeams": 78,
+            "coefficient": 1.93,
+            "teamRank": 10,
+            "basePoints": 1,
+            "points": 1.9,
+            "combinedScore": 234,
+            "athletes": [
+              {
+                "name": "José Amorim",
+                "pos": 56
+              },
+              {
+                "name": "João Pinto",
+                "pos": 74
+              },
+              {
+                "name": "José Cebola",
+                "pos": 104
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 31,
         "team": "Adn Bikers",
         "totalPoints": 1.3,
         "eventsScored": 1,
@@ -18560,7 +18466,7 @@
         ]
       },
       {
-        "rank": 27,
+        "rank": 32,
         "team": "Bandwagon",
         "totalPoints": 0.9,
         "eventsScored": 1,
