@@ -121,6 +121,16 @@ const OFFICIAL_EVENT_URLS: Record<number, string> = {
   1751: "https://cabreirasolutions.com/evento/granfondo-torres-vedras/",
   1977: "https://cabreirasolutions.com/evento/granfondo-medio-tejo/",
   1956: "https://cabreirasolutions.com/evento/lousa-granfondo/",
+  // Figueira Champions Classic
+  1880: "https://www.figueirachampionsclassic.com/day/regulamento/",
+  // Aveiro Spring Classic 2026
+  1944: "https://cabreirasolutions.com/evento/aveiro-spring-classic/",
+  // São Mamede Granfondo 2026
+  1798: "https://stopandgo.net/events/sao-mamede-granfondo-2026",
+  // Tavira Granfondo 2026
+  1942: "https://stopandgo.net/events/tavira-granfondo-2026",
+  // Serra da Estrela Granfondo 2026
+  1700: "https://granfondoserradaestrela.com/",
 };
 
 function isGranfondoName(name: string): boolean {
@@ -158,7 +168,7 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
     year: getYear(parseEventDate(e.data)),
     date: parseEventDate(e.data),
     location: e.local,
-    resultsUrl: OFFICIAL_EVENT_URLS[Number(e.id_evento)] ?? `https://results.stopandgo.pro/${Number(e.id_evento)}`,
+    resultsUrl: `https://results.stopandgo.pro/${Number(e.id_evento)}`,
     hasResults: false,
     distances: [],
     participantCount: 0,
