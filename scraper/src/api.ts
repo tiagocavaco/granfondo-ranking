@@ -1,4 +1,4 @@
-import type { ApiEvent, ApiAthlete, ApiResult } from "./types.js";
+import type { ApiEvent, ApiAthlete, ApiResult, ApiNetEvent } from "./types.js";
 
 const BASE = "https://api.stopandgo.pro/xcrono";
 
@@ -43,6 +43,20 @@ export async function fetchParticipants(eventId: number): Promise<ApiAthlete[]> 
  *
  * Returns an empty array when results are not yet published.
  */
+/**
+ * Fetch upcoming events from stopandgo.net (includes future events not yet in the Pro API).
+ */
+export async function fetchUpcomingEvents(year: number): Promise<ApiNetEvent[]> {
+  const url = `https://stopandgo.net/api/events?search=granfondo&year=${year}&per_page=100`;
+  const res = await fetch(url, { headers: HEADERS });
+  if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
+  const json = await res.json() as Record<string, unknown>;
+  // Response shape: { data: { events: { data: [...] } } }
+  const events = (json?.data as Record<string, unknown>)?.events;
+  const items = (events as Record<string, unknown>)?.data;
+  return Array.isArray(items) ? (items as ApiNetEvent[]) : [];
+}
+
 export async function fetchResults(
   eventId: number,
   distanceId: string

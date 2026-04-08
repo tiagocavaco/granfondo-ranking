@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import { fetchAllEvents, fetchParticipants, fetchResults } from "./api.js";
+import { fetchAllEvents, fetchUpcomingEvents, fetchParticipants, fetchResults } from "./api.js";
 import {
   EXTERNAL_EVENTS,
   scrapeFigueiraChampionsDay,
@@ -132,9 +132,7 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
     return isGranfondoName(e.nome) || supplementalSet.has(Number(e.id_evento));
   });
 
-  console.log(`   Found ${granfondos.length} granfondos in ${YEARS.join(", ")}\n`);
-
-  return granfondos.map((e) => ({
+  const pastEvents: StoredEvent[] = granfondos.map((e) => ({
     id: Number(e.id_evento),
     name: e.nome,
     year: getYear(parseEventDate(e.data)),
@@ -147,6 +145,44 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
     finisherCount: 0,
     scrapedAt: null,
   }));
+
+  // Fetch upcoming events from stopandgo.net (Pro API only returns past events)
+  const pastIds = new Set(pastEvents.map((e) => e.id));
+  const seenIds = new Set(pastIds);
+  const upcomingEvents: StoredEvent[] = [];
+
+  for (const year of YEARS) {
+    const netEvents = await fetchUpcomingEvents(year);
+    for (const e of netEvents) {
+      if (isKidsCamVariant(e.nome)) continue;
+      if (!isGranfondoName(e.nome) && !supplementalSet.has(e.id)) continue;
+      if (seenIds.has(e.id)) continue; // already have it
+      seenIds.add(e.id);
+      const date = e.data_inicio?.slice(0, 10) ?? "";
+      if (!date) continue;
+      const eventYear = getYear(date);
+      if (!YEARS.includes(eventYear)) continue;
+      // location is "City, Country" — take just the city part
+      const location = (e.location ?? "").split(",")[0]?.trim() ?? "";
+      upcomingEvents.push({
+        id: e.id,
+        name: e.nome,
+        year: eventYear,
+        date,
+        location,
+        resultsUrl: `https://results.stopandgo.pro/${e.id}`,
+        hasResults: false,
+        distances: [],
+        participantCount: 0,
+        finisherCount: 0,
+        scrapedAt: null,
+      });
+    }
+  }
+
+  console.log(`   Found ${pastEvents.length} past + ${upcomingEvents.length} upcoming granfondos in ${YEARS.join(", ")}\n`);
+
+  return [...pastEvents, ...upcomingEvents];
 }
 
 // ── Distance extraction from participants ─────────────────────────────────────

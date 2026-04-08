@@ -1,5 +1,13 @@
 // ── Raw API response types ───────────────────────────────────────────────────
 
+export interface ApiNetEvent {
+  id: number;
+  nome: string;
+  data_inicio: string; // ISO datetime
+  status: number;      // 1 = upcoming, 2 = finished (or similar)
+  location?: string;   // "City, Country"
+}
+
 export interface ApiEvent {
   id_evento: string;
   nome: string;
