@@ -2,9 +2,10 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import { fetchAllEvents, fetchUpcomingEvents, fetchParticipants, fetchResults } from "./api.js";
+import { fetchAllEvents, fetchUpcomingEvents, fetchNetEventById, fetchParticipants, fetchResults } from "./api.js";
 import {
   EXTERNAL_EVENTS,
+  MANUAL_UPCOMING_EVENTS,
   scrapeFigueiraChampionsDay,
   scrapeAgitagueda,
   scrapeApedalar5Quinas,
@@ -101,6 +102,7 @@ const SUPPLEMENTAL_EVENT_IDS: number[] = [
   1943, // Monção e Melgaço GF 2026 (Sep 20)
   1942, // TAVIRA GRANFONDO 2026 (Sep 27)
   1828, // Ourém Fatima Granfondo 2026 (Oct 18)
+  1977, // Grandfondo Médio Tejo 2026 (May 24)
 ];
 
 function isGranfondoName(name: string): boolean {
@@ -178,6 +180,33 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
         scrapedAt: null,
       });
     }
+  }
+
+  // Look up any supplemental IDs not yet found via search
+  for (const id of SUPPLEMENTAL_EVENT_IDS) {
+    if (seenIds.has(id)) continue;
+    const e = await fetchNetEventById(id);
+    if (!e) continue;
+    const date = e.data_inicio?.slice(0, 10) ?? "";
+    if (!date) continue;
+    const eventYear = getYear(date);
+    if (!YEARS.includes(eventYear)) continue;
+    if (isPast(date)) continue; // past events come from Pro API
+    const location = (e.location ?? "").split(",")[0]?.trim() ?? "";
+    seenIds.add(id);
+    upcomingEvents.push({
+      id,
+      name: e.nome,
+      year: eventYear,
+      date,
+      location,
+      resultsUrl: `https://results.stopandgo.pro/${id}`,
+      hasResults: false,
+      distances: [],
+      participantCount: 0,
+      finisherCount: 0,
+      scrapedAt: null,
+    });
   }
 
   console.log(`   Found ${pastEvents.length} past + ${upcomingEvents.length} upcoming granfondos in ${YEARS.join(", ")}\n`);
@@ -779,6 +808,12 @@ async function main() {
       }
     }
 
+    scraped.push(event);
+  }
+
+  // 3b. Add manual upcoming events (no StopAndGo ID yet)
+  for (const event of MANUAL_UPCOMING_EVENTS) {
+    console.log(`⏳ [${event.id}] ${event.name}`);
     scraped.push(event);
   }
 

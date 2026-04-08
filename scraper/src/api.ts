@@ -46,15 +46,38 @@ export async function fetchParticipants(eventId: number): Promise<ApiAthlete[]> 
 /**
  * Fetch upcoming events from stopandgo.net (includes future events not yet in the Pro API).
  */
-export async function fetchUpcomingEvents(year: number): Promise<ApiNetEvent[]> {
-  const url = `https://stopandgo.net/api/events?search=granfondo&year=${year}&per_page=100`;
+async function fetchNetEvents(search: string, year: number): Promise<ApiNetEvent[]> {
+  const url = `https://stopandgo.net/api/events?search=${encodeURIComponent(search)}&year=${year}&per_page=100`;
   const res = await fetch(url, { headers: HEADERS });
-  if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
+  if (!res.ok) return [];
   const json = await res.json() as Record<string, unknown>;
-  // Response shape: { data: { events: { data: [...] } } }
   const events = (json?.data as Record<string, unknown>)?.events;
   const items = (events as Record<string, unknown>)?.data;
   return Array.isArray(items) ? (items as ApiNetEvent[]) : [];
+}
+
+export async function fetchUpcomingEvents(year: number): Promise<ApiNetEvent[]> {
+  // Search multiple terms to catch events that don't have "granfondo" in name (e.g. "GF")
+  const [gf, gfd, gfSearch] = await Promise.all([
+    fetchNetEvents("granfondo", year),
+    fetchNetEvents("grandfondo", year),
+    fetchNetEvents("GF", year),
+  ]);
+  const seen = new Set<number>();
+  const all: ApiNetEvent[] = [];
+  for (const e of [...gf, ...gfd, ...gfSearch]) {
+    if (!seen.has(e.id)) { seen.add(e.id); all.push(e); }
+  }
+  return all;
+}
+
+export async function fetchNetEventById(id: number): Promise<ApiNetEvent | null> {
+  const url = `https://stopandgo.net/api/events/${id}`;
+  const res = await fetch(url, { headers: HEADERS });
+  if (!res.ok) return null;
+  const json = await res.json() as Record<string, unknown>;
+  const data = json?.data as Record<string, unknown>;
+  return (data?.event as ApiNetEvent) ?? null;
 }
 
 export async function fetchResults(
