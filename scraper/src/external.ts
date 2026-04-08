@@ -30,6 +30,7 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     year: 2025,
     date: "2025-02-15",
     location: "Figueira da Foz",
+    resultsUrl: "https://www.lap2go.com/pt/evento/figueira-champions-day-2025",
     hasResults: false,
     distances: [
       { id: "1", name: "Granfondo" },
@@ -45,6 +46,7 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     year: 2025,
     date: "2025-07-27",
     location: "Águeda",
+    resultsUrl: "https://www.waitastart.com/events/granfondo-agitagueda-2025",
     hasResults: false,
     distances: [
       { id: "1", name: "Granfondo" },
@@ -61,6 +63,7 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     year: 2025,
     date: "2025-06-01",
     location: "Sabugal",
+    resultsUrl: "https://www.apedalar.pt/resultados/granfondo-5-quinas-sabugal-2025",
     hasResults: false,
     distances: [
       { id: "1", name: "Granfondo" },
@@ -76,6 +79,7 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     year: 2025,
     date: "2025-08-12",
     location: "Viseu",
+    resultsUrl: "https://www.classificacoes.net/etapa-da-volta-2025",
     hasResults: false,
     distances: [{ id: "1", name: "Mediofondo" }],
     participantCount: 0,

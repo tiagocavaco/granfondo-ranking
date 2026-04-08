@@ -140,6 +140,7 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
     year: getYear(parseEventDate(e.data)),
     date: parseEventDate(e.data),
     location: e.local,
+    resultsUrl: `https://results.stopandgo.pro/${Number(e.id_evento)}`,
     hasResults: false,
     distances: [],
     participantCount: 0,

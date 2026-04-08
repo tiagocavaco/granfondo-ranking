@@ -5,6 +5,7 @@
     "year": 2026,
     "date": "2026-03-22",
     "location": "Aveiro",
+    "resultsUrl": "https://results.stopandgo.pro/1944",
     "hasResults": true,
     "distances": [
       {
@@ -22,6 +23,7 @@
     "year": 2026,
     "date": "2026-03-15",
     "location": "Viana do Castelo",
+    "resultsUrl": "https://results.stopandgo.pro/1720",
     "hasResults": true,
     "distances": [
       {
@@ -47,6 +49,7 @@
     "year": 2026,
     "date": "2026-02-21",
     "location": "Lagos",
+    "resultsUrl": "https://results.stopandgo.pro/1831",
     "hasResults": true,
     "distances": [
       {
@@ -68,6 +71,7 @@
     "year": 2026,
     "date": "2026-02-15",
     "location": "Figueira da Foz",
+    "resultsUrl": "https://results.stopandgo.pro/1880",
     "hasResults": true,
     "distances": [
       {
@@ -89,6 +93,7 @@
     "year": 2025,
     "date": "2025-11-02",
     "location": "Portimão",
+    "resultsUrl": "https://results.stopandgo.pro/1801",
     "hasResults": true,
     "distances": [
       {
@@ -114,6 +119,7 @@
     "year": 2025,
     "date": "2025-10-05",
     "location": "Ossa",
+    "resultsUrl": "https://results.stopandgo.pro/1780",
     "hasResults": true,
     "distances": [
       {
@@ -139,6 +145,7 @@
     "year": 2025,
     "date": "2025-09-28",
     "location": "Tavira",
+    "resultsUrl": "https://results.stopandgo.pro/1612",
     "hasResults": true,
     "distances": [
       {
@@ -164,6 +171,7 @@
     "year": 2025,
     "date": "2025-09-21",
     "location": "Monção",
+    "resultsUrl": "https://results.stopandgo.pro/1553",
     "hasResults": true,
     "distances": [
       {
@@ -189,6 +197,7 @@
     "year": 2025,
     "date": "2025-09-14",
     "location": "Lousã",
+    "resultsUrl": "https://results.stopandgo.pro/1759",
     "hasResults": true,
     "distances": [
       {
@@ -214,6 +223,7 @@
     "year": 2025,
     "date": "2025-07-13",
     "location": "Bragança",
+    "resultsUrl": "https://results.stopandgo.pro/1388",
     "hasResults": true,
     "distances": [
       {
@@ -239,6 +249,7 @@
     "year": 2025,
     "date": "2025-06-29",
     "location": "Manteigas",
+    "resultsUrl": "https://results.stopandgo.pro/1362",
     "hasResults": true,
     "distances": [
       {
@@ -260,6 +271,7 @@
     "year": 2025,
     "date": "2025-06-15",
     "location": "Basto",
+    "resultsUrl": "https://results.stopandgo.pro/1692",
     "hasResults": true,
     "distances": [
       {
@@ -285,6 +297,7 @@
     "year": 2025,
     "date": "2025-06-08",
     "location": "Castelo de Vide",
+    "resultsUrl": "https://results.stopandgo.pro/1505",
     "hasResults": true,
     "distances": [
       {
@@ -310,6 +323,7 @@
     "year": 2025,
     "date": "2025-06-01",
     "location": "Gerês",
+    "resultsUrl": "https://results.stopandgo.pro/1467",
     "hasResults": true,
     "distances": [
       {
@@ -335,6 +349,7 @@
     "year": 2025,
     "date": "2025-05-25",
     "location": "Tomar",
+    "resultsUrl": "https://results.stopandgo.pro/1681",
     "hasResults": true,
     "distances": [
       {
@@ -360,6 +375,7 @@
     "year": 2025,
     "date": "2025-05-11",
     "location": "Douro",
+    "resultsUrl": "https://results.stopandgo.pro/1439",
     "hasResults": true,
     "distances": [
       {
@@ -385,6 +401,7 @@
     "year": 2025,
     "date": "2025-04-27",
     "location": "Torres Vedras",
+    "resultsUrl": "https://results.stopandgo.pro/1656",
     "hasResults": true,
     "distances": [
       {
@@ -410,6 +427,7 @@
     "year": 2025,
     "date": "2025-04-06",
     "location": "Campo Maior",
+    "resultsUrl": "https://results.stopandgo.pro/1401",
     "hasResults": true,
     "distances": [
       {
@@ -435,6 +453,7 @@
     "year": 2025,
     "date": "2025-03-23",
     "location": "Aveiro",
+    "resultsUrl": "https://results.stopandgo.pro/1621",
     "hasResults": true,
     "distances": [
       {
@@ -452,6 +471,7 @@
     "year": 2025,
     "date": "2025-03-16",
     "location": "Viana do Castelo",
+    "resultsUrl": "https://results.stopandgo.pro/1390",
     "hasResults": true,
     "distances": [
       {
@@ -477,6 +497,7 @@
     "year": 2025,
     "date": "2025-03-02",
     "location": "Coimbra",
+    "resultsUrl": "https://results.stopandgo.pro/1590",
     "hasResults": true,
     "distances": [
       {
@@ -498,6 +519,7 @@
     "year": 2025,
     "date": "2025-03-01",
     "location": "Coimbra",
+    "resultsUrl": "https://results.stopandgo.pro/1592",
     "hasResults": true,
     "distances": [
       {
@@ -515,6 +537,7 @@
     "year": 2025,
     "date": "2025-02-22",
     "location": "Algarve",
+    "resultsUrl": "https://results.stopandgo.pro/1494",
     "hasResults": true,
     "distances": [
       {
@@ -536,6 +559,7 @@
     "year": 2025,
     "date": "2025-02-15",
     "location": "Figueira da Foz",
+    "resultsUrl": "https://www.lap2go.com/pt/evento/figueira-champions-day-2025",
     "hasResults": true,
     "distances": [
       {
@@ -557,6 +581,7 @@
     "year": 2025,
     "date": "2025-07-27",
     "location": "Águeda",
+    "resultsUrl": "https://www.waitastart.com/events/granfondo-agitagueda-2025",
     "hasResults": true,
     "distances": [
       {
@@ -582,6 +607,7 @@
     "year": 2025,
     "date": "2025-06-01",
     "location": "Sabugal",
+    "resultsUrl": "https://www.apedalar.pt/resultados/granfondo-5-quinas-sabugal-2025",
     "hasResults": true,
     "distances": [
       {
@@ -603,6 +629,7 @@
     "year": 2025,
     "date": "2025-08-12",
     "location": "Viseu",
+    "resultsUrl": "https://www.classificacoes.net/etapa-da-volta-2025",
     "hasResults": true,
     "distances": [
       {

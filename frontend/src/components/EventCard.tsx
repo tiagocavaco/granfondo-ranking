@@ -67,17 +67,30 @@ export default function EventCard({ event }: Props) {
         )}
       </div>
 
-      <div className="flex flex-wrap gap-1.5">
-        {event.distances.map((d) => (
-          <span
-            key={d.id}
-            className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${
-              DIST_COLORS[d.name] ?? "bg-slate-100 text-slate-600"
-            }`}
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-wrap gap-1.5">
+          {event.distances.map((d) => (
+            <span
+              key={d.id}
+              className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${
+                DIST_COLORS[d.name] ?? "bg-slate-100 text-slate-600"
+              }`}
+            >
+              {d.name}
+            </span>
+          ))}
+        </div>
+        {event.hasResults && event.resultsUrl && (
+          <a
+            href={event.resultsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="shrink-0 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
           >
-            {d.name}
-          </span>
-        ))}
+            Official ↗
+          </a>
+        )}
       </div>
     </div>
   );

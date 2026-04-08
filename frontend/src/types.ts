@@ -11,6 +11,7 @@ export interface StoredEvent {
   year: number;
   date: string; // "YYYY-MM-DD"
   location: string;
+  resultsUrl: string;
   hasResults: boolean;
   distances: StoredDistance[];
   participantCount: number;
