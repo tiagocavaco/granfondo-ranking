@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../api";
 import type { StoredEvent } from "../types";
-import ParticipantsTab from "./ParticipantsTab";
 import RankingsTab from "./RankingsTab";
+import ParticipantsTab from "./ParticipantsTab";
 import { Spinner, ErrorBanner } from "./EventList";
-
-type Tab = "rankings" | "participants";
 
 const DIST_COLORS: Record<string, string> = {
   Granfondo: "bg-blue-100 text-blue-700 border border-blue-200",
@@ -23,7 +21,6 @@ export default function EventDetail() {
   const [event, setEvent] = useState<StoredEvent | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [tab, setTab] = useState<Tab>("rankings");
 
   useEffect(() => {
     if (!id) return;
@@ -49,11 +46,6 @@ export default function EventDetail() {
     month: "long",
     year: "numeric",
   });
-
-  const tabs: { key: Tab; label: string; icon: string }[] = [
-    { key: "rankings", label: "Results", icon: "🏁" },
-    { key: "participants", label: "Participants", icon: "👥" },
-  ];
 
   return (
     <div>
@@ -108,41 +100,36 @@ export default function EventDetail() {
             )}
           </div>
 
-          <div className="flex flex-wrap gap-2">
-            {event.distances.map((d) => (
-              <span
-                key={d.id}
-                className={`text-xs px-3 py-1 rounded-full font-semibold ${
-                  DIST_COLORS[d.name] ?? "bg-white/10 text-white border border-white/20"
-                }`}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-2">
+              {event.distances.map((d) => (
+                <span
+                  key={d.id}
+                  className={`text-xs px-3 py-1 rounded-full font-semibold ${
+                    DIST_COLORS[d.name] ?? "bg-white/10 text-white border border-white/20"
+                  }`}
+                >
+                  {d.name}
+                </span>
+              ))}
+            </div>
+            {event.resultsUrl && (
+              <a
+                href={event.resultsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
               >
-                {d.name}
-              </span>
-            ))}
+                {isPast ? "Official Results ↗" : "Official Page ↗"}
+              </a>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-2 mb-6">
-        {tabs.map(({ key, label, icon }) => (
-          <button
-            key={key}
-            onClick={() => setTab(key)}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-              tab === key
-                ? "bg-blue-600 text-white shadow-sm"
-                : "bg-white border border-slate-200 text-slate-600 hover:border-blue-300 hover:text-blue-600"
-            }`}
-          >
-            <span>{icon}</span>
-            {label}
-          </button>
-        ))}
-      </div>
-
-      {tab === "rankings" && <RankingsTab eventId={event.id} distances={event.distances} />}
-      {tab === "participants" && <ParticipantsTab eventId={event.id} />}
+      {isPast
+        ? <RankingsTab eventId={event.id} distances={event.distances} />
+        : <ParticipantsTab eventId={event.id} />}
     </div>
   );
 }
