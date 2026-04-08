@@ -1,6 +1,6 @@
 import type { StoredEvent, StoredEventResults, ApiAthlete, AggregateRanking, TeamRanking } from "./types";
 
-const BASE = "/data";
+const BASE = `${import.meta.env.BASE_URL}data`;
 
 async function getJson<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`);
