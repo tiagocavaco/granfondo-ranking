@@ -10,7 +10,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "Clássica"
       }
     ],
     "participantCount": 1332,
@@ -76,11 +76,11 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "BIG DAY"
       },
       {
         "id": "2",
-        "name": "Mediofondo"
+        "name": "HALF DAY"
       }
     ],
     "participantCount": 727,
@@ -150,7 +150,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "GranFondo"
       },
       {
         "id": "2",
@@ -176,7 +176,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "GranFondo"
       },
       {
         "id": "2",
@@ -228,7 +228,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "GranFondo"
       },
       {
         "id": "2",
@@ -458,7 +458,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "Clássica"
       }
     ],
     "participantCount": 1261,
@@ -524,7 +524,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Time Trial"
+        "name": "TIME TRIAL"
       }
     ],
     "participantCount": 315,

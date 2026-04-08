@@ -278,25 +278,8 @@ function extractDistances(athletes: ApiAthlete[]): StoredDistance[] {
     }
   }
   return Array.from(seen.entries())
-    .map(([id, rawName]) => ({ id, name: normalizeDistanceName(rawName) }))
+    .map(([id, name]) => ({ id, name }))
     .sort((a, b) => Number(a.id) - Number(b.id));
-}
-
-/** Normalize a raw API distance name to canonical form using alias map. */
-function normalizeDistanceName(name: string): string {
-  const lower = name.toLowerCase().trim();
-  const DIST_ALIASES: Record<string, string> = {
-    granfondo: "Granfondo",
-    grandfondo: "Granfondo",
-    mediofondo: "Mediofondo",
-    minifondo: "Minifondo",
-    "time trial": "Time Trial",
-    "big day": "Granfondo",
-    "half day": "Mediofondo",
-    "clássica": "Granfondo",
-    "classica": "Granfondo",
-  };
-  return DIST_ALIASES[lower] ?? name;
 }
 
 // ── Result row transformation ─────────────────────────────────────────────────
@@ -384,21 +367,14 @@ async function scrapeEvent(event: StoredEvent): Promise<StoredEvent> {
 
   if (isCachedForever(resultsFile)) {
     const cached = readJson<StoredEventResults>(resultsFile)!;
-    // Backfill: normalize non-standard distance names (e.g. "BIG DAY" → "Granfondo")
-    let dirty = false;
-    for (const d of cached.distances) {
-      const normalized = normalizeDistanceName(d.name);
-      if (normalized !== d.name) { d.name = normalized; dirty = true; }
-    }
     // Backfill genderPos if missing from older cached files
     const needsGenderPos = cached.distances.some((d) =>
       d.results.some((r) => !r.dnf && !r.dns && r.pos > 0 && !r.genderPos)
     );
     if (needsGenderPos) {
       assignGenderPositions(cached.distances);
-      dirty = true;
+      writeJson(resultsFile, cached);
     }
-    if (dirty) writeJson(resultsFile, cached);
     event.hasResults = true;
     event.finisherCount = cached.distances.reduce(
       (s, d) => s + d.finisherCount,
@@ -863,19 +839,13 @@ async function main() {
 
     if (isCachedForever(resultsFile)) {
       const cached = readJson<import("./types.js").StoredEventResults>(resultsFile)!;
-      let dirty = false;
-      for (const d of cached.distances) {
-        const normalized = normalizeDistanceName(d.name);
-        if (normalized !== d.name) { d.name = normalized; dirty = true; }
-      }
       const needsGenderPos = cached.distances.some((d) =>
         d.results.some((r) => !r.dnf && !r.dns && r.pos > 0 && !r.genderPos)
       );
       if (needsGenderPos) {
         assignGenderPositions(cached.distances);
-        dirty = true;
+        writeJson(resultsFile, cached);
       }
-      if (dirty) writeJson(resultsFile, cached);
       event.hasResults = true;
       event.finisherCount = cached.distances.reduce((s, d) => s + d.finisherCount, 0);
       event.scrapedAt = cached.scrapedAt;
