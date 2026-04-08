@@ -105,6 +105,24 @@ const SUPPLEMENTAL_EVENT_IDS: number[] = [
   1977, // Grandfondo Médio Tejo 2026 (May 24)
 ];
 
+/**
+ * Official event pages for upcoming events — overrides the default results.stopandgo.pro URL.
+ * Used before results are published; replaced automatically once results go live.
+ */
+const OFFICIAL_EVENT_URLS: Record<number, string> = {
+  // BikeService
+  1741: "https://bikeservice.pt/event/eurobec-granfondo/",
+  1766: "https://bikeservice.pt/event/douro-granfondo/",
+  1806: "https://bikeservice.pt/event/geres-granfondo/",
+  1883: "https://bikeservice.pt/event/braganca-granfondo/",
+  1943: "https://bikeservice.pt/event/moncao-e-melgaco-granfondo/",
+  1828: "https://bikeservice.pt/event/ourem-fatima-granfondo/",
+  // Cabreira Solutions
+  1751: "https://cabreirasolutions.com/evento/granfondo-torres-vedras/",
+  1977: "https://cabreirasolutions.com/evento/granfondo-medio-tejo/",
+  1956: "https://cabreirasolutions.com/evento/lousa-granfondo/",
+};
+
 function isGranfondoName(name: string): boolean {
   const n = name.toLowerCase();
   return n.includes("granfondo") || n.includes("grandfondo");
@@ -140,7 +158,7 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
     year: getYear(parseEventDate(e.data)),
     date: parseEventDate(e.data),
     location: e.local,
-    resultsUrl: `https://results.stopandgo.pro/${Number(e.id_evento)}`,
+    resultsUrl: OFFICIAL_EVENT_URLS[Number(e.id_evento)] ?? `https://results.stopandgo.pro/${Number(e.id_evento)}`,
     hasResults: false,
     distances: [],
     participantCount: 0,
@@ -172,7 +190,7 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
         year: eventYear,
         date,
         location,
-        resultsUrl: `https://results.stopandgo.pro/${e.id}`,
+        resultsUrl: OFFICIAL_EVENT_URLS[e.id] ?? `https://results.stopandgo.pro/${e.id}`,
         hasResults: false,
         distances: [],
         participantCount: 0,
@@ -200,7 +218,7 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
       year: eventYear,
       date,
       location,
-      resultsUrl: `https://results.stopandgo.pro/${id}`,
+      resultsUrl: OFFICIAL_EVENT_URLS[id] ?? `https://results.stopandgo.pro/${id}`,
       hasResults: false,
       distances: [],
       participantCount: 0,
