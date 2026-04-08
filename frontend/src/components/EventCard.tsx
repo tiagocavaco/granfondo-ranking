@@ -80,7 +80,7 @@ export default function EventCard({ event }: Props) {
             </span>
           ))}
         </div>
-        {event.hasResults && event.resultsUrl && (
+        {event.resultsUrl && (
           <a
             href={event.resultsUrl}
             target="_blank"

@@ -35,7 +35,18 @@ export default function EventList() {
         (status === "past" && isPast) ||
         (status === "upcoming" && !isPast);
       return matchSeason && matchStatus;
-    }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    }).sort((a, b) => {
+      const aDate = new Date(a.date).getTime();
+      const bDate = new Date(b.date).getTime();
+      const now = Date.now();
+      const aPast = aDate < now;
+      const bPast = bDate < now;
+      // Past events: newest first. Upcoming events: soonest first.
+      if (aPast && bPast) return bDate - aDate;
+      if (!aPast && !bPast) return aDate - bDate;
+      // Upcoming before past when showing "all"
+      return aPast ? 1 : -1;
+    });
   }, [allEvents, season, status]);
 
   const totalFinishers = useMemo(
