@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { api } from "../api";
 import type { TeamRanking, TeamEntry } from "../types";
 import { Spinner, ErrorBanner } from "./EventList";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 
 function RankBadge({ rank }: { rank: number }) {
   if (rank === 1)
@@ -81,6 +82,9 @@ export default function TeamRankingPage() {
   const ranked = useMemo(() => teams.map((t, i) => ({ ...t, rank: i + 1 })), [teams]);
   const maxPoints = ranked[0]?.totalPoints ?? 1;
   const topThree = ranked.slice(0, 3);
+
+  const resetKey = `${year}|${distance}|${search}`;
+  const { visibleCount, sentinelRef } = useInfiniteScroll(ranked.length, resetKey);
 
   const handleYearChange = (y: string) => {
     setYear(y);
@@ -200,7 +204,7 @@ export default function TeamRankingPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {ranked.map((t) => (
+                {ranked.slice(0, visibleCount).map((t) => (
                   <>
                     <tr
                       key={t.team}
@@ -308,6 +312,11 @@ export default function TeamRankingPage() {
                 ))}
               </tbody>
             </table>
+            {visibleCount < ranked.length && (
+              <div ref={sentinelRef} className="px-4 py-3 text-xs text-slate-400 border-t border-slate-100 text-center">
+                Showing {visibleCount} of {ranked.length}…
+              </div>
+            )}
           </div>
         </>
       )}
