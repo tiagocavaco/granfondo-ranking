@@ -191,7 +191,6 @@ export default function AggregateRankingPage() {
                         ? "bg-gradient-to-b from-slate-50 to-white border-slate-200"
                         : "bg-gradient-to-b from-orange-50 to-white border-orange-200"
                     } ${isFirst ? "mt-0" : "mt-4"}`}
-                    style={{ order: podiumIdx === 1 ? -1 : podiumIdx }}
                   >
                     <div className="text-4xl mb-2">
                       {realRank === 1 ? "🥇" : realRank === 2 ? "🥈" : "🥉"}
