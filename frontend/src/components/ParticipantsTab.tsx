@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useRef, useCallback } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { api } from "../api";
 import type { ApiAthlete } from "../types";
 import { Spinner } from "./EventList";
@@ -64,18 +64,19 @@ export default function ParticipantsTab({ eventId }: Props) {
   // Reset visible count whenever filters change
   useEffect(() => { setVisibleCount(100); }, [search, distanceFilter, categoryFilter, genderFilter]);
 
-  // Infinite scroll: load 100 more when sentinel enters view
-  const loadMore = useCallback(() => setVisibleCount((n) => n + 100), []);
+  // Infinite scroll: recreate observer on each visibleCount change so it
+  // immediately re-checks if the sentinel is still visible and loads more
   useEffect(() => {
+    if (visibleCount >= filtered.length) return;
     const el = sentinelRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      (entries) => { if (entries[0]?.isIntersecting) loadMore(); },
+      ([entry]) => { if (entry?.isIntersecting) setVisibleCount((n) => n + 100); },
       { rootMargin: "200px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [loadMore]);
+  }, [visibleCount, filtered.length]);
 
   const filtered = useMemo(() => participants.filter((p) => {
     const matchSearch =
