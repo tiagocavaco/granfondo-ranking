@@ -56,7 +56,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
 
   const activeDist = distances.find((d) => d.id === activeDistId) ?? distances[0];
   const results: StoredResult[] = activeDist?.results ?? [];
-  const finisherCount = activeDist?.finisherCount ?? 0;
+  const totalFinisherCount = distances.reduce((sum, d) => sum + d.finisherCount, 0);
 
   const categories = useMemo(
     () => ["all", ...Array.from(new Set(results.map((r) => r.category).filter(Boolean))).sort()],
@@ -114,8 +114,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
           <option value="F">Women</option>
         </select>
         <span className="text-sm text-slate-500 ml-auto">
-          <span className="font-semibold text-slate-700">{filtered.length.toLocaleString()}</span>
-          {" in "}{activeDist?.name}{" of "}{finisherCount.toLocaleString()}
+          <span className="font-semibold text-slate-700">{filtered.length.toLocaleString()}</span> of {totalFinisherCount.toLocaleString()}
         </span>
       </div>
 
