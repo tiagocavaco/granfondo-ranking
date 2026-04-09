@@ -10,6 +10,7 @@ import {
   scrapeAgitagueda,
   scrapeApedalar5Quinas,
   scrapeEtapaDaVolta,
+  scrapeListaParticipants,
 } from "./external.js";
 import {
   normalizeName,
@@ -47,6 +48,7 @@ import type {
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, "..", "..", "frontend", "public", "data");
 const FORCE = process.argv.includes("--force");
+const PARTICIPANTS_ONLY = process.argv.includes("--participants");
 const YEARS = [2025, 2026]; // seasons to include
 const DELAY_MS = 400; // polite delay between requests
 
@@ -157,6 +159,15 @@ const DEFAULT_DISTANCES: Record<number, Array<{ id: string; name: string }>> = {
   1798: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
   1942: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
   1700: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+};
+
+/**
+ * Events that publish their participant list on stopandgo.net/lista/{slug}/.
+ * Used instead of the xcrono atletas.php API (which returns empty for upcoming events).
+ * Only confirmed participants (status=1) are included.
+ */
+const LISTA_URLS: Record<number, string> = {
+  1741: "https://stopandgo.net/lista/eurobecgf26/",
 };
 
 function isGranfondoName(name: string): boolean {
@@ -338,8 +349,12 @@ async function scrapeEvent(event: StoredEvent): Promise<StoredEvent> {
   // ── Step 1: participants / distance discovery ──────────────────────────────
   let athletes: ApiAthlete[] = [];
   try {
-    athletes = await fetchParticipants(event.id);
-    await sleep(DELAY_MS);
+    if (LISTA_URLS[event.id]) {
+      athletes = await scrapeListaParticipants(LISTA_URLS[event.id]!);
+    } else {
+      athletes = await fetchParticipants(event.id);
+      await sleep(DELAY_MS);
+    }
   } catch (err) {
     console.error(`  ✗ participants: ${err}`);
     return event;
@@ -802,6 +817,82 @@ function buildTeamRanking(events: StoredEvent[]): TeamRanking {
   return ranking;
 }
 
+// ── Participants-only scrape ──────────────────────────────────────────────────
+
+/**
+ * Lightweight scrape that only updates participant lists for upcoming events.
+ * Used on the Friday-evening schedule (registrations close Friday 20:00 UTC).
+ * Past events are loaded from cache — no results are re-fetched.
+ * Aggregate/team rankings are not rebuilt (they only change when results change).
+ */
+async function scrapeParticipants() {
+  console.log(`🚴  Granfondo Portugal Scraper — participants mode`);
+  console.log(`    ${new Date().toISOString()}\n`);
+
+  const events = await discoverGranfondos();
+  const scraped: StoredEvent[] = [];
+
+  for (const event of events) {
+    if (!isPast(event.date)) {
+      // Upcoming: fetch fresh participants
+      console.log(`⏳ [${event.id}] ${event.name}`);
+      try {
+        let athletes: ApiAthlete[] = [];
+        if (LISTA_URLS[event.id]) {
+          athletes = await scrapeListaParticipants(LISTA_URLS[event.id]!);
+        } else {
+          athletes = await fetchParticipants(event.id);
+          await sleep(DELAY_MS);
+        }
+        let distances = extractDistances(athletes);
+        if (distances.length === 0 && DEFAULT_DISTANCES[event.id]) {
+          distances = DEFAULT_DISTANCES[event.id]!;
+        }
+        event.distances = distances;
+        event.participantCount = athletes.length;
+        writeJson(`${event.id}_participants.json`, athletes);
+        console.log(`  ⏳ ${athletes.length} confirmed, ${distances.map((d) => d.name).join(" / ")}`);
+      } catch (err) {
+        console.error(`  ✗ ${err}`);
+      }
+    } else {
+      // Past: load from cache, no API call
+      const resultsFile = `${event.id}_results.json`;
+      const cached = readJson<StoredEventResults>(resultsFile);
+      if (cached) {
+        event.hasResults = true;
+        event.finisherCount = cached.distances.reduce((s, d) => s + d.finisherCount, 0);
+        event.distances = cached.distances.map((d) => ({ id: d.id, name: d.name }));
+        event.scrapedAt = cached.scrapedAt;
+      }
+    }
+    scraped.push(event);
+  }
+
+  // External events (past results cached, upcoming are static)
+  for (const { event } of [
+    { event: EXTERNAL_EVENTS[0]! },
+    { event: EXTERNAL_EVENTS[1]! },
+    { event: EXTERNAL_EVENTS[2]! },
+    { event: EXTERNAL_EVENTS[3]! },
+  ]) {
+    const cached = readJson<StoredEventResults>(`${event.id}_results.json`);
+    if (cached) {
+      event.hasResults = true;
+      event.finisherCount = cached.distances.reduce((s, d) => s + d.finisherCount, 0);
+      event.distances = cached.distances.map((d) => ({ id: d.id, name: d.name }));
+      event.scrapedAt = cached.scrapedAt;
+    }
+    scraped.push(event);
+  }
+
+  for (const event of MANUAL_UPCOMING_EVENTS) scraped.push(event);
+
+  writeJson("events.json", scraped);
+  console.log(`\n✓ events.json — ${scraped.length} events updated`);
+  console.log("\n✅ Done.");
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -920,7 +1011,7 @@ async function main() {
   console.log("\n✅ Done.");
 }
 
-main().catch((err) => {
+(PARTICIPANTS_ONLY ? scrapeParticipants() : main()).catch((err) => {
   console.error("Fatal:", err);
   process.exit(1);
 });

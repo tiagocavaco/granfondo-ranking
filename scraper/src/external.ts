@@ -13,6 +13,7 @@ import type {
   StoredEventResults,
   StoredDistanceResults,
   StoredResult,
+  ApiAthlete,
 } from "./types.js";
 import { normalizeName, timeToSeconds } from "./normalize.js";
 
@@ -169,6 +170,75 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
     scrapedAt: null,
   },
 ];
+
+// ── stopandgo.net/lista/ participant scraper ──────────────────────────────────
+
+/**
+ * Scrape confirmed participants from a stopandgo.net/lista/{slug}/ page.
+ * The page is server-rendered HTML with a DataTable; each row has:
+ *   td[0]=dorsal, td[1]=name, td[2]=percurso, td[3]=escalão, td[4]=equipa
+ *   td[5]=<span hidden>{status}</span><span class="badge">…</span>
+ *     status: 1=Confirmado, -1=Pendente, 0=Anulado
+ *
+ * Gender is derived from the escalão field (suffix "FEM" → F, else M).
+ * Distance ID is derived from the distance name position (1=GF, 2=MF, 3=Mini).
+ */
+export async function scrapeListaParticipants(url: string): Promise<ApiAthlete[]> {
+  const res = await fetch(url, { headers: { "User-Agent": BROWSER_UA } });
+  if (!res.ok) throw new Error(`lista HTTP ${res.status}: ${url}`);
+  const html = await res.text();
+
+  const athletes: ApiAthlete[] = [];
+
+  // Extract all <tr> blocks
+  const trPattern = /<tr[^>]*>([\s\S]*?)<\/tr>/g;
+  for (const trMatch of html.matchAll(trPattern)) {
+    const row = trMatch[1]!;
+    const tds = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((m) =>
+      m[1]!.replace(/<[^>]+>/g, "").trim()
+    );
+    if (tds.length < 6) continue;
+
+    // Extract numeric status from hidden span: <span hidden>1</span>
+    const statusMatch = row.match(/<span hidden>([-\d]+)<\/span>/);
+    const status = statusMatch ? parseInt(statusMatch[1]!, 10) : 0;
+    if (status !== 1) continue; // only Confirmado
+
+    const dorsal = tds[0] ?? "";
+    const name = tds[1] ?? "";
+    const percurso = tds[2] ?? "";
+    const escalao = tds[3] ?? "";
+    const equipa = tds[4] ?? "";
+
+    if (!name) continue;
+
+    // Derive gender from category (e.g. "MASTERS A FEM" → F)
+    const sexo = escalao.toUpperCase().includes("FEM") ? "F" : "M";
+
+    // Map distance name to ID (positional: GF=1, MF=2, Mini=3)
+    const distLower = percurso.toLowerCase();
+    const id_percursos =
+      distLower.includes("granfondo") || distLower.includes("grandfondo") ? "1"
+      : distLower.includes("mediofondo") ? "2"
+      : distLower.includes("minifondo") ? "3"
+      : "1";
+
+    athletes.push({
+      dorsal,
+      nome: name,
+      nomecompleto: name,
+      sexo,
+      equipa,
+      escalao,
+      percurso,
+      id_percursos,
+      pais_nome: null,
+      pais_iso2: null,
+    });
+  }
+
+  return athletes;
+}
 
 // ── Shared helpers ────────────────────────────────────────────────────────────
 

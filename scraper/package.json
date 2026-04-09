@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "scrape": "tsx src/index.ts",
-    "scrape:force": "tsx src/index.ts --force"
+    "scrape:force": "tsx src/index.ts --force",
+    "scrape:participants": "tsx src/index.ts --participants"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",

@@ -1,0 +1,35 @@
+name: Scrape Participants
+
+on:
+  schedule:
+    - cron: "0 20 * * 5"  # every Friday at 20:00 UTC (registrations close)
+  workflow_dispatch:        # allow manual trigger from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-participants:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Scrape participants
+        run: npm run scrape:participants
+        working-directory: scraper
+
+      - name: Commit updated participant files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add frontend/public/data/
+          git diff --staged --quiet || git commit -m "chore: update participants [skip ci]"
+          git push
