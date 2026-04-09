@@ -575,7 +575,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 400,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -627,7 +627,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 313,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -642,7 +642,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "GranFondo"
       },
       {
         "id": "2",
@@ -653,7 +653,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 461,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -731,7 +731,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 505,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -757,7 +757,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1577,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -783,7 +783,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1253,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -835,7 +835,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1026,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -850,7 +850,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "GranFondo"
       },
       {
         "id": "2",
@@ -861,7 +861,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 301,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -975,7 +975,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 401,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -1023,7 +1023,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 481,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -1067,7 +1067,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 512,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -1093,7 +1093,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 444,
     "finisherCount": 0,
     "scrapedAt": null
   }

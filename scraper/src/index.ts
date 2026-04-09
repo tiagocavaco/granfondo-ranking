@@ -167,7 +167,21 @@ const DEFAULT_DISTANCES: Record<number, Array<{ id: string; name: string }>> = {
  * Only confirmed participants (status=1) are included.
  */
 const LISTA_URLS: Record<number, string> = {
+  // stopandgo.net/lista/ — BikeService events
   1741: "https://stopandgo.net/lista/eurobecgf26/",
+  1766: "https://stopandgo.net/lista/douro_granfondo25/",
+  1806: "https://stopandgo.net/lista/geres_granfondo2026/",
+  1883: "https://stopandgo.net/lista/braganca_gf_26/",
+  1943: "https://stopandgo.net/lista/moncao_melgaco_gf26/",
+  1956: "https://stopandgo.net/lista/lousagf_26/",
+  1828: "https://stopandgo.net/lista/ourem_25/",
+  // inscricoes.cabreirasolutions.com/listas/ — same HTML table format
+  1751: "https://inscricoes.cabreirasolutions.com/listas/gf-torres-vedras-2026",
+  1977: "https://inscricoes.cabreirasolutions.com/listas/grandfondo-m-dio-tejo-2026",
+  90011: "https://inscricoes.cabreirasolutions.com/listas/granfondo-terras-de-basto-2026",
+  90013: "https://inscricoes.cabreirasolutions.com/listas/granfondo-paredes-2026",
+  90015: "https://inscricoes.cabreirasolutions.com/listas/granfondo-serra-d-ossa-2026",
+  90016: "https://inscricoes.cabreirasolutions.com/listas/grandfondo-portim-o-2026",
 };
 
 function isGranfondoName(name: string): boolean {
@@ -886,7 +900,26 @@ async function scrapeParticipants() {
     scraped.push(event);
   }
 
-  for (const event of MANUAL_UPCOMING_EVENTS) scraped.push(event);
+  for (const event of MANUAL_UPCOMING_EVENTS) {
+    const listaUrl = LISTA_URLS[event.id];
+    if (listaUrl) {
+      console.log(`⏳ [${event.id}] ${event.name}`);
+      try {
+        const athletes = await scrapeListaParticipants(listaUrl);
+        let distances = extractDistances(athletes);
+        if (distances.length === 0 && DEFAULT_DISTANCES[event.id]) {
+          distances = DEFAULT_DISTANCES[event.id]!;
+        }
+        event.distances = distances;
+        event.participantCount = athletes.length;
+        writeJson(`${event.id}_participants.json`, athletes);
+        console.log(`  ⏳ ${athletes.length} confirmed, ${distances.map((d) => d.name).join(" / ")}`);
+      } catch (err) {
+        console.error(`  ✗ ${err}`);
+      }
+    }
+    scraped.push(event);
+  }
 
   writeJson("events.json", scraped);
   console.log(`\n✓ events.json — ${scraped.length} events updated`);
