@@ -1,15 +1,17 @@
 import { useEffect, useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api } from "../api";
+import { api, athleteSlug } from "../api";
 import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "../types";
 import { Spinner, ErrorBanner } from "./EventList";
 
 interface Props {
   eventId: number;
   distances: StoredDistance[];
+  resultsUrl: string;
 }
 
-export default function RankingsTab({ eventId }: Props) {
+export default function RankingsTab({ eventId, resultsUrl }: Props) {
   const [data, setData] = useState<StoredEventResults | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +29,20 @@ export default function RankingsTab({ eventId }: Props) {
   return (
     <div>
       {loading && <Spinner />}
-      {error && <ErrorBanner>Results not available yet.</ErrorBanner>}
+      {error && (
+        <div className="text-center py-16 text-slate-400">
+          <p className="text-5xl mb-3">🏁</p>
+          <p className="font-semibold text-slate-600 text-lg mb-4">Results not available yet</p>
+          <a
+            href={resultsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+          >
+            View on official results page ↗
+          </a>
+        </div>
+      )}
       {!loading && !error && data && data.distances.length > 0 && (
         <ResultsTable distances={data.distances} />
       )}
@@ -154,7 +169,11 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   )}
                 </td>
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{r.bib}</td>
-                <td className="px-4 py-3 font-semibold text-slate-900">{r.name}</td>
+                <td className="px-4 py-3 font-semibold text-slate-900">
+                  <Link to={`/athlete/${athleteSlug(r.nameLower)}`} className="hover:text-blue-600 transition-colors">
+                    {r.name}
+                  </Link>
+                </td>
                 <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell max-w-[140px] truncate">
                   {r.team}
                 </td>

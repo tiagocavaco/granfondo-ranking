@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api } from "../api";
+import { api, athleteSlug } from "../api";
 import type { AggregateRanking, AggregateAthlete } from "../types";
 import { Spinner, ErrorBanner } from "./EventList";
 
@@ -250,7 +251,9 @@ export default function AggregateRankingPage() {
                         <RankBadge rank={a.rank} />
                       </td>
                       <td className="px-4 py-3">
-                        <div className="font-semibold text-slate-900">{a.name}</div>
+                        <Link to={`/athlete/${athleteSlug(a.nameLower)}`} className="font-semibold text-slate-900 hover:text-blue-600 transition-colors" onClick={(e) => e.stopPropagation()}>
+                          {a.name}
+                        </Link>
                         <div className="text-xs text-slate-400 lg:hidden mt-0.5 truncate max-w-[160px]">
                           {a.team}
                         </div>

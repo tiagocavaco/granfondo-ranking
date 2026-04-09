@@ -72,7 +72,7 @@ export default function EventList() {
               label: "Finishers",
               value: totalFinishers.toLocaleString(),
               icon: "🚴",
-              sub: uniqueAthletes !== null ? `${uniqueAthletes.toLocaleString()} unique` : undefined,
+              sub: uniqueAthletes !== null ? `${uniqueAthletes.toLocaleString()} unique all-time` : undefined,
             },
           ].map(({ label, value, icon, sub }: { label: string; value: string | number; icon: string; sub?: string }) => (
             <div

@@ -1032,6 +1032,15 @@ async function main() {
   console.log(`✓ athletes.json — ${athletesArray.length} athletes`);
   writeJson("stats.json", { uniqueAthletes: athletesArray.length });
 
+  // Write individual athlete files for the profile page
+  const athleteDir = path.join(DATA_DIR, "athlete");
+  fs.mkdirSync(athleteDir, { recursive: true });
+  for (const a of athletesArray) {
+    const slug = a.nameLower.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    fs.writeFileSync(path.join(athleteDir, `${slug}.json`), JSON.stringify(a), "utf-8");
+  }
+  console.log(`✓ athlete/ — ${athletesArray.length} individual files`);
+
   // 6. Build and write aggregate ranking
   console.log("🏆 Building aggregate ranking…");
   const aggregateRanking = buildAggregateRanking(scraped);

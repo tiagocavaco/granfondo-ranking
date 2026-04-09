@@ -11,13 +11,15 @@ interface Props {
 const DIST_PILL: Record<string, string> = {
   Granfondo: "bg-blue-50 text-blue-700",
   GranFondo: "bg-blue-50 text-blue-700",
-  Mediofondo: "bg-violet-50 text-violet-700",
-  Minifondo: "bg-emerald-50 text-emerald-700",
-  "TIME TRIAL": "bg-amber-50 text-amber-700",
   "BIG DAY": "bg-blue-50 text-blue-700",
-  "HALF DAY": "bg-violet-50 text-violet-700",
   "Clássica": "bg-blue-50 text-blue-700",
-  "Etapa": "bg-violet-50 text-violet-700",
+  Classica: "bg-blue-50 text-blue-700",
+  Mediofondo: "bg-violet-50 text-violet-700",
+  "HALF DAY": "bg-violet-50 text-violet-700",
+  Etapa: "bg-violet-50 text-violet-700",
+  Minifondo: "bg-emerald-50 text-emerald-700",
+  "Time Trial": "bg-amber-50 text-amber-700",
+  "TIME TRIAL": "bg-amber-50 text-amber-700",
 };
 
 export default function ParticipantsTab({ eventId }: Props) {

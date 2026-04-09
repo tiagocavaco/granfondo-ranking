@@ -1,4 +1,8 @@
-import type { StoredEvent, StoredEventResults, ApiAthlete, AggregateRanking, TeamRanking } from "./types";
+import type { StoredEvent, StoredEventResults, ApiAthlete, AggregateRanking, TeamRanking, AthleteEntry } from "./types";
+
+export function athleteSlug(nameLower: string): string {
+  return nameLower.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -31,5 +35,9 @@ export const api = {
 
   getStats(): Promise<{ uniqueAthletes: number }> {
     return getJson<{ uniqueAthletes: number }>("/stats.json");
+  },
+
+  getAthlete(nameLower: string): Promise<AthleteEntry> {
+    return getJson<AthleteEntry>(`/athlete/${athleteSlug(nameLower)}.json`);
   },
 };

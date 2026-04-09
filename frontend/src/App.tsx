@@ -3,6 +3,7 @@ import EventList from "./components/EventList";
 import EventDetail from "./components/EventDetail";
 import AggregateRankingPage from "./components/AggregateRankingPage";
 import TeamRankingPage from "./components/TeamRankingPage";
+import AthleteProfile from "./components/AthleteProfile";
 
 export default function App() {
   return (
@@ -73,6 +74,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<EventList />} />
             <Route path="/event/:id" element={<EventDetail />} />
+            <Route path="/athlete/:nameLower" element={<AthleteProfile />} />
             <Route path="/ranking" element={<AggregateRankingPage />} />
             <Route path="/teams" element={<TeamRankingPage />} />
           </Routes>

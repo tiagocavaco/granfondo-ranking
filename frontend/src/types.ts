@@ -56,6 +56,34 @@ export interface StoredEventResults {
   distances: StoredDistanceResults[];
 }
 
+// ── Athlete profile ───────────────────────────────────────────────────────────
+
+export interface AthleteResultRef {
+  eventId: number;
+  eventName: string;
+  eventDate: string;
+  eventYear: number;
+  distance: string;
+  pos: number;
+  category: string;
+  gender: string;
+  team: string;
+  country: string;
+  raceTime: string;
+  raceTimeSecs: number;
+  gap: string;
+  gapSecs: number;
+  dnf: boolean;
+  dns: boolean;
+}
+
+export interface AthleteEntry {
+  name: string;
+  nameLower: string;
+  canonicalTeam?: string;
+  results: AthleteResultRef[];
+}
+
 // ── Participants (raw from scraper) ────────────────────────────────────────────
 
 export interface ApiAthlete {

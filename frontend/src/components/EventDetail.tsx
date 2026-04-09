@@ -9,10 +9,15 @@ import { Spinner, ErrorBanner } from "./EventList";
 const DIST_COLORS: Record<string, string> = {
   Granfondo: "bg-blue-100 text-blue-700 border border-blue-200",
   GranFondo: "bg-blue-100 text-blue-700 border border-blue-200",
+  "BIG DAY": "bg-blue-100 text-blue-700 border border-blue-200",
   Mediofondo: "bg-violet-100 text-violet-700 border border-violet-200",
+  "HALF DAY": "bg-violet-100 text-violet-700 border border-violet-200",
+  Etapa: "bg-violet-100 text-violet-700 border border-violet-200",
   Minifondo: "bg-emerald-100 text-emerald-700 border border-emerald-200",
   "Time Trial": "bg-amber-100 text-amber-700 border border-amber-200",
   "TIME TRIAL": "bg-amber-100 text-amber-700 border border-amber-200",
+  "Clássica": "bg-blue-100 text-blue-700 border border-blue-200",
+  "Classica": "bg-blue-100 text-blue-700 border border-blue-200",
 };
 
 export default function EventDetail() {
@@ -150,7 +155,7 @@ export default function EventDetail() {
       </div>
 
       {isPast
-        ? <RankingsTab eventId={event.id} distances={event.distances} />
+        ? <RankingsTab eventId={event.id} distances={event.distances} resultsUrl={event.resultsUrl} />
         : <ParticipantsTab eventId={event.id} />}
     </div>
   );
