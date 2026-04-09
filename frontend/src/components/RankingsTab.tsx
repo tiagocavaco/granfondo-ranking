@@ -95,13 +95,13 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-3 mb-4">
+      <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4">
         <input
           type="text"
           placeholder="Search name, team, bib…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-48 px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full sm:w-48 px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
         {distances.length > 1 && (
           <select
@@ -129,7 +129,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
           <option value="M">Men</option>
           <option value="F">Women</option>
         </select>
-        <span className="text-sm text-slate-500 ml-auto">
+        <span className="text-sm text-slate-500 sm:ml-auto">
           <span className="font-semibold text-slate-700">{filtered.length.toLocaleString()}</span> of {totalFinisherCount.toLocaleString()}
         </span>
       </div>

@@ -161,15 +161,13 @@ export default function AggregateRankingPage() {
           labelMap={{ M: "Men", F: "Women" }}
         />
 
-        <div className="ml-auto">
-          <input
-            type="text"
-            placeholder="Search athlete or team…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-52 px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Search athlete or team…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full sm:w-52 sm:ml-auto px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
       </div>
 
       {loading && <Spinner />}
@@ -179,7 +177,7 @@ export default function AggregateRankingPage() {
         <>
           {/* Podium — top 3 */}
           {topThree.length >= 3 && !search && (
-            <div className="grid grid-cols-3 gap-3 mb-8">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-8">
               {[topThree[1], topThree[0], topThree[2]].map((a, podiumIdx) => {
                 const realRank = a.rank;
                 const isFirst = realRank === 1;
@@ -187,7 +185,7 @@ export default function AggregateRankingPage() {
                   <div
                     key={a.slug}
                     onClick={() => navigate(`/athlete/${a.slug}`)}
-                    className={`rounded-2xl p-5 text-center relative overflow-hidden border cursor-pointer ${
+                    className={`rounded-2xl p-3 sm:p-5 text-center relative overflow-hidden border cursor-pointer ${
                       isFirst
                         ? "bg-gradient-to-b from-amber-50 to-white border-amber-200 shadow-md hover:shadow-lg"
                         : podiumIdx === 0
@@ -195,22 +193,22 @@ export default function AggregateRankingPage() {
                         : "bg-gradient-to-b from-orange-50 to-white border-orange-200 hover:border-orange-300"
                     } ${isFirst ? "mt-0" : "mt-4"} transition-shadow`}
                   >
-                    <div className="text-4xl mb-2">
+                    <div className="text-2xl sm:text-4xl mb-1 sm:mb-2">
                       {realRank === 1 ? "🥇" : realRank === 2 ? "🥈" : "🥉"}
                     </div>
-                    <div className="font-extrabold text-slate-900 text-sm leading-tight mb-1">
+                    <div className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-1 line-clamp-2">
                       {a.name}
                     </div>
-                    <div className="text-xs text-slate-500 mb-3 truncate">{a.team}</div>
+                    <div className="text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block">{a.team}</div>
                     <div
-                      className={`text-2xl font-black ${
+                      className={`text-lg sm:text-2xl font-black ${
                         isFirst ? "text-amber-600" : "text-slate-700"
                       }`}
                     >
                       {a.totalPoints}
                     </div>
-                    <div className="text-[11px] text-slate-400 font-medium">points</div>
-                    <div className="text-[11px] text-slate-400 mt-1">
+                    <div className="text-[10px] sm:text-[11px] text-slate-400 font-medium">pts</div>
+                    <div className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 hidden sm:block">
                       {a.eventsScored} races · best #{a.bestPos}
                     </div>
                   </div>

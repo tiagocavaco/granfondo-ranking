@@ -14,10 +14,10 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-6">
             {/* Logo */}
             <div className="flex items-center gap-3 mr-2">
-              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-xl backdrop-blur-sm border border-white/10">
+              <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-lg backdrop-blur-sm border border-white/10 shrink-0">
                 🚴
               </div>
-              <div>
+              <div className="hidden sm:block">
                 <div className="text-white font-extrabold text-lg leading-tight tracking-tight">
                   Granfondo Portugal
                 </div>
@@ -28,12 +28,12 @@ export default function App() {
             </div>
 
             {/* Nav */}
-            <nav className="flex gap-1">
+            <nav className="flex gap-0.5 sm:gap-1">
               <NavLink
                 to="/"
                 end
                 className={({ isActive }) =>
-                  `px-4 py-2 text-sm font-semibold rounded-lg transition-all ${
+                  `px-3 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all ${
                     isActive
                       ? "bg-white/15 text-white backdrop-blur-sm"
                       : "text-blue-200 hover:text-white hover:bg-white/8"
@@ -45,26 +45,30 @@ export default function App() {
               <NavLink
                 to="/ranking"
                 className={({ isActive }) =>
-                  `px-4 py-2 text-sm font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
+                  `px-3 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
                     isActive
                       ? "bg-white/15 text-white backdrop-blur-sm"
                       : "text-blue-200 hover:text-white hover:bg-white/8"
                   }`
                 }
               >
-                <span>🏆</span> Athlete Ranking
+                <span className="hidden sm:inline">🏆 </span>
+                <span className="sm:hidden">Athletes</span>
+                <span className="hidden sm:inline">Athlete Ranking</span>
               </NavLink>
               <NavLink
                 to="/teams"
                 className={({ isActive }) =>
-                  `px-4 py-2 text-sm font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
+                  `px-3 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
                     isActive
                       ? "bg-white/15 text-white backdrop-blur-sm"
                       : "text-blue-200 hover:text-white hover:bg-white/8"
                   }`
                 }
               >
-                <span>🏅</span> Team Ranking
+                <span className="hidden sm:inline">🏅 </span>
+                <span className="sm:hidden">Teams</span>
+                <span className="hidden sm:inline">Team Ranking</span>
               </NavLink>
             </nav>
           </div>

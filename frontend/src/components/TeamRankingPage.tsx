@@ -142,15 +142,13 @@ export default function TeamRankingPage() {
             "Time Trial": { active: "bg-amber-500 text-white" },
           }}
         />
-        <div className="ml-auto">
-          <input
-            type="text"
-            placeholder="Search team…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-48 px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Search team…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full sm:w-48 sm:ml-auto px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
       </div>
 
       {loading && <Spinner />}
@@ -160,13 +158,13 @@ export default function TeamRankingPage() {
         <>
           {/* Podium — top 3 */}
           {topThree.length >= 3 && !search && (
-            <div className="grid grid-cols-3 gap-3 mb-8">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-8">
               {[topThree[1], topThree[0], topThree[2]].map((t, podiumIdx) => {
                 const isFirst = t.rank === 1;
                 return (
                   <div
                     key={t.team}
-                    className={`rounded-2xl p-5 text-center relative overflow-hidden border ${
+                    className={`rounded-2xl p-3 sm:p-5 text-center relative overflow-hidden border ${
                       isFirst
                         ? "bg-gradient-to-b from-amber-50 to-white border-amber-200 shadow-md"
                         : podiumIdx === 0
@@ -174,17 +172,17 @@ export default function TeamRankingPage() {
                         : "bg-gradient-to-b from-orange-50 to-white border-orange-200"
                     } ${isFirst ? "mt-0" : "mt-4"}`}
                   >
-                    <div className="text-4xl mb-2">
+                    <div className="text-2xl sm:text-4xl mb-1 sm:mb-2">
                       {t.rank === 1 ? "🥇" : t.rank === 2 ? "🥈" : "🥉"}
                     </div>
-                    <div className="font-extrabold text-slate-900 text-sm leading-tight mb-3 px-1">
+                    <div className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-2 sm:mb-3 line-clamp-2">
                       {t.team}
                     </div>
-                    <div className={`text-2xl font-black ${isFirst ? "text-amber-600" : "text-slate-700"}`}>
+                    <div className={`text-lg sm:text-2xl font-black ${isFirst ? "text-amber-600" : "text-slate-700"}`}>
                       {t.totalPoints}
                     </div>
-                    <div className="text-[11px] text-slate-400 font-medium">points</div>
-                    <div className="text-[11px] text-slate-400 mt-1">
+                    <div className="text-[10px] sm:text-[11px] text-slate-400 font-medium">pts</div>
+                    <div className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 hidden sm:block">
                       {t.eventsScored} events · best {teamRankBadge(t.bestRank)}
                     </div>
                   </div>

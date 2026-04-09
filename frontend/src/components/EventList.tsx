@@ -60,7 +60,7 @@ export default function EventList() {
     <div>
       {/* Stats bar */}
       {!loading && !error && allEvents.length > 0 && (
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-8">
           {[
             { label: "Events", value: filtered.length, icon: "🏁" },
             {
@@ -83,13 +83,18 @@ export default function EventList() {
           ].map(({ label, value, icon, sub }: { label: string; value: string | number; icon: string; sub?: string }) => (
             <div
               key={label}
-              className="bg-white rounded-2xl border border-slate-200 px-5 py-4 text-center"
+              className="bg-white rounded-2xl border border-slate-200 px-3 sm:px-5 py-3 sm:py-4 text-center"
             >
-              <div className="text-2xl mb-1">{icon}</div>
-              <div className="text-2xl font-extrabold text-slate-900">
-                {value}{sub && <span className="text-sm font-medium text-slate-400 ml-1">({sub})</span>}
+              <div className="text-xl sm:text-2xl mb-0.5 sm:mb-1">{icon}</div>
+              <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">
+                {value}
+                {sub && (
+                  <span className="block sm:inline text-xs sm:text-sm font-medium text-slate-400 sm:ml-1">
+                    <span className="hidden sm:inline">(</span>{sub}<span className="hidden sm:inline">)</span>
+                  </span>
+                )}
               </div>
-              <div className="text-xs text-slate-500 font-medium mt-0.5">{label}</div>
+              <div className="text-[10px] sm:text-xs text-slate-500 font-medium mt-0.5">{label}</div>
             </div>
           ))}
         </div>
