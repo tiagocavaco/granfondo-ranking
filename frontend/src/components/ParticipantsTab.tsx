@@ -64,6 +64,18 @@ export default function ParticipantsTab({ eventId }: Props) {
   // Reset visible count whenever filters change
   useEffect(() => { setVisibleCount(100); }, [search, distanceFilter, categoryFilter, genderFilter]);
 
+  const filtered = useMemo(() => participants.filter((p) => {
+    const matchSearch =
+      !search ||
+      p.nomecompleto.toLowerCase().includes(search.toLowerCase()) ||
+      (p.equipa ?? "").toLowerCase().includes(search.toLowerCase()) ||
+      p.dorsal.includes(search);
+    const matchDist = distanceFilter === "all" || p.percurso === distanceFilter;
+    const matchCat = categoryFilter === "all" || p.escalao === categoryFilter;
+    const matchGender = genderFilter === "all" || p.sexo === genderFilter;
+    return matchSearch && matchDist && matchCat && matchGender;
+  }), [participants, search, distanceFilter, categoryFilter, genderFilter]);
+
   // Infinite scroll: recreate observer on each visibleCount change so it
   // immediately re-checks if the sentinel is still visible and loads more
   useEffect(() => {
@@ -77,18 +89,6 @@ export default function ParticipantsTab({ eventId }: Props) {
     observer.observe(el);
     return () => observer.disconnect();
   }, [visibleCount, filtered.length]);
-
-  const filtered = useMemo(() => participants.filter((p) => {
-    const matchSearch =
-      !search ||
-      p.nomecompleto.toLowerCase().includes(search.toLowerCase()) ||
-      (p.equipa ?? "").toLowerCase().includes(search.toLowerCase()) ||
-      p.dorsal.includes(search);
-    const matchDist = distanceFilter === "all" || p.percurso === distanceFilter;
-    const matchCat = categoryFilter === "all" || p.escalao === categoryFilter;
-    const matchGender = genderFilter === "all" || p.sexo === genderFilter;
-    return matchSearch && matchDist && matchCat && matchGender;
-  }), [participants, search, distanceFilter, categoryFilter, genderFilter]);
 
   if (loading) return <Spinner />;
 
