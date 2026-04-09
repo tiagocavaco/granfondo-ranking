@@ -56,6 +56,20 @@ export interface StoredEventResults {
   distances: StoredDistanceResults[];
 }
 
+// ── Athlete disambiguation ────────────────────────────────────────────────────
+
+export interface AthleteMatch {
+  slug: string;
+  name: string;
+  team: string;
+  resultCount: number;
+}
+
+export interface AthleteDisambiguation {
+  disambiguation: true;
+  matches: AthleteMatch[];
+}
+
 // ── Athlete profile ───────────────────────────────────────────────────────────
 
 export interface AthleteResultRef {

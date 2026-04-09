@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "../api";
-import type { AthleteEntry, AthleteResultRef } from "../types";
+import type { AthleteEntry, AthleteResultRef, AthleteDisambiguation } from "../types";
 import { Spinner } from "./EventList";
 
 const DIST_COLOR: Record<string, string> = {
@@ -28,23 +28,25 @@ function posStyle(pos: number) {
 export default function AthleteProfile() {
   const { nameLower } = useParams<{ nameLower: string }>();
   const navigate = useNavigate();
-  const [athlete, setAthlete] = useState<AthleteEntry | null>(null);
+  const [data, setData] = useState<AthleteEntry | AthleteDisambiguation | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!nameLower) return;
     setLoading(true);
+    setData(null);
+    setError(null);
     api
       .getAthlete(nameLower)
-      .then(setAthlete)
+      .then(setData)
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
   }, [nameLower]);
 
   if (loading) return <Spinner />;
 
-  if (error || !athlete)
+  if (error || !data)
     return (
       <div className="text-center py-16 text-slate-400">
         <p className="text-5xl mb-3">👤</p>
@@ -54,6 +56,43 @@ export default function AthleteProfile() {
         </button>
       </div>
     );
+
+  if ("disambiguation" in data) {
+    return (
+      <div>
+        <button
+          onClick={() => navigate(-1)}
+          className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 mb-6 transition-colors"
+        >
+          ← Back
+        </button>
+        <div className="mb-6">
+          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+            Multiple athletes found
+          </h1>
+          <p className="text-slate-500 mt-1 text-sm">
+            Several athletes share this name. Select the correct profile:
+          </p>
+        </div>
+        <div className="grid gap-3 max-w-lg">
+          {data.matches.map((m) => (
+            <button
+              key={m.slug}
+              onClick={() => navigate(`/athlete/${m.slug}`)}
+              className="text-left rounded-xl border border-slate-200 bg-white px-5 py-4 hover:border-blue-300 hover:bg-blue-50/40 transition-colors shadow-sm"
+            >
+              <div className="font-semibold text-slate-900">{m.name}</div>
+              <div className="text-sm text-slate-500 mt-0.5">
+                {m.team || "No team"} · {m.resultCount} race{m.resultCount !== 1 ? "s" : ""}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const athlete = data;
 
   const finished = athlete.results.filter((r) => !r.dnf && !r.dns);
   const bestPos = finished.length > 0 ? Math.min(...finished.map((r) => r.pos)) : null;

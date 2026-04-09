@@ -1,4 +1,4 @@
-import type { StoredEvent, StoredEventResults, ApiAthlete, AggregateRanking, TeamRanking, AthleteEntry } from "./types";
+import type { StoredEvent, StoredEventResults, ApiAthlete, AggregateRanking, TeamRanking, AthleteEntry, AthleteDisambiguation } from "./types";
 
 export function athleteSlug(nameLower: string): string {
   return nameLower.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -37,13 +37,14 @@ export const api = {
     return getJson<{ uniqueAthletes: number; uniqueByYear: Record<string, number> }>("/stats.json");
   },
 
-  getAthlete(slug: string): Promise<AthleteEntry> {
-    return getJson<AthleteEntry | { redirectTo: string }>(`/athlete/${athleteSlug(slug)}.json`)
-      .then((data) => {
-        if ("redirectTo" in data) {
-          return getJson<AthleteEntry>(`/athlete/${data.redirectTo}.json`);
-        }
-        return data;
-      });
+  getAthlete(slug: string): Promise<AthleteEntry | AthleteDisambiguation> {
+    return getJson<AthleteEntry | { redirectTo: string } | AthleteDisambiguation>(
+      `/athlete/${athleteSlug(slug)}.json`
+    ).then((data) => {
+      if ("redirectTo" in data) {
+        return getJson<AthleteEntry>(`/athlete/${data.redirectTo}.json`);
+      }
+      return data;
+    });
   },
 };

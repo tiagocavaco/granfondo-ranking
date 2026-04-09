@@ -1209,7 +1209,38 @@ async function main() {
       "utf-8"
     );
   }
-  console.log(`✓ athlete/ — ${athletesIndex.size} files + ${redirects.size} redirect(s)`);
+
+  // Write name-only slug files so clicking an athlete name (without knowing their team)
+  // resolves correctly: redirect if unique name, disambiguation picker if multiple.
+  const byName = new Map<string, typeof athletesArray[number][]>();
+  for (const a of athletesIndex.values()) {
+    const nameSlug = a.nameLower.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    const bucket = byName.get(nameSlug) ?? [];
+    bucket.push(a);
+    byName.set(nameSlug, bucket);
+  }
+  let disambigCount = 0;
+  for (const [nameSlug, athletes] of byName) {
+    const filePath = path.join(athleteDir, `${nameSlug}.json`);
+    if (fs.existsSync(filePath)) continue; // composite slug already wrote this file (single-name athlete)
+    if (athletes.length === 1) {
+      fs.writeFileSync(filePath, JSON.stringify({ redirectTo: athletes[0]!.slug }), "utf-8");
+    } else {
+      disambigCount++;
+      fs.writeFileSync(filePath, JSON.stringify({
+        disambiguation: true,
+        matches: athletes
+          .sort((a, b) => b.results.length - a.results.length)
+          .map((a) => ({
+            slug: a.slug,
+            name: a.name,
+            team: a.canonicalTeam ?? "",
+            resultCount: a.results.length,
+          })),
+      }), "utf-8");
+    }
+  }
+  console.log(`✓ athlete/ — ${athletesIndex.size} files + ${redirects.size} redirect(s) + ${disambigCount} disambiguation(s)`);
 
   // 6. Build and write aggregate ranking
   console.log("🏆 Building aggregate ranking…");
