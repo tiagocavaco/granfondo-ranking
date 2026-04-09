@@ -80,9 +80,10 @@ export default function EventList() {
               className="bg-white rounded-2xl border border-slate-200 px-5 py-4 text-center"
             >
               <div className="text-2xl mb-1">{icon}</div>
-              <div className="text-2xl font-extrabold text-slate-900">{value}</div>
+              <div className="text-2xl font-extrabold text-slate-900">
+                {value}{sub && <span className="text-sm font-medium text-slate-400 ml-1">({sub})</span>}
+              </div>
               <div className="text-xs text-slate-500 font-medium mt-0.5">{label}</div>
-              {sub && <div className="text-xs text-slate-400 mt-0.5">{sub}</div>}
             </div>
           ))}
         </div>
