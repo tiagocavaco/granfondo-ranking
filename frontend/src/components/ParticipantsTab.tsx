@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { api } from "../api";
 import type { ApiAthlete } from "../types";
 import { Spinner } from "./EventList";
@@ -27,6 +27,8 @@ export default function ParticipantsTab({ eventId }: Props) {
   const [distanceFilter, setDistanceFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [genderFilter, setGenderFilter] = useState("all");
+  const [visibleCount, setVisibleCount] = useState(100);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -58,6 +60,22 @@ export default function ParticipantsTab({ eventId }: Props) {
     () => ["all", ...Array.from(new Set(participants.map((p) => p.escalao).filter(Boolean))).sort()],
     [participants]
   );
+
+  // Reset visible count whenever filters change
+  useEffect(() => { setVisibleCount(100); }, [search, distanceFilter, categoryFilter, genderFilter]);
+
+  // Infinite scroll: load 100 more when sentinel enters view
+  const loadMore = useCallback(() => setVisibleCount((n) => n + 100), []);
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => { if (entries[0]?.isIntersecting) loadMore(); },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [loadMore]);
 
   const filtered = useMemo(() => participants.filter((p) => {
     const matchSearch =
@@ -123,7 +141,7 @@ export default function ParticipantsTab({ eventId }: Props) {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {filtered.map((p, i) => (
+            {filtered.slice(0, visibleCount).map((p, i) => (
               <tr key={i} className="hover:bg-slate-50/60 transition-colors">
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{p.dorsal}</td>
                 <td className="px-4 py-3 font-semibold text-slate-900">{p.nomecompleto}</td>
@@ -157,6 +175,11 @@ export default function ParticipantsTab({ eventId }: Props) {
         </table>
         {filtered.length === 0 && (
           <div className="px-4 py-10 text-center text-sm text-slate-400">No participants found</div>
+        )}
+        {visibleCount < filtered.length && (
+          <div ref={sentinelRef} className="px-4 py-3 text-xs text-slate-400 border-t border-slate-100 text-center">
+            Showing {visibleCount} of {filtered.length}…
+          </div>
         )}
       </div>
     </div>
