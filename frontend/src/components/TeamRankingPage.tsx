@@ -1,14 +1,10 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { api, athleteSlug } from "../api";
+import { api, nameToSlug } from "../api";
 import type { TeamRanking, TeamEntry } from "../types";
 import { Spinner, ErrorBanner } from "./EventList";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 
-function nameToSlug(name: string): string {
-  const lower = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
-  return athleteSlug(lower);
-}
 
 function RankBadge({ rank }: { rank: number }) {
   if (rank === 1)

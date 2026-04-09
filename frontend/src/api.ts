@@ -4,6 +4,18 @@ export function athleteSlug(nameLower: string): string {
   return nameLower.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
+/** Normalize a display name to the slug used for athlete profile URLs. */
+export function nameToSlug(name: string): string {
+  const lower = name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")              // strip combining diacritics
+    .replace(/[´`\u00b4\u02b9\u02bc\u2018\u2019''']/g, "") // strip apostrophe/accent chars
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+  return athleteSlug(lower);
+}
+
 const BASE = `${import.meta.env.BASE_URL}data`;
 
 async function getJson<T>(path: string): Promise<T> {

@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api } from "../api";
+import { api, nameToSlug } from "../api";
 import type { ApiAthlete } from "../types";
 import { Spinner } from "./EventList";
 
@@ -23,6 +24,7 @@ const DIST_PILL: Record<string, string> = {
 };
 
 export default function ParticipantsTab({ eventId }: Props) {
+  const navigate = useNavigate();
   const [participants, setParticipants] = useState<ApiAthlete[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -132,7 +134,12 @@ export default function ParticipantsTab({ eventId }: Props) {
             {filtered.slice(0, visibleCount).map((p, i) => (
               <tr key={i} className="hover:bg-slate-50/60 transition-colors">
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{p.dorsal}</td>
-                <td className="px-4 py-3 font-semibold text-slate-900">{p.nomecompleto}</td>
+                <td
+                  className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
+                  onClick={() => navigate(`/athlete/${nameToSlug(p.nomecompleto)}`)}
+                >
+                  {p.nomecompleto}
+                </td>
                 <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell max-w-[160px] truncate">
                   {p.equipa}
                 </td>
