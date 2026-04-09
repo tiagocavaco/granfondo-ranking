@@ -114,25 +114,32 @@ const SUPPLEMENTAL_EVENT_IDS: number[] = [
  */
 const OFFICIAL_EVENT_URLS: Record<number, string> = {
   // BikeService
+  1720: "https://bikeservice.pt/event/viana-granfondo/",
   1741: "https://bikeservice.pt/event/eurobec-granfondo/",
   1766: "https://bikeservice.pt/event/douro-granfondo/",
   1806: "https://bikeservice.pt/event/geres-granfondo/",
   1883: "https://bikeservice.pt/event/braganca-granfondo/",
   1943: "https://bikeservice.pt/event/moncao-e-melgaco-granfondo/",
   1828: "https://bikeservice.pt/event/ourem-fatima-granfondo/",
+  // Algarve Granfondo
+  1831: "https://www.algarvegranfondo.com/",
   // Cabreira Solutions
   1751: "https://cabreirasolutions.com/evento/granfondo-torres-vedras/",
   1977: "https://cabreirasolutions.com/evento/granfondo-medio-tejo/",
   1956: "https://cabreirasolutions.com/evento/lousa-granfondo/",
+  90011: "https://cabreirasolutions.com/evento/granfondo-terras-de-basto/",
+  90013: "https://cabreirasolutions.com/evento/granfondo-paredes/",
+  90015: "https://cabreirasolutions.com/evento/granfondo-serra-dossa/",
+  90016: "https://cabreirasolutions.com/evento/granfondo-portimao/",
   // Figueira Champions Classic
   1880: "https://www.figueirachampionsclassic.com/day/regulamento/",
-  // Aveiro Spring Classic 2026
+  // Aveiro Spring Classic
   1944: "https://cabreirasolutions.com/evento/aveiro-spring-classic/",
-  // São Mamede Granfondo 2026
+  // São Mamede Granfondo
   1798: "https://stopandgo.net/events/sao-mamede-granfondo-2026",
-  // Tavira Granfondo 2026
+  // Tavira Granfondo
   1942: "https://stopandgo.net/events/tavira-granfondo-2026",
-  // Serra da Estrela Granfondo 2026
+  // Serra da Estrela Granfondo
   1700: "https://granfondoserradaestrela.com/",
 };
 
