@@ -94,6 +94,7 @@ export function normalizeName(name: string): string {
   return name
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "") // strip combining diacritics
+    .replace(/[´`\u00b4\u02b9\u02bc\u2018\u2019''']/g, "") // strip non-combining apostrophe/accent chars
     .toLowerCase()
     .replace(/\s+/g, " ")
     .trim();
@@ -118,7 +119,8 @@ export function fixRawTeamName(name: string): string {
  * - Fixes caret encoding artifacts
  * - Strips accents, lowercases
  * - Removes dots and commas (collapses abbreviations: "C.B." → "cb", "C. B." → "cb")
- * - Replaces all separators (/, |, \, ^, -) with space
+ * - Replaces all separators (/, |, \, ^, -, &, +) with space
+ * - Strips apostrophes/quote chars (', ´, `)
  * - Merges consecutive single-letter tokens (e.g., "c e" → "ce")
  * - Collapses whitespace
  */
@@ -129,10 +131,14 @@ export function normalizeTeam(name: string): string {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
+  // Strip apostrophes / quote chars (D'Encaixe → DEncaixe, not D-Encaixe)
+  s = s.replace(/['''`´\u2018\u2019\u02bc]/g, "");
+  // Strip leading # (e.g. "#Astantasteam" → "Astantasteam")
+  s = s.replace(/#/g, "");
   // Replace dots and commas with spaces (turns "C.B." → "c b " and "C.B.Almodôvar" → "c b almodovar")
   s = s.replace(/[.,]/g, " ");
-  // Replace all separator characters with space
-  s = s.replace(/[/|\\^]/g, " ").replace(/\s*-\s*/g, " ");
+  // Replace all separator characters with space (& + @ treated as word separators)
+  s = s.replace(/[/|\\^&+@]/g, " ").replace(/\s*-\s*/g, " ");
   // Collapse whitespace before single-char merging
   s = s.replace(/\s+/g, " ").trim();
   // Merge consecutive single-letter tokens separated by a single space

@@ -402,7 +402,7 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 116,
+            "totalTeams": 115,
             "eligibleTeams": 19,
             "coefficient": 1.2,
             "teamRank": 5,
@@ -1365,7 +1365,7 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 116,
+            "totalTeams": 115,
             "eligibleTeams": 19,
             "coefficient": 1.2,
             "teamRank": 6,
@@ -1478,7 +1478,7 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 116,
+            "totalTeams": 115,
             "eligibleTeams": 19,
             "coefficient": 1.2,
             "teamRank": 7,
@@ -1887,7 +1887,7 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 116,
+            "totalTeams": 115,
             "eligibleTeams": 19,
             "coefficient": 1.2,
             "teamRank": 8,
@@ -1922,7 +1922,7 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 116,
+            "totalTeams": 115,
             "eligibleTeams": 19,
             "coefficient": 1.2,
             "teamRank": 1,
@@ -2236,7 +2236,7 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 116,
+            "totalTeams": 115,
             "eligibleTeams": 19,
             "coefficient": 1.2,
             "teamRank": 2,
@@ -2515,7 +2515,7 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 116,
+            "totalTeams": 115,
             "eligibleTeams": 19,
             "coefficient": 1.2,
             "teamRank": 3,
@@ -2917,7 +2917,7 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 116,
+            "totalTeams": 115,
             "eligibleTeams": 19,
             "coefficient": 1.2,
             "teamRank": 4,
@@ -5583,7 +5583,7 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 116,
+            "totalTeams": 115,
             "eligibleTeams": 19,
             "coefficient": 1.2,
             "teamRank": 9,
@@ -6003,7 +6003,7 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 116,
+            "totalTeams": 115,
             "eligibleTeams": 19,
             "coefficient": 1.2,
             "teamRank": 10,
@@ -6137,7 +6137,7 @@
       {
         "rank": 1,
         "team": "Love Tiles",
-        "totalPoints": 320.3,
+        "totalPoints": 320,
         "eventsScored": 17,
         "bestRank": 1,
         "results": [
@@ -6171,12 +6171,12 @@
             "eventId": 1553,
             "eventName": "MONÇÃO e MELGAÇO GF 2025",
             "eventDate": "2025-09-21",
-            "totalTeams": 143,
+            "totalTeams": 142,
             "eligibleTeams": 32,
-            "coefficient": 1.34,
+            "coefficient": 1.33,
             "teamRank": 4,
             "basePoints": 12,
-            "points": 16.1,
+            "points": 16,
             "combinedScore": 69,
             "athletes": [
               {
@@ -6561,12 +6561,12 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 168,
+            "totalTeams": 167,
             "eligibleTeams": 24,
-            "coefficient": 1.45,
+            "coefficient": 1.44,
             "teamRank": 3,
             "basePoints": 15,
-            "points": 21.8,
+            "points": 21.6,
             "combinedScore": 49,
             "athletes": [
               {
@@ -6935,7 +6935,7 @@
       {
         "rank": 3,
         "team": "Brinox Cycling Team",
-        "totalPoints": 275,
+        "totalPoints": 274.7,
         "eventsScored": 11,
         "bestRank": 1,
         "results": [
@@ -6969,9 +6969,9 @@
             "eventId": 1553,
             "eventName": "MONÇÃO e MELGAÇO GF 2025",
             "eventDate": "2025-09-21",
-            "totalTeams": 143,
+            "totalTeams": 142,
             "eligibleTeams": 32,
-            "coefficient": 1.34,
+            "coefficient": 1.33,
             "teamRank": 6,
             "basePoints": 5,
             "points": 6.7,
@@ -7203,12 +7203,12 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 168,
+            "totalTeams": 167,
             "eligibleTeams": 24,
-            "coefficient": 1.45,
+            "coefficient": 1.44,
             "teamRank": 1,
             "basePoints": 25,
-            "points": 36.3,
+            "points": 36,
             "combinedScore": 16,
             "athletes": [
               {
@@ -7230,7 +7230,7 @@
       {
         "rank": 4,
         "team": "Dbl Bike",
-        "totalPoints": 153.8,
+        "totalPoints": 153.6,
         "eventsScored": 6,
         "bestRank": 1,
         "results": [
@@ -7238,12 +7238,12 @@
             "eventId": 1553,
             "eventName": "MONÇÃO e MELGAÇO GF 2025",
             "eventDate": "2025-09-21",
-            "totalTeams": 143,
+            "totalTeams": 142,
             "eligibleTeams": 32,
-            "coefficient": 1.34,
+            "coefficient": 1.33,
             "teamRank": 2,
             "basePoints": 20,
-            "points": 26.8,
+            "points": 26.6,
             "combinedScore": 30,
             "athletes": [
               {
@@ -7725,7 +7725,7 @@
       {
         "rank": 7,
         "team": "Secai / Gaiabike / Geoinerte / Forestcity",
-        "totalPoints": 75.4,
+        "totalPoints": 75.3,
         "eventsScored": 6,
         "bestRank": 3,
         "results": [
@@ -7733,12 +7733,12 @@
             "eventId": 1553,
             "eventName": "MONÇÃO e MELGAÇO GF 2025",
             "eventDate": "2025-09-21",
-            "totalTeams": 143,
+            "totalTeams": 142,
             "eligibleTeams": 32,
-            "coefficient": 1.34,
+            "coefficient": 1.33,
             "teamRank": 3,
             "basePoints": 15,
-            "points": 20.1,
+            "points": 20,
             "combinedScore": 59,
             "athletes": [
               {
@@ -8360,7 +8360,7 @@
       {
         "rank": 14,
         "team": "Skoda Irmãos Leite - Tourencinho",
-        "totalPoints": 35.7,
+        "totalPoints": 35.6,
         "eventsScored": 3,
         "bestRank": 1,
         "results": [
@@ -8420,12 +8420,12 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 168,
+            "totalTeams": 167,
             "eligibleTeams": 24,
-            "coefficient": 1.45,
+            "coefficient": 1.44,
             "teamRank": 5,
             "basePoints": 7,
-            "points": 10.2,
+            "points": 10.1,
             "combinedScore": 93,
             "athletes": [
               {
@@ -8481,41 +8481,6 @@
       },
       {
         "rank": 16,
-        "team": "Paredes Aventura Biketeam",
-        "totalPoints": 33.5,
-        "eventsScored": 1,
-        "bestRank": 1,
-        "results": [
-          {
-            "eventId": 1553,
-            "eventName": "MONÇÃO e MELGAÇO GF 2025",
-            "eventDate": "2025-09-21",
-            "totalTeams": 143,
-            "eligibleTeams": 32,
-            "coefficient": 1.34,
-            "teamRank": 1,
-            "basePoints": 25,
-            "points": 33.5,
-            "combinedScore": 28,
-            "athletes": [
-              {
-                "name": "Pedro Gaio",
-                "pos": 5
-              },
-              {
-                "name": "Cláudio Santos",
-                "pos": 9
-              },
-              {
-                "name": "Hugo Moutinho",
-                "pos": 14
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 17,
         "team": "Escola Ciclismo De Oeiras / Parracho / Reconco",
         "totalPoints": 33.5,
         "eventsScored": 1,
@@ -8544,6 +8509,41 @@
               {
                 "name": "Bernardo Alves",
                 "pos": 17
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 17,
+        "team": "Paredes Aventura Biketeam",
+        "totalPoints": 33.3,
+        "eventsScored": 1,
+        "bestRank": 1,
+        "results": [
+          {
+            "eventId": 1553,
+            "eventName": "MONÇÃO e MELGAÇO GF 2025",
+            "eventDate": "2025-09-21",
+            "totalTeams": 142,
+            "eligibleTeams": 32,
+            "coefficient": 1.33,
+            "teamRank": 1,
+            "basePoints": 25,
+            "points": 33.3,
+            "combinedScore": 28,
+            "athletes": [
+              {
+                "name": "Pedro Gaio",
+                "pos": 5
+              },
+              {
+                "name": "Cláudio Santos",
+                "pos": 9
+              },
+              {
+                "name": "Hugo Moutinho",
+                "pos": 14
               }
             ]
           }
@@ -8665,7 +8665,7 @@
       {
         "rank": 19,
         "team": "Swick / Casa do Benfica de AlModôvar",
-        "totalPoints": 29,
+        "totalPoints": 28.8,
         "eventsScored": 1,
         "bestRank": 2,
         "results": [
@@ -8673,12 +8673,12 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 168,
+            "totalTeams": 167,
             "eligibleTeams": 24,
-            "coefficient": 1.45,
+            "coefficient": 1.44,
             "teamRank": 2,
             "basePoints": 20,
-            "points": 29,
+            "points": 28.8,
             "combinedScore": 44,
             "athletes": [
               {
@@ -9215,7 +9215,7 @@
       {
         "rank": 31,
         "team": "Escola de Ciclismo de Oeiras / Parracho / Reconco",
-        "totalPoints": 17.4,
+        "totalPoints": 17.3,
         "eventsScored": 1,
         "bestRank": 4,
         "results": [
@@ -9223,12 +9223,12 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 168,
+            "totalTeams": 167,
             "eligibleTeams": 24,
-            "coefficient": 1.45,
+            "coefficient": 1.44,
             "teamRank": 4,
             "basePoints": 12,
-            "points": 17.4,
+            "points": 17.3,
             "combinedScore": 66,
             "athletes": [
               {
@@ -9765,9 +9765,9 @@
             "eventId": 1553,
             "eventName": "MONÇÃO e MELGAÇO GF 2025",
             "eventDate": "2025-09-21",
-            "totalTeams": 143,
+            "totalTeams": 142,
             "eligibleTeams": 32,
-            "coefficient": 1.34,
+            "coefficient": 1.33,
             "teamRank": 9,
             "basePoints": 2,
             "points": 2.7,
@@ -10254,7 +10254,7 @@
       {
         "rank": 54,
         "team": "Matosmobility",
-        "totalPoints": 9.4,
+        "totalPoints": 9.3,
         "eventsScored": 1,
         "bestRank": 5,
         "results": [
@@ -10262,12 +10262,12 @@
             "eventId": 1553,
             "eventName": "MONÇÃO e MELGAÇO GF 2025",
             "eventDate": "2025-09-21",
-            "totalTeams": 143,
+            "totalTeams": 142,
             "eligibleTeams": 32,
-            "coefficient": 1.34,
+            "coefficient": 1.33,
             "teamRank": 5,
             "basePoints": 7,
-            "points": 9.4,
+            "points": 9.3,
             "combinedScore": 94,
             "athletes": [
               {
@@ -10647,7 +10647,7 @@
       {
         "rank": 63,
         "team": "SuperGrupetta Polymarkbike Team",
-        "totalPoints": 7.3,
+        "totalPoints": 7.2,
         "eventsScored": 1,
         "bestRank": 6,
         "results": [
@@ -10655,12 +10655,12 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 168,
+            "totalTeams": 167,
             "eligibleTeams": 24,
-            "coefficient": 1.45,
+            "coefficient": 1.44,
             "teamRank": 6,
             "basePoints": 5,
-            "points": 7.3,
+            "points": 7.2,
             "combinedScore": 111,
             "athletes": [
               {
@@ -10786,9 +10786,9 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 168,
+            "totalTeams": 167,
             "eligibleTeams": 24,
-            "coefficient": 1.45,
+            "coefficient": 1.44,
             "teamRank": 9,
             "basePoints": 2,
             "points": 2.9,
@@ -11031,9 +11031,9 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 168,
+            "totalTeams": 167,
             "eligibleTeams": 24,
-            "coefficient": 1.45,
+            "coefficient": 1.44,
             "teamRank": 7,
             "basePoints": 4,
             "points": 5.8,
@@ -11093,7 +11093,7 @@
       {
         "rank": 75,
         "team": "Ucvnf",
-        "totalPoints": 5.4,
+        "totalPoints": 5.3,
         "eventsScored": 1,
         "bestRank": 7,
         "results": [
@@ -11101,12 +11101,12 @@
             "eventId": 1553,
             "eventName": "MONÇÃO e MELGAÇO GF 2025",
             "eventDate": "2025-09-21",
-            "totalTeams": 143,
+            "totalTeams": 142,
             "eligibleTeams": 32,
-            "coefficient": 1.34,
+            "coefficient": 1.33,
             "teamRank": 7,
             "basePoints": 4,
-            "points": 5.4,
+            "points": 5.3,
             "combinedScore": 183,
             "athletes": [
               {
@@ -11268,7 +11268,7 @@
       {
         "rank": 80,
         "team": "Gdza Bike Team",
-        "totalPoints": 4.7,
+        "totalPoints": 4.6,
         "eventsScored": 2,
         "bestRank": 9,
         "results": [
@@ -11302,12 +11302,12 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 168,
+            "totalTeams": 167,
             "eligibleTeams": 24,
-            "coefficient": 1.45,
+            "coefficient": 1.44,
             "teamRank": 10,
             "basePoints": 1,
-            "points": 1.5,
+            "points": 1.4,
             "combinedScore": 410,
             "athletes": [
               {
@@ -11329,7 +11329,7 @@
       {
         "rank": 81,
         "team": "TEAM PTZ",
-        "totalPoints": 4.4,
+        "totalPoints": 4.3,
         "eventsScored": 1,
         "bestRank": 8,
         "results": [
@@ -11337,12 +11337,12 @@
             "eventId": 90001,
             "eventName": "Figueira Champions Day 2025",
             "eventDate": "2025-02-15",
-            "totalTeams": 168,
+            "totalTeams": 167,
             "eligibleTeams": 24,
-            "coefficient": 1.45,
+            "coefficient": 1.44,
             "teamRank": 8,
             "basePoints": 3,
-            "points": 4.4,
+            "points": 4.3,
             "combinedScore": 159,
             "athletes": [
               {
@@ -11512,9 +11512,9 @@
             "eventId": 1553,
             "eventName": "MONÇÃO e MELGAÇO GF 2025",
             "eventDate": "2025-09-21",
-            "totalTeams": 143,
+            "totalTeams": 142,
             "eligibleTeams": 32,
-            "coefficient": 1.34,
+            "coefficient": 1.33,
             "teamRank": 8,
             "basePoints": 3,
             "points": 4,
@@ -12352,9 +12352,9 @@
             "eventId": 1553,
             "eventName": "MONÇÃO e MELGAÇO GF 2025",
             "eventDate": "2025-09-21",
-            "totalTeams": 143,
+            "totalTeams": 142,
             "eligibleTeams": 32,
-            "coefficient": 1.34,
+            "coefficient": 1.33,
             "teamRank": 10,
             "basePoints": 1,
             "points": 1.3,
@@ -12661,7 +12661,7 @@
       {
         "rank": 1,
         "team": "Love Tiles",
-        "totalPoints": 274.8,
+        "totalPoints": 274.5,
         "eventsScored": 13,
         "bestRank": 1,
         "results": [
@@ -12851,12 +12851,12 @@
             "eventId": 1467,
             "eventName": "Gerês Granfondo 2025",
             "eventDate": "2025-06-01",
-            "totalTeams": 105,
+            "totalTeams": 104,
             "eligibleTeams": 17,
-            "coefficient": 1.15,
+            "coefficient": 1.14,
             "teamRank": 1,
             "basePoints": 25,
-            "points": 28.7,
+            "points": 28.5,
             "combinedScore": 51,
             "athletes": [
               {
@@ -12903,12 +12903,12 @@
             "eventId": 1439,
             "eventName": "Love Tiles Douro Granfondo 2025",
             "eventDate": "2025-05-11",
-            "totalTeams": 201,
-            "eligibleTeams": 42,
-            "coefficient": 1.59,
+            "totalTeams": 200,
+            "eligibleTeams": 43,
+            "coefficient": 1.58,
             "teamRank": 4,
             "basePoints": 12,
-            "points": 19.1,
+            "points": 19,
             "combinedScore": 48,
             "athletes": [
               {
@@ -13008,7 +13008,7 @@
       {
         "rank": 2,
         "team": "Proteu Cycling Team - Casa Do Povo De Retorta",
-        "totalPoints": 164.7,
+        "totalPoints": 164.2,
         "eventsScored": 7,
         "bestRank": 1,
         "results": [
@@ -13094,12 +13094,12 @@
             "eventId": 1467,
             "eventName": "Gerês Granfondo 2025",
             "eventDate": "2025-06-01",
-            "totalTeams": 105,
+            "totalTeams": 104,
             "eligibleTeams": 17,
-            "coefficient": 1.15,
+            "coefficient": 1.14,
             "teamRank": 3,
             "basePoints": 15,
-            "points": 17.3,
+            "points": 17.1,
             "combinedScore": 64,
             "athletes": [
               {
@@ -13120,12 +13120,12 @@
             "eventId": 1439,
             "eventName": "Love Tiles Douro Granfondo 2025",
             "eventDate": "2025-05-11",
-            "totalTeams": 201,
-            "eligibleTeams": 42,
-            "coefficient": 1.59,
+            "totalTeams": 200,
+            "eligibleTeams": 43,
+            "coefficient": 1.58,
             "teamRank": 1,
             "basePoints": 25,
-            "points": 39.8,
+            "points": 39.5,
             "combinedScore": 27,
             "athletes": [
               {
@@ -13199,7 +13199,7 @@
       {
         "rank": 3,
         "team": "Penacova Ceg Reconco",
-        "totalPoints": 152.8,
+        "totalPoints": 152.7,
         "eventsScored": 9,
         "bestRank": 1,
         "results": [
@@ -13285,12 +13285,12 @@
             "eventId": 1467,
             "eventName": "Gerês Granfondo 2025",
             "eventDate": "2025-06-01",
-            "totalTeams": 105,
+            "totalTeams": 104,
             "eligibleTeams": 17,
-            "coefficient": 1.15,
+            "coefficient": 1.14,
             "teamRank": 4,
             "basePoints": 12,
-            "points": 13.8,
+            "points": 13.7,
             "combinedScore": 65,
             "athletes": [
               {
@@ -13337,9 +13337,9 @@
             "eventId": 1439,
             "eventName": "Love Tiles Douro Granfondo 2025",
             "eventDate": "2025-05-11",
-            "totalTeams": 201,
-            "eligibleTeams": 42,
-            "coefficient": 1.59,
+            "totalTeams": 200,
+            "eligibleTeams": 43,
+            "coefficient": 1.58,
             "teamRank": 5,
             "basePoints": 7,
             "points": 11.1,
@@ -13442,7 +13442,7 @@
       {
         "rank": 4,
         "team": "Bikepoint",
-        "totalPoints": 135.5,
+        "totalPoints": 135.1,
         "eventsScored": 5,
         "bestRank": 1,
         "results": [
@@ -13476,12 +13476,12 @@
             "eventId": 1467,
             "eventName": "Gerês Granfondo 2025",
             "eventDate": "2025-06-01",
-            "totalTeams": 105,
+            "totalTeams": 104,
             "eligibleTeams": 17,
-            "coefficient": 1.15,
+            "coefficient": 1.14,
             "teamRank": 2,
             "basePoints": 20,
-            "points": 23,
+            "points": 22.8,
             "combinedScore": 54,
             "athletes": [
               {
@@ -13502,12 +13502,12 @@
             "eventId": 1439,
             "eventName": "Love Tiles Douro Granfondo 2025",
             "eventDate": "2025-05-11",
-            "totalTeams": 201,
-            "eligibleTeams": 42,
-            "coefficient": 1.59,
+            "totalTeams": 200,
+            "eligibleTeams": 43,
+            "coefficient": 1.58,
             "teamRank": 2,
             "basePoints": 20,
-            "points": 31.8,
+            "points": 31.6,
             "combinedScore": 39,
             "athletes": [
               {
@@ -13581,7 +13581,7 @@
       {
         "rank": 5,
         "team": "Paredes Aventura",
-        "totalPoints": 55.5,
+        "totalPoints": 55.3,
         "eventsScored": 3,
         "bestRank": 1,
         "results": [
@@ -13615,9 +13615,9 @@
             "eventId": 1467,
             "eventName": "Gerês Granfondo 2025",
             "eventDate": "2025-06-01",
-            "totalTeams": 105,
+            "totalTeams": 104,
             "eligibleTeams": 17,
-            "coefficient": 1.15,
+            "coefficient": 1.14,
             "teamRank": 7,
             "basePoints": 4,
             "points": 4.6,
@@ -13641,12 +13641,12 @@
             "eventId": 1439,
             "eventName": "Love Tiles Douro Granfondo 2025",
             "eventDate": "2025-05-11",
-            "totalTeams": 201,
-            "eligibleTeams": 42,
-            "coefficient": 1.59,
+            "totalTeams": 200,
+            "eligibleTeams": 43,
+            "coefficient": 1.58,
             "teamRank": 3,
             "basePoints": 15,
-            "points": 23.9,
+            "points": 23.7,
             "combinedScore": 48,
             "athletes": [
               {
@@ -14128,9 +14128,9 @@
             "eventId": 1467,
             "eventName": "Gerês Granfondo 2025",
             "eventDate": "2025-06-01",
-            "totalTeams": 105,
+            "totalTeams": 104,
             "eligibleTeams": 17,
-            "coefficient": 1.15,
+            "coefficient": 1.14,
             "teamRank": 5,
             "basePoints": 7,
             "points": 8,
@@ -14277,7 +14277,7 @@
       {
         "rank": 13,
         "team": "Secai / Gaiabike / Geoinerte / Forestcity",
-        "totalPoints": 25.7,
+        "totalPoints": 25.5,
         "eventsScored": 5,
         "bestRank": 6,
         "results": [
@@ -14337,12 +14337,12 @@
             "eventId": 1467,
             "eventName": "Gerês Granfondo 2025",
             "eventDate": "2025-06-01",
-            "totalTeams": 105,
+            "totalTeams": 104,
             "eligibleTeams": 17,
-            "coefficient": 1.15,
+            "coefficient": 1.14,
             "teamRank": 6,
             "basePoints": 5,
-            "points": 5.8,
+            "points": 5.7,
             "combinedScore": 156,
             "athletes": [
               {
@@ -14363,12 +14363,12 @@
             "eventId": 1439,
             "eventName": "Love Tiles Douro Granfondo 2025",
             "eventDate": "2025-05-11",
-            "totalTeams": 201,
-            "eligibleTeams": 42,
-            "coefficient": 1.59,
+            "totalTeams": 200,
+            "eligibleTeams": 43,
+            "coefficient": 1.58,
             "teamRank": 6,
             "basePoints": 5,
-            "points": 8,
+            "points": 7.9,
             "combinedScore": 190,
             "athletes": [
               {
@@ -14416,7 +14416,7 @@
       {
         "rank": 14,
         "team": "Lacoviana",
-        "totalPoints": 22.5,
+        "totalPoints": 22.4,
         "eventsScored": 4,
         "bestRank": 5,
         "results": [
@@ -14450,12 +14450,12 @@
             "eventId": 1467,
             "eventName": "Gerês Granfondo 2025",
             "eventDate": "2025-06-01",
-            "totalTeams": 105,
+            "totalTeams": 104,
             "eligibleTeams": 17,
-            "coefficient": 1.15,
+            "coefficient": 1.14,
             "teamRank": 8,
             "basePoints": 3,
-            "points": 3.5,
+            "points": 3.4,
             "combinedScore": 194,
             "athletes": [
               {
@@ -14694,9 +14694,9 @@
             "eventId": 1439,
             "eventName": "Love Tiles Douro Granfondo 2025",
             "eventDate": "2025-05-11",
-            "totalTeams": 201,
-            "eligibleTeams": 42,
-            "coefficient": 1.59,
+            "totalTeams": 200,
+            "eligibleTeams": 43,
+            "coefficient": 1.58,
             "teamRank": 9,
             "basePoints": 2,
             "points": 3.2,
@@ -14747,7 +14747,7 @@
       {
         "rank": 19,
         "team": "Brinox Cycling Team",
-        "totalPoints": 18.8,
+        "totalPoints": 18.7,
         "eventsScored": 4,
         "bestRank": 5,
         "results": [
@@ -14755,9 +14755,9 @@
             "eventId": 1467,
             "eventName": "Gerês Granfondo 2025",
             "eventDate": "2025-06-01",
-            "totalTeams": 105,
+            "totalTeams": 104,
             "eligibleTeams": 17,
-            "coefficient": 1.15,
+            "coefficient": 1.14,
             "teamRank": 9,
             "basePoints": 2,
             "points": 2.3,
@@ -14781,12 +14781,12 @@
             "eventId": 1439,
             "eventName": "Love Tiles Douro Granfondo 2025",
             "eventDate": "2025-05-11",
-            "totalTeams": 201,
-            "eligibleTeams": 42,
-            "coefficient": 1.59,
+            "totalTeams": 200,
+            "eligibleTeams": 43,
+            "coefficient": 1.58,
             "teamRank": 7,
             "basePoints": 4,
-            "points": 6.4,
+            "points": 6.3,
             "combinedScore": 226,
             "athletes": [
               {
@@ -15759,41 +15759,6 @@
       },
       {
         "rank": 42,
-        "team": "Casa Peixoto",
-        "totalPoints": 4.8,
-        "eventsScored": 1,
-        "bestRank": 8,
-        "results": [
-          {
-            "eventId": 1439,
-            "eventName": "Love Tiles Douro Granfondo 2025",
-            "eventDate": "2025-05-11",
-            "totalTeams": 201,
-            "eligibleTeams": 42,
-            "coefficient": 1.59,
-            "teamRank": 8,
-            "basePoints": 3,
-            "points": 4.8,
-            "combinedScore": 230,
-            "athletes": [
-              {
-                "name": "Abel Oliviera",
-                "pos": 45
-              },
-              {
-                "name": "Rui Duarte",
-                "pos": 50
-              },
-              {
-                "name": "André Teixeira",
-                "pos": 135
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 43,
         "team": "Dura-F1 Cycling Team",
         "totalPoints": 4.7,
         "eventsScored": 1,
@@ -15822,6 +15787,41 @@
               {
                 "name": "Tânia Moringa",
                 "pos": 111
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 43,
+        "team": "Casa Peixoto",
+        "totalPoints": 4.7,
+        "eventsScored": 1,
+        "bestRank": 8,
+        "results": [
+          {
+            "eventId": 1439,
+            "eventName": "Love Tiles Douro Granfondo 2025",
+            "eventDate": "2025-05-11",
+            "totalTeams": 200,
+            "eligibleTeams": 43,
+            "coefficient": 1.58,
+            "teamRank": 8,
+            "basePoints": 3,
+            "points": 4.7,
+            "combinedScore": 230,
+            "athletes": [
+              {
+                "name": "Abel Oliviera",
+                "pos": 45
+              },
+              {
+                "name": "Rui Duarte",
+                "pos": 50
+              },
+              {
+                "name": "André Teixeira",
+                "pos": 135
               }
             ]
           }
@@ -16398,9 +16398,9 @@
             "eventId": 1439,
             "eventName": "Love Tiles Douro Granfondo 2025",
             "eventDate": "2025-05-11",
-            "totalTeams": 201,
-            "eligibleTeams": 42,
-            "coefficient": 1.59,
+            "totalTeams": 200,
+            "eligibleTeams": 43,
+            "coefficient": 1.58,
             "teamRank": 10,
             "basePoints": 1,
             "points": 1.6,
@@ -16564,41 +16564,6 @@
       },
       {
         "rank": 65,
-        "team": "Pitosga-Acvâncora",
-        "totalPoints": 1.2,
-        "eventsScored": 1,
-        "bestRank": 10,
-        "results": [
-          {
-            "eventId": 1467,
-            "eventName": "Gerês Granfondo 2025",
-            "eventDate": "2025-06-01",
-            "totalTeams": 105,
-            "eligibleTeams": 17,
-            "coefficient": 1.15,
-            "teamRank": 10,
-            "basePoints": 1,
-            "points": 1.2,
-            "combinedScore": 216,
-            "athletes": [
-              {
-                "name": "Luís Fonseca",
-                "pos": 56
-              },
-              {
-                "name": "Luis Sa",
-                "pos": 61
-              },
-              {
-                "name": "Rui Pinto",
-                "pos": 99
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "rank": 66,
         "team": "Cansados Team Póvoa De Varzim",
         "totalPoints": 1.2,
         "eventsScored": 1,
@@ -16633,7 +16598,7 @@
         ]
       },
       {
-        "rank": 67,
+        "rank": 66,
         "team": "Casa Do Benfica De Lamego (Cbl)",
         "totalPoints": 1.1,
         "eventsScored": 1,
@@ -16668,7 +16633,7 @@
         ]
       },
       {
-        "rank": 68,
+        "rank": 67,
         "team": "Raposas Voadoras Btt",
         "totalPoints": 1.1,
         "eventsScored": 1,
@@ -16697,6 +16662,41 @@
               {
                 "name": "Sérgio Pinto",
                 "pos": 127
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "rank": 68,
+        "team": "Pitosga-Acvâncora",
+        "totalPoints": 1.1,
+        "eventsScored": 1,
+        "bestRank": 10,
+        "results": [
+          {
+            "eventId": 1467,
+            "eventName": "Gerês Granfondo 2025",
+            "eventDate": "2025-06-01",
+            "totalTeams": 104,
+            "eligibleTeams": 17,
+            "coefficient": 1.14,
+            "teamRank": 10,
+            "basePoints": 1,
+            "points": 1.1,
+            "combinedScore": 216,
+            "athletes": [
+              {
+                "name": "Luís Fonseca",
+                "pos": 56
+              },
+              {
+                "name": "Luis Sa",
+                "pos": 61
+              },
+              {
+                "name": "Rui Pinto",
+                "pos": 99
               }
             ]
           }
@@ -17322,7 +17322,7 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 101,
+            "totalTeams": 100,
             "eligibleTeams": 9,
             "coefficient": 1.12,
             "teamRank": 8,
@@ -17383,7 +17383,7 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 101,
+            "totalTeams": 100,
             "eligibleTeams": 9,
             "coefficient": 1.12,
             "teamRank": 3,
@@ -17488,7 +17488,7 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 101,
+            "totalTeams": 100,
             "eligibleTeams": 9,
             "coefficient": 1.12,
             "teamRank": 1,
@@ -17584,7 +17584,7 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 101,
+            "totalTeams": 100,
             "eligibleTeams": 9,
             "coefficient": 1.12,
             "teamRank": 2,
@@ -17759,7 +17759,7 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 101,
+            "totalTeams": 100,
             "eligibleTeams": 9,
             "coefficient": 1.12,
             "teamRank": 4,
@@ -17820,7 +17820,7 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 101,
+            "totalTeams": 100,
             "eligibleTeams": 9,
             "coefficient": 1.12,
             "teamRank": 7,
@@ -17881,7 +17881,7 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 101,
+            "totalTeams": 100,
             "eligibleTeams": 9,
             "coefficient": 1.12,
             "teamRank": 6,
@@ -18021,7 +18021,7 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 101,
+            "totalTeams": 100,
             "eligibleTeams": 9,
             "coefficient": 1.12,
             "teamRank": 5,
@@ -18336,7 +18336,7 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 101,
+            "totalTeams": 100,
             "eligibleTeams": 9,
             "coefficient": 1.12,
             "teamRank": 9,
@@ -18505,7 +18505,7 @@
       {
         "rank": 1,
         "team": "Penacova Firstbike Reconco",
-        "totalPoints": 74.5,
+        "totalPoints": 74.4,
         "eventsScored": 3,
         "bestRank": 1,
         "results": [
@@ -18565,12 +18565,12 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 107,
+            "totalTeams": 106,
             "eligibleTeams": 20,
-            "coefficient": 1.16,
+            "coefficient": 1.15,
             "teamRank": 3,
             "basePoints": 15,
-            "points": 17.4,
+            "points": 17.3,
             "combinedScore": 53,
             "athletes": [
               {
@@ -18662,7 +18662,7 @@
       {
         "rank": 4,
         "team": "Zoss Vog / Cacb",
-        "totalPoints": 29,
+        "totalPoints": 28.7,
         "eventsScored": 1,
         "bestRank": 1,
         "results": [
@@ -18670,12 +18670,12 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 107,
+            "totalTeams": 106,
             "eligibleTeams": 20,
-            "coefficient": 1.16,
+            "coefficient": 1.15,
             "teamRank": 1,
             "basePoints": 25,
-            "points": 29,
+            "points": 28.7,
             "combinedScore": 36,
             "athletes": [
               {
@@ -18767,7 +18767,7 @@
       {
         "rank": 7,
         "team": "Escola Ciclismo Oeiras / Parracho / Mr.Print / Reconco",
-        "totalPoints": 23.2,
+        "totalPoints": 23,
         "eventsScored": 1,
         "bestRank": 2,
         "results": [
@@ -18775,12 +18775,12 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 107,
+            "totalTeams": 106,
             "eligibleTeams": 20,
-            "coefficient": 1.16,
+            "coefficient": 1.15,
             "teamRank": 2,
             "basePoints": 20,
-            "points": 23.2,
+            "points": 23,
             "combinedScore": 40,
             "athletes": [
               {
@@ -18836,9 +18836,9 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 107,
+            "totalTeams": 106,
             "eligibleTeams": 20,
-            "coefficient": 1.16,
+            "coefficient": 1.15,
             "teamRank": 8,
             "basePoints": 3,
             "points": 3.5,
@@ -18898,7 +18898,7 @@
       {
         "rank": 10,
         "team": "Skoda Irmãos Leite Tourencinho",
-        "totalPoints": 13.9,
+        "totalPoints": 13.8,
         "eventsScored": 1,
         "bestRank": 4,
         "results": [
@@ -18906,12 +18906,12 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 107,
+            "totalTeams": 106,
             "eligibleTeams": 20,
-            "coefficient": 1.16,
+            "coefficient": 1.15,
             "teamRank": 4,
             "basePoints": 12,
-            "points": 13.9,
+            "points": 13.8,
             "combinedScore": 81,
             "athletes": [
               {
@@ -19003,7 +19003,7 @@
       {
         "rank": 13,
         "team": "Gdza Bike Team",
-        "totalPoints": 8.1,
+        "totalPoints": 8,
         "eventsScored": 1,
         "bestRank": 5,
         "results": [
@@ -19011,12 +19011,12 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 107,
+            "totalTeams": 106,
             "eligibleTeams": 20,
-            "coefficient": 1.16,
+            "coefficient": 1.15,
             "teamRank": 5,
             "basePoints": 7,
-            "points": 8.1,
+            "points": 8,
             "combinedScore": 155,
             "athletes": [
               {
@@ -19151,9 +19151,9 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 107,
+            "totalTeams": 106,
             "eligibleTeams": 20,
-            "coefficient": 1.16,
+            "coefficient": 1.15,
             "teamRank": 6,
             "basePoints": 5,
             "points": 5.8,
@@ -19256,9 +19256,9 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 107,
+            "totalTeams": 106,
             "eligibleTeams": 20,
-            "coefficient": 1.16,
+            "coefficient": 1.15,
             "teamRank": 7,
             "basePoints": 4,
             "points": 4.6,
@@ -19396,9 +19396,9 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 107,
+            "totalTeams": 106,
             "eligibleTeams": 20,
-            "coefficient": 1.16,
+            "coefficient": 1.15,
             "teamRank": 9,
             "basePoints": 2,
             "points": 2.3,
@@ -19501,9 +19501,9 @@
             "eventId": 1880,
             "eventName": "Figueira Champions Classic 2026",
             "eventDate": "2026-02-15",
-            "totalTeams": 107,
+            "totalTeams": 106,
             "eligibleTeams": 20,
-            "coefficient": 1.16,
+            "coefficient": 1.15,
             "teamRank": 10,
             "basePoints": 1,
             "points": 1.2,

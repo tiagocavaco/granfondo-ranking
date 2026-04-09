@@ -527,10 +527,13 @@ function buildAthletesIndex(events: StoredEvent[]): Map<string, AthleteEntry> {
 
     for (const dist of stored.distances) {
       for (const r of dist.results) {
-        const key = athleteKey(r.nameLower, r.team);
+        // Re-normalize nameLower from r.name so cached results benefit from
+        // current normalizeName (handles ´, ', #, etc. added later)
+        const nameLower = normalizeName(r.name);
+        const key = athleteKey(nameLower, r.team);
         if (!index.has(key)) {
           const slug = key.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-          index.set(key, { name: r.name, nameLower: r.nameLower, slug, results: [] });
+          index.set(key, { name: r.name, nameLower, slug, results: [] });
           teamOccurrences.set(key, new Map());
         }
         if (r.team && !isSoloTeam(r.team)) {
@@ -764,15 +767,16 @@ function buildAggregateRanking(
           if (basePoints === 0) return;
           const pts = Math.round(basePoints * coeff * 10) / 10;
 
-          const rawKey = athleteKey(r.nameLower, r.team);
+          const nameLower = normalizeName(r.name);
+          const rawKey = athleteKey(nameLower, r.team);
           let key = keyAliases.get(rawKey) ?? rawKey;
           // Fuzzy team match: if no exact entry yet, check if a similar team key
           // already exists for this athlete name (same logic as athletes index)
           if (!distMap.has(key)) {
-            const teamPart = key.slice(r.nameLower.length + 1);
+            const teamPart = key.slice(nameLower.length + 1);
             for (const existingKey of distMap.keys()) {
-              if (!existingKey.startsWith(`${r.nameLower}|`)) continue;
-              const existingTeam = existingKey.slice(r.nameLower.length + 1);
+              if (!existingKey.startsWith(`${nameLower}|`)) continue;
+              const existingTeam = existingKey.slice(nameLower.length + 1);
               if (teamKeySimilarity(teamPart, existingTeam) >= 0.6) {
                 key = existingKey;
                 break;
@@ -783,7 +787,7 @@ function buildAggregateRanking(
             const slug = key.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
             distMap.set(key, {
               name: r.name,
-              nameLower: r.nameLower,
+              nameLower,
               slug,
               gender: r.gender,
               team: r.team,
@@ -1183,6 +1187,9 @@ async function main() {
   );
   writeJson("athletes.json", athletesArray);
   console.log(`✓ athletes.json — ${athletesArray.length} athletes`);
+  // Use nameLower (not slug) for all unique counts so they're consistent:
+  // per-year counts use the same metric as all-time, and 2025+2026 overlap = all-time union.
+  const allNames = new Set(athletesArray.map((a) => a.nameLower));
   const uniqueByYear: Record<string, number> = {};
   for (const year of YEARS) {
     const names = new Set(
@@ -1192,7 +1199,7 @@ async function main() {
     );
     uniqueByYear[String(year)] = names.size;
   }
-  writeJson("stats.json", { uniqueAthletes: athletesArray.length, uniqueByYear });
+  writeJson("stats.json", { uniqueAthletes: allNames.size, uniqueByYear });
 
   // Write individual athlete files — wipe dir first to remove stale files
   const athleteDir = path.join(DATA_DIR, "athlete");
