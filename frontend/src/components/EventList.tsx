@@ -12,6 +12,7 @@ export default function EventList() {
   const [error, setError] = useState<string | null>(null);
   const [season, setSeason] = useState<SeasonFilter>("all");
   const [status, setStatus] = useState<StatusFilter>("past");
+  const [uniqueAthletes, setUniqueAthletes] = useState<number | null>(null);
 
   useEffect(() => {
     api
@@ -19,6 +20,7 @@ export default function EventList() {
       .then(setAllEvents)
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
+    api.getStats().then((s) => setUniqueAthletes(s.uniqueAthletes)).catch(() => {});
   }, []);
 
   const seasons = useMemo(
@@ -70,8 +72,9 @@ export default function EventList() {
               label: "Finishers",
               value: totalFinishers.toLocaleString(),
               icon: "🚴",
+              sub: uniqueAthletes !== null ? `${uniqueAthletes.toLocaleString()} unique` : undefined,
             },
-          ].map(({ label, value, icon }) => (
+          ].map(({ label, value, icon, sub }: { label: string; value: string | number; icon: string; sub?: string }) => (
             <div
               key={label}
               className="bg-white rounded-2xl border border-slate-200 px-5 py-4 text-center"
@@ -79,6 +82,7 @@ export default function EventList() {
               <div className="text-2xl mb-1">{icon}</div>
               <div className="text-2xl font-extrabold text-slate-900">{value}</div>
               <div className="text-xs text-slate-500 font-medium mt-0.5">{label}</div>
+              {sub && <div className="text-xs text-slate-400 mt-0.5">{sub}</div>}
             </div>
           ))}
         </div>

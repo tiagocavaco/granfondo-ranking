@@ -1030,6 +1030,7 @@ async function main() {
   );
   writeJson("athletes.json", athletesArray);
   console.log(`✓ athletes.json — ${athletesArray.length} athletes`);
+  writeJson("stats.json", { uniqueAthletes: athletesArray.length });
 
   // 6. Build and write aggregate ranking
   console.log("🏆 Building aggregate ranking…");

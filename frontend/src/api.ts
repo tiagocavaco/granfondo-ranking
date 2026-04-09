@@ -28,4 +28,8 @@ export const api = {
   getTeamRanking(): Promise<TeamRanking> {
     return getJson<TeamRanking>("/team_ranking.json");
   },
+
+  getStats(): Promise<{ uniqueAthletes: number }> {
+    return getJson<{ uniqueAthletes: number }>("/stats.json");
+  },
 };
