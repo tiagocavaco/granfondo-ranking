@@ -80,6 +80,7 @@ export interface AthleteResultRef {
 export interface AthleteEntry {
   name: string;
   nameLower: string;
+  slug: string;
   canonicalTeam?: string;
   results: AthleteResultRef[];
 }
@@ -116,6 +117,7 @@ export interface AggregateAthlete {
   rank: number;
   name: string;
   nameLower: string;
+  slug: string;
   gender: string;
   team: string;
   country: string;

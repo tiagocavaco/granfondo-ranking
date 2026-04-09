@@ -4432,7 +4432,7 @@
     "nome": "Miguel David",
     "nomecompleto": "Miguel David",
     "sexo": "M",
-    "equipa": "Individual",
+    "equipa": "UCA - União de Ciclismo do Alentejo",
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
@@ -22664,6 +22664,18 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "",
+    "nome": "Mario Yecora Fernández",
+    "nomecompleto": "Mario Yecora Fernández",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
     "pais_nome": null,
     "pais_iso2": null
   }

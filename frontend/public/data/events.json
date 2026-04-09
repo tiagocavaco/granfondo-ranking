@@ -5,6 +5,7 @@
     "year": 2026,
     "date": "2026-03-22",
     "location": "Aveiro",
+    "officialUrl": "https://cabreirasolutions.com/evento/aveiro-spring-classic/",
     "resultsUrl": "https://results.stopandgo.pro/1944",
     "hasResults": true,
     "distances": [
@@ -13,10 +14,9 @@
         "name": "Clássica"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1332,
     "finisherCount": 1156,
-    "scrapedAt": "2026-04-05T19:09:28.249Z",
-    "officialUrl": "https://cabreirasolutions.com/evento/aveiro-spring-classic/"
+    "scrapedAt": "2026-04-05T19:09:28.249Z"
   },
   {
     "id": 1720,
@@ -24,6 +24,7 @@
     "year": 2026,
     "date": "2026-03-15",
     "location": "Viana do Castelo",
+    "officialUrl": "https://bikeservice.pt/event/viana-granfondo/",
     "resultsUrl": "https://results.stopandgo.pro/1720",
     "hasResults": true,
     "distances": [
@@ -40,10 +41,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1979,
     "finisherCount": 1673,
-    "scrapedAt": "2026-04-05T19:02:08.757Z",
-    "officialUrl": "https://bikeservice.pt/event/viana-granfondo/"
+    "scrapedAt": "2026-04-05T19:02:08.757Z"
   },
   {
     "id": 1831,
@@ -51,6 +51,7 @@
     "year": 2026,
     "date": "2026-02-21",
     "location": "Lagos",
+    "officialUrl": "https://www.algarvegranfondo.com/",
     "resultsUrl": "https://results.stopandgo.pro/1831",
     "hasResults": true,
     "distances": [
@@ -63,10 +64,9 @@
         "name": "Mediofondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 836,
     "finisherCount": 716,
-    "scrapedAt": "2026-04-05T19:02:10.280Z",
-    "officialUrl": "https://www.algarvegranfondo.com/"
+    "scrapedAt": "2026-04-05T19:02:10.280Z"
   },
   {
     "id": 1880,
@@ -74,6 +74,7 @@
     "year": 2026,
     "date": "2026-02-15",
     "location": "Figueira da Foz",
+    "officialUrl": "https://www.figueirachampionsclassic.com/day/regulamento/",
     "resultsUrl": "https://results.stopandgo.pro/1880",
     "hasResults": true,
     "distances": [
@@ -86,10 +87,9 @@
         "name": "HALF DAY"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 727,
     "finisherCount": 562,
-    "scrapedAt": "2026-04-05T19:09:30.734Z",
-    "officialUrl": "https://www.figueirachampionsclassic.com/day/regulamento/"
+    "scrapedAt": "2026-04-05T19:09:30.734Z"
   },
   {
     "id": 1801,
@@ -97,6 +97,7 @@
     "year": 2025,
     "date": "2025-11-02",
     "location": "Portimão",
+    "officialUrl": "https://stopandgo.net/events/1801",
     "resultsUrl": "https://results.stopandgo.pro/1801",
     "hasResults": true,
     "distances": [
@@ -113,10 +114,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1494,
     "finisherCount": 1233,
-    "scrapedAt": "2026-04-05T19:02:12.403Z",
-    "officialUrl": "https://stopandgo.net/events/1801"
+    "scrapedAt": "2026-04-05T19:02:12.403Z"
   },
   {
     "id": 1780,
@@ -124,6 +124,7 @@
     "year": 2025,
     "date": "2025-10-05",
     "location": "Ossa",
+    "officialUrl": "https://stopandgo.net/events/1780",
     "resultsUrl": "https://results.stopandgo.pro/1780",
     "hasResults": true,
     "distances": [
@@ -140,10 +141,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1527,
     "finisherCount": 1343,
-    "scrapedAt": "2026-04-05T19:02:14.516Z",
-    "officialUrl": "https://stopandgo.net/events/1780"
+    "scrapedAt": "2026-04-05T19:02:14.516Z"
   },
   {
     "id": 1612,
@@ -151,12 +151,13 @@
     "year": 2025,
     "date": "2025-09-28",
     "location": "Tavira",
+    "officialUrl": "https://stopandgo.net/events/1612",
     "resultsUrl": "https://results.stopandgo.pro/1612",
     "hasResults": true,
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "GranFondo"
       },
       {
         "id": "2",
@@ -167,10 +168,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 434,
     "finisherCount": 305,
-    "scrapedAt": "2026-04-05T19:02:16.465Z",
-    "officialUrl": "https://stopandgo.net/events/1612"
+    "scrapedAt": "2026-04-05T19:02:16.465Z"
   },
   {
     "id": 1553,
@@ -178,12 +178,13 @@
     "year": 2025,
     "date": "2025-09-21",
     "location": "Monção",
+    "officialUrl": "https://stopandgo.net/events/1553",
     "resultsUrl": "https://results.stopandgo.pro/1553",
     "hasResults": true,
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "GranFondo"
       },
       {
         "id": "2",
@@ -194,10 +195,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1151,
     "finisherCount": 927,
-    "scrapedAt": "2026-04-05T19:02:18.645Z",
-    "officialUrl": "https://stopandgo.net/events/1553"
+    "scrapedAt": "2026-04-05T19:02:18.645Z"
   },
   {
     "id": 1759,
@@ -205,6 +205,7 @@
     "year": 2025,
     "date": "2025-09-14",
     "location": "Lousã",
+    "officialUrl": "https://stopandgo.net/events/1759",
     "resultsUrl": "https://results.stopandgo.pro/1759",
     "hasResults": true,
     "distances": [
@@ -221,10 +222,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1069,
     "finisherCount": 869,
-    "scrapedAt": "2026-04-05T19:02:20.837Z",
-    "officialUrl": "https://stopandgo.net/events/1759"
+    "scrapedAt": "2026-04-05T19:02:20.837Z"
   },
   {
     "id": 1388,
@@ -232,12 +232,13 @@
     "year": 2025,
     "date": "2025-07-13",
     "location": "Bragança",
+    "officialUrl": "https://stopandgo.net/events/1388",
     "resultsUrl": "https://results.stopandgo.pro/1388",
     "hasResults": true,
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "GranFondo"
       },
       {
         "id": "2",
@@ -248,10 +249,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1199,
     "finisherCount": 1017,
-    "scrapedAt": "2026-04-05T19:02:23.093Z",
-    "officialUrl": "https://stopandgo.net/events/1388"
+    "scrapedAt": "2026-04-05T19:02:23.093Z"
   },
   {
     "id": 1362,
@@ -259,6 +259,7 @@
     "year": 2025,
     "date": "2025-06-29",
     "location": "Manteigas",
+    "officialUrl": "https://stopandgo.net/events/1362",
     "resultsUrl": "https://results.stopandgo.pro/1362",
     "hasResults": true,
     "distances": [
@@ -271,10 +272,9 @@
         "name": "Mediofondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1256,
     "finisherCount": 880,
-    "scrapedAt": "2026-04-05T19:02:24.775Z",
-    "officialUrl": "https://stopandgo.net/events/1362"
+    "scrapedAt": "2026-04-05T19:02:24.775Z"
   },
   {
     "id": 1692,
@@ -282,6 +282,7 @@
     "year": 2025,
     "date": "2025-06-15",
     "location": "Basto",
+    "officialUrl": "https://stopandgo.net/events/1692",
     "resultsUrl": "https://results.stopandgo.pro/1692",
     "hasResults": true,
     "distances": [
@@ -298,10 +299,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 933,
     "finisherCount": 774,
-    "scrapedAt": "2026-04-05T19:02:26.874Z",
-    "officialUrl": "https://stopandgo.net/events/1692"
+    "scrapedAt": "2026-04-05T19:02:26.874Z"
   },
   {
     "id": 1505,
@@ -309,6 +309,7 @@
     "year": 2025,
     "date": "2025-06-08",
     "location": "Castelo de Vide",
+    "officialUrl": "https://stopandgo.net/events/1505",
     "resultsUrl": "https://results.stopandgo.pro/1505",
     "hasResults": true,
     "distances": [
@@ -325,10 +326,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 618,
     "finisherCount": 492,
-    "scrapedAt": "2026-04-05T19:02:29.017Z",
-    "officialUrl": "https://stopandgo.net/events/1505"
+    "scrapedAt": "2026-04-05T19:02:29.017Z"
   },
   {
     "id": 1467,
@@ -336,6 +336,7 @@
     "year": 2025,
     "date": "2025-06-01",
     "location": "Gerês",
+    "officialUrl": "https://stopandgo.net/events/1467",
     "resultsUrl": "https://results.stopandgo.pro/1467",
     "hasResults": true,
     "distances": [
@@ -352,10 +353,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1090,
     "finisherCount": 931,
-    "scrapedAt": "2026-04-05T19:02:31.164Z",
-    "officialUrl": "https://stopandgo.net/events/1467"
+    "scrapedAt": "2026-04-05T19:02:31.164Z"
   },
   {
     "id": 1681,
@@ -363,6 +363,7 @@
     "year": 2025,
     "date": "2025-05-25",
     "location": "Tomar",
+    "officialUrl": "https://stopandgo.net/events/1681",
     "resultsUrl": "https://results.stopandgo.pro/1681",
     "hasResults": true,
     "distances": [
@@ -379,10 +380,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1145,
     "finisherCount": 970,
-    "scrapedAt": "2026-04-05T19:02:33.269Z",
-    "officialUrl": "https://stopandgo.net/events/1681"
+    "scrapedAt": "2026-04-05T19:02:33.269Z"
   },
   {
     "id": 1439,
@@ -390,6 +390,7 @@
     "year": 2025,
     "date": "2025-05-11",
     "location": "Douro",
+    "officialUrl": "https://stopandgo.net/events/1439",
     "resultsUrl": "https://results.stopandgo.pro/1439",
     "hasResults": true,
     "distances": [
@@ -406,10 +407,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 2359,
     "finisherCount": 1954,
-    "scrapedAt": "2026-04-05T19:02:35.558Z",
-    "officialUrl": "https://stopandgo.net/events/1439"
+    "scrapedAt": "2026-04-05T19:02:35.558Z"
   },
   {
     "id": 1656,
@@ -417,6 +417,7 @@
     "year": 2025,
     "date": "2025-04-27",
     "location": "Torres Vedras",
+    "officialUrl": "https://stopandgo.net/events/1656",
     "resultsUrl": "https://results.stopandgo.pro/1656",
     "hasResults": true,
     "distances": [
@@ -433,10 +434,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1203,
     "finisherCount": 995,
-    "scrapedAt": "2026-04-05T19:02:37.641Z",
-    "officialUrl": "https://stopandgo.net/events/1656"
+    "scrapedAt": "2026-04-05T19:02:37.641Z"
   },
   {
     "id": 1401,
@@ -444,6 +444,7 @@
     "year": 2025,
     "date": "2025-04-06",
     "location": "Campo Maior",
+    "officialUrl": "https://stopandgo.net/events/1401",
     "resultsUrl": "https://results.stopandgo.pro/1401",
     "hasResults": true,
     "distances": [
@@ -460,10 +461,9 @@
         "name": "Mediofondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1801,
     "finisherCount": 1493,
-    "scrapedAt": "2026-04-05T19:02:39.765Z",
-    "officialUrl": "https://stopandgo.net/events/1401"
+    "scrapedAt": "2026-04-05T19:02:39.765Z"
   },
   {
     "id": 1621,
@@ -471,18 +471,18 @@
     "year": 2025,
     "date": "2025-03-23",
     "location": "Aveiro",
+    "officialUrl": "https://stopandgo.net/events/1621",
     "resultsUrl": "https://results.stopandgo.pro/1621",
     "hasResults": true,
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "Clássica"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1261,
     "finisherCount": 1009,
-    "scrapedAt": "2026-04-05T19:02:40.885Z",
-    "officialUrl": "https://stopandgo.net/events/1621"
+    "scrapedAt": "2026-04-05T19:02:40.885Z"
   },
   {
     "id": 1390,
@@ -490,6 +490,7 @@
     "year": 2025,
     "date": "2025-03-16",
     "location": "Viana do Castelo",
+    "officialUrl": "https://stopandgo.net/events/1390",
     "resultsUrl": "https://results.stopandgo.pro/1390",
     "hasResults": true,
     "distances": [
@@ -506,10 +507,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1551,
     "finisherCount": 1395,
-    "scrapedAt": "2026-04-05T19:02:43.098Z",
-    "officialUrl": "https://stopandgo.net/events/1390"
+    "scrapedAt": "2026-04-05T19:02:43.098Z"
   },
   {
     "id": 1590,
@@ -517,6 +517,7 @@
     "year": 2025,
     "date": "2025-03-02",
     "location": "Coimbra",
+    "officialUrl": "https://stopandgo.net/events/1590",
     "resultsUrl": "https://results.stopandgo.pro/1590",
     "hasResults": true,
     "distances": [
@@ -529,10 +530,9 @@
         "name": "Granfondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1193,
     "finisherCount": 975,
-    "scrapedAt": "2026-04-05T19:02:46.061Z",
-    "officialUrl": "https://stopandgo.net/events/1590"
+    "scrapedAt": "2026-04-05T19:02:46.061Z"
   },
   {
     "id": 1592,
@@ -540,18 +540,18 @@
     "year": 2025,
     "date": "2025-03-01",
     "location": "Coimbra",
+    "officialUrl": "https://stopandgo.net/events/1592",
     "resultsUrl": "https://results.stopandgo.pro/1592",
     "hasResults": true,
     "distances": [
       {
         "id": "1",
-        "name": "Time Trial"
+        "name": "TIME TRIAL"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 315,
     "finisherCount": 242,
-    "scrapedAt": "2026-04-05T19:02:47.152Z",
-    "officialUrl": "https://stopandgo.net/events/1592"
+    "scrapedAt": "2026-04-05T19:02:47.152Z"
   },
   {
     "id": 1494,
@@ -559,6 +559,7 @@
     "year": 2025,
     "date": "2025-02-22",
     "location": "Algarve",
+    "officialUrl": "https://stopandgo.net/events/1494",
     "resultsUrl": "https://results.stopandgo.pro/1494",
     "hasResults": true,
     "distances": [
@@ -571,10 +572,9 @@
         "name": "Mediofondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1051,
     "finisherCount": 941,
-    "scrapedAt": "2026-04-05T19:02:48.907Z",
-    "officialUrl": "https://stopandgo.net/events/1494"
+    "scrapedAt": "2026-04-05T19:02:48.907Z"
   },
   {
     "id": 1828,
@@ -582,7 +582,8 @@
     "year": 2026,
     "date": "2026-10-18",
     "location": "Ourém",
-    "resultsUrl": "https://bikeservice.pt/event/ourem-fatima-granfondo/",
+    "officialUrl": "https://bikeservice.pt/event/ourem-fatima-granfondo/",
+    "resultsUrl": "https://results.stopandgo.pro/1828",
     "hasResults": false,
     "distances": [
       {
@@ -600,8 +601,7 @@
     ],
     "participantCount": 400,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://bikeservice.pt/event/ourem-fatima-granfondo/"
+    "scrapedAt": null
   },
   {
     "id": 1942,
@@ -609,7 +609,8 @@
     "year": 2026,
     "date": "2026-09-27",
     "location": "Tavira",
-    "resultsUrl": "https://stopandgo.net/events/tavira-granfondo-2026",
+    "officialUrl": "https://stopandgo.net/events/tavira-granfondo-2026",
+    "resultsUrl": "https://results.stopandgo.pro/1942",
     "hasResults": false,
     "distances": [
       {
@@ -627,8 +628,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://stopandgo.net/events/tavira-granfondo-2026"
+    "scrapedAt": null
   },
   {
     "id": 1956,
@@ -636,7 +636,8 @@
     "year": 2026,
     "date": "2026-09-13",
     "location": "Serra da Lousã",
-    "resultsUrl": "https://cabreirasolutions.com/evento/lousa-granfondo/",
+    "officialUrl": "https://cabreirasolutions.com/evento/lousa-granfondo/",
+    "resultsUrl": "https://results.stopandgo.pro/1956",
     "hasResults": false,
     "distances": [
       {
@@ -654,8 +655,7 @@
     ],
     "participantCount": 313,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://cabreirasolutions.com/evento/lousa-granfondo/"
+    "scrapedAt": null
   },
   {
     "id": 1883,
@@ -663,7 +663,8 @@
     "year": 2026,
     "date": "2026-07-12",
     "location": "Bragança",
-    "resultsUrl": "https://bikeservice.pt/event/braganca-granfondo/",
+    "officialUrl": "https://bikeservice.pt/event/braganca-granfondo/",
+    "resultsUrl": "https://results.stopandgo.pro/1883",
     "hasResults": false,
     "distances": [
       {
@@ -681,8 +682,7 @@
     ],
     "participantCount": 461,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://bikeservice.pt/event/braganca-granfondo/"
+    "scrapedAt": null
   },
   {
     "id": 1700,
@@ -690,7 +690,8 @@
     "year": 2026,
     "date": "2026-06-28",
     "location": "Seia",
-    "resultsUrl": "https://granfondoserradaestrela.com/",
+    "officialUrl": "https://granfondoserradaestrela.com/",
+    "resultsUrl": "https://results.stopandgo.pro/1700",
     "hasResults": false,
     "distances": [
       {
@@ -708,8 +709,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://granfondoserradaestrela.com/"
+    "scrapedAt": null
   },
   {
     "id": 1798,
@@ -717,7 +717,8 @@
     "year": 2026,
     "date": "2026-06-07",
     "location": "Arronches",
-    "resultsUrl": "https://stopandgo.net/events/sao-mamede-granfondo-2026",
+    "officialUrl": "https://stopandgo.net/events/sao-mamede-granfondo-2026",
+    "resultsUrl": "https://results.stopandgo.pro/1798",
     "hasResults": false,
     "distances": [
       {
@@ -735,8 +736,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://stopandgo.net/events/sao-mamede-granfondo-2026"
+    "scrapedAt": null
   },
   {
     "id": 1806,
@@ -744,7 +744,8 @@
     "year": 2026,
     "date": "2026-06-07",
     "location": "Terras de Bouro",
-    "resultsUrl": "https://bikeservice.pt/event/geres-granfondo/",
+    "officialUrl": "https://bikeservice.pt/event/geres-granfondo/",
+    "resultsUrl": "https://results.stopandgo.pro/1806",
     "hasResults": false,
     "distances": [
       {
@@ -762,8 +763,7 @@
     ],
     "participantCount": 505,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://bikeservice.pt/event/geres-granfondo/"
+    "scrapedAt": null
   },
   {
     "id": 1766,
@@ -771,7 +771,8 @@
     "year": 2026,
     "date": "2026-04-26",
     "location": "Peso da Régua",
-    "resultsUrl": "https://bikeservice.pt/event/douro-granfondo/",
+    "officialUrl": "https://bikeservice.pt/event/douro-granfondo/",
+    "resultsUrl": "https://results.stopandgo.pro/1766",
     "hasResults": false,
     "distances": [
       {
@@ -787,10 +788,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 1577,
+    "participantCount": 1578,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://bikeservice.pt/event/douro-granfondo/"
+    "scrapedAt": null
   },
   {
     "id": 1751,
@@ -798,7 +798,8 @@
     "year": 2026,
     "date": "2026-04-19",
     "location": "Torres Vedras",
-    "resultsUrl": "https://cabreirasolutions.com/evento/granfondo-torres-vedras/",
+    "officialUrl": "https://cabreirasolutions.com/evento/granfondo-torres-vedras/",
+    "resultsUrl": "https://results.stopandgo.pro/1751",
     "hasResults": false,
     "distances": [
       {
@@ -814,10 +815,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 1253,
+    "participantCount": 1266,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://cabreirasolutions.com/evento/granfondo-torres-vedras/"
+    "scrapedAt": null
   },
   {
     "id": 1741,
@@ -825,7 +825,8 @@
     "year": 2026,
     "date": "2026-04-12",
     "location": "Spain",
-    "resultsUrl": "https://bikeservice.pt/event/eurobec-granfondo/",
+    "officialUrl": "https://bikeservice.pt/event/eurobec-granfondo/",
+    "resultsUrl": "https://results.stopandgo.pro/1741",
     "hasResults": false,
     "distances": [
       {
@@ -841,10 +842,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 1889,
+    "participantCount": 1890,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://bikeservice.pt/event/eurobec-granfondo/"
+    "scrapedAt": null
   },
   {
     "id": 1977,
@@ -852,7 +852,8 @@
     "year": 2026,
     "date": "2026-05-24",
     "location": "Tomar",
-    "resultsUrl": "https://cabreirasolutions.com/evento/granfondo-medio-tejo/",
+    "officialUrl": "https://cabreirasolutions.com/evento/granfondo-medio-tejo/",
+    "resultsUrl": "https://results.stopandgo.pro/1977",
     "hasResults": false,
     "distances": [
       {
@@ -870,8 +871,7 @@
     ],
     "participantCount": 1026,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://cabreirasolutions.com/evento/granfondo-medio-tejo/"
+    "scrapedAt": null
   },
   {
     "id": 1943,
@@ -879,7 +879,8 @@
     "year": 2026,
     "date": "2026-09-20",
     "location": "Portugal",
-    "resultsUrl": "https://bikeservice.pt/event/moncao-e-melgaco-granfondo/",
+    "officialUrl": "https://bikeservice.pt/event/moncao-e-melgaco-granfondo/",
+    "resultsUrl": "https://results.stopandgo.pro/1943",
     "hasResults": false,
     "distances": [
       {
@@ -897,8 +898,7 @@
     ],
     "participantCount": 301,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://bikeservice.pt/event/moncao-e-melgaco-granfondo/"
+    "scrapedAt": null
   },
   {
     "id": 90001,
@@ -920,8 +920,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 829,
-    "scrapedAt": "2026-04-05T19:02:49.323Z",
-    "officialUrl": "https://stopandgo.net/events/90001"
+    "scrapedAt": "2026-04-05T19:02:49.323Z"
   },
   {
     "id": 90002,
@@ -947,8 +946,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 602,
-    "scrapedAt": "2026-04-05T19:02:49.669Z",
-    "officialUrl": "https://stopandgo.net/events/90002"
+    "scrapedAt": "2026-04-05T19:02:49.669Z"
   },
   {
     "id": 90003,
@@ -970,8 +968,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 247,
-    "scrapedAt": "2026-04-05T19:02:51.677Z",
-    "officialUrl": "https://stopandgo.net/events/90003"
+    "scrapedAt": "2026-04-05T19:02:51.677Z"
   },
   {
     "id": 90004,
@@ -989,8 +986,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 716,
-    "scrapedAt": "2026-04-05T19:02:52.113Z",
-    "officialUrl": "https://stopandgo.net/events/90004"
+    "scrapedAt": "2026-04-05T19:02:52.113Z"
   },
   {
     "id": 90011,
@@ -1014,10 +1010,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 401,
+    "participantCount": 0,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://stopandgo.net/events/90011"
+    "scrapedAt": null
   },
   {
     "id": 90012,
@@ -1039,8 +1034,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://stopandgo.net/events/90012"
+    "scrapedAt": null
   },
   {
     "id": 90013,
@@ -1064,10 +1058,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 481,
+    "participantCount": 0,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://stopandgo.net/events/90013"
+    "scrapedAt": null
   },
   {
     "id": 90014,
@@ -1085,8 +1078,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://stopandgo.net/events/90014"
+    "scrapedAt": null
   },
   {
     "id": 90015,
@@ -1110,10 +1102,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 512,
+    "participantCount": 0,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://stopandgo.net/events/90015"
+    "scrapedAt": null
   },
   {
     "id": 90016,
@@ -1137,9 +1128,8 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 444,
+    "participantCount": 0,
     "finisherCount": 0,
-    "scrapedAt": null,
-    "officialUrl": "https://stopandgo.net/events/90016"
+    "scrapedAt": null
   }
 ]

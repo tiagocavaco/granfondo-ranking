@@ -18922,5 +18922,17 @@
     "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
+  },
+  {
+    "dorsal": "1880",
+    "nome": "Fernando Eurico Sequeira Araújo",
+    "nomecompleto": "Fernando Eurico Sequeira Araújo",
+    "sexo": "M",
+    "equipa": "GERSAN AVEIRO VETERANOS",
+    "escalao": "MASTERS D",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
   }
 ]

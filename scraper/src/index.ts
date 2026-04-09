@@ -485,6 +485,22 @@ async function scrapeEvent(event: StoredEvent): Promise<StoredEvent> {
 
 // ── Athletes index builder ────────────────────────────────────────────────────
 
+/** Team names that indicate the athlete is racing without an affiliation. */
+const SOLO_TEAMS = new Set(["individual", "independente", "no team", "sem equipa", ""]);
+
+function isSoloTeam(team: string): boolean {
+  return SOLO_TEAMS.has(teamNormalKey(team).toLowerCase()) || !team.trim();
+}
+
+/**
+ * Composite dedup key: nameLower + "|" + normalised team key.
+ * Solo/unaffiliated results use an empty team bucket so they can be
+ * merged later into the athlete's real team, if one is identified.
+ */
+function athleteKey(nameLower: string, team: string): string {
+  return isSoloTeam(team) ? `${nameLower}|` : `${nameLower}|${teamNormalKey(team)}`;
+}
+
 function buildAthletesIndex(events: StoredEvent[]): Map<string, AthleteEntry> {
   const index = new Map<string, AthleteEntry>();
   // Track team name occurrences per athlete for canonical resolution
@@ -497,17 +513,17 @@ function buildAthletesIndex(events: StoredEvent[]): Map<string, AthleteEntry> {
 
     for (const dist of stored.distances) {
       for (const r of dist.results) {
-        const key = r.nameLower;
+        const key = athleteKey(r.nameLower, r.team);
         if (!index.has(key)) {
-          index.set(key, { name: r.name, nameLower: r.nameLower, results: [] });
+          const slug = key.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+          index.set(key, { name: r.name, nameLower: r.nameLower, slug, results: [] });
           teamOccurrences.set(key, new Map());
         }
-        // Record team occurrence
-        if (r.team) {
-          const teamKey = teamNormalKey(r.team);
+        if (r.team && !isSoloTeam(r.team)) {
+          const tk = teamNormalKey(r.team);
           const athleteTeams = teamOccurrences.get(key)!;
-          if (!athleteTeams.has(teamKey)) athleteTeams.set(teamKey, new Map());
-          const rawMap = athleteTeams.get(teamKey)!;
+          if (!athleteTeams.has(tk)) athleteTeams.set(tk, new Map());
+          const rawMap = athleteTeams.get(tk)!;
           const fixedName = fixRawTeamName(r.team);
           rawMap.set(fixedName, (rawMap.get(fixedName) ?? 0) + 1);
         }
@@ -533,23 +549,38 @@ function buildAthletesIndex(events: StoredEvent[]): Map<string, AthleteEntry> {
     }
   }
 
-  // Sort each athlete's results by date descending
+  // Merge solo bucket into the biggest team bucket for that name (if exactly one team exists)
+  for (const nameLowerVal of new Set([...index.keys()].map((k) => k.split("|")[0]!))) {
+    const soloKey = `${nameLowerVal}|`;
+    if (!index.has(soloKey)) continue;
+    // Find all non-solo keys for this name
+    const teamKeys = [...index.keys()].filter(
+      (k) => k.startsWith(`${nameLowerVal}|`) && k !== soloKey
+    );
+    if (teamKeys.length === 1) {
+      // Merge solo results into the one team bucket
+      const target = index.get(teamKeys[0]!)!;
+      target.results.push(...index.get(soloKey)!.results);
+      index.delete(soloKey);
+      teamOccurrences.delete(soloKey);
+    }
+    // If 0 or 2+ team buckets exist, keep solo as its own entry
+  }
+
+  // Sort each athlete's results by date descending and resolve canonical team
   for (const [key, entry] of index.entries()) {
     entry.results.sort(
       (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
     );
-    // Resolve canonical team: find the normalizedTeamKey with the most total occurrences
     const athleteTeams = teamOccurrences.get(key);
     if (athleteTeams && athleteTeams.size > 0) {
-      // Pick the normalized group with highest total count
       let bestNormKey = "";
       let bestTotal = 0;
       for (const [normKey, rawMap] of athleteTeams) {
         const total = Array.from(rawMap.values()).reduce((s, n) => s + n, 0);
         if (total > bestTotal) { bestTotal = total; bestNormKey = normKey; }
       }
-      const bestRawMap = athleteTeams.get(bestNormKey)!;
-      entry.canonicalTeam = canonicalTeam(bestRawMap);
+      entry.canonicalTeam = canonicalTeam(athleteTeams.get(bestNormKey)!);
     }
   }
 
@@ -631,11 +662,13 @@ function buildAggregateRanking(events: StoredEvent[]): AggregateRanking {
           if (basePoints === 0) return;
           const pts = Math.round(basePoints * coeff * 10) / 10;
 
-          const key = r.nameLower;
+          const key = athleteKey(r.nameLower, r.team);
           if (!distMap.has(key)) {
+            const slug = key.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
             distMap.set(key, {
               name: r.name,
               nameLower: r.nameLower,
+              slug,
               gender: r.gender,
               team: r.team,
               country: r.country,
@@ -1042,13 +1075,14 @@ async function main() {
   writeJson("stats.json", { uniqueAthletes: athletesArray.length, uniqueByYear });
 
   // Write individual athlete files for the profile page
+  // Use the composite key (nameLower|teamKey) to generate the slug so two athletes
+  // with the same name but different teams get distinct files.
   const athleteDir = path.join(DATA_DIR, "athlete");
   fs.mkdirSync(athleteDir, { recursive: true });
-  for (const a of athletesArray) {
-    const slug = a.nameLower.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-    fs.writeFileSync(path.join(athleteDir, `${slug}.json`), JSON.stringify(a), "utf-8");
+  for (const a of athletesIndex.values()) {
+    fs.writeFileSync(path.join(athleteDir, `${a.slug}.json`), JSON.stringify(a), "utf-8");
   }
-  console.log(`✓ athlete/ — ${athletesArray.length} individual files`);
+  console.log(`✓ athlete/ — ${athletesIndex.size} individual files`);
 
   // 6. Build and write aggregate ranking
   console.log("🏆 Building aggregate ranking…");

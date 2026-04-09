@@ -136,6 +136,7 @@ export interface AthleteResultRef {
 export interface AthleteEntry {
   name: string;
   nameLower: string;
+  slug: string;           // URL slug derived from composite key (name + team)
   canonicalTeam?: string; // most frequent team name (fuzzy-deduplicated)
   results: AthleteResultRef[];
 }
@@ -157,6 +158,7 @@ export interface AggregateAthlete {
   rank: number;
   name: string;
   nameLower: string;
+  slug: string;
   gender: string;
   team: string;
   country: string;
