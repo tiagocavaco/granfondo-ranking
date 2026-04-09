@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import type { StoredEventResults, StoredResult, StoredDistance } from "../types";
@@ -81,22 +81,32 @@ function posStyle(pos: number) {
 
 function ResultsTable({ results, finisherCount }: { results: StoredResult[]; finisherCount: number }) {
   const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [genderFilter, setGenderFilter] = useState("all");
 
-  const filtered = search
-    ? results.filter(
-        (r) =>
-          r.name.toLowerCase().includes(search.toLowerCase()) ||
-          r.team.toLowerCase().includes(search.toLowerCase()) ||
-          r.bib.includes(search)
-      )
-    : results;
+  const categories = useMemo(
+    () => ["all", ...Array.from(new Set(results.map((r) => r.category).filter(Boolean))).sort()],
+    [results]
+  );
 
-  const { visibleCount, sentinelRef } = useInfiniteScroll(filtered.length, search);
+  const filtered = useMemo(() => results.filter((r) => {
+    const matchSearch =
+      !search ||
+      r.name.toLowerCase().includes(search.toLowerCase()) ||
+      r.team.toLowerCase().includes(search.toLowerCase()) ||
+      r.bib.includes(search);
+    const matchCat = categoryFilter === "all" || r.category === categoryFilter;
+    const matchGender = genderFilter === "all" || r.gender === genderFilter;
+    return matchSearch && matchCat && matchGender;
+  }), [results, search, categoryFilter, genderFilter]);
+
+  const resetKey = `${search}|${categoryFilter}|${genderFilter}`;
+  const { visibleCount, sentinelRef } = useInfiniteScroll(filtered.length, resetKey);
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-        <p className="text-sm text-slate-500">
+      <div className="flex flex-wrap items-center gap-3 mb-4">
+        <p className="text-sm text-slate-500 mr-auto">
           <span className="font-semibold text-slate-700">{finisherCount.toLocaleString()}</span> finishers
         </p>
         <input
@@ -104,8 +114,25 @@ function ResultsTable({ results, finisherCount }: { results: StoredResult[]; fin
           placeholder="Search name, team, bib…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-56 px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-48 px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
+        <select
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+          className="px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="all">All categories</option>
+          {categories.slice(1).map((c) => <option key={c} value={c}>{c}</option>)}
+        </select>
+        <select
+          value={genderFilter}
+          onChange={(e) => setGenderFilter(e.target.value)}
+          className="px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="all">All genders</option>
+          <option value="M">Men</option>
+          <option value="F">Women</option>
+        </select>
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm bg-white">
