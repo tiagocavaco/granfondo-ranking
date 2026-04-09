@@ -177,6 +177,35 @@ export function teamNormalKey(name: string): string {
 }
 
 /**
+ * Fuzzy similarity between two normalized team keys.
+ * Returns 0–1. Uses two signals:
+ *   - Full containment: if all significant tokens of the shorter name appear in the longer → 1.0
+ *   - Jaccard: |intersection| / |union| of significant tokens (length ≥ 3)
+ * Returns the max of the two signals.
+ *
+ * Examples (threshold ≥ 0.6 is a good merge criterion):
+ *   "vivavita" vs "vivavita training and social club" → 1.0 (containment)
+ *   "anna cycling" vs "anna cycling team"            → 1.0 (containment)
+ *   "dbl bike" vs "jbracingcoach voicevelo em3"      → 0.0 (no shared tokens)
+ */
+export function teamKeySimilarity(a: string, b: string): number {
+  if (a === b) return 1;
+  const sigTok = (s: string) => s.split(" ").filter((t) => t.length >= 3);
+  const tokA = sigTok(a);
+  const tokB = sigTok(b);
+  if (tokA.length === 0 || tokB.length === 0) return 0;
+  const setA = new Set(tokA);
+  const setB = new Set(tokB);
+  // Containment: all tokens of the shorter set appear in the longer set
+  const [shorter, longer] = setA.size <= setB.size ? [setA, setB] : [setB, setA];
+  if ([...shorter].every((t) => longer.has(t))) return 1;
+  // Jaccard
+  const intersection = [...setA].filter((t) => setB.has(t)).length;
+  const union = new Set([...setA, ...setB]).size;
+  return intersection / union;
+}
+
+/**
  * Given a map of (rawTeamName → count) entries (all normalizing to the same key),
  * return the best canonical display name: the most frequently used raw form,
  * with display normalization applied (collapsed spaces, clean separators).

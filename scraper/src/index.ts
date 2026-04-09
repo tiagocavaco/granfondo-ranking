@@ -16,6 +16,7 @@ import {
   normalizeName,
   normalizeTeam,
   teamNormalKey,
+  teamKeySimilarity,
   fixRawTeamName,
   canonicalTeam,
   posToBasePoints,
@@ -580,6 +581,42 @@ function buildAthletesIndex(events: StoredEvent[]): Map<string, AthleteEntry> {
     // If 0 or 2+ team buckets exist, keep solo as its own entry
   }
 
+  // Fuzzy team merge: merge buckets for the same name whose normalised team keys
+  // are similar enough (e.g. "vivavita" vs "vivavita training and social club").
+  const FUZZY_THRESHOLD = 0.6;
+  const allNames = new Set([...index.keys()].map((k) => k.split("|")[0]!));
+  for (const nameLowerVal of allNames) {
+    let changed = true;
+    while (changed) {
+      changed = false;
+      const nameKeys = [...index.keys()].filter(
+        (k) => k.startsWith(`${nameLowerVal}|`) && k !== `${nameLowerVal}|`
+      );
+      outer: for (let i = 0; i < nameKeys.length; i++) {
+        for (let j = i + 1; j < nameKeys.length; j++) {
+          const kA = nameKeys[i]!;
+          const kB = nameKeys[j]!;
+          const teamA = kA.slice(nameLowerVal.length + 1);
+          const teamB = kB.slice(nameLowerVal.length + 1);
+          if (teamKeySimilarity(teamA, teamB) >= FUZZY_THRESHOLD) {
+            // Merge smaller bucket into larger
+            const eA = index.get(kA)!;
+            const eB = index.get(kB)!;
+            const [target, source, , sourceKey] =
+              eA.results.length >= eB.results.length
+                ? [eA, eB, kA, kB]
+                : [eB, eA, kB, kA];
+            target.results.push(...source.results);
+            index.delete(sourceKey);
+            teamOccurrences.delete(sourceKey);
+            changed = true;
+            break outer;
+          }
+        }
+      }
+    }
+  }
+
   // Sort each athlete's results by date descending and resolve canonical team
   for (const [key, entry] of index.entries()) {
     entry.results.sort(
@@ -728,7 +765,20 @@ function buildAggregateRanking(
           const pts = Math.round(basePoints * coeff * 10) / 10;
 
           const rawKey = athleteKey(r.nameLower, r.team);
-          const key = keyAliases.get(rawKey) ?? rawKey;
+          let key = keyAliases.get(rawKey) ?? rawKey;
+          // Fuzzy team match: if no exact entry yet, check if a similar team key
+          // already exists for this athlete name (same logic as athletes index)
+          if (!distMap.has(key)) {
+            const teamPart = key.slice(r.nameLower.length + 1);
+            for (const existingKey of distMap.keys()) {
+              if (!existingKey.startsWith(`${r.nameLower}|`)) continue;
+              const existingTeam = existingKey.slice(r.nameLower.length + 1);
+              if (teamKeySimilarity(teamPart, existingTeam) >= 0.6) {
+                key = existingKey;
+                break;
+              }
+            }
+          }
           if (!distMap.has(key)) {
             const slug = key.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
             distMap.set(key, {
