@@ -34,13 +34,13 @@ export default function ParticipantsTab({ eventId }: Props) {
     api
       .getParticipants(eventId)
       .then((data) => {
-        // Sort by bib number (numeric, blanks last)
+        // Sort by bib: unassigned (blank) first, then numeric ascending
         const sorted = [...data].sort((a, b) => {
           const na = parseInt(a.dorsal, 10);
           const nb = parseInt(b.dorsal, 10);
           if (isNaN(na) && isNaN(nb)) return 0;
-          if (isNaN(na)) return 1;
-          if (isNaN(nb)) return -1;
+          if (isNaN(na)) return -1;
+          if (isNaN(nb)) return 1;
           return na - nb;
         });
         setParticipants(sorted);
