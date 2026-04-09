@@ -67,7 +67,8 @@ export interface StoredEvent {
   year: number;
   date: string;         // "YYYY-MM-DD"
   location: string;
-  resultsUrl: string;
+  officialUrl?: string; // organiser / event page (absent for external-only events)
+  resultsUrl: string;   // results.stopandgo.pro (past) or placeholder (upcoming)
   hasResults: boolean;
   distances: StoredDistance[];
   participantCount: number;

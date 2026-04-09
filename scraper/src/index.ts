@@ -108,8 +108,9 @@ const SUPPLEMENTAL_EVENT_IDS: number[] = [
 ];
 
 /**
- * Official event pages for upcoming events — overrides the default results.stopandgo.pro URL.
- * Used before results are published; replaced automatically once results go live.
+ * Official organiser/event pages. Applied to all events (past and upcoming) as officialUrl.
+ * For StopAndGo-native events without an entry here, officialUrl falls back to
+ * https://stopandgo.net/events/{id} (which redirects to the slug-based page).
  */
 const OFFICIAL_EVENT_URLS: Record<number, string> = {
   // BikeService
@@ -213,19 +214,23 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
     return isGranfondoName(e.nome) || supplementalSet.has(Number(e.id_evento));
   });
 
-  const pastEvents: StoredEvent[] = granfondos.map((e) => ({
-    id: Number(e.id_evento),
-    name: e.nome,
-    year: getYear(parseEventDate(e.data)),
-    date: parseEventDate(e.data),
-    location: e.local,
-    resultsUrl: `https://results.stopandgo.pro/${Number(e.id_evento)}`,
-    hasResults: false,
-    distances: [],
-    participantCount: 0,
-    finisherCount: 0,
-    scrapedAt: null,
-  }));
+  const pastEvents: StoredEvent[] = granfondos.map((e) => {
+    const id = Number(e.id_evento);
+    return {
+      id,
+      name: e.nome,
+      year: getYear(parseEventDate(e.data)),
+      date: parseEventDate(e.data),
+      location: e.local,
+      officialUrl: OFFICIAL_EVENT_URLS[id] ?? `https://stopandgo.net/events/${id}`,
+      resultsUrl: `https://results.stopandgo.pro/${id}`,
+      hasResults: false,
+      distances: [],
+      participantCount: 0,
+      finisherCount: 0,
+      scrapedAt: null,
+    };
+  });
 
   // Fetch upcoming events from stopandgo.net (Pro API only returns past events)
   const pastIds = new Set(pastEvents.map((e) => e.id));
@@ -251,7 +256,8 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
         year: eventYear,
         date,
         location,
-        resultsUrl: OFFICIAL_EVENT_URLS[e.id] ?? `https://results.stopandgo.pro/${e.id}`,
+        officialUrl: OFFICIAL_EVENT_URLS[e.id] ?? `https://stopandgo.net/events/${e.id}`,
+        resultsUrl: `https://results.stopandgo.pro/${e.id}`,
         hasResults: false,
         distances: [],
         participantCount: 0,
@@ -279,7 +285,8 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
       year: eventYear,
       date,
       location,
-      resultsUrl: OFFICIAL_EVENT_URLS[id] ?? `https://results.stopandgo.pro/${id}`,
+      officialUrl: OFFICIAL_EVENT_URLS[id] ?? `https://stopandgo.net/events/${id}`,
+      resultsUrl: `https://results.stopandgo.pro/${id}`,
       hasResults: false,
       distances: [],
       participantCount: 0,

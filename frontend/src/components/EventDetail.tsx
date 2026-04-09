@@ -113,14 +113,24 @@ export default function EventDetail() {
                 </span>
               ))}
             </div>
-            {event.resultsUrl && (
+            {event.officialUrl && (
+              <a
+                href={event.officialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
+              >
+                Official Page ↗
+              </a>
+            )}
+            {isPast && event.resultsUrl && (
               <a
                 href={event.resultsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
               >
-                {isPast ? "Official Results ↗" : "Official Page ↗"}
+                Official Results ↗
               </a>
             )}
           </div>
