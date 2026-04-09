@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import type { StoredEventResults, StoredResult, StoredDistance } from "../types";
 import { Spinner, ErrorBanner } from "./EventList";
@@ -90,6 +91,8 @@ function ResultsTable({ results, finisherCount }: { results: StoredResult[]; fin
       )
     : results;
 
+  const { visibleCount, sentinelRef } = useInfiniteScroll(filtered.length, search);
+
   return (
     <div>
       <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
@@ -120,7 +123,7 @@ function ResultsTable({ results, finisherCount }: { results: StoredResult[]; fin
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {filtered.map((r, i) => (
+            {filtered.slice(0, visibleCount).map((r, i) => (
               <tr
                 key={i}
                 className={`transition-colors hover:bg-slate-50/60 ${
@@ -169,6 +172,11 @@ function ResultsTable({ results, finisherCount }: { results: StoredResult[]; fin
         </table>
         {filtered.length === 0 && (
           <div className="px-4 py-10 text-center text-sm text-slate-400">No results found</div>
+        )}
+        {visibleCount < filtered.length && (
+          <div ref={sentinelRef} className="px-4 py-3 text-xs text-slate-400 border-t border-slate-100 text-center">
+            Showing {visibleCount} of {filtered.length}…
+          </div>
         )}
       </div>
     </div>

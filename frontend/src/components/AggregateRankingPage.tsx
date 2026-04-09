@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import type { AggregateRanking, AggregateAthlete } from "../types";
 import { Spinner, ErrorBanner } from "./EventList";
@@ -92,6 +93,9 @@ export default function AggregateRankingPage() {
 
   // Max points in current view for bar scaling
   const maxPoints = ranked[0]?.totalPoints ?? 1;
+
+  const resetKey = `${year}|${distance}|${gender}|${search}`;
+  const { visibleCount, sentinelRef } = useInfiniteScroll(ranked.length, resetKey);
 
   const handleYearChange = (y: string) => {
     setYear(y);
@@ -220,7 +224,7 @@ export default function AggregateRankingPage() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
+          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white" id="ranking-table">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
@@ -234,7 +238,7 @@ export default function AggregateRankingPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {ranked.map((a) => (
+                {ranked.slice(0, visibleCount).map((a) => (
                   <>
                     <tr
                       key={a.nameLower}
@@ -330,6 +334,11 @@ export default function AggregateRankingPage() {
                 ))}
               </tbody>
             </table>
+            {visibleCount < ranked.length && (
+              <div ref={sentinelRef} className="px-4 py-3 text-xs text-slate-400 border-t border-slate-100 text-center">
+                Showing {visibleCount} of {ranked.length}…
+              </div>
+            )}
           </div>
         </>
       )}

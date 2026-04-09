@@ -1,4 +1,5 @@
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import type { ApiAthlete } from "../types";
 import { Spinner } from "./EventList";
@@ -27,8 +28,6 @@ export default function ParticipantsTab({ eventId }: Props) {
   const [distanceFilter, setDistanceFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [genderFilter, setGenderFilter] = useState("all");
-  const [visibleCount, setVisibleCount] = useState(100);
-  const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -61,9 +60,6 @@ export default function ParticipantsTab({ eventId }: Props) {
     [participants]
   );
 
-  // Reset visible count whenever filters change
-  useEffect(() => { setVisibleCount(100); }, [search, distanceFilter, categoryFilter, genderFilter]);
-
   const filtered = useMemo(() => participants.filter((p) => {
     const matchSearch =
       !search ||
@@ -76,19 +72,8 @@ export default function ParticipantsTab({ eventId }: Props) {
     return matchSearch && matchDist && matchCat && matchGender;
   }), [participants, search, distanceFilter, categoryFilter, genderFilter]);
 
-  // Infinite scroll: recreate observer on each visibleCount change so it
-  // immediately re-checks if the sentinel is still visible and loads more
-  useEffect(() => {
-    if (visibleCount >= filtered.length) return;
-    const el = sentinelRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry?.isIntersecting) setVisibleCount((n) => n + 100); },
-      { rootMargin: "200px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [visibleCount, filtered.length]);
+  const resetKey = `${search}|${distanceFilter}|${categoryFilter}|${genderFilter}`;
+  const { visibleCount, sentinelRef } = useInfiniteScroll(filtered.length, resetKey);
 
   if (loading) return <Spinner />;
 
