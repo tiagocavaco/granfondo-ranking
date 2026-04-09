@@ -34,7 +34,7 @@ export const api = {
   },
 
   getStats(): Promise<{ uniqueAthletes: number; uniqueByYear: Record<string, number> }> {
-    return getJson<{ uniqueAthletes: number }>("/stats.json");
+    return getJson<{ uniqueAthletes: number; uniqueByYear: Record<string, number> }>("/stats.json");
   },
 
   getAthlete(nameLower: string): Promise<AthleteEntry> {
