@@ -123,7 +123,7 @@ export default function ParticipantsTab({ eventId }: Props) {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {filtered.slice(0, 200).map((p, i) => (
+            {filtered.map((p, i) => (
               <tr key={i} className="hover:bg-slate-50/60 transition-colors">
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{p.dorsal}</td>
                 <td className="px-4 py-3 font-semibold text-slate-900">{p.nomecompleto}</td>
@@ -155,11 +155,6 @@ export default function ParticipantsTab({ eventId }: Props) {
             ))}
           </tbody>
         </table>
-        {filtered.length > 200 && (
-          <div className="px-4 py-3 text-xs text-slate-400 border-t border-slate-100 text-center">
-            Showing first 200 of {filtered.length} — narrow your search to see more
-          </div>
-        )}
         {filtered.length === 0 && (
           <div className="px-4 py-10 text-center text-sm text-slate-400">No participants found</div>
         )}
