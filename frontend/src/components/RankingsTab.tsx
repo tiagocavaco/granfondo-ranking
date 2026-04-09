@@ -106,9 +106,6 @@ function ResultsTable({ results, finisherCount }: { results: StoredResult[]; fin
   return (
     <div>
       <div className="flex flex-wrap items-center gap-3 mb-4">
-        <p className="text-sm text-slate-500 mr-auto">
-          <span className="font-semibold text-slate-700">{finisherCount.toLocaleString()}</span> finishers
-        </p>
         <input
           type="text"
           placeholder="Search name, team, bib…"
@@ -133,6 +130,9 @@ function ResultsTable({ results, finisherCount }: { results: StoredResult[]; fin
           <option value="M">Men</option>
           <option value="F">Women</option>
         </select>
+        <span className="text-sm text-slate-500 ml-auto">
+          <span className="font-semibold text-slate-700">{filtered.length.toLocaleString()}</span> of {finisherCount.toLocaleString()}
+        </span>
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm bg-white">
