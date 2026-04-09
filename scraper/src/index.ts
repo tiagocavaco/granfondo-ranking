@@ -52,6 +52,19 @@ const PARTICIPANTS_ONLY = process.argv.includes("--participants");
 const YEARS = [2025, 2026]; // seasons to include
 const DELAY_MS = 400; // polite delay between requests
 
+// ── Manual athlete merges ─────────────────────────────────────────────────────
+
+interface MergeRule {
+  canonical: string; // slug of the profile to keep
+  aliases: string[]; // slugs to merge into canonical
+  note?: string;
+}
+
+const MERGES_PATH = path.join(__dirname, "..", "athlete-merges.json");
+const MERGE_RULES: MergeRule[] = fs.existsSync(MERGES_PATH)
+  ? (JSON.parse(fs.readFileSync(MERGES_PATH, "utf-8")) as MergeRule[])
+  : [];
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function outPath(filename: string) {
@@ -587,6 +600,55 @@ function buildAthletesIndex(events: StoredEvent[]): Map<string, AthleteEntry> {
   return index;
 }
 
+/**
+ * Apply manual merge rules to the athletes index.
+ * Returns a map of aliasSlug → canonicalSlug for writing redirect files,
+ * and a map of aliasAthleteKey → canonicalAthleteKey for use in aggregate ranking.
+ */
+function applyAthleteMerges(index: Map<string, AthleteEntry>): {
+  redirects: Map<string, string>;
+  keyAliases: Map<string, string>;
+} {
+  const redirects = new Map<string, string>(); // aliasSlug → canonicalSlug
+  const keyAliases = new Map<string, string>(); // aliasAthleteKey → canonicalAthleteKey
+
+  // Build slug → athleteKey map
+  const slugToKey = new Map<string, string>();
+  for (const [key, entry] of index) slugToKey.set(entry.slug, key);
+
+  for (const rule of MERGE_RULES) {
+    const canonicalKey = slugToKey.get(rule.canonical);
+    if (!canonicalKey) {
+      console.warn(`  ⚠ merge: canonical slug "${rule.canonical}" not found in index`);
+      continue;
+    }
+    const canonical = index.get(canonicalKey)!;
+
+    for (const aliasSlug of rule.aliases) {
+      const aliasKey = slugToKey.get(aliasSlug);
+      if (!aliasKey) {
+        console.warn(`  ⚠ merge: alias slug "${aliasSlug}" not found in index`);
+        continue;
+      }
+      const alias = index.get(aliasKey)!;
+      canonical.results.push(...alias.results);
+      keyAliases.set(aliasKey, canonicalKey);
+      redirects.set(aliasSlug, rule.canonical);
+      index.delete(aliasKey);
+    }
+
+    // Re-sort merged results by date descending
+    canonical.results.sort(
+      (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
+    );
+  }
+
+  if (MERGE_RULES.length > 0)
+    console.log(`  ✓ applied ${redirects.size} athlete merge(s)`);
+
+  return { redirects, keyAliases };
+}
+
 // ── Aggregate ranking builder ─────────────────────────────────────────────────
 
 const DISTANCE_ALIASES: Record<string, string> = {
@@ -608,7 +670,10 @@ function normalizeDistance(name: string): string {
   return DISTANCE_ALIASES[name.toLowerCase()] ?? name;
 }
 
-function buildAggregateRanking(events: StoredEvent[]): AggregateRanking {
+function buildAggregateRanking(
+  events: StoredEvent[],
+  keyAliases: Map<string, string> = new Map()
+): AggregateRanking {
   // year → distance → gender → athleteKey → aggregation data
   type AccEntry = {
     name: string;
@@ -662,7 +727,8 @@ function buildAggregateRanking(events: StoredEvent[]): AggregateRanking {
           if (basePoints === 0) return;
           const pts = Math.round(basePoints * coeff * 10) / 10;
 
-          const key = athleteKey(r.nameLower, r.team);
+          const rawKey = athleteKey(r.nameLower, r.team);
+          const key = keyAliases.get(rawKey) ?? rawKey;
           if (!distMap.has(key)) {
             const slug = key.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
             distMap.set(key, {
@@ -1058,6 +1124,10 @@ async function main() {
   // 5. Build and write athletes index
   console.log("🔨 Building athletes index…");
   const athletesIndex = buildAthletesIndex(scraped);
+
+  // Apply manual merges (must happen before writing files and before aggregate ranking)
+  const { redirects, keyAliases } = applyAthleteMerges(athletesIndex);
+
   const athletesArray = Array.from(athletesIndex.values()).sort((a, b) =>
     a.nameLower.localeCompare(b.nameLower)
   );
@@ -1074,19 +1144,26 @@ async function main() {
   }
   writeJson("stats.json", { uniqueAthletes: athletesArray.length, uniqueByYear });
 
-  // Write individual athlete files for the profile page
-  // Use the composite key (nameLower|teamKey) to generate the slug so two athletes
-  // with the same name but different teams get distinct files.
+  // Write individual athlete files — wipe dir first to remove stale files
   const athleteDir = path.join(DATA_DIR, "athlete");
+  fs.rmSync(athleteDir, { recursive: true, force: true });
   fs.mkdirSync(athleteDir, { recursive: true });
   for (const a of athletesIndex.values()) {
     fs.writeFileSync(path.join(athleteDir, `${a.slug}.json`), JSON.stringify(a), "utf-8");
   }
-  console.log(`✓ athlete/ — ${athletesIndex.size} individual files`);
+  // Write redirect stubs for merged aliases so old bookmarked URLs still resolve
+  for (const [aliasSlug, canonicalSlug] of redirects) {
+    fs.writeFileSync(
+      path.join(athleteDir, `${aliasSlug}.json`),
+      JSON.stringify({ redirectTo: canonicalSlug }),
+      "utf-8"
+    );
+  }
+  console.log(`✓ athlete/ — ${athletesIndex.size} files + ${redirects.size} redirect(s)`);
 
   // 6. Build and write aggregate ranking
   console.log("🏆 Building aggregate ranking…");
-  const aggregateRanking = buildAggregateRanking(scraped);
+  const aggregateRanking = buildAggregateRanking(scraped, keyAliases);
   writeJson("aggregate_ranking.json", aggregateRanking);
   for (const [year, distances] of Object.entries(aggregateRanking)) {
     for (const [dist, genders] of Object.entries(distances)) {

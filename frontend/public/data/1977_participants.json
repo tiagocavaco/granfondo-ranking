@@ -12310,5 +12310,17 @@
     "id_percursos": "1",
     "pais_nome": null,
     "pais_iso2": null
+  },
+  {
+    "dorsal": "1136",
+    "nome": "Desidério Pires",
+    "nomecompleto": "Desidério Pires",
+    "sexo": "M",
+    "equipa": "NFC Running Team",
+    "escalao": "MASTERS C",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
   }
 ]

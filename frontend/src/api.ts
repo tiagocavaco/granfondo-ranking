@@ -37,7 +37,13 @@ export const api = {
     return getJson<{ uniqueAthletes: number; uniqueByYear: Record<string, number> }>("/stats.json");
   },
 
-  getAthlete(nameLower: string): Promise<AthleteEntry> {
-    return getJson<AthleteEntry>(`/athlete/${athleteSlug(nameLower)}.json`);
+  getAthlete(slug: string): Promise<AthleteEntry> {
+    return getJson<AthleteEntry | { redirectTo: string }>(`/athlete/${athleteSlug(slug)}.json`)
+      .then((data) => {
+        if ("redirectTo" in data) {
+          return getJson<AthleteEntry>(`/athlete/${data.redirectTo}.json`);
+        }
+        return data;
+      });
   },
 };

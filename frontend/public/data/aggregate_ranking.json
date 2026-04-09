@@ -80949,8 +80949,8 @@
           "gender": "M",
           "team": "Jbracingcoach / Voicevelo / Em3",
           "country": "Portugal",
-          "totalPoints": 143.3,
-          "eventsScored": 1,
+          "totalPoints": 207.1,
+          "eventsScored": 2,
           "bestPos": 1,
           "results": [
             {
@@ -80962,6 +80962,16 @@
               "pos": 1,
               "basePoints": 75,
               "points": 143.3
+            },
+            {
+              "eventId": 1880,
+              "eventName": "Figueira Champions Classic 2026",
+              "eventDate": "2026-02-15",
+              "distanceFinishers": 217,
+              "coefficient": 0.85,
+              "pos": 1,
+              "basePoints": 75,
+              "points": 63.8
             }
           ],
           "rank": 2
@@ -81261,30 +81271,6 @@
           "rank": 13
         },
         {
-          "name": "José Borges",
-          "nameLower": "jose borges",
-          "slug": "jose-borges-dbl-bike",
-          "gender": "M",
-          "team": "Dbl Bike",
-          "country": "",
-          "totalPoints": 63.8,
-          "eventsScored": 1,
-          "bestPos": 1,
-          "results": [
-            {
-              "eventId": 1880,
-              "eventName": "Figueira Champions Classic 2026",
-              "eventDate": "2026-02-15",
-              "distanceFinishers": 217,
-              "coefficient": 0.85,
-              "pos": 1,
-              "basePoints": 75,
-              "points": 63.8
-            }
-          ],
-          "rank": 14
-        },
-        {
           "name": "Cesário Silva",
           "nameLower": "cesario silva",
           "slug": "cesario-silva-love-tiles",
@@ -81306,7 +81292,7 @@
               "points": 58.5
             }
           ],
-          "rank": 15
+          "rank": 14
         },
         {
           "name": "Nuno Gomes",
@@ -81340,7 +81326,7 @@
               "points": 11
             }
           ],
-          "rank": 16
+          "rank": 15
         },
         {
           "name": "Ricardo Esteves",
@@ -81364,7 +81350,7 @@
               "points": 57.3
             }
           ],
-          "rank": 17
+          "rank": 16
         },
         {
           "name": "Pedro Seabra",
@@ -81388,7 +81374,7 @@
               "points": 52.7
             }
           ],
-          "rank": 18
+          "rank": 17
         },
         {
           "name": "Ivo Lopes",
@@ -81412,7 +81398,7 @@
               "points": 51
             }
           ],
-          "rank": 19
+          "rank": 18
         },
         {
           "name": "Tiago Teixeira",
@@ -81436,7 +81422,7 @@
               "points": 51
             }
           ],
-          "rank": 20
+          "rank": 19
         },
         {
           "name": "Daire Feeley",
@@ -81460,7 +81446,7 @@
               "points": 46.8
             }
           ],
-          "rank": 21
+          "rank": 20
         },
         {
           "name": "Hélder Loureiro",
@@ -81484,7 +81470,7 @@
               "points": 46.8
             }
           ],
-          "rank": 22
+          "rank": 21
         },
         {
           "name": "Miguel Frutuoso",
@@ -81508,7 +81494,7 @@
               "points": 42.5
             }
           ],
-          "rank": 23
+          "rank": 22
         },
         {
           "name": "Rodrigo Coimbra",
@@ -81532,7 +81518,7 @@
               "points": 40.9
             }
           ],
-          "rank": 24
+          "rank": 23
         },
         {
           "name": "João Rodrigues",
@@ -81556,7 +81542,7 @@
               "points": 38.3
             }
           ],
-          "rank": 25
+          "rank": 24
         },
         {
           "name": "Gonçalo Freitas",
@@ -81580,7 +81566,7 @@
               "points": 38.3
             }
           ],
-          "rank": 26
+          "rank": 25
         },
         {
           "name": "Igor Alves",
@@ -81604,7 +81590,7 @@
               "points": 38.2
             }
           ],
-          "rank": 27
+          "rank": 26
         },
         {
           "name": "Joao Dias",
@@ -81628,7 +81614,7 @@
               "points": 35.1
             }
           ],
-          "rank": 28
+          "rank": 27
         },
         {
           "name": "Pedro Rebelo",
@@ -81652,7 +81638,7 @@
               "points": 34
             }
           ],
-          "rank": 29
+          "rank": 28
         },
         {
           "name": "Marco Costa",
@@ -81676,7 +81662,7 @@
               "points": 34
             }
           ],
-          "rank": 30
+          "rank": 29
         },
         {
           "name": "Ricardo Gil",
@@ -81710,7 +81696,7 @@
               "points": 29.8
             }
           ],
-          "rank": 31
+          "rank": 30
         },
         {
           "name": "Carlos Martins",
@@ -81734,7 +81720,7 @@
               "points": 29.8
             }
           ],
-          "rank": 32
+          "rank": 31
         },
         {
           "name": "Rúben Machado",
@@ -81758,7 +81744,7 @@
               "points": 29.3
             }
           ],
-          "rank": 33
+          "rank": 32
         },
         {
           "name": "Lucas Coelho",
@@ -81782,7 +81768,7 @@
               "points": 28.7
             }
           ],
-          "rank": 34
+          "rank": 33
         },
         {
           "name": "Tiago Miranda",
@@ -81806,7 +81792,7 @@
               "points": 25.5
             }
           ],
-          "rank": 35
+          "rank": 34
         },
         {
           "name": "Igor Resende",
@@ -81850,7 +81836,7 @@
               "points": 6
             }
           ],
-          "rank": 36
+          "rank": 35
         },
         {
           "name": "João Pereira",
@@ -81874,7 +81860,7 @@
               "points": 24.8
             }
           ],
-          "rank": 37
+          "rank": 36
         },
         {
           "name": "Rafael Teles",
@@ -81898,7 +81884,7 @@
               "points": 23.4
             }
           ],
-          "rank": 38
+          "rank": 37
         },
         {
           "name": "Stijn Wuytens",
@@ -81922,7 +81908,7 @@
               "points": 21.3
             }
           ],
-          "rank": 39
+          "rank": 38
         },
         {
           "name": "Miguel Nunes",
@@ -81946,7 +81932,7 @@
               "points": 21.3
             }
           ],
-          "rank": 40
+          "rank": 39
         },
         {
           "name": "Rui Marreiros",
@@ -81970,7 +81956,7 @@
               "points": 21
             }
           ],
-          "rank": 41
+          "rank": 40
         },
         {
           "name": "Pedro Pinheiro",
@@ -81994,7 +81980,7 @@
               "points": 19.1
             }
           ],
-          "rank": 42
+          "rank": 41
         },
         {
           "name": "Bruno Carvalho",
@@ -82038,7 +82024,7 @@
               "points": 2.6
             }
           ],
-          "rank": 43
+          "rank": 42
         },
         {
           "name": "Augusto Silva",
@@ -82072,7 +82058,7 @@
               "points": 4.3
             }
           ],
-          "rank": 44
+          "rank": 43
         },
         {
           "name": "Miguel García",
@@ -82096,7 +82082,7 @@
               "points": 17.5
             }
           ],
-          "rank": 45
+          "rank": 44
         },
         {
           "name": "Miguel Arsenio",
@@ -82120,7 +82106,7 @@
               "points": 17
             }
           ],
-          "rank": 46
+          "rank": 45
         },
         {
           "name": "Diogo Graça",
@@ -82144,7 +82130,7 @@
               "points": 17
             }
           ],
-          "rank": 47
+          "rank": 46
         },
         {
           "name": "David Vaz",
@@ -82168,7 +82154,7 @@
               "points": 15.2
             }
           ],
-          "rank": 48
+          "rank": 47
         },
         {
           "name": "Helder Rocha",
@@ -82202,7 +82188,7 @@
               "points": 6
             }
           ],
-          "rank": 49
+          "rank": 48
         },
         {
           "name": "Jorge Alexandre",
@@ -82226,7 +82212,7 @@
               "points": 13.4
             }
           ],
-          "rank": 50
+          "rank": 49
         },
         {
           "name": "Nuno Fitas",
@@ -82250,7 +82236,7 @@
               "points": 13.4
             }
           ],
-          "rank": 51
+          "rank": 50
         },
         {
           "name": "Stefan Pinheiro",
@@ -82274,7 +82260,7 @@
               "points": 12.9
             }
           ],
-          "rank": 52
+          "rank": 51
         },
         {
           "name": "Pedro Sousa",
@@ -82298,7 +82284,7 @@
               "points": 12.8
             }
           ],
-          "rank": 53
+          "rank": 52
         },
         {
           "name": "Federico Borella",
@@ -82322,7 +82308,7 @@
               "points": 12.8
             }
           ],
-          "rank": 54
+          "rank": 53
         },
         {
           "name": "Gonçalo Santos",
@@ -82356,7 +82342,7 @@
               "points": 6
             }
           ],
-          "rank": 55
+          "rank": 54
         },
         {
           "name": "Sérgio Oliveira",
@@ -82380,7 +82366,7 @@
               "points": 11.7
             }
           ],
-          "rank": 56
+          "rank": 55
         },
         {
           "name": "Ricardo Sequeira",
@@ -82404,7 +82390,7 @@
               "points": 11
             }
           ],
-          "rank": 57
+          "rank": 56
         },
         {
           "name": "Claudio Costa",
@@ -82428,7 +82414,7 @@
               "points": 9.5
             }
           ],
-          "rank": 58
+          "rank": 57
         },
         {
           "name": "João Brochado",
@@ -82452,7 +82438,7 @@
               "points": 9.5
             }
           ],
-          "rank": 59
+          "rank": 58
         },
         {
           "name": "Hernâni Gouveia",
@@ -82476,7 +82462,7 @@
               "points": 9.5
             }
           ],
-          "rank": 60
+          "rank": 59
         },
         {
           "name": "José Castelo",
@@ -82500,7 +82486,7 @@
               "points": 9.5
             }
           ],
-          "rank": 61
+          "rank": 60
         },
         {
           "name": "Rafael Basilio",
@@ -82524,7 +82510,7 @@
               "points": 9.5
             }
           ],
-          "rank": 62
+          "rank": 61
         },
         {
           "name": "Lander Haspeslagh",
@@ -82548,7 +82534,7 @@
               "points": 9.4
             }
           ],
-          "rank": 63
+          "rank": 62
         },
         {
           "name": "Pedro Merendeiro",
@@ -82572,7 +82558,7 @@
               "points": 9.4
             }
           ],
-          "rank": 64
+          "rank": 63
         },
         {
           "name": "Mateus Cardona",
@@ -82596,7 +82582,7 @@
               "points": 8.5
             }
           ],
-          "rank": 65
+          "rank": 64
         },
         {
           "name": "Ricardo",
@@ -82620,7 +82606,7 @@
               "points": 8.5
             }
           ],
-          "rank": 66
+          "rank": 65
         },
         {
           "name": "Diogo Coelho",
@@ -82644,7 +82630,7 @@
               "points": 8.2
             }
           ],
-          "rank": 67
+          "rank": 66
         },
         {
           "name": "Helder Azevedo",
@@ -82668,7 +82654,7 @@
               "points": 8.2
             }
           ],
-          "rank": 68
+          "rank": 67
         },
         {
           "name": "Igor Cruz",
@@ -82692,7 +82678,7 @@
               "points": 8.2
             }
           ],
-          "rank": 69
+          "rank": 68
         },
         {
           "name": "Dénis Rocha",
@@ -82716,7 +82702,7 @@
               "points": 8.2
             }
           ],
-          "rank": 70
+          "rank": 69
         },
         {
           "name": "Rik Vandeurzen",
@@ -82740,7 +82726,7 @@
               "points": 6
             }
           ],
-          "rank": 71
+          "rank": 70
         },
         {
           "name": "Marco Domingos",
@@ -82764,7 +82750,7 @@
               "points": 6
             }
           ],
-          "rank": 72
+          "rank": 71
         },
         {
           "name": "Pedro Dias",
@@ -82788,7 +82774,7 @@
               "points": 6
             }
           ],
-          "rank": 73
+          "rank": 72
         },
         {
           "name": "Tiago Crespo",
@@ -82812,7 +82798,7 @@
               "points": 6
             }
           ],
-          "rank": 74
+          "rank": 73
         },
         {
           "name": "Paulo Valente",
@@ -82836,7 +82822,7 @@
               "points": 6
             }
           ],
-          "rank": 75
+          "rank": 74
         },
         {
           "name": "Stephan Geus",
@@ -82860,7 +82846,7 @@
               "points": 6
             }
           ],
-          "rank": 76
+          "rank": 75
         },
         {
           "name": "Bruno Silveira",
@@ -82884,7 +82870,7 @@
               "points": 6
             }
           ],
-          "rank": 77
+          "rank": 76
         },
         {
           "name": "João Silva",
@@ -82918,7 +82904,7 @@
               "points": 1.7
             }
           ],
-          "rank": 78
+          "rank": 77
         },
         {
           "name": "Xan Rey",
@@ -82942,7 +82928,7 @@
               "points": 5.9
             }
           ],
-          "rank": 79
+          "rank": 78
         },
         {
           "name": "Joel Silva",
@@ -82966,7 +82952,7 @@
               "points": 5.9
             }
           ],
-          "rank": 80
+          "rank": 79
         },
         {
           "name": "Ricardo Augusto",
@@ -82990,7 +82976,7 @@
               "points": 5.9
             }
           ],
-          "rank": 81
+          "rank": 80
         },
         {
           "name": "Carlos Fernandes",
@@ -83014,7 +83000,7 @@
               "points": 5.7
             }
           ],
-          "rank": 82
+          "rank": 81
         },
         {
           "name": "Elio Silva",
@@ -83038,7 +83024,7 @@
               "points": 5.7
             }
           ],
-          "rank": 83
+          "rank": 82
         },
         {
           "name": "Daniel Fernandes",
@@ -83062,7 +83048,7 @@
               "points": 5.7
             }
           ],
-          "rank": 84
+          "rank": 83
         },
         {
           "name": "Tiago Ribeiro",
@@ -83086,7 +83072,7 @@
               "points": 5.7
             }
           ],
-          "rank": 85
+          "rank": 84
         },
         {
           "name": "Hugo Ferreira",
@@ -83110,7 +83096,7 @@
               "points": 5.7
             }
           ],
-          "rank": 86
+          "rank": 85
         },
         {
           "name": "Paulo Almeida",
@@ -83144,7 +83130,7 @@
               "points": 0.9
             }
           ],
-          "rank": 87
+          "rank": 86
         },
         {
           "name": "Daniel Gregório",
@@ -83168,7 +83154,7 @@
               "points": 4.3
             }
           ],
-          "rank": 88
+          "rank": 87
         },
         {
           "name": "Rodolfo Pérez",
@@ -83192,7 +83178,7 @@
               "points": 4.3
             }
           ],
-          "rank": 89
+          "rank": 88
         },
         {
           "name": "Manuel Ferreira",
@@ -83216,7 +83202,7 @@
               "points": 4.3
             }
           ],
-          "rank": 90
+          "rank": 89
         },
         {
           "name": "Philippe Crutzen",
@@ -83240,7 +83226,7 @@
               "points": 4.3
             }
           ],
-          "rank": 91
+          "rank": 90
         },
         {
           "name": "Miguel Vicente",
@@ -83264,7 +83250,7 @@
               "points": 4.3
             }
           ],
-          "rank": 92
+          "rank": 91
         },
         {
           "name": "Cristóvão Silva",
@@ -83288,7 +83274,7 @@
               "points": 4.3
             }
           ],
-          "rank": 93
+          "rank": 92
         },
         {
           "name": "Rui Silva",
@@ -83312,7 +83298,7 @@
               "points": 4.3
             }
           ],
-          "rank": 94
+          "rank": 93
         },
         {
           "name": "Jorge Rosa",
@@ -83336,7 +83322,7 @@
               "points": 4.3
             }
           ],
-          "rank": 95
+          "rank": 94
         },
         {
           "name": "Joao Pereira",
@@ -83360,7 +83346,7 @@
               "points": 3.8
             }
           ],
-          "rank": 96
+          "rank": 95
         },
         {
           "name": "Bruno Costa",
@@ -83384,7 +83370,7 @@
               "points": 3.8
             }
           ],
-          "rank": 97
+          "rank": 96
         },
         {
           "name": "Miguel Silva",
@@ -83408,7 +83394,7 @@
               "points": 3.8
             }
           ],
-          "rank": 98
+          "rank": 97
         },
         {
           "name": "Ivan Sa",
@@ -83432,7 +83418,7 @@
               "points": 3.8
             }
           ],
-          "rank": 99
+          "rank": 98
         },
         {
           "name": "Fernando Barreto",
@@ -83456,7 +83442,7 @@
               "points": 3.8
             }
           ],
-          "rank": 100
+          "rank": 99
         },
         {
           "name": "Rodrigo Carvalho",
@@ -83480,7 +83466,7 @@
               "points": 3.8
             }
           ],
-          "rank": 101
+          "rank": 100
         },
         {
           "name": "Alexandre Vilar",
@@ -83504,7 +83490,7 @@
               "points": 3.8
             }
           ],
-          "rank": 102
+          "rank": 101
         },
         {
           "name": "Bruno Pereira",
@@ -83528,7 +83514,7 @@
               "points": 3.8
             }
           ],
-          "rank": 103
+          "rank": 102
         },
         {
           "name": "Pedro Cardoso",
@@ -83552,7 +83538,7 @@
               "points": 3.8
             }
           ],
-          "rank": 104
+          "rank": 103
         },
         {
           "name": "Joni Rodrigues",
@@ -83576,7 +83562,7 @@
               "points": 3.5
             }
           ],
-          "rank": 105
+          "rank": 104
         },
         {
           "name": "Nuno Ferreira",
@@ -83600,7 +83586,7 @@
               "points": 3.5
             }
           ],
-          "rank": 106
+          "rank": 105
         },
         {
           "name": "João Moreira",
@@ -83624,7 +83610,7 @@
               "points": 3.5
             }
           ],
-          "rank": 107
+          "rank": 106
         },
         {
           "name": "Francisco Santos",
@@ -83648,7 +83634,7 @@
               "points": 3.5
             }
           ],
-          "rank": 108
+          "rank": 107
         },
         {
           "name": "Rui Pinto",
@@ -83672,7 +83658,7 @@
               "points": 3.5
             }
           ],
-          "rank": 109
+          "rank": 108
         },
         {
           "name": "Romeu Sá",
@@ -83706,7 +83692,7 @@
               "points": 1.7
             }
           ],
-          "rank": 110
+          "rank": 109
         },
         {
           "name": "João Serralheiro",
@@ -83730,7 +83716,7 @@
               "points": 2.6
             }
           ],
-          "rank": 111
+          "rank": 110
         },
         {
           "name": "Tiago Gomes",
@@ -83754,7 +83740,7 @@
               "points": 2.6
             }
           ],
-          "rank": 112
+          "rank": 111
         },
         {
           "name": "Jose Aleixo",
@@ -83778,7 +83764,7 @@
               "points": 2.6
             }
           ],
-          "rank": 113
+          "rank": 112
         },
         {
           "name": "João Pereira",
@@ -83802,7 +83788,7 @@
               "points": 2.6
             }
           ],
-          "rank": 114
+          "rank": 113
         },
         {
           "name": "Marcin Klocek",
@@ -83826,7 +83812,7 @@
               "points": 2.6
             }
           ],
-          "rank": 115
+          "rank": 114
         },
         {
           "name": "Kenneth Knight",
@@ -83850,7 +83836,7 @@
               "points": 2.6
             }
           ],
-          "rank": 116
+          "rank": 115
         },
         {
           "name": "Nuno Torres",
@@ -83874,7 +83860,7 @@
               "points": 2.6
             }
           ],
-          "rank": 117
+          "rank": 116
         },
         {
           "name": "Miguel Portela",
@@ -83898,7 +83884,7 @@
               "points": 2.6
             }
           ],
-          "rank": 118
+          "rank": 117
         },
         {
           "name": "Fábio Araújo",
@@ -83922,7 +83908,7 @@
               "points": 2.6
             }
           ],
-          "rank": 119
+          "rank": 118
         },
         {
           "name": "Mário Ferreira",
@@ -83946,7 +83932,7 @@
               "points": 2.3
             }
           ],
-          "rank": 120
+          "rank": 119
         },
         {
           "name": "Tiago Amoedo",
@@ -83970,7 +83956,7 @@
               "points": 2.3
             }
           ],
-          "rank": 121
+          "rank": 120
         },
         {
           "name": "André Marta",
@@ -83994,7 +83980,7 @@
               "points": 2.3
             }
           ],
-          "rank": 122
+          "rank": 121
         },
         {
           "name": "Helder Gonçalves",
@@ -84018,7 +84004,7 @@
               "points": 2.3
             }
           ],
-          "rank": 123
+          "rank": 122
         },
         {
           "name": "Francisco Suarez",
@@ -84042,7 +84028,7 @@
               "points": 2.3
             }
           ],
-          "rank": 124
+          "rank": 123
         },
         {
           "name": "Jokim Pluijmers",
@@ -84066,7 +84052,7 @@
               "points": 2.3
             }
           ],
-          "rank": 125
+          "rank": 124
         },
         {
           "name": "Saúl Fernández",
@@ -84090,7 +84076,7 @@
               "points": 2.3
             }
           ],
-          "rank": 126
+          "rank": 125
         },
         {
           "name": "Pedro Batista",
@@ -84114,7 +84100,7 @@
               "points": 2.3
             }
           ],
-          "rank": 127
+          "rank": 126
         },
         {
           "name": "Alvaro Docampo",
@@ -84138,7 +84124,7 @@
               "points": 2.3
             }
           ],
-          "rank": 128
+          "rank": 127
         },
         {
           "name": "Lino Graça",
@@ -84162,7 +84148,7 @@
               "points": 1.9
             }
           ],
-          "rank": 129
+          "rank": 128
         },
         {
           "name": "Ricardo Pires",
@@ -84186,7 +84172,7 @@
               "points": 1.9
             }
           ],
-          "rank": 130
+          "rank": 129
         },
         {
           "name": "Rafael Cruz",
@@ -84210,7 +84196,7 @@
               "points": 1.9
             }
           ],
-          "rank": 131
+          "rank": 130
         },
         {
           "name": "João Alves",
@@ -84234,7 +84220,7 @@
               "points": 1.9
             }
           ],
-          "rank": 132
+          "rank": 131
         },
         {
           "name": "Helder Palma",
@@ -84258,7 +84244,7 @@
               "points": 1.9
             }
           ],
-          "rank": 133
+          "rank": 132
         },
         {
           "name": "Casimiro Oliveira",
@@ -84282,7 +84268,7 @@
               "points": 1.9
             }
           ],
-          "rank": 134
+          "rank": 133
         },
         {
           "name": "Rui Rodrigues",
@@ -84306,7 +84292,7 @@
               "points": 1.9
             }
           ],
-          "rank": 135
+          "rank": 134
         },
         {
           "name": "Miguel Martins",
@@ -84330,7 +84316,7 @@
               "points": 1.9
             }
           ],
-          "rank": 136
+          "rank": 135
         },
         {
           "name": "Pedro Batista",
@@ -84354,7 +84340,7 @@
               "points": 1.9
             }
           ],
-          "rank": 137
+          "rank": 136
         },
         {
           "name": "Ricardo Esteves",
@@ -84378,7 +84364,7 @@
               "points": 1.7
             }
           ],
-          "rank": 138
+          "rank": 137
         },
         {
           "name": "Federico Pozzetto",
@@ -84402,7 +84388,7 @@
               "points": 1.7
             }
           ],
-          "rank": 139
+          "rank": 138
         },
         {
           "name": "Juan Abreu",
@@ -84426,7 +84412,7 @@
               "points": 1.7
             }
           ],
-          "rank": 140
+          "rank": 139
         },
         {
           "name": "Ricardo Sousa",
@@ -84450,7 +84436,7 @@
               "points": 1.7
             }
           ],
-          "rank": 141
+          "rank": 140
         },
         {
           "name": "Ricardo Gomes",
@@ -84474,7 +84460,7 @@
               "points": 1.7
             }
           ],
-          "rank": 142
+          "rank": 141
         },
         {
           "name": "Luis Nunes",
@@ -84498,7 +84484,7 @@
               "points": 1.7
             }
           ],
-          "rank": 143
+          "rank": 142
         },
         {
           "name": "Joaquim Viegas",
@@ -84522,7 +84508,7 @@
               "points": 1.7
             }
           ],
-          "rank": 144
+          "rank": 143
         },
         {
           "name": "Vitor Araujo",
@@ -84546,7 +84532,7 @@
               "points": 1.7
             }
           ],
-          "rank": 145
+          "rank": 144
         },
         {
           "name": "Bruno Dias",
@@ -84570,7 +84556,7 @@
               "points": 1.7
             }
           ],
-          "rank": 146
+          "rank": 145
         },
         {
           "name": "Carlos Borges",
@@ -84594,7 +84580,7 @@
               "points": 1.7
             }
           ],
-          "rank": 147
+          "rank": 146
         },
         {
           "name": "Luis Pato",
@@ -84618,7 +84604,7 @@
               "points": 1.7
             }
           ],
-          "rank": 148
+          "rank": 147
         },
         {
           "name": "Tiago Miranda",
@@ -84642,7 +84628,7 @@
               "points": 1.7
             }
           ],
-          "rank": 149
+          "rank": 148
         },
         {
           "name": "Sharon Sasporta",
@@ -84666,7 +84652,7 @@
               "points": 1.7
             }
           ],
-          "rank": 150
+          "rank": 149
         },
         {
           "name": "Pedro Mendes",
@@ -84690,7 +84676,7 @@
               "points": 1.7
             }
           ],
-          "rank": 151
+          "rank": 150
         },
         {
           "name": "Eurico Gon?alves",
@@ -84714,7 +84700,7 @@
               "points": 1.7
             }
           ],
-          "rank": 152
+          "rank": 151
         },
         {
           "name": "Sérgio Oliveira",
@@ -84738,7 +84724,7 @@
               "points": 1.7
             }
           ],
-          "rank": 153
+          "rank": 152
         },
         {
           "name": "Tomas Agostinho",
@@ -84762,7 +84748,7 @@
               "points": 1.7
             }
           ],
-          "rank": 154
+          "rank": 153
         },
         {
           "name": "Renato Teixeira",
@@ -84786,7 +84772,7 @@
               "points": 1.7
             }
           ],
-          "rank": 155
+          "rank": 154
         },
         {
           "name": "Luis Oliveira",
@@ -84810,7 +84796,7 @@
               "points": 1.2
             }
           ],
-          "rank": 156
+          "rank": 155
         },
         {
           "name": "Marco Dias",
@@ -84834,7 +84820,7 @@
               "points": 1.2
             }
           ],
-          "rank": 157
+          "rank": 156
         },
         {
           "name": "Daniel Sá",
@@ -84858,7 +84844,7 @@
               "points": 1.2
             }
           ],
-          "rank": 158
+          "rank": 157
         },
         {
           "name": "Rui Godinho",
@@ -84882,7 +84868,7 @@
               "points": 1.2
             }
           ],
-          "rank": 159
+          "rank": 158
         },
         {
           "name": "Hugo Costa",
@@ -84906,7 +84892,7 @@
               "points": 1.2
             }
           ],
-          "rank": 160
+          "rank": 159
         },
         {
           "name": "Marcelo Ribafeita",
@@ -84930,7 +84916,7 @@
               "points": 1.2
             }
           ],
-          "rank": 161
+          "rank": 160
         },
         {
           "name": "Marco Vieira",
@@ -84954,7 +84940,7 @@
               "points": 1.2
             }
           ],
-          "rank": 162
+          "rank": 161
         },
         {
           "name": "Aires Braga",
@@ -84978,7 +84964,7 @@
               "points": 1.2
             }
           ],
-          "rank": 163
+          "rank": 162
         },
         {
           "name": "Rui Vieira",
@@ -85002,7 +84988,7 @@
               "points": 1.2
             }
           ],
-          "rank": 164
+          "rank": 163
         },
         {
           "name": "Joaquim Cabral",
@@ -85026,7 +85012,7 @@
               "points": 0.9
             }
           ],
-          "rank": 165
+          "rank": 164
         },
         {
           "name": "Pedro Silva",
@@ -85050,7 +85036,7 @@
               "points": 0.9
             }
           ],
-          "rank": 166
+          "rank": 165
         },
         {
           "name": "David Rand",
@@ -85074,7 +85060,7 @@
               "points": 0.9
             }
           ],
-          "rank": 167
+          "rank": 166
         },
         {
           "name": "Samuel",
@@ -85098,7 +85084,7 @@
               "points": 0.9
             }
           ],
-          "rank": 168
+          "rank": 167
         },
         {
           "name": "Anderson Villamizar",
@@ -85122,7 +85108,7 @@
               "points": 0.9
             }
           ],
-          "rank": 169
+          "rank": 168
         },
         {
           "name": "Eduardo Afonso",
@@ -85146,7 +85132,7 @@
               "points": 0.9
             }
           ],
-          "rank": 170
+          "rank": 169
         },
         {
           "name": "Bruno Silva",
@@ -85170,7 +85156,7 @@
               "points": 0.9
             }
           ],
-          "rank": 171
+          "rank": 170
         },
         {
           "name": "Carlos Lameira",
@@ -85194,7 +85180,7 @@
               "points": 0.9
             }
           ],
-          "rank": 172
+          "rank": 171
         },
         {
           "name": "Antonius Wubben",
@@ -85218,7 +85204,7 @@
               "points": 0.9
             }
           ],
-          "rank": 173
+          "rank": 172
         },
         {
           "name": "Luis Lameira",
@@ -85242,7 +85228,7 @@
               "points": 0.9
             }
           ],
-          "rank": 174
+          "rank": 173
         },
         {
           "name": "José Carvalho",
@@ -85266,7 +85252,7 @@
               "points": 0.9
             }
           ],
-          "rank": 175
+          "rank": 174
         },
         {
           "name": "Luís Silva",
@@ -85290,7 +85276,7 @@
               "points": 0.9
             }
           ],
-          "rank": 176
+          "rank": 175
         },
         {
           "name": "Nuno Cova",
@@ -85314,7 +85300,7 @@
               "points": 0.9
             }
           ],
-          "rank": 177
+          "rank": 176
         },
         {
           "name": "Bernardo Alves",
@@ -85338,7 +85324,7 @@
               "points": 0.9
             }
           ],
-          "rank": 178
+          "rank": 177
         },
         {
           "name": "Élio Silva",
@@ -85362,7 +85348,7 @@
               "points": 0.9
             }
           ],
-          "rank": 179
+          "rank": 178
         },
         {
           "name": "Samuel Martins",
@@ -85386,7 +85372,7 @@
               "points": 0.9
             }
           ],
-          "rank": 180
+          "rank": 179
         },
         {
           "name": "Angel Luis",
@@ -85410,7 +85396,7 @@
               "points": 0.9
             }
           ],
-          "rank": 181
+          "rank": 180
         },
         {
           "name": "Bruno Vieira",
@@ -85434,7 +85420,7 @@
               "points": 0.9
             }
           ],
-          "rank": 182
+          "rank": 181
         },
         {
           "name": "Marcos Pereira",
@@ -85458,7 +85444,7 @@
               "points": 0.9
             }
           ],
-          "rank": 183
+          "rank": 182
         }
       ],
       "F": [
