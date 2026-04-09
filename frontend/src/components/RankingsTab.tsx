@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
-import type { StoredEventResults, StoredResult, StoredDistance } from "../types";
+import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "../types";
 import { Spinner, ErrorBanner } from "./EventList";
 
 interface Props {
@@ -9,20 +9,10 @@ interface Props {
   distances: StoredDistance[];
 }
 
-const DIST_ACTIVE: Record<string, string> = {
-  Granfondo: "bg-blue-600 text-white",
-  GranFondo: "bg-blue-600 text-white",
-  Mediofondo: "bg-violet-600 text-white",
-  Minifondo: "bg-emerald-600 text-white",
-  "Time Trial": "bg-amber-500 text-white",
-  "TIME TRIAL": "bg-amber-500 text-white",
-};
-
-export default function RankingsTab({ eventId, distances }: Props) {
+export default function RankingsTab({ eventId }: Props) {
   const [data, setData] = useState<StoredEventResults | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeDistId, setActiveDistId] = useState<string>(distances[0]?.id ?? "");
 
   useEffect(() => {
     setLoading(true);
@@ -34,38 +24,12 @@ export default function RankingsTab({ eventId, distances }: Props) {
       .finally(() => setLoading(false));
   }, [eventId]);
 
-  useEffect(() => {
-    if (distances.length > 0) setActiveDistId(distances[0].id);
-  }, [distances]);
-
-  const activeResults =
-    data?.distances.find((d) => d.id === activeDistId) ?? data?.distances[0];
-
   return (
     <div>
-      {distances.length > 1 && (
-        <div className="flex gap-2 mb-6 flex-wrap">
-          {distances.map((d) => (
-            <button
-              key={d.id}
-              onClick={() => setActiveDistId(d.id)}
-              className={`px-5 py-2 text-sm rounded-xl font-semibold transition-all border ${
-                activeDistId === d.id
-                  ? (DIST_ACTIVE[d.name] ?? "bg-blue-600 text-white") + " border-transparent shadow-sm"
-                  : "bg-white border-slate-200 text-slate-600 hover:border-blue-300"
-              }`}
-            >
-              {d.name}
-            </button>
-          ))}
-        </div>
-      )}
-
       {loading && <Spinner />}
       {error && <ErrorBanner>Results not available yet.</ErrorBanner>}
-
-      {!loading && !error && activeResults && (
-        <ResultsTable results={activeResults.results} finisherCount={activeResults.finisherCount} />
+      {!loading && !error && data && data.distances.length > 0 && (
+        <ResultsTable distances={data.distances} />
       )}
     </div>
   );
@@ -79,10 +43,20 @@ function posStyle(pos: number) {
   return "bg-slate-100 text-slate-500";
 }
 
-function ResultsTable({ results, finisherCount }: { results: StoredResult[]; finisherCount: number }) {
+function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
+  const defaultDistId =
+    distances.find((d) => d.name === "Granfondo" || d.name === "GranFondo")?.id ??
+    distances[0]?.id ??
+    "";
+
+  const [activeDistId, setActiveDistId] = useState(defaultDistId);
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [genderFilter, setGenderFilter] = useState("all");
+
+  const activeDist = distances.find((d) => d.id === activeDistId) ?? distances[0];
+  const results: StoredResult[] = activeDist?.results ?? [];
+  const finisherCount = activeDist?.finisherCount ?? 0;
 
   const categories = useMemo(
     () => ["all", ...Array.from(new Set(results.map((r) => r.category).filter(Boolean))).sort()],
@@ -100,7 +74,7 @@ function ResultsTable({ results, finisherCount }: { results: StoredResult[]; fin
     return matchSearch && matchCat && matchGender;
   }), [results, search, categoryFilter, genderFilter]);
 
-  const resetKey = `${search}|${categoryFilter}|${genderFilter}`;
+  const resetKey = `${activeDistId}|${search}|${categoryFilter}|${genderFilter}`;
   const { visibleCount, sentinelRef } = useInfiniteScroll(filtered.length, resetKey);
 
   return (
@@ -113,6 +87,15 @@ function ResultsTable({ results, finisherCount }: { results: StoredResult[]; fin
           onChange={(e) => setSearch(e.target.value)}
           className="w-48 px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
+        {distances.length > 1 && (
+          <select
+            value={activeDistId}
+            onChange={(e) => { setActiveDistId(e.target.value); setCategoryFilter("all"); setGenderFilter("all"); setSearch(""); }}
+            className="px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            {distances.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
+          </select>
+        )}
         <select
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
@@ -131,7 +114,8 @@ function ResultsTable({ results, finisherCount }: { results: StoredResult[]; fin
           <option value="F">Women</option>
         </select>
         <span className="text-sm text-slate-500 ml-auto">
-          <span className="font-semibold text-slate-700">{filtered.length.toLocaleString()}</span> of {finisherCount.toLocaleString()}
+          <span className="font-semibold text-slate-700">{filtered.length.toLocaleString()}</span>
+          {" in "}{activeDist?.name}{" of "}{finisherCount.toLocaleString()}
         </span>
       </div>
 
