@@ -1,1 +1,7 @@
-{ "uniqueAthletes": 9410 }
+{
+  "uniqueAthletes": 9410,
+  "uniqueByYear": {
+    "2025": 8673,
+    "2026": 2999
+  }
+}

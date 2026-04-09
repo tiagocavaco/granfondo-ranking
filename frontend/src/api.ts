@@ -33,7 +33,7 @@ export const api = {
     return getJson<TeamRanking>("/team_ranking.json");
   },
 
-  getStats(): Promise<{ uniqueAthletes: number }> {
+  getStats(): Promise<{ uniqueAthletes: number; uniqueByYear: Record<string, number> }> {
     return getJson<{ uniqueAthletes: number }>("/stats.json");
   },
 

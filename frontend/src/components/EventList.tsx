@@ -12,7 +12,7 @@ export default function EventList() {
   const [error, setError] = useState<string | null>(null);
   const [season, setSeason] = useState<SeasonFilter>("all");
   const [status, setStatus] = useState<StatusFilter>("past");
-  const [uniqueAthletes, setUniqueAthletes] = useState<number | null>(null);
+  const [stats, setStats] = useState<{ uniqueAthletes: number; uniqueByYear: Record<string, number> } | null>(null);
 
   useEffect(() => {
     api
@@ -20,7 +20,7 @@ export default function EventList() {
       .then(setAllEvents)
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
-    api.getStats().then((s) => setUniqueAthletes(s.uniqueAthletes)).catch(() => {});
+    api.getStats().then(setStats).catch(() => {});
   }, []);
 
   const seasons = useMemo(
@@ -72,7 +72,13 @@ export default function EventList() {
               label: "Finishers",
               value: totalFinishers.toLocaleString(),
               icon: "🚴",
-              sub: uniqueAthletes !== null ? `${uniqueAthletes.toLocaleString()} unique all-time` : undefined,
+              sub: stats
+                ? (() => {
+                    const count = season !== "all" ? stats.uniqueByYear[season] : stats.uniqueAthletes;
+                    const label = season !== "all" ? "unique" : "unique all-time";
+                    return count !== undefined ? `${count.toLocaleString()} ${label}` : undefined;
+                  })()
+                : undefined,
             },
           ].map(({ label, value, icon, sub }: { label: string; value: string | number; icon: string; sub?: string }) => (
             <div

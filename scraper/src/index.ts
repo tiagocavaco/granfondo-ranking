@@ -1030,7 +1030,16 @@ async function main() {
   );
   writeJson("athletes.json", athletesArray);
   console.log(`✓ athletes.json — ${athletesArray.length} athletes`);
-  writeJson("stats.json", { uniqueAthletes: athletesArray.length });
+  const uniqueByYear: Record<string, number> = {};
+  for (const year of YEARS) {
+    const names = new Set(
+      athletesArray
+        .filter((a) => a.results.some((r) => r.eventYear === year))
+        .map((a) => a.nameLower)
+    );
+    uniqueByYear[String(year)] = names.size;
+  }
+  writeJson("stats.json", { uniqueAthletes: athletesArray.length, uniqueByYear });
 
   // Write individual athlete files for the profile page
   const athleteDir = path.join(DATA_DIR, "athlete");
