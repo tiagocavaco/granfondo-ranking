@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { api } from "../api";
 import type { ApiAthlete } from "../types";
 import { Spinner } from "./EventList";
@@ -13,6 +13,10 @@ const DIST_PILL: Record<string, string> = {
   Mediofondo: "bg-violet-50 text-violet-700",
   Minifondo: "bg-emerald-50 text-emerald-700",
   "TIME TRIAL": "bg-amber-50 text-amber-700",
+  "BIG DAY": "bg-blue-50 text-blue-700",
+  "HALF DAY": "bg-violet-50 text-violet-700",
+  "Clássica": "bg-blue-50 text-blue-700",
+  "Etapa": "bg-violet-50 text-violet-700",
 };
 
 export default function ParticipantsTab({ eventId }: Props) {
@@ -21,31 +25,51 @@ export default function ParticipantsTab({ eventId }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [distanceFilter, setDistanceFilter] = useState("all");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [genderFilter, setGenderFilter] = useState("all");
 
   useEffect(() => {
     setLoading(true);
     setError(null);
     api
       .getParticipants(eventId)
-      .then(setParticipants)
+      .then((data) => {
+        // Sort by bib number (numeric, blanks last)
+        const sorted = [...data].sort((a, b) => {
+          const na = parseInt(a.dorsal, 10);
+          const nb = parseInt(b.dorsal, 10);
+          if (isNaN(na) && isNaN(nb)) return 0;
+          if (isNaN(na)) return 1;
+          if (isNaN(nb)) return -1;
+          return na - nb;
+        });
+        setParticipants(sorted);
+      })
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
   }, [eventId]);
 
-  const distances = [
-    "all",
-    ...Array.from(new Set(participants.map((p) => p.percurso).filter(Boolean))),
-  ];
+  const distances = useMemo(
+    () => ["all", ...Array.from(new Set(participants.map((p) => p.percurso).filter(Boolean))).sort()],
+    [participants]
+  );
 
-  const filtered = participants.filter((p) => {
+  const categories = useMemo(
+    () => ["all", ...Array.from(new Set(participants.map((p) => p.escalao).filter(Boolean))).sort()],
+    [participants]
+  );
+
+  const filtered = useMemo(() => participants.filter((p) => {
     const matchSearch =
       !search ||
-      p.nome.toLowerCase().includes(search.toLowerCase()) ||
+      p.nomecompleto.toLowerCase().includes(search.toLowerCase()) ||
       (p.equipa ?? "").toLowerCase().includes(search.toLowerCase()) ||
       p.dorsal.includes(search);
     const matchDist = distanceFilter === "all" || p.percurso === distanceFilter;
-    return matchSearch && matchDist;
-  });
+    const matchCat = categoryFilter === "all" || p.escalao === categoryFilter;
+    const matchGender = genderFilter === "all" || p.sexo === genderFilter;
+    return matchSearch && matchDist && matchCat && matchGender;
+  }), [participants, search, distanceFilter, categoryFilter, genderFilter]);
 
   if (loading) return <Spinner />;
 
@@ -54,7 +78,7 @@ export default function ParticipantsTab({ eventId }: Props) {
       <div className="text-center py-16 text-slate-400">
         <p className="text-5xl mb-3">👥</p>
         <p className="font-semibold text-slate-600">Participants not available</p>
-        <p className="text-sm mt-1 text-slate-400">Run the scraper to fetch this event's data.</p>
+        <p className="text-sm mt-1 text-slate-400">No participant data yet for this event.</p>
       </div>
     );
 
@@ -68,17 +92,19 @@ export default function ParticipantsTab({ eventId }: Props) {
           onChange={(e) => setSearch(e.target.value)}
           className="flex-1 min-w-48 max-w-xs px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
-        <select
-          value={distanceFilter}
-          onChange={(e) => setDistanceFilter(e.target.value)}
-          className="px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {distances.map((d) => (
-            <option key={d} value={d}>
-              {d === "all" ? "All distances" : d}
-            </option>
-          ))}
-        </select>
+        <Select value={distanceFilter} onChange={setDistanceFilter}>
+          <option value="all">All distances</option>
+          {distances.slice(1).map((d) => <option key={d} value={d}>{d}</option>)}
+        </Select>
+        <Select value={categoryFilter} onChange={setCategoryFilter}>
+          <option value="all">All categories</option>
+          {categories.slice(1).map((c) => <option key={c} value={c}>{c}</option>)}
+        </Select>
+        <Select value={genderFilter} onChange={setGenderFilter}>
+          <option value="all">All genders</option>
+          <option value="M">Men</option>
+          <option value="F">Women</option>
+        </Select>
         <span className="text-sm text-slate-500 ml-auto">
           <span className="font-semibold text-slate-700">{filtered.length}</span> of {participants.length}
         </span>
@@ -100,7 +126,7 @@ export default function ParticipantsTab({ eventId }: Props) {
             {filtered.slice(0, 200).map((p, i) => (
               <tr key={i} className="hover:bg-slate-50/60 transition-colors">
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{p.dorsal}</td>
-                <td className="px-4 py-3 font-semibold text-slate-900">{p.nome}</td>
+                <td className="px-4 py-3 font-semibold text-slate-900">{p.nomecompleto}</td>
                 <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell max-w-[160px] truncate">
                   {p.equipa}
                 </td>
@@ -139,5 +165,25 @@ export default function ParticipantsTab({ eventId }: Props) {
         )}
       </div>
     </div>
+  );
+}
+
+function Select({
+  value,
+  onChange,
+  children,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      {children}
+    </select>
   );
 }
