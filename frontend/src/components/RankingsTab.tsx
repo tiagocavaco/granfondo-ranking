@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api, athleteSlug } from "../api";
 import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "../types";
@@ -59,6 +59,7 @@ function posStyle(pos: number) {
 }
 
 function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
+  const navigate = useNavigate();
   const defaultDistId =
     distances.find((d) => d.name === "Granfondo" || d.name === "GranFondo")?.id ??
     distances[0]?.id ??
@@ -169,10 +170,11 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   )}
                 </td>
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{r.bib}</td>
-                <td className="px-4 py-3 font-semibold text-slate-900">
-                  <Link to={`/athlete/${athleteSlug(r.nameLower)}`} className="hover:text-blue-600 transition-colors">
-                    {r.name}
-                  </Link>
+                <td
+                  className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
+                  onClick={() => navigate(`/athlete/${athleteSlug(r.nameLower)}`)}
+                >
+                  {r.name}
                 </td>
                 <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell max-w-[140px] truncate">
                   {r.team}

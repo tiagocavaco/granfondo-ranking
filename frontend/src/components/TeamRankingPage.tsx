@@ -1,8 +1,14 @@
 import { useEffect, useState, useMemo } from "react";
-import { api } from "../api";
+import { useNavigate } from "react-router-dom";
+import { api, athleteSlug } from "../api";
 import type { TeamRanking, TeamEntry } from "../types";
 import { Spinner, ErrorBanner } from "./EventList";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
+
+function nameToSlug(name: string): string {
+  const lower = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
+  return athleteSlug(lower);
+}
 
 function RankBadge({ rank }: { rank: number }) {
   if (rank === 1)
@@ -42,6 +48,7 @@ function teamRankBadge(rank: number) {
 }
 
 export default function TeamRankingPage() {
+  const navigate = useNavigate();
   const [data, setData] = useState<TeamRanking | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -294,7 +301,12 @@ export default function TeamRankingPage() {
                                       >
                                         {i + 1}
                                       </span>
-                                      <span className="font-medium text-slate-700">{a.name}</span>
+                                      <span
+                                        className="font-medium text-slate-700 hover:text-blue-600 transition-colors cursor-pointer"
+                                        onClick={() => navigate(`/athlete/${nameToSlug(a.name)}`)}
+                                      >
+                                        {a.name}
+                                      </span>
                                       <span className="text-slate-400 ml-auto">pos #{a.pos}</span>
                                     </div>
                                   ))}

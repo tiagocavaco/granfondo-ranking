@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api, athleteSlug } from "../api";
 import type { AggregateRanking, AggregateAthlete } from "../types";
@@ -45,6 +45,7 @@ function RankBadge({ rank }: { rank: number }) {
 }
 
 export default function AggregateRankingPage() {
+  const navigate = useNavigate();
   const [data, setData] = useState<AggregateRanking | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -185,13 +186,14 @@ export default function AggregateRankingPage() {
                 return (
                   <div
                     key={a.nameLower}
-                    className={`rounded-2xl p-5 text-center relative overflow-hidden border ${
+                    onClick={() => navigate(`/athlete/${athleteSlug(a.nameLower)}`)}
+                    className={`rounded-2xl p-5 text-center relative overflow-hidden border cursor-pointer ${
                       isFirst
-                        ? "bg-gradient-to-b from-amber-50 to-white border-amber-200 shadow-md"
+                        ? "bg-gradient-to-b from-amber-50 to-white border-amber-200 shadow-md hover:shadow-lg"
                         : podiumIdx === 0
-                        ? "bg-gradient-to-b from-slate-50 to-white border-slate-200"
-                        : "bg-gradient-to-b from-orange-50 to-white border-orange-200"
-                    } ${isFirst ? "mt-0" : "mt-4"}`}
+                        ? "bg-gradient-to-b from-slate-50 to-white border-slate-200 hover:border-slate-300"
+                        : "bg-gradient-to-b from-orange-50 to-white border-orange-200 hover:border-orange-300"
+                    } ${isFirst ? "mt-0" : "mt-4"} transition-shadow`}
                   >
                     <div className="text-4xl mb-2">
                       {realRank === 1 ? "🥇" : realRank === 2 ? "🥈" : "🥉"}
@@ -251,9 +253,12 @@ export default function AggregateRankingPage() {
                         <RankBadge rank={a.rank} />
                       </td>
                       <td className="px-4 py-3">
-                        <Link to={`/athlete/${athleteSlug(a.nameLower)}`} className="font-semibold text-slate-900 hover:text-blue-600 transition-colors" onClick={(e) => e.stopPropagation()}>
+                        <span
+                          className="font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
+                          onClick={(e) => { e.stopPropagation(); navigate(`/athlete/${athleteSlug(a.nameLower)}`); }}
+                        >
                           {a.name}
-                        </Link>
+                        </span>
                         <div className="text-xs text-slate-400 lg:hidden mt-0.5 truncate max-w-[160px]">
                           {a.team}
                         </div>
