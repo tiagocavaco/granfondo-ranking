@@ -4810,5 +4810,17 @@
     "id_percursos": "1",
     "pais_nome": null,
     "pais_iso2": null
+  },
+  {
+    "dorsal": "529",
+    "nome": "Daniel Louro",
+    "nomecompleto": "Daniel Louro",
+    "sexo": "M",
+    "equipa": "RÓÓDINHAS / Master Vantagem",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
   }
 ]

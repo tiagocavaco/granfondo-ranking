@@ -4122,8 +4122,8 @@
     "sexo": "M",
     "equipa": "Ass. Marinheiros Ferreira do Zêzere",
     "escalao": "MASTERS A",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -12284,6 +12284,18 @@
     "escalao": "MASTERS E",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1139",
+    "nome": "Alcides Canivete",
+    "nomecompleto": "Alcides Canivete",
+    "sexo": "M",
+    "equipa": "Desafios a Pedal / Ciclopinhal",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
     "pais_nome": null,
     "pais_iso2": null
   },

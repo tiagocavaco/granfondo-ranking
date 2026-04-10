@@ -4810,5 +4810,41 @@
     "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
+  },
+  {
+    "dorsal": "518",
+    "nome": "Luis Garcez",
+    "nomecompleto": "Luis Garcez",
+    "sexo": "M",
+    "equipa": "Triclube Penafiel",
+    "escalao": "MASTERS A",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "519",
+    "nome": "Karin Pfingstag",
+    "nomecompleto": "Karin Pfingstag",
+    "sexo": "F",
+    "equipa": "Triclube Penafiel",
+    "escalao": "MASTERS A FEM",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "520",
+    "nome": "Norberto  Santos",
+    "nomecompleto": "Norberto  Santos",
+    "sexo": "M",
+    "equipa": "Juventude Ciclista Devesa Velha",
+    "escalao": "MASTERS B",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
   }
 ]

@@ -5326,5 +5326,17 @@
     "id_percursos": "1",
     "pais_nome": null,
     "pais_iso2": null
+  },
+  {
+    "dorsal": "544",
+    "nome": "Edgar Glória",
+    "nomecompleto": "Edgar Glória",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS A",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
   }
 ]

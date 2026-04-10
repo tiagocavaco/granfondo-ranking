@@ -19162,5 +19162,53 @@
     "id_percursos": "3",
     "pais_nome": null,
     "pais_iso2": null
+  },
+  {
+    "dorsal": "1899",
+    "nome": "antonio magalhães",
+    "nomecompleto": "antonio magalhães",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS A",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1900",
+    "nome": "Sérgio Fonseca",
+    "nomecompleto": "Sérgio Fonseca",
+    "sexo": "M",
+    "equipa": "TRILHOS DA PORCA",
+    "escalao": "MASTERS B",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "16",
+    "nome": "André Esteves",
+    "nomecompleto": "André Esteves",
+    "sexo": "M",
+    "equipa": "TRIAUTO",
+    "escalao": "MASTERS B",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1901",
+    "nome": "Wilson Martins",
+    "nomecompleto": "Wilson Martins",
+    "sexo": "M",
+    "equipa": "TEAM SOFRINOR/GENERAL",
+    "escalao": "MASTERS A",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
   }
 ]

@@ -208,7 +208,7 @@
     "nome": "Rafael Junquiera Kerr",
     "nomecompleto": "Rafael Junquiera Kerr",
     "sexo": "M",
-    "equipa": "LoveTiles",
+    "equipa": "Love Tiles",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
@@ -721,8 +721,8 @@
   },
   {
     "dorsal": "334",
-    "nome": "Cantillo Gallardo",
-    "nomecompleto": "Cantillo Gallardo",
+    "nome": "Manuel Cantillo Gallardo",
+    "nomecompleto": "Manuel Cantillo Gallardo",
     "sexo": "M",
     "equipa": "Individual",
     "escalao": "MASTERS C",
@@ -1324,7 +1324,7 @@
     "nome": "Fábio Rodrigues",
     "nomecompleto": "Fábio Rodrigues",
     "sexo": "M",
-    "equipa": "LoveTiles",
+    "equipa": "Love Tiles",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
@@ -1632,18 +1632,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "272",
-    "nome": "Rodrigo Daniel",
-    "nomecompleto": "Rodrigo Daniel",
-    "sexo": "M",
-    "equipa": "Individual",
-    "escalao": "MASTERS B",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "266",
     "nome": "Bruno Zuna",
     "nomecompleto": "Bruno Zuna",
@@ -1800,18 +1788,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "295",
-    "nome": "Bruno Belchior",
-    "nomecompleto": "Bruno Belchior",
-    "sexo": "M",
-    "equipa": "Individual",
-    "escalao": "MASTERS B",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "348",
     "nome": "Sérgio Carvalho",
     "nomecompleto": "Sérgio Carvalho",
@@ -1937,18 +1913,6 @@
     "nomecompleto": "Hugo Mão de Ferro",
     "sexo": "M",
     "equipa": "Centro Vicentino da Serra - Portalegre",
-    "escalao": "MASTERS B",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
-    "dorsal": "290",
-    "nome": "Marco Martinho",
-    "nomecompleto": "Marco Martinho",
-    "sexo": "M",
-    "equipa": "PSI BIKES TEAM",
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
@@ -2132,18 +2096,6 @@
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
     "id_percursos": "3",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
-    "dorsal": "307",
-    "nome": "Mario ferreira",
-    "nomecompleto": "Mario ferreira",
-    "sexo": "M",
-    "equipa": "UCA - União de Ciclismo do Alentejo",
-    "escalao": "MASTERS A",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3676,7 +3628,7 @@
     "nome": "José Ribeiro",
     "nomecompleto": "José Ribeiro",
     "sexo": "M",
-    "equipa": "LoveTiles",
+    "equipa": "Love Tiles",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
@@ -4062,18 +4014,6 @@
     "sexo": "M",
     "equipa": "Individual",
     "escalao": "MASTERS A",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
-    "dorsal": "478",
-    "nome": "Roberto Escribano",
-    "nomecompleto": "Roberto Escribano",
-    "sexo": "M",
-    "equipa": "Grupeta 9:30 Badajoz",
-    "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
     "pais_nome": null,
@@ -7488,18 +7428,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "767",
-    "nome": "Andreia Melo",
-    "nomecompleto": "Andreia Melo",
-    "sexo": "F",
-    "equipa": "Love Tiles",
-    "escalao": "MASTERS A FEM",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "769",
     "nome": "Sergio Crespo Carretero",
     "nomecompleto": "Sergio Crespo Carretero",
@@ -7688,18 +7616,6 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
-    "dorsal": "2005",
-    "nome": "José Marques",
-    "nomecompleto": "José Marques",
-    "sexo": "M",
-    "equipa": "Love Tiles",
-    "escalao": "MASTERS B",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -8568,14 +8484,14 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "961",
+    "dorsal": "1949",
     "nome": "Felix Rivas Trillo",
     "nomecompleto": "Felix Rivas Trillo",
     "sexo": "M",
     "equipa": "VITALY",
     "escalao": "MASTERS B",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -9084,18 +9000,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "2006",
-    "nome": "José Machado",
-    "nomecompleto": "José Machado",
-    "sexo": "M",
-    "equipa": "Love Tiles",
-    "escalao": "MASTERS C",
-    "percurso": "Minifondo",
-    "id_percursos": "3",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "891",
     "nome": "Laisa Diana",
     "nomecompleto": "Laisa Diana",
@@ -9120,7 +9024,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "1434",
+    "dorsal": "2012",
     "nome": "Jose Caetano",
     "nomecompleto": "Jose Caetano",
     "sexo": "M",
@@ -9752,6 +9656,18 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1950",
+    "nome": "Jorge Morais",
+    "nomecompleto": "Jorge Morais",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS A",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -13320,18 +13236,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "2012",
-    "nome": "Mónica Hernández",
-    "nomecompleto": "Mónica Hernández",
-    "sexo": "F",
-    "equipa": "Love Tiles",
-    "escalao": "MASTERS B FEM",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "1231",
     "nome": "Jorge Marques",
     "nomecompleto": "Jorge Marques",
@@ -16872,6 +16776,18 @@
     "pais_iso2": null
   },
   {
+    "dorsal": "84",
+    "nome": "Sergio Van erven",
+    "nomecompleto": "Sergio Van erven",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS D",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
     "dorsal": "1519",
     "nome": "Kempes Eduardo Monedero Soto",
     "nomecompleto": "Kempes Eduardo Monedero Soto",
@@ -18240,18 +18156,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "25",
-    "nome": "Francisco Ramos",
-    "nomecompleto": "Francisco Ramos",
-    "sexo": "M",
-    "equipa": "Individual",
-    "escalao": "MASTERS B",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "1637",
     "nome": "João Ramalho",
     "nomecompleto": "João Ramalho",
@@ -18456,7 +18360,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "3030",
+    "dorsal": "2030",
     "nome": "JOÃO VIDIGAL",
     "nomecompleto": "JOÃO VIDIGAL",
     "sexo": "M",
@@ -18816,7 +18720,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "360",
+    "dorsal": "2019",
     "nome": "Antonio Novo",
     "nomecompleto": "Antonio Novo",
     "sexo": "M",
@@ -19672,7 +19576,7 @@
     "nome": "João Mendonça",
     "nomecompleto": "João Mendonça",
     "sexo": "M",
-    "equipa": "LoveTiles",
+    "equipa": "Love Tiles",
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
@@ -19920,7 +19824,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "2031",
+    "dorsal": "2020",
     "nome": "Miguel Ventura García",
     "nomecompleto": "Miguel Ventura García",
     "sexo": "M",
@@ -20088,23 +19992,11 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "2007",
-    "nome": "Carlos Fernandes",
-    "nomecompleto": "Carlos Fernandes",
-    "sexo": "M",
-    "equipa": "Love Tiles",
-    "escalao": "MASTERS C",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "2015",
     "nome": "José Carlos Teixeira",
     "nomecompleto": "José Carlos Teixeira",
     "sexo": "M",
-    "equipa": "LoveTiles",
+    "equipa": "Love Tiles",
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
     "id_percursos": "3",
@@ -20388,7 +20280,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "239",
+    "dorsal": "2007",
     "nome": "Hugo Duque",
     "nomecompleto": "Hugo Duque",
     "sexo": "M",
@@ -21168,7 +21060,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "1851",
+    "dorsal": "1652",
     "nome": "Juanluis Duarte_Cordovilla",
     "nomecompleto": "Juanluis Duarte_Cordovilla",
     "sexo": "M",
@@ -21976,7 +21868,7 @@
     "nome": "Cláudio Seabra",
     "nomecompleto": "Cláudio Seabra",
     "sexo": "M",
-    "equipa": "LoveTiles",
+    "equipa": "Love Tiles",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
@@ -22080,7 +21972,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "",
+    "dorsal": "1945",
     "nome": "João Generoso",
     "nomecompleto": "João Generoso",
     "sexo": "M",
@@ -22560,7 +22452,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "",
+    "dorsal": "1946",
     "nome": "daniel herrero",
     "nomecompleto": "daniel herrero",
     "sexo": "M",
@@ -22692,7 +22584,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "",
+    "dorsal": "1947",
     "nome": "Filipe Rasteiro",
     "nomecompleto": "Filipe Rasteiro",
     "sexo": "M",
@@ -22700,6 +22592,54 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1948",
+    "nome": "JUAN MANUEL SANTOS NAHARRO",
+    "nomecompleto": "JUAN MANUEL SANTOS NAHARRO",
+    "sexo": "M",
+    "equipa": "WE LOVE MOUNTAIN",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "295",
+    "nome": "Filipe Pernas",
+    "nomecompleto": "Filipe Pernas",
+    "sexo": "M",
+    "equipa": "CCBTT ELVAS",
+    "escalao": "MASTERS A",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "478",
+    "nome": "Raul Barranco Flores",
+    "nomecompleto": "Raul Barranco Flores",
+    "sexo": "M",
+    "equipa": "Gr-100",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "272",
+    "nome": "Tamara Sanchez Cardoso",
+    "nomecompleto": "Tamara Sanchez Cardoso",
+    "sexo": "F",
+    "equipa": "Gr-100",
+    "escalao": "MASTERS B FEM",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
     "pais_nome": null,
     "pais_iso2": null
   }

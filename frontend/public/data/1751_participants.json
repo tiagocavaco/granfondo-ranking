@@ -388,7 +388,7 @@
     "nome": "João Pereira",
     "nomecompleto": "João Pereira",
     "sexo": "M",
-    "equipa": "Escola de Ciclismo de Oeiras",
+    "equipa": "Escola Ciclismo de Oeiras/ Parracho/Mr Print/Reconco",
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
@@ -748,7 +748,7 @@
     "nome": "Rui Costa",
     "nomecompleto": "Rui Costa",
     "sexo": "M",
-    "equipa": "Escola de Ciclismo de Oeiras",
+    "equipa": "Escola Ciclismo de Oeiras/ Parracho/Mr Print/Reconco",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
@@ -1188,18 +1188,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "233",
-    "nome": "Ivo Pais",
-    "nomecompleto": "Ivo Pais",
-    "sexo": "M",
-    "equipa": "Escola Ciclismo de Oeiras/ Parracho/Mr Print/Reconco",
-    "escalao": "MASTERS A",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "260",
     "nome": "Honorio Pucarinho",
     "nomecompleto": "Honorio Pucarinho",
@@ -1216,7 +1204,7 @@
     "nome": "Bruno  Pereira",
     "nomecompleto": "Bruno  Pereira",
     "sexo": "M",
-    "equipa": "Escola de Ciclismo de Oeiras",
+    "equipa": "Escola Ciclismo de Oeiras/ Parracho/Mr Print/Reconco",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
@@ -1592,18 +1580,6 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
-    "dorsal": "252",
-    "nome": "Marco Domingos",
-    "nomecompleto": "Marco Domingos",
-    "sexo": "M",
-    "equipa": "Escola Ciclismo de Oeiras/ Parracho/Mr Print/Reconco",
-    "escalao": "MASTERS A",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2360,18 +2336,6 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
-    "dorsal": "317",
-    "nome": "Carlos  Parracho",
-    "nomecompleto": "Carlos  Parracho",
-    "sexo": "M",
-    "equipa": "Escola Ciclismo de Oeiras/ Parracho/Mr Print/Reconco",
-    "escalao": "MASTERS C",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -7674,8 +7638,8 @@
     "sexo": "M",
     "equipa": "Gregários do Tejo",
     "escalao": "MASTERS B",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -9162,8 +9126,8 @@
     "sexo": "M",
     "equipa": "Legado",
     "escalao": "MASTERS A",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -10254,8 +10218,8 @@
     "sexo": "M",
     "equipa": "Alcobaça C.C.",
     "escalao": "MASTERS A",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -10902,8 +10866,8 @@
     "sexo": "M",
     "equipa": "CCASA | TGF,LDA | BOTELHOS.PT",
     "escalao": "MASTERS B",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -13776,6 +13740,18 @@
     "pais_iso2": null
   },
   {
+    "dorsal": "317",
+    "nome": "Edson Boaron",
+    "nomecompleto": "Edson Boaron",
+    "sexo": "M",
+    "equipa": "Escola Ciclismo de Oeiras/ Parracho/Mr Print/Reconco",
+    "escalao": "MASTERS B",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
     "dorsal": "364",
     "nome": "Diogo Pereira",
     "nomecompleto": "Diogo Pereira",
@@ -13878,6 +13854,18 @@
     "sexo": "M",
     "equipa": "BTT URD Tires",
     "escalao": "MASTERS B",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "252",
+    "nome": "Rui Carvalhaes",
+    "nomecompleto": "Rui Carvalhaes",
+    "sexo": "M",
+    "equipa": "Escola Ciclismo de Oeiras/ Parracho/Mr Print/Reconco",
+    "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
     "pais_nome": null,
@@ -14132,6 +14120,18 @@
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "233",
+    "nome": "Jose Correia",
+    "nomecompleto": "Jose Correia",
+    "sexo": "M",
+    "equipa": "Escola Ciclismo de Oeiras/ Parracho/Mr Print/Reconco",
+    "escalao": "MASTERS A",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -15108,7 +15108,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "1355",
+    "dorsal": "442",
     "nome": "Alexandre  Santos",
     "nomecompleto": "Alexandre  Santos",
     "sexo": "M",
@@ -15392,6 +15392,54 @@
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1378",
+    "nome": "Francisco  Veloso",
+    "nomecompleto": "Francisco  Veloso",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1379",
+    "nome": "Rui Lourenço",
+    "nomecompleto": "Rui Lourenço",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS C",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1381",
+    "nome": "Luís Figueiredo",
+    "nomecompleto": "Luís Figueiredo",
+    "sexo": "M",
+    "equipa": "Mr. Print Bike Team",
+    "escalao": "MASTERS C",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1380",
+    "nome": "Helder Pereira",
+    "nomecompleto": "Helder Pereira",
+    "sexo": "M",
+    "equipa": "Mr. Print Bike Team",
+    "escalao": "MASTERS C",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   }

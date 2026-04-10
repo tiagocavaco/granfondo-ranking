@@ -3612,6 +3612,18 @@
     "pais_iso2": null
   },
   {
+    "dorsal": "30",
+    "nome": "Francisco Ramos",
+    "nomecompleto": "Francisco Ramos",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS B",
+    "percurso": "GranFondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
     "dorsal": "420",
     "nome": "Oscar Lama Bravo",
     "nomecompleto": "Oscar Lama Bravo",
@@ -3627,6 +3639,18 @@
     "dorsal": "421",
     "nome": "Hugo Pereira",
     "nomecompleto": "Hugo Pereira",
+    "sexo": "M",
+    "equipa": "GDC Alcorochel",
+    "escalao": "MASTERS B",
+    "percurso": "GranFondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "422",
+    "nome": "Leonel Coutinho",
+    "nomecompleto": "Leonel Coutinho",
     "sexo": "M",
     "equipa": "GDC Alcorochel",
     "escalao": "MASTERS B",
