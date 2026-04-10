@@ -7106,6 +7106,11 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+<<<<<<< HEAD
+=======
+    "licenca": null,
+    "licenca1": null,
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -7118,6 +7123,11 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+<<<<<<< HEAD
+=======
+    "licenca": null,
+    "licenca1": null,
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "pais_nome": null,
     "pais_iso2": null
   }

@@ -4222,6 +4222,11 @@
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
     "id_percursos": "1",
+<<<<<<< HEAD
+=======
+    "licenca": null,
+    "licenca1": null,
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "pais_nome": null,
     "pais_iso2": null
   },

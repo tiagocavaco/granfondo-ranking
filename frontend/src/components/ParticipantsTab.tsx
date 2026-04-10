@@ -136,7 +136,7 @@ export default function ParticipantsTab({ eventId }: Props) {
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{p.dorsal}</td>
                 <td
                   className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
-                  onClick={() => { const id = api.lookupAthleteId(p.nomecompleto); if (id) navigate(`/athlete/${id}`); }}
+                  onClick={() => { const id = api.lookupAthleteId(p.nomecompleto, p.equipa ?? ""); if (id) navigate(`/athlete/${id}`); }}
                 >
                   {p.nomecompleto}
                 </td>

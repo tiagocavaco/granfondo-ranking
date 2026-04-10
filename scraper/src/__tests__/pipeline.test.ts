@@ -7,7 +7,11 @@ import {
   transformResult,
   normalizeDistance,
   DISTANCE_ALIASES,
+  athleteKey,
+  isSoloTeam,
+  SOLO_TEAM_KEYS,
   buildAthletesIndex,
+  applyAthleteAliases,
   buildAggregateRanking,
   buildTeamRanking,
   type AthleteIdStore,
@@ -293,10 +297,44 @@ describe("normalizeDistance", () => {
   });
 });
 
+// ── athleteKey / isSoloTeam ───────────────────────────────────────────────────
+
+describe("athleteKey", () => {
+  it("returns nameLower|teamNormalKey for affiliated athletes", () => {
+    expect(athleteKey("ana silva", "Team Alpha")).toBe("ana silva|team alpha");
+  });
+
+  it("returns nameLower| for solo athletes (empty team)", () => {
+    expect(athleteKey("ana silva", "")).toBe("ana silva|");
+  });
+
+  it("returns nameLower| for 'Individual' team", () => {
+    expect(athleteKey("ana silva", "Individual")).toBe("ana silva|");
+  });
+
+  it("normalizes team name (strips accents, merges single letters)", () => {
+    // "C.B. Almodovar" → "cb almodovar" after dot→space + single-letter merge
+    const key = athleteKey("test", "C.B. Almodovar");
+    expect(key).toBe("test|cb almodovar");
+  });
+});
+
+describe("isSoloTeam", () => {
+  it("returns true for empty string", () => expect(isSoloTeam("")).toBe(true));
+  it("returns true for 'Individual'", () => expect(isSoloTeam("Individual")).toBe(true));
+  it("returns true for 'Independente'", () => expect(isSoloTeam("Independente")).toBe(true));
+  it("returns false for a real team", () => expect(isSoloTeam("Team Alpha")).toBe(false));
+
+  it("SOLO_TEAM_KEYS contains expected values", () => {
+    expect(SOLO_TEAM_KEYS.has("individual")).toBe(true);
+    expect(SOLO_TEAM_KEYS.has("independente")).toBe(true);
+  });
+});
+
 // ── buildAthletesIndex ────────────────────────────────────────────────────────
 
 describe("buildAthletesIndex", () => {
-  it("merges athletes with same name across different teams into one entry", () => {
+  it("creates separate entries for same name with different teams", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
     const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
       id: "1", name: "Granfondo", finisherCount: 1,
@@ -307,29 +345,13 @@ describe("buildAthletesIndex", () => {
       })],
     }]);
     const { index } = buildAthletesIndex(events, loader);
-    // Same name in different events → merged into 1 entry regardless of team
-    expect(index.size).toBe(1);
-    expect([...index.values()][0]!.results.length).toBe(2);
-  });
-
-  it("creates separate entries for same name in same event+distance (collision)", () => {
-    const event = mkEvent(1, 2025, "2025-03-15");
-    const loader = () => mkEventResults(1, 2025, "2025-03-15", [{
-      id: "1", name: "Granfondo", finisherCount: 2,
-      results: [
-        mkResult({ name: "Ana Silva", nameLower: "ana silva", team: "Team Alpha", pos: 1 }),
-        mkResult({ name: "Ana Silva", nameLower: "ana silva", team: "Team Beta", pos: 2 }),
-      ],
-    }]);
-    const { index } = buildAthletesIndex([event], loader);
-    // Two people with same name in same race → separate entries
+    // Different teams → separate profiles (prevents false merges)
     expect(index.size).toBe(2);
-    // Primary key and collision key
-    expect(index.has("ana silva")).toBe(true);
-    expect(index.has("ana silva|2")).toBe(true);
+    expect(index.has("ana silva|team alpha")).toBe(true);
+    expect(index.has("ana silva|team beta")).toBe(true);
   });
 
-  it("accumulates results from multiple events for same athlete", () => {
+  it("merges same athlete's results when team is the same across events", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
     const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
       id: "1", name: "Granfondo", finisherCount: 1,
@@ -337,18 +359,18 @@ describe("buildAthletesIndex", () => {
     }]);
     const { index } = buildAthletesIndex(events, loader);
     expect(index.size).toBe(1);
-    expect([...index.values()][0]!.results.length).toBe(2);
+    expect(index.get("ana silva|team alpha")!.results.length).toBe(2);
   });
 
   it("assigns stable integer IDs from idStore", () => {
     const event = mkEvent(1, 2025, "2025-03-15");
     const loader = () => mkEventResults(1, 2025, "2025-03-15", [{
       id: "1", name: "Granfondo", finisherCount: 1,
-      results: [mkResult({ name: "Ana Silva", nameLower: "ana silva" })],
+      results: [mkResult({ name: "Ana Silva", nameLower: "ana silva", team: "Team Alpha" })],
     }]);
-    const existingStore: AthleteIdStore = new Map([["ana silva", 42]]);
+    const existingStore: AthleteIdStore = new Map([["ana silva|team alpha", 42]]);
     const { index } = buildAthletesIndex([event], loader, existingStore);
-    expect(index.get("ana silva")?.id).toBe(42);
+    expect(index.get("ana silva|team alpha")?.id).toBe(42);
   });
 
   it("mints new IDs for athletes not in idStore", () => {
@@ -356,8 +378,8 @@ describe("buildAthletesIndex", () => {
     const loader = () => mkEventResults(1, 2025, "2025-03-15", [{
       id: "1", name: "Granfondo", finisherCount: 2,
       results: [
-        mkResult({ name: "Ana Silva", nameLower: "ana silva", pos: 1 }),
-        mkResult({ name: "Rui Costa", nameLower: "rui costa", pos: 2 }),
+        mkResult({ name: "Ana Silva", nameLower: "ana silva", team: "Team Alpha", pos: 1 }),
+        mkResult({ name: "Rui Costa", nameLower: "rui costa", team: "Team Beta", pos: 2 }),
       ],
     }]);
     const { index, updatedIdStore } = buildAthletesIndex([event], loader);
@@ -371,13 +393,13 @@ describe("buildAthletesIndex", () => {
     const event = mkEvent(1, 2025, "2025-03-15");
     const loader = () => mkEventResults(1, 2025, "2025-03-15", [{
       id: "1", name: "Granfondo", finisherCount: 1,
-      results: [mkResult({ name: "New Athlete", nameLower: "new athlete" })],
+      results: [mkResult({ name: "New Athlete", nameLower: "new athlete", team: "Team Alpha" })],
     }]);
-    const existingStore: AthleteIdStore = new Map([["existing athlete", 7]]);
+    const existingStore: AthleteIdStore = new Map([["existing|athlete", 7]]);
     const { updatedIdStore } = buildAthletesIndex([event], loader, existingStore);
-    expect(updatedIdStore.has("existing athlete")).toBe(true);
-    expect(updatedIdStore.get("existing athlete")).toBe(7);
-    expect(updatedIdStore.has("new athlete")).toBe(true);
+    expect(updatedIdStore.has("existing|athlete")).toBe(true);
+    expect(updatedIdStore.get("existing|athlete")).toBe(7);
+    expect(updatedIdStore.has("new athlete|team alpha")).toBe(true);
   });
 
   it("skips events without results", () => {
@@ -393,19 +415,19 @@ describe("buildAthletesIndex", () => {
     expect(index.size).toBe(0);
   });
 
-  it("sets canonicalTeam from most recent result", () => {
-    const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2026, "2026-04-10")];
-    const loader = (id: number) => mkEventResults(id, id === 1 ? 2025 : 2026, id === 1 ? "2025-03-15" : "2026-04-10", [{
+  it("sets canonicalTeam to most-used team across all results", () => {
+    const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-06-01"), mkEvent(3, 2025, "2025-09-01")];
+    const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id + 2}-01`, [{
       id: "1", name: "Granfondo", finisherCount: 1,
       results: [mkResult({
         name: "Ana Silva", nameLower: "ana silva",
-        team: id === 1 ? "Old Team" : "New Team",
+        team: id === 3 ? "New Team" : "Old Team",
       })],
     }]);
     const { index } = buildAthletesIndex(events, loader);
-    const entry = index.get("ana silva");
-    // Most recent result (2026) has "New Team"
-    expect(entry?.canonicalTeam).toBe("New Team");
+    // Old Team appears in 2 events, New Team in 1 → canonical = Old Team
+    const entry = index.get("ana silva|old team");
+    expect(entry?.canonicalTeam).toBe("Old Team");
   });
 
   it("creates two unique athletes when different names in same event", () => {
@@ -419,8 +441,110 @@ describe("buildAthletesIndex", () => {
     }]);
     const { index } = buildAthletesIndex([event], loader);
     expect(index.size).toBe(2);
-    expect(index.has("ana silva")).toBe(true);
-    expect(index.has("rui costa")).toBe(true);
+    expect(index.has("ana silva|team alpha")).toBe(true);
+    expect(index.has("rui costa|team beta")).toBe(true);
+  });
+
+  it("separates solo athletes from team athletes with same name", () => {
+    const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
+    const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [mkResult({
+        name: "Ana Silva", nameLower: "ana silva",
+        team: id === 1 ? "Individual" : "Team Alpha",
+      })],
+    }]);
+    const { index } = buildAthletesIndex(events, loader);
+    // Solo (Individual) and team athlete → separate profiles
+    expect(index.has("ana silva|")).toBe(true);
+    expect(index.has("ana silva|team alpha")).toBe(true);
+  });
+});
+
+// ── applyAthleteAliases ───────────────────────────────────────────────────────
+
+describe("applyAthleteAliases", () => {
+  it("merges alias results into canonical entry", () => {
+    const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
+    const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [mkResult({
+        name: "Jose Borges", nameLower: "jose borges",
+        team: id === 1 ? "Team Vivavita" : "Jbracingcoach",
+      })],
+    }]);
+    const { index, updatedIdStore } = buildAthletesIndex(events, loader);
+    expect(index.size).toBe(2); // Two entries before merge
+
+    applyAthleteAliases(index, updatedIdStore, [{
+      name: "Jose Borges",
+      canonicalTeam: "Team Vivavita",
+      aliases: [{ name: "Jose Borges", team: "Jbracingcoach" }],
+    }]);
+
+    expect(index.size).toBe(1);
+    const canonical = index.get("jose borges|team vivavita");
+    expect(canonical?.results.length).toBe(2);
+  });
+
+  it("remaps alias ID to canonical ID in idStore", () => {
+    const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
+    const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [mkResult({
+        name: "Jose Borges", nameLower: "jose borges",
+        team: id === 1 ? "Team Vivavita" : "Jbracingcoach",
+      })],
+    }]);
+    const { index, updatedIdStore } = buildAthletesIndex(events, loader);
+    const aliasId = index.get("jose borges|jbracingcoach")?.id;
+    const canonicalId = index.get("jose borges|team vivavita")?.id;
+    expect(aliasId).not.toBe(canonicalId);
+
+    applyAthleteAliases(index, updatedIdStore, [{
+      name: "Jose Borges",
+      canonicalTeam: "Team Vivavita",
+      aliases: [{ name: "Jose Borges", team: "Jbracingcoach" }],
+    }]);
+
+    // Alias ID in store should now point to canonical ID
+    expect(updatedIdStore.get("jose borges|jbracingcoach")).toBe(canonicalId);
+  });
+
+  it("skips alias rules where canonical entry does not exist", () => {
+    const event = mkEvent(1, 2025, "2025-03-15");
+    const loader = () => mkEventResults(1, 2025, "2025-03-15", [{
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [mkResult({ name: "Jose Borges", nameLower: "jose borges", team: "Jbracingcoach" })],
+    }]);
+    const { index, updatedIdStore } = buildAthletesIndex([event], loader);
+    // Canonical team doesn't exist in results
+    applyAthleteAliases(index, updatedIdStore, [{
+      name: "Jose Borges",
+      canonicalTeam: "NonExistent Team",
+      aliases: [{ name: "Jose Borges", team: "Jbracingcoach" }],
+    }]);
+    // Should not crash, index unchanged
+    expect(index.size).toBe(1);
+  });
+
+  it("sorts merged results by date descending", () => {
+    const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-06-01")];
+    const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-06-01", [{
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [mkResult({
+        name: "Jose Borges", nameLower: "jose borges",
+        team: id === 1 ? "Team Alpha" : "Team Beta",
+      })],
+    }]);
+    const { index, updatedIdStore } = buildAthletesIndex(events, loader);
+    applyAthleteAliases(index, updatedIdStore, [{
+      name: "Jose Borges",
+      canonicalTeam: "Team Alpha",
+      aliases: [{ name: "Jose Borges", team: "Team Beta" }],
+    }]);
+    const results = index.get("jose borges|team alpha")!.results;
+    expect(results[0]!.eventDate >= results[1]!.eventDate).toBe(true);
   });
 });
 
@@ -478,7 +602,7 @@ describe("buildAggregateRanking", () => {
     expect(athletes.every((a) => a.name !== "Dnf Athlete")).toBe(true);
   });
 
-  it("merges same athlete across events when team changes (name-only key)", () => {
+  it("treats same name but different teams as separate athletes in ranking", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
     const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
       id: "1", name: "Granfondo", finisherCount: 1,
@@ -491,18 +615,20 @@ describe("buildAggregateRanking", () => {
     }]);
     const ranking = buildAggregateRanking(events, loader);
     const athletes = ranking["2025"]!["Granfondo"]!["M"]!;
-    const anaSilva = athletes.find((a) => a.nameLower === "ana silva");
-    expect(anaSilva?.eventsScored).toBe(2);
+    const anaSilvaEntries = athletes.filter((a) => a.nameLower === "ana silva");
+    // Different teams → two separate entries, each with 1 event scored
+    expect(anaSilvaEntries.length).toBe(2);
+    expect(anaSilvaEntries.every((a) => a.eventsScored === 1)).toBe(true);
   });
 
   it("looks up id from athleteIndex when provided", () => {
     const event = mkEvent(1, 2025, "2025-03-15");
     const loader = () => mkEventResults(1, 2025, "2025-03-15", [{
       id: "1", name: "Granfondo", finisherCount: 1,
-      results: [mkResult({ name: "Ana Silva", nameLower: "ana silva" })],
+      results: [mkResult({ name: "Ana Silva", nameLower: "ana silva", team: "Team Alpha" })],
     }]);
     // Build athleteIndex first so we have a real ID
-    const { index: athleteIndex } = buildAthletesIndex([event], loader, new Map([["ana silva", 99]]));
+    const { index: athleteIndex } = buildAthletesIndex([event], loader, new Map([["ana silva|team alpha", 99]]));
     const ranking = buildAggregateRanking([event], loader, athleteIndex);
     const ana = ranking["2025"]!["Granfondo"]!["M"]!.find((a) => a.nameLower === "ana silva");
     expect(ana?.id).toBe(99);
@@ -565,7 +691,7 @@ describe("buildAggregateRanking", () => {
     expect(athletes[2]!.name).toBe("Third");
   });
 
-  it("uses team from most recent event for display", () => {
+  it("retains correct team per entry when same athlete name races under different teams", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
     const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
       id: "1", name: "Granfondo", finisherCount: 1,
@@ -576,8 +702,11 @@ describe("buildAggregateRanking", () => {
       })],
     }]);
     const ranking = buildAggregateRanking(events, loader);
-    const ana = ranking["2025"]!["Granfondo"]!["M"]!.find((a) => a.nameLower === "ana silva");
-    expect(ana?.team).toBe("New Team");
+    const athletes = ranking["2025"]!["Granfondo"]!["M"]!.filter((a) => a.nameLower === "ana silva");
+    // Different teams → separate entries, each showing its own team
+    expect(athletes.length).toBe(2);
+    expect(athletes.some((a) => a.team === "Old Team")).toBe(true);
+    expect(athletes.some((a) => a.team === "New Team")).toBe(true);
   });
 });
 
@@ -707,7 +836,7 @@ describe("buildTeamRanking", () => {
     ];
     const loader = () => mkTeamResults(athletes);
     const { index: athleteIndex } = buildAthletesIndex([event], loader, new Map([
-      ["a1", 10], ["a2", 20], ["a3", 30],
+      ["a1|team alpha", 10], ["a2|team alpha", 20], ["a3|team alpha", 30],
     ]));
     const ranking = buildTeamRanking([event], loader, athleteIndex);
     const teamResult = ranking["2025"]!["Granfondo"]![0]!.results[0]!;

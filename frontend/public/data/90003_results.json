@@ -3,7 +3,7 @@
   "eventName": "Granfondo 5 Quinas Sabugal 2025",
   "eventDate": "2025-06-01",
   "eventYear": 2025,
-  "scrapedAt": "2026-04-05T19:02:51.677Z",
+  "scrapedAt": "2026-04-10T22:03:03.601Z",
   "distances": [
     {
       "id": "1",
@@ -12,6 +12,8 @@
       "results": [
         {
           "pos": 1,
+          "genderPos": 1,
+          "athleteId": 13690,
           "bib": "0312",
           "name": "ADRIÁN CUADRADO CERRO",
           "nameLower": "adrian cuadrado cerro",
@@ -26,12 +28,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 1,
-          "athleteId": 59
+          "dns": false
         },
         {
           "pos": 2,
+          "genderPos": 2,
+          "athleteId": 13691,
           "bib": "0005",
           "name": "Carlos Rodrigues",
           "nameLower": "carlos rodrigues",
@@ -46,12 +48,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 2,
-          "athleteId": 1595
+          "dns": false
         },
         {
           "pos": 3,
+          "genderPos": 3,
+          "athleteId": 3253,
           "bib": "0290",
           "name": "Tiago Miranda",
           "nameLower": "tiago miranda",
@@ -66,12 +68,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 3,
-          "athleteId": 8979
+          "dns": false
         },
         {
           "pos": 4,
+          "genderPos": 4,
+          "athleteId": 4561,
           "bib": "0009",
           "name": "Miguel Frutuoso",
           "nameLower": "miguel frutuoso",
@@ -86,12 +88,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 4,
-          "athleteId": 6526
+          "dns": false
         },
         {
           "pos": 5,
+          "genderPos": 5,
+          "athleteId": 3462,
           "bib": "0259",
           "name": "José Costa",
           "nameLower": "jose costa",
@@ -106,12 +108,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 5,
-          "athleteId": 4913
+          "dns": false
         },
         {
           "pos": 6,
+          "genderPos": 6,
+          "athleteId": 13692,
           "bib": "0154",
           "name": "Luís Marques Gonçalves",
           "nameLower": "luis marques goncalves",
@@ -126,12 +128,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 6,
-          "athleteId": 5723
+          "dns": false
         },
         {
           "pos": 7,
+          "genderPos": 7,
+          "athleteId": 2616,
           "bib": "0325",
           "name": "Ricardo Esteves",
           "nameLower": "ricardo esteves",
@@ -146,12 +148,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 7,
-          "athleteId": 7875
+          "dns": false
         },
         {
           "pos": 8,
+          "genderPos": 8,
+          "athleteId": 13693,
           "bib": "0226",
           "name": "Gonçalo Manuel Figueiredo Regalo",
           "nameLower": "goncalo manuel figueiredo regalo",
@@ -166,12 +168,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 8,
-          "athleteId": 3448
+          "dns": false
         },
         {
           "pos": 9,
+          "genderPos": 9,
+          "athleteId": 4583,
           "bib": "0262",
           "name": "André Salvado",
           "nameLower": "andre salvado",
@@ -186,12 +188,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 9,
-          "athleteId": 615
+          "dns": false
         },
         {
           "pos": 10,
+          "genderPos": 10,
+          "athleteId": 13694,
           "bib": "0121",
           "name": "Miguel Correia Graça",
           "nameLower": "miguel correia graca",
@@ -206,12 +208,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 10,
-          "athleteId": 6500
+          "dns": false
         },
         {
           "pos": 11,
+          "genderPos": 11,
+          "athleteId": 13695,
           "bib": "0274",
           "name": "Guilherme Henrique Barcelos Soares",
           "nameLower": "guilherme henrique barcelos soares",
@@ -226,12 +228,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 11,
-          "athleteId": 3505
+          "dns": false
         },
         {
           "pos": 12,
+          "genderPos": 12,
+          "athleteId": 52,
           "bib": "0209",
           "name": "Luis Lameira",
           "nameLower": "luis lameira",
@@ -246,12 +248,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 12,
-          "athleteId": 5696
+          "dns": false
         },
         {
           "pos": 13,
+          "genderPos": 13,
+          "athleteId": 13696,
           "bib": "0279",
           "name": "Marcelo Rifafeita",
           "nameLower": "marcelo rifafeita",
@@ -266,12 +268,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 13,
-          "athleteId": 6031
+          "dns": false
         },
         {
           "pos": 14,
+          "genderPos": 14,
+          "athleteId": 13697,
           "bib": "0305",
           "name": "MARCO MARTINS",
           "nameLower": "marco martins",
@@ -286,12 +288,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 14,
-          "athleteId": 6126
+          "dns": false
         },
         {
           "pos": 15,
+          "genderPos": 15,
+          "athleteId": 4585,
           "bib": "0251",
           "name": "Ruben Aleixo",
           "nameLower": "ruben aleixo",
@@ -306,12 +308,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 15,
-          "athleteId": 8198
+          "dns": false
         },
         {
           "pos": 16,
+          "genderPos": 16,
+          "athleteId": 29,
           "bib": "0011",
           "name": "Tiago Ribeiro",
           "nameLower": "tiago ribeiro",
@@ -326,12 +328,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 16,
-          "athleteId": 9018
+          "dns": false
         },
         {
           "pos": 17,
+          "genderPos": 17,
+          "athleteId": 13698,
           "bib": "0313",
           "name": "Salvador José Nunes Raposo",
           "nameLower": "salvador jose nunes raposo",
@@ -346,12 +348,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 17,
-          "athleteId": 8487
+          "dns": false
         },
         {
           "pos": 18,
+          "genderPos": 18,
+          "athleteId": 2779,
           "bib": "0026",
           "name": "Wouter Fioole",
           "nameLower": "wouter fioole",
@@ -366,12 +368,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 18,
-          "athleteId": 9371
+          "dns": false
         },
         {
           "pos": 19,
+          "genderPos": 19,
+          "athleteId": 4589,
           "bib": "0261",
           "name": "André gomes",
           "nameLower": "andre gomes",
@@ -386,12 +388,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 19,
-          "athleteId": 551
+          "dns": false
         },
         {
           "pos": 20,
+          "genderPos": 20,
+          "athleteId": 13699,
           "bib": "0079",
           "name": "Daniel Cardoso",
           "nameLower": "daniel cardoso",
@@ -406,12 +408,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 20,
-          "athleteId": 1913
+          "dns": false
         },
         {
           "pos": 21,
+          "genderPos": 21,
+          "athleteId": 13700,
           "bib": "0186",
           "name": "francisco perez castaño",
           "nameLower": "francisco perez castano",
@@ -426,12 +428,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 21,
-          "athleteId": 3212
+          "dns": false
         },
         {
           "pos": 22,
+          "genderPos": 22,
+          "athleteId": 13701,
           "bib": "0088",
           "name": "Diogo Filipe Teixeira Garcia",
           "nameLower": "diogo filipe teixeira garcia",
@@ -446,12 +448,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 22,
-          "athleteId": 2289
+          "dns": false
         },
         {
           "pos": 23,
+          "genderPos": 23,
+          "athleteId": 834,
           "bib": "0144",
           "name": "Emanuel Poças",
           "nameLower": "emanuel pocas",
@@ -466,12 +468,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 23,
-          "athleteId": 2591
+          "dns": false
         },
         {
           "pos": 24,
+          "genderPos": 24,
+          "athleteId": 13702,
           "bib": "0311",
           "name": "Filipe Vilasboas",
           "nameLower": "filipe vilasboas",
@@ -486,12 +488,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 24,
-          "athleteId": 3047
+          "dns": false
         },
         {
           "pos": 25,
+          "genderPos": 25,
+          "athleteId": 13703,
           "bib": "0028",
           "name": "Manuel Fonseca",
           "nameLower": "manuel fonseca",
@@ -506,12 +508,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 25,
-          "athleteId": 5906
+          "dns": false
         },
         {
           "pos": 26,
+          "genderPos": 26,
+          "athleteId": 13704,
           "bib": "0237",
           "name": "Tiago Ferreira Frias",
           "nameLower": "tiago ferreira frias",
@@ -526,12 +528,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 26,
-          "athleteId": 8935
+          "dns": false
         },
         {
           "pos": 27,
+          "genderPos": 27,
+          "athleteId": 13705,
           "bib": "0277",
           "name": "Miguel",
           "nameLower": "miguel",
@@ -546,12 +548,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 27,
-          "athleteId": 6451
+          "dns": false
         },
         {
           "pos": 28,
+          "genderPos": 28,
+          "athleteId": 13706,
           "bib": "0322",
           "name": "LUIS FERNÁNDEZ ESTÉVEZ",
           "nameLower": "luis fernandez estevez",
@@ -566,12 +568,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 28,
-          "athleteId": 5650
+          "dns": false
         },
         {
           "pos": 29,
+          "genderPos": 29,
+          "athleteId": 13707,
           "bib": "0166",
           "name": "Ivo Neves",
           "nameLower": "ivo neves",
@@ -586,12 +588,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 29,
-          "athleteId": 3993
+          "dns": false
         },
         {
           "pos": 30,
+          "genderPos": 30,
+          "athleteId": 7517,
           "bib": "0271",
           "name": "marcio henriques",
           "nameLower": "marcio henriques",
@@ -606,12 +608,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 30,
-          "athleteId": 6058
+          "dns": false
         },
         {
           "pos": 31,
+          "genderPos": 31,
+          "athleteId": 13708,
           "bib": "0196",
           "name": "Pedro Santos",
           "nameLower": "pedro santos",
@@ -626,12 +628,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 31,
-          "athleteId": 7594
+          "dns": false
         },
         {
           "pos": 32,
+          "genderPos": 32,
+          "athleteId": 11623,
           "bib": "0120",
           "name": "Frederico Monteiro",
           "nameLower": "frederico monteiro",
@@ -646,12 +648,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 32,
-          "athleteId": 3276
+          "dns": false
         },
         {
           "pos": 33,
+          "genderPos": 33,
+          "athleteId": 13709,
           "bib": "0306",
           "name": "JOEL SOUSA",
           "nameLower": "joel sousa",
@@ -666,12 +668,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 33,
-          "athleteId": 4606
+          "dns": false
         },
         {
           "pos": 34,
+          "genderPos": 34,
+          "athleteId": 2957,
           "bib": "0178",
           "name": "Bruno Ferreira",
           "nameLower": "bruno ferreira",
@@ -686,12 +688,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 34,
-          "athleteId": 1247
+          "dns": false
         },
         {
           "pos": 35,
+          "genderPos": 35,
+          "athleteId": 13710,
           "bib": "0275",
           "name": "Gabriel Castilho Rossi",
           "nameLower": "gabriel castilho rossi",
@@ -706,12 +708,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 35,
-          "athleteId": 3299
+          "dns": false
         },
         {
           "pos": 36,
+          "genderPos": 36,
+          "athleteId": 13711,
           "bib": "0314",
           "name": "Nuno Manuel Dias Raposo",
           "nameLower": "nuno manuel dias raposo",
@@ -726,12 +728,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 36,
-          "athleteId": 6887
+          "dns": false
         },
         {
           "pos": 37,
+          "genderPos": 37,
+          "athleteId": 13712,
           "bib": "0269",
           "name": "Jorge Manuel Santos da Cunha Balsemão",
           "nameLower": "jorge manuel santos da cunha balsemao",
@@ -746,12 +748,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 37,
-          "athleteId": 4738
+          "dns": false
         },
         {
           "pos": 38,
+          "genderPos": 38,
+          "athleteId": 13713,
           "bib": "0138",
           "name": "Ricardo Oliveira",
           "nameLower": "ricardo oliveira",
@@ -766,12 +768,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 38,
-          "athleteId": 7958
+          "dns": false
         },
         {
           "pos": 39,
+          "genderPos": 39,
+          "athleteId": 1856,
           "bib": "0241",
           "name": "João Gonçalves",
           "nameLower": "joao goncalves",
@@ -786,12 +788,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 39,
-          "athleteId": 4303
+          "dns": false
         },
         {
           "pos": 40,
+          "genderPos": 40,
+          "athleteId": 13714,
           "bib": "0245",
           "name": "Nuno Manuel Nascimento Jorge",
           "nameLower": "nuno manuel nascimento jorge",
@@ -806,12 +808,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 40,
-          "athleteId": 6889
+          "dns": false
         },
         {
           "pos": 41,
+          "genderPos": 41,
+          "athleteId": 13715,
           "bib": "0175",
           "name": "António Luís Leitão SImões",
           "nameLower": "antonio luis leitao simoes",
@@ -826,12 +828,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 41,
-          "athleteId": 868
+          "dns": false
         },
         {
           "pos": 42,
+          "genderPos": 42,
+          "athleteId": 13716,
           "bib": "0008",
           "name": "Fabio Pires",
           "nameLower": "fabio pires",
@@ -846,12 +848,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 42,
-          "athleteId": 2769
+          "dns": false
         },
         {
           "pos": 43,
+          "genderPos": 43,
+          "athleteId": 10596,
           "bib": "0021",
           "name": "Micael Firmino",
           "nameLower": "micael firmino",
@@ -866,12 +868,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 43,
-          "athleteId": 6418
+          "dns": false
         },
         {
           "pos": 44,
+          "genderPos": 44,
+          "athleteId": 13717,
           "bib": "0031",
           "name": "Pedro Nogueira",
           "nameLower": "pedro nogueira",
@@ -886,12 +888,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 44,
-          "athleteId": 7549
+          "dns": false
         },
         {
           "pos": 45,
+          "genderPos": 45,
+          "athleteId": 13718,
           "bib": "0168",
           "name": "Carlos Figueira",
           "nameLower": "carlos figueira",
@@ -906,12 +908,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 45,
-          "athleteId": 1479
+          "dns": false
         },
         {
           "pos": 46,
+          "genderPos": 46,
+          "athleteId": 13719,
           "bib": "0169",
           "name": "André Santos",
           "nameLower": "andre santos",
@@ -926,12 +928,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 46,
-          "athleteId": 618
+          "dns": false
         },
         {
           "pos": 47,
+          "genderPos": 47,
+          "athleteId": 13720,
           "bib": "0082",
           "name": "João",
           "nameLower": "joao",
@@ -946,12 +948,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 47,
-          "athleteId": 4161
+          "dns": false
         },
         {
           "pos": 48,
+          "genderPos": 48,
+          "athleteId": 1272,
           "bib": "0083",
           "name": "Tiago Calado",
           "nameLower": "tiago calado",
@@ -966,12 +968,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 48,
-          "athleteId": 8895
+          "dns": false
         },
         {
           "pos": 49,
+          "genderPos": 49,
+          "athleteId": 13721,
           "bib": "0327",
           "name": "Jorge Ribeiro",
           "nameLower": "jorge ribeiro",
@@ -986,12 +988,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 49,
-          "athleteId": 4772
+          "dns": false
         },
         {
           "pos": 50,
+          "genderPos": 50,
+          "athleteId": 3641,
           "bib": "0090",
           "name": "Ricardo Lopes",
           "nameLower": "ricardo lopes",
@@ -1006,12 +1008,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 50,
-          "athleteId": 7923
+          "dns": false
         },
         {
           "pos": 51,
+          "genderPos": 51,
+          "athleteId": 13722,
           "bib": "0044",
           "name": "Rafael José Duarte Azevedo",
           "nameLower": "rafael jose duarte azevedo",
@@ -1026,12 +1028,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 51,
-          "athleteId": 7702
+          "dns": false
         },
         {
           "pos": 52,
+          "genderPos": 52,
+          "athleteId": 13723,
           "bib": "0101",
           "name": "Diogo Filipe Antunes Vigo",
           "nameLower": "diogo filipe antunes vigo",
@@ -1046,12 +1048,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 52,
-          "athleteId": 2286
+          "dns": false
         },
         {
           "pos": 53,
+          "genderPos": 53,
+          "athleteId": 13724,
           "bib": "0265",
           "name": "Nelson",
           "nameLower": "nelson",
@@ -1066,12 +1068,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 53,
-          "athleteId": 6691
+          "dns": false
         },
         {
           "pos": 54,
+          "genderPos": 54,
+          "athleteId": 13725,
           "bib": "0324",
           "name": "José Manuel Figuieredo",
           "nameLower": "jose manuel figuieredo",
@@ -1086,12 +1088,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 54,
-          "athleteId": 5016
+          "dns": false
         },
         {
           "pos": 55,
+          "genderPos": 55,
+          "athleteId": 13726,
           "bib": "0238",
           "name": "Rui Nunes",
           "nameLower": "rui nunes",
@@ -1106,12 +1108,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 55,
-          "athleteId": 8406
+          "dns": false
         },
         {
           "pos": 56,
+          "genderPos": 56,
+          "athleteId": 816,
           "bib": "0023",
           "name": "João Oliveira",
           "nameLower": "joao oliveira",
@@ -1126,12 +1128,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 56,
-          "athleteId": 4386
+          "dns": false
         },
         {
           "pos": 57,
+          "genderPos": 57,
+          "athleteId": 13727,
           "bib": "0086",
           "name": "Leonel Cipriano",
           "nameLower": "leonel cipriano",
@@ -1146,12 +1148,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 57,
-          "athleteId": 5458
+          "dns": false
         },
         {
           "pos": 58,
+          "genderPos": 58,
+          "athleteId": 13728,
           "bib": "0301",
           "name": "Filipe Lourenço",
           "nameLower": "filipe lourenco",
@@ -1166,12 +1168,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 58,
-          "athleteId": 2994
+          "dns": false
         },
         {
           "pos": 59,
+          "genderPos": 59,
+          "athleteId": 13729,
           "bib": "0102",
           "name": "João Vigo",
           "nameLower": "joao vigo",
@@ -1186,12 +1188,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 59,
-          "athleteId": 4500
+          "dns": false
         },
         {
           "pos": 60,
+          "genderPos": 60,
+          "athleteId": 13730,
           "bib": "0152",
           "name": "João Silva",
           "nameLower": "joao silva",
@@ -1206,12 +1208,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 60,
-          "athleteId": 4471
+          "dns": false
         },
         {
           "pos": 61,
+          "genderPos": 61,
+          "athleteId": 13110,
           "bib": "0159",
           "name": "Bruno Matias",
           "nameLower": "bruno matias",
@@ -1226,12 +1228,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 61,
-          "athleteId": 1283
+          "dns": false
         },
         {
           "pos": 62,
+          "genderPos": 62,
+          "athleteId": 13731,
           "bib": "0012",
           "name": "Fernando Morais",
           "nameLower": "fernando morais",
@@ -1246,12 +1248,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 62,
-          "athleteId": 2892
+          "dns": false
         },
         {
           "pos": 63,
+          "genderPos": 63,
+          "athleteId": 13732,
           "bib": "0283",
           "name": "Mário José Sanches Ferreira Ventura",
           "nameLower": "mario jose sanches ferreira ventura",
@@ -1266,12 +1268,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 63,
-          "athleteId": 6279
+          "dns": false
         },
         {
           "pos": 64,
+          "genderPos": 64,
+          "athleteId": 9413,
           "bib": "0266",
           "name": "Ruben Almeida",
           "nameLower": "ruben almeida",
@@ -1286,12 +1288,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 64,
-          "athleteId": 8199
+          "dns": false
         },
         {
           "pos": 65,
+          "genderPos": 65,
+          "athleteId": 7912,
           "bib": "0014",
           "name": "Tiago Ferreira",
           "nameLower": "tiago ferreira",
@@ -1306,12 +1308,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 65,
-          "athleteId": 8934
+          "dns": false
         },
         {
           "pos": 66,
+          "genderPos": 66,
+          "athleteId": 464,
           "bib": "0247",
           "name": "André Santos",
           "nameLower": "andre santos",
@@ -1326,12 +1328,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 66,
-          "athleteId": 9446
+          "dns": false
         },
         {
           "pos": 67,
+          "genderPos": 67,
+          "athleteId": 13733,
           "bib": "0167",
           "name": "David Vila Boa",
           "nameLower": "david vila boa",
@@ -1346,12 +1348,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 67,
-          "athleteId": 2167
+          "dns": false
         },
         {
           "pos": 68,
+          "genderPos": 68,
+          "athleteId": 13734,
           "bib": "0295",
           "name": "Tiago Costa",
           "nameLower": "tiago costa",
@@ -1366,12 +1368,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 68,
-          "athleteId": 8914
+          "dns": false
         },
         {
           "pos": 69,
+          "genderPos": 69,
+          "athleteId": 13735,
           "bib": "0329",
           "name": "Manuel Salvado",
           "nameLower": "manuel salvado",
@@ -1386,12 +1388,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 69,
-          "athleteId": 5976
+          "dns": false
         },
         {
           "pos": 70,
+          "genderPos": 70,
+          "athleteId": 13736,
           "bib": "0146",
           "name": "João Pedro Abreu Correia",
           "nameLower": "joao pedro abreu correia",
@@ -1406,12 +1408,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 70,
-          "athleteId": 4402
+          "dns": false
         },
         {
           "pos": 71,
+          "genderPos": 71,
+          "athleteId": 13737,
           "bib": "0299",
           "name": "Pedro Maurício",
           "nameLower": "pedro mauricio",
@@ -1426,12 +1428,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 71,
-          "athleteId": 7518
+          "dns": false
         },
         {
           "pos": 72,
+          "genderPos": 72,
+          "athleteId": 4078,
           "bib": "0267",
           "name": "Pedro Lopes",
           "nameLower": "pedro lopes",
@@ -1446,12 +1448,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 72,
-          "athleteId": 7498
+          "dns": false
         },
         {
           "pos": 73,
+          "genderPos": 73,
+          "athleteId": 13738,
           "bib": "0035",
           "name": "Marco António Gonçalves Rodrigues",
           "nameLower": "marco antonio goncalves rodrigues",
@@ -1466,12 +1468,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 73,
-          "athleteId": 6079
+          "dns": false
         },
         {
           "pos": 74,
+          "genderPos": 74,
+          "athleteId": 3990,
           "bib": "0060",
           "name": "António Moreira",
           "nameLower": "antonio moreira",
@@ -1486,12 +1488,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 74,
-          "athleteId": 889
+          "dns": false
         },
         {
           "pos": 75,
+          "genderPos": 75,
+          "athleteId": 13739,
           "bib": "0114",
           "name": "Óscar José Manso da Silva",
           "nameLower": "oscar jose manso da silva",
@@ -1506,12 +1508,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 75,
-          "athleteId": 7039
+          "dns": false
         },
         {
           "pos": 76,
+          "genderPos": 1,
+          "athleteId": 13740,
           "bib": "0298",
           "name": "Marta Costa",
           "nameLower": "marta costa",
@@ -1526,12 +1528,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 1,
-          "athleteId": 6335
+          "dns": false
         },
         {
           "pos": 77,
+          "genderPos": 76,
+          "athleteId": 13741,
           "bib": "0104",
           "name": "Joao",
           "nameLower": "joao",
@@ -1546,12 +1548,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 76,
-          "athleteId": 9875
+          "dns": false
         },
         {
           "pos": 78,
+          "genderPos": 77,
+          "athleteId": 13742,
           "bib": "0007",
           "name": "Carlos Rolim",
           "nameLower": "carlos rolim",
@@ -1566,12 +1568,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 77,
-          "athleteId": 1599
+          "dns": false
         },
         {
           "pos": 79,
+          "genderPos": 78,
+          "athleteId": 7920,
           "bib": "0127",
           "name": "Faber Martins",
           "nameLower": "faber martins",
@@ -1586,12 +1588,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 78,
-          "athleteId": 2709
+          "dns": false
         },
         {
           "pos": 80,
+          "genderPos": 79,
+          "athleteId": 13743,
           "bib": "0105",
           "name": "Luis Vendeiro",
           "nameLower": "luis vendeiro",
@@ -1606,12 +1608,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 79,
-          "athleteId": 5809
+          "dns": false
         },
         {
           "pos": 81,
+          "genderPos": 80,
+          "athleteId": 13744,
           "bib": "0317",
           "name": "HUGO SERGIO FERNANDES DIAS",
           "nameLower": "hugo sergio fernandes dias",
@@ -1626,12 +1628,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 80,
-          "athleteId": 3816
+          "dns": false
         },
         {
           "pos": 82,
+          "genderPos": 81,
+          "athleteId": 13745,
           "bib": "0273",
           "name": "Jorge Manuel Da silva",
           "nameLower": "jorge manuel da silva",
@@ -1646,12 +1648,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 81,
-          "athleteId": 4734
+          "dns": false
         },
         {
           "pos": 83,
+          "genderPos": 82,
+          "athleteId": 13746,
           "bib": "0319",
           "name": "José Amaral",
           "nameLower": "jose amaral",
@@ -1666,12 +1668,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 82,
-          "athleteId": 4813
+          "dns": false
         },
         {
           "pos": 84,
+          "genderPos": 83,
+          "athleteId": 13747,
           "bib": "0116",
           "name": "Vitor Felgueiras",
           "nameLower": "vitor felgueiras",
@@ -1686,12 +1688,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 83,
-          "athleteId": 9271
+          "dns": false
         },
         {
           "pos": 85,
+          "genderPos": 84,
+          "athleteId": 13748,
           "bib": "0318",
           "name": "Henrique Alves",
           "nameLower": "henrique alves",
@@ -1706,12 +1708,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 84,
-          "athleteId": 3662
+          "dns": false
         },
         {
           "pos": 86,
+          "genderPos": 85,
+          "athleteId": 13749,
           "bib": "0128",
           "name": "Nuno Manuel Direito Martins",
           "nameLower": "nuno manuel direito martins",
@@ -1726,12 +1728,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 85,
-          "athleteId": 6888
+          "dns": false
         },
         {
           "pos": 87,
+          "genderPos": 86,
+          "athleteId": 13750,
           "bib": "0316",
           "name": "Bruno Miguel Andrade Leitão",
           "nameLower": "bruno miguel andrade leitao",
@@ -1746,12 +1748,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 86,
-          "athleteId": 1288
+          "dns": false
         },
         {
           "pos": 88,
+          "genderPos": 87,
+          "athleteId": 13751,
           "bib": "0003",
           "name": "Tomás de Paula",
           "nameLower": "tomas de paula",
@@ -1766,12 +1768,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 87,
-          "athleteId": 9061
+          "dns": false
         },
         {
           "pos": 89,
+          "genderPos": 2,
+          "athleteId": 9211,
           "bib": "0135",
           "name": "Raquel Matias",
           "nameLower": "raquel matias",
@@ -1786,12 +1788,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 2,
-          "athleteId": 7755
+          "dns": false
         },
         {
           "pos": 90,
+          "genderPos": 88,
+          "athleteId": 13752,
           "bib": "0206",
           "name": "Mário Filipe Fonseca",
           "nameLower": "mario filipe fonseca",
@@ -1806,12 +1808,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 88,
-          "athleteId": 6269
+          "dns": false
         },
         {
           "pos": 91,
+          "genderPos": 89,
+          "athleteId": 13753,
           "bib": "0205",
           "name": "João Magalhães",
           "nameLower": "joao magalhaes",
@@ -1826,12 +1828,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 89,
-          "athleteId": 4344
+          "dns": false
         },
         {
           "pos": 92,
+          "genderPos": 90,
+          "athleteId": 13754,
           "bib": "0141",
           "name": "Miguel Ribeiro",
           "nameLower": "miguel ribeiro",
@@ -1846,12 +1848,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 90,
-          "athleteId": 6598
+          "dns": false
         },
         {
           "pos": 93,
+          "genderPos": 91,
+          "athleteId": 10739,
           "bib": "0033",
           "name": "Álvaro André",
           "nameLower": "alvaro andre",
@@ -1866,12 +1868,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 91,
-          "athleteId": 361
+          "dns": false
         },
         {
           "pos": 94,
+          "genderPos": 92,
+          "athleteId": 13755,
           "bib": "0087",
           "name": "Carlos Emanuel Pinto",
           "nameLower": "carlos emanuel pinto",
@@ -1886,12 +1888,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 92,
-          "athleteId": 1470
+          "dns": false
         },
         {
           "pos": 95,
+          "genderPos": 93,
+          "athleteId": 13756,
           "bib": "0122",
           "name": "Francisco Luís Fernandes Ferreira",
           "nameLower": "francisco luis fernandes ferreira",
@@ -1906,12 +1908,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 93,
-          "athleteId": 3180
+          "dns": false
         },
         {
           "pos": 96,
+          "genderPos": 94,
+          "athleteId": 13167,
           "bib": "0013",
           "name": "Jorge Bernardo",
           "nameLower": "jorge bernardo",
@@ -1926,12 +1928,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 94,
-          "athleteId": 4657
+          "dns": false
         },
         {
           "pos": 97,
+          "genderPos": 95,
+          "athleteId": 13757,
           "bib": "0278",
           "name": "Pedro Nuno Seabra Cunha",
           "nameLower": "pedro nuno seabra cunha",
@@ -1946,9 +1948,7 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 95,
-          "athleteId": 7553
+          "dns": false
         }
       ]
     },
@@ -1959,6 +1959,8 @@
       "results": [
         {
           "pos": 1,
+          "genderPos": 1,
+          "athleteId": 56,
           "bib": "0291",
           "name": "Vitor Lourenço",
           "nameLower": "vitor lourenco",
@@ -1973,12 +1975,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 1,
-          "athleteId": 9294
+          "dns": false
         },
         {
           "pos": 2,
+          "genderPos": 2,
+          "athleteId": 13758,
           "bib": "0231",
           "name": "Rodrigo Prezado",
           "nameLower": "rodrigo prezado",
@@ -1993,12 +1995,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 2,
-          "athleteId": 8126
+          "dns": false
         },
         {
           "pos": 3,
+          "genderPos": 3,
+          "athleteId": 8249,
           "bib": "0179",
           "name": "André Gonçalves",
           "nameLower": "andre goncalves",
@@ -2013,12 +2015,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 3,
-          "athleteId": 552
+          "dns": false
         },
         {
           "pos": 4,
+          "genderPos": 4,
+          "athleteId": 13759,
           "bib": "0117",
           "name": "RICARDO",
           "nameLower": "ricardo",
@@ -2033,12 +2035,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 4,
-          "athleteId": 7830
+          "dns": false
         },
         {
           "pos": 5,
+          "genderPos": 5,
+          "athleteId": 63,
           "bib": "0212",
           "name": "Carlos Borges",
           "nameLower": "carlos borges",
@@ -2053,12 +2055,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 5,
-          "athleteId": 1431
+          "dns": false
         },
         {
           "pos": 6,
+          "genderPos": 6,
+          "athleteId": 13760,
           "bib": "0071",
           "name": "Ricardo Vaz",
           "nameLower": "ricardo vaz",
@@ -2073,12 +2075,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 6,
-          "athleteId": 8007
+          "dns": false
         },
         {
           "pos": 7,
+          "genderPos": 7,
+          "athleteId": 13761,
           "bib": "0055",
           "name": "Marco Batista",
           "nameLower": "marco batista",
@@ -2093,12 +2095,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 7,
-          "athleteId": 6084
+          "dns": false
         },
         {
           "pos": 8,
+          "genderPos": 8,
+          "athleteId": 196,
           "bib": "0213",
           "name": "José Portelinha",
           "nameLower": "jose portelinha",
@@ -2113,12 +2115,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 8,
-          "athleteId": 5113
+          "dns": false
         },
         {
           "pos": 9,
+          "genderPos": 9,
+          "athleteId": 13762,
           "bib": "0147",
           "name": "Pedro Cruz",
           "nameLower": "pedro cruz",
@@ -2133,12 +2135,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 9,
-          "athleteId": 7425
+          "dns": false
         },
         {
           "pos": 10,
+          "genderPos": 10,
+          "athleteId": 13047,
           "bib": "0115",
           "name": "Jorge Machado",
           "nameLower": "jorge machado",
@@ -2153,12 +2155,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 10,
-          "athleteId": 4725
+          "dns": false
         },
         {
           "pos": 11,
+          "genderPos": 11,
+          "athleteId": 202,
           "bib": "0207",
           "name": "José Magalhaes",
           "nameLower": "jose magalhaes",
@@ -2173,12 +2175,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 11,
-          "athleteId": 5007
+          "dns": false
         },
         {
           "pos": 12,
+          "genderPos": 12,
+          "athleteId": 13763,
           "bib": "0294",
           "name": "Lourenço Simões",
           "nameLower": "lourenco simoes",
@@ -2193,12 +2195,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 12,
-          "athleteId": 5523
+          "dns": false
         },
         {
           "pos": 13,
+          "genderPos": 13,
+          "athleteId": 104,
           "bib": "0092",
           "name": "Hugo Pereira",
           "nameLower": "hugo pereira",
@@ -2213,12 +2215,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 13,
-          "athleteId": 3797
+          "dns": false
         },
         {
           "pos": 14,
+          "genderPos": 14,
+          "athleteId": 13764,
           "bib": "0309",
           "name": "Gonçalo Filipe Roque Antunes",
           "nameLower": "goncalo filipe roque antunes",
@@ -2233,12 +2235,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 14,
-          "athleteId": 3427
+          "dns": false
         },
         {
           "pos": 15,
+          "genderPos": 15,
+          "athleteId": 13765,
           "bib": "0139",
           "name": "António José prada Fernandes",
           "nameLower": "antonio jose prada fernandes",
@@ -2253,12 +2255,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 15,
-          "athleteId": 855
+          "dns": false
         },
         {
           "pos": 16,
+          "genderPos": 16,
+          "athleteId": 239,
           "bib": "0214",
           "name": "Miguel Lourenço",
           "nameLower": "miguel lourenco",
@@ -2273,12 +2275,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 16,
-          "athleteId": 6547
+          "dns": false
         },
         {
           "pos": 17,
+          "genderPos": 17,
+          "athleteId": 13766,
           "bib": "0177",
           "name": "Bruno Filipe Sousa Cardoso",
           "nameLower": "bruno filipe sousa cardoso",
@@ -2293,12 +2295,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 17,
-          "athleteId": 1250
+          "dns": false
         },
         {
           "pos": 18,
+          "genderPos": 18,
+          "athleteId": 13767,
           "bib": "0001",
           "name": "Tiago Cabral",
           "nameLower": "tiago cabral",
@@ -2313,12 +2315,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 18,
-          "athleteId": 8893
+          "dns": false
         },
         {
           "pos": 19,
+          "genderPos": 19,
+          "athleteId": 13768,
           "bib": "0173",
           "name": "Antonio Jorge Cabral",
           "nameLower": "antonio jorge cabral",
@@ -2333,12 +2335,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 19,
-          "athleteId": 848
+          "dns": false
         },
         {
           "pos": 20,
+          "genderPos": 20,
+          "athleteId": 13769,
           "bib": "0073",
           "name": "Tiago Santos",
           "nameLower": "tiago santos",
@@ -2353,12 +2355,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 20,
-          "athleteId": 9025
+          "dns": false
         },
         {
           "pos": 21,
+          "genderPos": 21,
+          "athleteId": 13770,
           "bib": "0148",
           "name": "Dionisio Massena",
           "nameLower": "dionisio massena",
@@ -2373,12 +2375,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 21,
-          "athleteId": 2358
+          "dns": false
         },
         {
           "pos": 22,
+          "genderPos": 22,
+          "athleteId": 6431,
           "bib": "0230",
           "name": "Francisco Baptista",
           "nameLower": "francisco baptista",
@@ -2393,12 +2395,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 22,
-          "athleteId": 3105
+          "dns": false
         },
         {
           "pos": 23,
+          "genderPos": 23,
+          "athleteId": 13771,
           "bib": "0151",
           "name": "Tiago Martins",
           "nameLower": "tiago martins",
@@ -2413,12 +2415,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 23,
-          "athleteId": 8975
+          "dns": false
         },
         {
           "pos": 24,
+          "genderPos": 24,
+          "athleteId": 13772,
           "bib": "0149",
           "name": "André Espírito Santo",
           "nameLower": "andre espirito santo",
@@ -2433,12 +2435,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 24,
-          "athleteId": 535
+          "dns": false
         },
         {
           "pos": 25,
+          "genderPos": 25,
+          "athleteId": 13773,
           "bib": "0143",
           "name": "Nuno Ribeiro",
           "nameLower": "nuno ribeiro",
@@ -2453,12 +2455,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 25,
-          "athleteId": 6949
+          "dns": false
         },
         {
           "pos": 26,
+          "genderPos": 26,
+          "athleteId": 13774,
           "bib": "0069",
           "name": "António José Bernardo",
           "nameLower": "antonio jose bernardo",
@@ -2473,12 +2475,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 26,
-          "athleteId": 850
+          "dns": false
         },
         {
           "pos": 27,
+          "genderPos": 27,
+          "athleteId": 13775,
           "bib": "0078",
           "name": "José Freire",
           "nameLower": "jose freire",
@@ -2493,12 +2495,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 27,
-          "athleteId": 4947
+          "dns": false
         },
         {
           "pos": 28,
+          "genderPos": 28,
+          "athleteId": 13776,
           "bib": "0002",
           "name": "Daniel Filipe",
           "nameLower": "daniel filipe",
@@ -2513,12 +2515,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 28,
-          "athleteId": 1938
+          "dns": false
         },
         {
           "pos": 29,
+          "genderPos": 29,
+          "athleteId": 13777,
           "bib": "0074",
           "name": "Ricardo Coutinho",
           "nameLower": "ricardo coutinho",
@@ -2533,12 +2535,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 29,
-          "athleteId": 7865
+          "dns": false
         },
         {
           "pos": 30,
+          "genderPos": 1,
+          "athleteId": 3460,
           "bib": "0258",
           "name": "Ana Neves",
           "nameLower": "ana neves",
@@ -2553,12 +2555,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 1,
-          "athleteId": 454
+          "dns": false
         },
         {
           "pos": 31,
+          "genderPos": 30,
+          "athleteId": 372,
           "bib": "0229",
           "name": "Fábio Nascimento",
           "nameLower": "fabio nascimento",
@@ -2573,12 +2575,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 30,
-          "athleteId": 2762
+          "dns": false
         },
         {
           "pos": 32,
+          "genderPos": 31,
+          "athleteId": 10461,
           "bib": "0106",
           "name": "Marco Fernandes",
           "nameLower": "marco fernandes",
@@ -2593,12 +2595,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 31,
-          "athleteId": 6103
+          "dns": false
         },
         {
           "pos": 33,
+          "genderPos": 32,
+          "athleteId": 13778,
           "bib": "0037",
           "name": "Carlos Manuel Almeida Dornelas Campos",
           "nameLower": "carlos manuel almeida dornelas campos",
@@ -2613,12 +2615,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 32,
-          "athleteId": 1532
+          "dns": false
         },
         {
           "pos": 34,
+          "genderPos": 33,
+          "athleteId": 13779,
           "bib": "0109",
           "name": "Joaquim Firmino Mendes Fernandes",
           "nameLower": "joaquim firmino mendes fernandes",
@@ -2633,12 +2635,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 33,
-          "athleteId": 4524
+          "dns": false
         },
         {
           "pos": 35,
+          "genderPos": 34,
+          "athleteId": 13154,
           "bib": "0027",
           "name": "Pedro Torrão",
           "nameLower": "pedro torrao",
@@ -2653,12 +2655,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 34,
-          "athleteId": 7614
+          "dns": false
         },
         {
           "pos": 36,
+          "genderPos": 35,
+          "athleteId": 13780,
           "bib": "0172",
           "name": "Nuno Marques",
           "nameLower": "nuno marques",
@@ -2673,12 +2675,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 35,
-          "athleteId": 6893
+          "dns": false
         },
         {
           "pos": 37,
+          "genderPos": 36,
+          "athleteId": 7025,
           "bib": "0054",
           "name": "Fábio Ferreira",
           "nameLower": "fabio ferreira",
@@ -2693,12 +2695,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 36,
-          "athleteId": 2744
+          "dns": false
         },
         {
           "pos": 38,
+          "genderPos": 37,
+          "athleteId": 13781,
           "bib": "0268",
           "name": "Rodrigo Pereira Ribeiro",
           "nameLower": "rodrigo pereira ribeiro",
@@ -2713,12 +2715,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 37,
-          "athleteId": 8124
+          "dns": false
         },
         {
           "pos": 39,
+          "genderPos": 38,
+          "athleteId": 3452,
           "bib": "0286",
           "name": "André Pinheiro",
           "nameLower": "andre pinheiro",
@@ -2733,12 +2735,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 38,
-          "athleteId": 604
+          "dns": false
         },
         {
           "pos": 40,
+          "genderPos": 39,
+          "athleteId": 13782,
           "bib": "0142",
           "name": "João Paulo Lopes dos Santos",
           "nameLower": "joao paulo lopes dos santos",
@@ -2753,12 +2755,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 39,
-          "athleteId": 4398
+          "dns": false
         },
         {
           "pos": 41,
+          "genderPos": 40,
+          "athleteId": 653,
           "bib": "0038",
           "name": "Sérgio Campos",
           "nameLower": "sergio campos",
@@ -2773,12 +2775,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 40,
-          "athleteId": 8599
+          "dns": false
         },
         {
           "pos": 42,
+          "genderPos": 41,
+          "athleteId": 5622,
           "bib": "0129",
           "name": "Ricardo Rocha",
           "nameLower": "ricardo rocha",
@@ -2793,12 +2795,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 41,
-          "athleteId": 7983
+          "dns": false
         },
         {
           "pos": 43,
+          "genderPos": 42,
+          "athleteId": 13783,
           "bib": "0049",
           "name": "Rui Pedro dos Santos Figueiredo",
           "nameLower": "rui pedro dos santos figueiredo",
@@ -2813,12 +2815,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 42,
-          "athleteId": 8414
+          "dns": false
         },
         {
           "pos": 44,
+          "genderPos": 2,
+          "athleteId": 7572,
           "bib": "0080",
           "name": "Sara Meirinho",
           "nameLower": "sara meirinho",
@@ -2833,12 +2835,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 2,
-          "athleteId": 8552
+          "dns": false
         },
         {
           "pos": 45,
+          "genderPos": 43,
+          "athleteId": 13784,
           "bib": "0025",
           "name": "Vitor Manuel Paulos Rodrigues",
           "nameLower": "vitor manuel paulos rodrigues",
@@ -2853,12 +2855,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 43,
-          "athleteId": 9303
+          "dns": false
         },
         {
           "pos": 46,
+          "genderPos": 44,
+          "athleteId": 13785,
           "bib": "0041",
           "name": "Neto",
           "nameLower": "neto",
@@ -2873,12 +2875,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 44,
-          "athleteId": 6759
+          "dns": false
         },
         {
           "pos": 47,
+          "genderPos": 45,
+          "athleteId": 490,
           "bib": "0132",
           "name": "Hugo Francisco",
           "nameLower": "hugo francisco",
@@ -2893,12 +2895,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 45,
-          "athleteId": 3759
+          "dns": false
         },
         {
           "pos": 48,
+          "genderPos": 46,
+          "athleteId": 10983,
           "bib": "0065",
           "name": "José Gomes",
           "nameLower": "jose gomes",
@@ -2913,12 +2915,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 46,
-          "athleteId": 4960
+          "dns": false
         },
         {
           "pos": 49,
+          "genderPos": 47,
+          "athleteId": 13786,
           "bib": "0176",
           "name": "André Ascensão",
           "nameLower": "andre ascensao",
@@ -2933,12 +2935,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 47,
-          "athleteId": 505
+          "dns": false
         },
         {
           "pos": 50,
+          "genderPos": 48,
+          "athleteId": 13787,
           "bib": "0024",
           "name": "João Paulo Garcia",
           "nameLower": "joao paulo garcia",
@@ -2953,12 +2955,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 48,
-          "athleteId": 4397
+          "dns": false
         },
         {
           "pos": 51,
+          "genderPos": 49,
+          "athleteId": 8377,
           "bib": "0287",
           "name": "Pedro Crespo",
           "nameLower": "pedro crespo",
@@ -2973,12 +2975,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 49,
-          "athleteId": 7424
+          "dns": false
         },
         {
           "pos": 52,
+          "genderPos": 50,
+          "athleteId": 13788,
           "bib": "0174",
           "name": "Joaquim Almeida",
           "nameLower": "joaquim almeida",
@@ -2993,12 +2995,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 50,
-          "athleteId": 4506
+          "dns": false
         },
         {
           "pos": 53,
+          "genderPos": 51,
+          "athleteId": 13789,
           "bib": "0155",
           "name": "Nuno Vinagre",
           "nameLower": "nuno vinagre",
@@ -3013,12 +3015,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 51,
-          "athleteId": 6985
+          "dns": false
         },
         {
           "pos": 54,
+          "genderPos": 52,
+          "athleteId": 13790,
           "bib": "0156",
           "name": "Bruno Miguel Ribeiro de Oliveira",
           "nameLower": "bruno miguel ribeiro de oliveira",
@@ -3033,12 +3035,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 52,
-          "athleteId": 1294
+          "dns": false
         },
         {
           "pos": 55,
+          "genderPos": 53,
+          "athleteId": 13791,
           "bib": "0125",
           "name": "José Carlos Sousa",
           "nameLower": "jose carlos sousa",
@@ -3053,12 +3055,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 53,
-          "athleteId": 4882
+          "dns": false
         },
         {
           "pos": 56,
+          "genderPos": 54,
+          "athleteId": 13792,
           "bib": "0107",
           "name": "Luís Niné",
           "nameLower": "luis nine",
@@ -3073,12 +3075,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 54,
-          "athleteId": 5746
+          "dns": false
         },
         {
           "pos": 57,
+          "genderPos": 55,
+          "athleteId": 13793,
           "bib": "0062",
           "name": "João Alves Sepúlveda",
           "nameLower": "joao alves sepulveda",
@@ -3093,12 +3095,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 55,
-          "athleteId": 4174
+          "dns": false
         },
         {
           "pos": 58,
+          "genderPos": 56,
+          "athleteId": 13794,
           "bib": "0184",
           "name": "Paulo Albuquerque",
           "nameLower": "paulo albuquerque",
@@ -3113,12 +3115,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 56,
-          "athleteId": 7149
+          "dns": false
         },
         {
           "pos": 59,
+          "genderPos": 57,
+          "athleteId": 8507,
           "bib": "0110",
           "name": "Fábio Rodrigues",
           "nameLower": "fabio rodrigues",
@@ -3133,12 +3135,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 57,
-          "athleteId": 2775
+          "dns": false
         },
         {
           "pos": 60,
+          "genderPos": 58,
+          "athleteId": 13795,
           "bib": "0284",
           "name": "Vítor Manuel Arrais De Sousa",
           "nameLower": "vitor manuel arrais de sousa",
@@ -3153,12 +3155,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 58,
-          "athleteId": 9298
+          "dns": false
         },
         {
           "pos": 61,
+          "genderPos": 59,
+          "athleteId": 13796,
           "bib": "0304",
           "name": "LUÍS MARQUES",
           "nameLower": "luis marques",
@@ -3173,12 +3175,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 59,
-          "athleteId": 5721
+          "dns": false
         },
         {
           "pos": 62,
+          "genderPos": 60,
+          "athleteId": 13797,
           "bib": "0199",
           "name": "Vitor Manuel Marques da Piedade",
           "nameLower": "vitor manuel marques da piedade",
@@ -3193,12 +3195,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 60,
-          "athleteId": 9302
+          "dns": false
         },
         {
           "pos": 63,
+          "genderPos": 61,
+          "athleteId": 13798,
           "bib": "0089",
           "name": "José Fernando Oliveira Figueiredo",
           "nameLower": "jose fernando oliveira figueiredo",
@@ -3213,12 +3215,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 61,
-          "athleteId": 4941
+          "dns": false
         },
         {
           "pos": 64,
+          "genderPos": 62,
+          "athleteId": 13799,
           "bib": "0220",
           "name": "José Bicho",
           "nameLower": "jose bicho",
@@ -3233,12 +3235,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 62,
-          "athleteId": 4844
+          "dns": false
         },
         {
           "pos": 65,
+          "genderPos": 63,
+          "athleteId": 4042,
           "bib": "0061",
           "name": "CARLOS MOREIRA",
           "nameLower": "carlos moreira",
@@ -3253,12 +3255,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 63,
-          "athleteId": 1561
+          "dns": false
         },
         {
           "pos": 66,
+          "genderPos": 64,
+          "athleteId": 13800,
           "bib": "0185",
           "name": "Carlos Rolas",
           "nameLower": "carlos rolas",
@@ -3273,12 +3275,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 64,
-          "athleteId": 1598
+          "dns": false
         },
         {
           "pos": 67,
+          "genderPos": 65,
+          "athleteId": 12911,
           "bib": "0036",
           "name": "António Santos",
           "nameLower": "antonio santos",
@@ -3293,12 +3295,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 65,
-          "athleteId": 948
+          "dns": false
         },
         {
           "pos": 68,
+          "genderPos": 66,
+          "athleteId": 6491,
           "bib": "0297",
           "name": "João Cruz",
           "nameLower": "joao cruz",
@@ -3313,12 +3315,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 66,
-          "athleteId": 4256
+          "dns": false
         },
         {
           "pos": 69,
+          "genderPos": 67,
+          "athleteId": 9075,
           "bib": "0064",
           "name": "Gabriel Ferreira",
           "nameLower": "gabriel ferreira",
@@ -3333,12 +3335,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 67,
-          "athleteId": 3301
+          "dns": false
         },
         {
           "pos": 70,
+          "genderPos": 68,
+          "athleteId": 13801,
           "bib": "0239",
           "name": "Tiago Honório Prata Domingos de Almeida",
           "nameLower": "tiago honorio prata domingos de almeida",
@@ -3353,12 +3355,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 68,
-          "athleteId": 8955
+          "dns": false
         },
         {
           "pos": 71,
+          "genderPos": 3,
+          "athleteId": 13802,
           "bib": "0240",
           "name": "Vanessa Solange Pinto Martins de Almeida",
           "nameLower": "vanessa solange pinto martins de almeida",
@@ -3373,12 +3375,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 3,
-          "athleteId": 9147
+          "dns": false
         },
         {
           "pos": 72,
+          "genderPos": 69,
+          "athleteId": 13803,
           "bib": "0063",
           "name": "Daniel Alves Sepúlveda",
           "nameLower": "daniel alves sepulveda",
@@ -3393,12 +3395,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 69,
-          "athleteId": 1900
+          "dns": false
         },
         {
           "pos": 73,
+          "genderPos": 70,
+          "athleteId": 11120,
           "bib": "0170",
           "name": "americo pinto",
           "nameLower": "americo pinto",
@@ -3413,12 +3415,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 70,
-          "athleteId": 403
+          "dns": false
         },
         {
           "pos": 74,
+          "genderPos": 71,
+          "athleteId": 13804,
           "bib": "0281",
           "name": "Pedro Andrade",
           "nameLower": "pedro andrade",
@@ -3433,12 +3435,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 71,
-          "athleteId": 7355
+          "dns": false
         },
         {
           "pos": 75,
+          "genderPos": 72,
+          "athleteId": 13805,
           "bib": "0263",
           "name": "Andre Afonso",
           "nameLower": "andre afonso",
@@ -3453,12 +3455,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 72,
-          "athleteId": 495
+          "dns": false
         },
         {
           "pos": 76,
+          "genderPos": 73,
+          "athleteId": 13806,
           "bib": "0234",
           "name": "Nuno Raposo",
           "nameLower": "nuno raposo",
@@ -3473,12 +3475,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 73,
-          "athleteId": 6946
+          "dns": false
         },
         {
           "pos": 77,
+          "genderPos": 74,
+          "athleteId": 13807,
           "bib": "0217",
           "name": "Ivan Fernandes",
           "nameLower": "ivan fernandes",
@@ -3493,12 +3495,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 74,
-          "athleteId": 3951
+          "dns": false
         },
         {
           "pos": 78,
+          "genderPos": 75,
+          "athleteId": 11138,
           "bib": "0272",
           "name": "Sérgio Lopes",
           "nameLower": "sergio lopes",
@@ -3513,12 +3515,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 75,
-          "athleteId": 8641
+          "dns": false
         },
         {
           "pos": 79,
+          "genderPos": 76,
+          "athleteId": 11099,
           "bib": "0193",
           "name": "Luís Barros",
           "nameLower": "luis barros",
@@ -3533,12 +3535,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 76,
-          "athleteId": 5581
+          "dns": false
         },
         {
           "pos": 80,
+          "genderPos": 77,
+          "athleteId": 13808,
           "bib": "0222",
           "name": "Rui Sequeira",
           "nameLower": "rui sequeira",
@@ -3553,12 +3555,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 77,
-          "athleteId": 8450
+          "dns": false
         },
         {
           "pos": 81,
+          "genderPos": 78,
+          "athleteId": 10047,
           "bib": "0221",
           "name": "Carlos Silva",
           "nameLower": "carlos silva",
@@ -3573,12 +3575,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 78,
-          "athleteId": 1610
+          "dns": false
         },
         {
           "pos": 82,
+          "genderPos": 79,
+          "athleteId": 13809,
           "bib": "0188",
           "name": "Ricardo Guerra",
           "nameLower": "ricardo guerra",
@@ -3593,12 +3595,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 79,
-          "athleteId": 7908
+          "dns": false
         },
         {
           "pos": 83,
+          "genderPos": 80,
+          "athleteId": 7003,
           "bib": "0053",
           "name": "filipe silva",
           "nameLower": "filipe silva",
@@ -3613,12 +3615,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 80,
-          "athleteId": 3035
+          "dns": false
         },
         {
           "pos": 84,
+          "genderPos": 81,
+          "athleteId": 13810,
           "bib": "0140",
           "name": "Igor Oliveira",
           "nameLower": "igor oliveira",
@@ -3633,12 +3635,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 81,
-          "athleteId": 3862
+          "dns": false
         },
         {
           "pos": 85,
+          "genderPos": 82,
+          "athleteId": 13811,
           "bib": "0302",
           "name": "João Carlos Marques Amaral Albuquerque",
           "nameLower": "joao carlos marques amaral albuquerque",
@@ -3653,12 +3655,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 82,
-          "athleteId": 4226
+          "dns": false
         },
         {
           "pos": 86,
+          "genderPos": 83,
+          "athleteId": 13812,
           "bib": "0171",
           "name": "Nelson Filipe Garcia Marçalino",
           "nameLower": "nelson filipe garcia marcalino",
@@ -3673,12 +3675,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 83,
-          "athleteId": 6717
+          "dns": false
         },
         {
           "pos": 87,
+          "genderPos": 84,
+          "athleteId": 13813,
           "bib": "0161",
           "name": "António Manuel Antunes Marques",
           "nameLower": "antonio manuel antunes marques",
@@ -3693,12 +3695,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 84,
-          "athleteId": 876
+          "dns": false
         },
         {
           "pos": 88,
+          "genderPos": 4,
+          "athleteId": 13814,
           "bib": "0288",
           "name": "María Soledad Martín Corchete",
           "nameLower": "maria soledad martin corchete",
@@ -3713,12 +3715,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 4,
-          "athleteId": 6224
+          "dns": false
         },
         {
           "pos": 89,
+          "genderPos": 85,
+          "athleteId": 13815,
           "bib": "0029",
           "name": "Jorge Marques",
           "nameLower": "jorge marques",
@@ -3733,12 +3735,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 85,
-          "athleteId": 4741
+          "dns": false
         },
         {
           "pos": 90,
+          "genderPos": 86,
+          "athleteId": 13816,
           "bib": "0289",
           "name": "Antonio Garzón Pérez",
           "nameLower": "antonio garzon perez",
@@ -3753,12 +3755,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 86,
-          "athleteId": 827
+          "dns": false
         },
         {
           "pos": 91,
+          "genderPos": 87,
+          "athleteId": 13817,
           "bib": "0255",
           "name": "Tomás Neto Amarelo",
           "nameLower": "tomas neto amarelo",
@@ -3773,12 +3775,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 87,
-          "athleteId": 9072
+          "dns": false
         },
         {
           "pos": 92,
+          "genderPos": 88,
+          "athleteId": 1524,
           "bib": "0059",
           "name": "Andre Nogueira",
           "nameLower": "andre nogueira",
@@ -3793,12 +3795,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 88,
-          "athleteId": 595
+          "dns": false
         },
         {
           "pos": 93,
+          "genderPos": 89,
+          "athleteId": 13818,
           "bib": "0225",
           "name": "André Fernandes Silva",
           "nameLower": "andre fernandes silva",
@@ -3813,12 +3815,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 89,
-          "athleteId": 539
+          "dns": false
         },
         {
           "pos": 94,
+          "genderPos": 90,
+          "athleteId": 13819,
           "bib": "0228",
           "name": "Nelson David Ramos Alves",
           "nameLower": "nelson david ramos alves",
@@ -3833,12 +3835,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 90,
-          "athleteId": 6707
+          "dns": false
         },
         {
           "pos": 95,
+          "genderPos": 91,
+          "athleteId": 13820,
           "bib": "0097",
           "name": "Nuno Soeiro",
           "nameLower": "nuno soeiro",
@@ -3853,12 +3855,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 91,
-          "athleteId": 6968
+          "dns": false
         },
         {
           "pos": 96,
+          "genderPos": 92,
+          "athleteId": 13821,
           "bib": "0098",
           "name": "Fernando Gonçalves",
           "nameLower": "fernando goncalves",
@@ -3873,12 +3875,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 92,
-          "athleteId": 2866
+          "dns": false
         },
         {
           "pos": 97,
+          "genderPos": 93,
+          "athleteId": 13822,
           "bib": "0076",
           "name": "Tiago Leitão",
           "nameLower": "tiago leitao",
@@ -3893,12 +3895,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 93,
-          "athleteId": 8963
+          "dns": false
         },
         {
           "pos": 98,
+          "genderPos": 94,
+          "athleteId": 13823,
           "bib": "0072",
           "name": "Ignacio",
           "nameLower": "ignacio",
@@ -3913,12 +3915,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 94,
-          "athleteId": 3848
+          "dns": false
         },
         {
           "pos": 99,
+          "genderPos": 5,
+          "athleteId": 13824,
           "bib": "0181",
           "name": "Dalila Romão",
           "nameLower": "dalila romao",
@@ -3933,12 +3935,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 5,
-          "athleteId": 1889
+          "dns": false
         },
         {
           "pos": 100,
+          "genderPos": 95,
+          "athleteId": 13825,
           "bib": "0233",
           "name": "Frederico Matos",
           "nameLower": "frederico matos",
@@ -3953,12 +3955,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 95,
-          "athleteId": 3274
+          "dns": false
         },
         {
           "pos": 101,
+          "genderPos": 96,
+          "athleteId": 13826,
           "bib": "0232",
           "name": "Guilherme Fortuna",
           "nameLower": "guilherme fortuna",
@@ -3973,12 +3975,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 96,
-          "athleteId": 3504
+          "dns": false
         },
         {
           "pos": 102,
+          "genderPos": 97,
+          "athleteId": 13827,
           "bib": "0248",
           "name": "Aníbal Miguel Barbeira Guerra",
           "nameLower": "anibal miguel barbeira guerra",
@@ -3993,12 +3995,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 97,
-          "athleteId": 721
+          "dns": false
         },
         {
           "pos": 103,
+          "genderPos": 98,
+          "athleteId": 13828,
           "bib": "0180",
           "name": "João Gomes",
           "nameLower": "joao gomes",
@@ -4013,12 +4015,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 98,
-          "athleteId": 4302
+          "dns": false
         },
         {
           "pos": 104,
+          "genderPos": 99,
+          "athleteId": 13829,
           "bib": "0242",
           "name": "Alexandre Emanuel Cunha Furtado",
           "nameLower": "alexandre emanuel cunha furtado",
@@ -4033,12 +4035,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 99,
-          "athleteId": 278
+          "dns": false
         },
         {
           "pos": 105,
+          "genderPos": 100,
+          "athleteId": 13830,
           "bib": "0250",
           "name": "Fernando Pedro Pires Gonçalves",
           "nameLower": "fernando pedro pires goncalves",
@@ -4053,12 +4055,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 100,
-          "athleteId": 2903
+          "dns": false
         },
         {
           "pos": 106,
+          "genderPos": 101,
+          "athleteId": 13831,
           "bib": "0050",
           "name": "Hugo Filipe Boto Figueiredo",
           "nameLower": "hugo filipe boto figueiredo",
@@ -4073,12 +4075,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 101,
-          "athleteId": 3757
+          "dns": false
         },
         {
           "pos": 107,
+          "genderPos": 102,
+          "athleteId": 13832,
           "bib": "0048",
           "name": "Manuel Costa Figueiredo",
           "nameLower": "manuel costa figueiredo",
@@ -4093,12 +4095,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 102,
-          "athleteId": 5887
+          "dns": false
         },
         {
           "pos": 108,
+          "genderPos": 6,
+          "athleteId": 13833,
           "bib": "0039",
           "name": "Patrícia Silva",
           "nameLower": "patricia silva",
@@ -4113,12 +4115,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 6,
-          "athleteId": 7115
+          "dns": false
         },
         {
           "pos": 109,
+          "genderPos": 103,
+          "athleteId": 13834,
           "bib": "0070",
           "name": "Luciano Lopes Robalo",
           "nameLower": "luciano lopes robalo",
@@ -4133,12 +4135,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 103,
-          "athleteId": 5538
+          "dns": false
         },
         {
           "pos": 110,
+          "genderPos": 104,
+          "athleteId": 13835,
           "bib": "0198",
           "name": "PedroGalante",
           "nameLower": "pedrogalante",
@@ -4153,12 +4155,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 104,
-          "athleteId": 7627
+          "dns": false
         },
         {
           "pos": 111,
+          "genderPos": 105,
+          "athleteId": 3229,
           "bib": "0249",
           "name": "João Pereira",
           "nameLower": "joao pereira",
@@ -4173,12 +4175,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 105,
-          "athleteId": 4422
+          "dns": false
         },
         {
           "pos": 112,
+          "genderPos": 106,
+          "athleteId": 13836,
           "bib": "0192",
           "name": "João Suzano",
           "nameLower": "joao suzano",
@@ -4193,12 +4195,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 106,
-          "athleteId": 4479
+          "dns": false
         },
         {
           "pos": 113,
+          "genderPos": 107,
+          "athleteId": 13837,
           "bib": "0057",
           "name": "Mário Alexandre Borges Sequeira",
           "nameLower": "mario alexandre borges sequeira",
@@ -4213,12 +4215,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 107,
-          "athleteId": 6242
+          "dns": false
         },
         {
           "pos": 114,
+          "genderPos": 108,
+          "athleteId": 13838,
           "bib": "0068",
           "name": "David Fernandes Gândara",
           "nameLower": "david fernandes gandara",
@@ -4233,12 +4235,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 108,
-          "athleteId": 2084
+          "dns": false
         },
         {
           "pos": 115,
+          "genderPos": 109,
+          "athleteId": 13839,
           "bib": "0067",
           "name": "João Filipe Marques Gândara",
           "nameLower": "joao filipe marques gandara",
@@ -4253,12 +4255,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 109,
-          "athleteId": 4279
+          "dns": false
         },
         {
           "pos": 116,
+          "genderPos": 110,
+          "athleteId": 13840,
           "bib": "0328",
           "name": "Stephane Loureço",
           "nameLower": "stephane loureco",
@@ -4273,12 +4275,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 110,
-          "athleteId": 8788
+          "dns": false
         },
         {
           "pos": 117,
+          "genderPos": 111,
+          "athleteId": 1194,
           "bib": "0126",
           "name": "Cláudio Martins",
           "nameLower": "claudio martins",
@@ -4293,12 +4295,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 111,
-          "athleteId": 1798
+          "dns": false
         },
         {
           "pos": 118,
+          "genderPos": 112,
+          "athleteId": 13841,
           "bib": "0091",
           "name": "Diogo Lopes",
           "nameLower": "diogo lopes",
@@ -4313,12 +4315,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 112,
-          "athleteId": 2307
+          "dns": false
         },
         {
           "pos": 119,
+          "genderPos": 113,
+          "athleteId": 13842,
           "bib": "0227",
           "name": "Cristóvão Cameira",
           "nameLower": "cristovao cameira",
@@ -4333,12 +4335,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 113,
-          "athleteId": 1871
+          "dns": false
         },
         {
           "pos": 120,
+          "genderPos": 114,
+          "athleteId": 13843,
           "bib": "0303",
           "name": "José Manuel Antunes dos Santos",
           "nameLower": "jose manuel antunes dos santos",
@@ -4353,12 +4355,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 114,
-          "athleteId": 5012
+          "dns": false
         },
         {
           "pos": 121,
+          "genderPos": 115,
+          "athleteId": 13844,
           "bib": "0187",
           "name": "Ricardo Miguel Robalo Fernandes",
           "nameLower": "ricardo miguel robalo fernandes",
@@ -4373,12 +4375,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 115,
-          "athleteId": 7946
+          "dns": false
         },
         {
           "pos": 122,
+          "genderPos": 116,
+          "athleteId": 13845,
           "bib": "0182",
           "name": "Fernando Pedro Gomes Cardoso",
           "nameLower": "fernando pedro gomes cardoso",
@@ -4393,12 +4395,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 116,
-          "athleteId": 2902
+          "dns": false
         },
         {
           "pos": 123,
+          "genderPos": 117,
+          "athleteId": 13846,
           "bib": "0216",
           "name": "Romeu Fernandes",
           "nameLower": "romeu fernandes",
@@ -4413,12 +4415,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 117,
-          "athleteId": 8164
+          "dns": false
         },
         {
           "pos": 124,
+          "genderPos": 118,
+          "athleteId": 13847,
           "bib": "0257",
           "name": "Marco Matias",
           "nameLower": "marco matias",
@@ -4433,12 +4435,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 118,
-          "athleteId": 6127
+          "dns": false
         },
         {
           "pos": 125,
+          "genderPos": 119,
+          "athleteId": 13848,
           "bib": "0200",
           "name": "Bruno miguel de pina cabral",
           "nameLower": "bruno miguel de pina cabral",
@@ -4453,12 +4455,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 119,
-          "athleteId": 1289
+          "dns": false
         },
         {
           "pos": 126,
+          "genderPos": 120,
+          "athleteId": 13849,
           "bib": "0201",
           "name": "Jorge Olas",
           "nameLower": "jorge olas",
@@ -4473,12 +4475,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 120,
-          "athleteId": 4758
+          "dns": false
         },
         {
           "pos": 127,
+          "genderPos": 121,
+          "athleteId": 1625,
           "bib": "0202",
           "name": "Luis Almeida",
           "nameLower": "luis almeida",
@@ -4493,12 +4495,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 121,
-          "athleteId": 5560
+          "dns": false
         },
         {
           "pos": 128,
+          "genderPos": 122,
+          "athleteId": 13850,
           "bib": "0310",
           "name": "Alexandre Ricardo",
           "nameLower": "alexandre ricardo",
@@ -4513,12 +4515,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 122,
-          "athleteId": 307
+          "dns": false
         },
         {
           "pos": 129,
+          "genderPos": 123,
+          "athleteId": 13851,
           "bib": "0320",
           "name": "JOSE LUIS PEREIRA MARTINS SOARES",
           "nameLower": "jose luis pereira martins soares",
@@ -4533,12 +4535,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 123,
-          "athleteId": 5002
+          "dns": false
         },
         {
           "pos": 130,
+          "genderPos": 124,
+          "athleteId": 13852,
           "bib": "0315",
           "name": "Antonio Lourenço Ribeiro Dias",
           "nameLower": "antonio lourenco ribeiro dias",
@@ -4553,12 +4555,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 124,
-          "athleteId": 865
+          "dns": false
         },
         {
           "pos": 131,
+          "genderPos": 125,
+          "athleteId": 13853,
           "bib": "0246",
           "name": "Leandro Ricardo",
           "nameLower": "leandro ricardo",
@@ -4573,12 +4575,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 125,
-          "athleteId": 5432
+          "dns": false
         },
         {
           "pos": 132,
+          "genderPos": 126,
+          "athleteId": 13854,
           "bib": "0133",
           "name": "Henrique Armando Vale Almeida",
           "nameLower": "henrique armando vale almeida",
@@ -4593,12 +4595,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 126,
-          "athleteId": 3665
+          "dns": false
         },
         {
           "pos": 133,
+          "genderPos": 127,
+          "athleteId": 13855,
           "bib": "0280",
           "name": "Idílio Andrade",
           "nameLower": "idilio andrade",
@@ -4613,12 +4615,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 127,
-          "athleteId": 3847
+          "dns": false
         },
         {
           "pos": 134,
+          "genderPos": 128,
+          "athleteId": 13856,
           "bib": "0321",
           "name": "Manuel dos Santos",
           "nameLower": "manuel dos santos",
@@ -4633,12 +4635,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 128,
-          "athleteId": 5894
+          "dns": false
         },
         {
           "pos": 135,
+          "genderPos": 129,
+          "athleteId": 13857,
           "bib": "0243",
           "name": "Alexandre Mendes VInhas",
           "nameLower": "alexandre mendes vinhas",
@@ -4653,12 +4655,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 129,
-          "athleteId": 293
+          "dns": false
         },
         {
           "pos": 136,
+          "genderPos": 130,
+          "athleteId": 13858,
           "bib": "0017",
           "name": "João Pires",
           "nameLower": "joao pires",
@@ -4673,12 +4675,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 130,
-          "athleteId": 4428
+          "dns": false
         },
         {
           "pos": 137,
+          "genderPos": 131,
+          "athleteId": 13859,
           "bib": "0077",
           "name": "Gilberto Pires",
           "nameLower": "gilberto pires",
@@ -4693,12 +4695,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 131,
-          "athleteId": 3377
+          "dns": false
         },
         {
           "pos": 138,
+          "genderPos": 132,
+          "athleteId": 13860,
           "bib": "0252",
           "name": "José Carlos Correia Vigo",
           "nameLower": "jose carlos correia vigo",
@@ -4713,12 +4715,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 132,
-          "athleteId": 4877
+          "dns": false
         },
         {
           "pos": 139,
+          "genderPos": 133,
+          "athleteId": 13861,
           "bib": "0157",
           "name": "Eduardo da Silva",
           "nameLower": "eduardo da silva",
@@ -4733,12 +4735,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 133,
-          "athleteId": 2482
+          "dns": false
         },
         {
           "pos": 140,
+          "genderPos": 134,
+          "athleteId": 13862,
           "bib": "0276",
           "name": "Nuno Miguel Monteiro Martins",
           "nameLower": "nuno miguel monteiro martins",
@@ -4753,12 +4755,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 134,
-          "athleteId": 6904
+          "dns": false
         },
         {
           "pos": 141,
+          "genderPos": 135,
+          "athleteId": 13863,
           "bib": "0203",
           "name": "Artur Castro",
           "nameLower": "artur castro",
@@ -4773,12 +4775,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 135,
-          "athleteId": 1037
+          "dns": false
         },
         {
           "pos": 142,
+          "genderPos": 136,
+          "athleteId": 13864,
           "bib": "0195",
           "name": "Ricardo Penedo Gonçalves",
           "nameLower": "ricardo penedo goncalves",
@@ -4793,12 +4795,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 136,
-          "athleteId": 7963
+          "dns": false
         },
         {
           "pos": 143,
+          "genderPos": 137,
+          "athleteId": 13865,
           "bib": "0018",
           "name": "Rui Leitão",
           "nameLower": "rui leitao",
@@ -4813,12 +4815,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 137,
-          "athleteId": 8367
+          "dns": false
         },
         {
           "pos": 144,
+          "genderPos": 138,
+          "athleteId": 13866,
           "bib": "0236",
           "name": "Alberto Lourenço",
           "nameLower": "alberto lourenco",
@@ -4833,12 +4835,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 138,
-          "athleteId": 163
+          "dns": false
         },
         {
           "pos": 145,
+          "genderPos": 139,
+          "athleteId": 13867,
           "bib": "0112",
           "name": "Jorge Manuel Martins Machado",
           "nameLower": "jorge manuel martins machado",
@@ -4853,12 +4855,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 139,
-          "athleteId": 4736
+          "dns": false
         },
         {
           "pos": 146,
+          "genderPos": 140,
+          "athleteId": 13868,
           "bib": "0058",
           "name": "Francisco Monteiro Leal",
           "nameLower": "francisco monteiro leal",
@@ -4873,12 +4875,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 140,
-          "athleteId": 3198
+          "dns": false
         },
         {
           "pos": 147,
+          "genderPos": 141,
+          "athleteId": 13869,
           "bib": "0264",
           "name": "André Miguel Leonardo Belo",
           "nameLower": "andre miguel leonardo belo",
@@ -4893,12 +4895,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 141,
-          "athleteId": 583
+          "dns": false
         },
         {
           "pos": 148,
+          "genderPos": 142,
+          "athleteId": 13870,
           "bib": "0113",
           "name": "José Manuel da Cruz Belo Pires Leonardo",
           "nameLower": "jose manuel da cruz belo pires leonardo",
@@ -4913,12 +4915,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 142,
-          "athleteId": 5013
+          "dns": false
         },
         {
           "pos": 149,
+          "genderPos": 143,
+          "athleteId": 2275,
           "bib": "0119",
           "name": "Luis Fonseca",
           "nameLower": "luis fonseca",
@@ -4933,12 +4935,12 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 143,
-          "athleteId": 5666
+          "dns": false
         },
         {
           "pos": 150,
+          "genderPos": 144,
+          "athleteId": 13871,
           "bib": "0254",
           "name": "Sérgio Serra",
           "nameLower": "sergio serra",
@@ -4953,9 +4955,7 @@
           "points": 0,
           "licence": "",
           "dnf": false,
-          "dns": false,
-          "genderPos": 144,
-          "athleteId": 8686
+          "dns": false
         }
       ]
     }

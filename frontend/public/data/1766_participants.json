@@ -22414,6 +22414,7 @@
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "1899",
     "nome": "antonio magalhães",
     "nomecompleto": "antonio magalhães",
@@ -22422,10 +22423,23 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+=======
+    "dorsal": "1903",
+    "nome": "Juvencio Aguiar",
+    "nomecompleto": "Juvencio Aguiar",
+    "sexo": "M",
+    "equipa": "ACD Azagaes/grupo Mindol",
+    "escalao": "MASTERS C",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "pais_nome": null,
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "1900",
     "nome": "Sérgio Fonseca",
     "nomecompleto": "Sérgio Fonseca",
@@ -22446,10 +22460,23 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+=======
+    "dorsal": "1904",
+    "nome": "Joel Nogueira",
+    "nomecompleto": "Joel Nogueira",
+    "sexo": "M",
+    "equipa": "Baidebike- Ass. Cicloturismo de Baião",
+    "escalao": "MASTERS B",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "pais_nome": null,
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "1901",
     "nome": "Wilson Martins",
     "nomecompleto": "Wilson Martins",
@@ -22458,6 +22485,18 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+=======
+    "dorsal": "1902",
+    "nome": "Pablo Capelad",
+    "nomecompleto": "Pablo Capelad",
+    "sexo": "M",
+    "equipa": "CLUB VAL DO TAMEGA",
+    "escalao": "MASTERS A",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "pais_nome": null,
     "pais_iso2": null
   }

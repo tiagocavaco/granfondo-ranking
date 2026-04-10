@@ -11,9 +11,45 @@ function normalizeName(name: string): string {
     .trim();
 }
 
-// Loaded once at startup from /data/name-to-id.json.
-// Falls back to empty map — navigation degrades gracefully if not yet fetched.
+/** Mirrors scraper's normalizeTeam() — canonical key for a raw team name. */
+function normalizeTeam(name: string): string {
+  // Fix caret-as-circumflex encoding artifact
+  let s = name.replace(/([aeiouAEIOU])\^/g, (_, v: string) => {
+    const map: Record<string, string> = { a:"â",e:"ê",i:"î",o:"ô",u:"û",A:"Â",E:"Ê",I:"Î",O:"Ô",U:"Û" };
+    return map[v] ?? v + "^";
+  });
+  s = s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  s = s.replace(/['''`´\u2018\u2019\u02bc]/g, "");
+  s = s.replace(/#/g, "");
+  s = s.replace(/[.,]/g, " ");
+  s = s.replace(/[/|\\^&+@]/g, " ").replace(/\s*-\s*/g, " ");
+  s = s.replace(/\s+/g, " ").trim();
+  for (let i = 0; i < 6; i++) s = s.replace(/(?<![a-z])([a-z]) ([a-z])(?![a-z])/g, "$1$2");
+  s = s.replace(/(?<![a-z])([a-z]{1,3}) ([a-z])(?![a-z])/g, "$1$2");
+  s = s.replace(/\s+/g, " ").trim();
+  return s;
+}
+
+const SOLO_TEAM_KEYS = new Set(["individual", "independente", "no team", "sem equipa", ""]);
+
+// Loaded once at startup from /data/team_aliases.json and /data/name-to-id.json.
+let teamAliases: Record<string, string> = {};
 let nameToId: Record<string, number> = {};
+
+function teamNormKey(name: string): string {
+  const key = normalizeTeam(name);
+  return teamAliases[key] ?? key;
+}
+
+/**
+ * Compute the athlete lookup key: mirrors scraper's athleteKey().
+ * `nameLower|teamKey` for affiliated athletes, `nameLower|` for solo/individual.
+ */
+function athleteLookupKey(name: string, team: string): string {
+  const nameLower = normalizeName(name);
+  const tk = teamNormKey(team ?? "");
+  return (!tk || SOLO_TEAM_KEYS.has(tk)) ? `${nameLower}|` : `${nameLower}|${tk}`;
+}
 
 const BASE = `${import.meta.env.BASE_URL}data`;
 
@@ -52,17 +88,19 @@ export const api = {
     return getJson<AthleteEntry>(`/athlete/${id}.json`);
   },
 
-  /** Look up athlete ID from a display name. Returns null if not found. */
-  lookupAthleteId(name: string): number | null {
-    const id = nameToId[normalizeName(name)];
-    return id ?? null;
+  /** Look up athlete ID from display name + team. Returns null if not found. */
+  lookupAthleteId(name: string, team: string): number | null {
+    return nameToId[athleteLookupKey(name, team)] ?? null;
   },
 
-  async initNameToId(): Promise<void> {
+  async initLookups(): Promise<void> {
     try {
-      nameToId = await getJson<Record<string, number>>("/name-to-id.json");
+      [teamAliases, nameToId] = await Promise.all([
+        getJson<Record<string, string>>("/team_aliases.json"),
+        getJson<Record<string, number>>("/name-to-id.json"),
+      ]);
     } catch {
-      // non-fatal: athlete navigation won't work but page still loads
+      // non-fatal: athlete navigation degrades gracefully
     }
   },
 };

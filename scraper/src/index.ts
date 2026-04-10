@@ -23,11 +23,15 @@ import {
   extractDistances,
   assignGenderPositions,
   transformResult,
+  athleteKey,
   buildAthletesIndex,
+  applyAthleteAliases,
   buildAggregateRanking,
   buildTeamRanking,
   type AthleteIdStore,
+  type AthleteAliasRule,
 } from "./pipeline.js";
+import { normalizeName } from "./normalize.js";
 import type {
   ApiAthlete,
   StoredEvent,
@@ -40,6 +44,7 @@ import type {
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, "..", "..", "frontend", "public", "data");
 const ATHLETE_IDS_PATH = path.join(__dirname, "..", "athlete-ids.json");
+const ATHLETE_ALIASES_PATH = path.join(__dirname, "..", "athlete-aliases.json");
 const FORCE = process.argv.includes("--force");
 const PARTICIPANTS_ONLY = process.argv.includes("--participants");
 const YEARS = [2025, 2026]; // seasons to include
@@ -56,6 +61,11 @@ function loadIdStore(): AthleteIdStore {
 function saveIdStore(store: AthleteIdStore): void {
   const obj = Object.fromEntries(store);
   fs.writeFileSync(ATHLETE_IDS_PATH, JSON.stringify(obj, null, 2), "utf-8");
+}
+
+function loadAthleteAliases(): AthleteAliasRule[] {
+  if (!fs.existsSync(ATHLETE_ALIASES_PATH)) return [];
+  return JSON.parse(fs.readFileSync(ATHLETE_ALIASES_PATH, "utf-8")) as AthleteAliasRule[];
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -597,6 +607,14 @@ async function main() {
   console.log("🔨 Building athletes index…");
   const idStore = loadIdStore();
   const { index: athletesIndex, updatedIdStore } = buildAthletesIndex(scraped, loader, idStore);
+
+  // Apply athlete alias rules (same person, different teams)
+  const aliasRules = loadAthleteAliases();
+  if (aliasRules.length > 0) {
+    applyAthleteAliases(athletesIndex, updatedIdStore, aliasRules);
+    console.log(`✓ applied ${aliasRules.length} athlete alias rule(s)`);
+  }
+
   saveIdStore(updatedIdStore);
 
   // Inject athleteId into every result row in every cached result file
@@ -608,12 +626,8 @@ async function main() {
     if (!stored) continue;
     let changed = false;
     for (const dist of stored.distances) {
-      // Track per-distance collision ordering — mirrors buildAthletesIndex exactly
-      const seenInDist = new Map<string, number>(); // nameLower → occurrence count
       for (const r of dist.results) {
-        const count = seenInDist.get(r.nameLower) ?? 0;
-        seenInDist.set(r.nameLower, count + 1);
-        const key = count === 0 ? r.nameLower : `${r.nameLower}|${count + 1}`;
+        const key = athleteKey(normalizeName(r.name), r.team);
         const id = athletesIndex.get(key)?.id ?? 0;
         if (r.athleteId !== id) { r.athleteId = id; changed = true; }
       }
@@ -628,17 +642,13 @@ async function main() {
   writeJson("athletes.json", athletesArray);
   console.log(`✓ athletes.json — ${athletesArray.length} athletes`);
 
-  const allNames = new Set(athletesArray.map((a) => a.nameLower));
   const uniqueByYear: Record<string, number> = {};
   for (const year of YEARS) {
-    const names = new Set(
-      athletesArray
-        .filter((a) => a.results.some((r) => r.eventYear === year))
-        .map((a) => a.nameLower)
-    );
-    uniqueByYear[String(year)] = names.size;
+    uniqueByYear[String(year)] = athletesArray.filter(
+      (a) => a.results.some((r) => r.eventYear === year)
+    ).length;
   }
-  writeJson("stats.json", { uniqueAthletes: allNames.size, uniqueByYear });
+  writeJson("stats.json", { uniqueAthletes: athletesArray.length, uniqueByYear });
 
   // Write individual athlete files by numeric ID — wipe dir first to remove stale files
   const athleteDir = path.join(DATA_DIR, "athlete");
@@ -648,12 +658,10 @@ async function main() {
     fs.writeFileSync(path.join(athleteDir, `${a.id}.json`), JSON.stringify(a), "utf-8");
   }
 
-  // Write name-to-id lookup: nameLower → id for primary entries (no | collision suffix)
+  // Write name-to-id lookup: athleteKey (nameLower|teamKey) → id
   const nameToId: Record<string, number> = {};
   for (const [key, entry] of athletesIndex) {
-    if (!key.includes("|")) {
-      nameToId[entry.nameLower] = entry.id;
-    }
+    nameToId[key] = entry.id;
   }
   writeJson("name-to-id.json", nameToId);
   console.log(`✓ athlete/ — ${athletesIndex.size} profiles`);

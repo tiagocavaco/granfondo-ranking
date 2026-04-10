@@ -1906,20 +1906,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "272",
-    "nome": "Rodrigo Daniel",
-    "nomecompleto": "Rodrigo Daniel",
-    "sexo": "M",
-    "equipa": "Individual",
-    "escalao": "MASTERS B",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "266",
     "nome": "Bruno Zuna",
     "nomecompleto": "Bruno Zuna",
@@ -4726,6 +4712,7 @@
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "478",
     "nome": "Roberto Escribano",
     "nomecompleto": "Roberto Escribano",
@@ -4738,6 +4725,8 @@
     "pais_iso2": null
   },
   {
+=======
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "dorsal": "480",
     "nome": "Augusto Furtado",
     "nomecompleto": "Augusto Furtado",
@@ -8714,6 +8703,7 @@
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "767",
     "nome": "Andreia Melo",
     "nomecompleto": "Andreia Melo",
@@ -8726,6 +8716,8 @@
     "pais_iso2": null
   },
   {
+=======
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "dorsal": "769",
     "nome": "Sergio Crespo Carretero",
     "nomecompleto": "Sergio Crespo Carretero",
@@ -8950,6 +8942,7 @@
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "2005",
     "nome": "José Marques",
     "nomecompleto": "José Marques",
@@ -8962,6 +8955,8 @@
     "pais_iso2": null
   },
   {
+=======
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "dorsal": "782",
     "nome": "Humberto Renga",
     "nomecompleto": "Humberto Renga",
@@ -9970,7 +9965,11 @@
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "961",
+=======
+    "dorsal": "1949",
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "nome": "Felix Rivas Trillo",
     "nomecompleto": "Felix Rivas Trillo",
     "sexo": "M",
@@ -10570,6 +10569,7 @@
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "2006",
     "nome": "José Machado",
     "nomecompleto": "José Machado",
@@ -10582,6 +10582,8 @@
     "pais_iso2": null
   },
   {
+=======
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "dorsal": "891",
     "nome": "Laisa Diana",
     "nomecompleto": "Laisa Diana",
@@ -11360,6 +11362,11 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+<<<<<<< HEAD
+=======
+    "licenca": null,
+    "licenca1": null,
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -15522,6 +15529,7 @@
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "2012",
     "nome": "Mónica Hernández",
     "nomecompleto": "Mónica Hernández",
@@ -15534,6 +15542,8 @@
     "pais_iso2": null
   },
   {
+=======
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "dorsal": "1231",
     "nome": "Jorge Marques",
     "nomecompleto": "Jorge Marques",
@@ -21286,6 +21296,7 @@
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "25",
     "nome": "Francisco Ramos",
     "nomecompleto": "Francisco Ramos",
@@ -21298,6 +21309,8 @@
     "pais_iso2": null
   },
   {
+=======
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "dorsal": "1637",
     "nome": "João Ramalho",
     "nomecompleto": "João Ramalho",
@@ -23440,6 +23453,7 @@
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "2007",
     "nome": "Carlos Fernandes",
     "nomecompleto": "Carlos Fernandes",
@@ -23452,6 +23466,8 @@
     "pais_iso2": null
   },
   {
+=======
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "dorsal": "2015",
     "nome": "José Carlos Teixeira",
     "nomecompleto": "José Carlos Teixeira",
@@ -26518,6 +26534,7 @@
     "pais_iso2": null
   },
   {
+<<<<<<< HEAD
     "dorsal": "1948",
     "nome": "JUAN MANUEL SANTOS NAHARRO",
     "nomecompleto": "JUAN MANUEL SANTOS NAHARRO",
@@ -26542,6 +26559,8 @@
     "pais_iso2": null
   },
   {
+=======
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "dorsal": "478",
     "nome": "Raul Barranco Flores",
     "nomecompleto": "Raul Barranco Flores",
@@ -26550,6 +26569,11 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+<<<<<<< HEAD
+=======
+    "licenca": null,
+    "licenca1": null,
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -26562,6 +26586,11 @@
     "escalao": "MASTERS B FEM",
     "percurso": "Granfondo",
     "id_percursos": "1",
+<<<<<<< HEAD
+=======
+    "licenca": null,
+    "licenca1": null,
+>>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "pais_nome": null,
     "pais_iso2": null
   }

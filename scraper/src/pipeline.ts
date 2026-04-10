@@ -37,9 +37,9 @@ import type {
 export type ResultsLoader = (id: number) => StoredEventResults | null;
 
 /**
- * Persistent map of athlete name key → stable integer ID.
- * Primary key is `nameLower`; same-event collisions use `nameLower|2`, etc.
+ * Persistent map of `nameLower|canonicalTeamKey` → stable integer ID.
  * Stored in scraper/athlete-ids.json and never reassigned.
+ * Alias keys (from applyAthleteAliases) are remapped to the canonical ID.
  */
 export type AthleteIdStore = Map<string, number>;
 
@@ -125,13 +125,28 @@ export function transformResult(r: ApiResult): StoredResult {
 
 // ── Athletes index builder ────────────────────────────────────────────────────
 
+/** Team names that indicate the athlete is racing without a club affiliation. */
+export const SOLO_TEAM_KEYS = new Set(["individual", "independente", "no team", "sem equipa", ""]);
+
+export function isSoloTeam(team: string): boolean {
+  return !team.trim() || SOLO_TEAM_KEYS.has(teamNormalKey(team));
+}
+
 /**
- * Build the athletes index keyed by athlete name only (no team).
+ * Composite key: `nameLower|canonicalTeamKey` for affiliated athletes,
+ * `nameLower|` for solo/unaffiliated athletes.
+ * Ensures two people with the same name but different teams get separate profiles.
+ */
+export function athleteKey(nameLower: string, team: string): string {
+  return isSoloTeam(team) ? `${nameLower}|` : `${nameLower}|${teamNormalKey(team)}`;
+}
+
+/**
+ * Build the athletes index keyed by `nameLower|canonicalTeamKey`.
  *
- * Each athlete's profile accumulates results across all seasons regardless of
- * which team they raced for. Same-event name collisions (two genuinely different
- * people with the same name racing in the same event+distance) are disambiguated
- * with a numeric suffix: "joao silva", "joao silva|2", etc.
+ * Athletes are separated by team so two people sharing a name (e.g. "Jose Borges"
+ * from Vivavita and "Jose Borges" from Jbracingcoach) get distinct profiles.
+ * Solo/unaffiliated athletes are keyed `nameLower|` (empty team suffix).
  *
  * Stable integer IDs are assigned from `idStore` (loaded from athlete-ids.json)
  * or minted fresh for new entries, and returned in `updatedIdStore` for persistence.
@@ -141,18 +156,18 @@ export function buildAthletesIndex(
   loader: ResultsLoader,
   idStore: AthleteIdStore = new Map()
 ): {
-  index: Map<string, AthleteEntry>; // nameKey → AthleteEntry
+  index: Map<string, AthleteEntry>; // athleteKey → AthleteEntry
   updatedIdStore: AthleteIdStore;
 } {
   const index = new Map<string, AthleteEntry>();
   const newIds = new Map<string, number>();
   let nextId = idStore.size > 0 ? Math.max(...idStore.values()) + 1 : 1;
 
-  function getOrAssignId(nameKey: string): number {
-    if (idStore.has(nameKey)) return idStore.get(nameKey)!;
-    if (newIds.has(nameKey)) return newIds.get(nameKey)!;
+  function getOrAssignId(key: string): number {
+    if (idStore.has(key)) return idStore.get(key)!;
+    if (newIds.has(key)) return newIds.get(key)!;
     const id = nextId++;
-    newIds.set(nameKey, id);
+    newIds.set(key, id);
     return id;
   }
 
@@ -161,27 +176,9 @@ export function buildAthletesIndex(
     if (!stored) continue;
 
     for (const dist of stored.distances) {
-      // Track which nameKeys are used within this event+distance for collision detection.
-      // Maps nameLower → list of keys already assigned in this event+dist.
-      const usedInEventDist = new Map<string, string[]>();
-
       for (const r of dist.results) {
         const nameLower = normalizeName(r.name);
-        const existing = usedInEventDist.get(nameLower) ?? [];
-
-        // Assign key: use base nameLower unless it's already taken in this event+dist
-        let key: string;
-        if (!existing.includes(nameLower)) {
-          key = nameLower;
-        } else {
-          // Collision: two different people with the same name in the same race
-          let disc = 2;
-          while (existing.includes(`${nameLower}|${disc}`)) disc++;
-          key = `${nameLower}|${disc}`;
-        }
-
-        if (!usedInEventDist.has(nameLower)) usedInEventDist.set(nameLower, []);
-        usedInEventDist.get(nameLower)!.push(key);
+        const key = athleteKey(nameLower, r.team);
 
         if (!index.has(key)) {
           const id = getOrAssignId(key);
@@ -215,9 +212,13 @@ export function buildAthletesIndex(
     entry.results.sort(
       (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
     );
-    const mostRecentTeam = entry.results[0]?.team;
-    if (mostRecentTeam) {
-      entry.canonicalTeam = canonicalTeam(new Map([[mostRecentTeam, 1]]));
+    // Canonical team: most-used non-solo team across all results
+    const teamCounts = new Map<string, number>();
+    for (const r of entry.results) {
+      if (!isSoloTeam(r.team)) teamCounts.set(r.team, (teamCounts.get(r.team) ?? 0) + 1);
+    }
+    if (teamCounts.size > 0) {
+      entry.canonicalTeam = canonicalTeam(teamCounts);
     }
   }
 
@@ -226,6 +227,68 @@ export function buildAthletesIndex(
   for (const [key, id] of newIds) updatedIdStore.set(key, id);
 
   return { index, updatedIdStore };
+}
+
+/**
+ * An athlete aliases rule: the canonical athlete absorbs results from alias entries.
+ * Use when the same real person raced under different teams across events.
+ */
+export interface AthleteAliasRule {
+  /** Display name (used to normalize). */
+  name: string;
+  /** Raw team name for the canonical profile entry. */
+  canonicalTeam: string;
+  /** Other name+team combinations that belong to the same person. */
+  aliases: Array<{ name: string; team: string }>;
+  note?: string;
+}
+
+/**
+ * Apply athlete alias rules to the index in-place.
+ * For each rule, the canonical entry absorbs all results from alias entries,
+ * alias entries are removed, and alias ID-store keys are remapped to the canonical ID.
+ */
+export function applyAthleteAliases(
+  index: Map<string, AthleteEntry>,
+  idStore: AthleteIdStore,
+  rules: AthleteAliasRule[]
+): void {
+  for (const rule of rules) {
+    const canonKey = athleteKey(normalizeName(rule.name), rule.canonicalTeam);
+    const canonical = index.get(canonKey);
+    if (!canonical) {
+      // Canonical entry doesn't exist yet — skip (no results for that combination)
+      continue;
+    }
+
+    for (const alias of rule.aliases) {
+      const aliasKey = athleteKey(normalizeName(alias.name), alias.team);
+      if (aliasKey === canonKey) continue;
+      const aliasEntry = index.get(aliasKey);
+      if (!aliasEntry) continue;
+
+      // Merge alias results into canonical
+      canonical.results.push(...aliasEntry.results);
+      // Remap the alias ID to the canonical ID in the store (so URLs don't break)
+      if (aliasEntry.id !== canonical.id) {
+        idStore.set(aliasKey, canonical.id);
+      }
+      index.delete(aliasKey);
+    }
+
+    // Re-sort after merging
+    canonical.results.sort(
+      (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
+    );
+    // Re-derive canonical team after merging
+    const teamCounts = new Map<string, number>();
+    for (const r of canonical.results) {
+      if (!isSoloTeam(r.team)) teamCounts.set(r.team, (teamCounts.get(r.team) ?? 0) + 1);
+    }
+    if (teamCounts.size > 0) {
+      canonical.canonicalTeam = canonicalTeam(teamCounts);
+    }
+  }
 }
 
 // ── Aggregate ranking builder ─────────────────────────────────────────────────
@@ -251,8 +314,8 @@ export function normalizeDistance(name: string): string {
 
 /**
  * Build the aggregate ranking across all past events.
- * Athletes are keyed by name only (matching the athlete index).
- * IDs are looked up from `athleteIndex`; athletes not in the index get id=0.
+ * Athletes are keyed by `athleteKey(nameLower, team)` so two people sharing
+ * a name but racing for different teams score separately.
  */
 export function buildAggregateRanking(
   events: StoredEvent[],
@@ -272,7 +335,7 @@ export function buildAggregateRanking(
     bestPos: number;
     results: AggregateAthlete["results"];
   };
-  // year → distance → gender → nameLower → AccEntry
+  // year → distance → gender → athleteKey → AccEntry
   const acc: Record<string, Record<string, Record<string, Map<string, AccEntry>>>> = {};
 
   for (const event of events.filter((e) => e.hasResults)) {
@@ -308,10 +371,11 @@ export function buildAggregateRanking(
           const pts = Math.round(basePoints * coeff * 10) / 10;
 
           const nameLower = normalizeName(r.name);
-          const id = athleteIndex.get(nameLower)?.id ?? 0;
+          const aKey = athleteKey(nameLower, r.team);
+          const id = athleteIndex.get(aKey)?.id ?? 0;
 
-          if (!distMap.has(nameLower)) {
-            distMap.set(nameLower, {
+          if (!distMap.has(aKey)) {
+            distMap.set(aKey, {
               id,
               name: r.name,
               nameLower,
@@ -326,7 +390,7 @@ export function buildAggregateRanking(
             });
           }
 
-          const entry = distMap.get(nameLower)!;
+          const entry = distMap.get(aKey)!;
           entry.totalPoints = Math.round((entry.totalPoints + pts) * 10) / 10;
           entry.eventsScored += 1;
           if (genderPos < entry.bestPos) entry.bestPos = genderPos;
@@ -485,7 +549,7 @@ export function buildTeamRanking(
           points: pts,
           combinedScore: et.combinedScore,
           athletes: et.top3.map((a) => ({
-            id: athleteIndex.get(normalizeName(a.name))?.id ?? 0,
+            id: athleteIndex.get(athleteKey(normalizeName(a.name), a.rawTeam))?.id ?? 0,
             name: a.name,
             pos: a.pos,
           })),
