@@ -232,6 +232,8 @@ export async function scrapeListaParticipants(url: string): Promise<ApiAthlete[]
       escalao,
       percurso,
       id_percursos,
+      licenca: null,
+      licenca1: null,
       pais_nome: null,
       pais_iso2: null,
     });
@@ -281,7 +283,8 @@ function makeResult(fields: {
   const raceTimeSecs = timeToSeconds(fields.raceTime);
   return {
     pos: fields.pos,
-    genderPos: 0, // filled in by the caller after all results are collected
+    genderPos: 0,  // filled in by the caller after all results are collected
+    athleteId: 0,  // filled in after athlete index is built
     bib: fields.bib,
     name: fields.name,
     nameLower: normalizeName(fields.name),

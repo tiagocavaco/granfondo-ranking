@@ -23,6 +23,7 @@ export interface StoredEvent {
 export interface StoredResult {
   pos: number;       // overall finish position
   genderPos: number; // position among own gender
+  athleteId: number; // stable athlete ID (0 if unknown)
   bib: string;
   name: string;
   nameLower: string;
@@ -56,20 +57,6 @@ export interface StoredEventResults {
   distances: StoredDistanceResults[];
 }
 
-// ── Athlete disambiguation ────────────────────────────────────────────────────
-
-export interface AthleteMatch {
-  slug: string;
-  name: string;
-  team: string;
-  resultCount: number;
-}
-
-export interface AthleteDisambiguation {
-  disambiguation: true;
-  matches: AthleteMatch[];
-}
-
 // ── Athlete profile ───────────────────────────────────────────────────────────
 
 export interface AthleteResultRef {
@@ -92,9 +79,9 @@ export interface AthleteResultRef {
 }
 
 export interface AthleteEntry {
+  id: number;
   name: string;
   nameLower: string;
-  slug: string;
   canonicalTeam?: string;
   results: AthleteResultRef[];
 }
@@ -129,9 +116,9 @@ export interface AggregateResult {
 
 export interface AggregateAthlete {
   rank: number;
+  id: number;
   name: string;
   nameLower: string;
-  slug: string;
   gender: string;
   team: string;
   country: string;
@@ -152,6 +139,7 @@ export type AggregateRanking = {
 // ── Team ranking ──────────────────────────────────────────────────────────────
 
 export interface TeamRaceAthlete {
+  id: number;
   name: string;
   pos: number;
 }

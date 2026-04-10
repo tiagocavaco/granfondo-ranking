@@ -79,6 +79,7 @@ export interface StoredEvent {
 export interface StoredResult {
   pos: number;       // overall finish position
   genderPos: number; // position among own gender
+  athleteId: number; // stable athlete ID (0 if unknown)
   bib: string;
   name: string;
   nameLower: string;    // accent-stripped lowercase for search
@@ -134,10 +135,10 @@ export interface AthleteResultRef {
 }
 
 export interface AthleteEntry {
+  id: number;             // stable generated ID — used as URL key
   name: string;
   nameLower: string;
-  slug: string;           // URL slug derived from composite key (name + team)
-  canonicalTeam?: string; // most frequent team name (fuzzy-deduplicated)
+  canonicalTeam?: string; // most recent team (display only)
   results: AthleteResultRef[];
 }
 
@@ -156,9 +157,9 @@ export interface AggregateResult {
 
 export interface AggregateAthlete {
   rank: number;
+  id: number;
   name: string;
   nameLower: string;
-  slug: string;
   gender: string;
   team: string;
   country: string;
@@ -180,6 +181,7 @@ export interface AggregateRanking {
 // ── Team ranking ──────────────────────────────────────────────────────────────
 
 export interface TeamRaceAthlete {
+  id: number;
   name: string;
   pos: number;
 }

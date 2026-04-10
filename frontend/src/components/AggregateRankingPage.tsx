@@ -183,8 +183,8 @@ export default function AggregateRankingPage() {
                 const isFirst = realRank === 1;
                 return (
                   <div
-                    key={a.slug}
-                    onClick={() => navigate(`/athlete/${a.slug}`)}
+                    key={a.id}
+                    onClick={() => navigate(`/athlete/${a.id}`)}
                     className={`rounded-2xl p-3 sm:p-5 text-center relative overflow-hidden border cursor-pointer ${
                       isFirst
                         ? "bg-gradient-to-b from-amber-50 to-white border-amber-200 shadow-md hover:shadow-lg"
@@ -241,10 +241,10 @@ export default function AggregateRankingPage() {
                 {ranked.slice(0, visibleCount).map((a) => (
                   <>
                     <tr
-                      key={a.slug}
-                      onClick={() => setExpanded(expanded === a.slug ? null : a.slug)}
+                      key={a.id}
+                      onClick={() => setExpanded(expanded === String(a.id) ? null : String(a.id))}
                       className={`cursor-pointer transition-colors hover:bg-blue-50/40 ${
-                        expanded === a.slug ? "bg-blue-50/60" : ""
+                        expanded === String(a.id) ? "bg-blue-50/60" : ""
                       } ${a.rank <= 3 ? "bg-slate-50/40" : ""}`}
                     >
                       <td className="px-4 py-3">
@@ -253,7 +253,7 @@ export default function AggregateRankingPage() {
                       <td className="px-4 py-3">
                         <span
                           className="font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
-                          onClick={(e) => { e.stopPropagation(); navigate(`/athlete/${a.slug}`); }}
+                          onClick={(e) => { e.stopPropagation(); navigate(`/athlete/${a.id}`); }}
                         >
                           {a.name}
                         </span>
@@ -297,8 +297,8 @@ export default function AggregateRankingPage() {
                       </td>
                     </tr>
 
-                    {expanded === a.slug && (
-                      <tr key={`${a.slug}-detail`}>
+                    {expanded === String(a.id) && (
+                      <tr key={`${a.id}-detail`}>
                         <td colSpan={7} className="px-4 pb-4 pt-1 bg-blue-50/60">
                           <div className="text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wide">
                             Race breakdown

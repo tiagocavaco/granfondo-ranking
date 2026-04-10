@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api, participantAthleteSlug } from "../api";
+import { api } from "../api";
 import type { ApiAthlete } from "../types";
 import { Spinner } from "./EventList";
 
@@ -136,7 +136,7 @@ export default function ParticipantsTab({ eventId }: Props) {
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{p.dorsal}</td>
                 <td
                   className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
-                  onClick={() => navigate(`/athlete/${participantAthleteSlug(p.nomecompleto, p.equipa ?? "")}`)}
+                  onClick={() => { const id = api.lookupAthleteId(p.nomecompleto); if (id) navigate(`/athlete/${id}`); }}
                 >
                   {p.nomecompleto}
                 </td>

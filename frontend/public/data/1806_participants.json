@@ -8,6 +8,8 @@
     "escalao": "MASTERS D",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -20,6 +22,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -32,6 +36,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -44,6 +50,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -56,6 +64,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -68,6 +78,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -80,6 +92,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -92,6 +106,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -104,6 +120,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -116,6 +134,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -128,6 +148,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -140,6 +162,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -152,6 +176,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -164,6 +190,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -176,6 +204,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -188,6 +218,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -200,6 +232,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -212,6 +246,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -224,6 +260,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -236,6 +274,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -248,6 +288,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -260,6 +302,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -272,6 +316,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -284,6 +330,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -296,6 +344,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -308,6 +358,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -320,6 +372,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -332,6 +386,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -344,6 +400,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -356,6 +414,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -368,6 +428,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -380,6 +442,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -392,6 +456,8 @@
     "escalao": "ELITES M",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -404,6 +470,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -416,6 +484,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -428,6 +498,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -440,6 +512,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -452,6 +526,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -464,6 +540,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -476,6 +554,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -488,6 +568,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -500,6 +582,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -512,6 +596,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -524,6 +610,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -536,6 +624,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -548,6 +638,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -560,6 +652,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -572,6 +666,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -584,6 +680,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -596,6 +694,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -608,6 +708,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -620,6 +722,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -632,6 +736,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -644,6 +750,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -656,6 +764,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -668,6 +778,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -680,6 +792,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -692,6 +806,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -704,6 +820,8 @@
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -716,6 +834,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -728,6 +848,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -740,6 +862,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -752,6 +876,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -764,6 +890,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -776,6 +904,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -788,6 +918,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -800,6 +932,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -812,6 +946,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -824,6 +960,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -836,6 +974,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -848,6 +988,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -860,6 +1002,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -872,6 +1016,8 @@
     "escalao": "MASTERS C FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -884,6 +1030,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -896,6 +1044,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -908,6 +1058,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -920,6 +1072,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -932,6 +1086,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -944,6 +1100,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -956,6 +1114,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -968,6 +1128,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -980,6 +1142,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -992,6 +1156,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1004,6 +1170,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1016,6 +1184,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1028,6 +1198,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1040,6 +1212,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1052,6 +1226,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1064,6 +1240,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1076,6 +1254,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1088,6 +1268,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1100,6 +1282,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1112,6 +1296,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1124,6 +1310,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1136,6 +1324,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1148,6 +1338,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1160,6 +1352,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1172,6 +1366,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1184,6 +1380,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1196,6 +1394,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1208,6 +1408,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1220,6 +1422,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1232,6 +1436,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1244,6 +1450,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1256,6 +1464,8 @@
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1268,6 +1478,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1280,6 +1492,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1292,6 +1506,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1304,6 +1520,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1316,6 +1534,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1328,6 +1548,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1340,6 +1562,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1352,6 +1576,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1364,6 +1590,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1376,6 +1604,8 @@
     "escalao": "MASTERS E",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1388,6 +1618,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1400,6 +1632,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1412,6 +1646,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1424,6 +1660,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1436,6 +1674,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1448,6 +1688,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1460,6 +1702,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1472,6 +1716,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1484,6 +1730,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1496,6 +1744,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1508,6 +1758,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1520,6 +1772,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1532,6 +1786,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1544,6 +1800,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1556,6 +1814,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1568,6 +1828,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1580,6 +1842,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1592,6 +1856,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1604,6 +1870,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1616,6 +1884,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1628,6 +1898,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1640,6 +1912,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1652,6 +1926,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1664,6 +1940,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1676,6 +1954,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1688,6 +1968,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1700,6 +1982,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1712,6 +1996,8 @@
     "escalao": "MASTERS B FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1724,6 +2010,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1736,6 +2024,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1748,6 +2038,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1760,6 +2052,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1772,6 +2066,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1784,6 +2080,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1796,6 +2094,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1808,6 +2108,8 @@
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1820,6 +2122,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1832,6 +2136,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1844,6 +2150,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1856,6 +2164,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1868,6 +2178,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1880,6 +2192,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1892,6 +2206,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1904,6 +2220,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1916,6 +2234,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1928,6 +2248,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1940,6 +2262,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1952,6 +2276,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1964,6 +2290,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1976,6 +2304,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -1988,6 +2318,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2000,6 +2332,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2012,6 +2346,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2024,6 +2360,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2036,6 +2374,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2048,6 +2388,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2060,6 +2402,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2072,6 +2416,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2084,6 +2430,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2096,6 +2444,8 @@
     "escalao": "MASTERS E",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2108,6 +2458,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2120,6 +2472,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2132,6 +2486,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2144,6 +2500,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2156,6 +2514,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2168,6 +2528,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2180,6 +2542,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2192,6 +2556,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2204,6 +2570,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2216,6 +2584,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2228,6 +2598,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2240,6 +2612,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2252,6 +2626,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2264,6 +2640,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2276,6 +2654,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2288,6 +2668,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2300,6 +2682,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2312,6 +2696,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2324,6 +2710,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2336,6 +2724,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2348,6 +2738,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2360,6 +2752,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2372,6 +2766,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2384,6 +2780,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2396,6 +2794,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2408,6 +2808,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2420,6 +2822,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2432,6 +2836,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2444,6 +2850,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2456,6 +2864,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2468,6 +2878,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2480,6 +2892,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2492,6 +2906,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2504,6 +2920,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2516,6 +2934,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2528,6 +2948,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2540,6 +2962,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2552,6 +2976,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2564,6 +2990,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2576,6 +3004,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2588,6 +3018,8 @@
     "escalao": "MASTERS B FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2600,6 +3032,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2612,6 +3046,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2624,6 +3060,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2636,6 +3074,8 @@
     "escalao": "MASTERS E",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2648,6 +3088,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2660,6 +3102,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2672,6 +3116,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2684,6 +3130,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2696,6 +3144,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2708,6 +3158,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2720,6 +3172,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2732,6 +3186,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2744,6 +3200,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2756,6 +3214,8 @@
     "escalao": "MASTERS E",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2768,6 +3228,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2780,6 +3242,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2792,6 +3256,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2804,6 +3270,8 @@
     "escalao": "MASTERS B FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2816,6 +3284,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2828,6 +3298,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2840,6 +3312,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2852,6 +3326,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2864,6 +3340,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2876,6 +3354,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2888,6 +3368,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2900,6 +3382,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2912,6 +3396,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2924,6 +3410,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2936,6 +3424,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2948,6 +3438,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2960,6 +3452,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2972,6 +3466,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2984,6 +3480,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -2996,6 +3494,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3008,6 +3508,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3020,6 +3522,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3032,6 +3536,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3044,6 +3550,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3056,6 +3564,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3068,6 +3578,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3080,6 +3592,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3092,6 +3606,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3104,6 +3620,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3116,6 +3634,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3128,6 +3648,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3140,6 +3662,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3152,6 +3676,8 @@
     "escalao": "MASTERS D",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3164,6 +3690,8 @@
     "escalao": "MASTERS D",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3176,6 +3704,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3188,6 +3718,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3200,6 +3732,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3212,6 +3746,8 @@
     "escalao": "MASTERS E",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3224,6 +3760,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3236,6 +3774,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3248,6 +3788,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3260,6 +3802,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3272,6 +3816,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3284,6 +3830,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3296,6 +3844,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3308,6 +3858,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3320,6 +3872,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3332,6 +3886,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3344,6 +3900,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3356,6 +3914,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3368,6 +3928,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3380,6 +3942,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3392,6 +3956,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3404,6 +3970,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3416,6 +3984,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3428,6 +3998,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3440,6 +4012,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3452,6 +4026,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3464,6 +4040,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3476,6 +4054,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3488,6 +4068,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3500,6 +4082,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3512,6 +4096,8 @@
     "escalao": "MASTERS D",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3524,6 +4110,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3536,6 +4124,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3548,6 +4138,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3560,6 +4152,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3572,6 +4166,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3584,6 +4180,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3596,6 +4194,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3608,6 +4208,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3620,6 +4222,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3632,6 +4236,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3644,6 +4250,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3656,6 +4264,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3668,6 +4278,8 @@
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3680,6 +4292,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3692,6 +4306,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3704,6 +4320,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3716,6 +4334,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3728,6 +4348,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3740,6 +4362,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3752,6 +4376,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3764,6 +4390,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3776,6 +4404,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3788,6 +4418,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3800,6 +4432,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3812,6 +4446,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3824,6 +4460,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3836,6 +4474,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3848,6 +4488,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3860,6 +4502,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3872,6 +4516,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3884,6 +4530,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3896,6 +4544,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3908,6 +4558,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3920,6 +4572,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3932,6 +4586,8 @@
     "escalao": "MASTERS E",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3944,6 +4600,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3956,6 +4614,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3968,6 +4628,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3980,6 +4642,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -3992,6 +4656,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4004,6 +4670,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4016,6 +4684,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4028,6 +4698,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4040,6 +4712,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4052,6 +4726,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4064,6 +4740,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4076,6 +4754,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4088,6 +4768,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4100,6 +4782,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4112,6 +4796,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4124,6 +4810,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4136,6 +4824,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4148,6 +4838,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4160,6 +4852,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4172,6 +4866,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4184,6 +4880,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4196,6 +4894,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4208,6 +4908,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4220,6 +4922,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4232,6 +4936,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4244,6 +4950,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4256,6 +4964,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4268,6 +4978,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4280,6 +4992,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4292,6 +5006,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4304,6 +5020,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4316,6 +5034,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4328,6 +5048,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4340,6 +5062,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4352,6 +5076,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4364,6 +5090,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4376,6 +5104,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4388,6 +5118,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4400,6 +5132,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4412,6 +5146,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4424,6 +5160,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4436,6 +5174,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4448,6 +5188,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4460,6 +5202,8 @@
     "escalao": "MASTERS B FEM",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4472,6 +5216,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4484,6 +5230,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4496,6 +5244,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4508,6 +5258,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4520,6 +5272,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4532,6 +5286,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4544,6 +5300,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4556,6 +5314,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4568,6 +5328,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4580,6 +5342,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4592,6 +5356,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4604,6 +5370,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4616,6 +5384,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4628,6 +5398,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4640,6 +5412,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4652,6 +5426,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4664,6 +5440,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4676,6 +5454,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4688,6 +5468,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4700,6 +5482,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4712,6 +5496,8 @@
     "escalao": "ELITES M",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4724,6 +5510,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4736,6 +5524,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4748,6 +5538,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4760,6 +5552,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4772,6 +5566,8 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4784,6 +5580,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4796,6 +5594,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4808,6 +5608,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4820,6 +5622,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4832,6 +5636,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4844,6 +5650,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4856,6 +5664,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4868,6 +5678,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4880,6 +5692,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4892,6 +5706,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4904,6 +5720,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4916,6 +5734,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4928,6 +5748,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4940,6 +5762,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4952,6 +5776,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4964,6 +5790,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4976,6 +5804,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4988,6 +5818,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5000,6 +5832,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5012,6 +5846,8 @@
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5024,6 +5860,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5036,6 +5874,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5048,6 +5888,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5060,6 +5902,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5072,6 +5916,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5084,6 +5930,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5096,6 +5944,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5108,6 +5958,8 @@
     "escalao": "ELITES M",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5120,6 +5972,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5132,6 +5986,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5144,6 +6000,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5156,6 +6014,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5168,6 +6028,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5180,6 +6042,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5192,6 +6056,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5204,6 +6070,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5216,6 +6084,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5228,6 +6098,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5240,6 +6112,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5252,6 +6126,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5264,6 +6140,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5276,6 +6154,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5288,6 +6168,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5300,6 +6182,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5312,6 +6196,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5324,6 +6210,8 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5336,6 +6224,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5348,6 +6238,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5360,6 +6252,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5372,6 +6266,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5384,6 +6280,8 @@
     "escalao": "ELITES M",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5396,6 +6294,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5408,6 +6308,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5420,6 +6322,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5432,6 +6336,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5444,6 +6350,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5456,6 +6364,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5468,6 +6378,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5480,6 +6392,8 @@
     "escalao": "MASTERS C FEM",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5492,6 +6406,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5504,6 +6420,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5516,6 +6434,8 @@
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5528,6 +6448,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5540,6 +6462,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5552,6 +6476,8 @@
     "escalao": "ELITES M",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5564,6 +6490,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5576,6 +6504,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5588,6 +6518,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5600,6 +6532,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5612,6 +6546,8 @@
     "escalao": "MASTERS D",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5624,6 +6560,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5636,6 +6574,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5648,6 +6588,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5660,6 +6602,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5672,6 +6616,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5684,6 +6630,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5696,6 +6644,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5708,6 +6658,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5720,6 +6672,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5732,6 +6686,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5744,6 +6700,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5756,6 +6714,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5768,6 +6728,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5780,6 +6742,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5792,6 +6756,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5804,6 +6770,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5816,6 +6784,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5828,6 +6798,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5840,6 +6812,8 @@
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5852,6 +6826,8 @@
     "escalao": "MASTERS C FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5864,6 +6840,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5876,6 +6854,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5888,6 +6868,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5900,6 +6882,8 @@
     "escalao": "MASTERS A FEM",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5912,6 +6896,8 @@
     "escalao": "MASTERS B FEM",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5924,6 +6910,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5936,6 +6924,8 @@
     "escalao": "MASTERS C FEM",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5948,6 +6938,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5960,6 +6952,8 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5972,6 +6966,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5984,6 +6980,8 @@
     "escalao": "ELITES M",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -5996,6 +6994,8 @@
     "escalao": "ELITES M",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -6008,6 +7008,8 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -6020,6 +7022,8 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -6032,6 +7036,8 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -6044,6 +7050,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -6056,6 +7064,8 @@
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -6068,6 +7078,8 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -6080,6 +7092,8 @@
     "escalao": "ELITES M",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "licenca": null,
+    "licenca1": null,
     "pais_nome": null,
     "pais_iso2": null
   },

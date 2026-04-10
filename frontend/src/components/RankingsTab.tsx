@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api, participantAthleteSlug } from "../api";
+import { api } from "../api";
 import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "../types";
 import { Spinner, ErrorBanner } from "./EventList";
 
@@ -172,7 +172,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{r.bib}</td>
                 <td
                   className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
-                  onClick={() => navigate(`/athlete/${participantAthleteSlug(r.name, r.team)}`)}
+                  onClick={() => { if (r.athleteId) navigate(`/athlete/${r.athleteId}`); }}
                 >
                   {r.name}
                 </td>

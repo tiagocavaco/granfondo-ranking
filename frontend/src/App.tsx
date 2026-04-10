@@ -8,7 +8,7 @@ import AthleteProfile from "./components/AthleteProfile";
 import { api } from "./api";
 
 export default function App() {
-  useEffect(() => { api.initTeamAliases(); }, []);
+  useEffect(() => { api.initNameToId(); }, []);
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <div className="min-h-screen bg-slate-50">
@@ -81,7 +81,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<EventList />} />
             <Route path="/event/:id" element={<EventDetail />} />
-            <Route path="/athlete/:nameLower" element={<AthleteProfile />} />
+            <Route path="/athlete/:id" element={<AthleteProfile />} />
             <Route path="/ranking" element={<AggregateRankingPage />} />
             <Route path="/teams" element={<TeamRankingPage />} />
           </Routes>

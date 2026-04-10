@@ -170,7 +170,7 @@ export function normalizeTeam(name: string): string {
  * automatically by the compact equality and compact-prefix checks in
  * teamKeySimilarity — no alias needed for those.
  */
-import TEAM_ALIASES_JSON from "../team-aliases.json" assert { type: "json" };
+import TEAM_ALIASES_JSON from "../team-aliases.json" with { type: "json" };
 const TEAM_ALIASES: Record<string, string> = TEAM_ALIASES_JSON;
 
 /**

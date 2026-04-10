@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import TEAM_ALIASES from "../team-aliases.json" assert { type: "json" };
 
 import { fetchAllEvents, fetchUpcomingEvents, fetchNetEventById, fetchParticipants, fetchResults } from "./api.js";
 import {
@@ -25,10 +24,9 @@ import {
   assignGenderPositions,
   transformResult,
   buildAthletesIndex,
-  applyAthleteMerges,
   buildAggregateRanking,
   buildTeamRanking,
-  type MergeRule,
+  type AthleteIdStore,
 } from "./pipeline.js";
 import type {
   ApiAthlete,
@@ -41,17 +39,24 @@ import type {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, "..", "..", "frontend", "public", "data");
+const ATHLETE_IDS_PATH = path.join(__dirname, "..", "athlete-ids.json");
 const FORCE = process.argv.includes("--force");
 const PARTICIPANTS_ONLY = process.argv.includes("--participants");
 const YEARS = [2025, 2026]; // seasons to include
 const DELAY_MS = 400; // polite delay between requests
 
-// ── Manual athlete merges ─────────────────────────────────────────────────────
+// ── Athlete ID store ──────────────────────────────────────────────────────────
 
-const MERGES_PATH = path.join(__dirname, "..", "athlete-merges.json");
-const MERGE_RULES: MergeRule[] = fs.existsSync(MERGES_PATH)
-  ? (JSON.parse(fs.readFileSync(MERGES_PATH, "utf-8")) as MergeRule[])
-  : [];
+function loadIdStore(): AthleteIdStore {
+  if (!fs.existsSync(ATHLETE_IDS_PATH)) return new Map();
+  const obj = JSON.parse(fs.readFileSync(ATHLETE_IDS_PATH, "utf-8")) as Record<string, number>;
+  return new Map(Object.entries(obj));
+}
+
+function saveIdStore(store: AthleteIdStore): void {
+  const obj = Object.fromEntries(store);
+  fs.writeFileSync(ATHLETE_IDS_PATH, JSON.stringify(obj, null, 2), "utf-8");
+}
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -502,7 +507,6 @@ async function scrapeParticipants() {
   }
 
   writeJson("events.json", scraped);
-  writeJson("team_aliases.json", TEAM_ALIASES);
   console.log(`\n✓ events.json — ${scraped.length} events updated`);
   console.log("\n✅ Done.");
 }
@@ -584,7 +588,6 @@ async function main() {
 
   // 4. Write events manifest
   writeJson("events.json", scraped);
-  writeJson("team_aliases.json", TEAM_ALIASES);
   const withResults = scraped.filter((e) => e.hasResults).length;
   console.log(
     `\n✓ events.json — ${scraped.length} events, ${withResults} with results`
@@ -592,26 +595,39 @@ async function main() {
 
   // 5. Build and write athletes index
   console.log("🔨 Building athletes index…");
-  const { index: athletesIndex, fuzzyAliases } = buildAthletesIndex(scraped, loader);
+  const idStore = loadIdStore();
+  const { index: athletesIndex, updatedIdStore } = buildAthletesIndex(scraped, loader, idStore);
+  saveIdStore(updatedIdStore);
 
-  // Apply manual merges (must happen before writing files and before aggregate ranking)
-  const { keyAliases } = applyAthleteMerges(athletesIndex, MERGE_RULES);
-  if (MERGE_RULES.length > 0)
-    console.log(`  ✓ applied ${keyAliases.size} athlete merge(s)`);
-
-  // Merge fuzzy aliases (from auto dedup) into keyAliases so the aggregate
-  // ranking uses canonical slugs for entries that were merged in the index.
-  for (const [alias, canonical] of fuzzyAliases) {
-    if (!keyAliases.has(alias)) keyAliases.set(alias, canonical);
+  // Inject athleteId into every result row in every cached result file
+  console.log("🔑 Injecting athlete IDs into result files…");
+  let injectedFiles = 0;
+  for (const event of scraped.filter((e) => e.hasResults)) {
+    const resultsFile = `${event.id}_results.json`;
+    const stored = readJson<StoredEventResults>(resultsFile);
+    if (!stored) continue;
+    let changed = false;
+    for (const dist of stored.distances) {
+      // Track per-distance collision ordering — mirrors buildAthletesIndex exactly
+      const seenInDist = new Map<string, number>(); // nameLower → occurrence count
+      for (const r of dist.results) {
+        const count = seenInDist.get(r.nameLower) ?? 0;
+        seenInDist.set(r.nameLower, count + 1);
+        const key = count === 0 ? r.nameLower : `${r.nameLower}|${count + 1}`;
+        const id = athletesIndex.get(key)?.id ?? 0;
+        if (r.athleteId !== id) { r.athleteId = id; changed = true; }
+      }
+    }
+    if (changed) { writeJson(resultsFile, stored); injectedFiles++; }
   }
+  console.log(`✓ updated ${injectedFiles} result file(s)`);
 
   const athletesArray = Array.from(athletesIndex.values()).sort((a, b) =>
     a.nameLower.localeCompare(b.nameLower)
   );
   writeJson("athletes.json", athletesArray);
   console.log(`✓ athletes.json — ${athletesArray.length} athletes`);
-  // Use nameLower (not slug) for all unique counts so they're consistent:
-  // per-year counts use the same metric as all-time, and 2025+2026 overlap = all-time union.
+
   const allNames = new Set(athletesArray.map((a) => a.nameLower));
   const uniqueByYear: Record<string, number> = {};
   for (const year of YEARS) {
@@ -624,49 +640,28 @@ async function main() {
   }
   writeJson("stats.json", { uniqueAthletes: allNames.size, uniqueByYear });
 
-  // Write individual athlete files — wipe dir first to remove stale files
+  // Write individual athlete files by numeric ID — wipe dir first to remove stale files
   const athleteDir = path.join(DATA_DIR, "athlete");
   fs.rmSync(athleteDir, { recursive: true, force: true });
   fs.mkdirSync(athleteDir, { recursive: true });
   for (const a of athletesIndex.values()) {
-    fs.writeFileSync(path.join(athleteDir, `${a.slug}.json`), JSON.stringify(a), "utf-8");
+    fs.writeFileSync(path.join(athleteDir, `${a.id}.json`), JSON.stringify(a), "utf-8");
   }
 
-  // Write name-only slug files so clicking an athlete name (without knowing their team)
-  // resolves correctly: redirect if unique name, disambiguation picker if multiple.
-  const byName = new Map<string, typeof athletesArray[number][]>();
-  for (const a of athletesIndex.values()) {
-    const nameSlug = a.nameLower.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-    const bucket = byName.get(nameSlug) ?? [];
-    bucket.push(a);
-    byName.set(nameSlug, bucket);
-  }
-  let disambigCount = 0;
-  for (const [nameSlug, athletes] of byName) {
-    const filePath = path.join(athleteDir, `${nameSlug}.json`);
-    if (fs.existsSync(filePath)) continue; // composite slug already wrote this file (single-name athlete)
-    if (athletes.length === 1) {
-      fs.writeFileSync(filePath, JSON.stringify({ redirectTo: athletes[0]!.slug }), "utf-8");
-    } else {
-      disambigCount++;
-      fs.writeFileSync(filePath, JSON.stringify({
-        disambiguation: true,
-        matches: athletes
-          .sort((a, b) => b.results.length - a.results.length)
-          .map((a) => ({
-            slug: a.slug,
-            name: a.name,
-            team: a.canonicalTeam ?? "",
-            resultCount: a.results.length,
-          })),
-      }), "utf-8");
+  // Write name-to-id lookup: nameLower → id for primary entries (no | collision suffix)
+  const nameToId: Record<string, number> = {};
+  for (const [key, entry] of athletesIndex) {
+    if (!key.includes("|")) {
+      nameToId[entry.nameLower] = entry.id;
     }
   }
-  console.log(`✓ athlete/ — ${athletesIndex.size} profiles + ${disambigCount} disambiguation(s)`);
+  writeJson("name-to-id.json", nameToId);
+  console.log(`✓ athlete/ — ${athletesIndex.size} profiles`);
+  console.log(`✓ name-to-id.json — ${Object.keys(nameToId).length} entries`);
 
   // 6. Build and write aggregate ranking
   console.log("🏆 Building aggregate ranking…");
-  const aggregateRanking = buildAggregateRanking(scraped, loader, keyAliases);
+  const aggregateRanking = buildAggregateRanking(scraped, loader, athletesIndex);
   writeJson("aggregate_ranking.json", aggregateRanking);
   for (const [year, distances] of Object.entries(aggregateRanking)) {
     for (const [dist, genders] of Object.entries(distances)) {
@@ -679,7 +674,7 @@ async function main() {
 
   // 7. Build and write team ranking
   console.log("🏅 Building team ranking…");
-  const teamRanking = buildTeamRanking(scraped, loader);
+  const teamRanking = buildTeamRanking(scraped, loader, athletesIndex);
   writeJson("team_ranking.json", teamRanking);
   for (const [year, distances] of Object.entries(teamRanking)) {
     for (const [dist, teams] of Object.entries(distances)) {

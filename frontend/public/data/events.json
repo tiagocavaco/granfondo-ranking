@@ -823,7 +823,7 @@
     "id": 1741,
     "name": "EuroBEC Granfondo 2026",
     "year": 2026,
-    "date": "2026-04-12",
+    "date": "2026-04-13",
     "location": "Spain",
     "officialUrl": "https://bikeservice.pt/event/eurobec-granfondo/",
     "resultsUrl": "https://results.stopandgo.pro/1741",
@@ -896,7 +896,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 305,
+    "participantCount": 304,
     "finisherCount": 0,
     "scrapedAt": null
   },
