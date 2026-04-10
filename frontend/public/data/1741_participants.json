@@ -1944,18 +1944,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "289",
-    "nome": "Daniel Fialho",
-    "nomecompleto": "Daniel Fialho",
-    "sexo": "M",
-    "equipa": "Individual",
-    "escalao": "ELITES M",
-    "percurso": "Minifondo",
-    "id_percursos": "3",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "290",
     "nome": "Marco Martinho",
     "nomecompleto": "Marco Martinho",
@@ -4044,18 +4032,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "495",
-    "nome": "Luís Moura",
-    "nomecompleto": "Luís Moura",
-    "sexo": "M",
-    "equipa": "PSI BIKES TEAM",
-    "escalao": "MASTERS C",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "474",
     "nome": "Florival  Graça",
     "nomecompleto": "Florival  Graça",
@@ -5220,18 +5196,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "571",
-    "nome": "Paulo Silva",
-    "nomecompleto": "Paulo Silva",
-    "sexo": "M",
-    "equipa": "RÓÓDINHAS / Master Vantagem",
-    "escalao": "MASTERS B",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "584",
     "nome": "Manuel Infantes gonzalez",
     "nomecompleto": "Manuel Infantes gonzalez",
@@ -5532,18 +5496,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "607",
-    "nome": "Ivan Avelino cepa",
-    "nomecompleto": "Ivan Avelino cepa",
-    "sexo": "M",
-    "equipa": "Individual",
-    "escalao": "ELITES M",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "608",
     "nome": "António Furtado",
     "nomecompleto": "António Furtado",
@@ -5667,18 +5619,6 @@
     "dorsal": "616",
     "nome": "Jose Duran piris",
     "nomecompleto": "Jose Duran piris",
-    "sexo": "M",
-    "equipa": "Individual",
-    "escalao": "MASTERS B",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
-    "dorsal": "617",
-    "nome": "Jesus lozano Piris",
-    "nomecompleto": "Jesus lozano Piris",
     "sexo": "M",
     "equipa": "Individual",
     "escalao": "MASTERS B",
@@ -6828,14 +6768,14 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "956",
+    "dorsal": "1941",
     "nome": "ANTONIO MANUEL NAVAS MACIAS",
     "nomecompleto": "ANTONIO MANUEL NAVAS MACIAS",
     "sexo": "M",
     "equipa": "VITALY",
     "escalao": "MASTERS B",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -8616,14 +8556,14 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "960",
+    "dorsal": "1942",
     "nome": "jose antonio gonzalez santano",
     "nomecompleto": "jose antonio gonzalez santano",
     "sexo": "M",
     "equipa": "VITALY",
     "escalao": "MASTERS B",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -9060,7 +9000,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "885",
+    "dorsal": "289",
     "nome": "Luis Pais",
     "nomecompleto": "Luis Pais",
     "sexo": "M",
@@ -22140,6 +22080,18 @@
     "pais_iso2": null
   },
   {
+    "dorsal": "",
+    "nome": "João Generoso",
+    "nomecompleto": "João Generoso",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS A",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
     "dorsal": "47",
     "nome": "Enrique Rodríguez",
     "nomecompleto": "Enrique Rodríguez",
@@ -22608,6 +22560,18 @@
     "pais_iso2": null
   },
   {
+    "dorsal": "",
+    "nome": "daniel herrero",
+    "nomecompleto": "daniel herrero",
+    "sexo": "M",
+    "equipa": "ADC FRANCISCO PIZARRO",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
     "dorsal": "1937",
     "nome": "José Vicente Arnelas Guerrero",
     "nomecompleto": "José Vicente Arnelas Guerrero",
@@ -22668,7 +22632,31 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "",
+    "dorsal": "617",
+    "nome": "CARLOS ANTON",
+    "nomecompleto": "CARLOS ANTON",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS C",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "607",
+    "nome": "DAVID ANTON",
+    "nomecompleto": "DAVID ANTON",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "ELITES M",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1943",
     "nome": "josé martins Manuel barriga",
     "nomecompleto": "josé martins Manuel barriga",
     "sexo": "M",
@@ -22680,7 +22668,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "",
+    "dorsal": "1944",
     "nome": "Mario Yecora Fernández",
     "nomecompleto": "Mario Yecora Fernández",
     "sexo": "M",
@@ -22688,6 +22676,30 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "495",
+    "nome": "Danilo Ribeiro",
+    "nomecompleto": "Danilo Ribeiro",
+    "sexo": "M",
+    "equipa": "PSI BIKES TEAM",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "",
+    "nome": "Filipe Rasteiro",
+    "nomecompleto": "Filipe Rasteiro",
+    "sexo": "M",
+    "equipa": "Rodas São Mamede",
+    "escalao": "MASTERS B",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
     "pais_nome": null,
     "pais_iso2": null
   }

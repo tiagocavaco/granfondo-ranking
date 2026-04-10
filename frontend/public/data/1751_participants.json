@@ -396,7 +396,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "125",
+    "dorsal": "635",
     "nome": "Rafael Dos Santos",
     "nomecompleto": "Rafael Dos Santos",
     "sexo": "M",
@@ -1344,18 +1344,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "98",
-    "nome": "Joel Silva",
-    "nomecompleto": "Joel Silva",
-    "sexo": "M",
-    "equipa": "BRINOX CYCLING TEAM",
-    "escalao": "MASTERS A",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "209",
     "nome": "Daniel Matias",
     "nomecompleto": "Daniel Matias",
@@ -1832,18 +1820,6 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
-    "dorsal": "267",
-    "nome": "Diogo Mateus",
-    "nomecompleto": "Diogo Mateus",
-    "sexo": "M",
-    "equipa": "Seixal Clube 1925 / Arrábida Pedal",
-    "escalao": "MASTERS A",
-    "percurso": "Mediofondo",
-    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4224,7 +4200,7 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "635",
+    "dorsal": "125",
     "nome": "Flávio Ventura",
     "nomecompleto": "Flávio Ventura",
     "sexo": "M",
@@ -10932,18 +10908,6 @@
     "pais_iso2": null
   },
   {
-    "dorsal": "86",
-    "nome": "Fábio Abreu",
-    "nomecompleto": "Fábio Abreu",
-    "sexo": "M",
-    "equipa": "C.E. Gonçalves | Reconco",
-    "escalao": "MASTERS A",
-    "percurso": "Minifondo",
-    "id_percursos": "3",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
     "dorsal": "80",
     "nome": "Vítor Araújo",
     "nomecompleto": "Vítor Araújo",
@@ -12416,6 +12380,18 @@
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "545",
+    "nome": "Jorge Madeira",
+    "nomecompleto": "Jorge Madeira",
+    "sexo": "M",
+    "equipa": "PROTEU CYCLING TEAM - CASA DO POVO DA RETORTA",
+    "escalao": "MASTERS A",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -14520,6 +14496,18 @@
     "pais_iso2": null
   },
   {
+    "dorsal": "1371",
+    "nome": "Maria  Cidália",
+    "nomecompleto": "Maria  Cidália",
+    "sexo": "F",
+    "equipa": "Individual",
+    "escalao": "MASTERS C FEM",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
     "dorsal": "1329",
     "nome": "Luis Vidinha",
     "nomecompleto": "Luis Vidinha",
@@ -15168,6 +15156,18 @@
     "pais_iso2": null
   },
   {
+    "dorsal": "298",
+    "nome": "Ricardo Castro",
+    "nomecompleto": "Ricardo Castro",
+    "sexo": "M",
+    "equipa": "DUROS do PEDAL Cycling Team",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
     "dorsal": "1359",
     "nome": "João Cordeiro",
     "nomecompleto": "João Cordeiro",
@@ -15188,6 +15188,210 @@
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1363",
+    "nome": "Liliana Sousa",
+    "nomecompleto": "Liliana Sousa",
+    "sexo": "F",
+    "equipa": "Individual",
+    "escalao": "MASTERS A FEM",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1362",
+    "nome": "Henrique  Luz",
+    "nomecompleto": "Henrique  Luz",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS A",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1364",
+    "nome": "CASSANDRA CASTRO WELCH",
+    "nomecompleto": "CASSANDRA CASTRO WELCH",
+    "sexo": "F",
+    "equipa": "Individual",
+    "escalao": "MASTERS A FEM",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "534",
+    "nome": "Rui Rodrigues",
+    "nomecompleto": "Rui Rodrigues",
+    "sexo": "M",
+    "equipa": "PROTEU CYCLING TEAM - CASA DO POVO DA RETORTA",
+    "escalao": "MASTERS C",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1369",
+    "nome": "Erwin Russel",
+    "nomecompleto": "Erwin Russel",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS D",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1367",
+    "nome": "Alexandre Lopes",
+    "nomecompleto": "Alexandre Lopes",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "ELITES M",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1365",
+    "nome": "Julian Calefato",
+    "nomecompleto": "Julian Calefato",
+    "sexo": "M",
+    "equipa": "Roda 28",
+    "escalao": "MASTERS B",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1366",
+    "nome": "David Lopes",
+    "nomecompleto": "David Lopes",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS B",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1368",
+    "nome": "Gonçalo Falcão",
+    "nomecompleto": "Gonçalo Falcão",
+    "sexo": "M",
+    "equipa": "351 Snow",
+    "escalao": "MASTERS A",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1372",
+    "nome": "Nuno Moreira",
+    "nomecompleto": "Nuno Moreira",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS B",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1375",
+    "nome": "Brian  Kirk",
+    "nomecompleto": "Brian  Kirk",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS D",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1374",
+    "nome": "João  Monteiro",
+    "nomecompleto": "João  Monteiro",
+    "sexo": "M",
+    "equipa": "FPCUB",
+    "escalao": "MASTERS C",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1370",
+    "nome": "Joao Paulo Souza",
+    "nomecompleto": "Joao Paulo Souza",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1373",
+    "nome": "Pedro Adão",
+    "nomecompleto": "Pedro Adão",
+    "sexo": "M",
+    "equipa": "Prozimbral-Engenharia",
+    "escalao": "MASTERS B",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "86",
+    "nome": "Hugo Sancho",
+    "nomecompleto": "Hugo Sancho",
+    "sexo": "M",
+    "equipa": "Sagiper NSCP Mortágua",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1377",
+    "nome": "Ricardo Gomes",
+    "nomecompleto": "Ricardo Gomes",
+    "sexo": "M",
+    "equipa": "Rubis Gás",
+    "escalao": "MASTERS C",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "98",
+    "nome": "José  Gil",
+    "nomecompleto": "José  Gil",
+    "sexo": "M",
+    "equipa": "Mr. Print Bike Team",
+    "escalao": "MASTERS D",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
     "pais_nome": null,
     "pais_iso2": null
   }

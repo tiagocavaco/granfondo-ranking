@@ -4536,6 +4536,18 @@
     "pais_iso2": null
   },
   {
+    "dorsal": "626",
+    "nome": "Fernando Nascimento",
+    "nomecompleto": "Fernando Nascimento",
+    "sexo": "M",
+    "equipa": "UCB-ERA/CMEB/MSFITCLUB",
+    "escalao": "MASTERS A",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
     "dorsal": "508",
     "nome": "Paulo Ferreira",
     "nomecompleto": "Paulo Ferreira",
@@ -6056,6 +6068,18 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "627",
+    "nome": "Daniel Fialho",
+    "nomecompleto": "Daniel Fialho",
+    "sexo": "M",
+    "equipa": "United bike Team",
+    "escalao": "ELITES M",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
     "pais_nome": null,
     "pais_iso2": null
   }

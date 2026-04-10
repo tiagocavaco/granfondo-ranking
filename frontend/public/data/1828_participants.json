@@ -709,8 +709,8 @@
   },
   {
     "dorsal": "187",
-    "nome": "Gustavo Gonçalves",
-    "nomecompleto": "Gustavo Gonçalves",
+    "nome": "Gustavo Lebre",
+    "nomecompleto": "Gustavo Lebre",
     "sexo": "M",
     "equipa": "Individual",
     "escalao": "MASTERS A",
@@ -4796,6 +4796,18 @@
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
     "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "528",
+    "nome": "Paulo Silva",
+    "nomecompleto": "Paulo Silva",
+    "sexo": "M",
+    "equipa": "Róódinhas Master Vantagem",
+    "escalao": "MASTERS B",
+    "percurso": "Granfondo",
+    "id_percursos": "1",
     "pais_nome": null,
     "pais_iso2": null
   }

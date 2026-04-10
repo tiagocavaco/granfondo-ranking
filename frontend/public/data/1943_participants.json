@@ -3610,5 +3610,29 @@
     "id_percursos": "3",
     "pais_nome": null,
     "pais_iso2": null
+  },
+  {
+    "dorsal": "420",
+    "nome": "Oscar Lama Bravo",
+    "nomecompleto": "Oscar Lama Bravo",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS D",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "421",
+    "nome": "Hugo Pereira",
+    "nomecompleto": "Hugo Pereira",
+    "sexo": "M",
+    "equipa": "GDC Alcorochel",
+    "escalao": "MASTERS B",
+    "percurso": "GranFondo",
+    "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
   }
 ]

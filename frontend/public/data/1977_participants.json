@@ -3150,8 +3150,8 @@
     "sexo": "M",
     "equipa": "BoopIT.pt",
     "escalao": "MASTERS D",
-    "percurso": "Granfondo",
-    "id_percursos": "1",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -4292,18 +4292,6 @@
     "escalao": "MASTERS B",
     "percurso": "Granfondo",
     "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
-    "dorsal": "467",
-    "nome": "Rafael Ribeiro",
-    "nomecompleto": "Rafael Ribeiro",
-    "sexo": "M",
-    "equipa": "Ass. Marinheiros Ferreira do Zêzere",
-    "escalao": "MASTERS D",
-    "percurso": "Minifondo",
-    "id_percursos": "3",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -9300,6 +9288,18 @@
     "pais_iso2": null
   },
   {
+    "dorsal": "466",
+    "nome": "Jorge Madeira",
+    "nomecompleto": "Jorge Madeira",
+    "sexo": "M",
+    "equipa": "PROTEU CYCLING TEAM - CASA DO POVO DA RETORTA",
+    "escalao": "MASTERS A",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
     "dorsal": "874",
     "nome": "Paulo  Gomes",
     "nomecompleto": "Paulo  Gomes",
@@ -9356,6 +9356,18 @@
     "escalao": "MASTERS A",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "516",
+    "nome": "Nelson Bicho",
+    "nomecompleto": "Nelson Bicho",
+    "sexo": "M",
+    "equipa": "PROTEU CYCLING TEAM - CASA DO POVO DA RETORTA",
+    "escalao": "MASTERS C",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   },
@@ -10300,7 +10312,7 @@
     "nome": "Edgar  Simões",
     "nomecompleto": "Edgar  Simões",
     "sexo": "M",
-    "equipa": "Bikes&Jolas",
+    "equipa": "OrionCyclingTeam",
     "escalao": "M ELITES",
     "percurso": "Mediofondo",
     "id_percursos": "2",
@@ -10410,6 +10422,18 @@
     "sexo": "M",
     "equipa": "Lovers Bay",
     "escalao": "MASTERS B",
+    "percurso": "Minifondo",
+    "id_percursos": "3",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1138",
+    "nome": "João Elvas",
+    "nomecompleto": "João Elvas",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS C",
     "percurso": "Minifondo",
     "id_percursos": "3",
     "pais_nome": null,
@@ -12320,6 +12344,42 @@
     "escalao": "MASTERS C",
     "percurso": "Granfondo",
     "id_percursos": "1",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "467",
+    "nome": "António Gorgulho",
+    "nomecompleto": "António Gorgulho",
+    "sexo": "M",
+    "equipa": "Ass. Marinheiros Ferreira do Zêzere",
+    "escalao": "MASTERS C",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "1137",
+    "nome": "João Duque",
+    "nomecompleto": "João Duque",
+    "sexo": "M",
+    "equipa": "Agarró",
+    "escalao": "MASTERS A",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "pais_nome": null,
+    "pais_iso2": null
+  },
+  {
+    "dorsal": "405",
+    "nome": "Rui Rodrigues",
+    "nomecompleto": "Rui Rodrigues",
+    "sexo": "M",
+    "equipa": "PROTEU CYCLING TEAM - CASA DO POVO DA RETORTA",
+    "escalao": "MASTERS C",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
     "pais_nome": null,
     "pais_iso2": null
   }
