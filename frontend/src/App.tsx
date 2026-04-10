@@ -1,11 +1,14 @@
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import EventList from "./components/EventList";
 import EventDetail from "./components/EventDetail";
 import AggregateRankingPage from "./components/AggregateRankingPage";
 import TeamRankingPage from "./components/TeamRankingPage";
 import AthleteProfile from "./components/AthleteProfile";
+import { api } from "./api";
 
 export default function App() {
+  useEffect(() => { api.initTeamAliases(); }, []);
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <div className="min-h-screen bg-slate-50">

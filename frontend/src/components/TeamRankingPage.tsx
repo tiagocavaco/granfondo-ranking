@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { api, nameToSlug } from "../api";
+import { api, participantAthleteSlug } from "../api";
 import type { TeamRanking, TeamEntry } from "../types";
 import { Spinner, ErrorBanner } from "./EventList";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
@@ -297,7 +297,7 @@ export default function TeamRankingPage() {
                                       </span>
                                       <span
                                         className="font-medium text-slate-700 hover:text-blue-600 transition-colors cursor-pointer"
-                                        onClick={() => navigate(`/athlete/${nameToSlug(a.name)}`)}
+                                        onClick={() => navigate(`/athlete/${participantAthleteSlug(a.name, t.team)}`)}
                                       >
                                         {a.name}
                                       </span>

@@ -141,9 +141,17 @@ export default function AthleteProfile() {
       </div>
 
       {/* Results by year */}
-      {Object.keys(byYear).sort().reverse().map((year) => (
+      {Object.keys(byYear).sort().reverse().map((year) => {
+        const yearResults = byYear[Number(year)]!;
+        const yearTeam = yearResults[yearResults.length - 1]?.team ?? "";
+        return (
         <div key={year} className="mb-8">
-          <h2 className="text-lg font-bold text-slate-800 mb-3">{year}</h2>
+          <h2 className="text-lg font-bold text-slate-800 mb-3 flex items-baseline gap-2">
+            {year}
+            {yearTeam && yearTeam !== "Individual" && (
+              <span className="text-sm font-normal text-slate-400">{yearTeam}</span>
+            )}
+          </h2>
           <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
             <table className="w-full text-sm">
               <thead>
@@ -195,7 +203,8 @@ export default function AthleteProfile() {
             </table>
           </div>
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

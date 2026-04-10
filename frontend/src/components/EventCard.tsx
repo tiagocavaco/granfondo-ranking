@@ -80,7 +80,18 @@ export default function EventCard({ event }: Props) {
             </span>
           ))}
         </div>
-        {event.resultsUrl && (
+        {!isPast && (event.officialUrl ?? event.resultsUrl) && (
+          <a
+            href={event.officialUrl ?? event.resultsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="shrink-0 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
+          >
+            Official Page ↗
+          </a>
+        )}
+        {isPast && event.resultsUrl && (
           <a
             href={event.resultsUrl}
             target="_blank"
@@ -88,7 +99,7 @@ export default function EventCard({ event }: Props) {
             onClick={(e) => e.stopPropagation()}
             className="shrink-0 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
           >
-            Official ↗
+            Official Results ↗
           </a>
         )}
       </div>
