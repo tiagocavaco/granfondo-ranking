@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import TEAM_ALIASES from "../team-aliases.json" assert { type: "json" };
 
 import { fetchAllEvents, fetchUpcomingEvents, fetchNetEventById, fetchParticipants, fetchResults } from "./api.js";
 import {
@@ -13,35 +14,27 @@ import {
   scrapeListaParticipants,
 } from "./external.js";
 import {
-  normalizeName,
-  normalizeTeam,
-  teamNormalKey,
-  teamKeySimilarity,
-  fixRawTeamName,
-  canonicalTeam,
-  posToBasePoints,
-  finisherCoefficient,
-  rankToTeamBasePoints,
-  teamCoefficient,
-  timeToSeconds,
-  formatTime,
   parseEventDate,
   getYear,
   isPast,
 } from "./normalize.js";
+import {
+  isGranfondoName,
+  isKidsCamVariant,
+  extractDistances,
+  assignGenderPositions,
+  transformResult,
+  buildAthletesIndex,
+  applyAthleteMerges,
+  buildAggregateRanking,
+  buildTeamRanking,
+  type MergeRule,
+} from "./pipeline.js";
 import type {
   ApiAthlete,
-  ApiResult,
   StoredEvent,
   StoredEventResults,
   StoredDistanceResults,
-  StoredResult,
-  AthleteEntry,
-  StoredDistance,
-  AggregateAthlete,
-  AggregateRanking,
-  TeamRanking,
-  TeamEntry,
 } from "./types.js";
 
 // ── Config ────────────────────────────────────────────────────────────────────
@@ -54,12 +47,6 @@ const YEARS = [2025, 2026]; // seasons to include
 const DELAY_MS = 400; // polite delay between requests
 
 // ── Manual athlete merges ─────────────────────────────────────────────────────
-
-interface MergeRule {
-  canonical: string; // slug of the profile to keep
-  aliases: string[]; // slugs to merge into canonical
-  note?: string;
-}
 
 const MERGES_PATH = path.join(__dirname, "..", "athlete-merges.json");
 const MERGE_RULES: MergeRule[] = fs.existsSync(MERGES_PATH)
@@ -206,21 +193,6 @@ const LISTA_URLS: Record<number, string> = {
   90016: "https://inscricoes.cabreirasolutions.com/listas/grandfondo-portim-o-2026",
 };
 
-function isGranfondoName(name: string): boolean {
-  const n = name.toLowerCase();
-  return n.includes("granfondo") || n.includes("grandfondo");
-}
-
-function isKidsCamVariant(name: string): boolean {
-  const n = name.toLowerCase();
-  return (
-    n.includes("kids") ||
-    n.includes("caminhada") ||
-    n.includes(" vip") ||
-    n.includes("kids/cam")
-  );
-}
-
 async function discoverGranfondos(): Promise<StoredEvent[]> {
   console.log("🔍 Fetching event list from StopAndGo API…");
   const all = await fetchAllEvents();
@@ -319,68 +291,6 @@ async function discoverGranfondos(): Promise<StoredEvent[]> {
   console.log(`   Found ${pastEvents.length} past + ${upcomingEvents.length} upcoming granfondos in ${YEARS.join(", ")}\n`);
 
   return [...pastEvents, ...upcomingEvents];
-}
-
-// ── Distance extraction from participants ─────────────────────────────────────
-
-function extractDistances(athletes: ApiAthlete[]): StoredDistance[] {
-  const seen = new Map<string, string>(); // id → name
-  for (const a of athletes) {
-    if (a.id_percursos && a.percurso && !seen.has(a.id_percursos)) {
-      seen.set(a.id_percursos, a.percurso);
-    }
-  }
-  return Array.from(seen.entries())
-    .map(([id, name]) => ({ id, name }))
-    .sort((a, b) => Number(a.id) - Number(b.id));
-}
-
-// ── Result row transformation ─────────────────────────────────────────────────
-
-/** Fill in genderPos for all results in a set of distances. */
-function assignGenderPositions(distances: StoredDistanceResults[]): void {
-  for (const dist of distances) {
-    const genderCounters = new Map<string, number>();
-    const finishers = dist.results
-      .filter((r) => !r.dnf && !r.dns && r.pos > 0)
-      .slice()
-      .sort((a, b) => a.raceTimeSecs - b.raceTimeSecs);
-    for (const r of finishers) {
-      const next = (genderCounters.get(r.gender) ?? 0) + 1;
-      genderCounters.set(r.gender, next);
-      r.genderPos = next;
-    }
-  }
-}
-
-function transformResult(r: ApiResult): StoredResult {
-  const raceTimeSecs = parseFloat(r.temposeg) || 0;
-  const gapSecs = timeToSeconds(r.diferenca);
-
-  // Detect non-finishers: obs field or 0 time with pos > 1
-  const obs = (r.obs ?? "").toUpperCase();
-  const dnf = obs.includes("DNF") || obs.includes("ABANDONOU") || obs === "AB";
-  const dns = obs.includes("DNS") || obs.includes("NÃO PARTIU");
-
-  return {
-    pos: parseInt(r.pos, 10) || 0,
-    genderPos: 0, // filled in after all results are collected
-    bib: r.dorsal,
-    name: r.nome,
-    nameLower: normalizeName(r.nome),
-    gender: r.sexo || "M",
-    team: r.equipa ?? "",
-    category: r.escalao ?? "",
-    country: r.pais_nome ?? "",
-    raceTime: formatTime(r.tempo),
-    raceTimeSecs,
-    gap: formatTime(r.diferenca),
-    gapSecs,
-    points: Number(r.pontos) || 0,
-    licence: r.licenca1 ?? "",
-    dnf,
-    dns,
-  };
 }
 
 // ── Per-event scraping ────────────────────────────────────────────────────────
@@ -497,506 +407,9 @@ async function scrapeEvent(event: StoredEvent): Promise<StoredEvent> {
   return event;
 }
 
-// ── Athletes index builder ────────────────────────────────────────────────────
+// ── Results loader ──────────────────────────────────────────────────────────────
 
-/** Team names that indicate the athlete is racing without an affiliation. */
-const SOLO_TEAMS = new Set(["individual", "independente", "no team", "sem equipa", ""]);
-
-function isSoloTeam(team: string): boolean {
-  return SOLO_TEAMS.has(teamNormalKey(team).toLowerCase()) || !team.trim();
-}
-
-/**
- * Composite dedup key: nameLower + "|" + normalised team key.
- * Solo/unaffiliated results use an empty team bucket so they can be
- * merged later into the athlete's real team, if one is identified.
- */
-function athleteKey(nameLower: string, team: string): string {
-  return isSoloTeam(team) ? `${nameLower}|` : `${nameLower}|${teamNormalKey(team)}`;
-}
-
-function buildAthletesIndex(events: StoredEvent[]): Map<string, AthleteEntry> {
-  const index = new Map<string, AthleteEntry>();
-  // Track team name occurrences per athlete for canonical resolution
-  const teamOccurrences = new Map<string, Map<string, Map<string, number>>>();
-  // athleteKey → normalizedTeamKey → rawTeamName → count
-
-  for (const event of events.filter((e) => e.hasResults)) {
-    const stored = readJson<StoredEventResults>(`${event.id}_results.json`);
-    if (!stored) continue;
-
-    for (const dist of stored.distances) {
-      for (const r of dist.results) {
-        // Re-normalize nameLower from r.name so cached results benefit from
-        // current normalizeName (handles ´, ', #, etc. added later)
-        const nameLower = normalizeName(r.name);
-        const key = athleteKey(nameLower, r.team);
-        if (!index.has(key)) {
-          const slug = key.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-          index.set(key, { name: r.name, nameLower, slug, results: [] });
-          teamOccurrences.set(key, new Map());
-        }
-        if (r.team && !isSoloTeam(r.team)) {
-          const tk = teamNormalKey(r.team);
-          const athleteTeams = teamOccurrences.get(key)!;
-          if (!athleteTeams.has(tk)) athleteTeams.set(tk, new Map());
-          const rawMap = athleteTeams.get(tk)!;
-          const fixedName = fixRawTeamName(r.team);
-          rawMap.set(fixedName, (rawMap.get(fixedName) ?? 0) + 1);
-        }
-        index.get(key)!.results.push({
-          eventId: event.id,
-          eventName: event.name,
-          eventDate: event.date,
-          eventYear: event.year,
-          distance: dist.name,
-          pos: r.pos,
-          category: r.category,
-          gender: r.gender,
-          team: r.team,
-          country: r.country,
-          raceTime: r.raceTime,
-          raceTimeSecs: r.raceTimeSecs,
-          gap: r.gap,
-          gapSecs: r.gapSecs,
-          dnf: r.dnf,
-          dns: r.dns,
-        });
-      }
-    }
-  }
-
-  // Merge solo bucket into the biggest team bucket for that name (if exactly one team exists)
-  for (const nameLowerVal of new Set([...index.keys()].map((k) => k.split("|")[0]!))) {
-    const soloKey = `${nameLowerVal}|`;
-    if (!index.has(soloKey)) continue;
-    // Find all non-solo keys for this name
-    const teamKeys = [...index.keys()].filter(
-      (k) => k.startsWith(`${nameLowerVal}|`) && k !== soloKey
-    );
-    if (teamKeys.length === 1) {
-      // Merge solo results into the one team bucket
-      const target = index.get(teamKeys[0]!)!;
-      target.results.push(...index.get(soloKey)!.results);
-      index.delete(soloKey);
-      teamOccurrences.delete(soloKey);
-    }
-    // If 0 or 2+ team buckets exist, keep solo as its own entry
-  }
-
-  // Fuzzy team merge: merge buckets for the same name whose normalised team keys
-  // are similar enough (e.g. "vivavita" vs "vivavita training and social club").
-  const FUZZY_THRESHOLD = 0.6;
-  const allNames = new Set([...index.keys()].map((k) => k.split("|")[0]!));
-  for (const nameLowerVal of allNames) {
-    let changed = true;
-    while (changed) {
-      changed = false;
-      const nameKeys = [...index.keys()].filter(
-        (k) => k.startsWith(`${nameLowerVal}|`) && k !== `${nameLowerVal}|`
-      );
-      outer: for (let i = 0; i < nameKeys.length; i++) {
-        for (let j = i + 1; j < nameKeys.length; j++) {
-          const kA = nameKeys[i]!;
-          const kB = nameKeys[j]!;
-          const teamA = kA.slice(nameLowerVal.length + 1);
-          const teamB = kB.slice(nameLowerVal.length + 1);
-          if (teamKeySimilarity(teamA, teamB) >= FUZZY_THRESHOLD) {
-            // Merge smaller bucket into larger
-            const eA = index.get(kA)!;
-            const eB = index.get(kB)!;
-            const [target, source, , sourceKey] =
-              eA.results.length >= eB.results.length
-                ? [eA, eB, kA, kB]
-                : [eB, eA, kB, kA];
-            target.results.push(...source.results);
-            index.delete(sourceKey);
-            teamOccurrences.delete(sourceKey);
-            changed = true;
-            break outer;
-          }
-        }
-      }
-    }
-  }
-
-  // Sort each athlete's results by date descending and resolve canonical team
-  for (const [key, entry] of index.entries()) {
-    entry.results.sort(
-      (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
-    );
-    const athleteTeams = teamOccurrences.get(key);
-    if (athleteTeams && athleteTeams.size > 0) {
-      let bestNormKey = "";
-      let bestTotal = 0;
-      for (const [normKey, rawMap] of athleteTeams) {
-        const total = Array.from(rawMap.values()).reduce((s, n) => s + n, 0);
-        if (total > bestTotal) { bestTotal = total; bestNormKey = normKey; }
-      }
-      entry.canonicalTeam = canonicalTeam(athleteTeams.get(bestNormKey)!);
-    }
-  }
-
-  return index;
-}
-
-/**
- * Apply manual merge rules to the athletes index.
- * Returns a map of aliasSlug → canonicalSlug for writing redirect files,
- * and a map of aliasAthleteKey → canonicalAthleteKey for use in aggregate ranking.
- */
-function applyAthleteMerges(index: Map<string, AthleteEntry>): {
-  redirects: Map<string, string>;
-  keyAliases: Map<string, string>;
-} {
-  const redirects = new Map<string, string>(); // aliasSlug → canonicalSlug
-  const keyAliases = new Map<string, string>(); // aliasAthleteKey → canonicalAthleteKey
-
-  // Build slug → athleteKey map
-  const slugToKey = new Map<string, string>();
-  for (const [key, entry] of index) slugToKey.set(entry.slug, key);
-
-  for (const rule of MERGE_RULES) {
-    const canonicalKey = slugToKey.get(rule.canonical);
-    if (!canonicalKey) {
-      console.warn(`  ⚠ merge: canonical slug "${rule.canonical}" not found in index`);
-      continue;
-    }
-    const canonical = index.get(canonicalKey)!;
-
-    for (const aliasSlug of rule.aliases) {
-      const aliasKey = slugToKey.get(aliasSlug);
-      if (!aliasKey) {
-        console.warn(`  ⚠ merge: alias slug "${aliasSlug}" not found in index`);
-        continue;
-      }
-      const alias = index.get(aliasKey)!;
-      canonical.results.push(...alias.results);
-      keyAliases.set(aliasKey, canonicalKey);
-      redirects.set(aliasSlug, rule.canonical);
-      index.delete(aliasKey);
-    }
-
-    // Re-sort merged results by date descending
-    canonical.results.sort(
-      (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
-    );
-  }
-
-  if (MERGE_RULES.length > 0)
-    console.log(`  ✓ applied ${redirects.size} athlete merge(s)`);
-
-  return { redirects, keyAliases };
-}
-
-// ── Aggregate ranking builder ─────────────────────────────────────────────────
-
-const DISTANCE_ALIASES: Record<string, string> = {
-  granfondo: "Granfondo",
-  mediofondo: "Mediofondo",
-  minifondo: "Minifondo",
-  "time trial": "Time Trial",
-  // Figueira Champions Classic uses "BIG DAY" / "HALF DAY" branding
-  "big day": "Granfondo",
-  "half day": "Mediofondo",
-  // Aveiro Spring Classic uses "CLÁSSICA" / "Classica" branding
-  "clássica": "Granfondo",
-  "classica": "Granfondo",
-  // Etapa da Volta uses "Etapa" branding
-  "etapa": "Mediofondo",
-};
-
-function normalizeDistance(name: string): string {
-  return DISTANCE_ALIASES[name.toLowerCase()] ?? name;
-}
-
-function buildAggregateRanking(
-  events: StoredEvent[],
-  keyAliases: Map<string, string> = new Map()
-): AggregateRanking {
-  // year → distance → gender → athleteKey → aggregation data
-  type AccEntry = {
-    name: string;
-    nameLower: string;
-    gender: string;
-    team: string;
-    country: string;
-    totalPoints: number;
-    eventsScored: number;
-    bestPos: number; // gender-specific position
-    results: AggregateAthlete["results"];
-  };
-  const acc: Record<string, Record<string, Record<string, Map<string, AccEntry>>>> = {};
-  // year → distance → gender → athleteKey → normalizedTeamKey → rawTeamName → count
-  const teamOcc: Record<string, Record<string, Record<string, Map<string, Map<string, Map<string, number>>>>>> = {};
-
-  for (const event of events.filter((e) => e.hasResults)) {
-    const stored = readJson<StoredEventResults>(`${event.id}_results.json`);
-    if (!stored) continue;
-
-    const yearKey = String(event.year);
-    if (!acc[yearKey]) acc[yearKey] = {};
-    if (!teamOcc[yearKey]) teamOcc[yearKey] = {};
-
-    for (const dist of stored.distances) {
-      const distKey = normalizeDistance(dist.name);
-      if (!acc[yearKey][distKey]) acc[yearKey][distKey] = {};
-      if (!teamOcc[yearKey][distKey]) teamOcc[yearKey][distKey] = {};
-
-      // Group finishers by gender, sorted by race time for gender-specific positions
-      const byGender = new Map<string, StoredResult[]>();
-      for (const r of dist.results) {
-        if (r.dnf || r.dns || r.pos < 1) continue;
-        if (!byGender.has(r.gender)) byGender.set(r.gender, []);
-        byGender.get(r.gender)!.push(r);
-      }
-
-      for (const [gender, finishers] of byGender) {
-        finishers.sort((a, b) => a.raceTimeSecs - b.raceTimeSecs);
-        const genderFinisherCount = finishers.length;
-        const coeff = finisherCoefficient(genderFinisherCount);
-
-        if (!acc[yearKey][distKey][gender]) acc[yearKey][distKey][gender] = new Map();
-        if (!teamOcc[yearKey][distKey][gender]) teamOcc[yearKey][distKey][gender] = new Map();
-        const distMap = acc[yearKey][distKey][gender];
-        const distTeams = teamOcc[yearKey][distKey][gender];
-
-        finishers.forEach((r, idx) => {
-          const genderPos = idx + 1;
-          const basePoints = posToBasePoints(genderPos);
-          if (basePoints === 0) return;
-          const pts = Math.round(basePoints * coeff * 10) / 10;
-
-          const nameLower = normalizeName(r.name);
-          const rawKey = athleteKey(nameLower, r.team);
-          let key = keyAliases.get(rawKey) ?? rawKey;
-          // Fuzzy team match: if no exact entry yet, check if a similar team key
-          // already exists for this athlete name (same logic as athletes index)
-          if (!distMap.has(key)) {
-            const teamPart = key.slice(nameLower.length + 1);
-            for (const existingKey of distMap.keys()) {
-              if (!existingKey.startsWith(`${nameLower}|`)) continue;
-              const existingTeam = existingKey.slice(nameLower.length + 1);
-              if (teamKeySimilarity(teamPart, existingTeam) >= 0.6) {
-                key = existingKey;
-                break;
-              }
-            }
-          }
-          if (!distMap.has(key)) {
-            const slug = key.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-            distMap.set(key, {
-              name: r.name,
-              nameLower,
-              slug,
-              gender: r.gender,
-              team: r.team,
-              country: r.country,
-              totalPoints: 0,
-              eventsScored: 0,
-              bestPos: genderPos,
-              results: [],
-            });
-            distTeams.set(key, new Map());
-          }
-          const entry = distMap.get(key)!;
-          entry.totalPoints = Math.round((entry.totalPoints + pts) * 10) / 10;
-          entry.eventsScored += 1;
-          if (genderPos < entry.bestPos) entry.bestPos = genderPos;
-          entry.country = r.country || entry.country;
-          if (r.team) {
-            const teamKey = teamNormalKey(r.team);
-            const athleteTeams = distTeams.get(key)!;
-            if (!athleteTeams.has(teamKey)) athleteTeams.set(teamKey, new Map());
-            const rawMap = athleteTeams.get(teamKey)!;
-            const fixedName = fixRawTeamName(r.team);
-            rawMap.set(fixedName, (rawMap.get(fixedName) ?? 0) + 1);
-          }
-          entry.results.push({
-            eventId: event.id,
-            eventName: event.name,
-            eventDate: event.date,
-            distanceFinishers: genderFinisherCount,
-            coefficient: coeff,
-            pos: genderPos,
-            basePoints,
-            points: pts,
-          });
-        });
-      }
-    }
-  }
-
-  // Resolve canonical team and convert to sorted arrays with rank
-  const ranking: AggregateRanking = {};
-  for (const [year, distances] of Object.entries(acc)) {
-    ranking[year] = {};
-    for (const [dist, genders] of Object.entries(distances)) {
-      ranking[year][dist] = {};
-      for (const [gender, distMap] of Object.entries(genders)) {
-        const distTeams = teamOcc[year]?.[dist]?.[gender];
-        if (distTeams) {
-          for (const [athleteKey, entry] of distMap) {
-            const athleteTeams = distTeams.get(athleteKey);
-            if (!athleteTeams || athleteTeams.size === 0) continue;
-            let bestNormKey = "";
-            let bestTotal = 0;
-            for (const [normKey, rawMap] of athleteTeams) {
-              const total = Array.from(rawMap.values()).reduce((s, n) => s + n, 0);
-              if (total > bestTotal) { bestTotal = total; bestNormKey = normKey; }
-            }
-            entry.team = canonicalTeam(athleteTeams.get(bestNormKey)!);
-          }
-        }
-        const sorted = Array.from(distMap.values())
-          .sort((a, b) => b.totalPoints - a.totalPoints || a.bestPos - b.bestPos);
-        ranking[year][dist][gender] = sorted.map((entry, i) => ({
-          ...entry,
-          rank: i + 1,
-          results: entry.results.sort((a, b) =>
-            new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
-          ),
-        }));
-      }
-    }
-  }
-
-  return ranking;
-}
-
-// ── Team ranking builder ──────────────────────────────────────────────────────
-
-const INDIVIDUAL_TEAM_KEYS = new Set(["individual", "independente", ""]);
-
-function buildTeamRanking(events: StoredEvent[]): TeamRanking {
-  // year → distance → teamKey → accumulated entry
-  type AccTeam = {
-    teamKey: string;
-    // raw name occurrences for canonical display
-    nameOcc: Map<string, number>;
-    totalPoints: number;
-    eventsScored: number;
-    bestRank: number;
-    results: TeamEntry["results"];
-  };
-  const acc: Record<string, Record<string, Map<string, AccTeam>>> = {};
-
-  for (const event of events.filter((e) => e.hasResults)) {
-    const stored = readJson<StoredEventResults>(`${event.id}_results.json`);
-    if (!stored) continue;
-
-    const yearKey = String(event.year);
-    if (!acc[yearKey]) acc[yearKey] = {};
-
-    for (const dist of stored.distances) {
-      const distKey = normalizeDistance(dist.name);
-      if (!acc[yearKey][distKey]) acc[yearKey][distKey] = new Map();
-      const distMap = acc[yearKey][distKey];
-
-      // Group finishers by normalized team
-      const teamAthletes = new Map<string, Array<{ name: string; pos: number; rawTeam: string }>>();
-      for (const r of dist.results) {
-        if (r.dnf || r.dns || r.pos < 1 || !r.team) continue;
-        const tk = teamNormalKey(r.team);
-        if (INDIVIDUAL_TEAM_KEYS.has(tk)) continue;
-        if (!teamAthletes.has(tk)) teamAthletes.set(tk, []);
-        teamAthletes.get(tk)!.push({ name: r.name, pos: r.pos, rawTeam: fixRawTeamName(r.team) });
-      }
-
-      // Total teams present (for coefficient) — all with ≥1 finisher
-      const totalTeams = teamAthletes.size;
-      const coeff = teamCoefficient(totalTeams);
-
-      // Eligible teams: ≥3 athletes — rank them by sum of top-3 positions
-      type EligibleTeam = {
-        tk: string;
-        rawTeam: string;
-        combinedScore: number;
-        bestPos: number;
-        top3: Array<{ name: string; pos: number }>;
-      };
-      const eligible: EligibleTeam[] = [];
-
-      for (const [tk, athletes] of teamAthletes) {
-        if (athletes.length < 3) continue;
-        const sorted = [...athletes].sort((a, b) => a.pos - b.pos);
-        const top3 = sorted.slice(0, 3);
-        const combinedScore = top3.reduce((s, a) => s + a.pos, 0);
-        const bestPos = top3[0]!.pos;
-        // most common raw team name in top3 athletes
-        const rawTeam = sorted[0]!.rawTeam;
-        eligible.push({ tk, rawTeam, combinedScore, bestPos, top3 });
-      }
-
-      // Sort eligible: lower combinedScore is better; tie-break by best individual pos
-      eligible.sort((a, b) =>
-        a.combinedScore - b.combinedScore || a.bestPos - b.bestPos
-      );
-
-      const eligibleTeams = eligible.length;
-
-      // Award points to top 10 eligible teams
-      eligible.slice(0, 10).forEach((et, i) => {
-        const teamRank = i + 1;
-        const basePoints = rankToTeamBasePoints(teamRank);
-        const pts = Math.round(basePoints * coeff * 10) / 10;
-
-        if (!distMap.has(et.tk)) {
-          distMap.set(et.tk, {
-            teamKey: et.tk,
-            nameOcc: new Map(),
-            totalPoints: 0,
-            eventsScored: 0,
-            bestRank: teamRank,
-            results: [],
-          });
-        }
-        const entry = distMap.get(et.tk)!;
-        entry.totalPoints = Math.round((entry.totalPoints + pts) * 10) / 10;
-        entry.eventsScored += 1;
-        if (teamRank < entry.bestRank) entry.bestRank = teamRank;
-        // Track raw name occurrence for canonical display
-        entry.nameOcc.set(et.rawTeam, (entry.nameOcc.get(et.rawTeam) ?? 0) + 1);
-
-        entry.results.push({
-          eventId: event.id,
-          eventName: event.name,
-          eventDate: event.date,
-          totalTeams,
-          eligibleTeams,
-          coefficient: coeff,
-          teamRank,
-          basePoints,
-          points: pts,
-          combinedScore: et.combinedScore,
-          athletes: et.top3.map((a) => ({ name: a.name, pos: a.pos })),
-        });
-      });
-    }
-  }
-
-  // Resolve canonical team name and build sorted output
-  const ranking: TeamRanking = {};
-  for (const [year, distances] of Object.entries(acc)) {
-    ranking[year] = {};
-    for (const [dist, distMap] of Object.entries(distances)) {
-      const sorted = Array.from(distMap.values())
-        .sort((a, b) => b.totalPoints - a.totalPoints || a.bestRank - b.bestRank);
-      ranking[year][dist] = sorted.map((entry, i) => ({
-        rank: i + 1,
-        team: canonicalTeam(entry.nameOcc),
-        totalPoints: entry.totalPoints,
-        eventsScored: entry.eventsScored,
-        bestRank: entry.bestRank,
-        results: entry.results.sort(
-          (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
-        ),
-      }));
-    }
-  }
-
-  return ranking;
-}
+const loader = (id: number) => readJson<StoredEventResults>(`${id}_results.json`);
 
 // ── Participants-only scrape ──────────────────────────────────────────────────
 
@@ -1089,6 +502,7 @@ async function scrapeParticipants() {
   }
 
   writeJson("events.json", scraped);
+  writeJson("team_aliases.json", TEAM_ALIASES);
   console.log(`\n✓ events.json — ${scraped.length} events updated`);
   console.log("\n✅ Done.");
 }
@@ -1170,6 +584,7 @@ async function main() {
 
   // 4. Write events manifest
   writeJson("events.json", scraped);
+  writeJson("team_aliases.json", TEAM_ALIASES);
   const withResults = scraped.filter((e) => e.hasResults).length;
   console.log(
     `\n✓ events.json — ${scraped.length} events, ${withResults} with results`
@@ -1177,10 +592,18 @@ async function main() {
 
   // 5. Build and write athletes index
   console.log("🔨 Building athletes index…");
-  const athletesIndex = buildAthletesIndex(scraped);
+  const { index: athletesIndex, fuzzyAliases } = buildAthletesIndex(scraped, loader);
 
   // Apply manual merges (must happen before writing files and before aggregate ranking)
-  const { redirects, keyAliases } = applyAthleteMerges(athletesIndex);
+  const { keyAliases } = applyAthleteMerges(athletesIndex, MERGE_RULES);
+  if (MERGE_RULES.length > 0)
+    console.log(`  ✓ applied ${keyAliases.size} athlete merge(s)`);
+
+  // Merge fuzzy aliases (from auto dedup) into keyAliases so the aggregate
+  // ranking uses canonical slugs for entries that were merged in the index.
+  for (const [alias, canonical] of fuzzyAliases) {
+    if (!keyAliases.has(alias)) keyAliases.set(alias, canonical);
+  }
 
   const athletesArray = Array.from(athletesIndex.values()).sort((a, b) =>
     a.nameLower.localeCompare(b.nameLower)
@@ -1207,14 +630,6 @@ async function main() {
   fs.mkdirSync(athleteDir, { recursive: true });
   for (const a of athletesIndex.values()) {
     fs.writeFileSync(path.join(athleteDir, `${a.slug}.json`), JSON.stringify(a), "utf-8");
-  }
-  // Write redirect stubs for merged aliases so old bookmarked URLs still resolve
-  for (const [aliasSlug, canonicalSlug] of redirects) {
-    fs.writeFileSync(
-      path.join(athleteDir, `${aliasSlug}.json`),
-      JSON.stringify({ redirectTo: canonicalSlug }),
-      "utf-8"
-    );
   }
 
   // Write name-only slug files so clicking an athlete name (without knowing their team)
@@ -1247,11 +662,11 @@ async function main() {
       }), "utf-8");
     }
   }
-  console.log(`✓ athlete/ — ${athletesIndex.size} files + ${redirects.size} redirect(s) + ${disambigCount} disambiguation(s)`);
+  console.log(`✓ athlete/ — ${athletesIndex.size} profiles + ${disambigCount} disambiguation(s)`);
 
   // 6. Build and write aggregate ranking
   console.log("🏆 Building aggregate ranking…");
-  const aggregateRanking = buildAggregateRanking(scraped, keyAliases);
+  const aggregateRanking = buildAggregateRanking(scraped, loader, keyAliases);
   writeJson("aggregate_ranking.json", aggregateRanking);
   for (const [year, distances] of Object.entries(aggregateRanking)) {
     for (const [dist, genders] of Object.entries(distances)) {
@@ -1264,7 +679,7 @@ async function main() {
 
   // 7. Build and write team ranking
   console.log("🏅 Building team ranking…");
-  const teamRanking = buildTeamRanking(scraped);
+  const teamRanking = buildTeamRanking(scraped, loader);
   writeJson("team_ranking.json", teamRanking);
   for (const [year, distances] of Object.entries(teamRanking)) {
     for (const [dist, teams] of Object.entries(distances)) {

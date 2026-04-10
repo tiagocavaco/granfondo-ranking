@@ -161,17 +161,17 @@ export function normalizeTeam(name: string): string {
  * Used when the same club registers under structurally different names
  * (e.g., abbreviated form vs. full name, or reordered sponsor names).
  */
-const TEAM_ALIASES: Record<string, string> = {
-  // "Casa Benfica Almodovar" is the same club as "C.B. Almodôvar / Banco Primus / Swick"
-  "casa benfica almodovar": "cb almodovar banco primus swick",
-  "casa benfica almodovar banco primus swick": "cb almodovar banco primus swick",
-  "casa benfica almodovar bancoprimus swick": "cb almodovar banco primus swick",
-  "swick casa benfica almodovar": "cb almodovar banco primus swick",
-  // "Gruppetto Cycleclub" vs "Gruppetto Cycle Club"
-  "gruppetto cycleclub": "gruppetto cycle club",
-  // "Ufcbarqueiros" (missing space) vs "U.F.C. Barqueiros"
-  "ufcbarqueiros": "ufc barqueiros",
-};
+/**
+ * Manual aliases for team names that cannot be resolved automatically.
+ * Source of truth: scraper/team-aliases.json (also published to frontend/public/data/).
+ * Only needed for semantically different names that refer to the same club
+ * (e.g. abbreviated form vs. full name, or reordered sponsor names).
+ * Space/concatenation variants ("dblbike" vs "dbl bike") are handled
+ * automatically by the compact equality and compact-prefix checks in
+ * teamKeySimilarity — no alias needed for those.
+ */
+import TEAM_ALIASES_JSON from "../team-aliases.json" assert { type: "json" };
+const TEAM_ALIASES: Record<string, string> = TEAM_ALIASES_JSON;
 
 /**
  * Returns the canonical normalized key for a team name, applying fuzzy
@@ -196,6 +196,15 @@ export function teamNormalKey(name: string): string {
  */
 export function teamKeySimilarity(a: string, b: string): number {
   if (a === b) return 1;
+  const ca = a.replace(/\s+/g, "");
+  const cb = b.replace(/\s+/g, "");
+  // Compact equality: "dbl bike" vs "dblbike" — same chars, just spaced differently
+  if (ca === cb && ca.length >= 4) return 1;
+  // Compact prefix: one compacted form is a prefix of the other with ≥60% coverage.
+  // Handles "zossvog" (compact "zossvog") vs "zoss vog cacb" (compact "zossvogcacb"):
+  // "zossvog" is a 7/11 = 64% prefix of "zossvogcacb" → same team, just partial name.
+  const [sc, lc] = ca.length <= cb.length ? [ca, cb] : [cb, ca];
+  if (sc.length >= 4 && lc.startsWith(sc) && sc.length / lc.length >= 0.6) return 1;
   const sigTok = (s: string) => s.split(" ").filter((t) => t.length >= 3);
   const tokA = sigTok(a);
   const tokB = sigTok(b);
@@ -270,4 +279,103 @@ export function getYear(isoDate: string): number {
 
 export function isPast(isoDate: string): boolean {
   return new Date(isoDate + "T00:00:00") < new Date();
+}
+
+// ── Category normalization ─────────────────────────────────────────────────────
+
+/**
+ * Broad category tier for dedup safety.
+ *
+ * 'elite'        — Elite, Sub23, Junior, Cadete (age < ~30)
+ * 'masters_a'    — Masters A, MASTER 30/35, M 30-39 (age 30–39)
+ * 'masters_b_plus' — Masters B/C/D/E, MASTER 40+ (age 40+)
+ * 'open_1934'    — "M 19-34" / "F 19-34" bands that span Elite + Masters A;
+ *                  compatible with both 'elite' and 'masters_a', conflicts only with 'masters_b_plus'
+ * 'unknown'      — E-Bike, Para, unrecognised — no conflict raised
+ */
+export type CategoryTier = 'elite' | 'masters_a' | 'masters_b_plus' | 'open_1934' | 'unknown';
+
+export function categoryTier(cat: string): CategoryTier {
+  const s = cat.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+  // Masters B, C, D, E (any gender)
+  if (/masters?[bcde]/.test(s)) return 'masters_b_plus';
+  // MASTER 40 / 45 / 50 / … / 80
+  if (/master[4-9]/.test(s)) return 'masters_b_plus';
+  // Age-range bands: "M 40-44" → "m4044", "F 55-59" → "f5559"
+  if (/^[mf][4-9]\d/.test(s)) return 'masters_b_plus';
+
+  // Masters A (30–39) and MASTER 30/35
+  if (/masters?a/.test(s) || /master[23]/.test(s)) return 'masters_a';
+  // "M 35-39" is unambiguously Masters A range
+  if (/^[mf]35/.test(s) || /^[mf]3[6-9]/.test(s)) return 'masters_a';
+
+  // Elite / open adult
+  if (/elite/.test(s)) return 'elite';
+  // Sub23, Junior, Cadete
+  if (/sub23|junior|juniore|cadete/.test(s)) return 'elite';
+  if (/^[mf]?jun$/.test(s) || /^mjun/.test(s) || /^fjun/.test(s)) return 'elite';
+
+  // "M 19-34" / "F 19-34" — spans Elite + Masters A
+  if (/^[mf]19\d\d/.test(s) || s === 'm1934' || s === 'f1934') return 'open_1934';
+
+  return 'unknown';
+}
+
+/**
+ * Returns true if two category tiers are incompatible (cannot be the same athlete in the same year).
+ * 'unknown' never conflicts. 'open_1934' only conflicts with 'masters_b_plus'.
+ */
+export function tierConflict(a: CategoryTier, b: CategoryTier): boolean {
+  if (a === 'unknown' || b === 'unknown') return false;
+  if (a === b) return false;
+  if (a === 'open_1934' || b === 'open_1934') {
+    const other = a === 'open_1934' ? b : a;
+    return other === 'masters_b_plus';
+  }
+  return true;
+}
+
+/**
+ * Canonical display category: normalise the many naming variations used by
+ * different Portuguese event organisers into a consistent label.
+ *
+ * Age-band events (MASTER 40, M 40-44) are mapped to the standard letter group.
+ * Gender is preserved where present (e.g. "Masters B F").
+ */
+export function normalizeCategory(cat: string): string {
+  const s = cat.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const isFemale = /\bf\b|fem|fem$|^f/.test(cat.toLowerCase());
+  const suffix = isFemale ? ' F' : '';
+
+  // Juniors / Sub23
+  if (/sub23/.test(s)) return `Sub 23${suffix}`;
+  if (/junior|juniore|cadete/.test(s) || /^[mf]?jun$/.test(s)) return `Junior${suffix}`;
+
+  // Elite
+  if (/elite/.test(s)) return `Elite${suffix}`;
+  // Age-band "19-34" spans Elite + Masters A — keep as-is, don't collapse to Elite
+  if (s === 'm1934' || s === 'f1934' || /^[mf]19\d\d/.test(s)) return `Open 19-34${suffix}`;
+
+  // Masters A (30–39) — covers MASTER 30, MASTER 35, M 35-39, Masters A
+  if (/masters?a/.test(s) || /master[23]/.test(s) || /^[mf]3[0-9]/.test(s)) return `Masters A${suffix}`;
+
+  // Masters B (40–49) — MASTER 40, MASTER 45, M 40-44, M 45-49, Masters B
+  if (/masters?b/.test(s) || /master4/.test(s) || /^[mf]4/.test(s)) return `Masters B${suffix}`;
+
+  // Masters C (50–59)
+  if (/masters?c/.test(s) || /master5/.test(s) || /^[mf]5/.test(s)) return `Masters C${suffix}`;
+
+  // Masters D (60–64)
+  if (/masters?d/.test(s) || /master6/.test(s) || /^[mf]6/.test(s)) return `Masters D${suffix}`;
+
+  // Masters E (65+)
+  if (/masters?e/.test(s) || /master[78]/.test(s) || /^[mf]7/.test(s) || /^[mf]8/.test(s)) return `Masters E${suffix}`;
+
+  // Specials
+  if (/ebike|e.?bike/.test(s)) return 'E-Bike';
+  if (/para/.test(s)) return 'Paracycling';
+
+  // Fall back to trimmed original
+  return cat.trim();
 }

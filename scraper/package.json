@@ -6,11 +6,15 @@
   "scripts": {
     "scrape": "tsx src/index.ts",
     "scrape:force": "tsx src/index.ts --force",
-    "scrape:participants": "tsx src/index.ts --participants"
+    "scrape:participants": "tsx src/index.ts --participants",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
+    "@vitest/coverage-v8": "^4.1.4",
     "tsx": "^4.8.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^4.1.4"
   }
 }
