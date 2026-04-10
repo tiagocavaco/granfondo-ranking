@@ -622,6 +622,17 @@ async function main() {
 
   saveIdStore(updatedIdStore);
 
+  // Build alias → canonical key map so merged athletes accumulate correctly in rankings.
+  // Any key in updatedIdStore that is NOT in athletesIndex but whose ID matches a
+  // canonical entry is an alias.
+  const idToCanonicalKey = new Map<number, string>();
+  for (const [key, entry] of athletesIndex) idToCanonicalKey.set(entry.id, key);
+  const keyToCanonical = new Map<string, string>();
+  for (const [key, id] of updatedIdStore) {
+    const canon = idToCanonicalKey.get(id);
+    if (canon && canon !== key) keyToCanonical.set(key, canon);
+  }
+
   // Inject athleteId into every result row in every cached result file
   console.log("🔑 Injecting athlete IDs into result files…");
   let injectedFiles = 0;
@@ -633,7 +644,9 @@ async function main() {
     for (const dist of stored.distances) {
       for (const r of dist.results) {
         const key = athleteKey(normalizeName(r.name), r.team);
-        const id = athletesIndex.get(key)?.id ?? 0;
+        // athletesIndex only holds canonical keys after merging; fall back to
+        // updatedIdStore which retains alias-key → canonical-ID mappings.
+        const id = athletesIndex.get(key)?.id ?? updatedIdStore.get(key) ?? 0;
         if (r.athleteId !== id) { r.athleteId = id; changed = true; }
       }
     }
@@ -664,17 +677,18 @@ async function main() {
   }
 
   // Write name-to-id lookup: athleteKey (nameLower|teamKey) → id
+  // Include both canonical keys (from athletesIndex) and alias keys (from updatedIdStore)
+  // so that merged athletes can be found regardless of which team they raced for.
   const nameToId: Record<string, number> = {};
-  for (const [key, entry] of athletesIndex) {
-    nameToId[key] = entry.id;
-  }
+  for (const [key, id] of updatedIdStore) nameToId[key] = id;
+  for (const [key, entry] of athletesIndex) nameToId[key] = entry.id; // canonical takes priority
   writeJson("name-to-id.json", nameToId);
   console.log(`✓ athlete/ — ${athletesIndex.size} profiles`);
   console.log(`✓ name-to-id.json — ${Object.keys(nameToId).length} entries`);
 
   // 6. Build and write aggregate ranking
   console.log("🏆 Building aggregate ranking…");
-  const aggregateRanking = buildAggregateRanking(scraped, loader, athletesIndex);
+  const aggregateRanking = buildAggregateRanking(scraped, loader, athletesIndex, keyToCanonical);
   writeJson("aggregate_ranking.json", aggregateRanking);
   for (const [year, distances] of Object.entries(aggregateRanking)) {
     for (const [dist, genders] of Object.entries(distances)) {
@@ -687,7 +701,7 @@ async function main() {
 
   // 7. Build and write team ranking
   console.log("🏅 Building team ranking…");
-  const teamRanking = buildTeamRanking(scraped, loader, athletesIndex);
+  const teamRanking = buildTeamRanking(scraped, loader, athletesIndex, keyToCanonical);
   writeJson("team_ranking.json", teamRanking);
   for (const [year, distances] of Object.entries(teamRanking)) {
     for (const [dist, teams] of Object.entries(distances)) {

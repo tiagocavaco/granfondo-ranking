@@ -3,7 +3,7 @@
   "eventName": "Figueira Champions Day 2025",
   "eventDate": "2025-02-15",
   "eventYear": 2025,
-  "scrapedAt": "2026-04-10T22:16:23.684Z",
+  "scrapedAt": "2026-04-10T22:31:36.383Z",
   "distances": [
     {
       "id": "1",
@@ -26,7 +26,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -46,7 +46,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -66,7 +66,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -86,7 +86,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -106,7 +106,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -126,7 +126,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -146,7 +146,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -166,14 +166,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 9,
           "genderPos": 9,
-          "athleteId": 0,
+          "athleteId": 6296,
           "bib": "988",
           "name": "Ricardo Silva",
           "nameLower": "ricardo silva",
@@ -186,7 +186,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -206,7 +206,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -226,7 +226,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -246,7 +246,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -266,7 +266,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -286,7 +286,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -306,7 +306,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -326,7 +326,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -346,7 +346,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -366,7 +366,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -386,7 +386,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -406,14 +406,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 21,
           "genderPos": 21,
-          "athleteId": 0,
+          "athleteId": 20,
           "bib": "161",
           "name": "Augusto Silva",
           "nameLower": "augusto silva",
@@ -426,7 +426,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -446,7 +446,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -466,7 +466,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -486,7 +486,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -506,7 +506,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -526,7 +526,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -546,7 +546,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -566,7 +566,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -586,7 +586,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -606,7 +606,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -626,7 +626,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -646,7 +646,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -666,7 +666,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -686,7 +686,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -706,7 +706,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -726,7 +726,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -746,7 +746,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -766,7 +766,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -786,7 +786,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -806,7 +806,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -826,7 +826,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -846,7 +846,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -866,7 +866,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -886,7 +886,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -906,7 +906,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -926,7 +926,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -946,14 +946,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 48,
           "genderPos": 48,
-          "athleteId": 13035,
+          "athleteId": 9491,
           "bib": "175",
           "name": "Jorge AlemãO",
           "nameLower": "jorge alemao",
@@ -966,14 +966,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 49,
           "genderPos": 49,
-          "athleteId": 13036,
+          "athleteId": 1164,
           "bib": "1106",
           "name": "Helder Rocha",
           "nameLower": "helder rocha",
@@ -986,7 +986,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1006,7 +1006,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1026,7 +1026,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1046,7 +1046,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1066,7 +1066,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1086,7 +1086,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1106,7 +1106,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1126,7 +1126,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1146,7 +1146,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1166,7 +1166,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1186,7 +1186,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1206,14 +1206,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 61,
           "genderPos": 61,
-          "athleteId": 13042,
+          "athleteId": 5717,
           "bib": "159",
           "name": "Aires Braga",
           "nameLower": "aires braga",
@@ -1226,7 +1226,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1246,7 +1246,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1266,14 +1266,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 64,
           "genderPos": 64,
-          "athleteId": 13044,
+          "athleteId": 1206,
           "bib": "1133",
           "name": "Armando Taipa",
           "nameLower": "armando taipa",
@@ -1286,7 +1286,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1306,14 +1306,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 66,
           "genderPos": 66,
-          "athleteId": 0,
+          "athleteId": 442,
           "bib": "450",
           "name": "Alexandre Silva",
           "nameLower": "alexandre silva",
@@ -1326,7 +1326,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1346,7 +1346,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1366,14 +1366,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 69,
           "genderPos": 69,
-          "athleteId": 13045,
+          "athleteId": 3249,
           "bib": "204",
           "name": "FáBio AraúJo",
           "nameLower": "fabio araujo",
@@ -1386,14 +1386,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 70,
           "genderPos": 70,
-          "athleteId": 0,
+          "athleteId": 783,
           "bib": "184",
           "name": "José MarquêS",
           "nameLower": "jose marques",
@@ -1406,14 +1406,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 71,
           "genderPos": 71,
-          "athleteId": 13046,
+          "athleteId": 1202,
           "bib": "1052",
           "name": "Tiago Salgado",
           "nameLower": "tiago salgado",
@@ -1426,7 +1426,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1446,14 +1446,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 73,
           "genderPos": 73,
-          "athleteId": 13048,
+          "athleteId": 1607,
           "bib": "1128",
           "name": "Nuno Montanha",
           "nameLower": "nuno montanha",
@@ -1466,7 +1466,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1486,7 +1486,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1506,7 +1506,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1526,7 +1526,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1546,7 +1546,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1566,7 +1566,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1586,7 +1586,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1606,7 +1606,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1626,7 +1626,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1646,7 +1646,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1666,7 +1666,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1686,7 +1686,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1706,7 +1706,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1726,7 +1726,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1746,7 +1746,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1766,7 +1766,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1786,7 +1786,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1806,7 +1806,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1826,7 +1826,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1846,7 +1846,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1866,7 +1866,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1886,7 +1886,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1906,7 +1906,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1926,7 +1926,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1946,7 +1946,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1966,7 +1966,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1986,7 +1986,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2006,7 +2006,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2026,7 +2026,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2046,7 +2046,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2066,7 +2066,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2086,7 +2086,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2106,7 +2106,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2126,7 +2126,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2146,7 +2146,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2166,7 +2166,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2186,7 +2186,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2206,7 +2206,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2226,14 +2226,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 112,
           "genderPos": 112,
-          "athleteId": 13063,
+          "athleteId": 106,
           "bib": "477",
           "name": "Alfredo Ribeiro",
           "nameLower": "alfredo ribeiro",
@@ -2246,7 +2246,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2266,7 +2266,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2286,7 +2286,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2306,7 +2306,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2326,7 +2326,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2346,7 +2346,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2366,7 +2366,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2386,14 +2386,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 120,
           "genderPos": 120,
-          "athleteId": 0,
+          "athleteId": 934,
           "bib": "451",
           "name": "André Ferreira",
           "nameLower": "andre ferreira",
@@ -2406,7 +2406,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2426,7 +2426,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2446,7 +2446,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2466,7 +2466,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2486,7 +2486,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2506,7 +2506,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2526,7 +2526,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2546,7 +2546,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2566,7 +2566,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2586,7 +2586,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2606,7 +2606,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2626,7 +2626,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2646,7 +2646,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2666,7 +2666,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2686,7 +2686,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2706,7 +2706,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2726,7 +2726,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2746,7 +2746,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2766,7 +2766,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2786,7 +2786,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2806,7 +2806,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2826,7 +2826,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2846,7 +2846,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2866,7 +2866,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2886,14 +2886,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 145,
           "genderPos": 145,
-          "athleteId": 0,
+          "athleteId": 4634,
           "bib": "844",
           "name": "JoãO Lobo",
           "nameLower": "joao lobo",
@@ -2906,7 +2906,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2926,7 +2926,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2946,7 +2946,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2966,7 +2966,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2986,7 +2986,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3006,14 +3006,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 151,
           "genderPos": 151,
-          "athleteId": 13079,
+          "athleteId": 7191,
           "bib": "372",
           "name": "Vitor FéLix",
           "nameLower": "vitor felix",
@@ -3026,7 +3026,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3046,7 +3046,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3066,7 +3066,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3086,14 +3086,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 155,
           "genderPos": 155,
-          "athleteId": 13081,
+          "athleteId": 4884,
           "bib": "1131",
           "name": "Fabio Guido",
           "nameLower": "fabio guido",
@@ -3106,7 +3106,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3126,7 +3126,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3146,7 +3146,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3166,7 +3166,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3186,7 +3186,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3206,7 +3206,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3226,7 +3226,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3246,7 +3246,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3266,14 +3266,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 164,
           "genderPos": 163,
-          "athleteId": 13085,
+          "athleteId": 7687,
           "bib": "371",
           "name": "JoãO Campos",
           "nameLower": "joao campos",
@@ -3286,7 +3286,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3306,7 +3306,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3326,7 +3326,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3346,7 +3346,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3366,7 +3366,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3386,7 +3386,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3406,7 +3406,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3426,7 +3426,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3446,7 +3446,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3466,7 +3466,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3486,14 +3486,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 175,
           "genderPos": 174,
-          "athleteId": 13091,
+          "athleteId": 7971,
           "bib": "713",
           "name": "Gil Pires",
           "nameLower": "gil pires",
@@ -3506,7 +3506,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3526,7 +3526,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3546,7 +3546,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3566,7 +3566,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3586,7 +3586,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3606,7 +3606,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3626,7 +3626,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3646,7 +3646,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3666,7 +3666,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3686,7 +3686,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3706,7 +3706,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3726,7 +3726,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3746,7 +3746,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3766,7 +3766,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3786,7 +3786,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3806,7 +3806,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3826,7 +3826,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3846,7 +3846,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3866,7 +3866,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3886,7 +3886,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3906,7 +3906,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3926,7 +3926,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3946,7 +3946,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3966,7 +3966,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3986,7 +3986,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4006,7 +4006,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4026,7 +4026,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4046,7 +4046,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4066,7 +4066,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4086,7 +4086,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4106,7 +4106,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4126,7 +4126,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4146,7 +4146,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4166,7 +4166,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4186,7 +4186,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4206,7 +4206,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4226,7 +4226,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4246,7 +4246,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4266,7 +4266,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4286,7 +4286,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4306,7 +4306,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4326,7 +4326,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4346,7 +4346,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4366,7 +4366,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4386,7 +4386,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4406,7 +4406,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4426,7 +4426,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4446,14 +4446,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 223,
           "genderPos": 220,
-          "athleteId": 13113,
+          "athleteId": 3264,
           "bib": "530",
           "name": "áNgel Luis",
           "nameLower": "angel luis",
@@ -4466,7 +4466,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4486,7 +4486,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4506,7 +4506,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4526,7 +4526,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4546,7 +4546,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4566,7 +4566,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4586,7 +4586,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4606,7 +4606,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4626,7 +4626,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4646,7 +4646,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4666,7 +4666,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4686,7 +4686,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4706,7 +4706,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4726,7 +4726,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4746,7 +4746,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4766,7 +4766,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4786,7 +4786,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4806,7 +4806,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4826,7 +4826,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4846,7 +4846,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4866,7 +4866,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4886,7 +4886,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4906,7 +4906,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4926,7 +4926,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4946,7 +4946,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4966,7 +4966,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4986,7 +4986,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5006,7 +5006,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5026,7 +5026,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5046,7 +5046,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5066,7 +5066,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5086,7 +5086,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5106,7 +5106,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5126,7 +5126,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5146,7 +5146,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5166,7 +5166,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5186,7 +5186,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5206,7 +5206,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5226,7 +5226,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5246,7 +5246,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5266,7 +5266,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5286,7 +5286,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5306,7 +5306,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5326,7 +5326,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5346,7 +5346,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5366,7 +5366,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5386,7 +5386,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5406,7 +5406,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5426,14 +5426,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 272,
           "genderPos": 267,
-          "athleteId": 0,
+          "athleteId": 7493,
           "bib": "910",
           "name": "Luis Santos",
           "nameLower": "luis santos",
@@ -5446,7 +5446,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5466,7 +5466,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5486,7 +5486,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5506,7 +5506,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5526,7 +5526,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5546,7 +5546,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5566,7 +5566,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5586,7 +5586,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5606,7 +5606,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5626,7 +5626,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5646,7 +5646,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5666,7 +5666,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5686,7 +5686,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5706,7 +5706,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5726,7 +5726,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5746,7 +5746,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5766,7 +5766,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5786,14 +5786,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 290,
           "genderPos": 284,
-          "athleteId": 13149,
+          "athleteId": 3836,
           "bib": "751",
           "name": "GonçAlo Maia",
           "nameLower": "goncalo maia",
@@ -5806,7 +5806,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5826,7 +5826,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5846,7 +5846,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5866,7 +5866,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5886,7 +5886,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5906,7 +5906,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5926,14 +5926,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 297,
           "genderPos": 291,
-          "athleteId": 13155,
+          "athleteId": 3357,
           "bib": "1068",
           "name": "FáBio Alexandre",
           "nameLower": "fabio alexandre",
@@ -5946,7 +5946,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5966,7 +5966,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5986,7 +5986,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6006,7 +6006,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6026,14 +6026,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 302,
           "genderPos": 296,
-          "athleteId": 13160,
+          "athleteId": 4294,
           "bib": "902",
           "name": "Telmo Rodrigues",
           "nameLower": "telmo rodrigues",
@@ -6046,7 +6046,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6066,7 +6066,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6086,7 +6086,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6106,7 +6106,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6126,7 +6126,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6146,7 +6146,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6166,7 +6166,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6186,14 +6186,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 310,
           "genderPos": 7,
-          "athleteId": 13165,
+          "athleteId": 12224,
           "bib": "921",
           "name": "Rosa Rodrigues",
           "nameLower": "rosa rodrigues",
@@ -6206,7 +6206,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6226,7 +6226,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6246,7 +6246,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6266,7 +6266,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6286,7 +6286,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6306,7 +6306,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6326,7 +6326,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6346,7 +6346,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6366,7 +6366,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6386,7 +6386,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6406,14 +6406,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 321,
           "genderPos": 314,
-          "athleteId": 792,
+          "athleteId": 9881,
           "bib": "381",
           "name": "SéRgio Fonseca",
           "nameLower": "sergio fonseca",
@@ -6426,7 +6426,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6446,7 +6446,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6466,7 +6466,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6486,14 +6486,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 325,
           "genderPos": 318,
-          "athleteId": 13173,
+          "athleteId": 11829,
           "bib": "291",
           "name": "AntóNio VigáRio",
           "nameLower": "antonio vigario",
@@ -6506,7 +6506,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6526,7 +6526,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6546,7 +6546,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6566,7 +6566,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         }
@@ -6593,7 +6593,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6613,14 +6613,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 3,
           "genderPos": 3,
-          "athleteId": 0,
+          "athleteId": 6118,
           "bib": "1006",
           "name": "Fabio Abreu",
           "nameLower": "fabio abreu",
@@ -6633,7 +6633,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6653,7 +6653,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6673,7 +6673,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6693,7 +6693,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6713,7 +6713,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6733,7 +6733,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6753,7 +6753,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6773,7 +6773,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6793,7 +6793,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6813,7 +6813,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6833,7 +6833,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6853,7 +6853,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6873,7 +6873,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6893,7 +6893,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6913,7 +6913,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6933,7 +6933,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6953,7 +6953,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6973,7 +6973,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6993,7 +6993,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7013,7 +7013,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7033,7 +7033,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7053,7 +7053,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7073,7 +7073,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7093,7 +7093,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7113,14 +7113,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 28,
           "genderPos": 28,
-          "athleteId": 0,
+          "athleteId": 19,
           "bib": "869",
           "name": "Igor Resende",
           "nameLower": "igor resende",
@@ -7133,7 +7133,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7153,7 +7153,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7173,7 +7173,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7193,7 +7193,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7213,7 +7213,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7233,7 +7233,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7253,14 +7253,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 35,
           "genderPos": 35,
-          "athleteId": 13187,
+          "athleteId": 6119,
           "bib": "776",
           "name": "Rui Rodrigues",
           "nameLower": "rui rodrigues",
@@ -7273,7 +7273,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7293,7 +7293,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7313,7 +7313,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7333,7 +7333,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7353,7 +7353,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7373,7 +7373,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7393,7 +7393,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7413,7 +7413,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7433,7 +7433,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7453,7 +7453,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7473,7 +7473,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7493,7 +7493,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7513,7 +7513,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7533,7 +7533,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7553,7 +7553,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7573,14 +7573,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 51,
           "genderPos": 51,
-          "athleteId": 13198,
+          "athleteId": 2889,
           "bib": "586",
           "name": "Hugo Lopes",
           "nameLower": "hugo lopes",
@@ -7593,14 +7593,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 52,
           "genderPos": 52,
-          "athleteId": 3419,
+          "athleteId": 7157,
           "bib": "379",
           "name": "Pedro Tavares",
           "nameLower": "pedro tavares",
@@ -7613,7 +7613,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7633,7 +7633,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7653,7 +7653,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7673,7 +7673,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7693,7 +7693,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7713,7 +7713,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7733,7 +7733,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7753,7 +7753,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7773,7 +7773,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7793,7 +7793,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7813,7 +7813,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7833,7 +7833,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7853,14 +7853,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 65,
           "genderPos": 65,
-          "athleteId": 0,
+          "athleteId": 357,
           "bib": "519",
           "name": "Bruno Azevedo",
           "nameLower": "bruno azevedo",
@@ -7873,7 +7873,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7893,7 +7893,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7913,14 +7913,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 68,
           "genderPos": 68,
-          "athleteId": 0,
+          "athleteId": 1648,
           "bib": "520",
           "name": "AntóNio Guedes",
           "nameLower": "antonio guedes",
@@ -7933,7 +7933,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7953,7 +7953,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -7973,14 +7973,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 71,
           "genderPos": 71,
-          "athleteId": 0,
+          "athleteId": 1741,
           "bib": "759",
           "name": "Rui Vieira",
           "nameLower": "rui vieira",
@@ -7993,7 +7993,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8013,7 +8013,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8033,7 +8033,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8053,7 +8053,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8073,7 +8073,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8093,7 +8093,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8113,7 +8113,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8133,7 +8133,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8153,7 +8153,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8173,7 +8173,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8193,7 +8193,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8213,7 +8213,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8233,7 +8233,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8253,7 +8253,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8273,7 +8273,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8293,7 +8293,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8313,7 +8313,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8333,7 +8333,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8353,7 +8353,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8373,7 +8373,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8393,7 +8393,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8413,7 +8413,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8433,7 +8433,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8453,7 +8453,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8473,7 +8473,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8493,7 +8493,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8513,7 +8513,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8533,7 +8533,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8553,7 +8553,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8573,7 +8573,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8593,7 +8593,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8613,7 +8613,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8633,7 +8633,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8653,7 +8653,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8673,7 +8673,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8693,14 +8693,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 107,
           "genderPos": 2,
-          "athleteId": 13229,
+          "athleteId": 2883,
           "bib": "820",
           "name": "Raquel Ribeiro",
           "nameLower": "raquel ribeiro",
@@ -8713,7 +8713,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8733,7 +8733,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8753,7 +8753,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8773,7 +8773,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8793,7 +8793,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8813,7 +8813,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8833,7 +8833,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8853,7 +8853,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8873,7 +8873,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8893,7 +8893,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8913,7 +8913,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8933,7 +8933,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8953,7 +8953,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8973,7 +8973,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -8993,14 +8993,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 122,
           "genderPos": 119,
-          "athleteId": 13238,
+          "athleteId": 4040,
           "bib": "1197",
           "name": "Tiago Abrantes",
           "nameLower": "tiago abrantes",
@@ -9013,7 +9013,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9033,7 +9033,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9053,7 +9053,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9073,14 +9073,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 126,
           "genderPos": 123,
-          "athleteId": 13240,
+          "athleteId": 8203,
           "bib": "1129",
           "name": "Paulo Piaca",
           "nameLower": "paulo piaca",
@@ -9093,7 +9093,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9113,7 +9113,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9133,7 +9133,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9153,7 +9153,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9173,7 +9173,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9193,7 +9193,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9213,14 +9213,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 133,
           "genderPos": 130,
-          "athleteId": 0,
+          "athleteId": 3453,
           "bib": "197",
           "name": "Joel Alves",
           "nameLower": "joel alves",
@@ -9233,7 +9233,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9253,7 +9253,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9273,7 +9273,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9293,7 +9293,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9313,7 +9313,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9333,7 +9333,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9353,7 +9353,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9373,7 +9373,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9393,7 +9393,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9413,7 +9413,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9433,7 +9433,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9453,7 +9453,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9473,7 +9473,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9493,7 +9493,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9513,14 +9513,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 148,
           "genderPos": 144,
-          "athleteId": 0,
+          "athleteId": 541,
           "bib": "735",
           "name": "Paulo Rio",
           "nameLower": "paulo rio",
@@ -9533,7 +9533,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9553,7 +9553,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9573,7 +9573,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9593,7 +9593,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9613,7 +9613,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9633,7 +9633,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9653,7 +9653,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9673,7 +9673,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9693,7 +9693,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9713,14 +9713,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 158,
           "genderPos": 154,
-          "athleteId": 13255,
+          "athleteId": 6807,
           "bib": "178",
           "name": "Duarte Chaves",
           "nameLower": "duarte chaves",
@@ -9733,7 +9733,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9753,7 +9753,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9773,7 +9773,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9793,7 +9793,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9813,7 +9813,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9833,7 +9833,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9853,7 +9853,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9873,7 +9873,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9893,7 +9893,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9913,7 +9913,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9933,7 +9933,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9953,7 +9953,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9973,7 +9973,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -9993,7 +9993,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10013,14 +10013,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 173,
           "genderPos": 165,
-          "athleteId": 0,
+          "athleteId": 5282,
           "bib": "272",
           "name": "Pedro Oliveira",
           "nameLower": "pedro oliveira",
@@ -10033,7 +10033,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10053,7 +10053,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10073,7 +10073,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10093,7 +10093,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10113,7 +10113,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10133,7 +10133,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10153,7 +10153,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10173,7 +10173,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10193,7 +10193,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10213,7 +10213,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10233,7 +10233,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10253,7 +10253,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10273,7 +10273,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10293,7 +10293,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10313,7 +10313,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10333,7 +10333,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10353,7 +10353,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10373,7 +10373,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10393,7 +10393,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10413,7 +10413,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10433,7 +10433,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10453,7 +10453,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10473,7 +10473,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10493,7 +10493,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10513,7 +10513,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10533,7 +10533,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10553,7 +10553,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10573,7 +10573,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10593,7 +10593,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10613,7 +10613,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10633,7 +10633,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10653,7 +10653,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10673,7 +10673,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10693,7 +10693,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10713,7 +10713,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10733,7 +10733,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10753,7 +10753,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10773,7 +10773,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10793,7 +10793,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10813,7 +10813,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10833,7 +10833,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10853,7 +10853,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10873,7 +10873,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10893,7 +10893,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10913,7 +10913,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10933,7 +10933,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10953,7 +10953,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10973,7 +10973,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -10993,7 +10993,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11013,7 +11013,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11033,7 +11033,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11053,14 +11053,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 225,
           "genderPos": 213,
-          "athleteId": 0,
+          "athleteId": 211,
           "bib": "1108",
           "name": "Tiago Novo",
           "nameLower": "tiago novo",
@@ -11073,7 +11073,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11093,7 +11093,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11113,7 +11113,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11133,7 +11133,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11153,7 +11153,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11173,7 +11173,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11193,7 +11193,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11213,7 +11213,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11233,7 +11233,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11253,14 +11253,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 235,
           "genderPos": 223,
-          "athleteId": 1579,
+          "athleteId": 11719,
           "bib": "292",
           "name": "Rui Sá",
           "nameLower": "rui sa",
@@ -11273,14 +11273,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 236,
           "genderPos": 224,
-          "athleteId": 3517,
+          "athleteId": 9630,
           "bib": "293",
           "name": "David Silva",
           "nameLower": "david silva",
@@ -11293,14 +11293,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 237,
           "genderPos": 225,
-          "athleteId": 13291,
+          "athleteId": 665,
           "bib": "701",
           "name": "Thomas Zinterl",
           "nameLower": "thomas zinterl",
@@ -11313,7 +11313,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11333,7 +11333,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11353,7 +11353,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11373,7 +11373,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11393,7 +11393,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11413,7 +11413,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11433,7 +11433,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11453,7 +11453,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11473,7 +11473,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11493,7 +11493,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11513,7 +11513,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11533,7 +11533,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11553,7 +11553,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11573,7 +11573,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11593,7 +11593,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11613,7 +11613,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11633,14 +11633,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 254,
           "genderPos": 14,
-          "athleteId": 0,
+          "athleteId": 479,
           "bib": "113",
           "name": "Joana Ferreira",
           "nameLower": "joana ferreira",
@@ -11653,7 +11653,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11673,7 +11673,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11693,7 +11693,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11713,7 +11713,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11733,7 +11733,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11753,7 +11753,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11773,7 +11773,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11793,7 +11793,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11813,7 +11813,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11833,14 +11833,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 264,
           "genderPos": 250,
-          "athleteId": 1407,
+          "athleteId": 9070,
           "bib": "694",
           "name": "SéRgio Ribeiro",
           "nameLower": "sergio ribeiro",
@@ -11853,7 +11853,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11873,7 +11873,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11893,7 +11893,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11913,7 +11913,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11933,7 +11933,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11953,7 +11953,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11973,7 +11973,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -11993,7 +11993,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12013,7 +12013,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12033,7 +12033,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12053,7 +12053,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12073,7 +12073,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12093,7 +12093,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12113,7 +12113,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12133,7 +12133,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12153,7 +12153,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12173,7 +12173,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12193,7 +12193,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12213,7 +12213,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12233,7 +12233,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12253,7 +12253,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12273,7 +12273,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12293,7 +12293,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12313,7 +12313,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12333,7 +12333,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12353,7 +12353,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12373,7 +12373,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12393,7 +12393,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12413,7 +12413,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12433,7 +12433,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12453,7 +12453,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12473,7 +12473,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12493,7 +12493,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12513,7 +12513,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12533,7 +12533,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12553,7 +12553,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12573,7 +12573,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12593,7 +12593,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12613,7 +12613,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12633,7 +12633,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12653,7 +12653,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12673,7 +12673,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12693,7 +12693,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12713,14 +12713,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 308,
           "genderPos": 293,
-          "athleteId": 13326,
+          "athleteId": 6508,
           "bib": "837",
           "name": "Joaquim Tojeiro",
           "nameLower": "joaquim tojeiro",
@@ -12733,7 +12733,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12753,14 +12753,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 310,
           "genderPos": 295,
-          "athleteId": 795,
+          "athleteId": 6943,
           "bib": "157",
           "name": "Pedro Pereira",
           "nameLower": "pedro pereira",
@@ -12773,7 +12773,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12793,7 +12793,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12813,7 +12813,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12833,7 +12833,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12853,7 +12853,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12873,14 +12873,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 316,
           "genderPos": 301,
-          "athleteId": 0,
+          "athleteId": 639,
           "bib": "318",
           "name": "Justino Soares",
           "nameLower": "justino soares",
@@ -12893,7 +12893,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12913,7 +12913,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12933,7 +12933,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12953,14 +12953,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 320,
           "genderPos": 305,
-          "athleteId": 5045,
+          "athleteId": 11617,
           "bib": "314",
           "name": "Carlos Ferreira",
           "nameLower": "carlos ferreira",
@@ -12973,7 +12973,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -12993,7 +12993,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13013,7 +13013,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13033,7 +13033,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13053,7 +13053,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13073,7 +13073,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13093,7 +13093,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13113,7 +13113,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13133,14 +13133,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 329,
           "genderPos": 314,
-          "athleteId": 13337,
+          "athleteId": 6761,
           "bib": "155",
           "name": "Ricardo Neves",
           "nameLower": "ricardo neves",
@@ -13153,7 +13153,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13173,7 +13173,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13193,7 +13193,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13213,7 +13213,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13233,7 +13233,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13253,7 +13253,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13273,7 +13273,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13293,7 +13293,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13313,7 +13313,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13333,7 +13333,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13353,7 +13353,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13373,7 +13373,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13393,7 +13393,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13413,7 +13413,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13433,7 +13433,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13453,7 +13453,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13473,7 +13473,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13493,7 +13493,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13513,7 +13513,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13533,7 +13533,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13553,7 +13553,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13573,14 +13573,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 351,
           "genderPos": 336,
-          "athleteId": 13348,
+          "athleteId": 3506,
           "bib": "511",
           "name": "Rui Pascoal",
           "nameLower": "rui pascoal",
@@ -13593,7 +13593,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13613,7 +13613,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13633,7 +13633,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13653,7 +13653,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13673,7 +13673,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13693,7 +13693,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13713,7 +13713,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13733,7 +13733,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13753,7 +13753,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13773,7 +13773,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13793,7 +13793,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13813,7 +13813,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13833,7 +13833,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13853,7 +13853,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13873,7 +13873,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13893,7 +13893,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13913,7 +13913,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13933,7 +13933,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13953,7 +13953,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13973,7 +13973,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -13993,7 +13993,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14013,7 +14013,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14033,7 +14033,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14053,7 +14053,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14073,7 +14073,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14093,7 +14093,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14113,7 +14113,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14133,7 +14133,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14153,7 +14153,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14173,7 +14173,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14193,7 +14193,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14213,7 +14213,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14233,7 +14233,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14253,7 +14253,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14273,7 +14273,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14293,7 +14293,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14313,7 +14313,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14333,7 +14333,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14353,7 +14353,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14373,7 +14373,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14393,7 +14393,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14413,7 +14413,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14433,7 +14433,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14453,7 +14453,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14473,7 +14473,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14493,7 +14493,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14513,7 +14513,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14533,7 +14533,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14553,7 +14553,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14573,7 +14573,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14593,7 +14593,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14613,7 +14613,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14633,7 +14633,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14653,7 +14653,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14673,7 +14673,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14693,7 +14693,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14713,7 +14713,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14733,7 +14733,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14753,7 +14753,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14773,7 +14773,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14793,7 +14793,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14813,7 +14813,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14833,14 +14833,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 414,
           "genderPos": 396,
-          "athleteId": 13382,
+          "athleteId": 9306,
           "bib": "571",
           "name": "Henrique Pereira",
           "nameLower": "henrique pereira",
@@ -14853,14 +14853,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 415,
           "genderPos": 397,
-          "athleteId": 6844,
+          "athleteId": 1417,
           "bib": "303",
           "name": "David Santos",
           "nameLower": "david santos",
@@ -14873,7 +14873,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14893,7 +14893,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14913,7 +14913,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14933,7 +14933,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14953,7 +14953,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14973,7 +14973,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -14993,7 +14993,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15013,7 +15013,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15033,7 +15033,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15053,7 +15053,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15073,7 +15073,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15093,7 +15093,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15113,7 +15113,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15133,7 +15133,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15153,7 +15153,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15173,7 +15173,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15193,7 +15193,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15213,7 +15213,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15233,7 +15233,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15253,7 +15253,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15273,7 +15273,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15293,7 +15293,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15313,7 +15313,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15333,7 +15333,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15353,7 +15353,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15373,7 +15373,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15393,7 +15393,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15413,7 +15413,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15433,7 +15433,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15453,7 +15453,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15473,7 +15473,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15493,7 +15493,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15513,7 +15513,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15533,7 +15533,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15553,7 +15553,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15573,7 +15573,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15593,7 +15593,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15613,7 +15613,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15633,7 +15633,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15653,7 +15653,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15673,7 +15673,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15693,14 +15693,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 457,
           "genderPos": 437,
-          "athleteId": 13404,
+          "athleteId": 855,
           "bib": "241",
           "name": "FáBio Vieira",
           "nameLower": "fabio vieira",
@@ -15713,7 +15713,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15733,7 +15733,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15753,7 +15753,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15773,7 +15773,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15793,7 +15793,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15813,7 +15813,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15833,7 +15833,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15853,7 +15853,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15873,7 +15873,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15893,7 +15893,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15913,7 +15913,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15933,7 +15933,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15953,7 +15953,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15973,7 +15973,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -15993,7 +15993,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16013,7 +16013,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16033,7 +16033,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16053,7 +16053,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16073,7 +16073,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16093,7 +16093,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16113,7 +16113,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16133,7 +16133,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16153,7 +16153,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16173,7 +16173,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16193,7 +16193,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16213,14 +16213,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 483,
           "genderPos": 460,
-          "athleteId": 6699,
+          "athleteId": 47,
           "bib": "574",
           "name": "Casimiro Oliveira",
           "nameLower": "casimiro oliveira",
@@ -16233,7 +16233,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16253,14 +16253,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 485,
           "genderPos": 462,
-          "athleteId": 13419,
+          "athleteId": 690,
           "bib": "455",
           "name": "José Correia",
           "nameLower": "jose correia",
@@ -16273,7 +16273,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16293,14 +16293,14 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 487,
           "genderPos": 464,
-          "athleteId": 13421,
+          "athleteId": 989,
           "bib": "851",
           "name": "Joaquim Marques",
           "nameLower": "joaquim marques",
@@ -16313,7 +16313,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16333,7 +16333,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16353,7 +16353,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16373,7 +16373,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16393,7 +16393,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16413,7 +16413,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16433,7 +16433,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16453,7 +16453,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16473,7 +16473,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16493,7 +16493,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16513,7 +16513,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16533,7 +16533,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16553,7 +16553,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16573,7 +16573,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -16593,7 +16593,7 @@
           "gap": "",
           "gapSecs": 0,
           "points": 0,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         }

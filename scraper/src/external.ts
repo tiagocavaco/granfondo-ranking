@@ -297,7 +297,7 @@ function makeResult(fields: {
     gap: "",
     gapSecs: 0,
     points: 0,
-    licence: "",
+    licences: [],
     dnf: fields.dnf ?? false,
     dns: fields.dns ?? false,
   };

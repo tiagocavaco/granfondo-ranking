@@ -36,7 +36,7 @@ export interface StoredResult {
   gap: string;
   gapSecs: number;
   points: number;
-  licence: string;
+  licences: string[];
   dnf: boolean;
   dns: boolean;
 }

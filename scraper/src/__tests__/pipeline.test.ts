@@ -61,7 +61,7 @@ function mkResult(overrides: Partial<StoredResult> = {}): StoredResult {
     gap: "",
     gapSecs: 0,
     points: 0,
-    licence: "",
+    licences: [],
     dnf: false,
     dns: false,
     ...overrides,
@@ -563,7 +563,7 @@ describe("mergeByLicence", () => {
       results: [mkResult({
         name: "Ana Silva", nameLower: "ana silva",
         team: id === 1 ? "Team Alpha" : "Team Beta",
-        licence: "LIC001",
+        licences: ["LIC001"],
       })],
     }]);
     const { index, updatedIdStore, licenceIndex } = buildAthletesIndex(events, loader);
@@ -581,7 +581,7 @@ describe("mergeByLicence", () => {
       results: [mkResult({
         name: "Ana Silva", nameLower: "ana silva",
         team: id === 1 ? "Team Alpha" : "Team Beta",
-        licence: "LIC001",
+        licences: ["LIC001"],
       })],
     }]);
     const { index, updatedIdStore, licenceIndex } = buildAthletesIndex(events, loader);
@@ -601,7 +601,7 @@ describe("mergeByLicence", () => {
         name: id === 1 ? "Ana Silva" : "Rui Costa",
         nameLower: id === 1 ? "ana silva" : "rui costa",
         team: "Team Alpha",
-        licence: "LIC001",
+        licences: ["LIC001"],
       })],
     }]);
     const { index, updatedIdStore, licenceIndex } = buildAthletesIndex(events, loader);
@@ -617,7 +617,7 @@ describe("mergeByLicence", () => {
       results: [mkResult({
         name: "Ana Silva", nameLower: "ana silva",
         team: id === 1 ? "Team Alpha" : "Team Beta",
-        licence: "",
+        licences: [],
       })],
     }]);
     const { index, updatedIdStore, licenceIndex } = buildAthletesIndex(events, loader);
@@ -634,7 +634,7 @@ describe("mergeByLicence", () => {
         name: "Ana Silva", nameLower: "ana silva",
         // Team Alpha appears in 2 of the 3 events → more results → canonical
         team: id <= 2 ? "Team Alpha" : "Team Beta",
-        licence: "LIC001",
+        licences: ["LIC001"],
       })],
     }]);
     const { index, updatedIdStore, licenceIndex } = buildAthletesIndex(events, loader);
@@ -859,10 +859,11 @@ describe("buildTeamRanking", () => {
     athletes.push({ name: "A1", pos: 1, team: "Team Alpha" });
     athletes.push({ name: "A2", pos: 2, team: "Team Alpha" });
     athletes.push({ name: "A3", pos: 3, team: "Team Alpha" });
-    // 79 more teams with only 2 athletes each (not eligible) → 80 total teams → coeff = 1.00
+    // 79 more teams with 3 athletes each (eligible) → 80 eligible teams → coeff = 1.00
     for (let t = 0; t < 79; t++) {
-      athletes.push({ name: `T${t}a`, pos: t * 2 + 4, team: `Other${t}` });
-      athletes.push({ name: `T${t}b`, pos: t * 2 + 5, team: `Other${t}` });
+      athletes.push({ name: `T${t}a`, pos: t * 3 + 4, team: `Other${t}` });
+      athletes.push({ name: `T${t}b`, pos: t * 3 + 5, team: `Other${t}` });
+      athletes.push({ name: `T${t}c`, pos: t * 3 + 6, team: `Other${t}` });
     }
     const loader = () => mkTeamResults(athletes);
     const ranking = buildTeamRanking([event], loader);

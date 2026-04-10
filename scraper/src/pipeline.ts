@@ -45,9 +45,10 @@ export function normalizeLicence(lic: string): string {
   return lic
     .trim()
     .toUpperCase()
-    .replace(/^(UCI[-\s]?|PT[-\s]?|FCP[-\s]?)/i, "") // strip common federation prefixes
-    .replace(/\s+/g, "")                               // collapse internal spaces
-    .replace(/^0+(?=\d{5,})/, "");                    // strip leading zeros from long numbers
+    .replace(/^UCI\s*(ID\s*)?[-:]?\s*/i, "")  // strip "UCI ID", "UCI-", "UCI " etc.
+    .replace(/^(PT|FCP)[-\s]?/i, "")          // strip other federation prefixes
+    .replace(/\s+/g, "")                       // collapse internal spaces
+    .replace(/^0+(?=\d{5,})/, "");             // strip leading zeros from long numbers
 }
 
 /**
@@ -131,7 +132,9 @@ export function transformResult(r: ApiResult): StoredResult {
     gap: formatTime(r.diferenca),
     gapSecs,
     points: Number(r.pontos) || 0,
-    licence: r.licenca1 ?? "",
+    licences: [r.licenca1, r.licenca2]
+      .map((l) => (l ? normalizeLicence(l.trim()) : ""))
+      .filter(Boolean),
     dnf,
     dns,
   };
@@ -202,9 +205,9 @@ export function buildAthletesIndex(
           index.set(key, { id, name: r.name, nameLower, results: [] });
         }
 
-        // Record licence → key mapping (deduplicated per key)
-        const lic = r.licence ? normalizeLicence(r.licence) : "";
-        if (lic) {
+        // Record licence → key mapping for all licence entries
+        for (const lic of r.licences) {
+          if (!lic) continue;
           const keys = licenceIndex.get(lic) ?? [];
           if (!keys.includes(key)) keys.push(key);
           licenceIndex.set(lic, keys);
@@ -237,14 +240,9 @@ export function buildAthletesIndex(
     entry.results.sort(
       (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
     );
-    // Canonical team: most-used non-solo team across all results
-    const teamCounts = new Map<string, number>();
-    for (const r of entry.results) {
-      if (!isSoloTeam(r.team)) teamCounts.set(r.team, (teamCounts.get(r.team) ?? 0) + 1);
-    }
-    if (teamCounts.size > 0) {
-      entry.canonicalTeam = canonicalTeam(teamCounts);
-    }
+    // Canonical team: team from the most recent non-solo result
+    const mostRecentTeam = entry.results.find((r) => !isSoloTeam(r.team))?.team;
+    if (mostRecentTeam) entry.canonicalTeam = mostRecentTeam;
   }
 
   // Build updated ID store (existing + newly assigned)
@@ -305,14 +303,9 @@ export function applyAthleteAliases(
     canonical.results.sort(
       (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
     );
-    // Re-derive canonical team after merging
-    const teamCounts = new Map<string, number>();
-    for (const r of canonical.results) {
-      if (!isSoloTeam(r.team)) teamCounts.set(r.team, (teamCounts.get(r.team) ?? 0) + 1);
-    }
-    if (teamCounts.size > 0) {
-      canonical.canonicalTeam = canonicalTeam(teamCounts);
-    }
+    // Re-derive canonical team from most recent non-solo result
+    const mostRecentTeam = canonical.results.find((r) => !isSoloTeam(r.team))?.team;
+    if (mostRecentTeam) canonical.canonicalTeam = mostRecentTeam;
   }
 }
 
@@ -359,12 +352,37 @@ export function mergeByLicence(
       canonical.results.sort(
         (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
       );
-      const teamCounts = new Map<string, number>();
-      for (const r of canonical.results) {
-        if (!isSoloTeam(r.team)) teamCounts.set(r.team, (teamCounts.get(r.team) ?? 0) + 1);
-      }
-      if (teamCounts.size > 0) canonical.canonicalTeam = canonicalTeam(teamCounts);
+      const mostRecentTeam = canonical.results.find((r) => !isSoloTeam(r.team))?.team;
+      if (mostRecentTeam) canonical.canonicalTeam = mostRecentTeam;
       mergedCount++;
+    }
+  }
+
+  // ── Phase 2: absorb solo ("nameLower|") entries into licence-bearing athletes ──
+  //
+  // An athlete who has a confirmed licence in some events may have raced as
+  // "Individual" (no team) in other events without providing their licence.
+  // Build a map: nameLower → canonical key, restricted to names that appear
+  // under exactly ONE canonical entry with a known licence (avoids ambiguity
+  // when two different people share a name).
+
+  const nameToCanon = new Map<string, string>(); // nameLower → canonKey (unique)
+  const ambiguous = new Set<string>();           // names with >1 licenced canonical entry
+
+  for (const [lic, keys] of licenceIndex) {
+    if (!lic) continue;
+    for (const k of keys) {
+      const entry = index.get(k);
+      if (!entry) continue;
+      const nl = entry.nameLower;
+      if (ambiguous.has(nl)) continue;
+      if (nameToCanon.has(nl) && nameToCanon.get(nl) !== k) {
+        // Two different canonical keys claim the same name → ambiguous, skip both
+        ambiguous.add(nl);
+        nameToCanon.delete(nl);
+      } else {
+        nameToCanon.set(nl, k);
+      }
     }
   }
 
@@ -394,13 +412,16 @@ export function normalizeDistance(name: string): string {
 
 /**
  * Build the aggregate ranking across all past events.
- * Athletes are keyed by `athleteKey(nameLower, team)` so two people sharing
- * a name but racing for different teams score separately.
+ * Athletes are keyed by their canonical athleteKey, so merged entries
+ * (same person, different teams) accumulate correctly.
+ *
+ * @param keyToCanonical  Maps alias athleteKey → canonical athleteKey for merged athletes.
  */
 export function buildAggregateRanking(
   events: StoredEvent[],
   loader: ResultsLoader,
-  athleteIndex: Map<string, AthleteEntry> = new Map()
+  athleteIndex: Map<string, AthleteEntry> = new Map(),
+  keyToCanonical: Map<string, string> = new Map()
 ): AggregateRanking {
   type AccEntry = {
     id: number;
@@ -451,7 +472,9 @@ export function buildAggregateRanking(
           const pts = Math.round(basePoints * coeff * 10) / 10;
 
           const nameLower = normalizeName(r.name);
-          const aKey = athleteKey(nameLower, r.team);
+          const rawKey = athleteKey(nameLower, r.team);
+          // Resolve to canonical key if this athlete was merged (different teams, same licence)
+          const aKey = keyToCanonical.get(rawKey) ?? rawKey;
           const id = athleteIndex.get(aKey)?.id ?? 0;
 
           if (!distMap.has(aKey)) {
@@ -539,7 +562,8 @@ const INDIVIDUAL_TEAM_KEYS = new Set(["individual", "independente", ""]);
 export function buildTeamRanking(
   events: StoredEvent[],
   loader: ResultsLoader,
-  athleteIndex: Map<string, AthleteEntry> = new Map()
+  athleteIndex: Map<string, AthleteEntry> = new Map(),
+  keyToCanonical: Map<string, string> = new Map()
 ): TeamRanking {
   type AccTeam = {
     teamKey: string;
@@ -574,7 +598,6 @@ export function buildTeamRanking(
       }
 
       const totalTeams = teamAthletes.size;
-      const coeff = teamCoefficient(totalTeams);
 
       type EligibleTeam = {
         tk: string;
@@ -595,6 +618,7 @@ export function buildTeamRanking(
 
       eligible.sort((a, b) => a.combinedScore - b.combinedScore || a.bestPos - b.bestPos);
       const eligibleTeams = eligible.length;
+      const coeff = teamCoefficient(eligibleTeams);
 
       eligible.slice(0, 10).forEach((et, i) => {
         const teamRank = i + 1;
@@ -628,11 +652,11 @@ export function buildTeamRanking(
           basePoints,
           points: pts,
           combinedScore: et.combinedScore,
-          athletes: et.top3.map((a) => ({
-            id: athleteIndex.get(athleteKey(normalizeName(a.name), a.rawTeam))?.id ?? 0,
-            name: a.name,
-            pos: a.pos,
-          })),
+          athletes: et.top3.map((a) => {
+            const rk = athleteKey(normalizeName(a.name), a.rawTeam);
+            const canonRk = keyToCanonical.get(rk) ?? rk;
+            return { id: athleteIndex.get(canonRk)?.id ?? 0, name: a.name, pos: a.pos };
+          }),
         });
       });
     }

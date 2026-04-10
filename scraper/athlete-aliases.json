@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "name": "Matteo Cigala",
+    "canonicalTeam": "Casa Benfica Almodovar",
+    "aliases": [
+      { "name": "Matteo Cigala", "team": "" }
+    ],
+    "note": "Raced as Individual in Algarve 2025 and Coimbra 2025 (no licence provided in those races)"
+  },
+  {
+    "name": "Gonçalo Freitas",
+    "canonicalTeam": "Love Tiles",
+    "aliases": [
+      { "name": "Gonçalo Freitas", "team": "" }
+    ],
+    "note": "Raced as Indivídual in Figueira 2026, Love Tiles in Viana 2026"
+  }
+]

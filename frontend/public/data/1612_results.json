@@ -3,7 +3,7 @@
   "eventName": "TAVIRA GRANFONDO 2025",
   "eventDate": "2025-09-28",
   "eventYear": 2025,
-  "scrapedAt": "2026-04-10T22:15:46.198Z",
+  "scrapedAt": "2026-04-10T22:31:00.401Z",
   "distances": [
     {
       "id": "1",
@@ -26,7 +26,7 @@
           "gap": "00:00:00",
           "gapSecs": 0,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -46,7 +46,9 @@
           "gap": "00:04:16",
           "gapSecs": 256.257,
           "points": 1,
-          "licence": "56628",
+          "licences": [
+            "56628"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -66,7 +68,7 @@
           "gap": "00:04:18",
           "gapSecs": 258.507,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -86,7 +88,9 @@
           "gap": "00:05:37",
           "gapSecs": 337.507,
           "points": 1,
-          "licence": "56590",
+          "licences": [
+            "56590"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -106,7 +110,7 @@
           "gap": "00:05:38",
           "gapSecs": 338.014,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -126,7 +130,10 @@
           "gap": "00:05:41",
           "gapSecs": 341.01,
           "points": 1,
-          "licence": "52452",
+          "licences": [
+            "52452",
+            "10045128828"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -146,7 +153,9 @@
           "gap": "00:06:00",
           "gapSecs": 360.257,
           "points": 1,
-          "licence": "68055",
+          "licences": [
+            "68055"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -166,14 +175,14 @@
           "gap": "00:06:32",
           "gapSecs": 392.01,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 9,
           "genderPos": 9,
-          "athleteId": 0,
+          "athleteId": 4554,
           "bib": "225",
           "name": "Luís Teixeira",
           "nameLower": "luis teixeira",
@@ -186,14 +195,16 @@
           "gap": "00:07:36",
           "gapSecs": 456.76,
           "points": 1,
-          "licence": "59210",
+          "licences": [
+            "59210"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 10,
           "genderPos": 10,
-          "athleteId": 0,
+          "athleteId": 2598,
           "bib": "12",
           "name": "Pedro Sousa",
           "nameLower": "pedro sousa",
@@ -206,7 +217,9 @@
           "gap": "00:08:09",
           "gapSecs": 489.27,
           "points": 1,
-          "licence": "18654",
+          "licences": [
+            "18654"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -226,7 +239,7 @@
           "gap": "00:08:09",
           "gapSecs": 489.27,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -246,7 +259,7 @@
           "gap": "00:08:09",
           "gapSecs": 489.764,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -266,7 +279,9 @@
           "gap": "00:08:11",
           "gapSecs": 491.014,
           "points": 1,
-          "licence": "",
+          "licences": [
+            "10040041882"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -286,7 +301,9 @@
           "gap": "00:08:12",
           "gapSecs": 492.51,
           "points": 1,
-          "licence": "",
+          "licences": [
+            "10040982379"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -306,7 +323,7 @@
           "gap": "00:12:47",
           "gapSecs": 767.797,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -326,7 +343,9 @@
           "gap": "00:14:13",
           "gapSecs": 853.774,
           "points": 1,
-          "licence": "10136",
+          "licences": [
+            "10136"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -346,14 +365,14 @@
           "gap": "00:14:14",
           "gapSecs": 854.77,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 17,
           "genderPos": 18,
-          "athleteId": 0,
+          "athleteId": 3885,
           "bib": "321",
           "name": "Guilherme Silva",
           "nameLower": "guilherme silva",
@@ -366,14 +385,17 @@
           "gap": "00:15:31",
           "gapSecs": 931.774,
           "points": 1,
-          "licence": "53146",
+          "licences": [
+            "53146",
+            "10045196021"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 18,
           "genderPos": 19,
-          "athleteId": 0,
+          "athleteId": 3229,
           "bib": "253",
           "name": "João Pereira",
           "nameLower": "joao pereira",
@@ -386,7 +408,9 @@
           "gap": "00:18:40",
           "gapSecs": 1120.287,
           "points": 1,
-          "licence": "93378",
+          "licences": [
+            "93378"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -406,7 +430,7 @@
           "gap": "00:18:49",
           "gapSecs": 1129.78,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -426,7 +450,7 @@
           "gap": "00:22:30",
           "gapSecs": 1350.784,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -446,7 +470,9 @@
           "gap": "00:23:39",
           "gapSecs": 1419.037,
           "points": 1,
-          "licence": "75922",
+          "licences": [
+            "75922"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -466,7 +492,7 @@
           "gap": "00:23:39",
           "gapSecs": 1419.537,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -486,7 +512,9 @@
           "gap": "00:24:41",
           "gapSecs": 1481.04,
           "points": 1,
-          "licence": "95614",
+          "licences": [
+            "95614"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -506,7 +534,9 @@
           "gap": "00:26:48",
           "gapSecs": 1608.04,
           "points": 1,
-          "licence": "",
+          "licences": [
+            "10043876518"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -526,7 +556,9 @@
           "gap": "00:29:04",
           "gapSecs": 1744.054,
           "points": 1,
-          "licence": "74433",
+          "licences": [
+            "74433"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -546,14 +578,14 @@
           "gap": "00:29:05",
           "gapSecs": 1745.044,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 27,
           "genderPos": 28,
-          "athleteId": 0,
+          "athleteId": 3651,
           "bib": "133",
           "name": "Natalio Penas",
           "nameLower": "natalio penas",
@@ -566,14 +598,14 @@
           "gap": "00:29:05",
           "gapSecs": 1745.794,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 28,
           "genderPos": 29,
-          "athleteId": 0,
+          "athleteId": 2612,
           "bib": "371",
           "name": "Jose Aleixo",
           "nameLower": "jose aleixo",
@@ -586,7 +618,10 @@
           "gap": "00:29:06",
           "gapSecs": 1746.294,
           "points": 1,
-          "licence": "30866",
+          "licences": [
+            "30866",
+            "10044065565"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -606,7 +641,7 @@
           "gap": "00:29:33",
           "gapSecs": 1773.804,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -626,7 +661,7 @@
           "gap": "00:31:31",
           "gapSecs": 1891.304,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -646,7 +681,7 @@
           "gap": "00:31:31",
           "gapSecs": 1891.807,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -666,7 +701,7 @@
           "gap": "00:31:32",
           "gapSecs": 1892.547,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -686,7 +721,10 @@
           "gap": "00:31:33",
           "gapSecs": 1893.8,
           "points": 1,
-          "licence": "55460",
+          "licences": [
+            "55460",
+            "10045419121"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -706,14 +744,16 @@
           "gap": "00:31:34",
           "gapSecs": 1894.55,
           "points": 1,
-          "licence": "",
+          "licences": [
+            "10043424254"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 35,
           "genderPos": 36,
-          "athleteId": 0,
+          "athleteId": 2885,
           "bib": "155",
           "name": "Hugo Rodrigues",
           "nameLower": "hugo rodrigues",
@@ -726,7 +766,9 @@
           "gap": "00:31:35",
           "gapSecs": 1895.547,
           "points": 1,
-          "licence": "93076",
+          "licences": [
+            "93076"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -746,14 +788,14 @@
           "gap": "00:31:39",
           "gapSecs": 1899.8,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 37,
           "genderPos": 38,
-          "athleteId": 0,
+          "athleteId": 12590,
           "bib": "303",
           "name": "Gonçalo Brito",
           "nameLower": "goncalo brito",
@@ -766,7 +808,10 @@
           "gap": "00:33:41",
           "gapSecs": 2021.3,
           "points": 1,
-          "licence": "22139",
+          "licences": [
+            "22139",
+            "10003503094"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -786,7 +831,7 @@
           "gap": "00:40:37",
           "gapSecs": 2437.064,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -806,7 +851,7 @@
           "gap": "00:40:52",
           "gapSecs": 2452.814,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -826,7 +871,9 @@
           "gap": "00:41:00",
           "gapSecs": 2460.587,
           "points": 1,
-          "licence": "55494",
+          "licences": [
+            "55494"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -846,7 +893,7 @@
           "gap": "00:41:03",
           "gapSecs": 2463.314,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -866,7 +913,7 @@
           "gap": "00:41:03",
           "gapSecs": 2463.814,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -886,7 +933,7 @@
           "gap": "00:41:03",
           "gapSecs": 2463.82,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -906,14 +953,16 @@
           "gap": "00:43:40",
           "gapSecs": 2620.317,
           "points": 1,
-          "licence": "10136",
+          "licences": [
+            "10136"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 45,
           "genderPos": 46,
-          "athleteId": 0,
+          "athleteId": 2876,
           "bib": "151",
           "name": "Pedro Norte",
           "nameLower": "pedro norte",
@@ -926,7 +975,9 @@
           "gap": "00:43:40",
           "gapSecs": 2620.324,
           "points": 1,
-          "licence": "91671",
+          "licences": [
+            "91671"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -946,7 +997,7 @@
           "gap": "00:43:40",
           "gapSecs": 2620.817,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -966,7 +1017,9 @@
           "gap": "00:47:34",
           "gapSecs": 2854.574,
           "points": 1,
-          "licence": "17148",
+          "licences": [
+            "17148"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -986,7 +1039,7 @@
           "gap": "00:49:00",
           "gapSecs": 2940.584,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1006,14 +1059,17 @@
           "gap": "00:49:14",
           "gapSecs": 2954.077,
           "points": 1,
-          "licence": "23387",
+          "licences": [
+            "23387",
+            "10012218142"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 50,
           "genderPos": 51,
-          "athleteId": 0,
+          "athleteId": 303,
           "bib": "353",
           "name": "Hélio Martins",
           "nameLower": "helio martins",
@@ -1026,7 +1082,9 @@
           "gap": "00:50:01",
           "gapSecs": 3001.574,
           "points": 1,
-          "licence": "33339",
+          "licences": [
+            "33339"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1046,7 +1104,9 @@
           "gap": "00:50:22",
           "gapSecs": 3022.327,
           "points": 1,
-          "licence": "",
+          "licences": [
+            "10038487257"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1066,7 +1126,7 @@
           "gap": "00:50:22",
           "gapSecs": 3022.577,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1086,14 +1146,16 @@
           "gap": "00:50:22",
           "gapSecs": 3022.584,
           "points": 1,
-          "licence": "26768",
+          "licences": [
+            "26768"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 54,
           "genderPos": 55,
-          "athleteId": 3681,
+          "athleteId": 1624,
           "bib": "54",
           "name": "Nelson Pereira",
           "nameLower": "nelson pereira",
@@ -1106,7 +1168,7 @@
           "gap": "00:50:30",
           "gapSecs": 3030.827,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1126,7 +1188,9 @@
           "gap": "00:54:44",
           "gapSecs": 3284.834,
           "points": 1,
-          "licence": "57320",
+          "licences": [
+            "57320"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1146,7 +1210,10 @@
           "gap": "00:54:45",
           "gapSecs": 3285.34,
           "points": 1,
-          "licence": "46762",
+          "licences": [
+            "46762",
+            "10044695459"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1166,7 +1233,9 @@
           "gap": "00:54:45",
           "gapSecs": 3285.584,
           "points": 1,
-          "licence": "91402",
+          "licences": [
+            "91402"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1186,7 +1255,7 @@
           "gap": "00:54:52",
           "gapSecs": 3292.084,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1206,7 +1275,7 @@
           "gap": "00:54:52",
           "gapSecs": 3292.084,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1226,7 +1295,7 @@
           "gap": "01:00:23",
           "gapSecs": 3623.597,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1246,7 +1315,10 @@
           "gap": "01:02:45",
           "gapSecs": 3765.594,
           "points": 1,
-          "licence": "79545",
+          "licences": [
+            "79545",
+            "10136060668"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1266,7 +1338,7 @@
           "gap": "01:02:57",
           "gapSecs": 3777.594,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1286,7 +1358,7 @@
           "gap": "01:03:54",
           "gapSecs": 3834.597,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1306,14 +1378,14 @@
           "gap": "01:05:19",
           "gapSecs": 3919.12,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 64,
           "genderPos": 2,
-          "athleteId": 0,
+          "athleteId": 2677,
           "bib": "11",
           "name": "Sónia Rodrigues",
           "nameLower": "sonia rodrigues",
@@ -1326,7 +1398,10 @@
           "gap": "01:05:49",
           "gapSecs": 3949.85,
           "points": 1,
-          "licence": "63074",
+          "licences": [
+            "63074",
+            "10076179841"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1346,7 +1421,9 @@
           "gap": "01:05:50",
           "gapSecs": 3950.85,
           "points": 1,
-          "licence": "76284",
+          "licences": [
+            "76284"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1366,7 +1443,7 @@
           "gap": "01:05:51",
           "gapSecs": 3951.1,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1386,7 +1463,7 @@
           "gap": "01:07:57",
           "gapSecs": 4077.104,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1406,7 +1483,7 @@
           "gap": "01:07:58",
           "gapSecs": 4078.104,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1426,7 +1503,10 @@
           "gap": "01:08:09",
           "gapSecs": 4089.104,
           "points": 1,
-          "licence": "52090",
+          "licences": [
+            "52090",
+            "10045093361"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1446,7 +1526,7 @@
           "gap": "01:10:21",
           "gapSecs": 4221.107,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1466,7 +1546,7 @@
           "gap": "01:10:21",
           "gapSecs": 4221.107,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1486,14 +1566,14 @@
           "gap": "01:10:21",
           "gapSecs": 4221.554,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 72,
           "genderPos": 73,
-          "athleteId": 0,
+          "athleteId": 4658,
           "bib": "207",
           "name": "Miguel Vilanova",
           "nameLower": "miguel vilanova",
@@ -1506,7 +1586,9 @@
           "gap": "01:12:06",
           "gapSecs": 4326.36,
           "points": 1,
-          "licence": "90406",
+          "licences": [
+            "90406"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1526,7 +1608,7 @@
           "gap": "01:13:34",
           "gapSecs": 4414.27,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1546,7 +1628,7 @@
           "gap": "01:13:58",
           "gapSecs": 4438.117,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1566,7 +1648,7 @@
           "gap": "01:14:14",
           "gapSecs": 4454.36,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1586,7 +1668,7 @@
           "gap": "01:14:34",
           "gapSecs": 4474.87,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1606,7 +1688,7 @@
           "gap": "01:14:55",
           "gapSecs": 4495.364,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1626,14 +1708,14 @@
           "gap": "01:17:41",
           "gapSecs": 4661.617,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 79,
           "genderPos": 80,
-          "athleteId": 0,
+          "athleteId": 4699,
           "bib": "123",
           "name": "Guilherme Simen",
           "nameLower": "guilherme simen",
@@ -1646,7 +1728,9 @@
           "gap": "01:17:48",
           "gapSecs": 4668.867,
           "points": 1,
-          "licence": "62899",
+          "licences": [
+            "62899"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1666,7 +1750,7 @@
           "gap": "01:18:38",
           "gapSecs": 4718.367,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1686,7 +1770,7 @@
           "gap": "01:18:44",
           "gapSecs": 4724.867,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1706,7 +1790,7 @@
           "gap": "01:19:20",
           "gapSecs": 4760.62,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1726,7 +1810,7 @@
           "gap": "01:23:00",
           "gapSecs": 4980.124,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1746,7 +1830,9 @@
           "gap": "01:23:03",
           "gapSecs": 4983.624,
           "points": 1,
-          "licence": "",
+          "licences": [
+            "10043097282"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1766,7 +1852,7 @@
           "gap": "01:24:23",
           "gapSecs": 5063.627,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1786,14 +1872,14 @@
           "gap": "01:24:33",
           "gapSecs": 5073.127,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 87,
           "genderPos": 4,
-          "athleteId": 0,
+          "athleteId": 3060,
           "bib": "199",
           "name": "Tina Roschmann",
           "nameLower": "tina roschmann",
@@ -1806,7 +1892,9 @@
           "gap": "01:25:33",
           "gapSecs": 5133.884,
           "points": 1,
-          "licence": "78301",
+          "licences": [
+            "78301"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1826,7 +1914,7 @@
           "gap": "01:25:33",
           "gapSecs": 5133.89,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1846,7 +1934,7 @@
           "gap": "01:26:19",
           "gapSecs": 5179.13,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1866,7 +1954,10 @@
           "gap": "01:26:19",
           "gapSecs": 5179.13,
           "points": 1,
-          "licence": "62231",
+          "licences": [
+            "62231",
+            "10073077861"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -1886,7 +1977,7 @@
           "gap": "01:26:23",
           "gapSecs": 5183.377,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1906,7 +1997,7 @@
           "gap": "01:27:04",
           "gapSecs": 5224.654,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1926,7 +2017,7 @@
           "gap": "01:27:41",
           "gapSecs": 5261.634,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1946,7 +2037,7 @@
           "gap": "01:28:11",
           "gapSecs": 5291.884,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1966,7 +2057,7 @@
           "gap": "01:28:57",
           "gapSecs": 5337.89,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -1986,7 +2077,7 @@
           "gap": "01:28:58",
           "gapSecs": 5338.384,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2006,7 +2097,7 @@
           "gap": "01:28:58",
           "gapSecs": 5338.384,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2026,7 +2117,7 @@
           "gap": "01:28:58",
           "gapSecs": 5338.644,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2046,7 +2137,9 @@
           "gap": "01:32:52",
           "gapSecs": 5572.64,
           "points": 1,
-          "licence": "",
+          "licences": [
+            "10038506859"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2066,14 +2159,14 @@
           "gap": "01:33:01",
           "gapSecs": 5581.14,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 99,
           "genderPos": 100,
-          "athleteId": 0,
+          "athleteId": 3965,
           "bib": "67",
           "name": "Pierluigi Uberti",
           "nameLower": "pierluigi uberti",
@@ -2086,7 +2179,10 @@
           "gap": "01:33:31",
           "gapSecs": 5611.64,
           "points": 1,
-          "licence": "78818",
+          "licences": [
+            "78818",
+            "10129510643"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2106,7 +2202,7 @@
           "gap": "01:33:42",
           "gapSecs": 5622.14,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2126,7 +2222,7 @@
           "gap": "01:33:42",
           "gapSecs": 5622.39,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2146,7 +2242,7 @@
           "gap": "01:35:48",
           "gapSecs": 5748.644,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2166,7 +2262,7 @@
           "gap": "01:36:24",
           "gapSecs": 5784.144,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2186,7 +2282,7 @@
           "gap": "01:36:28",
           "gapSecs": 5788.937,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2206,7 +2302,7 @@
           "gap": "01:36:29",
           "gapSecs": 5789.144,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2226,7 +2322,7 @@
           "gap": "01:36:29",
           "gapSecs": 5789.4,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2246,7 +2342,7 @@
           "gap": "01:37:30",
           "gapSecs": 5850.647,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2266,14 +2362,14 @@
           "gap": "01:39:40",
           "gapSecs": 5980.9,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 109,
           "genderPos": 110,
-          "athleteId": 5594,
+          "athleteId": 9503,
           "bib": "336",
           "name": "Bruno Sousa",
           "nameLower": "bruno sousa",
@@ -2286,7 +2382,7 @@
           "gap": "01:39:41",
           "gapSecs": 5981.81,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2306,7 +2402,7 @@
           "gap": "01:42:43",
           "gapSecs": 6163.154,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2326,7 +2422,10 @@
           "gap": "01:47:47",
           "gapSecs": 6467.16,
           "points": 1,
-          "licence": "68146",
+          "licences": [
+            "68146",
+            "10111551600"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2346,7 +2445,7 @@
           "gap": "01:48:33",
           "gapSecs": 6513.414,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2366,7 +2465,7 @@
           "gap": "01:48:33",
           "gapSecs": 6513.42,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2386,7 +2485,9 @@
           "gap": "01:48:45",
           "gapSecs": 6525.414,
           "points": 1,
-          "licence": "",
+          "licences": [
+            "10089560484"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2406,7 +2507,7 @@
           "gap": "01:55:23",
           "gapSecs": 6923.144,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2426,7 +2527,7 @@
           "gap": "01:56:17",
           "gapSecs": 6977.924,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2446,7 +2547,7 @@
           "gap": "02:02:08",
           "gapSecs": 7328.934,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2466,7 +2567,7 @@
           "gap": "02:12:37",
           "gapSecs": 7957.854,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2486,7 +2587,7 @@
           "gap": "02:15:51",
           "gapSecs": 8151.23,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2506,7 +2607,9 @@
           "gap": "02:30:02",
           "gapSecs": 9002.977,
           "points": 1,
-          "licence": "37237",
+          "licences": [
+            "37237"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2526,7 +2629,7 @@
           "gap": "02:31:35",
           "gapSecs": 9095.407,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         }
@@ -2553,7 +2656,9 @@
           "gap": "00:00:00",
           "gapSecs": 0,
           "points": 1,
-          "licence": "30496",
+          "licences": [
+            "30496"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2573,7 +2678,10 @@
           "gap": "00:02:35",
           "gapSecs": 155.507,
           "points": 1,
-          "licence": "66719",
+          "licences": [
+            "66719",
+            "66719"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2593,7 +2701,7 @@
           "gap": "00:02:35",
           "gapSecs": 155.757,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2613,14 +2721,14 @@
           "gap": "00:02:36",
           "gapSecs": 156.007,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 5,
           "genderPos": 5,
-          "athleteId": 0,
+          "athleteId": 2826,
           "bib": "58",
           "name": "Rui Guerreiro",
           "nameLower": "rui guerreiro",
@@ -2633,7 +2741,10 @@
           "gap": "00:09:43",
           "gapSecs": 583.517,
           "points": 1,
-          "licence": "57854",
+          "licences": [
+            "57854",
+            "10045649291"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2653,7 +2764,9 @@
           "gap": "00:10:52",
           "gapSecs": 652.02,
           "points": 1,
-          "licence": "58673",
+          "licences": [
+            "58673"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2673,7 +2786,7 @@
           "gap": "00:11:21",
           "gapSecs": 681.02,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2693,7 +2806,7 @@
           "gap": "00:14:22",
           "gapSecs": 862.034,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2713,14 +2826,16 @@
           "gap": "00:14:24",
           "gapSecs": 864.274,
           "points": 1,
-          "licence": "37025",
+          "licences": [
+            "37025"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 10,
           "genderPos": 10,
-          "athleteId": 0,
+          "athleteId": 12789,
           "bib": "124",
           "name": "Carlos Santos",
           "nameLower": "carlos santos",
@@ -2733,7 +2848,10 @@
           "gap": "00:15:39",
           "gapSecs": 939.277,
           "points": 1,
-          "licence": "58670",
+          "licences": [
+            "58670",
+            "10046237961"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2753,7 +2871,9 @@
           "gap": "00:16:15",
           "gapSecs": 975.277,
           "points": 1,
-          "licence": "65745",
+          "licences": [
+            "65745"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2773,7 +2893,7 @@
           "gap": "00:16:16",
           "gapSecs": 976.027,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2793,7 +2913,7 @@
           "gap": "00:17:53",
           "gapSecs": 1073.28,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2813,7 +2933,9 @@
           "gap": "00:19:37",
           "gapSecs": 1177.294,
           "points": 1,
-          "licence": "48907",
+          "licences": [
+            "48907"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2833,7 +2955,9 @@
           "gap": "00:19:37",
           "gapSecs": 1177.534,
           "points": 1,
-          "licence": "93627",
+          "licences": [
+            "93627"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2853,14 +2977,16 @@
           "gap": "00:21:23",
           "gapSecs": 1283.037,
           "points": 1,
-          "licence": "40623",
+          "licences": [
+            "40623"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 17,
           "genderPos": 17,
-          "athleteId": 0,
+          "athleteId": 2833,
           "bib": "167",
           "name": "Tiago Panasco",
           "nameLower": "tiago panasco",
@@ -2873,7 +2999,9 @@
           "gap": "00:22:57",
           "gapSecs": 1377.79,
           "points": 1,
-          "licence": "1",
+          "licences": [
+            "1"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2893,7 +3021,9 @@
           "gap": "00:23:55",
           "gapSecs": 1435.29,
           "points": 1,
-          "licence": "60243",
+          "licences": [
+            "60243"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2913,7 +3043,9 @@
           "gap": "00:23:56",
           "gapSecs": 1436.79,
           "points": 1,
-          "licence": "91851",
+          "licences": [
+            "91851"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2933,7 +3065,7 @@
           "gap": "00:23:57",
           "gapSecs": 1437.294,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -2953,7 +3085,10 @@
           "gap": "00:24:06",
           "gapSecs": 1446.314,
           "points": 1,
-          "licence": "67133",
+          "licences": [
+            "67133",
+            "10092301039"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2973,7 +3108,9 @@
           "gap": "00:28:51",
           "gapSecs": 1731.8,
           "points": 1,
-          "licence": "23188",
+          "licences": [
+            "23188"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -2993,7 +3130,7 @@
           "gap": "00:28:52",
           "gapSecs": 1732.3,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3013,7 +3150,7 @@
           "gap": "00:28:52",
           "gapSecs": 1732.8,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3033,7 +3170,7 @@
           "gap": "00:29:48",
           "gapSecs": 1788.554,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3053,7 +3190,7 @@
           "gap": "00:30:29",
           "gapSecs": 1829.804,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3073,14 +3210,14 @@
           "gap": "00:30:30",
           "gapSecs": 1830.054,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 28,
           "genderPos": 28,
-          "athleteId": 0,
+          "athleteId": 6317,
           "bib": "144",
           "name": "Jorge Rosa",
           "nameLower": "jorge rosa",
@@ -3093,7 +3230,9 @@
           "gap": "00:35:44",
           "gapSecs": 2144.06,
           "points": 1,
-          "licence": "92454",
+          "licences": [
+            "92454"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3113,7 +3252,9 @@
           "gap": "00:35:50",
           "gapSecs": 2150.81,
           "points": 1,
-          "licence": "96644",
+          "licences": [
+            "96644"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3133,14 +3274,16 @@
           "gap": "00:36:00",
           "gapSecs": 2160.56,
           "points": 1,
-          "licence": "10159463435",
+          "licences": [
+            "10159463435"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 31,
           "genderPos": 31,
-          "athleteId": 3924,
+          "athleteId": 2916,
           "bib": "56",
           "name": "Dinis Bento",
           "nameLower": "dinis bento",
@@ -3153,7 +3296,7 @@
           "gap": "00:36:19",
           "gapSecs": 2179.564,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3173,7 +3316,9 @@
           "gap": "00:36:19",
           "gapSecs": 2179.817,
           "points": 1,
-          "licence": "56453",
+          "licences": [
+            "56453"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3193,14 +3338,14 @@
           "gap": "00:37:42",
           "gapSecs": 2262.814,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 34,
           "genderPos": 34,
-          "athleteId": 0,
+          "athleteId": 2911,
           "bib": "156",
           "name": "Rui Feiteira",
           "nameLower": "rui feiteira",
@@ -3213,7 +3358,10 @@
           "gap": "00:38:09",
           "gapSecs": 2289.314,
           "points": 1,
-          "licence": "59266",
+          "licences": [
+            "59266",
+            "10050987426"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3233,7 +3381,7 @@
           "gap": "00:39:28",
           "gapSecs": 2368.317,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3253,7 +3401,7 @@
           "gap": "00:40:28",
           "gapSecs": 2428.817,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3273,14 +3421,14 @@
           "gap": "00:40:41",
           "gapSecs": 2441.574,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 38,
           "genderPos": 38,
-          "athleteId": 5622,
+          "athleteId": 255,
           "bib": "236",
           "name": "Ricardo Rocha",
           "nameLower": "ricardo rocha",
@@ -3293,7 +3441,7 @@
           "gap": "00:41:53",
           "gapSecs": 2513.82,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3313,7 +3461,10 @@
           "gap": "00:43:36",
           "gapSecs": 2616.574,
           "points": 1,
-          "licence": "76705",
+          "licences": [
+            "76705",
+            "10124912742"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3333,7 +3484,9 @@
           "gap": "00:43:37",
           "gapSecs": 2617.324,
           "points": 1,
-          "licence": "50560",
+          "licences": [
+            "50560"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3353,7 +3506,7 @@
           "gap": "00:44:37",
           "gapSecs": 2677.077,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3373,7 +3526,9 @@
           "gap": "00:46:07",
           "gapSecs": 2767.077,
           "points": 1,
-          "licence": "92813",
+          "licences": [
+            "92813"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3393,7 +3548,9 @@
           "gap": "00:46:07",
           "gapSecs": 2767.327,
           "points": 1,
-          "licence": "96183",
+          "licences": [
+            "96183"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3413,7 +3570,7 @@
           "gap": "00:49:14",
           "gapSecs": 2954.09,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3433,7 +3590,9 @@
           "gap": "00:49:15",
           "gapSecs": 2955.334,
           "points": 1,
-          "licence": "97262",
+          "licences": [
+            "97262"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3453,7 +3612,7 @@
           "gap": "00:49:15",
           "gapSecs": 2955.584,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3473,14 +3632,16 @@
           "gap": "00:50:00",
           "gapSecs": 3000.584,
           "points": 1,
-          "licence": "75917",
+          "licences": [
+            "75917"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 48,
           "genderPos": 47,
-          "athleteId": 3916,
+          "athleteId": 474,
           "bib": "206",
           "name": "Ivo Amendoeira",
           "nameLower": "ivo amendoeira",
@@ -3493,7 +3654,7 @@
           "gap": "00:50:20",
           "gapSecs": 3020.334,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3513,7 +3674,10 @@
           "gap": "00:50:33",
           "gapSecs": 3033.334,
           "points": 1,
-          "licence": "90306",
+          "licences": [
+            "90306",
+            "10137584073"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3533,7 +3697,7 @@
           "gap": "00:53:43",
           "gapSecs": 3223.09,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3553,7 +3717,7 @@
           "gap": "00:54:11",
           "gapSecs": 3251.59,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3573,7 +3737,7 @@
           "gap": "00:55:03",
           "gapSecs": 3303.84,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3593,7 +3757,7 @@
           "gap": "00:58:17",
           "gapSecs": 3497.094,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3613,7 +3777,7 @@
           "gap": "01:00:53",
           "gapSecs": 3653.1,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3633,7 +3797,7 @@
           "gap": "01:01:29",
           "gapSecs": 3689.1,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3653,14 +3817,14 @@
           "gap": "01:01:31",
           "gapSecs": 3691.1,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 57,
           "genderPos": 56,
-          "athleteId": 3048,
+          "athleteId": 1050,
           "bib": "227",
           "name": "Diogo Correia",
           "nameLower": "diogo correia",
@@ -3673,7 +3837,7 @@
           "gap": "01:01:39",
           "gapSecs": 3699.6,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3693,7 +3857,7 @@
           "gap": "01:01:49",
           "gapSecs": 3709.1,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3713,7 +3877,7 @@
           "gap": "01:02:08",
           "gapSecs": 3728.604,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3733,7 +3897,7 @@
           "gap": "01:02:23",
           "gapSecs": 3743.604,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3753,7 +3917,7 @@
           "gap": "01:02:48",
           "gapSecs": 3768.104,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3773,7 +3937,7 @@
           "gap": "01:04:03",
           "gapSecs": 3843.894,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3793,7 +3957,9 @@
           "gap": "01:04:58",
           "gapSecs": 3898.607,
           "points": 1,
-          "licence": "78010",
+          "licences": [
+            "78010"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3813,7 +3979,9 @@
           "gap": "01:04:58",
           "gapSecs": 3898.857,
           "points": 1,
-          "licence": "95659",
+          "licences": [
+            "95659"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3833,7 +4001,9 @@
           "gap": "01:06:06",
           "gapSecs": 3966.357,
           "points": 1,
-          "licence": "95649",
+          "licences": [
+            "95649"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3853,7 +4023,7 @@
           "gap": "01:07:29",
           "gapSecs": 4049.86,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3873,7 +4043,7 @@
           "gap": "01:08:14",
           "gapSecs": 4094.864,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3893,7 +4063,9 @@
           "gap": "01:08:19",
           "gapSecs": 4099.114,
           "points": 1,
-          "licence": "79249",
+          "licences": [
+            "79249"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -3913,7 +4085,7 @@
           "gap": "01:09:20",
           "gapSecs": 4160.364,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3933,7 +4105,7 @@
           "gap": "01:12:12",
           "gapSecs": 4332.62,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3953,7 +4125,7 @@
           "gap": "01:12:19",
           "gapSecs": 4339.367,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3973,7 +4145,7 @@
           "gap": "01:12:19",
           "gapSecs": 4339.617,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -3993,7 +4165,7 @@
           "gap": "01:14:42",
           "gapSecs": 4482.874,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4013,7 +4185,7 @@
           "gap": "01:14:42",
           "gapSecs": 4482.874,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4033,7 +4205,7 @@
           "gap": "01:15:29",
           "gapSecs": 4529.874,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4053,7 +4225,9 @@
           "gap": "01:16:36",
           "gapSecs": 4596.124,
           "points": 1,
-          "licence": "74537",
+          "licences": [
+            "74537"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4073,7 +4247,7 @@
           "gap": "01:18:26",
           "gapSecs": 4706.127,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4093,7 +4267,7 @@
           "gap": "01:19:08",
           "gapSecs": 4748.044,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4113,7 +4287,7 @@
           "gap": "01:20:41",
           "gapSecs": 4841.13,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4133,7 +4307,10 @@
           "gap": "01:25:00",
           "gapSecs": 5100.637,
           "points": 1,
-          "licence": "79093",
+          "licences": [
+            "79093",
+            "10132311620"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4153,7 +4330,7 @@
           "gap": "01:25:28",
           "gapSecs": 5128.394,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4173,7 +4350,7 @@
           "gap": "01:26:06",
           "gapSecs": 5166.64,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4193,7 +4370,10 @@
           "gap": "01:26:34",
           "gapSecs": 5194.64,
           "points": 1,
-          "licence": "59576",
+          "licences": [
+            "59576",
+            "10051890536"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4213,7 +4393,7 @@
           "gap": "01:26:41",
           "gapSecs": 5201.14,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4233,7 +4413,7 @@
           "gap": "01:27:12",
           "gapSecs": 5232.89,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4253,7 +4433,7 @@
           "gap": "01:27:35",
           "gapSecs": 5255.14,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4273,14 +4453,16 @@
           "gap": "01:27:35",
           "gapSecs": 5255.147,
           "points": 1,
-          "licence": "35458924",
+          "licences": [
+            "35458924"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 87,
           "genderPos": 85,
-          "athleteId": 0,
+          "athleteId": 4064,
           "bib": "131",
           "name": "Tiago Jacinto",
           "nameLower": "tiago jacinto",
@@ -4293,7 +4475,10 @@
           "gap": "01:29:07",
           "gapSecs": 5347.144,
           "points": 1,
-          "licence": "92003",
+          "licences": [
+            "92003",
+            "10144105103"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4313,7 +4498,7 @@
           "gap": "01:30:15",
           "gapSecs": 5415.894,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4333,7 +4518,7 @@
           "gap": "01:31:19",
           "gapSecs": 5479.647,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4353,14 +4538,14 @@
           "gap": "01:31:28",
           "gapSecs": 5488.404,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 91,
           "genderPos": 89,
-          "athleteId": 0,
+          "athleteId": 2904,
           "bib": "341",
           "name": "Tiago Cristina",
           "nameLower": "tiago cristina",
@@ -4373,7 +4558,9 @@
           "gap": "01:32:40",
           "gapSecs": 5560.147,
           "points": 1,
-          "licence": "13201",
+          "licences": [
+            "13201"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4393,7 +4580,7 @@
           "gap": "01:35:25",
           "gapSecs": 5725.9,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4413,7 +4600,7 @@
           "gap": "01:35:25",
           "gapSecs": 5725.904,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4433,7 +4620,9 @@
           "gap": "01:37:38",
           "gapSecs": 5858.654,
           "points": 1,
-          "licence": "42636",
+          "licences": [
+            "42636"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4453,7 +4642,7 @@
           "gap": "01:40:00",
           "gapSecs": 6000.91,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4473,7 +4662,10 @@
           "gap": "01:43:06",
           "gapSecs": 6186.164,
           "points": 1,
-          "licence": "27557",
+          "licences": [
+            "27557",
+            "10074681391"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4493,7 +4685,7 @@
           "gap": "01:44:03",
           "gapSecs": 6243.164,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4513,7 +4705,7 @@
           "gap": "01:54:01",
           "gapSecs": 6841.427,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4533,7 +4725,7 @@
           "gap": "01:58:08",
           "gapSecs": 7088.934,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4553,7 +4745,9 @@
           "gap": "02:10:43",
           "gapSecs": 7843.704,
           "points": 1,
-          "licence": "79267",
+          "licences": [
+            "79267"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4573,7 +4767,7 @@
           "gap": "02:21:20",
           "gapSecs": 8480.227,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4593,7 +4787,7 @@
           "gap": "02:36:50",
           "gapSecs": 9410.494,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4613,7 +4807,9 @@
           "gap": "02:37:19",
           "gapSecs": 9439.994,
           "points": 1,
-          "licence": "92715",
+          "licences": [
+            "92715"
+          ],
           "dnf": false,
           "dns": false
         }
@@ -4640,7 +4836,7 @@
           "gap": "00:00:00",
           "gapSecs": 0,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4660,14 +4856,16 @@
           "gap": "00:00:01",
           "gapSecs": 1.003,
           "points": 1,
-          "licence": "52677",
+          "licences": [
+            "52677"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 3,
           "genderPos": 3,
-          "athleteId": 0,
+          "athleteId": 2608,
           "bib": "198",
           "name": "Philippe Crutzen",
           "nameLower": "philippe crutzen",
@@ -4680,7 +4878,9 @@
           "gap": "00:03:23",
           "gapSecs": 203.013,
           "points": 1,
-          "licence": "92136",
+          "licences": [
+            "92136"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4700,7 +4900,9 @@
           "gap": "00:04:05",
           "gapSecs": 245.76,
           "points": 1,
-          "licence": "79895",
+          "licences": [
+            "79895"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4720,7 +4922,9 @@
           "gap": "00:04:06",
           "gapSecs": 246.01,
           "points": 1,
-          "licence": "70507",
+          "licences": [
+            "70507"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4740,14 +4944,16 @@
           "gap": "00:04:32",
           "gapSecs": 272.116,
           "points": 1,
-          "licence": "70100",
+          "licences": [
+            "70100"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 7,
           "genderPos": 7,
-          "athleteId": 0,
+          "athleteId": 2847,
           "bib": "323",
           "name": "Daniel Vilhena",
           "nameLower": "daniel vilhena",
@@ -4760,7 +4966,10 @@
           "gap": "00:04:32",
           "gapSecs": 272.26,
           "points": 1,
-          "licence": "38600",
+          "licences": [
+            "38600",
+            "10014336075"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4780,14 +4989,14 @@
           "gap": "00:04:33",
           "gapSecs": 273.26,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 9,
           "genderPos": 9,
-          "athleteId": 0,
+          "athleteId": 3700,
           "bib": "20",
           "name": "Ricardo Gouveia",
           "nameLower": "ricardo gouveia",
@@ -4800,7 +5009,9 @@
           "gap": "00:04:36",
           "gapSecs": 276.793,
           "points": 1,
-          "licence": "46410",
+          "licences": [
+            "46410"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4820,7 +5031,10 @@
           "gap": "00:04:38",
           "gapSecs": 278.51,
           "points": 1,
-          "licence": "61326",
+          "licences": [
+            "61326",
+            "10062045426"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4840,7 +5054,7 @@
           "gap": "00:06:14",
           "gapSecs": 374.513,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4860,7 +5074,10 @@
           "gap": "00:08:52",
           "gapSecs": 532.27,
           "points": 1,
-          "licence": "68097",
+          "licences": [
+            "68097",
+            "10096595311"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4880,7 +5097,7 @@
           "gap": "00:09:25",
           "gapSecs": 565.27,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4900,7 +5117,9 @@
           "gap": "00:09:26",
           "gapSecs": 566.27,
           "points": 1,
-          "licence": "58450",
+          "licences": [
+            "58450"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4920,14 +5139,14 @@
           "gap": "00:14:05",
           "gapSecs": 845.28,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 16,
           "genderPos": 16,
-          "athleteId": 0,
+          "athleteId": 4631,
           "bib": "172",
           "name": "Fábio Rodrigues",
           "nameLower": "fabio rodrigues",
@@ -4940,7 +5159,10 @@
           "gap": "00:15:58",
           "gapSecs": 958.783,
           "points": 1,
-          "licence": "65901",
+          "licences": [
+            "65901",
+            "10088871582"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -4960,7 +5182,7 @@
           "gap": "00:18:02",
           "gapSecs": 1082.536,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -4980,7 +5202,10 @@
           "gap": "00:18:03",
           "gapSecs": 1083.296,
           "points": 1,
-          "licence": "74129",
+          "licences": [
+            "74129",
+            "10115713203"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5000,7 +5225,7 @@
           "gap": "00:20:14",
           "gapSecs": 1214.29,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5020,7 +5245,9 @@
           "gap": "00:20:21",
           "gapSecs": 1221.07,
           "points": 1,
-          "licence": "11942",
+          "licences": [
+            "11942"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5040,7 +5267,7 @@
           "gap": "00:22:22",
           "gapSecs": 1342.553,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5060,7 +5287,7 @@
           "gap": "00:22:54",
           "gapSecs": 1374.296,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5080,7 +5307,7 @@
           "gap": "00:22:55",
           "gapSecs": 1375.546,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5100,7 +5327,7 @@
           "gap": "00:25:12",
           "gapSecs": 1512.05,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5120,7 +5347,9 @@
           "gap": "00:25:46",
           "gapSecs": 1546.06,
           "points": 1,
-          "licence": "52482",
+          "licences": [
+            "52482"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5140,7 +5369,9 @@
           "gap": "00:25:46",
           "gapSecs": 1546.3029999999999,
           "points": 1,
-          "licence": "37377",
+          "licences": [
+            "37377"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5160,7 +5391,7 @@
           "gap": "00:25:46",
           "gapSecs": 1546.31,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5180,7 +5411,7 @@
           "gap": "00:25:46",
           "gapSecs": 1546.55,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5200,7 +5431,9 @@
           "gap": "00:25:47",
           "gapSecs": 1547.8029999999999,
           "points": 1,
-          "licence": "72933",
+          "licences": [
+            "72933"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5220,7 +5453,7 @@
           "gap": "00:25:50",
           "gapSecs": 1550.5529999999999,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5240,7 +5473,7 @@
           "gap": "00:25:54",
           "gapSecs": 1554.5529999999999,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5260,7 +5493,9 @@
           "gap": "00:29:34",
           "gapSecs": 1774.813,
           "points": 1,
-          "licence": "70508",
+          "licences": [
+            "70508"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5280,7 +5515,9 @@
           "gap": "00:29:35",
           "gapSecs": 1775.06,
           "points": 1,
-          "licence": "75447",
+          "licences": [
+            "75447"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5300,7 +5537,9 @@
           "gap": "00:33:33",
           "gapSecs": 2013.32,
           "points": 1,
-          "licence": "95285",
+          "licences": [
+            "95285"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5320,7 +5559,9 @@
           "gap": "00:33:35",
           "gapSecs": 2015.566,
           "points": 1,
-          "licence": "49734",
+          "licences": [
+            "49734"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5340,7 +5581,10 @@
           "gap": "00:33:39",
           "gapSecs": 2019.07,
           "points": 1,
-          "licence": "90103",
+          "licences": [
+            "90103",
+            "10137022584"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5360,7 +5604,7 @@
           "gap": "00:35:06",
           "gapSecs": 2106.326,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5380,7 +5624,9 @@
           "gap": "00:36:22",
           "gapSecs": 2182.323,
           "points": 1,
-          "licence": "39596",
+          "licences": [
+            "39596"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5400,7 +5646,9 @@
           "gap": "00:36:22",
           "gapSecs": 2182.323,
           "points": 1,
-          "licence": "78960",
+          "licences": [
+            "78960"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5420,7 +5668,9 @@
           "gap": "00:36:39",
           "gapSecs": 2199.323,
           "points": 1,
-          "licence": "59494",
+          "licences": [
+            "59494"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5440,7 +5690,7 @@
           "gap": "00:38:49",
           "gapSecs": 2329.08,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5460,14 +5710,17 @@
           "gap": "00:39:03",
           "gapSecs": 2343.08,
           "points": 1,
-          "licence": "50392",
+          "licences": [
+            "50392",
+            "10044927552"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 42,
           "genderPos": 41,
-          "athleteId": 0,
+          "athleteId": 4347,
           "bib": "285",
           "name": "Pedro Catarino",
           "nameLower": "pedro catarino",
@@ -5480,7 +5733,10 @@
           "gap": "00:39:58",
           "gapSecs": 2398.83,
           "points": 1,
-          "licence": "24323",
+          "licences": [
+            "24323",
+            "10050339748"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5500,7 +5756,7 @@
           "gap": "00:41:46",
           "gapSecs": 2506.833,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5520,7 +5776,7 @@
           "gap": "00:42:33",
           "gapSecs": 2553.336,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5540,7 +5796,7 @@
           "gap": "00:42:42",
           "gapSecs": 2562.833,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5560,7 +5816,7 @@
           "gap": "00:42:45",
           "gapSecs": 2565.586,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5580,7 +5836,10 @@
           "gap": "00:44:12",
           "gapSecs": 2652.59,
           "points": 1,
-          "licence": "67706",
+          "licences": [
+            "67706",
+            "10094481014"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5600,7 +5859,10 @@
           "gap": "00:44:12",
           "gapSecs": 2652.593,
           "points": 1,
-          "licence": "67705",
+          "licences": [
+            "67705",
+            "10094480913"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5620,7 +5882,9 @@
           "gap": "00:44:18",
           "gapSecs": 2658.836,
           "points": 1,
-          "licence": "68562",
+          "licences": [
+            "68562"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5640,14 +5904,17 @@
           "gap": "00:46:22",
           "gapSecs": 2782.593,
           "points": 1,
-          "licence": "61399",
+          "licences": [
+            "61399",
+            "10062611864"
+          ],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 51,
           "genderPos": 49,
-          "athleteId": 0,
+          "athleteId": 4378,
           "bib": "258",
           "name": "Ricardo Sequeira",
           "nameLower": "ricardo sequeira",
@@ -5660,7 +5927,9 @@
           "gap": "00:48:13",
           "gapSecs": 2893.593,
           "points": 1,
-          "licence": "57212",
+          "licences": [
+            "57212"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5680,7 +5949,7 @@
           "gap": "00:49:27",
           "gapSecs": 2967.346,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5700,7 +5969,10 @@
           "gap": "00:49:27",
           "gapSecs": 2967.35,
           "points": 1,
-          "licence": "60350",
+          "licences": [
+            "60350",
+            "10055308269"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5720,7 +5992,9 @@
           "gap": "00:49:27",
           "gapSecs": 2967.846,
           "points": 1,
-          "licence": "55194",
+          "licences": [
+            "55194"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5740,7 +6014,7 @@
           "gap": "00:49:28",
           "gapSecs": 2968.346,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5760,7 +6034,7 @@
           "gap": "00:53:05",
           "gapSecs": 3185.363,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5780,7 +6054,9 @@
           "gap": "00:53:22",
           "gapSecs": 3202.103,
           "points": 1,
-          "licence": "86597",
+          "licences": [
+            "86597"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5800,7 +6076,7 @@
           "gap": "01:03:14",
           "gapSecs": 3794.87,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5820,7 +6096,7 @@
           "gap": "01:03:44",
           "gapSecs": 3824.12,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5840,7 +6116,7 @@
           "gap": "01:03:44",
           "gapSecs": 3824.123,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5860,14 +6136,14 @@
           "gap": "01:04:18",
           "gapSecs": 3858.123,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
         {
           "pos": 62,
           "genderPos": 5,
-          "athleteId": 0,
+          "athleteId": 1101,
           "bib": "72",
           "name": "Elisabeth Murray",
           "nameLower": "elisabeth murray",
@@ -5880,7 +6156,9 @@
           "gap": "01:06:27",
           "gapSecs": 3987.13,
           "points": 1,
-          "licence": "95463",
+          "licences": [
+            "95463"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -5900,7 +6178,7 @@
           "gap": "01:06:27",
           "gapSecs": 3987.876,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5920,7 +6198,7 @@
           "gap": "01:06:29",
           "gapSecs": 3989.376,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5940,7 +6218,7 @@
           "gap": "01:06:49",
           "gapSecs": 4009.876,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5960,7 +6238,7 @@
           "gap": "01:09:35",
           "gapSecs": 4175.383,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -5980,7 +6258,9 @@
           "gap": "01:14:52",
           "gapSecs": 4492.39,
           "points": 1,
-          "licence": "000185",
+          "licences": [
+            "00185"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -6000,7 +6280,7 @@
           "gap": "01:19:13",
           "gapSecs": 4753.646,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6020,7 +6300,9 @@
           "gap": "01:21:36",
           "gapSecs": 4896.22,
           "points": 1,
-          "licence": "10161758695",
+          "licences": [
+            "10161758695"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -6040,7 +6322,7 @@
           "gap": "01:21:37",
           "gapSecs": 4897.66,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6060,7 +6342,10 @@
           "gap": "01:21:37",
           "gapSecs": 4897.903,
           "points": 1,
-          "licence": "76749",
+          "licences": [
+            "76749",
+            "10125073295"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -6080,7 +6365,9 @@
           "gap": "01:21:38",
           "gapSecs": 4898.153,
           "points": 1,
-          "licence": "18581",
+          "licences": [
+            "18581"
+          ],
           "dnf": false,
           "dns": false
         },
@@ -6100,7 +6387,7 @@
           "gap": "01:40:18",
           "gapSecs": 6018.433,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         },
@@ -6120,7 +6407,7 @@
           "gap": "01:45:04",
           "gapSecs": 6304.69,
           "points": 1,
-          "licence": "",
+          "licences": [],
           "dnf": false,
           "dns": false
         }

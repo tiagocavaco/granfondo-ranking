@@ -42,6 +42,7 @@ export interface ApiResult {
   escalao: string;
   sexo: string;
   licenca1: string;
+  licenca2?: string;
   pais_nome: string;
   pais_iso2: string;
   temposeg: string;   // decimal seconds as string e.g. "12266.493"
@@ -92,7 +93,7 @@ export interface StoredResult {
   gap: string;          // "HH:MM:SS" | ""
   gapSecs: number;
   points: number;
-  licence: string;
+  licences: string[]; // normalized licence numbers (licenca1, licenca2, …)
   dnf: boolean;
   dns: boolean;
 }
