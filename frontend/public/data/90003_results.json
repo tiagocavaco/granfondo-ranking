@@ -3,7 +3,7 @@
   "eventName": "Granfondo 5 Quinas Sabugal 2025",
   "eventDate": "2025-06-01",
   "eventYear": 2025,
-  "scrapedAt": "2026-04-10T22:03:03.601Z",
+  "scrapedAt": "2026-04-10T22:16:26.136Z",
   "distances": [
     {
       "id": "1",
@@ -1293,7 +1293,7 @@
         {
           "pos": 65,
           "genderPos": 65,
-          "athleteId": 7912,
+          "athleteId": 0,
           "bib": "0014",
           "name": "Tiago Ferreira",
           "nameLower": "tiago ferreira",
@@ -2000,7 +2000,7 @@
         {
           "pos": 3,
           "genderPos": 3,
-          "athleteId": 8249,
+          "athleteId": 0,
           "bib": "0179",
           "name": "André Gonçalves",
           "nameLower": "andre goncalves",
@@ -3320,7 +3320,7 @@
         {
           "pos": 69,
           "genderPos": 67,
-          "athleteId": 9075,
+          "athleteId": 0,
           "bib": "0064",
           "name": "Gabriel Ferreira",
           "nameLower": "gabriel ferreira",
@@ -4920,7 +4920,7 @@
         {
           "pos": 149,
           "genderPos": 143,
-          "athleteId": 2275,
+          "athleteId": 0,
           "bib": "0119",
           "name": "Luis Fonseca",
           "nameLower": "luis fonseca",

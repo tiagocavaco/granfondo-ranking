@@ -3,7 +3,7 @@
   "eventName": "MONÇÃO e MELGAÇO GF 2025",
   "eventDate": "2025-09-21",
   "eventYear": 2025,
-  "scrapedAt": "2026-04-10T22:02:29.386Z",
+  "scrapedAt": "2026-04-10T22:15:48.595Z",
   "distances": [
     {
       "id": "1",
@@ -93,7 +93,7 @@
         {
           "pos": 5,
           "genderPos": 5,
-          "athleteId": 5702,
+          "athleteId": 0,
           "bib": "275",
           "name": "Luis Pereira",
           "nameLower": "luis pereira",
@@ -113,7 +113,7 @@
         {
           "pos": 6,
           "genderPos": 6,
-          "athleteId": 5703,
+          "athleteId": 0,
           "bib": "195",
           "name": "Pedro Seabra",
           "nameLower": "pedro seabra",
@@ -233,7 +233,7 @@
         {
           "pos": 12,
           "genderPos": 12,
-          "athleteId": 5707,
+          "athleteId": 0,
           "bib": "164",
           "name": "Igor Resende",
           "nameLower": "igor resende",
@@ -493,7 +493,7 @@
         {
           "pos": 25,
           "genderPos": 25,
-          "athleteId": 1173,
+          "athleteId": 0,
           "bib": "432",
           "name": "Rui Pinto",
           "nameLower": "rui pinto",
@@ -1053,7 +1053,7 @@
         {
           "pos": 52,
           "genderPos": 53,
-          "athleteId": 5729,
+          "athleteId": 0,
           "bib": "924",
           "name": "Cristiano Bastiana",
           "nameLower": "cristiano bastiana",
@@ -1333,7 +1333,7 @@
         {
           "pos": 66,
           "genderPos": 1,
-          "athleteId": 5737,
+          "athleteId": 0,
           "bib": "678",
           "name": "Marlene Gonçalves",
           "nameLower": "marlene goncalves",
@@ -1733,7 +1733,7 @@
         {
           "pos": 86,
           "genderPos": 86,
-          "athleteId": 5749,
+          "athleteId": 0,
           "bib": "97",
           "name": "Manuel Ferreira",
           "nameLower": "manuel ferreira",
@@ -2053,7 +2053,7 @@
         {
           "pos": 102,
           "genderPos": 101,
-          "athleteId": 1302,
+          "athleteId": 0,
           "bib": "106",
           "name": "Antonio Soares",
           "nameLower": "antonio soares",
@@ -2233,7 +2233,7 @@
         {
           "pos": 111,
           "genderPos": 110,
-          "athleteId": 5770,
+          "athleteId": 0,
           "bib": "391",
           "name": "Pedro Silva",
           "nameLower": "pedro silva",
@@ -2373,7 +2373,7 @@
         {
           "pos": 118,
           "genderPos": 117,
-          "athleteId": 5772,
+          "athleteId": 0,
           "bib": "533",
           "name": "Artur Andrade",
           "nameLower": "artur andrade",
@@ -3900,7 +3900,7 @@
         {
           "pos": 5,
           "genderPos": 5,
-          "athleteId": 5829,
+          "athleteId": 0,
           "bib": "81",
           "name": "Pedro Gaio",
           "nameLower": "pedro gaio",
@@ -3980,7 +3980,7 @@
         {
           "pos": 9,
           "genderPos": 9,
-          "athleteId": 5831,
+          "athleteId": 0,
           "bib": "69",
           "name": "Cláudio Santos",
           "nameLower": "claudio santos",
@@ -4180,7 +4180,7 @@
         {
           "pos": 19,
           "genderPos": 19,
-          "athleteId": 5836,
+          "athleteId": 0,
           "bib": "2026",
           "name": "Bruno Silvestre",
           "nameLower": "bruno silvestre",
@@ -4440,7 +4440,7 @@
         {
           "pos": 32,
           "genderPos": 32,
-          "athleteId": 5844,
+          "athleteId": 0,
           "bib": "209",
           "name": "Alvaro Vaz",
           "nameLower": "alvaro vaz",
@@ -4640,7 +4640,7 @@
         {
           "pos": 42,
           "genderPos": 42,
-          "athleteId": 5850,
+          "athleteId": 0,
           "bib": "266",
           "name": "Bruno Carvalho",
           "nameLower": "bruno carvalho",
@@ -4700,7 +4700,7 @@
         {
           "pos": 45,
           "genderPos": 45,
-          "athleteId": 5852,
+          "athleteId": 0,
           "bib": "156",
           "name": "Pedro Martins",
           "nameLower": "pedro martins",
@@ -5160,7 +5160,7 @@
         {
           "pos": 68,
           "genderPos": 68,
-          "athleteId": 5858,
+          "athleteId": 0,
           "bib": "526",
           "name": "Pedro Valente",
           "nameLower": "pedro valente",
@@ -5540,7 +5540,7 @@
         {
           "pos": 87,
           "genderPos": 87,
-          "athleteId": 3758,
+          "athleteId": 0,
           "bib": "774",
           "name": "José Inocencio",
           "nameLower": "jose inocencio",
@@ -6080,7 +6080,7 @@
         {
           "pos": 114,
           "genderPos": 112,
-          "athleteId": 5886,
+          "athleteId": 0,
           "bib": "713",
           "name": "Jorge Ferreira",
           "nameLower": "jorge ferreira",
@@ -6180,7 +6180,7 @@
         {
           "pos": 118,
           "genderPos": 3,
-          "athleteId": 5889,
+          "athleteId": 0,
           "bib": "289",
           "name": "Elisabete Madeira",
           "nameLower": "elisabete madeira",
@@ -6200,7 +6200,7 @@
         {
           "pos": 119,
           "genderPos": 117,
-          "athleteId": 5890,
+          "athleteId": 0,
           "bib": "175",
           "name": "Mario Madeira",
           "nameLower": "mario madeira",
@@ -6660,7 +6660,7 @@
         {
           "pos": 141,
           "genderPos": 139,
-          "athleteId": 5900,
+          "athleteId": 0,
           "bib": "293",
           "name": "José Alves",
           "nameLower": "jose alves",
@@ -7060,7 +7060,7 @@
         {
           "pos": 161,
           "genderPos": 159,
-          "athleteId": 5909,
+          "athleteId": 0,
           "bib": "989",
           "name": "Wilson Martins",
           "nameLower": "wilson martins",
@@ -7080,7 +7080,7 @@
         {
           "pos": 162,
           "genderPos": 160,
-          "athleteId": 5910,
+          "athleteId": 0,
           "bib": "882",
           "name": "Júlio Fernandes",
           "nameLower": "julio fernandes",
@@ -7120,7 +7120,7 @@
         {
           "pos": 164,
           "genderPos": 162,
-          "athleteId": 5911,
+          "athleteId": 0,
           "bib": "773",
           "name": "Rui Castanheira",
           "nameLower": "rui castanheira",
@@ -7200,7 +7200,7 @@
         {
           "pos": 168,
           "genderPos": 165,
-          "athleteId": 5913,
+          "athleteId": 0,
           "bib": "906",
           "name": "Carlos Leal",
           "nameLower": "carlos leal",
@@ -7500,7 +7500,7 @@
         {
           "pos": 183,
           "genderPos": 180,
-          "athleteId": 5923,
+          "athleteId": 0,
           "bib": "70",
           "name": "Luis Moreira",
           "nameLower": "luis moreira",
@@ -8080,7 +8080,7 @@
         {
           "pos": 212,
           "genderPos": 207,
-          "athleteId": 5940,
+          "athleteId": 0,
           "bib": "394",
           "name": "Manuel Pinto",
           "nameLower": "manuel pinto",
@@ -8100,7 +8100,7 @@
         {
           "pos": 212,
           "genderPos": 8,
-          "athleteId": 5941,
+          "athleteId": 0,
           "bib": "392",
           "name": "Alexandra Ferreira",
           "nameLower": "alexandra ferreira",
@@ -8180,7 +8180,7 @@
         {
           "pos": 216,
           "genderPos": 211,
-          "athleteId": 5944,
+          "athleteId": 0,
           "bib": "212",
           "name": "Jorge Costa",
           "nameLower": "jorge costa",
@@ -8960,7 +8960,7 @@
         {
           "pos": 253,
           "genderPos": 247,
-          "athleteId": 5971,
+          "athleteId": 0,
           "bib": "448",
           "name": "Nuno Alves",
           "nameLower": "nuno alves",
@@ -9420,7 +9420,7 @@
         {
           "pos": 276,
           "genderPos": 269,
-          "athleteId": 5991,
+          "athleteId": 0,
           "bib": "182",
           "name": "Guilherme Rodrigues",
           "nameLower": "guilherme rodrigues",
@@ -9440,7 +9440,7 @@
         {
           "pos": 277,
           "genderPos": 270,
-          "athleteId": 5992,
+          "athleteId": 0,
           "bib": "434",
           "name": "João Felgueiras",
           "nameLower": "joao felgueiras",
@@ -10220,7 +10220,7 @@
         {
           "pos": 314,
           "genderPos": 307,
-          "athleteId": 6015,
+          "athleteId": 0,
           "bib": "1054",
           "name": "Paulo Gonçalves",
           "nameLower": "paulo goncalves",
@@ -10240,7 +10240,7 @@
         {
           "pos": 314,
           "genderPos": 308,
-          "athleteId": 6016,
+          "athleteId": 0,
           "bib": "1047",
           "name": "Carlos Gonçalves",
           "nameLower": "carlos goncalves",
@@ -10260,7 +10260,7 @@
         {
           "pos": 315,
           "genderPos": 309,
-          "athleteId": 6017,
+          "athleteId": 0,
           "bib": "14",
           "name": "Joaquim Silva",
           "nameLower": "joaquim silva",
@@ -10280,7 +10280,7 @@
         {
           "pos": 315,
           "genderPos": 310,
-          "athleteId": 6018,
+          "athleteId": 0,
           "bib": "1021",
           "name": "Filipe Gonçalves",
           "nameLower": "filipe goncalves",
@@ -10300,7 +10300,7 @@
         {
           "pos": 316,
           "genderPos": 311,
-          "athleteId": 6019,
+          "athleteId": 0,
           "bib": "1060",
           "name": "Bruno Rodrigues",
           "nameLower": "bruno rodrigues",
@@ -10600,7 +10600,7 @@
         {
           "pos": 331,
           "genderPos": 323,
-          "athleteId": 6028,
+          "athleteId": 0,
           "bib": "407",
           "name": "Vítor Bessa",
           "nameLower": "vitor bessa",
@@ -12100,7 +12100,7 @@
         {
           "pos": 401,
           "genderPos": 388,
-          "athleteId": 6083,
+          "athleteId": 0,
           "bib": "600",
           "name": "Tiago Prata",
           "nameLower": "tiago prata",
@@ -13447,7 +13447,7 @@
         {
           "pos": 18,
           "genderPos": 18,
-          "athleteId": 6125,
+          "athleteId": 0,
           "bib": "78",
           "name": "Jorge Madeira",
           "nameLower": "jorge madeira",
@@ -13707,7 +13707,7 @@
         {
           "pos": 31,
           "genderPos": 31,
-          "athleteId": 6128,
+          "athleteId": 0,
           "bib": "130",
           "name": "Luis Sa",
           "nameLower": "luis sa",
@@ -13727,7 +13727,7 @@
         {
           "pos": 32,
           "genderPos": 32,
-          "athleteId": 6129,
+          "athleteId": 0,
           "bib": "16",
           "name": "Ricardo Portela",
           "nameLower": "ricardo portela",
@@ -14527,7 +14527,7 @@
         {
           "pos": 72,
           "genderPos": 72,
-          "athleteId": 6145,
+          "athleteId": 0,
           "bib": "1044",
           "name": "Vitor Araújo",
           "nameLower": "vitor araujo",
@@ -14567,7 +14567,7 @@
         {
           "pos": 74,
           "genderPos": 74,
-          "athleteId": 6146,
+          "athleteId": 0,
           "bib": "199",
           "name": "Pedro Oliveira",
           "nameLower": "pedro oliveira",
@@ -14747,7 +14747,7 @@
         {
           "pos": 83,
           "genderPos": 1,
-          "athleteId": 6150,
+          "athleteId": 0,
           "bib": "50",
           "name": "Rosa Rodrigues",
           "nameLower": "rosa rodrigues",
@@ -14807,7 +14807,7 @@
         {
           "pos": 85,
           "genderPos": 85,
-          "athleteId": 6151,
+          "athleteId": 0,
           "bib": "302",
           "name": "Antonio Rodrigues",
           "nameLower": "antonio rodrigues",
@@ -15447,7 +15447,7 @@
         {
           "pos": 117,
           "genderPos": 114,
-          "athleteId": 6168,
+          "athleteId": 0,
           "bib": "318",
           "name": "Carlos Pereira",
           "nameLower": "carlos pereira",
@@ -16147,7 +16147,7 @@
         {
           "pos": 151,
           "genderPos": 9,
-          "athleteId": 6189,
+          "athleteId": 0,
           "bib": "511",
           "name": "Ana Falcão",
           "nameLower": "ana falcao",
@@ -17227,7 +17227,7 @@
         {
           "pos": 204,
           "genderPos": 192,
-          "athleteId": 1779,
+          "athleteId": 0,
           "bib": "668",
           "name": "Pedro Teixeira",
           "nameLower": "pedro teixeira",
@@ -17847,7 +17847,7 @@
         {
           "pos": 234,
           "genderPos": 220,
-          "athleteId": 6246,
+          "athleteId": 0,
           "bib": "887",
           "name": "Victor Cordeiro",
           "nameLower": "victor cordeiro",
@@ -18367,7 +18367,7 @@
         {
           "pos": 260,
           "genderPos": 242,
-          "athleteId": 6265,
+          "athleteId": 0,
           "bib": "1038",
           "name": "Artur Mendes",
           "nameLower": "artur mendes",
@@ -18527,7 +18527,7 @@
         {
           "pos": 268,
           "genderPos": 23,
-          "athleteId": 6270,
+          "athleteId": 0,
           "bib": "900",
           "name": "Rita Santos-Rocha",
           "nameLower": "rita santos-rocha",

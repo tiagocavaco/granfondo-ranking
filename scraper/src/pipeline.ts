@@ -37,6 +37,20 @@ import type {
 export type ResultsLoader = (id: number) => StoredEventResults | null;
 
 /**
+ * Normalize a licence number for comparison.
+ * Strips whitespace, common prefixes (UCI, PT, etc.), and non-digit/letter chars
+ * so that "10007733813" and "UCI 10007733813" compare as the same.
+ */
+export function normalizeLicence(lic: string): string {
+  return lic
+    .trim()
+    .toUpperCase()
+    .replace(/^(UCI[-\s]?|PT[-\s]?|FCP[-\s]?)/i, "") // strip common federation prefixes
+    .replace(/\s+/g, "")                               // collapse internal spaces
+    .replace(/^0+(?=\d{5,})/, "");                    // strip leading zeros from long numbers
+}
+
+/**
  * Persistent map of `nameLower|canonicalTeamKey` → stable integer ID.
  * Stored in scraper/athlete-ids.json and never reassigned.
  * Alias keys (from applyAthleteAliases) are remapped to the canonical ID.
@@ -158,10 +172,13 @@ export function buildAthletesIndex(
 ): {
   index: Map<string, AthleteEntry>; // athleteKey → AthleteEntry
   updatedIdStore: AthleteIdStore;
+  licenceIndex: Map<string, string[]>; // licence → list of athleteKeys (for auto-merge)
 } {
   const index = new Map<string, AthleteEntry>();
   const newIds = new Map<string, number>();
   let nextId = idStore.size > 0 ? Math.max(...idStore.values()) + 1 : 1;
+  // Track which athleteKeys appear with each licence (for post-build auto-merge)
+  const licenceIndex = new Map<string, string[]>();
 
   function getOrAssignId(key: string): number {
     if (idStore.has(key)) return idStore.get(key)!;
@@ -183,6 +200,14 @@ export function buildAthletesIndex(
         if (!index.has(key)) {
           const id = getOrAssignId(key);
           index.set(key, { id, name: r.name, nameLower, results: [] });
+        }
+
+        // Record licence → key mapping (deduplicated per key)
+        const lic = r.licence ? normalizeLicence(r.licence) : "";
+        if (lic) {
+          const keys = licenceIndex.get(lic) ?? [];
+          if (!keys.includes(key)) keys.push(key);
+          licenceIndex.set(lic, keys);
         }
 
         index.get(key)!.results.push({
@@ -226,7 +251,7 @@ export function buildAthletesIndex(
   const updatedIdStore = new Map(idStore);
   for (const [key, id] of newIds) updatedIdStore.set(key, id);
 
-  return { index, updatedIdStore };
+  return { index, updatedIdStore, licenceIndex };
 }
 
 /**
@@ -289,6 +314,61 @@ export function applyAthleteAliases(
       canonical.canonicalTeam = canonicalTeam(teamCounts);
     }
   }
+}
+
+/**
+ * Auto-merge athletes that share the same non-empty licence number and the
+ * same normalised name. This handles two cases automatically:
+ *
+ *   1. Same athlete, team name written differently across events
+ *      (e.g. "C.B.Almodôvar/Banco Primus/Swick" vs "Casa Benfica Almodôvar")
+ *   2. Same athlete who genuinely changed teams between seasons
+ *
+ * Licences that appear under different names are skipped (likely data error).
+ * Returns the number of licences that triggered a merge.
+ */
+export function mergeByLicence(
+  index: Map<string, AthleteEntry>,
+  idStore: AthleteIdStore,
+  licenceIndex: Map<string, string[]>
+): number {
+  let mergedCount = 0;
+
+  for (const [_lic, keys] of licenceIndex) {
+    if (keys.length < 2) continue;
+
+    // Only merge if all keys share the same nameLower (same person, different teams)
+    const names = new Set(keys.map((k) => index.get(k)?.nameLower ?? "").filter(Boolean));
+    if (names.size !== 1) continue; // different names → skip (data error or typo)
+
+    // Canonical entry: the one with the most results (most-represented team)
+    const entries = keys.map((k) => ({ key: k, entry: index.get(k)! })).filter((x) => x.entry);
+    if (entries.length < 2) continue;
+    entries.sort((a, b) => b.entry.results.length - a.entry.results.length || a.key.localeCompare(b.key));
+    const { key: canonKey, entry: canonical } = entries[0]!;
+
+    let merged = false;
+    for (const { key: aliasKey, entry: aliasEntry } of entries.slice(1)) {
+      canonical.results.push(...aliasEntry.results);
+      if (aliasEntry.id !== canonical.id) idStore.set(aliasKey, canonical.id);
+      index.delete(aliasKey);
+      merged = true;
+    }
+
+    if (merged) {
+      canonical.results.sort(
+        (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
+      );
+      const teamCounts = new Map<string, number>();
+      for (const r of canonical.results) {
+        if (!isSoloTeam(r.team)) teamCounts.set(r.team, (teamCounts.get(r.team) ?? 0) + 1);
+      }
+      if (teamCounts.size > 0) canonical.canonicalTeam = canonicalTeam(teamCounts);
+      mergedCount++;
+    }
+  }
+
+  return mergedCount;
 }
 
 // ── Aggregate ranking builder ─────────────────────────────────────────────────

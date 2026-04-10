@@ -3,7 +3,7 @@
   "eventName": "Granfondo Agitágueda 2025",
   "eventDate": "2025-07-27",
   "eventYear": 2025,
-  "scrapedAt": "2026-04-10T22:03:01.870Z",
+  "scrapedAt": "2026-04-10T22:16:24.035Z",
   "distances": [
     {
       "id": "1",
@@ -193,7 +193,7 @@
         {
           "pos": 10,
           "genderPos": 10,
-          "athleteId": 7329,
+          "athleteId": 0,
           "bib": "314",
           "name": "Igor Resende",
           "nameLower": "igor resende",
@@ -313,7 +313,7 @@
         {
           "pos": 16,
           "genderPos": 16,
-          "athleteId": 3247,
+          "athleteId": 0,
           "bib": "61",
           "name": "João Pereira",
           "nameLower": "joao pereira",
@@ -1093,7 +1093,7 @@
         {
           "pos": 55,
           "genderPos": 55,
-          "athleteId": 3314,
+          "athleteId": 0,
           "bib": "712",
           "name": "ABEL PINHO",
           "nameLower": "abel pinho",
@@ -1393,7 +1393,7 @@
         {
           "pos": 70,
           "genderPos": 70,
-          "athleteId": 3799,
+          "athleteId": 0,
           "bib": "697",
           "name": "André Sequeira",
           "nameLower": "andre sequeira",
@@ -2993,7 +2993,7 @@
         {
           "pos": 0,
           "genderPos": 0,
-          "athleteId": 3386,
+          "athleteId": 0,
           "bib": "614",
           "name": "João Viegas",
           "nameLower": "joao viegas",
@@ -3280,7 +3280,7 @@
         {
           "pos": 1,
           "genderPos": 1,
-          "athleteId": 12136,
+          "athleteId": 0,
           "bib": "133",
           "name": "Rodrigo Coimbra",
           "nameLower": "rodrigo coimbra",
@@ -3500,7 +3500,7 @@
         {
           "pos": 12,
           "genderPos": 12,
-          "athleteId": 4558,
+          "athleteId": 0,
           "bib": "189",
           "name": "Alexandre Silva",
           "nameLower": "alexandre silva",
@@ -6580,7 +6580,7 @@
         {
           "pos": 166,
           "genderPos": 162,
-          "athleteId": 2252,
+          "athleteId": 0,
           "bib": "123",
           "name": "Rafael Kerr",
           "nameLower": "rafael kerr",
@@ -6900,7 +6900,7 @@
         {
           "pos": 182,
           "genderPos": 178,
-          "athleteId": 1394,
+          "athleteId": 0,
           "bib": "313",
           "name": "Pedro Sousa",
           "nameLower": "pedro sousa",
@@ -7040,7 +7040,7 @@
         {
           "pos": 189,
           "genderPos": 185,
-          "athleteId": 1016,
+          "athleteId": 0,
           "bib": "362",
           "name": "Ricardo Moreira",
           "nameLower": "ricardo moreira",
@@ -10100,7 +10100,7 @@
         {
           "pos": 342,
           "genderPos": 326,
-          "athleteId": 1534,
+          "athleteId": 0,
           "bib": "485",
           "name": "Pedro Mendes",
           "nameLower": "pedro mendes",
@@ -12767,7 +12767,7 @@
         {
           "pos": 86,
           "genderPos": 17,
-          "athleteId": 1129,
+          "athleteId": 0,
           "bib": "580",
           "name": "Aurelie Mesquita",
           "nameLower": "aurelie mesquita",

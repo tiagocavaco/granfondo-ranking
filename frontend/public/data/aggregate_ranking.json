@@ -1402,7 +1402,7 @@
         },
         {
           "rank": 18,
-          "id": 11315,
+          "id": 0,
           "name": "Joao Jacinto",
           "nameLower": "joao jacinto",
           "gender": "M",
@@ -1642,7 +1642,7 @@
         },
         {
           "rank": 23,
-          "id": 11314,
+          "id": 0,
           "name": "Ruben Pais",
           "nameLower": "ruben pais",
           "gender": "M",
@@ -2064,7 +2064,7 @@
         },
         {
           "rank": 31,
-          "id": 11661,
+          "id": 0,
           "name": "Ricardo Silva",
           "nameLower": "ricardo silva",
           "gender": "M",
@@ -2176,7 +2176,7 @@
         },
         {
           "rank": 34,
-          "id": 12345,
+          "id": 0,
           "name": "Helder Loureiro",
           "nameLower": "helder loureiro",
           "gender": "M",
@@ -2722,7 +2722,7 @@
         },
         {
           "rank": 48,
-          "id": 8173,
+          "id": 0,
           "name": "Diogo Pereira",
           "nameLower": "diogo pereira",
           "gender": "M",
@@ -2800,7 +2800,7 @@
         },
         {
           "rank": 50,
-          "id": 9309,
+          "id": 0,
           "name": "Miguel Nunes",
           "nameLower": "miguel nunes",
           "gender": "M",
@@ -2960,7 +2960,7 @@
         },
         {
           "rank": 55,
-          "id": 12558,
+          "id": 0,
           "name": "Bruno Saraiva",
           "nameLower": "bruno saraiva",
           "gender": "M",
@@ -3234,7 +3234,7 @@
         },
         {
           "rank": 61,
-          "id": 11316,
+          "id": 0,
           "name": "Bruno Passos",
           "nameLower": "bruno passos",
           "gender": "M",
@@ -3282,7 +3282,7 @@
         },
         {
           "rank": 63,
-          "id": 6271,
+          "id": 0,
           "name": "Alexandre Gonçalves",
           "nameLower": "alexandre goncalves",
           "gender": "M",
@@ -3418,7 +3418,7 @@
         },
         {
           "rank": 67,
-          "id": 6709,
+          "id": 0,
           "name": "Daniel Marques",
           "nameLower": "daniel marques",
           "gender": "M",
@@ -3770,7 +3770,7 @@
         },
         {
           "rank": 75,
-          "id": 7858,
+          "id": 0,
           "name": "Ricardo Silva",
           "nameLower": "ricardo silva",
           "gender": "M",
@@ -3890,7 +3890,7 @@
         },
         {
           "rank": 80,
-          "id": 5702,
+          "id": 0,
           "name": "Luis Pereira",
           "nameLower": "luis pereira",
           "gender": "M",
@@ -4040,7 +4040,7 @@
         },
         {
           "rank": 85,
-          "id": 5703,
+          "id": 0,
           "name": "Pedro Seabra",
           "nameLower": "pedro seabra",
           "gender": "M",
@@ -4064,7 +4064,7 @@
         },
         {
           "rank": 86,
-          "id": 7308,
+          "id": 0,
           "name": "Miguel Frutuoso",
           "nameLower": "miguel frutuoso",
           "gender": "M",
@@ -4502,7 +4502,7 @@
         },
         {
           "rank": 98,
-          "id": 4558,
+          "id": 0,
           "name": "Alexandre Silva",
           "nameLower": "alexandre silva",
           "gender": "M",
@@ -4698,7 +4698,7 @@
         },
         {
           "rank": 102,
-          "id": 10559,
+          "id": 0,
           "name": "Fabio Gerardo",
           "nameLower": "fabio gerardo",
           "gender": "M",
@@ -4722,7 +4722,7 @@
         },
         {
           "rank": 103,
-          "id": 12562,
+          "id": 0,
           "name": "Diogo Graça",
           "nameLower": "diogo graca",
           "gender": "M",
@@ -4746,7 +4746,7 @@
         },
         {
           "rank": 104,
-          "id": 3868,
+          "id": 0,
           "name": "Marco Domingos",
           "nameLower": "marco domingos",
           "gender": "M",
@@ -5234,7 +5234,7 @@
         },
         {
           "rank": 116,
-          "id": 8466,
+          "id": 0,
           "name": "Rafael Teles",
           "nameLower": "rafael teles",
           "gender": "M",
@@ -5258,7 +5258,7 @@
         },
         {
           "rank": 117,
-          "id": 12350,
+          "id": 0,
           "name": "Bruno Passos",
           "nameLower": "bruno passos",
           "gender": "M",
@@ -5364,7 +5364,7 @@
         },
         {
           "rank": 121,
-          "id": 3623,
+          "id": 0,
           "name": "Telmo Melo",
           "nameLower": "telmo melo",
           "gender": "M",
@@ -5466,7 +5466,7 @@
         },
         {
           "rank": 124,
-          "id": 3875,
+          "id": 0,
           "name": "João Pereira",
           "nameLower": "joao pereira",
           "gender": "M",
@@ -5578,7 +5578,7 @@
         },
         {
           "rank": 127,
-          "id": 5516,
+          "id": 0,
           "name": "Luís Teixeira",
           "nameLower": "luis teixeira",
           "gender": "M",
@@ -5738,7 +5738,7 @@
         },
         {
           "rank": 132,
-          "id": 7329,
+          "id": 0,
           "name": "Igor Resende",
           "nameLower": "igor resende",
           "gender": "M",
@@ -5796,7 +5796,7 @@
         },
         {
           "rank": 134,
-          "id": 2595,
+          "id": 0,
           "name": "Tiago Miranda",
           "nameLower": "tiago miranda",
           "gender": "M",
@@ -5972,7 +5972,7 @@
         },
         {
           "rank": 138,
-          "id": 5517,
+          "id": 0,
           "name": "Pedro Sousa",
           "nameLower": "pedro sousa",
           "gender": "M",
@@ -6176,7 +6176,7 @@
         },
         {
           "rank": 144,
-          "id": 3628,
+          "id": 0,
           "name": "Carlos Soares",
           "nameLower": "carlos soares",
           "gender": "M",
@@ -6714,7 +6714,7 @@
         },
         {
           "rank": 161,
-          "id": 11320,
+          "id": 0,
           "name": "André Santos",
           "nameLower": "andre santos",
           "gender": "M",
@@ -6952,7 +6952,7 @@
         },
         {
           "rank": 168,
-          "id": 5707,
+          "id": 0,
           "name": "Igor Resende",
           "nameLower": "igor resende",
           "gender": "M",
@@ -7116,7 +7116,7 @@
         },
         {
           "rank": 174,
-          "id": 12563,
+          "id": 0,
           "name": "Carlos Martins",
           "nameLower": "carlos martins",
           "gender": "M",
@@ -7228,7 +7228,7 @@
         },
         {
           "rank": 177,
-          "id": 5850,
+          "id": 0,
           "name": "Bruno Carvalho",
           "nameLower": "bruno carvalho",
           "gender": "M",
@@ -7354,7 +7354,7 @@
         },
         {
           "rank": 181,
-          "id": 8178,
+          "id": 0,
           "name": "Bernardo Alves",
           "nameLower": "bernardo alves",
           "gender": "M",
@@ -7950,7 +7950,7 @@
         },
         {
           "rank": 200,
-          "id": 8888,
+          "id": 0,
           "name": "João Moreira",
           "nameLower": "joao moreira",
           "gender": "M",
@@ -7998,7 +7998,7 @@
         },
         {
           "rank": 202,
-          "id": 9310,
+          "id": 0,
           "name": "Camille Danies",
           "nameLower": "camille danies",
           "gender": "M",
@@ -8046,7 +8046,7 @@
         },
         {
           "rank": 204,
-          "id": 9312,
+          "id": 0,
           "name": "Francisco Fernandes",
           "nameLower": "francisco fernandes",
           "gender": "M",
@@ -8282,7 +8282,7 @@
         },
         {
           "rank": 213,
-          "id": 10561,
+          "id": 0,
           "name": "Hugo Ferreira",
           "nameLower": "hugo ferreira",
           "gender": "M",
@@ -8900,7 +8900,7 @@
         },
         {
           "rank": 235,
-          "id": 8469,
+          "id": 0,
           "name": "Stefan Pinheiro",
           "nameLower": "stefan pinheiro",
           "gender": "M",
@@ -8948,7 +8948,7 @@
         },
         {
           "rank": 237,
-          "id": 7516,
+          "id": 0,
           "name": "Augusto Silva",
           "nameLower": "augusto silva",
           "gender": "M",
@@ -9118,7 +9118,7 @@
         },
         {
           "rank": 242,
-          "id": 11665,
+          "id": 0,
           "name": "Marcelo Oliveira",
           "nameLower": "marcelo oliveira",
           "gender": "M",
@@ -9292,7 +9292,7 @@
         },
         {
           "rank": 248,
-          "id": 65,
+          "id": 0,
           "name": "Natalio Penas",
           "nameLower": "natalio penas",
           "gender": "M",
@@ -9422,7 +9422,7 @@
         },
         {
           "rank": 253,
-          "id": 12354,
+          "id": 0,
           "name": "Hugo Ferreira",
           "nameLower": "hugo ferreira",
           "gender": "M",
@@ -9658,7 +9658,7 @@
         },
         {
           "rank": 262,
-          "id": 10563,
+          "id": 0,
           "name": "Mario Ferreira",
           "nameLower": "mario ferreira",
           "gender": "M",
@@ -9860,7 +9860,7 @@
         },
         {
           "rank": 270,
-          "id": 11324,
+          "id": 0,
           "name": "Pedro Cardoso",
           "nameLower": "pedro cardoso",
           "gender": "M",
@@ -10116,7 +10116,7 @@
         },
         {
           "rank": 279,
-          "id": 3631,
+          "id": 0,
           "name": "João Ferreira",
           "nameLower": "joao ferreira",
           "gender": "M",
@@ -10164,7 +10164,7 @@
         },
         {
           "rank": 281,
-          "id": 3632,
+          "id": 0,
           "name": "Joaquim Viegas",
           "nameLower": "joaquim viegas",
           "gender": "M",
@@ -10420,7 +10420,7 @@
         },
         {
           "rank": 290,
-          "id": 3247,
+          "id": 0,
           "name": "João Pereira",
           "nameLower": "joao pereira",
           "gender": "M",
@@ -10684,7 +10684,7 @@
         },
         {
           "rank": 301,
-          "id": 5525,
+          "id": 0,
           "name": "Guilherme Silva",
           "nameLower": "guilherme silva",
           "gender": "M",
@@ -10708,7 +10708,7 @@
         },
         {
           "rank": 302,
-          "id": 5526,
+          "id": 0,
           "name": "João Pereira",
           "nameLower": "joao pereira",
           "gender": "M",
@@ -11090,7 +11090,7 @@
         },
         {
           "rank": 315,
-          "id": 1173,
+          "id": 0,
           "name": "Rui Pinto",
           "nameLower": "rui pinto",
           "gender": "M",
@@ -11524,7 +11524,7 @@
         },
         {
           "rank": 331,
-          "id": 8601,
+          "id": 0,
           "name": "Fernando Barreto",
           "nameLower": "fernando barreto",
           "gender": "M",
@@ -11582,7 +11582,7 @@
         },
         {
           "rank": 333,
-          "id": 64,
+          "id": 0,
           "name": "Jaime Vieira",
           "nameLower": "jaime vieira",
           "gender": "M",
@@ -11630,7 +11630,7 @@
         },
         {
           "rank": 335,
-          "id": 11326,
+          "id": 0,
           "name": "Bruno Silvestre",
           "nameLower": "bruno silvestre",
           "gender": "M",
@@ -11938,7 +11938,7 @@
         },
         {
           "rank": 347,
-          "id": 1198,
+          "id": 0,
           "name": "Natalio Penas",
           "nameLower": "natalio penas",
           "gender": "M",
@@ -12044,7 +12044,7 @@
         },
         {
           "rank": 351,
-          "id": 12571,
+          "id": 0,
           "name": "Brett Wheeler",
           "nameLower": "brett wheeler",
           "gender": "M",
@@ -12068,7 +12068,7 @@
         },
         {
           "rank": 352,
-          "id": 10564,
+          "id": 0,
           "name": "João Garcia",
           "nameLower": "joao garcia",
           "gender": "M",
@@ -12198,7 +12198,7 @@
         },
         {
           "rank": 357,
-          "id": 3882,
+          "id": 0,
           "name": "João Raimundo",
           "nameLower": "joao raimundo",
           "gender": "M",
@@ -12540,7 +12540,7 @@
         },
         {
           "rank": 370,
-          "id": 11327,
+          "id": 0,
           "name": "Natalio Penas",
           "nameLower": "natalio penas",
           "gender": "M",
@@ -12670,7 +12670,7 @@
         },
         {
           "rank": 375,
-          "id": 5532,
+          "id": 0,
           "name": "Natalio Penas",
           "nameLower": "natalio penas",
           "gender": "M",
@@ -12864,7 +12864,7 @@
         },
         {
           "rank": 381,
-          "id": 8475,
+          "id": 0,
           "name": "Pedro Batista",
           "nameLower": "pedro batista",
           "gender": "M",
@@ -13192,7 +13192,7 @@
         },
         {
           "rank": 393,
-          "id": 1394,
+          "id": 0,
           "name": "Pedro Sousa",
           "nameLower": "pedro sousa",
           "gender": "M",
@@ -13390,7 +13390,7 @@
         },
         {
           "rank": 400,
-          "id": 11671,
+          "id": 0,
           "name": "Jose Dantas",
           "nameLower": "jose dantas",
           "gender": "M",
@@ -13510,7 +13510,7 @@
         },
         {
           "rank": 405,
-          "id": 12356,
+          "id": 0,
           "name": "João Pereira",
           "nameLower": "joao pereira",
           "gender": "M",
@@ -13630,7 +13630,7 @@
         },
         {
           "rank": 410,
-          "id": 12358,
+          "id": 0,
           "name": "Paulo Pereira",
           "nameLower": "paulo pereira",
           "gender": "M",
@@ -13654,7 +13654,7 @@
         },
         {
           "rank": 411,
-          "id": 9316,
+          "id": 0,
           "name": "Rui Vieira",
           "nameLower": "rui vieira",
           "gender": "M",
@@ -13736,7 +13736,7 @@
         },
         {
           "rank": 414,
-          "id": 12359,
+          "id": 0,
           "name": "Carlos Alfaiate",
           "nameLower": "carlos alfaiate",
           "gender": "M",
@@ -13818,7 +13818,7 @@
         },
         {
           "rank": 417,
-          "id": 12572,
+          "id": 0,
           "name": "Pedro Sousa",
           "nameLower": "pedro sousa",
           "gender": "M",
@@ -13962,7 +13962,7 @@
         },
         {
           "rank": 423,
-          "id": 12574,
+          "id": 0,
           "name": "Rui Pires",
           "nameLower": "rui pires",
           "gender": "M",
@@ -14794,7 +14794,7 @@
         },
         {
           "rank": 456,
-          "id": 3642,
+          "id": 0,
           "name": "Hugo Lopes",
           "nameLower": "hugo lopes",
           "gender": "M",
@@ -14996,7 +14996,7 @@
         },
         {
           "rank": 464,
-          "id": 5533,
+          "id": 0,
           "name": "Jose Aleixo",
           "nameLower": "jose aleixo",
           "gender": "M",
@@ -15020,7 +15020,7 @@
         },
         {
           "rank": 465,
-          "id": 8476,
+          "id": 0,
           "name": "Mathieu Gonçalves",
           "nameLower": "mathieu goncalves",
           "gender": "M",
@@ -15044,7 +15044,7 @@
         },
         {
           "rank": 466,
-          "id": 8477,
+          "id": 0,
           "name": "Igor Resende",
           "nameLower": "igor resende",
           "gender": "M",
@@ -15184,7 +15184,7 @@
         },
         {
           "rank": 471,
-          "id": 11329,
+          "id": 0,
           "name": "Fábio Abreu",
           "nameLower": "fabio abreu",
           "gender": "M",
@@ -15448,7 +15448,7 @@
         },
         {
           "rank": 482,
-          "id": 6285,
+          "id": 0,
           "name": "José Gomes",
           "nameLower": "jose gomes",
           "gender": "M",
@@ -15896,7 +15896,7 @@
         },
         {
           "rank": 499,
-          "id": 7865,
+          "id": 0,
           "name": "Pedro Botelho",
           "nameLower": "pedro botelho",
           "gender": "M",
@@ -15968,7 +15968,7 @@
         },
         {
           "rank": 502,
-          "id": 8893,
+          "id": 0,
           "name": "Jaime Vieira",
           "nameLower": "jaime vieira",
           "gender": "M",
@@ -16088,7 +16088,7 @@
         },
         {
           "rank": 507,
-          "id": 7869,
+          "id": 0,
           "name": "José Gomes",
           "nameLower": "jose gomes",
           "gender": "M",
@@ -16400,7 +16400,7 @@
         },
         {
           "rank": 520,
-          "id": 5538,
+          "id": 0,
           "name": "Hugo Rodrigues",
           "nameLower": "hugo rodrigues",
           "gender": "M",
@@ -16496,7 +16496,7 @@
         },
         {
           "rank": 524,
-          "id": 5540,
+          "id": 0,
           "name": "Gonçalo Brito",
           "nameLower": "goncalo brito",
           "gender": "M",
@@ -17144,7 +17144,7 @@
         },
         {
           "rank": 551,
-          "id": 4575,
+          "id": 0,
           "name": "Ricardo Gouveia",
           "nameLower": "ricardo gouveia",
           "gender": "M",
@@ -17216,7 +17216,7 @@
         },
         {
           "rank": 554,
-          "id": 4281,
+          "id": 0,
           "name": "Igor Alves",
           "nameLower": "igor alves",
           "gender": "M",
@@ -17552,7 +17552,7 @@
         },
         {
           "rank": 568,
-          "id": 7328,
+          "id": 0,
           "name": "Hugo Dias",
           "nameLower": "hugo dias",
           "gender": "M",
@@ -18224,7 +18224,7 @@
         },
         {
           "rank": 596,
-          "id": 8894,
+          "id": 0,
           "name": "Bruno Vieira",
           "nameLower": "bruno vieira",
           "gender": "M",
@@ -18920,7 +18920,7 @@
         },
         {
           "rank": 625,
-          "id": 8189,
+          "id": 0,
           "name": "Nelson Narciso",
           "nameLower": "nelson narciso",
           "gender": "M",
@@ -19184,7 +19184,7 @@
         },
         {
           "rank": 636,
-          "id": 4844,
+          "id": 0,
           "name": "Rui Feiteira",
           "nameLower": "rui feiteira",
           "gender": "M",
@@ -19472,7 +19472,7 @@
         },
         {
           "rank": 648,
-          "id": 4826,
+          "id": 0,
           "name": "Pedro Norte",
           "nameLower": "pedro norte",
           "gender": "M",
@@ -20216,7 +20216,7 @@
         },
         {
           "rank": 10,
-          "id": 11359,
+          "id": 0,
           "name": "Liliana Jesus",
           "nameLower": "liliana jesus",
           "gender": "F",
@@ -20308,7 +20308,7 @@
         },
         {
           "rank": 13,
-          "id": 11372,
+          "id": 0,
           "name": "Sónia Rodrigues",
           "nameLower": "sonia rodrigues",
           "gender": "F",
@@ -20624,7 +20624,7 @@
         },
         {
           "rank": 22,
-          "id": 4663,
+          "id": 0,
           "name": "Tina Roschmann",
           "nameLower": "tina roschmann",
           "gender": "F",
@@ -20692,7 +20692,7 @@
         },
         {
           "rank": 24,
-          "id": 12612,
+          "id": 0,
           "name": "Susana Lourenço",
           "nameLower": "susana lourenco",
           "gender": "F",
@@ -20808,7 +20808,7 @@
         },
         {
           "rank": 28,
-          "id": 12616,
+          "id": 0,
           "name": "Sónia Rodrigues",
           "nameLower": "sonia rodrigues",
           "gender": "F",
@@ -20856,7 +20856,7 @@
         },
         {
           "rank": 30,
-          "id": 9327,
+          "id": 0,
           "name": "Alessia Teixeira",
           "nameLower": "alessia teixeira",
           "gender": "F",
@@ -20880,7 +20880,7 @@
         },
         {
           "rank": 31,
-          "id": 4604,
+          "id": 0,
           "name": "Susana Lourenço",
           "nameLower": "susana lourenco",
           "gender": "F",
@@ -21082,7 +21082,7 @@
         },
         {
           "rank": 39,
-          "id": 3689,
+          "id": 0,
           "name": "Sónia Rodrigues",
           "nameLower": "sonia rodrigues",
           "gender": "F",
@@ -21232,7 +21232,7 @@
         },
         {
           "rank": 44,
-          "id": 5737,
+          "id": 0,
           "name": "Marlene Gonçalves",
           "nameLower": "marlene goncalves",
           "gender": "F",
@@ -21304,7 +21304,7 @@
         },
         {
           "rank": 47,
-          "id": 5558,
+          "id": 0,
           "name": "Sónia Rodrigues",
           "nameLower": "sonia rodrigues",
           "gender": "F",
@@ -21890,7 +21890,7 @@
         },
         {
           "rank": 71,
-          "id": 7923,
+          "id": 0,
           "name": "Rita Reis",
           "nameLower": "rita reis",
           "gender": "F",
@@ -21914,7 +21914,7 @@
         },
         {
           "rank": 72,
-          "id": 8579,
+          "id": 0,
           "name": "Alexandra Antunes",
           "nameLower": "alexandra antunes",
           "gender": "F",
@@ -22538,7 +22538,7 @@
         },
         {
           "rank": 98,
-          "id": 3867,
+          "id": 0,
           "name": "Natasha Dias",
           "nameLower": "natasha dias",
           "gender": "F",
@@ -23570,7 +23570,7 @@
         },
         {
           "rank": 141,
-          "id": 869,
+          "id": 0,
           "name": "Beatriz Lopes",
           "nameLower": "beatriz lopes",
           "gender": "F",
@@ -24026,7 +24026,7 @@
         },
         {
           "rank": 160,
-          "id": 6270,
+          "id": 0,
           "name": "Rita Santos-Rocha",
           "nameLower": "rita santos-rocha",
           "gender": "F",
@@ -25160,7 +25160,7 @@
         },
         {
           "rank": 15,
-          "id": 8592,
+          "id": 0,
           "name": "Tiago Teixeira",
           "nameLower": "tiago teixeira",
           "gender": "M",
@@ -25194,7 +25194,7 @@
         },
         {
           "rank": 16,
-          "id": 12136,
+          "id": 0,
           "name": "Rodrigo Coimbra",
           "nameLower": "rodrigo coimbra",
           "gender": "M",
@@ -25858,7 +25858,7 @@
         },
         {
           "rank": 32,
-          "id": 3868,
+          "id": 0,
           "name": "Marco Domingos",
           "nameLower": "marco domingos",
           "gender": "M",
@@ -25930,7 +25930,7 @@
         },
         {
           "rank": 35,
-          "id": 7858,
+          "id": 0,
           "name": "Ricardo Silva",
           "nameLower": "ricardo silva",
           "gender": "M",
@@ -26022,7 +26022,7 @@
         },
         {
           "rank": 38,
-          "id": 3871,
+          "id": 0,
           "name": "Carlos Rodrigues",
           "nameLower": "carlos rodrigues",
           "gender": "M",
@@ -26090,7 +26090,7 @@
         },
         {
           "rank": 40,
-          "id": 4,
+          "id": 0,
           "name": "HéLder Loureiro",
           "nameLower": "helder loureiro",
           "gender": "M",
@@ -26402,7 +26402,7 @@
         },
         {
           "rank": 48,
-          "id": 12772,
+          "id": 0,
           "name": "Ruben Pais",
           "nameLower": "ruben pais",
           "gender": "M",
@@ -26514,7 +26514,7 @@
         },
         {
           "rank": 51,
-          "id": 12135,
+          "id": 0,
           "name": "Nilton Nilton",
           "nameLower": "nilton nilton",
           "gender": "M",
@@ -26596,7 +26596,7 @@
         },
         {
           "rank": 54,
-          "id": 11329,
+          "id": 0,
           "name": "Fabio Abreu",
           "nameLower": "fabio abreu",
           "gender": "M",
@@ -26834,7 +26834,7 @@
         },
         {
           "rank": 61,
-          "id": 12773,
+          "id": 0,
           "name": "Marco Domingos",
           "nameLower": "marco domingos",
           "gender": "M",
@@ -27036,7 +27036,7 @@
         },
         {
           "rank": 69,
-          "id": 10247,
+          "id": 0,
           "name": "Bruno Silveira",
           "nameLower": "bruno silveira",
           "gender": "M",
@@ -27210,7 +27210,7 @@
         },
         {
           "rank": 75,
-          "id": 5829,
+          "id": 0,
           "name": "Pedro Gaio",
           "nameLower": "pedro gaio",
           "gender": "M",
@@ -27360,7 +27360,7 @@
         },
         {
           "rank": 80,
-          "id": 12137,
+          "id": 0,
           "name": "André Santos",
           "nameLower": "andre santos",
           "gender": "M",
@@ -27722,7 +27722,7 @@
         },
         {
           "rank": 93,
-          "id": 12775,
+          "id": 0,
           "name": "Henrique Nogueira",
           "nameLower": "henrique nogueira",
           "gender": "M",
@@ -27922,7 +27922,7 @@
         },
         {
           "rank": 98,
-          "id": 8249,
+          "id": 0,
           "name": "André Gonçalves",
           "nameLower": "andre goncalves",
           "gender": "M",
@@ -28058,7 +28058,7 @@
         },
         {
           "rank": 102,
-          "id": 4558,
+          "id": 0,
           "name": "Alexandre Silva",
           "nameLower": "alexandre silva",
           "gender": "M",
@@ -28102,7 +28102,7 @@
         },
         {
           "rank": 103,
-          "id": 3875,
+          "id": 0,
           "name": "João Pereira",
           "nameLower": "joao pereira",
           "gender": "M",
@@ -28126,7 +28126,7 @@
         },
         {
           "rank": 104,
-          "id": 10931,
+          "id": 0,
           "name": "Luís Godinho",
           "nameLower": "luis godinho",
           "gender": "M",
@@ -28402,7 +28402,7 @@
         },
         {
           "rank": 113,
-          "id": 4806,
+          "id": 0,
           "name": "José Merencio",
           "nameLower": "jose merencio",
           "gender": "M",
@@ -28528,7 +28528,7 @@
         },
         {
           "rank": 117,
-          "id": 12776,
+          "id": 0,
           "name": "Tiago Morais",
           "nameLower": "tiago morais",
           "gender": "M",
@@ -28746,7 +28746,7 @@
         },
         {
           "rank": 124,
-          "id": 5831,
+          "id": 0,
           "name": "Cláudio Santos",
           "nameLower": "claudio santos",
           "gender": "M",
@@ -28910,7 +28910,7 @@
         },
         {
           "rank": 130,
-          "id": 12777,
+          "id": 0,
           "name": "Carlos Alfaiate",
           "nameLower": "carlos alfaiate",
           "gender": "M",
@@ -29206,7 +29206,7 @@
         },
         {
           "rank": 139,
-          "id": 8595,
+          "id": 0,
           "name": "Tiago Gomes",
           "nameLower": "tiago gomes",
           "gender": "M",
@@ -29240,7 +29240,7 @@
         },
         {
           "rank": 140,
-          "id": 5606,
+          "id": 0,
           "name": "Rui Guerreiro",
           "nameLower": "rui guerreiro",
           "gender": "M",
@@ -29424,7 +29424,7 @@
         },
         {
           "rank": 146,
-          "id": 8244,
+          "id": 0,
           "name": "Edgar Oliveira",
           "nameLower": "edgar oliveira",
           "gender": "M",
@@ -29698,7 +29698,7 @@
         },
         {
           "rank": 152,
-          "id": 7524,
+          "id": 0,
           "name": "Rui Nascimento",
           "nameLower": "rui nascimento",
           "gender": "M",
@@ -30292,7 +30292,7 @@
         },
         {
           "rank": 168,
-          "id": 9489,
+          "id": 0,
           "name": "Luis Nunes",
           "nameLower": "luis nunes",
           "gender": "M",
@@ -30744,7 +30744,7 @@
         },
         {
           "rank": 181,
-          "id": 12778,
+          "id": 0,
           "name": "Jose Costa",
           "nameLower": "jose costa",
           "gender": "M",
@@ -30894,7 +30894,7 @@
         },
         {
           "rank": 186,
-          "id": 10250,
+          "id": 0,
           "name": "Philipe Lima",
           "nameLower": "philipe lima",
           "gender": "M",
@@ -30942,7 +30942,7 @@
         },
         {
           "rank": 188,
-          "id": 6393,
+          "id": 0,
           "name": "Rui Nascimento",
           "nameLower": "rui nascimento",
           "gender": "M",
@@ -31120,7 +31120,7 @@
         },
         {
           "rank": 195,
-          "id": 5610,
+          "id": 0,
           "name": "Carlos Santos",
           "nameLower": "carlos santos",
           "gender": "M",
@@ -31376,7 +31376,7 @@
         },
         {
           "rank": 204,
-          "id": 7516,
+          "id": 0,
           "name": "Augusto Silva",
           "nameLower": "augusto silva",
           "gender": "M",
@@ -31506,7 +31506,7 @@
         },
         {
           "rank": 209,
-          "id": 8596,
+          "id": 0,
           "name": "Manuel Almeida",
           "nameLower": "manuel almeida",
           "gender": "M",
@@ -31676,7 +31676,7 @@
         },
         {
           "rank": 214,
-          "id": 8247,
+          "id": 0,
           "name": "Ricardo Gaspar",
           "nameLower": "ricardo gaspar",
           "gender": "M",
@@ -31734,7 +31734,7 @@
         },
         {
           "rank": 216,
-          "id": 5836,
+          "id": 0,
           "name": "Bruno Silvestre",
           "nameLower": "bruno silvestre",
           "gender": "M",
@@ -31816,7 +31816,7 @@
         },
         {
           "rank": 219,
-          "id": 8597,
+          "id": 0,
           "name": "Óscar Castro",
           "nameLower": "oscar castro",
           "gender": "M",
@@ -32052,7 +32052,7 @@
         },
         {
           "rank": 228,
-          "id": 8248,
+          "id": 0,
           "name": "Vítor Lourenço",
           "nameLower": "vitor lourenco",
           "gender": "M",
@@ -32110,7 +32110,7 @@
         },
         {
           "rank": 230,
-          "id": 8961,
+          "id": 0,
           "name": "João Pina",
           "nameLower": "joao pina",
           "gender": "M",
@@ -32178,7 +32178,7 @@
         },
         {
           "rank": 232,
-          "id": 4282,
+          "id": 0,
           "name": "Rui Rodrigues",
           "nameLower": "rui rodrigues",
           "gender": "M",
@@ -32212,7 +32212,7 @@
         },
         {
           "rank": 233,
-          "id": 13,
+          "id": 0,
           "name": "João Pereira",
           "nameLower": "joao pereira",
           "gender": "M",
@@ -32438,7 +32438,7 @@
         },
         {
           "rank": 242,
-          "id": 12779,
+          "id": 0,
           "name": "Bernardo Alves",
           "nameLower": "bernardo alves",
           "gender": "M",
@@ -32462,7 +32462,7 @@
         },
         {
           "rank": 243,
-          "id": 12780,
+          "id": 0,
           "name": "Tomás Pais",
           "nameLower": "tomas pais",
           "gender": "M",
@@ -32708,7 +32708,7 @@
         },
         {
           "rank": 252,
-          "id": 8959,
+          "id": 0,
           "name": "Hugo Moreira",
           "nameLower": "hugo moreira",
           "gender": "M",
@@ -32780,7 +32780,7 @@
         },
         {
           "rank": 255,
-          "id": 9488,
+          "id": 0,
           "name": "Pedro Loureiro",
           "nameLower": "pedro loureiro",
           "gender": "M",
@@ -33984,7 +33984,7 @@
         },
         {
           "rank": 296,
-          "id": 4814,
+          "id": 0,
           "name": "Mário Matias",
           "nameLower": "mario matias",
           "gender": "M",
@@ -34008,7 +34008,7 @@
         },
         {
           "rank": 297,
-          "id": 1173,
+          "id": 0,
           "name": "Rui Pinto",
           "nameLower": "rui pinto",
           "gender": "M",
@@ -34032,7 +34032,7 @@
         },
         {
           "rank": 298,
-          "id": 39,
+          "id": 0,
           "name": "Bruno Pereira",
           "nameLower": "bruno pereira",
           "gender": "M",
@@ -34104,7 +34104,7 @@
         },
         {
           "rank": 301,
-          "id": 7522,
+          "id": 0,
           "name": "Marco Ramos",
           "nameLower": "marco ramos",
           "gender": "M",
@@ -34196,7 +34196,7 @@
         },
         {
           "rank": 304,
-          "id": 3882,
+          "id": 0,
           "name": "João Raimundo",
           "nameLower": "joao raimundo",
           "gender": "M",
@@ -34220,7 +34220,7 @@
         },
         {
           "rank": 305,
-          "id": 12139,
+          "id": 0,
           "name": "Bruno Silvestre",
           "nameLower": "bruno silvestre",
           "gender": "M",
@@ -34316,7 +34316,7 @@
         },
         {
           "rank": 309,
-          "id": 12783,
+          "id": 0,
           "name": "Jorge Cabrita",
           "nameLower": "jorge cabrita",
           "gender": "M",
@@ -34408,7 +34408,7 @@
         },
         {
           "rank": 312,
-          "id": 12784,
+          "id": 0,
           "name": "David Marrachinho",
           "nameLower": "david marrachinho",
           "gender": "M",
@@ -34432,7 +34432,7 @@
         },
         {
           "rank": 313,
-          "id": 12785,
+          "id": 0,
           "name": "Pedro Melitão",
           "nameLower": "pedro melitao",
           "gender": "M",
@@ -34958,7 +34958,7 @@
         },
         {
           "rank": 332,
-          "id": 4825,
+          "id": 0,
           "name": "Tiago Panasco",
           "nameLower": "tiago panasco",
           "gender": "M",
@@ -35204,7 +35204,7 @@
         },
         {
           "rank": 341,
-          "id": 7937,
+          "id": 0,
           "name": "Fernando Martins",
           "nameLower": "fernando martins",
           "gender": "M",
@@ -35228,7 +35228,7 @@
         },
         {
           "rank": 342,
-          "id": 7537,
+          "id": 0,
           "name": "Filipe Leite",
           "nameLower": "filipe leite",
           "gender": "M",
@@ -35600,7 +35600,7 @@
         },
         {
           "rank": 355,
-          "id": 10934,
+          "id": 0,
           "name": "César Carlos",
           "nameLower": "cesar carlos",
           "gender": "M",
@@ -36000,7 +36000,7 @@
         },
         {
           "rank": 370,
-          "id": 11838,
+          "id": 0,
           "name": "Pedro Mendes",
           "nameLower": "pedro mendes",
           "gender": "M",
@@ -36294,7 +36294,7 @@
         },
         {
           "rank": 381,
-          "id": 12786,
+          "id": 0,
           "name": "João Pereira",
           "nameLower": "joao pereira",
           "gender": "M",
@@ -36390,7 +36390,7 @@
         },
         {
           "rank": 385,
-          "id": 3888,
+          "id": 0,
           "name": "Diogo Caeiro",
           "nameLower": "diogo caeiro",
           "gender": "M",
@@ -36510,7 +36510,7 @@
         },
         {
           "rank": 390,
-          "id": 8477,
+          "id": 0,
           "name": "Igor Resende",
           "nameLower": "igor resende",
           "gender": "M",
@@ -36684,7 +36684,7 @@
         },
         {
           "rank": 396,
-          "id": 3388,
+          "id": 0,
           "name": "Leonel Pereira",
           "nameLower": "leonel pereira",
           "gender": "M",
@@ -36708,7 +36708,7 @@
         },
         {
           "rank": 397,
-          "id": 3496,
+          "id": 0,
           "name": "Rui Barbosa",
           "nameLower": "rui barbosa",
           "gender": "M",
@@ -36780,7 +36780,7 @@
         },
         {
           "rank": 400,
-          "id": 10255,
+          "id": 0,
           "name": "Nuno Lopes",
           "nameLower": "nuno lopes",
           "gender": "M",
@@ -36862,7 +36862,7 @@
         },
         {
           "rank": 403,
-          "id": 5844,
+          "id": 0,
           "name": "Alvaro Vaz",
           "nameLower": "alvaro vaz",
           "gender": "M",
@@ -37112,7 +37112,7 @@
         },
         {
           "rank": 413,
-          "id": 8601,
+          "id": 0,
           "name": "Fernando Barreto",
           "nameLower": "fernando barreto",
           "gender": "M",
@@ -37372,7 +37372,7 @@
         },
         {
           "rank": 423,
-          "id": 7939,
+          "id": 0,
           "name": "Aires Braga",
           "nameLower": "aires braga",
           "gender": "M",
@@ -37444,7 +37444,7 @@
         },
         {
           "rank": 426,
-          "id": 10940,
+          "id": 0,
           "name": "Edgar Oliveira",
           "nameLower": "edgar oliveira",
           "gender": "M",
@@ -38184,7 +38184,7 @@
         },
         {
           "rank": 456,
-          "id": 11839,
+          "id": 0,
           "name": "Sérgio Moreira",
           "nameLower": "sergio moreira",
           "gender": "M",
@@ -38516,7 +38516,7 @@
         },
         {
           "rank": 469,
-          "id": 3890,
+          "id": 0,
           "name": "Valter Cruz",
           "nameLower": "valter cruz",
           "gender": "M",
@@ -38612,7 +38612,7 @@
         },
         {
           "rank": 473,
-          "id": 12788,
+          "id": 0,
           "name": "José Merencio",
           "nameLower": "jose merencio",
           "gender": "M",
@@ -38660,7 +38660,7 @@
         },
         {
           "rank": 475,
-          "id": 12141,
+          "id": 0,
           "name": "Fernando Barreto",
           "nameLower": "fernando barreto",
           "gender": "M",
@@ -38732,7 +38732,7 @@
         },
         {
           "rank": 478,
-          "id": 3894,
+          "id": 0,
           "name": "Rodrigo Mateus",
           "nameLower": "rodrigo mateus",
           "gender": "M",
@@ -38828,7 +38828,7 @@
         },
         {
           "rank": 482,
-          "id": 3895,
+          "id": 0,
           "name": "Josicler Neves",
           "nameLower": "josicler neves",
           "gender": "M",
@@ -39054,7 +39054,7 @@
         },
         {
           "rank": 491,
-          "id": 8964,
+          "id": 0,
           "name": "António Costa",
           "nameLower": "antonio costa",
           "gender": "M",
@@ -39678,7 +39678,7 @@
         },
         {
           "rank": 517,
-          "id": 6840,
+          "id": 0,
           "name": "Pedro Mendes",
           "nameLower": "pedro mendes",
           "gender": "M",
@@ -39808,7 +39808,7 @@
         },
         {
           "rank": 522,
-          "id": 8971,
+          "id": 0,
           "name": "Rui Costa",
           "nameLower": "rui costa",
           "gender": "M",
@@ -39982,7 +39982,7 @@
         },
         {
           "rank": 528,
-          "id": 8606,
+          "id": 0,
           "name": "Filipe Pires",
           "nameLower": "filipe pires",
           "gender": "M",
@@ -40006,7 +40006,7 @@
         },
         {
           "rank": 529,
-          "id": 5852,
+          "id": 0,
           "name": "Pedro Martins",
           "nameLower": "pedro martins",
           "gender": "M",
@@ -40708,7 +40708,7 @@
         },
         {
           "rank": 557,
-          "id": 1213,
+          "id": 0,
           "name": "Jorge Rosa",
           "nameLower": "jorge rosa",
           "gender": "M",
@@ -40780,7 +40780,7 @@
         },
         {
           "rank": 560,
-          "id": 9495,
+          "id": 0,
           "name": "José Amorim",
           "nameLower": "jose amorim",
           "gender": "M",
@@ -41812,7 +41812,7 @@
         },
         {
           "rank": 603,
-          "id": 4826,
+          "id": 0,
           "name": "Pedro Norte",
           "nameLower": "pedro norte",
           "gender": "M",
@@ -41884,7 +41884,7 @@
         },
         {
           "rank": 606,
-          "id": 12792,
+          "id": 0,
           "name": "Alexandre Bastos",
           "nameLower": "alexandre bastos",
           "gender": "M",
@@ -42052,7 +42052,7 @@
         },
         {
           "rank": 613,
-          "id": 3899,
+          "id": 0,
           "name": "Paulo Melo",
           "nameLower": "paulo melo",
           "gender": "M",
@@ -42076,7 +42076,7 @@
         },
         {
           "rank": 614,
-          "id": 12142,
+          "id": 0,
           "name": "Nuno Montanha",
           "nameLower": "nuno montanha",
           "gender": "M",
@@ -42100,7 +42100,7 @@
         },
         {
           "rank": 615,
-          "id": 12793,
+          "id": 0,
           "name": "Matias Mestre",
           "nameLower": "matias mestre",
           "gender": "M",
@@ -42244,7 +42244,7 @@
         },
         {
           "rank": 621,
-          "id": 3901,
+          "id": 0,
           "name": "Ivan Marreiros",
           "nameLower": "ivan marreiros",
           "gender": "M",
@@ -42292,7 +42292,7 @@
         },
         {
           "rank": 623,
-          "id": 12144,
+          "id": 0,
           "name": "Daniel Neves",
           "nameLower": "daniel neves",
           "gender": "M",
@@ -42316,7 +42316,7 @@
         },
         {
           "rank": 624,
-          "id": 12794,
+          "id": 0,
           "name": "Martim Vairinhos",
           "nameLower": "martim vairinhos",
           "gender": "M",
@@ -42412,7 +42412,7 @@
         },
         {
           "rank": 628,
-          "id": 313,
+          "id": 0,
           "name": "Filipe Pires",
           "nameLower": "filipe pires",
           "gender": "M",
@@ -42508,7 +42508,7 @@
         },
         {
           "rank": 632,
-          "id": 3903,
+          "id": 0,
           "name": "Diogo Mateus",
           "nameLower": "diogo mateus",
           "gender": "M",
@@ -42556,7 +42556,7 @@
         },
         {
           "rank": 634,
-          "id": 5850,
+          "id": 0,
           "name": "Bruno Carvalho",
           "nameLower": "bruno carvalho",
           "gender": "M",
@@ -42868,7 +42868,7 @@
         },
         {
           "rank": 647,
-          "id": 10261,
+          "id": 0,
           "name": "Paulo Pires",
           "nameLower": "paulo pires",
           "gender": "M",
@@ -43012,7 +43012,7 @@
         },
         {
           "rank": 653,
-          "id": 121,
+          "id": 0,
           "name": "José Marquês",
           "nameLower": "jose marques",
           "gender": "M",
@@ -43108,7 +43108,7 @@
         },
         {
           "rank": 657,
-          "id": 4844,
+          "id": 0,
           "name": "Rui Feiteira",
           "nameLower": "rui feiteira",
           "gender": "M",
@@ -43324,7 +43324,7 @@
         },
         {
           "rank": 666,
-          "id": 8607,
+          "id": 0,
           "name": "André Vieira",
           "nameLower": "andre vieira",
           "gender": "M",
@@ -43396,7 +43396,7 @@
         },
         {
           "rank": 669,
-          "id": 8608,
+          "id": 0,
           "name": "Ricardo Campos",
           "nameLower": "ricardo campos",
           "gender": "M",
@@ -43684,7 +43684,7 @@
         },
         {
           "rank": 681,
-          "id": 6414,
+          "id": 0,
           "name": "Miguel Lourenço",
           "nameLower": "miguel lourenco",
           "gender": "M",
@@ -43804,7 +43804,7 @@
         },
         {
           "rank": 686,
-          "id": 7943,
+          "id": 0,
           "name": "Helder Silva",
           "nameLower": "helder silva",
           "gender": "M",
@@ -43996,7 +43996,7 @@
         },
         {
           "rank": 694,
-          "id": 8266,
+          "id": 0,
           "name": "José Cebola",
           "nameLower": "jose cebola",
           "gender": "M",
@@ -45822,7 +45822,7 @@
         },
         {
           "rank": 21,
-          "id": 3970,
+          "id": 0,
           "name": "Luizete Dias",
           "nameLower": "luizete dias",
           "gender": "F",
@@ -45924,7 +45924,7 @@
         },
         {
           "rank": 24,
-          "id": 12831,
+          "id": 0,
           "name": "Ana Neves",
           "nameLower": "ana neves",
           "gender": "F",
@@ -46490,7 +46490,7 @@
         },
         {
           "rank": 43,
-          "id": 5889,
+          "id": 0,
           "name": "Elisabete Madeira",
           "nameLower": "elisabete madeira",
           "gender": "F",
@@ -46514,7 +46514,7 @@
         },
         {
           "rank": 44,
-          "id": 4901,
+          "id": 0,
           "name": "Daniela Pina",
           "nameLower": "daniela pina",
           "gender": "F",
@@ -46562,7 +46562,7 @@
         },
         {
           "rank": 46,
-          "id": 6473,
+          "id": 0,
           "name": "Sara Meirinho",
           "nameLower": "sara meirinho",
           "gender": "F",
@@ -46746,7 +46746,7 @@
         },
         {
           "rank": 52,
-          "id": 439,
+          "id": 0,
           "name": "Ana Silva",
           "nameLower": "ana silva",
           "gender": "F",
@@ -47298,7 +47298,7 @@
         },
         {
           "rank": 70,
-          "id": 4968,
+          "id": 0,
           "name": "Anabela Machado",
           "nameLower": "anabela machado",
           "gender": "F",
@@ -47574,7 +47574,7 @@
         },
         {
           "rank": 79,
-          "id": 4010,
+          "id": 0,
           "name": "Daniela Pina",
           "nameLower": "daniela pina",
           "gender": "F",
@@ -47792,7 +47792,7 @@
         },
         {
           "rank": 86,
-          "id": 5941,
+          "id": 0,
           "name": "Alexandra Ferreira",
           "nameLower": "alexandra ferreira",
           "gender": "F",
@@ -47932,7 +47932,7 @@
         },
         {
           "rank": 91,
-          "id": 9038,
+          "id": 0,
           "name": "Ana Barata",
           "nameLower": "ana barata",
           "gender": "F",
@@ -47956,7 +47956,7 @@
         },
         {
           "rank": 92,
-          "id": 6484,
+          "id": 0,
           "name": "Andreia Graça",
           "nameLower": "andreia graca",
           "gender": "F",
@@ -48474,7 +48474,7 @@
         },
         {
           "rank": 109,
-          "id": 10350,
+          "id": 0,
           "name": "Sara Fonseca",
           "nameLower": "sara fonseca",
           "gender": "F",
@@ -48840,7 +48840,7 @@
         },
         {
           "rank": 123,
-          "id": 11090,
+          "id": 0,
           "name": "Leontina Palhas",
           "nameLower": "leontina palhas",
           "gender": "F",
@@ -49062,7 +49062,7 @@
         },
         {
           "rank": 131,
-          "id": 9091,
+          "id": 0,
           "name": "Alexandra Antunes",
           "nameLower": "alexandra antunes",
           "gender": "F",
@@ -49086,7 +49086,7 @@
         },
         {
           "rank": 132,
-          "id": 12217,
+          "id": 0,
           "name": "Ana Santos",
           "nameLower": "ana santos",
           "gender": "F",
@@ -49792,7 +49792,7 @@
         },
         {
           "rank": 156,
-          "id": 11936,
+          "id": 0,
           "name": "Anabela Machado",
           "nameLower": "anabela machado",
           "gender": "F",
@@ -50056,7 +50056,7 @@
         },
         {
           "rank": 167,
-          "id": 7674,
+          "id": 0,
           "name": "Marisa Ferreira",
           "nameLower": "marisa ferreira",
           "gender": "F",
@@ -50422,7 +50422,7 @@
         },
         {
           "rank": 181,
-          "id": 2323,
+          "id": 0,
           "name": "Joana Ferreira",
           "nameLower": "joana ferreira",
           "gender": "F",
@@ -50562,7 +50562,7 @@
         },
         {
           "rank": 186,
-          "id": 7688,
+          "id": 0,
           "name": "Marta Almeida",
           "nameLower": "marta almeida",
           "gender": "F",
@@ -51506,7 +51506,7 @@
         },
         {
           "rank": 222,
-          "id": 11986,
+          "id": 0,
           "name": "Carina Batista",
           "nameLower": "carina batista",
           "gender": "F",
@@ -52082,7 +52082,7 @@
         },
         {
           "rank": 246,
-          "id": 7059,
+          "id": 0,
           "name": "Mónica Rodrigues",
           "nameLower": "monica rodrigues",
           "gender": "F",
@@ -54108,7 +54108,7 @@
         },
         {
           "rank": 330,
-          "id": 12255,
+          "id": 0,
           "name": "Joana Santos",
           "nameLower": "joana santos",
           "gender": "F",
@@ -54348,7 +54348,7 @@
         },
         {
           "rank": 340,
-          "id": 6270,
+          "id": 0,
           "name": "Rita Santos-Rocha",
           "nameLower": "rita santos-rocha",
           "gender": "F",
@@ -54372,7 +54372,7 @@
         },
         {
           "rank": 341,
-          "id": 3201,
+          "id": 0,
           "name": "Elisabeth Murray",
           "nameLower": "elisabeth murray",
           "gender": "F",
@@ -56010,7 +56010,7 @@
         },
         {
           "rank": 4,
-          "id": 4281,
+          "id": 0,
           "name": "Igor Alves",
           "nameLower": "igor alves",
           "gender": "M",
@@ -57488,7 +57488,7 @@
         },
         {
           "rank": 31,
-          "id": 4282,
+          "id": 0,
           "name": "Rui Rodrigues",
           "nameLower": "rui rodrigues",
           "gender": "M",
@@ -57512,7 +57512,7 @@
         },
         {
           "rank": 32,
-          "id": 5230,
+          "id": 0,
           "name": "Ivo Pais",
           "nameLower": "ivo pais",
           "gender": "M",
@@ -57756,7 +57756,7 @@
         },
         {
           "rank": 38,
-          "id": 5231,
+          "id": 0,
           "name": "Alexandre Bastos",
           "nameLower": "alexandre bastos",
           "gender": "M",
@@ -57868,7 +57868,7 @@
         },
         {
           "rank": 41,
-          "id": 4285,
+          "id": 0,
           "name": "Filipe Madeira",
           "nameLower": "filipe madeira",
           "gender": "M",
@@ -57902,7 +57902,7 @@
         },
         {
           "rank": 42,
-          "id": 9172,
+          "id": 0,
           "name": "Miguel Carmo",
           "nameLower": "miguel carmo",
           "gender": "M",
@@ -58058,7 +58058,7 @@
         },
         {
           "rank": 46,
-          "id": 12026,
+          "id": 0,
           "name": "Pedro Borlido",
           "nameLower": "pedro borlido",
           "gender": "M",
@@ -58116,7 +58116,7 @@
         },
         {
           "rank": 48,
-          "id": 8355,
+          "id": 0,
           "name": "Igor Alves",
           "nameLower": "igor alves",
           "gender": "M",
@@ -58292,7 +58292,7 @@
         },
         {
           "rank": 52,
-          "id": 11329,
+          "id": 0,
           "name": "Fábio Abreu",
           "nameLower": "fabio abreu",
           "gender": "M",
@@ -58316,7 +58316,7 @@
         },
         {
           "rank": 53,
-          "id": 8779,
+          "id": 0,
           "name": "Diogo Ferreira",
           "nameLower": "diogo ferreira",
           "gender": "M",
@@ -58374,7 +58374,7 @@
         },
         {
           "rank": 55,
-          "id": 4286,
+          "id": 0,
           "name": "Pedro Rodrigues",
           "nameLower": "pedro rodrigues",
           "gender": "M",
@@ -58890,7 +58890,7 @@
         },
         {
           "rank": 69,
-          "id": 10756,
+          "id": 0,
           "name": "Alexandre Bastos",
           "nameLower": "alexandre bastos",
           "gender": "M",
@@ -59180,7 +59180,7 @@
         },
         {
           "rank": 79,
-          "id": 5655,
+          "id": 0,
           "name": "Philippe Crutzen",
           "nameLower": "philippe crutzen",
           "gender": "M",
@@ -59432,7 +59432,7 @@
         },
         {
           "rank": 87,
-          "id": 7110,
+          "id": 0,
           "name": "Vítor Magalhães",
           "nameLower": "vitor magalhaes",
           "gender": "M",
@@ -59696,7 +59696,7 @@
         },
         {
           "rank": 93,
-          "id": 9173,
+          "id": 0,
           "name": "Bruno Silveira",
           "nameLower": "bruno silveira",
           "gender": "M",
@@ -59778,7 +59778,7 @@
         },
         {
           "rank": 96,
-          "id": 8074,
+          "id": 0,
           "name": "Daniel Neves",
           "nameLower": "daniel neves",
           "gender": "M",
@@ -60012,7 +60012,7 @@
         },
         {
           "rank": 102,
-          "id": 5749,
+          "id": 0,
           "name": "Manuel Ferreira",
           "nameLower": "manuel ferreira",
           "gender": "M",
@@ -60036,7 +60036,7 @@
         },
         {
           "rank": 103,
-          "id": 5657,
+          "id": 0,
           "name": "Daniel Vilhena",
           "nameLower": "daniel vilhena",
           "gender": "M",
@@ -60220,7 +60220,7 @@
         },
         {
           "rank": 109,
-          "id": 66,
+          "id": 0,
           "name": "Tomás Pais",
           "nameLower": "tomas pais",
           "gender": "M",
@@ -60628,7 +60628,7 @@
         },
         {
           "rank": 121,
-          "id": 5659,
+          "id": 0,
           "name": "Ricardo Gouveia",
           "nameLower": "ricardo gouveia",
           "gender": "M",
@@ -60768,7 +60768,7 @@
         },
         {
           "rank": 126,
-          "id": 10437,
+          "id": 0,
           "name": "Paulo Duque",
           "nameLower": "paulo duque",
           "gender": "M",
@@ -60876,7 +60876,7 @@
         },
         {
           "rank": 128,
-          "id": 3,
+          "id": 0,
           "name": "Marco Domingos",
           "nameLower": "marco domingos",
           "gender": "M",
@@ -60958,7 +60958,7 @@
         },
         {
           "rank": 131,
-          "id": 10758,
+          "id": 0,
           "name": "Duarte Salvaterra",
           "nameLower": "duarte salvaterra",
           "gender": "M",
@@ -61576,7 +61576,7 @@
         },
         {
           "rank": 148,
-          "id": 6414,
+          "id": 0,
           "name": "Miguel Lourenço",
           "nameLower": "miguel lourenco",
           "gender": "M",
@@ -61658,7 +61658,7 @@
         },
         {
           "rank": 151,
-          "id": 5235,
+          "id": 0,
           "name": "Pedro Correia",
           "nameLower": "pedro correia",
           "gender": "M",
@@ -61972,7 +61972,7 @@
         },
         {
           "rank": 162,
-          "id": 4292,
+          "id": 0,
           "name": "Rui Costa",
           "nameLower": "rui costa",
           "gender": "M",
@@ -62160,7 +62160,7 @@
         },
         {
           "rank": 169,
-          "id": 9904,
+          "id": 0,
           "name": "Bruno Vidinha",
           "nameLower": "bruno vidinha",
           "gender": "M",
@@ -62232,7 +62232,7 @@
         },
         {
           "rank": 172,
-          "id": 9174,
+          "id": 0,
           "name": "Hélder Campinho",
           "nameLower": "helder campinho",
           "gender": "M",
@@ -62378,7 +62378,7 @@
         },
         {
           "rank": 176,
-          "id": 10439,
+          "id": 0,
           "name": "Francisco Marques",
           "nameLower": "francisco marques",
           "gender": "M",
@@ -62450,7 +62450,7 @@
         },
         {
           "rank": 179,
-          "id": 6568,
+          "id": 0,
           "name": "Luís Cruz",
           "nameLower": "luis cruz",
           "gender": "M",
@@ -62576,7 +62576,7 @@
         },
         {
           "rank": 183,
-          "id": 6128,
+          "id": 0,
           "name": "Luis Sa",
           "nameLower": "luis sa",
           "gender": "M",
@@ -62610,7 +62610,7 @@
         },
         {
           "rank": 184,
-          "id": 6125,
+          "id": 0,
           "name": "Jorge Madeira",
           "nameLower": "jorge madeira",
           "gender": "M",
@@ -62892,7 +62892,7 @@
         },
         {
           "rank": 192,
-          "id": 10760,
+          "id": 0,
           "name": "Paulo Duque",
           "nameLower": "paulo duque",
           "gender": "M",
@@ -63142,7 +63142,7 @@
         },
         {
           "rank": 202,
-          "id": 8367,
+          "id": 0,
           "name": "Pedro Afoito",
           "nameLower": "pedro afoito",
           "gender": "M",
@@ -63262,7 +63262,7 @@
         },
         {
           "rank": 207,
-          "id": 5244,
+          "id": 0,
           "name": "António Peixoto",
           "nameLower": "antonio peixoto",
           "gender": "M",
@@ -63486,7 +63486,7 @@
         },
         {
           "rank": 213,
-          "id": 8783,
+          "id": 0,
           "name": "João Silva",
           "nameLower": "joao silva",
           "gender": "M",
@@ -63742,7 +63742,7 @@
         },
         {
           "rank": 222,
-          "id": 9906,
+          "id": 0,
           "name": "Rui Ribeiro",
           "nameLower": "rui ribeiro",
           "gender": "M",
@@ -64012,7 +64012,7 @@
         },
         {
           "rank": 232,
-          "id": 1621,
+          "id": 0,
           "name": "André Ferreira",
           "nameLower": "andre ferreira",
           "gender": "M",
@@ -64200,7 +64200,7 @@
         },
         {
           "rank": 239,
-          "id": 3901,
+          "id": 0,
           "name": "Ivan Marreiros",
           "nameLower": "ivan marreiros",
           "gender": "M",
@@ -64224,7 +64224,7 @@
         },
         {
           "rank": 240,
-          "id": 5663,
+          "id": 0,
           "name": "Fábio Rodrigues",
           "nameLower": "fabio rodrigues",
           "gender": "M",
@@ -64320,7 +64320,7 @@
         },
         {
           "rank": 244,
-          "id": 10761,
+          "id": 0,
           "name": "Joaquim Baptista",
           "nameLower": "joaquim baptista",
           "gender": "M",
@@ -65148,7 +65148,7 @@
         },
         {
           "rank": 276,
-          "id": 9910,
+          "id": 0,
           "name": "Hugo Pereira",
           "nameLower": "hugo pereira",
           "gender": "M",
@@ -65340,7 +65340,7 @@
         },
         {
           "rank": 284,
-          "id": 5243,
+          "id": 0,
           "name": "Diogo Carvalho",
           "nameLower": "diogo carvalho",
           "gender": "M",
@@ -65388,7 +65388,7 @@
         },
         {
           "rank": 286,
-          "id": 5246,
+          "id": 0,
           "name": "Rafael Santos",
           "nameLower": "rafael santos",
           "gender": "M",
@@ -65556,7 +65556,7 @@
         },
         {
           "rank": 293,
-          "id": 10764,
+          "id": 0,
           "name": "José Cebola",
           "nameLower": "jose cebola",
           "gender": "M",
@@ -65696,7 +65696,7 @@
         },
         {
           "rank": 298,
-          "id": 4301,
+          "id": 0,
           "name": "António Peixoto",
           "nameLower": "antonio peixoto",
           "gender": "M",
@@ -65864,7 +65864,7 @@
         },
         {
           "rank": 305,
-          "id": 4304,
+          "id": 0,
           "name": "Rafael Santos",
           "nameLower": "rafael santos",
           "gender": "M",
@@ -65936,7 +65936,7 @@
         },
         {
           "rank": 308,
-          "id": 7125,
+          "id": 0,
           "name": "Luis Sa",
           "nameLower": "luis sa",
           "gender": "M",
@@ -66114,7 +66114,7 @@
         },
         {
           "rank": 315,
-          "id": 9176,
+          "id": 0,
           "name": "Diogo Carvalho",
           "nameLower": "diogo carvalho",
           "gender": "M",
@@ -66162,7 +66162,7 @@
         },
         {
           "rank": 317,
-          "id": 6571,
+          "id": 0,
           "name": "João Figueiredo",
           "nameLower": "joao figueiredo",
           "gender": "M",
@@ -66258,7 +66258,7 @@
         },
         {
           "rank": 321,
-          "id": 9177,
+          "id": 0,
           "name": "Telmo Rodrigues",
           "nameLower": "telmo rodrigues",
           "gender": "M",
@@ -66460,7 +66460,7 @@
         },
         {
           "rank": 329,
-          "id": 6129,
+          "id": 0,
           "name": "Ricardo Portela",
           "nameLower": "ricardo portela",
           "gender": "M",
@@ -66532,7 +66532,7 @@
         },
         {
           "rank": 332,
-          "id": 8079,
+          "id": 0,
           "name": "Joaquim Baptista",
           "nameLower": "joaquim baptista",
           "gender": "M",
@@ -67156,7 +67156,7 @@
         },
         {
           "rank": 358,
-          "id": 9912,
+          "id": 0,
           "name": "Daniel Mota",
           "nameLower": "daniel mota",
           "gender": "M",
@@ -67180,7 +67180,7 @@
         },
         {
           "rank": 359,
-          "id": 9913,
+          "id": 0,
           "name": "Joaquim Baptista",
           "nameLower": "joaquim baptista",
           "gender": "M",
@@ -67588,7 +67588,7 @@
         },
         {
           "rank": 376,
-          "id": 5254,
+          "id": 0,
           "name": "Daniel Ramalho",
           "nameLower": "daniel ramalho",
           "gender": "M",
@@ -67780,7 +67780,7 @@
         },
         {
           "rank": 384,
-          "id": 12029,
+          "id": 0,
           "name": "Joaquim Baptista",
           "nameLower": "joaquim baptista",
           "gender": "M",
@@ -67900,7 +67900,7 @@
         },
         {
           "rank": 389,
-          "id": 10768,
+          "id": 0,
           "name": "António Peixoto",
           "nameLower": "antonio peixoto",
           "gender": "M",
@@ -68054,7 +68054,7 @@
         },
         {
           "rank": 395,
-          "id": 4311,
+          "id": 0,
           "name": "Rui Vieira",
           "nameLower": "rui vieira",
           "gender": "M",
@@ -68198,7 +68198,7 @@
         },
         {
           "rank": 401,
-          "id": 4313,
+          "id": 0,
           "name": "Alexandre Parracho",
           "nameLower": "alexandre parracho",
           "gender": "M",
@@ -68774,7 +68774,7 @@
         },
         {
           "rank": 425,
-          "id": 8081,
+          "id": 0,
           "name": "Dinis Barros",
           "nameLower": "dinis barros",
           "gender": "M",
@@ -68966,7 +68966,7 @@
         },
         {
           "rank": 433,
-          "id": 6575,
+          "id": 0,
           "name": "Rui Vieira",
           "nameLower": "rui vieira",
           "gender": "M",
@@ -69134,7 +69134,7 @@
         },
         {
           "rank": 440,
-          "id": 8791,
+          "id": 0,
           "name": "Nuno Lopes",
           "nameLower": "nuno lopes",
           "gender": "M",
@@ -69446,7 +69446,7 @@
         },
         {
           "rank": 453,
-          "id": 5676,
+          "id": 0,
           "name": "Pedro Catarino",
           "nameLower": "pedro catarino",
           "gender": "M",
@@ -69734,7 +69734,7 @@
         },
         {
           "rank": 465,
-          "id": 5682,
+          "id": 0,
           "name": "Ricardo Sequeira",
           "nameLower": "ricardo sequeira",
           "gender": "M",
@@ -70762,7 +70762,7 @@
         },
         {
           "rank": 16,
-          "id": 8800,
+          "id": 0,
           "name": "Angela Santos",
           "nameLower": "angela santos",
           "gender": "F",
@@ -71326,7 +71326,7 @@
         },
         {
           "rank": 32,
-          "id": 6150,
+          "id": 0,
           "name": "Rosa Rodrigues",
           "nameLower": "rosa rodrigues",
           "gender": "F",
@@ -71374,7 +71374,7 @@
         },
         {
           "rank": 34,
-          "id": 9191,
+          "id": 0,
           "name": "Benedita Martins",
           "nameLower": "benedita martins",
           "gender": "F",
@@ -71670,7 +71670,7 @@
         },
         {
           "rank": 43,
-          "id": 9943,
+          "id": 0,
           "name": "Angela Santos",
           "nameLower": "angela santos",
           "gender": "F",
@@ -72346,7 +72346,7 @@
         },
         {
           "rank": 67,
-          "id": 3201,
+          "id": 0,
           "name": "Elisabeth Murray",
           "nameLower": "elisabeth murray",
           "gender": "F",
@@ -72524,7 +72524,7 @@
         },
         {
           "rank": 74,
-          "id": 7160,
+          "id": 0,
           "name": "Elisabete Correia",
           "nameLower": "elisabete correia",
           "gender": "F",
@@ -72692,7 +72692,7 @@
         },
         {
           "rank": 81,
-          "id": 6189,
+          "id": 0,
           "name": "Ana Falcão",
           "nameLower": "ana falcao",
           "gender": "F",
@@ -73116,7 +73116,7 @@
         },
         {
           "rank": 97,
-          "id": 8833,
+          "id": 0,
           "name": "Elisabete Correia",
           "nameLower": "elisabete correia",
           "gender": "F",
@@ -74256,7 +74256,7 @@
         },
         {
           "rank": 137,
-          "id": 6652,
+          "id": 0,
           "name": "Carina Batista",
           "nameLower": "carina batista",
           "gender": "F",
@@ -74744,7 +74744,7 @@
         },
         {
           "rank": 154,
-          "id": 10020,
+          "id": 0,
           "name": "Patricia Afonso",
           "nameLower": "patricia afonso",
           "gender": "F",
@@ -75192,7 +75192,7 @@
         },
         {
           "rank": 171,
-          "id": 12098,
+          "id": 0,
           "name": "Patricia Afonso",
           "nameLower": "patricia afonso",
           "gender": "F",
@@ -76104,7 +76104,7 @@
         },
         {
           "rank": 204,
-          "id": 1129,
+          "id": 0,
           "name": "Aurelie Mesquita",
           "nameLower": "aurelie mesquita",
           "gender": "F",
@@ -77144,7 +77144,7 @@
         },
         {
           "rank": 244,
-          "id": 6270,
+          "id": 0,
           "name": "Rita Santos-Rocha",
           "nameLower": "rita santos-rocha",
           "gender": "F",
@@ -77582,7 +77582,7 @@
         },
         {
           "rank": 261,
-          "id": 5476,
+          "id": 0,
           "name": "Rute Borges",
           "nameLower": "rute borges",
           "gender": "F",
@@ -77918,7 +77918,7 @@
         },
         {
           "rank": 275,
-          "id": 10115,
+          "id": 0,
           "name": "Cristina Luís",
           "nameLower": "cristina luis",
           "gender": "F",
@@ -78230,7 +78230,7 @@
         },
         {
           "rank": 288,
-          "id": 10910,
+          "id": 0,
           "name": "Silvia Caetano",
           "nameLower": "silvia caetano",
           "gender": "F",
@@ -79122,7 +79122,7 @@
         },
         {
           "rank": 2,
-          "id": 12345,
+          "id": 0,
           "name": "Helder Loureiro",
           "nameLower": "helder loureiro",
           "gender": "M",
@@ -79146,7 +79146,7 @@
         },
         {
           "rank": 3,
-          "id": 12513,
+          "id": 0,
           "name": "João Viegas",
           "nameLower": "joao viegas",
           "gender": "M",
@@ -79578,7 +79578,7 @@
         },
         {
           "rank": 21,
-          "id": 12517,
+          "id": 0,
           "name": "Diogo Pereira",
           "nameLower": "diogo pereira",
           "gender": "M",
@@ -79914,7 +79914,7 @@
         },
         {
           "rank": 35,
-          "id": 12139,
+          "id": 0,
           "name": "Bruno Silvestre",
           "nameLower": "bruno silvestre",
           "gender": "M",
@@ -80516,7 +80516,7 @@
         },
         {
           "rank": 10,
-          "id": 3970,
+          "id": 0,
           "name": "Luizete Dias",
           "nameLower": "luizete dias",
           "gender": "F",
@@ -80902,7 +80902,7 @@
         },
         {
           "rank": 2,
-          "id": 1,
+          "id": 0,
           "name": "Jose Borges",
           "nameLower": "jose borges",
           "gender": "M",
@@ -80994,7 +80994,7 @@
         },
         {
           "rank": 5,
-          "id": 3,
+          "id": 0,
           "name": "Marco Domingos",
           "nameLower": "marco domingos",
           "gender": "M",
@@ -81018,7 +81018,7 @@
         },
         {
           "rank": 6,
-          "id": 4,
+          "id": 0,
           "name": "Helder Loureiro",
           "nameLower": "helder loureiro",
           "gender": "M",
@@ -81066,7 +81066,7 @@
         },
         {
           "rank": 8,
-          "id": 1149,
+          "id": 0,
           "name": "João Jesus",
           "nameLower": "joao jesus",
           "gender": "M",
@@ -81124,7 +81124,7 @@
         },
         {
           "rank": 10,
-          "id": 7,
+          "id": 0,
           "name": "Cláudio Santos",
           "nameLower": "claudio santos",
           "gender": "M",
@@ -81196,7 +81196,7 @@
         },
         {
           "rank": 13,
-          "id": 2589,
+          "id": 0,
           "name": "Tiago Galhano",
           "nameLower": "tiago galhano",
           "gender": "M",
@@ -81220,7 +81220,7 @@
         },
         {
           "rank": 14,
-          "id": 0,
+          "id": 3231,
           "name": "José Borges",
           "nameLower": "jose borges",
           "gender": "M",
@@ -81268,7 +81268,7 @@
         },
         {
           "rank": 16,
-          "id": 1152,
+          "id": 0,
           "name": "Nuno Gomes",
           "nameLower": "nuno gomes",
           "gender": "M",
@@ -81326,7 +81326,7 @@
         },
         {
           "rank": 18,
-          "id": 1151,
+          "id": 0,
           "name": "Pedro Seabra",
           "nameLower": "pedro seabra",
           "gender": "M",
@@ -81350,7 +81350,7 @@
         },
         {
           "rank": 19,
-          "id": 2590,
+          "id": 0,
           "name": "Ivo Lopes",
           "nameLower": "ivo lopes",
           "gender": "M",
@@ -81446,7 +81446,7 @@
         },
         {
           "rank": 23,
-          "id": 2592,
+          "id": 0,
           "name": "Miguel Frutuoso",
           "nameLower": "miguel frutuoso",
           "gender": "M",
@@ -81542,7 +81542,7 @@
         },
         {
           "rank": 27,
-          "id": 11,
+          "id": 0,
           "name": "Igor Alves",
           "nameLower": "igor alves",
           "gender": "M",
@@ -81744,7 +81744,7 @@
         },
         {
           "rank": 35,
-          "id": 2595,
+          "id": 0,
           "name": "Tiago Miranda",
           "nameLower": "tiago miranda",
           "gender": "M",
@@ -81812,7 +81812,7 @@
         },
         {
           "rank": 37,
-          "id": 13,
+          "id": 0,
           "name": "João Pereira",
           "nameLower": "joao pereira",
           "gender": "M",
@@ -81836,7 +81836,7 @@
         },
         {
           "rank": 38,
-          "id": 1156,
+          "id": 0,
           "name": "Rafael Teles",
           "nameLower": "rafael teles",
           "gender": "M",
@@ -81884,7 +81884,7 @@
         },
         {
           "rank": 40,
-          "id": 3236,
+          "id": 0,
           "name": "Miguel Nunes",
           "nameLower": "miguel nunes",
           "gender": "M",
@@ -82188,7 +82188,7 @@
         },
         {
           "rank": 51,
-          "id": 18,
+          "id": 0,
           "name": "Nuno Fitas",
           "nameLower": "nuno fitas",
           "gender": "M",
@@ -82212,7 +82212,7 @@
         },
         {
           "rank": 52,
-          "id": 1159,
+          "id": 0,
           "name": "Stefan Pinheiro",
           "nameLower": "stefan pinheiro",
           "gender": "M",
@@ -82318,7 +82318,7 @@
         },
         {
           "rank": 56,
-          "id": 1160,
+          "id": 0,
           "name": "Sérgio Oliveira",
           "nameLower": "sergio oliveira",
           "gender": "M",
@@ -82366,7 +82366,7 @@
         },
         {
           "rank": 58,
-          "id": 21,
+          "id": 0,
           "name": "Claudio Costa",
           "nameLower": "claudio costa",
           "gender": "M",
@@ -82654,7 +82654,7 @@
         },
         {
           "rank": 70,
-          "id": 1165,
+          "id": 0,
           "name": "Dénis Rocha",
           "nameLower": "denis rocha",
           "gender": "M",
@@ -82702,7 +82702,7 @@
         },
         {
           "rank": 72,
-          "id": 3242,
+          "id": 0,
           "name": "Marco Domingos",
           "nameLower": "marco domingos",
           "gender": "M",
@@ -82750,7 +82750,7 @@
         },
         {
           "rank": 74,
-          "id": 3243,
+          "id": 0,
           "name": "Tiago Crespo",
           "nameLower": "tiago crespo",
           "gender": "M",
@@ -82822,7 +82822,7 @@
         },
         {
           "rank": 77,
-          "id": 2605,
+          "id": 0,
           "name": "Bruno Silveira",
           "nameLower": "bruno silveira",
           "gender": "M",
@@ -82928,7 +82928,7 @@
         },
         {
           "rank": 81,
-          "id": 1167,
+          "id": 0,
           "name": "Ricardo Augusto",
           "nameLower": "ricardo augusto",
           "gender": "M",
@@ -82976,7 +82976,7 @@
         },
         {
           "rank": 83,
-          "id": 27,
+          "id": 0,
           "name": "Elio Silva",
           "nameLower": "elio silva",
           "gender": "M",
@@ -83000,7 +83000,7 @@
         },
         {
           "rank": 84,
-          "id": 28,
+          "id": 0,
           "name": "Daniel Fernandes",
           "nameLower": "daniel fernandes",
           "gender": "M",
@@ -83048,7 +83048,7 @@
         },
         {
           "rank": 86,
-          "id": 30,
+          "id": 0,
           "name": "Hugo Ferreira",
           "nameLower": "hugo ferreira",
           "gender": "M",
@@ -83202,7 +83202,7 @@
         },
         {
           "rank": 92,
-          "id": 3246,
+          "id": 0,
           "name": "Miguel Vicente",
           "nameLower": "miguel vicente",
           "gender": "M",
@@ -83274,7 +83274,7 @@
         },
         {
           "rank": 95,
-          "id": 124,
+          "id": 0,
           "name": "Jorge Rosa",
           "nameLower": "jorge rosa",
           "gender": "M",
@@ -83466,7 +83466,7 @@
         },
         {
           "rank": 103,
-          "id": 39,
+          "id": 0,
           "name": "Bruno Pereira",
           "nameLower": "bruno pereira",
           "gender": "M",
@@ -83610,7 +83610,7 @@
         },
         {
           "rank": 109,
-          "id": 1173,
+          "id": 0,
           "name": "Rui Pinto",
           "nameLower": "rui pinto",
           "gender": "M",
@@ -83740,7 +83740,7 @@
         },
         {
           "rank": 114,
-          "id": 3247,
+          "id": 0,
           "name": "João Pereira",
           "nameLower": "joao pereira",
           "gender": "M",
@@ -83812,7 +83812,7 @@
         },
         {
           "rank": 117,
-          "id": 3248,
+          "id": 0,
           "name": "Nuno Torres",
           "nameLower": "nuno torres",
           "gender": "M",
@@ -83932,7 +83932,7 @@
         },
         {
           "rank": 122,
-          "id": 1175,
+          "id": 0,
           "name": "André Marta",
           "nameLower": "andre marta",
           "gender": "M",
@@ -84052,7 +84052,7 @@
         },
         {
           "rank": 127,
-          "id": 1180,
+          "id": 0,
           "name": "Pedro Batista",
           "nameLower": "pedro batista",
           "gender": "M",
@@ -84100,7 +84100,7 @@
         },
         {
           "rank": 129,
-          "id": 41,
+          "id": 0,
           "name": "Lino Graça",
           "nameLower": "lino graca",
           "gender": "M",
@@ -84172,7 +84172,7 @@
         },
         {
           "rank": 132,
-          "id": 44,
+          "id": 0,
           "name": "João Alves",
           "nameLower": "joao alves",
           "gender": "M",
@@ -84196,7 +84196,7 @@
         },
         {
           "rank": 133,
-          "id": 45,
+          "id": 0,
           "name": "Helder Palma",
           "nameLower": "helder palma",
           "gender": "M",
@@ -84244,7 +84244,7 @@
         },
         {
           "rank": 135,
-          "id": 48,
+          "id": 0,
           "name": "Rui Rodrigues",
           "nameLower": "rui rodrigues",
           "gender": "M",
@@ -84268,7 +84268,7 @@
         },
         {
           "rank": 136,
-          "id": 49,
+          "id": 0,
           "name": "Miguel Martins",
           "nameLower": "miguel martins",
           "gender": "M",
@@ -84412,7 +84412,7 @@
         },
         {
           "rank": 142,
-          "id": 2618,
+          "id": 0,
           "name": "Ricardo Gomes",
           "nameLower": "ricardo gomes",
           "gender": "M",
@@ -84436,7 +84436,7 @@
         },
         {
           "rank": 143,
-          "id": 1538,
+          "id": 0,
           "name": "Luis Nunes",
           "nameLower": "luis nunes",
           "gender": "M",
@@ -84628,7 +84628,7 @@
         },
         {
           "rank": 151,
-          "id": 3254,
+          "id": 0,
           "name": "Pedro Mendes",
           "nameLower": "pedro mendes",
           "gender": "M",
@@ -84796,7 +84796,7 @@
         },
         {
           "rank": 158,
-          "id": 1185,
+          "id": 0,
           "name": "Daniel Sá",
           "nameLower": "daniel sa",
           "gender": "M",
@@ -84820,7 +84820,7 @@
         },
         {
           "rank": 159,
-          "id": 1186,
+          "id": 0,
           "name": "Rui Godinho",
           "nameLower": "rui godinho",
           "gender": "M",
@@ -84916,7 +84916,7 @@
         },
         {
           "rank": 163,
-          "id": 1190,
+          "id": 0,
           "name": "Aires Braga",
           "nameLower": "aires braga",
           "gender": "M",
@@ -84940,7 +84940,7 @@
         },
         {
           "rank": 164,
-          "id": 1191,
+          "id": 0,
           "name": "Rui Vieira",
           "nameLower": "rui vieira",
           "gender": "M",
@@ -85180,7 +85180,7 @@
         },
         {
           "rank": 174,
-          "id": 3261,
+          "id": 0,
           "name": "Luis Lameira",
           "nameLower": "luis lameira",
           "gender": "M",
@@ -85276,7 +85276,7 @@
         },
         {
           "rank": 178,
-          "id": 3262,
+          "id": 0,
           "name": "Bernardo Alves",
           "nameLower": "bernardo alves",
           "gender": "M",
@@ -85300,7 +85300,7 @@
         },
         {
           "rank": 179,
-          "id": 3263,
+          "id": 0,
           "name": "Élio Silva",
           "nameLower": "elio silva",
           "gender": "M",
@@ -85372,7 +85372,7 @@
         },
         {
           "rank": 182,
-          "id": 2633,
+          "id": 0,
           "name": "Bruno Vieira",
           "nameLower": "bruno vieira",
           "gender": "M",
@@ -85396,7 +85396,7 @@
         },
         {
           "rank": 183,
-          "id": 3265,
+          "id": 0,
           "name": "Marcos Pereira",
           "nameLower": "marcos pereira",
           "gender": "M",
@@ -85984,7 +85984,7 @@
         },
         {
           "rank": 24,
-          "id": 3305,
+          "id": 0,
           "name": "Tamára Branco",
           "nameLower": "tamara branco",
           "gender": "F",
@@ -86008,7 +86008,7 @@
         },
         {
           "rank": 25,
-          "id": 2702,
+          "id": 0,
           "name": "Sylvia Read",
           "nameLower": "sylvia read",
           "gender": "F",
@@ -86282,7 +86282,7 @@
         },
         {
           "rank": 36,
-          "id": 439,
+          "id": 0,
           "name": "Ana Silva",
           "nameLower": "ana silva",
           "gender": "F",
@@ -86522,7 +86522,7 @@
         },
         {
           "rank": 46,
-          "id": 3373,
+          "id": 0,
           "name": "Raquel Matias",
           "nameLower": "raquel matias",
           "gender": "F",
@@ -86594,7 +86594,7 @@
         },
         {
           "rank": 49,
-          "id": 3381,
+          "id": 0,
           "name": "Inês Santos",
           "nameLower": "ines santos",
           "gender": "F",
@@ -86978,7 +86978,7 @@
         },
         {
           "rank": 65,
-          "id": 869,
+          "id": 0,
           "name": "Beatriz Lopes",
           "nameLower": "beatriz lopes",
           "gender": "F",
@@ -87650,7 +87650,7 @@
         },
         {
           "rank": 5,
-          "id": 2807,
+          "id": 0,
           "name": "João Vivas",
           "nameLower": "joao vivas",
           "gender": "M",
@@ -87674,7 +87674,7 @@
         },
         {
           "rank": 6,
-          "id": 1529,
+          "id": 0,
           "name": "Nuno Torres",
           "nameLower": "nuno torres",
           "gender": "M",
@@ -87698,7 +87698,7 @@
         },
         {
           "rank": 7,
-          "id": 2808,
+          "id": 0,
           "name": "João Martins",
           "nameLower": "joao martins",
           "gender": "M",
@@ -87722,7 +87722,7 @@
         },
         {
           "rank": 8,
-          "id": 3386,
+          "id": 0,
           "name": "João Viegas",
           "nameLower": "joao viegas",
           "gender": "M",
@@ -87876,7 +87876,7 @@
         },
         {
           "rank": 14,
-          "id": 1531,
+          "id": 0,
           "name": "João Viegas",
           "nameLower": "joao viegas",
           "gender": "M",
@@ -87900,7 +87900,7 @@
         },
         {
           "rank": 15,
-          "id": 3388,
+          "id": 0,
           "name": "Leonel Pereira",
           "nameLower": "leonel pereira",
           "gender": "M",
@@ -87948,7 +87948,7 @@
         },
         {
           "rank": 17,
-          "id": 2810,
+          "id": 0,
           "name": "Daniel Filipe",
           "nameLower": "daniel filipe",
           "gender": "M",
@@ -87996,7 +87996,7 @@
         },
         {
           "rank": 19,
-          "id": 2811,
+          "id": 0,
           "name": "Guilherme Silva",
           "nameLower": "guilherme silva",
           "gender": "M",
@@ -88020,7 +88020,7 @@
         },
         {
           "rank": 20,
-          "id": 1532,
+          "id": 0,
           "name": "Pedro Gaio",
           "nameLower": "pedro gaio",
           "gender": "M",
@@ -88116,7 +88116,7 @@
         },
         {
           "rank": 24,
-          "id": 2234,
+          "id": 0,
           "name": "Gonçalo Filipe",
           "nameLower": "goncalo filipe",
           "gender": "M",
@@ -88140,7 +88140,7 @@
         },
         {
           "rank": 25,
-          "id": 3390,
+          "id": 0,
           "name": "Hugo Moreira",
           "nameLower": "hugo moreira",
           "gender": "M",
@@ -88164,7 +88164,7 @@
         },
         {
           "rank": 26,
-          "id": 1534,
+          "id": 0,
           "name": "Pedro Mendes",
           "nameLower": "pedro mendes",
           "gender": "M",
@@ -88270,7 +88270,7 @@
         },
         {
           "rank": 30,
-          "id": 2813,
+          "id": 0,
           "name": "Marco Domingos",
           "nameLower": "marco domingos",
           "gender": "M",
@@ -88342,7 +88342,7 @@
         },
         {
           "rank": 33,
-          "id": 3393,
+          "id": 0,
           "name": "Ruben Pais",
           "nameLower": "ruben pais",
           "gender": "M",
@@ -88510,7 +88510,7 @@
         },
         {
           "rank": 40,
-          "id": 3395,
+          "id": 0,
           "name": "Rui Pinto",
           "nameLower": "rui pinto",
           "gender": "M",
@@ -88534,7 +88534,7 @@
         },
         {
           "rank": 41,
-          "id": 1541,
+          "id": 0,
           "name": "Manuel Oliveira",
           "nameLower": "manuel oliveira",
           "gender": "M",
@@ -88626,7 +88626,7 @@
         },
         {
           "rank": 44,
-          "id": 2231,
+          "id": 0,
           "name": "Claudio Costa",
           "nameLower": "claudio costa",
           "gender": "M",
@@ -88650,7 +88650,7 @@
         },
         {
           "rank": 45,
-          "id": 1537,
+          "id": 0,
           "name": "Bruno Silvestre",
           "nameLower": "bruno silvestre",
           "gender": "M",
@@ -88674,7 +88674,7 @@
         },
         {
           "rank": 46,
-          "id": 1538,
+          "id": 0,
           "name": "Luis Nunes",
           "nameLower": "luis nunes",
           "gender": "M",
@@ -88770,7 +88770,7 @@
         },
         {
           "rank": 50,
-          "id": 2818,
+          "id": 0,
           "name": "Alexandre Cochard",
           "nameLower": "alexandre cochard",
           "gender": "M",
@@ -88818,7 +88818,7 @@
         },
         {
           "rank": 52,
-          "id": 2819,
+          "id": 0,
           "name": "Rui Pires",
           "nameLower": "rui pires",
           "gender": "M",
@@ -88914,7 +88914,7 @@
         },
         {
           "rank": 56,
-          "id": 1543,
+          "id": 0,
           "name": "Vítor Magalhães",
           "nameLower": "vitor magalhaes",
           "gender": "M",
@@ -89010,7 +89010,7 @@
         },
         {
           "rank": 60,
-          "id": 3398,
+          "id": 0,
           "name": "Daniel Fernandes",
           "nameLower": "daniel fernandes",
           "gender": "M",
@@ -89130,7 +89130,7 @@
         },
         {
           "rank": 65,
-          "id": 2823,
+          "id": 0,
           "name": "João Caetano",
           "nameLower": "joao caetano",
           "gender": "M",
@@ -89178,7 +89178,7 @@
         },
         {
           "rank": 67,
-          "id": 2825,
+          "id": 0,
           "name": "Tomás Pais",
           "nameLower": "tomas pais",
           "gender": "M",
@@ -89370,7 +89370,7 @@
         },
         {
           "rank": 75,
-          "id": 27,
+          "id": 0,
           "name": "Elio Silva",
           "nameLower": "elio silva",
           "gender": "M",
@@ -89476,7 +89476,7 @@
         },
         {
           "rank": 79,
-          "id": 2827,
+          "id": 0,
           "name": "Mário Matias",
           "nameLower": "mario matias",
           "gender": "M",
@@ -89524,7 +89524,7 @@
         },
         {
           "rank": 81,
-          "id": 2829,
+          "id": 0,
           "name": "Ricardo Pereira",
           "nameLower": "ricardo pereira",
           "gender": "M",
@@ -89596,7 +89596,7 @@
         },
         {
           "rank": 84,
-          "id": 463,
+          "id": 0,
           "name": "Rodrigo Dias",
           "nameLower": "rodrigo dias",
           "gender": "M",
@@ -89620,7 +89620,7 @@
         },
         {
           "rank": 85,
-          "id": 55,
+          "id": 0,
           "name": "Nuno Pais",
           "nameLower": "nuno pais",
           "gender": "M",
@@ -89702,7 +89702,7 @@
         },
         {
           "rank": 88,
-          "id": 1550,
+          "id": 0,
           "name": "Bruno Terroso",
           "nameLower": "bruno terroso",
           "gender": "M",
@@ -90182,7 +90182,7 @@
         },
         {
           "rank": 108,
-          "id": 3408,
+          "id": 0,
           "name": "Ivo Pais",
           "nameLower": "ivo pais",
           "gender": "M",
@@ -90278,7 +90278,7 @@
         },
         {
           "rank": 112,
-          "id": 3411,
+          "id": 0,
           "name": "Ricardo Tavares",
           "nameLower": "ricardo tavares",
           "gender": "M",
@@ -90374,7 +90374,7 @@
         },
         {
           "rank": 116,
-          "id": 1554,
+          "id": 0,
           "name": "Miguel Carreiras",
           "nameLower": "miguel carreiras",
           "gender": "M",
@@ -90638,7 +90638,7 @@
         },
         {
           "rank": 127,
-          "id": 2842,
+          "id": 0,
           "name": "Carlos Santos",
           "nameLower": "carlos santos",
           "gender": "M",
@@ -90662,7 +90662,7 @@
         },
         {
           "rank": 128,
-          "id": 2843,
+          "id": 0,
           "name": "Luis Araújo",
           "nameLower": "luis araujo",
           "gender": "M",
@@ -90926,7 +90926,7 @@
         },
         {
           "rank": 139,
-          "id": 3418,
+          "id": 0,
           "name": "Rui Costa",
           "nameLower": "rui costa",
           "gender": "M",
@@ -90998,7 +90998,7 @@
         },
         {
           "rank": 142,
-          "id": 3420,
+          "id": 0,
           "name": "Ricardo Pereira",
           "nameLower": "ricardo pereira",
           "gender": "M",
@@ -91380,7 +91380,7 @@
         },
         {
           "rank": 15,
-          "id": 1687,
+          "id": 0,
           "name": "Angela Santos",
           "nameLower": "angela santos",
           "gender": "F",
@@ -91548,7 +91548,7 @@
         },
         {
           "rank": 22,
-          "id": 1697,
+          "id": 0,
           "name": "Elisabete Madeira",
           "nameLower": "elisabete madeira",
           "gender": "F",
@@ -91716,7 +91716,7 @@
         },
         {
           "rank": 29,
-          "id": 3029,
+          "id": 0,
           "name": "Marlene Costa",
           "nameLower": "marlene costa",
           "gender": "F",
@@ -92436,7 +92436,7 @@
         },
         {
           "rank": 59,
-          "id": 3080,
+          "id": 0,
           "name": "Gica Ghionea",
           "nameLower": "gica ghionea",
           "gender": "F",
@@ -93204,7 +93204,7 @@
         },
         {
           "rank": 91,
-          "id": 3201,
+          "id": 0,
           "name": "Elisabeth Murray",
           "nameLower": "elisabeth murray",
           "gender": "F",
@@ -93588,7 +93588,7 @@
         },
         {
           "rank": 107,
-          "id": 2211,
+          "id": 0,
           "name": "Rachel Thomas",
           "nameLower": "rachel thomas",
           "gender": "F",
@@ -93712,7 +93712,7 @@
         },
         {
           "rank": 3,
-          "id": 7,
+          "id": 0,
           "name": "Cláudio Santos",
           "nameLower": "claudio santos",
           "gender": "M",
@@ -93736,7 +93736,7 @@
         },
         {
           "rank": 4,
-          "id": 2230,
+          "id": 0,
           "name": "Carlos Nunes",
           "nameLower": "carlos nunes",
           "gender": "M",
@@ -93760,7 +93760,7 @@
         },
         {
           "rank": 5,
-          "id": 2231,
+          "id": 0,
           "name": "Claudio Costa",
           "nameLower": "claudio costa",
           "gender": "M",
@@ -93784,7 +93784,7 @@
         },
         {
           "rank": 6,
-          "id": 2232,
+          "id": 0,
           "name": "João Santos",
           "nameLower": "joao santos",
           "gender": "M",
@@ -93832,7 +93832,7 @@
         },
         {
           "rank": 8,
-          "id": 2234,
+          "id": 0,
           "name": "Gonçalo Filipe",
           "nameLower": "goncalo filipe",
           "gender": "M",
@@ -93856,7 +93856,7 @@
         },
         {
           "rank": 9,
-          "id": 2235,
+          "id": 0,
           "name": "Henrique Martins",
           "nameLower": "henrique martins",
           "gender": "M",
@@ -93904,7 +93904,7 @@
         },
         {
           "rank": 11,
-          "id": 2237,
+          "id": 0,
           "name": "Marcelo Alves",
           "nameLower": "marcelo alves",
           "gender": "M",
@@ -94048,7 +94048,7 @@
         },
         {
           "rank": 17,
-          "id": 2241,
+          "id": 0,
           "name": "Fernando Carvalho",
           "nameLower": "fernando carvalho",
           "gender": "M",
@@ -94120,7 +94120,7 @@
         },
         {
           "rank": 20,
-          "id": 2243,
+          "id": 0,
           "name": "Ricardo Carvalho",
           "nameLower": "ricardo carvalho",
           "gender": "M",
@@ -94144,7 +94144,7 @@
         },
         {
           "rank": 21,
-          "id": 2244,
+          "id": 0,
           "name": "Tiago Cavaco",
           "nameLower": "tiago cavaco",
           "gender": "M",
@@ -94384,7 +94384,7 @@
         },
         {
           "rank": 31,
-          "id": 2250,
+          "id": 0,
           "name": "Pedro Neves",
           "nameLower": "pedro neves",
           "gender": "M",
@@ -94432,7 +94432,7 @@
         },
         {
           "rank": 33,
-          "id": 2252,
+          "id": 0,
           "name": "Rafael Kerr",
           "nameLower": "rafael kerr",
           "gender": "M",
@@ -94624,7 +94624,7 @@
         },
         {
           "rank": 41,
-          "id": 2052,
+          "id": 0,
           "name": "Jaime Silva",
           "nameLower": "jaime silva",
           "gender": "M",
@@ -94672,7 +94672,7 @@
         },
         {
           "rank": 43,
-          "id": 2259,
+          "id": 0,
           "name": "Rafael Santos",
           "nameLower": "rafael santos",
           "gender": "M",
@@ -94720,7 +94720,7 @@
         },
         {
           "rank": 45,
-          "id": 2260,
+          "id": 0,
           "name": "Diogo Carvalho",
           "nameLower": "diogo carvalho",
           "gender": "M",
@@ -94792,7 +94792,7 @@
         },
         {
           "rank": 48,
-          "id": 2264,
+          "id": 0,
           "name": "Cláudio Policarpo",
           "nameLower": "claudio policarpo",
           "gender": "M",
@@ -94866,7 +94866,7 @@
       "F": [
         {
           "rank": 1,
-          "id": 2263,
+          "id": 0,
           "name": "Ana Arsénio",
           "nameLower": "ana arsenio",
           "gender": "F",
@@ -94962,7 +94962,7 @@
         },
         {
           "rank": 5,
-          "id": 2323,
+          "id": 0,
           "name": "Joana Ferreira",
           "nameLower": "joana ferreira",
           "gender": "F",
@@ -95082,7 +95082,7 @@
         },
         {
           "rank": 10,
-          "id": 2380,
+          "id": 0,
           "name": "Diana Magalhaes",
           "nameLower": "diana magalhaes",
           "gender": "F",

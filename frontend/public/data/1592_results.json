@@ -3,7 +3,7 @@
   "eventName": "TIME TRIAL GRANFONDO COIMBRA REGION 2025",
   "eventDate": "2025-03-01",
   "eventYear": 2025,
-  "scrapedAt": "2026-04-10T22:02:55.466Z",
+  "scrapedAt": "2026-04-10T22:16:17.468Z",
   "distances": [
     {
       "id": "1",
@@ -33,7 +33,7 @@
         {
           "pos": 2,
           "genderPos": 2,
-          "athleteId": 12345,
+          "athleteId": 0,
           "bib": "813",
           "name": "Helder Loureiro",
           "nameLower": "helder loureiro",
@@ -53,7 +53,7 @@
         {
           "pos": 3,
           "genderPos": 3,
-          "athleteId": 12513,
+          "athleteId": 0,
           "bib": "207",
           "name": "João Viegas",
           "nameLower": "joao viegas",
@@ -413,7 +413,7 @@
         {
           "pos": 21,
           "genderPos": 21,
-          "athleteId": 12517,
+          "athleteId": 0,
           "bib": "889",
           "name": "Diogo Pereira",
           "nameLower": "diogo pereira",
@@ -693,7 +693,7 @@
         {
           "pos": 35,
           "genderPos": 35,
-          "athleteId": 12139,
+          "athleteId": 0,
           "bib": "366",
           "name": "Bruno Silvestre",
           "nameLower": "bruno silvestre",
@@ -1053,7 +1053,7 @@
         {
           "pos": 53,
           "genderPos": 53,
-          "athleteId": 12426,
+          "athleteId": 0,
           "bib": "462",
           "name": "Rui Branco",
           "nameLower": "rui branco",
@@ -1513,7 +1513,7 @@
         {
           "pos": 76,
           "genderPos": 76,
-          "athleteId": 4282,
+          "athleteId": 0,
           "bib": "1115",
           "name": "Rui Rodrigues",
           "nameLower": "rui rodrigues",
@@ -1613,7 +1613,7 @@
         {
           "pos": 81,
           "genderPos": 81,
-          "athleteId": 12161,
+          "athleteId": 0,
           "bib": "1107",
           "name": "Sérgio Macedo",
           "nameLower": "sergio macedo",
@@ -1773,7 +1773,7 @@
         {
           "pos": 89,
           "genderPos": 88,
-          "athleteId": 12225,
+          "athleteId": 0,
           "bib": "894",
           "name": "Hugo Pereira",
           "nameLower": "hugo pereira",
@@ -1833,7 +1833,7 @@
         {
           "pos": 92,
           "genderPos": 91,
-          "athleteId": 76,
+          "athleteId": 0,
           "bib": "1003",
           "name": "João Pinto",
           "nameLower": "joao pinto",
@@ -1853,7 +1853,7 @@
         {
           "pos": 93,
           "genderPos": 92,
-          "athleteId": 12534,
+          "athleteId": 0,
           "bib": "1191",
           "name": "Carlos Beirão",
           "nameLower": "carlos beirao",
@@ -2933,7 +2933,7 @@
         {
           "pos": 147,
           "genderPos": 142,
-          "athleteId": 9008,
+          "athleteId": 0,
           "bib": "586",
           "name": "Rui Campos",
           "nameLower": "rui campos",
@@ -3633,7 +3633,7 @@
         {
           "pos": 182,
           "genderPos": 10,
-          "athleteId": 3970,
+          "athleteId": 0,
           "bib": "109",
           "name": "Luizete Dias",
           "nameLower": "luizete dias",
@@ -4053,7 +4053,7 @@
         {
           "pos": 203,
           "genderPos": 192,
-          "athleteId": 12264,
+          "athleteId": 0,
           "bib": "248",
           "name": "Inacio Nunes",
           "nameLower": "inacio nunes",
@@ -4113,7 +4113,7 @@
         {
           "pos": 206,
           "genderPos": 195,
-          "athleteId": 12325,
+          "athleteId": 0,
           "bib": "212",
           "name": "Francisco Guerreiro",
           "nameLower": "francisco guerreiro",
@@ -4473,7 +4473,7 @@
         {
           "pos": 224,
           "genderPos": 206,
-          "athleteId": 12278,
+          "athleteId": 0,
           "bib": "340",
           "name": "Gabriel Ferreira",
           "nameLower": "gabriel ferreira",

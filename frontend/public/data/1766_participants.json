@@ -22499,5 +22499,19 @@
 >>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
     "pais_nome": null,
     "pais_iso2": null
+  },
+  {
+    "dorsal": "1905",
+    "nome": "José Gilde",
+    "nomecompleto": "José Gilde",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS A",
+    "percurso": "Mediofondo",
+    "id_percursos": "2",
+    "licenca": null,
+    "licenca1": null,
+    "pais_nome": null,
+    "pais_iso2": null
   }
 ]

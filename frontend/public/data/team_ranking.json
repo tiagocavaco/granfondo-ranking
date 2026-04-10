@@ -1940,17 +1940,17 @@
             "combinedScore": 27,
             "athletes": [
               {
-                "id": 11314,
+                "id": 0,
                 "name": "Ruben Pais",
                 "pos": 1
               },
               {
-                "id": 3868,
+                "id": 0,
                 "name": "Marco Domingos",
                 "pos": 12
               },
               {
-                "id": 3875,
+                "id": 0,
                 "name": "João Pereira",
                 "pos": 14
               }
@@ -2151,7 +2151,7 @@
                 "pos": 5
               },
               {
-                "id": 11661,
+                "id": 0,
                 "name": "Ricardo Silva",
                 "pos": 9
               }
@@ -2184,12 +2184,12 @@
                 "pos": 1
               },
               {
-                "id": 11315,
+                "id": 0,
                 "name": "Joao Jacinto",
                 "pos": 3
               },
               {
-                "id": 12558,
+                "id": 0,
                 "name": "Bruno Saraiva",
                 "pos": 4
               }
@@ -2562,7 +2562,7 @@
                 "pos": 90
               },
               {
-                "id": 6329,
+                "id": 0,
                 "name": "Ricardo Sousa",
                 "pos": 129
               }
@@ -2586,7 +2586,7 @@
                 "pos": 71
               },
               {
-                "id": 6329,
+                "id": 0,
                 "name": "Ricardo Sousa",
                 "pos": 93
               },
@@ -2658,7 +2658,7 @@
                 "pos": 40
               },
               {
-                "id": 3689,
+                "id": 0,
                 "name": "Sónia Rodrigues",
                 "pos": 100
               }
@@ -2725,7 +2725,7 @@
                 "pos": 20
               },
               {
-                "id": 12354,
+                "id": 0,
                 "name": "Hugo Ferreira",
                 "pos": 21
               }
@@ -2896,17 +2896,17 @@
             "combinedScore": 57,
             "athletes": [
               {
-                "id": 8466,
+                "id": 0,
                 "name": "Rafael Teles",
                 "pos": 10
               },
               {
-                "id": 8469,
+                "id": 0,
                 "name": "Stefan Pinheiro",
                 "pos": 18
               },
               {
-                "id": 8475,
+                "id": 0,
                 "name": "Pedro Batista",
                 "pos": 29
               }
@@ -3010,17 +3010,17 @@
             "combinedScore": 64,
             "athletes": [
               {
-                "id": 10559,
+                "id": 0,
                 "name": "Fabio Gerardo",
                 "pos": 10
               },
               {
-                "id": 10563,
+                "id": 0,
                 "name": "Mario Ferreira",
                 "pos": 24
               },
               {
-                "id": 10564,
+                "id": 0,
                 "name": "João Garcia",
                 "pos": 30
               }
@@ -3048,17 +3048,17 @@
             "combinedScore": 108,
             "athletes": [
               {
-                "id": 5533,
+                "id": 0,
                 "name": "Jose Aleixo",
                 "pos": 28
               },
               {
-                "id": 5538,
+                "id": 0,
                 "name": "Hugo Rodrigues",
                 "pos": 35
               },
               {
-                "id": 4826,
+                "id": 0,
                 "name": "Pedro Norte",
                 "pos": 45
               }
@@ -3158,7 +3158,7 @@
                 "pos": 44
               },
               {
-                "id": 7341,
+                "id": 0,
                 "name": "Pedro Caldeira",
                 "pos": 62
               },
@@ -3272,7 +3272,7 @@
                 "pos": 21
               },
               {
-                "id": 12574,
+                "id": 0,
                 "name": "Rui Pires",
                 "pos": 35
               },
@@ -3305,7 +3305,7 @@
             "combinedScore": 79,
             "athletes": [
               {
-                "id": 6709,
+                "id": 0,
                 "name": "Daniel Marques",
                 "pos": 4
               },
@@ -3572,7 +3572,7 @@
                 "pos": 90
               },
               {
-                "id": 8502,
+                "id": 0,
                 "name": "Jorge Ferreira",
                 "pos": 105
               }
@@ -3882,7 +3882,7 @@
                 "pos": 19
               },
               {
-                "id": 11324,
+                "id": 0,
                 "name": "Pedro Cardoso",
                 "pos": 30
               },
@@ -4101,7 +4101,7 @@
                 "pos": 25
               },
               {
-                "id": 4604,
+                "id": 0,
                 "name": "Susana Lourenço",
                 "pos": 88
               },
@@ -4163,17 +4163,17 @@
             "combinedScore": 123,
             "athletes": [
               {
-                "id": 12562,
+                "id": 0,
                 "name": "Diogo Graça",
                 "pos": 10
               },
               {
-                "id": 12563,
+                "id": 0,
                 "name": "Carlos Martins",
                 "pos": 15
               },
               {
-                "id": 12601,
+                "id": 0,
                 "name": "Pedro Leite",
                 "pos": 98
               }
@@ -4201,12 +4201,12 @@
             "combinedScore": 114,
             "athletes": [
               {
-                "id": 11320,
+                "id": 0,
                 "name": "André Santos",
                 "pos": 20
               },
               {
-                "id": 8601,
+                "id": 0,
                 "name": "Fernando Barreto",
                 "pos": 34
               },
@@ -4287,7 +4287,7 @@
                 "pos": 55
               },
               {
-                "id": 7880,
+                "id": 0,
                 "name": "José Rosa",
                 "pos": 72
               }
@@ -4990,7 +4990,7 @@
             "combinedScore": 297,
             "athletes": [
               {
-                "id": 8907,
+                "id": 0,
                 "name": "Nuno Mendes",
                 "pos": 73
               },
@@ -5066,7 +5066,7 @@
             "combinedScore": 236,
             "athletes": [
               {
-                "id": 8476,
+                "id": 0,
                 "name": "Mathieu Gonçalves",
                 "pos": 35
               },
@@ -5180,17 +5180,17 @@
             "combinedScore": 194,
             "athletes": [
               {
-                "id": 4281,
+                "id": 0,
                 "name": "Igor Alves",
                 "pos": 44
               },
               {
-                "id": 4282,
+                "id": 0,
                 "name": "Rui Rodrigues",
                 "pos": 61
               },
               {
-                "id": 12376,
+                "id": 0,
                 "name": "Marco Silva",
                 "pos": 89
               }
@@ -5223,7 +5223,7 @@
                 "pos": 43
               },
               {
-                "id": 3314,
+                "id": 0,
                 "name": "ABEL PINHO",
                 "pos": 55
               },
@@ -5304,7 +5304,7 @@
                 "pos": 53
               },
               {
-                "id": 7898,
+                "id": 0,
                 "name": "Alcino Cunha",
                 "pos": 109
               }
@@ -5741,7 +5741,7 @@
             "combinedScore": 344,
             "athletes": [
               {
-                "id": 9310,
+                "id": 0,
                 "name": "Camille Danies",
                 "pos": 17
               },
@@ -5855,7 +5855,7 @@
             "combinedScore": 266,
             "athletes": [
               {
-                "id": 3657,
+                "id": 0,
                 "name": "Rafael Folques",
                 "pos": 57
               },
@@ -5865,7 +5865,7 @@
                 "pos": 104
               },
               {
-                "id": 3694,
+                "id": 0,
                 "name": "Gonçalo Almeida",
                 "pos": 105
               }
@@ -6141,7 +6141,7 @@
             "combinedScore": 361,
             "athletes": [
               {
-                "id": 7380,
+                "id": 0,
                 "name": "Paulo Ferreira",
                 "pos": 54
               },
@@ -6341,7 +6341,7 @@
                 "pos": 83
               },
               {
-                "id": 11353,
+                "id": 0,
                 "name": "Simão Costa",
                 "pos": 111
               }
@@ -8882,17 +8882,17 @@
             "combinedScore": 31,
             "athletes": [
               {
-                "id": 8592,
+                "id": 0,
                 "name": "Tiago Teixeira",
                 "pos": 2
               },
               {
-                "id": 8595,
+                "id": 0,
                 "name": "Tiago Gomes",
                 "pos": 12
               },
               {
-                "id": 8596,
+                "id": 0,
                 "name": "Manuel Almeida",
                 "pos": 17
               }
@@ -8911,17 +8911,17 @@
             "combinedScore": 50,
             "athletes": [
               {
-                "id": 8592,
+                "id": 0,
                 "name": "Tiago Teixeira",
                 "pos": 2
               },
               {
-                "id": 8595,
+                "id": 0,
                 "name": "Tiago Gomes",
                 "pos": 19
               },
               {
-                "id": 8596,
+                "id": 0,
                 "name": "Manuel Almeida",
                 "pos": 29
               }
@@ -9007,12 +9007,12 @@
             "combinedScore": 53,
             "athletes": [
               {
-                "id": 12776,
+                "id": 0,
                 "name": "Tiago Morais",
                 "pos": 9
               },
               {
-                "id": 12783,
+                "id": 0,
                 "name": "Jorge Cabrita",
                 "pos": 21
               },
@@ -9179,7 +9179,7 @@
             "combinedScore": 15,
             "athletes": [
               {
-                "id": 3868,
+                "id": 0,
                 "name": "Marco Domingos",
                 "pos": 1
               },
@@ -9189,7 +9189,7 @@
                 "pos": 6
               },
               {
-                "id": 3875,
+                "id": 0,
                 "name": "João Pereira",
                 "pos": 8
               }
@@ -9351,17 +9351,17 @@
             "combinedScore": 23,
             "athletes": [
               {
-                "id": 12772,
+                "id": 0,
                 "name": "Ruben Pais",
                 "pos": 2
               },
               {
-                "id": 12773,
+                "id": 0,
                 "name": "Marco Domingos",
                 "pos": 4
               },
               {
-                "id": 12779,
+                "id": 0,
                 "name": "Bernardo Alves",
                 "pos": 17
               }
@@ -9389,12 +9389,12 @@
             "combinedScore": 28,
             "athletes": [
               {
-                "id": 5829,
+                "id": 0,
                 "name": "Pedro Gaio",
                 "pos": 5
               },
               {
-                "id": 5831,
+                "id": 0,
                 "name": "Cláudio Santos",
                 "pos": 9
               },
@@ -9456,7 +9456,7 @@
             "combinedScore": 105,
             "athletes": [
               {
-                "id": 12136,
+                "id": 0,
                 "name": "Rodrigo Coimbra",
                 "pos": 1
               },
@@ -9753,7 +9753,7 @@
             "combinedScore": 50,
             "athletes": [
               {
-                "id": 10931,
+                "id": 0,
                 "name": "Luís Godinho",
                 "pos": 9
               },
@@ -9763,7 +9763,7 @@
                 "pos": 15
               },
               {
-                "id": 10934,
+                "id": 0,
                 "name": "César Carlos",
                 "pos": 26
               }
@@ -9791,17 +9791,17 @@
             "combinedScore": 33,
             "athletes": [
               {
-                "id": 8244,
+                "id": 0,
                 "name": "Edgar Oliveira",
                 "pos": 9
               },
               {
-                "id": 8247,
+                "id": 0,
                 "name": "Ricardo Gaspar",
                 "pos": 12
               },
               {
-                "id": 8248,
+                "id": 0,
                 "name": "Vítor Lourenço",
                 "pos": 12
               }
@@ -9939,7 +9939,7 @@
                 "pos": 15
               },
               {
-                "id": 12797,
+                "id": 0,
                 "name": "Paulo Melo",
                 "pos": 51
               },
@@ -10010,12 +10010,12 @@
             "combinedScore": 66,
             "athletes": [
               {
-                "id": 4282,
+                "id": 0,
                 "name": "Rui Rodrigues",
                 "pos": 16
               },
               {
-                "id": 8961,
+                "id": 0,
                 "name": "João Pina",
                 "pos": 21
               },
@@ -10039,7 +10039,7 @@
             "combinedScore": 144,
             "athletes": [
               {
-                "id": 8961,
+                "id": 0,
                 "name": "João Pina",
                 "pos": 30
               },
@@ -10082,7 +10082,7 @@
                 "pos": 9
               },
               {
-                "id": 7537,
+                "id": 0,
                 "name": "Filipe Leite",
                 "pos": 25
               },
@@ -10234,7 +10234,7 @@
                 "pos": 17
               },
               {
-                "id": 5836,
+                "id": 0,
                 "name": "Bruno Silvestre",
                 "pos": 35
               },
@@ -10258,7 +10258,7 @@
             "combinedScore": 119,
             "athletes": [
               {
-                "id": 10940,
+                "id": 0,
                 "name": "Edgar Oliveira",
                 "pos": 33
               },
@@ -10372,12 +10372,12 @@
             "combinedScore": 77,
             "athletes": [
               {
-                "id": 12777,
+                "id": 0,
                 "name": "Carlos Alfaiate",
                 "pos": 10
               },
               {
-                "id": 12788,
+                "id": 0,
                 "name": "José Merencio",
                 "pos": 33
               },
@@ -10667,7 +10667,7 @@
             "combinedScore": 224,
             "athletes": [
               {
-                "id": 7516,
+                "id": 0,
                 "name": "Augusto Silva",
                 "pos": 15
               },
@@ -10705,17 +10705,17 @@
             "combinedScore": 107,
             "athletes": [
               {
-                "id": 13,
+                "id": 0,
                 "name": "João Pereira",
                 "pos": 18
               },
               {
-                "id": 39,
+                "id": 0,
                 "name": "Bruno Pereira",
                 "pos": 25
               },
               {
-                "id": 138,
+                "id": 0,
                 "name": "Rui Costa",
                 "pos": 64
               }
@@ -10949,7 +10949,7 @@
                 "pos": 14
               },
               {
-                "id": 3888,
+                "id": 0,
                 "name": "Diogo Caeiro",
                 "pos": 29
               },
@@ -11059,7 +11059,7 @@
                 "pos": 29
               },
               {
-                "id": 12162,
+                "id": 0,
                 "name": "Filipe Runa",
                 "pos": 104
               }
@@ -11183,17 +11183,17 @@
             "combinedScore": 178,
             "athletes": [
               {
-                "id": 4825,
+                "id": 0,
                 "name": "Tiago Panasco",
                 "pos": 47
               },
               {
-                "id": 4826,
+                "id": 0,
                 "name": "Pedro Norte",
                 "pos": 49
               },
               {
-                "id": 4844,
+                "id": 0,
                 "name": "Rui Feiteira",
                 "pos": 82
               }
@@ -11212,12 +11212,12 @@
             "combinedScore": 97,
             "athletes": [
               {
-                "id": 4825,
+                "id": 0,
                 "name": "Tiago Panasco",
                 "pos": 17
               },
               {
-                "id": 4844,
+                "id": 0,
                 "name": "Rui Feiteira",
                 "pos": 34
               },
@@ -11555,7 +11555,7 @@
                 "pos": 142
               },
               {
-                "id": 6125,
+                "id": 0,
                 "name": "Jorge Madeira",
                 "pos": 143
               }
@@ -11765,7 +11765,7 @@
                 "pos": 54
               },
               {
-                "id": 10952,
+                "id": 0,
                 "name": "Jorge Monteiro",
                 "pos": 66
               }
@@ -11831,12 +11831,12 @@
             "combinedScore": 189,
             "athletes": [
               {
-                "id": 9496,
+                "id": 0,
                 "name": "Nuno Brandão",
                 "pos": 54
               },
               {
-                "id": 9499,
+                "id": 0,
                 "name": "Renato Andrade",
                 "pos": 57
               },
@@ -11860,12 +11860,12 @@
             "combinedScore": 212,
             "athletes": [
               {
-                "id": 7554,
+                "id": 0,
                 "name": "Bruno Azevedo",
                 "pos": 65
               },
               {
-                "id": 9541,
+                "id": 0,
                 "name": "AntóNio Guedes",
                 "pos": 68
               },
@@ -11898,7 +11898,7 @@
             "combinedScore": 127,
             "athletes": [
               {
-                "id": 8964,
+                "id": 0,
                 "name": "António Costa",
                 "pos": 31
               },
@@ -11936,17 +11936,17 @@
             "combinedScore": 156,
             "athletes": [
               {
-                "id": 4814,
+                "id": 0,
                 "name": "Mário Matias",
                 "pos": 24
               },
               {
-                "id": 4828,
+                "id": 0,
                 "name": "Luís Basílio",
                 "pos": 51
               },
               {
-                "id": 4843,
+                "id": 0,
                 "name": "Cesar Carlos",
                 "pos": 81
               }
@@ -12022,7 +12022,7 @@
                 "pos": 45
               },
               {
-                "id": 8971,
+                "id": 0,
                 "name": "Rui Costa",
                 "pos": 62
               }
@@ -12288,7 +12288,7 @@
                 "pos": 91
               },
               {
-                "id": 8296,
+                "id": 0,
                 "name": "Emídio Mata",
                 "pos": 96
               }
@@ -12354,12 +12354,12 @@
             "combinedScore": 185,
             "athletes": [
               {
-                "id": 6421,
+                "id": 0,
                 "name": "David Antunes",
                 "pos": 59
               },
               {
-                "id": 6422,
+                "id": 0,
                 "name": "Tiago Antunes",
                 "pos": 60
               },
@@ -12801,7 +12801,7 @@
             "combinedScore": 119,
             "athletes": [
               {
-                "id": 5606,
+                "id": 0,
                 "name": "Rui Guerreiro",
                 "pos": 5
               },
@@ -12811,7 +12811,7 @@
                 "pos": 23
               },
               {
-                "id": 5647,
+                "id": 0,
                 "name": "Tiago Cristina",
                 "pos": 91
               }
@@ -12925,7 +12925,7 @@
                 "pos": 85
               },
               {
-                "id": 3584,
+                "id": 0,
                 "name": "Luís Braguez",
                 "pos": 171
               }
@@ -12991,17 +12991,17 @@
             "combinedScore": 128,
             "athletes": [
               {
-                "id": 3890,
+                "id": 0,
                 "name": "Valter Cruz",
                 "pos": 32
               },
               {
-                "id": 3901,
+                "id": 0,
                 "name": "Ivan Marreiros",
                 "pos": 46
               },
               {
-                "id": 3903,
+                "id": 0,
                 "name": "Diogo Mateus",
                 "pos": 50
               }
@@ -13419,7 +13419,7 @@
                 "pos": 203
               },
               {
-                "id": 7624,
+                "id": 0,
                 "name": "José Domingos",
                 "pos": 215
               }
@@ -13675,7 +13675,7 @@
             "combinedScore": 177,
             "athletes": [
               {
-                "id": 12792,
+                "id": 0,
                 "name": "Alexandre Bastos",
                 "pos": 41
               },
@@ -13685,7 +13685,7 @@
                 "pos": 49
               },
               {
-                "id": 12811,
+                "id": 0,
                 "name": "Nuno Lopes",
                 "pos": 87
               }
@@ -14503,7 +14503,7 @@
             "combinedScore": 79,
             "athletes": [
               {
-                "id": 4285,
+                "id": 0,
                 "name": "Filipe Madeira",
                 "pos": 17
               },
@@ -15360,17 +15360,17 @@
             "combinedScore": 29,
             "athletes": [
               {
-                "id": 5230,
+                "id": 0,
                 "name": "Ivo Pais",
                 "pos": 3
               },
               {
-                "id": 66,
+                "id": 0,
                 "name": "Tomás Pais",
                 "pos": 12
               },
               {
-                "id": 3,
+                "id": 0,
                 "name": "Marco Domingos",
                 "pos": 14
               }
@@ -15394,7 +15394,7 @@
                 "pos": 10
               },
               {
-                "id": 5244,
+                "id": 0,
                 "name": "António Peixoto",
                 "pos": 30
               },
@@ -15437,7 +15437,7 @@
                 "pos": 15
               },
               {
-                "id": 4292,
+                "id": 0,
                 "name": "Rui Costa",
                 "pos": 18
               }
@@ -15590,17 +15590,17 @@
             "combinedScore": 22,
             "athletes": [
               {
-                "id": 4281,
+                "id": 0,
                 "name": "Igor Alves",
                 "pos": 1
               },
               {
-                "id": 9172,
+                "id": 0,
                 "name": "Miguel Carmo",
                 "pos": 3
               },
               {
-                "id": 9174,
+                "id": 0,
                 "name": "Hélder Campinho",
                 "pos": 18
               }
@@ -15628,7 +15628,7 @@
             "combinedScore": 153,
             "athletes": [
               {
-                "id": 6571,
+                "id": 0,
                 "name": "João Figueiredo",
                 "pos": 34
               },
@@ -15700,12 +15700,12 @@
                 "pos": 36
               },
               {
-                "id": 6146,
+                "id": 0,
                 "name": "Pedro Oliveira",
                 "pos": 74
               },
               {
-                "id": 6168,
+                "id": 0,
                 "name": "Carlos Pereira",
                 "pos": 117
               }
@@ -15821,7 +15821,7 @@
                 "pos": 64
               },
               {
-                "id": 6146,
+                "id": 0,
                 "name": "Pedro Oliveira",
                 "pos": 71
               }
@@ -16003,7 +16003,7 @@
             "combinedScore": 240,
             "athletes": [
               {
-                "id": 5243,
+                "id": 0,
                 "name": "Diogo Carvalho",
                 "pos": 34
               },
@@ -16548,7 +16548,7 @@
             "combinedScore": 98,
             "athletes": [
               {
-                "id": 3901,
+                "id": 0,
                 "name": "Ivan Marreiros",
                 "pos": 26
               },
@@ -16582,7 +16582,7 @@
                 "pos": 12
               },
               {
-                "id": 8367,
+                "id": 0,
                 "name": "Pedro Afoito",
                 "pos": 17
               },
@@ -16806,7 +16806,7 @@
                 "pos": 43
               },
               {
-                "id": 3201,
+                "id": 0,
                 "name": "Elisabeth Murray",
                 "pos": 62
               }
@@ -17053,17 +17053,17 @@
             "combinedScore": 102,
             "athletes": [
               {
-                "id": 10756,
+                "id": 0,
                 "name": "Alexandre Bastos",
                 "pos": 8
               },
               {
-                "id": 10764,
+                "id": 0,
                 "name": "José Cebola",
                 "pos": 33
               },
               {
-                "id": 10772,
+                "id": 0,
                 "name": "Afonso Serrachino",
                 "pos": 61
               }
@@ -17210,7 +17210,7 @@
                 "pos": 29
               },
               {
-                "id": 6885,
+                "id": 0,
                 "name": "José Rocha",
                 "pos": 56
               },
@@ -17557,7 +17557,7 @@
                 "pos": 101
               },
               {
-                "id": 6628,
+                "id": 0,
                 "name": "Levi Fernandes",
                 "pos": 152
               }
@@ -17623,7 +17623,7 @@
             "combinedScore": 292,
             "athletes": [
               {
-                "id": 8396,
+                "id": 0,
                 "name": "José Madeira",
                 "pos": 62
               },
@@ -17704,12 +17704,12 @@
                 "pos": 61
               },
               {
-                "id": 5285,
+                "id": 0,
                 "name": "Nuno Assis",
                 "pos": 93
               },
               {
-                "id": 5286,
+                "id": 0,
                 "name": "Nuno Vicente",
                 "pos": 94
               }
@@ -17927,7 +17927,7 @@
             "combinedScore": 252,
             "athletes": [
               {
-                "id": 6150,
+                "id": 0,
                 "name": "Rosa Rodrigues",
                 "pos": 83
               },
@@ -17937,7 +17937,7 @@
                 "pos": 84
               },
               {
-                "id": 6151,
+                "id": 0,
                 "name": "Antonio Rodrigues",
                 "pos": 85
               }
@@ -18003,12 +18003,12 @@
             "combinedScore": 313,
             "athletes": [
               {
-                "id": 9922,
+                "id": 0,
                 "name": "Jaime Silva",
                 "pos": 78
               },
               {
-                "id": 9926,
+                "id": 0,
                 "name": "Domingos Melo",
                 "pos": 95
               },
@@ -18236,7 +18236,7 @@
                 "pos": 34
               },
               {
-                "id": 7167,
+                "id": 0,
                 "name": "Miguel Friães",
                 "pos": 133
               },
@@ -18421,7 +18421,7 @@
             "combinedScore": 289,
             "athletes": [
               {
-                "id": 6129,
+                "id": 0,
                 "name": "Ricardo Portela",
                 "pos": 32
               },
@@ -18499,7 +18499,7 @@
             "combinedScore": 70,
             "athletes": [
               {
-                "id": 12513,
+                "id": 0,
                 "name": "João Viegas",
                 "pos": 3
               },
@@ -18509,7 +18509,7 @@
                 "pos": 32
               },
               {
-                "id": 12139,
+                "id": 0,
                 "name": "Bruno Silvestre",
                 "pos": 35
               }
@@ -18542,7 +18542,7 @@
                 "pos": 1
               },
               {
-                "id": 12517,
+                "id": 0,
                 "name": "Diogo Pereira",
                 "pos": 21
               },
@@ -18841,7 +18841,7 @@
             "combinedScore": 468,
             "athletes": [
               {
-                "id": 12225,
+                "id": 0,
                 "name": "Hugo Pereira",
                 "pos": 89
               },
@@ -19051,7 +19051,7 @@
                 "pos": 1
               },
               {
-                "id": 1151,
+                "id": 0,
                 "name": "Pedro Seabra",
                 "pos": 6
               },
@@ -19113,17 +19113,17 @@
             "combinedScore": 44,
             "athletes": [
               {
-                "id": 3,
+                "id": 0,
                 "name": "Marco Domingos",
                 "pos": 3
               },
               {
-                "id": 13,
+                "id": 0,
                 "name": "João Pereira",
                 "pos": 13
               },
               {
-                "id": 28,
+                "id": 0,
                 "name": "Daniel Fernandes",
                 "pos": 28
               }
@@ -19189,7 +19189,7 @@
             "combinedScore": 11,
             "athletes": [
               {
-                "id": 0,
+                "id": 3231,
                 "name": "José Borges",
                 "pos": 1
               },
@@ -19299,12 +19299,12 @@
                 "pos": 8
               },
               {
-                "id": 3236,
+                "id": 0,
                 "name": "Miguel Nunes",
                 "pos": 10
               },
               {
-                "id": 3243,
+                "id": 0,
                 "name": "Tiago Crespo",
                 "pos": 17
               }
@@ -19332,12 +19332,12 @@
             "combinedScore": 87,
             "athletes": [
               {
-                "id": 2590,
+                "id": 0,
                 "name": "Ivo Lopes",
                 "pos": 3
               },
               {
-                "id": 2605,
+                "id": 0,
                 "name": "Bruno Silveira",
                 "pos": 20
               },
@@ -19370,17 +19370,17 @@
             "combinedScore": 40,
             "athletes": [
               {
-                "id": 1156,
+                "id": 0,
                 "name": "Rafael Teles",
                 "pos": 11
               },
               {
-                "id": 1159,
+                "id": 0,
                 "name": "Stefan Pinheiro",
                 "pos": 14
               },
               {
-                "id": 1160,
+                "id": 0,
                 "name": "Sérgio Oliveira",
                 "pos": 15
               }
@@ -19446,17 +19446,17 @@
             "combinedScore": 79,
             "athletes": [
               {
-                "id": 11,
+                "id": 0,
                 "name": "Igor Alves",
                 "pos": 11
               },
               {
-                "id": 21,
+                "id": 0,
                 "name": "Claudio Costa",
                 "pos": 21
               },
               {
-                "id": 48,
+                "id": 0,
                 "name": "Rui Rodrigues",
                 "pos": 47
               }
@@ -19484,17 +19484,17 @@
             "combinedScore": 66,
             "athletes": [
               {
-                "id": 3242,
+                "id": 0,
                 "name": "Marco Domingos",
                 "pos": 16
               },
               {
-                "id": 3246,
+                "id": 0,
                 "name": "Miguel Vicente",
                 "pos": 23
               },
               {
-                "id": 3247,
+                "id": 0,
                 "name": "João Pereira",
                 "pos": 27
               }
@@ -19694,7 +19694,7 @@
             "combinedScore": 103,
             "athletes": [
               {
-                "id": 18,
+                "id": 0,
                 "name": "Nuno Fitas",
                 "pos": 18
               },
@@ -19704,7 +19704,7 @@
                 "pos": 40
               },
               {
-                "id": 45,
+                "id": 0,
                 "name": "Helder Palma",
                 "pos": 45
               }
@@ -19732,7 +19732,7 @@
             "combinedScore": 48,
             "athletes": [
               {
-                "id": 1152,
+                "id": 0,
                 "name": "Nuno Gomes",
                 "pos": 7
               },
@@ -19742,7 +19742,7 @@
                 "pos": 17
               },
               {
-                "id": 1167,
+                "id": 0,
                 "name": "Ricardo Augusto",
                 "pos": 24
               }
@@ -19818,7 +19818,7 @@
                 "pos": 35
               },
               {
-                "id": 96,
+                "id": 0,
                 "name": "Miguel Cosme",
                 "pos": 97
               }
@@ -19846,7 +19846,7 @@
             "combinedScore": 76,
             "athletes": [
               {
-                "id": 1149,
+                "id": 0,
                 "name": "João Jesus",
                 "pos": 4
               },
@@ -19856,7 +19856,7 @@
                 "pos": 28
               },
               {
-                "id": 1185,
+                "id": 0,
                 "name": "Daniel Sá",
                 "pos": 44
               }
@@ -19894,7 +19894,7 @@
                 "pos": 56
               },
               {
-                "id": 1235,
+                "id": 0,
                 "name": "Jorge Ferreira",
                 "pos": 100
               }
@@ -19927,12 +19927,12 @@
                 "pos": 23
               },
               {
-                "id": 2633,
+                "id": 0,
                 "name": "Bruno Vieira",
                 "pos": 51
               },
               {
-                "id": 2713,
+                "id": 0,
                 "name": "Jorge Santos",
                 "pos": 136
               }
@@ -20046,7 +20046,7 @@
                 "pos": 67
               },
               {
-                "id": 2702,
+                "id": 0,
                 "name": "Sylvia Read",
                 "pos": 124
               }
@@ -20188,12 +20188,12 @@
             "combinedScore": 234,
             "athletes": [
               {
-                "id": 57,
+                "id": 0,
                 "name": "José Amorim",
                 "pos": 56
               },
               {
-                "id": 76,
+                "id": 0,
                 "name": "João Pinto",
                 "pos": 74
               },
@@ -20314,7 +20314,7 @@
                 "pos": 5
               },
               {
-                "id": 1532,
+                "id": 0,
                 "name": "Pedro Gaio",
                 "pos": 8
               }
@@ -20333,7 +20333,7 @@
             "combinedScore": 43,
             "athletes": [
               {
-                "id": 2807,
+                "id": 0,
                 "name": "João Vivas",
                 "pos": 1
               },
@@ -20410,7 +20410,7 @@
                 "pos": 12
               },
               {
-                "id": 1538,
+                "id": 0,
                 "name": "Luis Nunes",
                 "pos": 15
               }
@@ -20438,17 +20438,17 @@
             "combinedScore": 26,
             "athletes": [
               {
-                "id": 2808,
+                "id": 0,
                 "name": "João Martins",
                 "pos": 2
               },
               {
-                "id": 2810,
+                "id": 0,
                 "name": "Daniel Filipe",
                 "pos": 6
               },
               {
-                "id": 2819,
+                "id": 0,
                 "name": "Rui Pires",
                 "pos": 18
               }
@@ -20476,12 +20476,12 @@
             "combinedScore": 36,
             "athletes": [
               {
-                "id": 3386,
+                "id": 0,
                 "name": "João Viegas",
                 "pos": 1
               },
               {
-                "id": 3395,
+                "id": 0,
                 "name": "Rui Pinto",
                 "pos": 13
               },
@@ -20514,7 +20514,7 @@
             "combinedScore": 38,
             "athletes": [
               {
-                "id": 2811,
+                "id": 0,
                 "name": "Guilherme Silva",
                 "pos": 7
               },
@@ -20524,7 +20524,7 @@
                 "pos": 15
               },
               {
-                "id": 2818,
+                "id": 0,
                 "name": "Alexandre Cochard",
                 "pos": 16
               }
@@ -20552,12 +20552,12 @@
             "combinedScore": 42,
             "athletes": [
               {
-                "id": 1531,
+                "id": 0,
                 "name": "João Viegas",
                 "pos": 6
               },
               {
-                "id": 1537,
+                "id": 0,
                 "name": "Bruno Silvestre",
                 "pos": 15
               },
@@ -20590,7 +20590,7 @@
             "combinedScore": 40,
             "athletes": [
               {
-                "id": 3393,
+                "id": 0,
                 "name": "Ruben Pais",
                 "pos": 11
               },
@@ -20600,7 +20600,7 @@
                 "pos": 12
               },
               {
-                "id": 3398,
+                "id": 0,
                 "name": "Daniel Fernandes",
                 "pos": 17
               }
@@ -20700,7 +20700,7 @@
                 "pos": 4
               },
               {
-                "id": 2827,
+                "id": 0,
                 "name": "Mário Matias",
                 "pos": 28
               },
@@ -20809,12 +20809,12 @@
             "combinedScore": 83,
             "athletes": [
               {
-                "id": 2813,
+                "id": 0,
                 "name": "Marco Domingos",
                 "pos": 11
               },
               {
-                "id": 2825,
+                "id": 0,
                 "name": "Tomás Pais",
                 "pos": 25
               },
@@ -20885,12 +20885,12 @@
             "combinedScore": 68,
             "athletes": [
               {
-                "id": 1529,
+                "id": 0,
                 "name": "Nuno Torres",
                 "pos": 5
               },
               {
-                "id": 1541,
+                "id": 0,
                 "name": "Manuel Oliveira",
                 "pos": 18
               },
@@ -20928,12 +20928,12 @@
                 "pos": 3
               },
               {
-                "id": 1543,
+                "id": 0,
                 "name": "Vítor Magalhães",
                 "pos": 20
               },
               {
-                "id": 1578,
+                "id": 0,
                 "name": "Rui Barbosa",
                 "pos": 63
               }
@@ -21009,7 +21009,7 @@
                 "pos": 69
               },
               {
-                "id": 3467,
+                "id": 0,
                 "name": "Nuno Assis",
                 "pos": 123
               }
@@ -21047,7 +21047,7 @@
                 "pos": 37
               },
               {
-                "id": 2866,
+                "id": 0,
                 "name": "Dominique Marques",
                 "pos": 67
               }
@@ -21075,7 +21075,7 @@
             "combinedScore": 119,
             "athletes": [
               {
-                "id": 1550,
+                "id": 0,
                 "name": "Bruno Terroso",
                 "pos": 32
               },
@@ -21237,7 +21237,7 @@
                 "pos": 60
               },
               {
-                "id": 2859,
+                "id": 0,
                 "name": "Rui Nascimento",
                 "pos": 60
               }
@@ -21275,7 +21275,7 @@
                 "pos": 106
               },
               {
-                "id": 3463,
+                "id": 0,
                 "name": "Rafael Almeida",
                 "pos": 114
               }
@@ -21341,7 +21341,7 @@
             "combinedScore": 144,
             "athletes": [
               {
-                "id": 2234,
+                "id": 0,
                 "name": "Gonçalo Filipe",
                 "pos": 9
               },
@@ -21351,7 +21351,7 @@
                 "pos": 20
               },
               {
-                "id": 2912,
+                "id": 0,
                 "name": "Vítor Araújo",
                 "pos": 115
               }
@@ -21424,12 +21424,12 @@
                 "pos": 1
               },
               {
-                "id": 2231,
+                "id": 0,
                 "name": "Claudio Costa",
                 "pos": 5
               },
               {
-                "id": 2241,
+                "id": 0,
                 "name": "Fernando Carvalho",
                 "pos": 17
               }
@@ -21457,17 +21457,17 @@
             "combinedScore": 29,
             "athletes": [
               {
-                "id": 7,
+                "id": 0,
                 "name": "Cláudio Santos",
                 "pos": 3
               },
               {
-                "id": 2232,
+                "id": 0,
                 "name": "João Santos",
                 "pos": 6
               },
               {
-                "id": 2243,
+                "id": 0,
                 "name": "Ricardo Carvalho",
                 "pos": 20
               }
@@ -21495,7 +21495,7 @@
             "combinedScore": 46,
             "athletes": [
               {
-                "id": 2235,
+                "id": 0,
                 "name": "Henrique Martins",
                 "pos": 9
               },
@@ -21571,17 +21571,17 @@
             "combinedScore": 76,
             "athletes": [
               {
-                "id": 2234,
+                "id": 0,
                 "name": "Gonçalo Filipe",
                 "pos": 8
               },
               {
-                "id": 2244,
+                "id": 0,
                 "name": "Tiago Cavaco",
                 "pos": 21
               },
               {
-                "id": 2263,
+                "id": 0,
                 "name": "Ana Arsénio",
                 "pos": 47
               }
@@ -21614,7 +21614,7 @@
                 "pos": 16
               },
               {
-                "id": 2250,
+                "id": 0,
                 "name": "Pedro Neves",
                 "pos": 31
               },
@@ -21761,12 +21761,12 @@
             "combinedScore": 169,
             "athletes": [
               {
-                "id": 2260,
+                "id": 0,
                 "name": "Diogo Carvalho",
                 "pos": 44
               },
               {
-                "id": 2264,
+                "id": 0,
                 "name": "Cláudio Policarpo",
                 "pos": 48
               },

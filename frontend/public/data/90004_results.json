@@ -3,7 +3,7 @@
   "eventName": "Etapa da Volta 2025",
   "eventDate": "2025-08-12",
   "eventYear": 2025,
-  "scrapedAt": "2026-04-10T22:03:05.949Z",
+  "scrapedAt": "2026-04-10T22:16:26.534Z",
   "distances": [
     {
       "id": "1",
@@ -53,7 +53,7 @@
         {
           "pos": 3,
           "genderPos": 3,
-          "athleteId": 4,
+          "athleteId": 0,
           "bib": "673",
           "name": "HéLder Loureiro",
           "nameLower": "helder loureiro",

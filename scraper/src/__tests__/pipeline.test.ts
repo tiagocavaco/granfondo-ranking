@@ -11,6 +11,7 @@ import {
   isSoloTeam,
   SOLO_TEAM_KEYS,
   buildAthletesIndex,
+  mergeByLicence,
   applyAthleteAliases,
   buildAggregateRanking,
   buildTeamRanking,
@@ -545,6 +546,104 @@ describe("applyAthleteAliases", () => {
     }]);
     const results = index.get("jose borges|team alpha")!.results;
     expect(results[0]!.eventDate >= results[1]!.eventDate).toBe(true);
+  });
+});
+
+// ── mergeByLicence ────────────────────────────────────────────────────────────
+
+describe("mergeByLicence", () => {
+  function mkResultWithLicence(overrides: Partial<StoredResult> = {}): StoredResult {
+    return mkResult(overrides);
+  }
+
+  it("merges two entries with same licence and same name but different teams", () => {
+    const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
+    const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [mkResult({
+        name: "Ana Silva", nameLower: "ana silva",
+        team: id === 1 ? "Team Alpha" : "Team Beta",
+        licence: "LIC001",
+      })],
+    }]);
+    const { index, updatedIdStore, licenceIndex } = buildAthletesIndex(events, loader);
+    expect(index.size).toBe(2);
+    const merged = mergeByLicence(index, updatedIdStore, licenceIndex);
+    expect(merged).toBe(1);
+    expect(index.size).toBe(1);
+    expect([...index.values()][0]!.results.length).toBe(2);
+  });
+
+  it("remaps alias ID to canonical ID after licence merge", () => {
+    const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
+    const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [mkResult({
+        name: "Ana Silva", nameLower: "ana silva",
+        team: id === 1 ? "Team Alpha" : "Team Beta",
+        licence: "LIC001",
+      })],
+    }]);
+    const { index, updatedIdStore, licenceIndex } = buildAthletesIndex(events, loader);
+    const ids = [...index.values()].map((e) => e.id);
+    mergeByLicence(index, updatedIdStore, licenceIndex);
+    const canonicalId = [...index.values()][0]!.id;
+    // Both alias keys must now point to canonical ID in store
+    expect(updatedIdStore.get("ana silva|team alpha")).toBe(canonicalId);
+    expect(updatedIdStore.get("ana silva|team beta")).toBe(canonicalId);
+  });
+
+  it("does not merge entries with same licence but different names", () => {
+    const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
+    const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [mkResult({
+        name: id === 1 ? "Ana Silva" : "Rui Costa",
+        nameLower: id === 1 ? "ana silva" : "rui costa",
+        team: "Team Alpha",
+        licence: "LIC001",
+      })],
+    }]);
+    const { index, updatedIdStore, licenceIndex } = buildAthletesIndex(events, loader);
+    const merged = mergeByLicence(index, updatedIdStore, licenceIndex);
+    expect(merged).toBe(0);
+    expect(index.size).toBe(2);
+  });
+
+  it("does not merge entries with empty licence", () => {
+    const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
+    const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [mkResult({
+        name: "Ana Silva", nameLower: "ana silva",
+        team: id === 1 ? "Team Alpha" : "Team Beta",
+        licence: "",
+      })],
+    }]);
+    const { index, updatedIdStore, licenceIndex } = buildAthletesIndex(events, loader);
+    const merged = mergeByLicence(index, updatedIdStore, licenceIndex);
+    expect(merged).toBe(0);
+    expect(index.size).toBe(2);
+  });
+
+  it("canonical entry is the one with most results", () => {
+    const events = [mkEvent(1, 2025, "2025-03-01"), mkEvent(2, 2025, "2025-04-01"), mkEvent(3, 2025, "2025-05-01")];
+    const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id + 1}-01`, [{
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [mkResult({
+        name: "Ana Silva", nameLower: "ana silva",
+        // Team Alpha appears in 2 of the 3 events → more results → canonical
+        team: id <= 2 ? "Team Alpha" : "Team Beta",
+        licence: "LIC001",
+      })],
+    }]);
+    const { index, updatedIdStore, licenceIndex } = buildAthletesIndex(events, loader);
+    mergeByLicence(index, updatedIdStore, licenceIndex);
+    expect(index.size).toBe(1);
+    // Canonical entry has all 3 results
+    expect([...index.values()][0]!.results.length).toBe(3);
+    // The key with most results (Team Alpha, 2 events) is canonical
+    expect(index.has("ana silva|team alpha")).toBe(true);
   });
 });
 

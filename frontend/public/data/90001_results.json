@@ -3,7 +3,7 @@
   "eventName": "Figueira Champions Day 2025",
   "eventDate": "2025-02-15",
   "eventYear": 2025,
-  "scrapedAt": "2026-04-10T22:03:01.478Z",
+  "scrapedAt": "2026-04-10T22:16:23.684Z",
   "distances": [
     {
       "id": "1",
@@ -173,7 +173,7 @@
         {
           "pos": 9,
           "genderPos": 9,
-          "athleteId": 11661,
+          "athleteId": 0,
           "bib": "988",
           "name": "Ricardo Silva",
           "nameLower": "ricardo silva",
@@ -413,7 +413,7 @@
         {
           "pos": 21,
           "genderPos": 21,
-          "athleteId": 7516,
+          "athleteId": 0,
           "bib": "161",
           "name": "Augusto Silva",
           "nameLower": "augusto silva",
@@ -1313,7 +1313,7 @@
         {
           "pos": 66,
           "genderPos": 66,
-          "athleteId": 4558,
+          "athleteId": 0,
           "bib": "450",
           "name": "Alexandre Silva",
           "nameLower": "alexandre silva",
@@ -1393,7 +1393,7 @@
         {
           "pos": 70,
           "genderPos": 70,
-          "athleteId": 121,
+          "athleteId": 0,
           "bib": "184",
           "name": "José MarquêS",
           "nameLower": "jose marques",
@@ -2393,7 +2393,7 @@
         {
           "pos": 120,
           "genderPos": 120,
-          "athleteId": 1621,
+          "athleteId": 0,
           "bib": "451",
           "name": "André Ferreira",
           "nameLower": "andre ferreira",
@@ -2893,7 +2893,7 @@
         {
           "pos": 145,
           "genderPos": 145,
-          "athleteId": 8269,
+          "athleteId": 0,
           "bib": "844",
           "name": "JoãO Lobo",
           "nameLower": "joao lobo",
@@ -5433,7 +5433,7 @@
         {
           "pos": 272,
           "genderPos": 267,
-          "athleteId": 3706,
+          "athleteId": 0,
           "bib": "910",
           "name": "Luis Santos",
           "nameLower": "luis santos",
@@ -6620,7 +6620,7 @@
         {
           "pos": 3,
           "genderPos": 3,
-          "athleteId": 11329,
+          "athleteId": 0,
           "bib": "1006",
           "name": "Fabio Abreu",
           "nameLower": "fabio abreu",
@@ -7120,7 +7120,7 @@
         {
           "pos": 28,
           "genderPos": 28,
-          "athleteId": 8477,
+          "athleteId": 0,
           "bib": "869",
           "name": "Igor Resende",
           "nameLower": "igor resende",
@@ -7860,7 +7860,7 @@
         {
           "pos": 65,
           "genderPos": 65,
-          "athleteId": 7554,
+          "athleteId": 0,
           "bib": "519",
           "name": "Bruno Azevedo",
           "nameLower": "bruno azevedo",
@@ -7920,7 +7920,7 @@
         {
           "pos": 68,
           "genderPos": 68,
-          "athleteId": 9541,
+          "athleteId": 0,
           "bib": "520",
           "name": "AntóNio Guedes",
           "nameLower": "antonio guedes",
@@ -7980,7 +7980,7 @@
         {
           "pos": 71,
           "genderPos": 71,
-          "athleteId": 4311,
+          "athleteId": 0,
           "bib": "759",
           "name": "Rui Vieira",
           "nameLower": "rui vieira",
@@ -9220,7 +9220,7 @@
         {
           "pos": 133,
           "genderPos": 130,
-          "athleteId": 4896,
+          "athleteId": 0,
           "bib": "197",
           "name": "Joel Alves",
           "nameLower": "joel alves",
@@ -9520,7 +9520,7 @@
         {
           "pos": 148,
           "genderPos": 144,
-          "athleteId": 9574,
+          "athleteId": 0,
           "bib": "735",
           "name": "Paulo Rio",
           "nameLower": "paulo rio",
@@ -10020,7 +10020,7 @@
         {
           "pos": 173,
           "genderPos": 165,
-          "athleteId": 10782,
+          "athleteId": 0,
           "bib": "272",
           "name": "Pedro Oliveira",
           "nameLower": "pedro oliveira",
@@ -11060,7 +11060,7 @@
         {
           "pos": 225,
           "genderPos": 213,
-          "athleteId": 2988,
+          "athleteId": 0,
           "bib": "1108",
           "name": "Tiago Novo",
           "nameLower": "tiago novo",
@@ -11640,7 +11640,7 @@
         {
           "pos": 254,
           "genderPos": 14,
-          "athleteId": 2323,
+          "athleteId": 0,
           "bib": "113",
           "name": "Joana Ferreira",
           "nameLower": "joana ferreira",
@@ -12880,7 +12880,7 @@
         {
           "pos": 316,
           "genderPos": 301,
-          "athleteId": 2574,
+          "athleteId": 0,
           "bib": "318",
           "name": "Justino Soares",
           "nameLower": "justino soares",

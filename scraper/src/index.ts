@@ -25,6 +25,7 @@ import {
   transformResult,
   athleteKey,
   buildAthletesIndex,
+  mergeByLicence,
   applyAthleteAliases,
   buildAggregateRanking,
   buildTeamRanking,
@@ -606,13 +607,17 @@ async function main() {
   // 5. Build and write athletes index
   console.log("🔨 Building athletes index…");
   const idStore = loadIdStore();
-  const { index: athletesIndex, updatedIdStore } = buildAthletesIndex(scraped, loader, idStore);
+  const { index: athletesIndex, updatedIdStore, licenceIndex } = buildAthletesIndex(scraped, loader, idStore);
 
-  // Apply athlete alias rules (same person, different teams)
+  // Auto-merge athletes sharing the same licence number and name
+  const licenceMerges = mergeByLicence(athletesIndex, updatedIdStore, licenceIndex);
+  console.log(`✓ licence auto-merge: ${licenceMerges} athlete(s) merged`);
+
+  // Apply manual athlete alias rules (same person, different teams, no licence)
   const aliasRules = loadAthleteAliases();
   if (aliasRules.length > 0) {
     applyAthleteAliases(athletesIndex, updatedIdStore, aliasRules);
-    console.log(`✓ applied ${aliasRules.length} athlete alias rule(s)`);
+    console.log(`✓ applied ${aliasRules.length} manual alias rule(s)`);
   }
 
   saveIdStore(updatedIdStore);
