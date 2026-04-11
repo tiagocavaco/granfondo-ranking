@@ -24,14 +24,15 @@ import {
   assignGenderPositions,
   transformResult,
   athleteKey,
-  buildAthletesIndex,
-  mergeByLicence,
-  applyAthleteAliases,
+} from "./pipeline.js";
+import {
+  buildAthletesIndexV2,
   buildAggregateRanking,
   buildTeamRanking,
   type AthleteIdStore,
   type AthleteAliasRule,
-} from "./pipeline.js";
+  type ResultAssignment,
+} from "./pipeline-v2.js";
 import { normalizeName } from "./normalize.js";
 import type {
   ApiAthlete,
@@ -46,6 +47,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, "..", "..", "frontend", "public", "data");
 const ATHLETE_IDS_PATH = path.join(__dirname, "..", "athlete-ids.json");
 const ATHLETE_ALIASES_PATH = path.join(__dirname, "..", "athlete-aliases.json");
+const RESULT_ASSIGNMENTS_PATH = path.join(__dirname, "..", "result-assignments.json");
 const FORCE = process.argv.includes("--force");
 const PARTICIPANTS_ONLY = process.argv.includes("--participants");
 const YEARS = [2025, 2026]; // seasons to include
@@ -67,6 +69,11 @@ function saveIdStore(store: AthleteIdStore): void {
 function loadAthleteAliases(): AthleteAliasRule[] {
   if (!fs.existsSync(ATHLETE_ALIASES_PATH)) return [];
   return JSON.parse(fs.readFileSync(ATHLETE_ALIASES_PATH, "utf-8")) as AthleteAliasRule[];
+}
+
+function loadResultAssignments(): ResultAssignment[] {
+  if (!fs.existsSync(RESULT_ASSIGNMENTS_PATH)) return [];
+  return JSON.parse(fs.readFileSync(RESULT_ASSIGNMENTS_PATH, "utf-8")) as ResultAssignment[];
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -612,19 +619,22 @@ async function main() {
   );
 
   // 5. Build and write athletes index
-  console.log("🔨 Building athletes index…");
+  console.log("🔨 Building athletes index (v2 pipeline)…");
   const idStore = loadIdStore();
-  const { index: athletesIndex, updatedIdStore, licenceIndex } = buildAthletesIndex(scraped, loader, idStore);
-
-  // Auto-merge athletes sharing the same licence number and name
-  const licenceMerges = mergeByLicence(athletesIndex, updatedIdStore, licenceIndex);
-  console.log(`✓ licence auto-merge: ${licenceMerges} athlete(s) merged`);
-
-  // Apply manual athlete alias rules (same person, different teams, no licence)
   const aliasRules = loadAthleteAliases();
-  if (aliasRules.length > 0) {
-    applyAthleteAliases(athletesIndex, updatedIdStore, aliasRules);
-    console.log(`✓ applied ${aliasRules.length} manual alias rule(s)`);
+  const assignments = loadResultAssignments();
+  const { index: athletesIndex, updatedIdStore, flags } = buildAthletesIndexV2(
+    scraped, loader, aliasRules, assignments, idStore
+  );
+
+  if (flags.length > 0) {
+    console.warn(`⚠️  ${flags.length} duplicate event flag(s) require manual review:`);
+    for (const f of flags) {
+      console.warn(
+        `   FLAG athleteId=${f.athleteId} eventId=${f.eventId} "${f.eventName}" ` +
+        `existing="${f.existing.category}" incoming="${f.incoming.category}" [${f.resolution}]`
+      );
+    }
   }
 
   saveIdStore(updatedIdStore);
@@ -640,6 +650,26 @@ async function main() {
     if (canon && canon !== key) keyToCanonical.set(key, canon);
   }
 
+  // Build (eventId, bib) → athleteId lookup from the index
+  const bibToAthleteId = new Map<string, number>();
+  for (const entry of athletesIndex.values()) {
+    for (const r of entry.results) {
+      // r doesn't carry bib — we'll match by (eventId, nameLower) as fallback
+      // primary: (eventId, nameLower, team) is unique enough
+      const k = `${r.eventId}|${r.eventName}|${normalizeName(r.eventName)}`;
+      bibToAthleteId.set(k, entry.id);
+    }
+  }
+
+  // Build (eventId, nameLower, team) → athleteId lookup
+  const resultLookup = new Map<string, number>();
+  for (const entry of athletesIndex.values()) {
+    for (const r of entry.results) {
+      const k = `${r.eventId}|${normalizeName(entry.nameLower)}|${r.team}`;
+      resultLookup.set(k, entry.id);
+    }
+  }
+
   // Inject athleteId into every result row in every cached result file
   console.log("🔑 Injecting athlete IDs into result files…");
   let injectedFiles = 0;
@@ -650,10 +680,8 @@ async function main() {
     let changed = false;
     for (const dist of stored.distances) {
       for (const r of dist.results) {
-        const key = athleteKey(normalizeName(r.name), r.team, r.category);
-        // athletesIndex only holds canonical keys after merging; fall back to
-        // updatedIdStore which retains alias-key → canonical-ID mappings.
-        const id = athletesIndex.get(key)?.id ?? updatedIdStore.get(key) ?? 0;
+        const k = `${event.id}|${r.nameLower}|${r.team}`;
+        const id = resultLookup.get(k) ?? 0;
         if (r.athleteId !== id) { r.athleteId = id; changed = true; }
       }
     }

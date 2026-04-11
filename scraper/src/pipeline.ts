@@ -219,7 +219,7 @@ export function buildAthletesIndex(
 
         if (!index.has(key)) {
           const id = getOrAssignId(key);
-          index.set(key, { id, name: r.name, nameLower, results: [] });
+          index.set(key, { id, name: r.name, nameLower, teams: [], categories: {}, results: [] });
         }
 
         // Record licence → key mapping for all licence entries
@@ -619,7 +619,7 @@ export function buildTeamRanking(
         rawTeam: string;
         combinedScore: number;
         bestPos: number;
-        top3: Array<{ name: string; pos: number }>;
+        top3: Array<{ name: string; pos: number; rawTeam: string }>;
       };
       const eligible: EligibleTeam[] = [];
 

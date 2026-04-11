@@ -117,10 +117,6 @@ function mkApiAthlete(overrides: Partial<ApiAthlete> = {}): ApiAthlete {
     escalao: "ELITES M",
     percurso: "Granfondo",
     id_percursos: "1",
-    pais_nome: "Portugal",
-    pais_iso2: "PT",
-    licenca: null,
-    licenca1: null,
     ...overrides,
   };
 }

@@ -3128,5 +3128,15 @@
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
     "id_percursos": "3"
+  },
+  {
+    "dorsal": "414",
+    "nome": "Alexandre  Parracho",
+    "nomecompleto": "Alexandre  Parracho",
+    "sexo": "M",
+    "equipa": "Escola de Ciclismo Oeiras/Parracho/Reconco/Mr Print",
+    "escalao": "M ELITES",
+    "percurso": "Minifondo",
+    "id_percursos": "3"
   }
 ]

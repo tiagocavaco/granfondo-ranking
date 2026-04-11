@@ -16058,5 +16058,15 @@
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
     "id_percursos": "3"
+  },
+  {
+    "dorsal": "1907",
+    "nome": "Artur Mendes",
+    "nomecompleto": "Artur Mendes",
+    "sexo": "M",
+    "equipa": "Barbike/Trilhos da Porca",
+    "escalao": "MASTERS A",
+    "percurso": "Minifondo",
+    "id_percursos": "3"
   }
 ]

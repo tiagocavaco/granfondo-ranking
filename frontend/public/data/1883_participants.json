@@ -4608,5 +4608,15 @@
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
     "id_percursos": "1"
+  },
+  {
+    "dorsal": "587",
+    "nome": "Andreia Melo",
+    "nomecompleto": "Andreia Melo",
+    "sexo": "F",
+    "equipa": "Love Tiles",
+    "escalao": "MASTERS A FEM",
+    "percurso": "Minifondo",
+    "id_percursos": "3"
   }
 ]

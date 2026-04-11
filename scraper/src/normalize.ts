@@ -88,7 +88,8 @@ export function finisherCoefficient(finisherCount: number): number {
 
 /**
  * Normalize an athlete name for consistent cross-event matching.
- * Strips accents, lowercases, collapses whitespace.
+ * Strips accents, lowercases, collapses whitespace, removes non-letter/space chars
+ * (handles encoding artifacts like "gon?alves" → "goncalves").
  */
 export function normalizeName(name: string): string {
   return name
@@ -96,8 +97,47 @@ export function normalizeName(name: string): string {
     .replace(/[\u0300-\u036f]/g, "") // strip combining diacritics
     .replace(/[´`\u00b4\u02b9\u02bc\u2018\u2019''']/g, "") // strip non-combining apostrophe/accent chars
     .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "") // strip non-alphanumeric chars (encoding artifacts like "?", punctuation)
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/**
+ * Levenshtein edit distance between two strings.
+ * Used for fuzzy name matching in licence conflict resolution.
+ */
+export function levenshteinDistance(a: string, b: string): number {
+  if (a === b) return 0;
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+  const dp: number[] = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    let prev = i;
+    for (let j = 1; j <= b.length; j++) {
+      const temp = dp[j]!;
+      dp[j] = a[i - 1] === b[j - 1] ? dp[j - 1]! : 1 + Math.min(dp[j - 1]!, dp[j]!, prev);
+      prev = temp;
+    }
+  }
+  return dp[b.length]!;
+}
+
+/**
+ * Returns true if a licence string is a known dummy/placeholder value
+ * and should not be used for athlete identity matching.
+ */
+export function isValidLicence(lic: string): boolean {
+  if (!lic) return false;
+  const EXPLICIT_DUMMIES = new Set(["NAOFEDERADO", "11111", "12345", "23456"]);
+  const upper = lic.trim().toUpperCase();
+  if (EXPLICIT_DUMMIES.has(upper)) return false;
+  if (/^-\d+$/.test(lic)) return false;                    // negative numbers
+  if (/^\d+\.\d+[eE]\d+$/.test(lic)) return false;         // scientific notation
+  if (/^1000000000\d?$/.test(lic)) return false;            // 10^10 variants
+  if (/^0+$/.test(lic)) return false;                       // all-zeros (000, 0000…)
+  if (/^[1-9]\d*$/.test(lic) && parseInt(lic, 10) < 100) return false; // too small, no leading zero
+  if (/^federac/i.test(lic) || /^federa[çc]/i.test(lic)) return false; // federation names
+  return true;
 }
 
 /**

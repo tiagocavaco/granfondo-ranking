@@ -12870,6 +12870,16 @@
     "id_percursos": "2"
   },
   {
+    "dorsal": "1385",
+    "nome": "Zhe Cheng",
+    "nomecompleto": "Zhe Cheng",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS A",
+    "percurso": "Granfondo",
+    "id_percursos": "1"
+  },
+  {
     "dorsal": "1382",
     "nome": "Duarte José da Silva e Reis",
     "nomecompleto": "Duarte José da Silva e Reis",
@@ -12886,6 +12896,16 @@
     "sexo": "F",
     "equipa": "Individual",
     "escalao": "MASTERS B FEM",
+    "percurso": "Minifondo",
+    "id_percursos": "3"
+  },
+  {
+    "dorsal": "1384",
+    "nome": "Guilherme  Henriques",
+    "nomecompleto": "Guilherme  Henriques",
+    "sexo": "M",
+    "equipa": "Individual",
+    "escalao": "MASTERS B",
     "percurso": "Minifondo",
     "id_percursos": "3"
   }

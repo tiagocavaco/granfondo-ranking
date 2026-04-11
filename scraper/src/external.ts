@@ -232,10 +232,6 @@ export async function scrapeListaParticipants(url: string): Promise<ApiAthlete[]
       escalao,
       percurso,
       id_percursos,
-      licenca: null,
-      licenca1: null,
-      pais_nome: null,
-      pais_iso2: null,
     });
   }
 

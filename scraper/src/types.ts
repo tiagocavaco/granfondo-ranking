@@ -136,6 +136,8 @@ export interface AthleteEntry {
   name: string;
   nameLower: string;
   canonicalTeam?: string; // most recent team (display only)
+  teams: string[];        // all normalised team keys seen across results
+  categories: Record<string, string[]>; // year → canonical category names
   results: AthleteResultRef[];
 }
 
