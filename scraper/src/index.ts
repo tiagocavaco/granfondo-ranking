@@ -95,6 +95,13 @@ async function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
+/** Strip API-only null fields before writing participants to disk. */
+function leanAthletes(athletes: ApiAthlete[]): ApiAthlete[] {
+  return athletes.map(({ dorsal, nome, nomecompleto, sexo, equipa, escalao, percurso, id_percursos }) => ({
+    dorsal, nome, nomecompleto, sexo, equipa, escalao, percurso, id_percursos,
+  }));
+}
+
 // ── Event discovery ───────────────────────────────────────────────────────────
 
 /**
@@ -338,7 +345,7 @@ async function scrapeEvent(event: StoredEvent): Promise<StoredEvent> {
 
   if (!isPast(event.date)) {
     // Upcoming: just save participants list, no results yet
-    writeJson(`${event.id}_participants.json`, athletes);
+    writeJson(`${event.id}_participants.json`, leanAthletes(athletes));
     console.log(
       `  ⏳ upcoming — ${athletes.length} registered, ${distances.map((d) => d.name).join(" / ")}`
     );
@@ -460,7 +467,7 @@ async function scrapeParticipants() {
         }
         event.distances = distances;
         event.participantCount = athletes.length;
-        writeJson(`${event.id}_participants.json`, athletes);
+        writeJson(`${event.id}_participants.json`, leanAthletes(athletes));
         console.log(`  ⏳ ${athletes.length} confirmed, ${distances.map((d) => d.name).join(" / ")}`);
       } catch (err) {
         console.error(`  ✗ ${err}`);
@@ -508,7 +515,7 @@ async function scrapeParticipants() {
         }
         event.distances = distances;
         event.participantCount = athletes.length;
-        writeJson(`${event.id}_participants.json`, athletes);
+        writeJson(`${event.id}_participants.json`, leanAthletes(athletes));
         console.log(`  ⏳ ${athletes.length} confirmed, ${distances.map((d) => d.name).join(" / ")}`);
       } catch (err) {
         console.error(`  ✗ ${err}`);
@@ -643,7 +650,7 @@ async function main() {
     let changed = false;
     for (const dist of stored.distances) {
       for (const r of dist.results) {
-        const key = athleteKey(normalizeName(r.name), r.team);
+        const key = athleteKey(normalizeName(r.name), r.team, r.category);
         // athletesIndex only holds canonical keys after merging; fall back to
         // updatedIdStore which retains alias-key → canonical-ID mappings.
         const id = athletesIndex.get(key)?.id ?? updatedIdStore.get(key) ?? 0;

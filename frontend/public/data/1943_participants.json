@@ -7,11 +7,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "125",
@@ -21,11 +17,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A FEM",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "127",
@@ -35,11 +27,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A FEM",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "126",
@@ -49,11 +37,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "137",
@@ -63,11 +47,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "129",
@@ -77,11 +57,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "208",
@@ -91,11 +67,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "142",
@@ -105,11 +77,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "128",
@@ -119,11 +87,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "133",
@@ -133,11 +97,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "215",
@@ -147,11 +107,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "132",
@@ -161,11 +117,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "136",
@@ -175,11 +127,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "130",
@@ -189,11 +137,7 @@
     "equipa": "Paredes Aventura",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "164",
@@ -203,11 +147,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "204",
@@ -217,11 +157,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "135",
@@ -231,11 +167,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "131",
@@ -245,11 +177,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "186",
@@ -259,11 +187,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "134",
@@ -273,11 +197,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "218",
@@ -287,11 +207,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "160",
@@ -301,11 +217,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "138",
@@ -315,11 +227,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "154",
@@ -329,11 +237,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "168",
@@ -343,11 +247,7 @@
     "equipa": "Paredes Aventura",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "148",
@@ -357,11 +257,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "174",
@@ -371,11 +267,7 @@
     "equipa": "CD Aves 1930",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "161",
@@ -385,11 +277,7 @@
     "equipa": "CC ANTELANO",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "141",
@@ -399,11 +287,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "139",
@@ -413,11 +297,7 @@
     "equipa": "Eixo Fulcral Alumínios",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "140",
@@ -427,11 +307,7 @@
     "equipa": "Roadtrainingcentre",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "196",
@@ -441,11 +317,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "156",
@@ -455,11 +327,7 @@
     "equipa": "FC Famalicão BTT",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "153",
@@ -469,11 +337,7 @@
     "equipa": "CC ANTELANO",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "149",
@@ -483,11 +347,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "183",
@@ -497,11 +357,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "166",
@@ -511,11 +367,7 @@
     "equipa": "CC OLÍVICO",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "189",
@@ -525,11 +377,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "157",
@@ -539,11 +387,7 @@
     "equipa": "MC",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "146",
@@ -553,11 +397,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "143",
@@ -567,11 +407,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "170",
@@ -581,11 +417,7 @@
     "equipa": "ALB LAMEGOBIKE",
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "145",
@@ -595,11 +427,7 @@
     "equipa": "Juventude Ciclista Devesa Velha",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "158",
@@ -609,11 +437,7 @@
     "equipa": "MSS Grupo Desportivo Gondomar",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "159",
@@ -623,11 +447,7 @@
     "equipa": "CC ANTELANO",
     "escalao": "ELITES F",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "144",
@@ -637,11 +457,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "147",
@@ -651,11 +467,7 @@
     "equipa": "Paredes Aventura",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "155",
@@ -665,11 +477,7 @@
     "equipa": "Estofos Marques/ Soutense/ Garagem Paciência",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "165",
@@ -679,11 +487,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "163",
@@ -693,11 +497,7 @@
     "equipa": "CC ANTELANO",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "152",
@@ -707,11 +507,7 @@
     "equipa": "Casa do Benfica de Lamego (CBL)",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "209",
@@ -721,11 +517,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "151",
@@ -735,11 +527,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "150",
@@ -749,11 +537,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "172",
@@ -763,11 +547,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "169",
@@ -777,11 +557,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "162",
@@ -791,11 +567,7 @@
     "equipa": "Estela Bike Time",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "167",
@@ -805,11 +577,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "207",
@@ -819,11 +587,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "179",
@@ -833,11 +597,7 @@
     "equipa": "Air Designers",
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "220",
@@ -847,11 +607,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "180",
@@ -861,11 +617,7 @@
     "equipa": "Movidos",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "171",
@@ -875,11 +627,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "185",
@@ -889,11 +637,7 @@
     "equipa": "Oliveira Bike",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "173",
@@ -903,11 +647,7 @@
     "equipa": "Portugal Green Walks",
     "escalao": "ELITES F",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "178",
@@ -917,11 +657,7 @@
     "equipa": "LAFÕES BIKE TEAM",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "246",
@@ -931,11 +667,7 @@
     "equipa": "Pedale Combs la Villaise",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "212",
@@ -945,11 +677,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "192",
@@ -959,11 +687,7 @@
     "equipa": "FSL Fridão Sem Limites",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "213",
@@ -973,11 +697,7 @@
     "equipa": "Love Tiles",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "175",
@@ -987,11 +707,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "181",
@@ -1001,11 +717,7 @@
     "equipa": "ARCA Endurece Bike Team",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "176",
@@ -1015,11 +727,7 @@
     "equipa": "CCRENDUFE",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "182",
@@ -1029,11 +737,7 @@
     "equipa": "Team Optical",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "187",
@@ -1043,11 +747,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A FEM",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "184",
@@ -1057,11 +757,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "221",
@@ -1071,11 +767,7 @@
     "equipa": "Fercepe Metalomecânica",
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "177",
@@ -1085,11 +777,7 @@
     "equipa": "C.C Xtrebike",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "188",
@@ -1099,11 +787,7 @@
     "equipa": "Grupo CCR AP Motors Lobos Averomar Cycling Team",
     "escalao": "MASTERS D",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "206",
@@ -1113,11 +797,7 @@
     "equipa": "FSL Fridão Sem Limites",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "193",
@@ -1127,11 +807,7 @@
     "equipa": "LAFÕES BIKE TEAM",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "200",
@@ -1141,11 +817,7 @@
     "equipa": "FSL Fridão Sem Limites",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "191",
@@ -1155,11 +827,7 @@
     "equipa": "TEAM OPTICAL +",
     "escalao": "MASTERS A FEM",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "205",
@@ -1169,11 +837,7 @@
     "equipa": "Love Tiles",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "194",
@@ -1183,11 +847,7 @@
     "equipa": "Róódinhas Master Vantagem",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "190",
@@ -1197,11 +857,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "203",
@@ -1211,11 +867,7 @@
     "equipa": "BikeAventuraAlijó",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "195",
@@ -1225,11 +877,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "199",
@@ -1239,11 +887,7 @@
     "equipa": "Triatlón Atlantico",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "197",
@@ -1253,11 +897,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C FEM",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "198",
@@ -1267,11 +907,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "201",
@@ -1281,11 +917,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "202",
@@ -1295,11 +927,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "217",
@@ -1309,11 +937,7 @@
     "equipa": "A Oficina Cycling Team by Dad’s Garage",
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "216",
@@ -1323,11 +947,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "211",
@@ -1337,11 +957,7 @@
     "equipa": "N13 Bike Team",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "222",
@@ -1351,11 +967,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "210",
@@ -1365,11 +977,7 @@
     "equipa": "Roadtrainingcentre",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "214",
@@ -1379,11 +987,7 @@
     "equipa": "TEAM OPTICAL +",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "241",
@@ -1393,11 +997,7 @@
     "equipa": "Quinta da Lixa / Airães a Pedalar",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "242",
@@ -1407,11 +1007,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "219",
@@ -1421,11 +1017,7 @@
     "equipa": "Team Dias Alumínios",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "225",
@@ -1435,11 +1027,7 @@
     "equipa": "Aristodiametro",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "223",
@@ -1449,11 +1037,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "250",
@@ -1463,11 +1047,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "224",
@@ -1477,11 +1057,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "229",
@@ -1491,11 +1067,7 @@
     "equipa": "Paredes Aventura",
     "escalao": "ELITES F",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "226",
@@ -1505,11 +1077,7 @@
     "equipa": "AD Grijó Ciclismo/ Auto Marques",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "238",
@@ -1519,11 +1087,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "235",
@@ -1533,11 +1097,7 @@
     "equipa": "Vila Bike Team",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "227",
@@ -1547,11 +1107,7 @@
     "equipa": "DBL Bike",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "228",
@@ -1561,11 +1117,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "237",
@@ -1575,11 +1127,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "239",
@@ -1589,11 +1137,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "230",
@@ -1603,11 +1147,7 @@
     "equipa": "CC ANTELANO",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "231",
@@ -1617,11 +1157,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "233",
@@ -1631,11 +1167,7 @@
     "equipa": "Aristodiametro",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "232",
@@ -1645,11 +1177,7 @@
     "equipa": "TEAM DANADO & PEÇAMODOVAR",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "234",
@@ -1659,11 +1187,7 @@
     "equipa": "Paredes Aventura",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "236",
@@ -1673,11 +1197,7 @@
     "equipa": "Love Tiles",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "240",
@@ -1687,11 +1207,7 @@
     "equipa": "LAFÕES BIKE TEAM",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "243",
@@ -1701,11 +1217,7 @@
     "equipa": "Paredes Aventura",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "244",
@@ -1715,11 +1227,7 @@
     "equipa": "Love Tiles",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "248",
@@ -1729,11 +1237,7 @@
     "equipa": "100 Travões",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "247",
@@ -1743,11 +1247,7 @@
     "equipa": "Juventude Ciclista Devesa Velha",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "245",
@@ -1757,11 +1257,7 @@
     "equipa": "Well studio Fitness Training",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "284",
@@ -1771,11 +1267,7 @@
     "equipa": "Paredes Aventura",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "249",
@@ -1785,11 +1277,7 @@
     "equipa": "Fitness XXI",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "368",
@@ -1799,11 +1287,7 @@
     "equipa": "GOOD QUESTION",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "279",
@@ -1813,11 +1297,7 @@
     "equipa": "GRUPO DESPORTIVO SAMORA CORREIA",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "251",
@@ -1827,11 +1307,7 @@
     "equipa": "Roda Presa",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "252",
@@ -1841,11 +1317,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "262",
@@ -1855,11 +1327,7 @@
     "equipa": "TECOBER/TASCA DO JUCA",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "253",
@@ -1869,11 +1337,7 @@
     "equipa": "Vila Bike Team",
     "escalao": "MASTERS C FEM",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "254",
@@ -1883,11 +1347,7 @@
     "equipa": "Club ciclista Laracha",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "256",
@@ -1897,11 +1357,7 @@
     "equipa": "Vila Bike Team",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "255",
@@ -1911,11 +1367,7 @@
     "equipa": "Associação cicloturismo de sobrosa",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "258",
@@ -1925,11 +1377,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "257",
@@ -1939,11 +1387,7 @@
     "equipa": "Oldbike",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "259",
@@ -1953,11 +1397,7 @@
     "equipa": "SECAI / Gaiabike / Warelog / Geoinerte",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "260",
@@ -1967,11 +1407,7 @@
     "equipa": "SECAI / Gaiabike / Warelog / Geoinerte",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "327",
@@ -1981,11 +1417,7 @@
     "equipa": "Juventude Ciclista Devesa Velha",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "263",
@@ -1995,11 +1427,7 @@
     "equipa": "Paredes Aventura",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "265",
@@ -2009,11 +1437,7 @@
     "equipa": "Cicloturismo da Trofa",
     "escalao": "MASTERS E",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "266",
@@ -2023,11 +1447,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "283",
@@ -2037,11 +1457,7 @@
     "equipa": "MC",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "264",
@@ -2051,11 +1467,7 @@
     "equipa": "DBL Bike",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "267",
@@ -2065,11 +1477,7 @@
     "equipa": "Fitness XXI",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "268",
@@ -2079,11 +1487,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "274",
@@ -2093,11 +1497,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "269",
@@ -2107,11 +1507,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "270",
@@ -2121,11 +1517,7 @@
     "equipa": "Paredes Aventura",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "272",
@@ -2135,11 +1527,7 @@
     "equipa": "SECAI / Gaiabike / Warelog / Geoinerte",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "271",
@@ -2149,11 +1537,7 @@
     "equipa": "Estela Bike Time",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "273",
@@ -2163,11 +1547,7 @@
     "equipa": "Vila Bike Team",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "292",
@@ -2177,11 +1557,7 @@
     "equipa": "Academia Quadro de Giz",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "276",
@@ -2191,11 +1567,7 @@
     "equipa": "Club ciclista Laracha",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "275",
@@ -2205,11 +1577,7 @@
     "equipa": "Paredes Aventura",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "282",
@@ -2219,11 +1587,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "280",
@@ -2233,11 +1597,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "277",
@@ -2247,11 +1607,7 @@
     "equipa": "Minholac",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "281",
@@ -2261,11 +1617,7 @@
     "equipa": "TEAM OPTICAL +",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "285",
@@ -2275,11 +1627,7 @@
     "equipa": "GRUPO DESPORTIVO SAMORA CORREIA",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "278",
@@ -2289,11 +1637,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "286",
@@ -2303,11 +1647,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "55",
@@ -2317,11 +1657,7 @@
     "equipa": "CASA PEIXOTO",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "302",
@@ -2331,11 +1667,7 @@
     "equipa": "Estofos Marques/ Soutense/ Garagem Paciência",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "287",
@@ -2345,11 +1677,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "288",
@@ -2359,11 +1687,7 @@
     "equipa": "Club ciclista Laracha",
     "escalao": "MASTERS B FEM",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "293",
@@ -2373,11 +1697,7 @@
     "equipa": "Juventude Ciclista Devesa Velha",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "360",
@@ -2387,11 +1707,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "294",
@@ -2401,11 +1717,7 @@
     "equipa": "SECAI / Gaiabike / Warelog / Geoinerte",
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "289",
@@ -2415,11 +1727,7 @@
     "equipa": "Academia Ciclismo Alto Minho SC Vianense",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "290",
@@ -2429,11 +1737,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "359",
@@ -2443,11 +1747,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B FEM",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "291",
@@ -2457,11 +1757,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "295",
@@ -2471,11 +1767,7 @@
     "equipa": "UCVNF",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "297",
@@ -2485,11 +1777,7 @@
     "equipa": "Ribeiros Bike Shop",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "296",
@@ -2499,11 +1787,7 @@
     "equipa": "BTT MARGENS DO CÁVADO",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "299",
@@ -2513,11 +1797,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "298",
@@ -2527,11 +1807,7 @@
     "equipa": "PETA-Z",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "300",
@@ -2541,11 +1817,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "301",
@@ -2555,11 +1827,7 @@
     "equipa": "Love Tiles",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "303",
@@ -2569,11 +1837,7 @@
     "equipa": "SECAI / Gaiabike / Warelog / Geoinerte",
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "314",
@@ -2583,11 +1847,7 @@
     "equipa": "CC ANTELANO",
     "escalao": "MASTERS D",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "304",
@@ -2597,11 +1857,7 @@
     "equipa": "FOFC Cycling Team",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "305",
@@ -2611,11 +1867,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "306",
@@ -2625,11 +1877,7 @@
     "equipa": "FC Famalicão BTT",
     "escalao": "MASTERS E",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "307",
@@ -2639,11 +1887,7 @@
     "equipa": "FC Famalicão BTT",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "308",
@@ -2653,11 +1897,7 @@
     "equipa": "ADN Bikers",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "309",
@@ -2667,11 +1907,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "310",
@@ -2681,11 +1917,7 @@
     "equipa": "SECAI / Gaiabike / Warelog / Geoinerte",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "311",
@@ -2695,11 +1927,7 @@
     "equipa": "Paredes Aventura",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "312",
@@ -2709,11 +1937,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "369",
@@ -2723,11 +1947,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "313",
@@ -2737,11 +1957,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "340",
@@ -2751,11 +1967,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "315",
@@ -2765,11 +1977,7 @@
     "equipa": "SECAI / Gaiabike / Warelog / Geoinerte",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "319",
@@ -2779,11 +1987,7 @@
     "equipa": "Estela Bike Time",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "316",
@@ -2793,11 +1997,7 @@
     "equipa": "Secai / Gaiabike / Geoinerte / Warelog",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "123",
@@ -2807,11 +2007,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "317",
@@ -2821,11 +2017,7 @@
     "equipa": "ADN Bikers",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "318",
@@ -2835,11 +2027,7 @@
     "equipa": "TEAM OPTICAL +",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "320",
@@ -2849,11 +2037,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "321",
@@ -2863,11 +2047,7 @@
     "equipa": "DBL Bike",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "322",
@@ -2877,11 +2057,7 @@
     "equipa": "ADN Bikers",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "352",
@@ -2891,11 +2067,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "353",
@@ -2905,11 +2077,7 @@
     "equipa": "Club cicloturista A Lamprea",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "354",
@@ -2919,11 +2087,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "324",
@@ -2933,11 +2097,7 @@
     "equipa": "Afiadores",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "323",
@@ -2947,11 +2107,7 @@
     "equipa": "ADN Bikers",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "325",
@@ -2961,11 +2117,7 @@
     "equipa": "Grupeta Pan De Zarko",
     "escalao": "MASTERS B FEM",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "326",
@@ -2975,11 +2127,7 @@
     "equipa": "CCD-AT",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "328",
@@ -2989,11 +2137,7 @@
     "equipa": "Padaria Canelas e Coelho, Lda",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "329",
@@ -3003,11 +2147,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "330",
@@ -3017,11 +2157,7 @@
     "equipa": "Club Cicloturismo de Monção",
     "escalao": "MASTERS B",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "367",
@@ -3031,11 +2167,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "355",
@@ -3045,11 +2177,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS E",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "331",
@@ -3059,11 +2187,7 @@
     "equipa": "ADN Bikers",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "333",
@@ -3073,11 +2197,7 @@
     "equipa": "Estofos Marques/ Soutense/ Garagem Paciência",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "332",
@@ -3087,11 +2207,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "334",
@@ -3101,11 +2217,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "335",
@@ -3115,11 +2227,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "336",
@@ -3129,11 +2237,7 @@
     "equipa": "Triatlón Vilagarcia",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "337",
@@ -3143,11 +2247,7 @@
     "equipa": "ADN Bikers",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "344",
@@ -3157,11 +2257,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "358",
@@ -3171,11 +2267,7 @@
     "equipa": "Afiadores",
     "escalao": "MASTERS B FEM",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "338",
@@ -3185,11 +2277,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "339",
@@ -3199,11 +2287,7 @@
     "equipa": "Clube de Cicloturismo do Marco",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "341",
@@ -3213,11 +2297,7 @@
     "equipa": "Clube de Cicloturismo do Marco",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "342",
@@ -3227,11 +2307,7 @@
     "equipa": "ADN Bikers",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "343",
@@ -3241,11 +2317,7 @@
     "equipa": "CC OLÍVICO",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "356",
@@ -3255,11 +2327,7 @@
     "equipa": "ELITE PLACE",
     "escalao": "ELITES M",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "345",
@@ -3269,11 +2337,7 @@
     "equipa": "Grupeta Pan De Zarko",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "346",
@@ -3283,11 +2347,7 @@
     "equipa": "Fórum 3B",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "347",
@@ -3297,11 +2357,7 @@
     "equipa": "Fórum 3B",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "357",
@@ -3311,11 +2367,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "348",
@@ -3325,11 +2377,7 @@
     "equipa": "Grupeta Pan De Zarko",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "349",
@@ -3339,11 +2387,7 @@
     "equipa": "Estofos Marques/ Soutense/ Garagem Paciência",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "350",
@@ -3353,11 +2397,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "351",
@@ -3367,11 +2407,7 @@
     "equipa": "Master da Louriña",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "56",
@@ -3381,11 +2417,7 @@
     "equipa": "CASA PEIXOTO",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "364",
@@ -3395,11 +2427,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "361",
@@ -3409,11 +2437,7 @@
     "equipa": "Média 10team/AMC",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "362",
@@ -3423,11 +2447,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "366",
@@ -3437,11 +2457,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "363",
@@ -3451,11 +2467,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "384",
@@ -3465,11 +2477,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "365",
@@ -3479,11 +2487,7 @@
     "equipa": "LOBOS DO BRUNHEIRO DE CHAVES / ANTEROS",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "57",
@@ -3493,11 +2497,7 @@
     "equipa": "CASA PEIXOTO",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "58",
@@ -3507,11 +2507,7 @@
     "equipa": "CASA PEIXOTO",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "371",
@@ -3521,11 +2517,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "374",
@@ -3535,11 +2527,7 @@
     "equipa": "MatosMobility",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "375",
@@ -3549,11 +2537,7 @@
     "equipa": "MatosMobility",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "376",
@@ -3563,11 +2547,7 @@
     "equipa": "MatosMobility",
     "escalao": "MASTERS D",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "372",
@@ -3577,11 +2557,7 @@
     "equipa": "Clube de Cicloturismo do Marco",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "373",
@@ -3591,11 +2567,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "377",
@@ -3605,11 +2577,7 @@
     "equipa": "MatosMobility",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "378",
@@ -3619,11 +2587,7 @@
     "equipa": "MatosMobility",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "405",
@@ -3633,11 +2597,7 @@
     "equipa": "aguias de alpiarça /vomera/credito agricula.",
     "escalao": "MASTERS E",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "379",
@@ -3647,11 +2607,7 @@
     "equipa": "Empenabike",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "385",
@@ -3661,11 +2617,7 @@
     "equipa": "Club Montanha do Funchal",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "380",
@@ -3675,11 +2627,7 @@
     "equipa": "LARGA A RODA ASSOCIAÇÃO BTT CICLISMO",
     "escalao": "MASTERS E",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "392",
@@ -3689,11 +2637,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "382",
@@ -3703,11 +2647,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "383",
@@ -3717,11 +2657,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "396",
@@ -3731,11 +2667,7 @@
     "equipa": "Team Sofrinor/General",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "388",
@@ -3745,11 +2677,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "386",
@@ -3759,11 +2687,7 @@
     "equipa": "UCVNF",
     "escalao": "MASTERS B FEM",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "394",
@@ -3773,11 +2697,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "387",
@@ -3787,11 +2707,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "389",
@@ -3801,11 +2717,7 @@
     "equipa": "CCRENDUFE",
     "escalao": "MASTERS A FEM",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "390",
@@ -3815,11 +2727,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "391",
@@ -3829,11 +2737,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "124",
@@ -3843,11 +2747,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "59",
@@ -3857,11 +2757,7 @@
     "equipa": "CASA PEIXOTO",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "397",
@@ -3871,11 +2767,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "393",
@@ -3885,11 +2777,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "395",
@@ -3899,11 +2787,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "398",
@@ -3913,11 +2797,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "399",
@@ -3927,11 +2807,7 @@
     "equipa": "ADN Bikers",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "400",
@@ -3941,11 +2817,7 @@
     "equipa": "ADN Bikers",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "401",
@@ -3955,11 +2827,7 @@
     "equipa": "ADN Bikers",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "402",
@@ -3969,11 +2837,7 @@
     "equipa": "ADN Bikers",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "411",
@@ -3983,11 +2847,7 @@
     "equipa": "Quinta do Regueiro",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "403",
@@ -3997,11 +2857,7 @@
     "equipa": "MONFORTEAM",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "404",
@@ -4011,11 +2867,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "406",
@@ -4025,11 +2877,7 @@
     "equipa": "Grupeta MonforTEAM",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "407",
@@ -4039,11 +2887,7 @@
     "equipa": "Grupeta MonforTEAM",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "408",
@@ -4053,11 +2897,7 @@
     "equipa": "Grupeta MonforTEAM",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "409",
@@ -4067,11 +2907,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "410",
@@ -4081,11 +2917,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "115",
@@ -4095,11 +2927,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS C",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "412",
@@ -4109,11 +2937,7 @@
     "equipa": "Grupeta MonforTEAM",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "413",
@@ -4123,11 +2947,7 @@
     "equipa": "Os Barraqueiros",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "414",
@@ -4137,11 +2957,7 @@
     "equipa": "MONFORTEAM",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "415",
@@ -4151,11 +2967,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "416",
@@ -4165,11 +2977,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS A",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "417",
@@ -4179,11 +2987,7 @@
     "equipa": "Individual",
     "escalao": "ELITES M",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "418",
@@ -4193,11 +2997,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "419",
@@ -4207,11 +3007,7 @@
     "equipa": "BTT Marinhais Quitério materiais de construção",
     "escalao": "MASTERS C",
     "percurso": "Minifondo",
-    "id_percursos": "3",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "3"
   },
   {
     "dorsal": "30",
@@ -4221,14 +3017,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-<<<<<<< HEAD
-=======
-    "licenca": null,
-    "licenca1": null,
->>>>>>> 173c2d269 (Fix athlete dedup: name+team key, athlete aliases for team changes)
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "420",
@@ -4238,11 +3027,7 @@
     "equipa": "Individual",
     "escalao": "MASTERS D",
     "percurso": "Mediofondo",
-    "id_percursos": "2",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "2"
   },
   {
     "dorsal": "421",
@@ -4252,11 +3037,7 @@
     "equipa": "GDC Alcorochel",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   },
   {
     "dorsal": "422",
@@ -4266,22 +3047,6 @@
     "equipa": "GDC Alcorochel",
     "escalao": "MASTERS B",
     "percurso": "GranFondo",
-    "id_percursos": "1",
-    "licenca": null,
-    "licenca1": null,
-    "pais_nome": null,
-    "pais_iso2": null
-  },
-  {
-    "dorsal": "422",
-    "nome": "Leonel Coutinho",
-    "nomecompleto": "Leonel Coutinho",
-    "sexo": "M",
-    "equipa": "GDC Alcorochel",
-    "escalao": "MASTERS B",
-    "percurso": "GranFondo",
-    "id_percursos": "1",
-    "pais_nome": null,
-    "pais_iso2": null
+    "id_percursos": "1"
   }
 ]

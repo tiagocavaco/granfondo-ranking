@@ -14,5 +14,13 @@
       { "name": "Gonçalo Freitas", "team": "" }
     ],
     "note": "Raced as Indivídual in Figueira 2026, Love Tiles in Viana 2026"
+  },
+  {
+    "name": "Helder Loureiro",
+    "canonicalTeam": "C.R.P. Ribafria Grupo Párapedra",
+    "aliases": [
+      { "name": "Helder Loureiro", "team": "" }
+    ],
+    "note": "Raced as Individual in Figueira 2026. Team name variants (Crp Ribafria, Equipa De Ciclismo Grupo Parapedra/Maf/Riomagic) are handled by team-aliases.json"
   }
 ]

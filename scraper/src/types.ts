@@ -28,10 +28,6 @@ export interface ApiAthlete {
   escalao: string;
   percurso: string;     // distance name e.g. "Granfondo"
   id_percursos: string; // distance ID e.g. "1"
-  pais_nome: string | null;
-  pais_iso2: string | null;
-  licenca: string | null;
-  licenca1: string | null;
 }
 
 export interface ApiResult {

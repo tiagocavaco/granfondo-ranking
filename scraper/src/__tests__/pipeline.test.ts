@@ -305,11 +305,19 @@ describe("athleteKey", () => {
     expect(athleteKey("ana silva", "Team Alpha")).toBe("ana silva|team alpha");
   });
 
-  it("returns nameLower| for solo athletes (empty team)", () => {
+  it("returns nameLower| for solo athletes (empty team, no category)", () => {
     expect(athleteKey("ana silva", "")).toBe("ana silva|");
   });
 
-  it("returns nameLower| for 'Individual' team", () => {
+  it("returns nameLower|solo:category for 'Individual' team with category", () => {
+    expect(athleteKey("ana silva", "Individual", "MASTERS B")).toBe("ana silva|solo:masters-b");
+  });
+
+  it("returns nameLower|solo:category for 'Indivídual' (accented) with category", () => {
+    expect(athleteKey("ana silva", "Indivídual", "MASTERS A")).toBe("ana silva|solo:masters-a");
+  });
+
+  it("returns nameLower| for 'Individual' team with no category", () => {
     expect(athleteKey("ana silva", "Individual")).toBe("ana silva|");
   });
 
@@ -457,7 +465,8 @@ describe("buildAthletesIndex", () => {
     }]);
     const { index } = buildAthletesIndex(events, loader);
     // Solo (Individual) and team athlete → separate profiles
-    expect(index.has("ana silva|")).toBe(true);
+    // Individual with default category "ELITES M" → key uses solo:elite
+    expect(index.has("ana silva|solo:elite")).toBe(true);
     expect(index.has("ana silva|team alpha")).toBe(true);
   });
 });

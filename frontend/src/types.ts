@@ -97,8 +97,6 @@ export interface ApiAthlete {
   escalao: string;
   percurso: string;
   id_percursos: string;
-  pais_nome: string | null;
-  licenca1: string | null;
 }
 
 // ── Aggregate ranking ──────────────────────────────────────────────────────────

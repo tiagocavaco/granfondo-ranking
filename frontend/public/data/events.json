@@ -14,9 +14,9 @@
         "name": "Clássica"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1332,
     "finisherCount": 1156,
-    "scrapedAt": "2026-04-10T22:30:49.171Z"
+    "scrapedAt": "2026-04-11T07:15:35.032Z"
   },
   {
     "id": 1720,
@@ -41,9 +41,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1979,
     "finisherCount": 1673,
-    "scrapedAt": "2026-04-10T22:30:51.303Z"
+    "scrapedAt": "2026-04-11T07:15:37.093Z"
   },
   {
     "id": 1831,
@@ -64,9 +64,9 @@
         "name": "Mediofondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 836,
     "finisherCount": 716,
-    "scrapedAt": "2026-04-10T22:30:52.879Z"
+    "scrapedAt": "2026-04-11T07:15:38.668Z"
   },
   {
     "id": 1880,
@@ -87,9 +87,9 @@
         "name": "HALF DAY"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 727,
     "finisherCount": 562,
-    "scrapedAt": "2026-04-10T22:30:54.382Z"
+    "scrapedAt": "2026-04-11T07:15:40.242Z"
   },
   {
     "id": 1801,
@@ -114,9 +114,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1494,
     "finisherCount": 1233,
-    "scrapedAt": "2026-04-10T22:30:56.450Z"
+    "scrapedAt": "2026-04-11T07:15:42.535Z"
   },
   {
     "id": 1780,
@@ -141,9 +141,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1527,
     "finisherCount": 1343,
-    "scrapedAt": "2026-04-10T22:30:58.501Z"
+    "scrapedAt": "2026-04-11T07:15:44.824Z"
   },
   {
     "id": 1612,
@@ -157,7 +157,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "GranFondo"
       },
       {
         "id": "2",
@@ -168,9 +168,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 434,
     "finisherCount": 305,
-    "scrapedAt": "2026-04-10T22:31:00.401Z"
+    "scrapedAt": "2026-04-11T07:15:46.812Z"
   },
   {
     "id": 1553,
@@ -184,7 +184,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "GranFondo"
       },
       {
         "id": "2",
@@ -195,9 +195,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1151,
     "finisherCount": 927,
-    "scrapedAt": "2026-04-10T22:31:02.519Z"
+    "scrapedAt": "2026-04-11T07:15:49.045Z"
   },
   {
     "id": 1759,
@@ -222,9 +222,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1069,
     "finisherCount": 869,
-    "scrapedAt": "2026-04-10T22:31:04.630Z"
+    "scrapedAt": "2026-04-11T07:15:51.197Z"
   },
   {
     "id": 1388,
@@ -238,7 +238,7 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "GranFondo"
       },
       {
         "id": "2",
@@ -249,9 +249,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1199,
     "finisherCount": 1017,
-    "scrapedAt": "2026-04-10T22:31:06.816Z"
+    "scrapedAt": "2026-04-11T07:15:53.374Z"
   },
   {
     "id": 1362,
@@ -272,9 +272,9 @@
         "name": "Mediofondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1256,
     "finisherCount": 880,
-    "scrapedAt": "2026-04-10T22:31:08.526Z"
+    "scrapedAt": "2026-04-11T07:15:55.026Z"
   },
   {
     "id": 1692,
@@ -299,9 +299,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 933,
     "finisherCount": 774,
-    "scrapedAt": "2026-04-10T22:31:10.697Z"
+    "scrapedAt": "2026-04-11T07:15:57.145Z"
   },
   {
     "id": 1505,
@@ -326,9 +326,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 618,
     "finisherCount": 492,
-    "scrapedAt": "2026-04-10T22:31:12.761Z"
+    "scrapedAt": "2026-04-11T07:15:59.256Z"
   },
   {
     "id": 1467,
@@ -353,9 +353,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1090,
     "finisherCount": 931,
-    "scrapedAt": "2026-04-10T22:31:15.017Z"
+    "scrapedAt": "2026-04-11T07:16:01.497Z"
   },
   {
     "id": 1681,
@@ -380,9 +380,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1145,
     "finisherCount": 970,
-    "scrapedAt": "2026-04-10T22:31:17.193Z"
+    "scrapedAt": "2026-04-11T07:16:03.618Z"
   },
   {
     "id": 1439,
@@ -407,9 +407,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 2359,
     "finisherCount": 1954,
-    "scrapedAt": "2026-04-10T22:31:19.613Z"
+    "scrapedAt": "2026-04-11T07:16:06.394Z"
   },
   {
     "id": 1656,
@@ -434,9 +434,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1203,
     "finisherCount": 995,
-    "scrapedAt": "2026-04-10T22:31:21.789Z"
+    "scrapedAt": "2026-04-11T07:16:08.628Z"
   },
   {
     "id": 1401,
@@ -461,9 +461,9 @@
         "name": "Mediofondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1801,
     "finisherCount": 1493,
-    "scrapedAt": "2026-04-10T22:31:24.126Z"
+    "scrapedAt": "2026-04-11T07:16:11.033Z"
   },
   {
     "id": 1621,
@@ -477,12 +477,12 @@
     "distances": [
       {
         "id": "1",
-        "name": "Granfondo"
+        "name": "Clássica"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1261,
     "finisherCount": 1009,
-    "scrapedAt": "2026-04-10T22:31:25.362Z"
+    "scrapedAt": "2026-04-11T07:16:12.314Z"
   },
   {
     "id": 1390,
@@ -507,9 +507,9 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1551,
     "finisherCount": 1395,
-    "scrapedAt": "2026-04-10T22:31:27.627Z"
+    "scrapedAt": "2026-04-11T07:16:14.651Z"
   },
   {
     "id": 1590,
@@ -530,9 +530,9 @@
         "name": "Granfondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1193,
     "finisherCount": 975,
-    "scrapedAt": "2026-04-10T22:31:29.342Z"
+    "scrapedAt": "2026-04-11T07:16:16.423Z"
   },
   {
     "id": 1592,
@@ -546,12 +546,12 @@
     "distances": [
       {
         "id": "1",
-        "name": "Time Trial"
+        "name": "TIME TRIAL"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 315,
     "finisherCount": 242,
-    "scrapedAt": "2026-04-10T22:31:30.382Z"
+    "scrapedAt": "2026-04-11T07:16:17.447Z"
   },
   {
     "id": 1494,
@@ -572,9 +572,9 @@
         "name": "Mediofondo"
       }
     ],
-    "participantCount": 0,
+    "participantCount": 1051,
     "finisherCount": 941,
-    "scrapedAt": "2026-04-10T22:31:32.088Z"
+    "scrapedAt": "2026-04-11T07:16:19.223Z"
   },
   {
     "id": 1828,
@@ -788,7 +788,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 1605,
+    "participantCount": 1606,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -815,7 +815,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 1288,
+    "participantCount": 1289,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -920,7 +920,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 829,
-    "scrapedAt": "2026-04-10T22:31:36.383Z"
+    "scrapedAt": "2026-04-11T07:16:23.265Z"
   },
   {
     "id": 90002,
@@ -946,7 +946,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 602,
-    "scrapedAt": "2026-04-10T22:31:36.787Z"
+    "scrapedAt": "2026-04-11T07:16:23.715Z"
   },
   {
     "id": 90003,
@@ -968,7 +968,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 247,
-    "scrapedAt": "2026-04-10T22:31:39.069Z"
+    "scrapedAt": "2026-04-11T07:16:26.532Z"
   },
   {
     "id": 90004,
@@ -986,7 +986,7 @@
     ],
     "participantCount": 0,
     "finisherCount": 716,
-    "scrapedAt": "2026-04-10T22:31:39.448Z"
+    "scrapedAt": "2026-04-11T07:16:26.994Z"
   },
   {
     "id": 90011,
@@ -1010,7 +1010,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 404,
+    "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -1058,7 +1058,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 486,
+    "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -1102,7 +1102,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 512,
+    "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
   },
@@ -1128,7 +1128,7 @@
         "name": "Minifondo"
       }
     ],
-    "participantCount": 445,
+    "participantCount": 0,
     "finisherCount": 0,
     "scrapedAt": null
   }

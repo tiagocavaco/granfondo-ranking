@@ -150,12 +150,29 @@ export function isSoloTeam(team: string): boolean {
 }
 
 /**
- * Composite key: `nameLower|canonicalTeamKey` for affiliated athletes,
- * `nameLower|` for solo/unaffiliated athletes.
- * Ensures two people with the same name but different teams get separate profiles.
+ * Returns true if the given athlete key is a solo key (empty team or solo:category prefix).
+ * Used to exclude solo entries from licence auto-merge.
  */
-export function athleteKey(nameLower: string, team: string): string {
-  return isSoloTeam(team) ? `${nameLower}|` : `${nameLower}|${teamNormalKey(team)}`;
+export function isSoloKey(key: string): boolean {
+  const pipeIdx = key.indexOf("|");
+  const teamPart = pipeIdx >= 0 ? key.slice(pipeIdx + 1) : key;
+  return teamPart === "" || teamPart.startsWith("solo:");
+}
+
+/**
+ * Composite key: `nameLower|teamNormalKey` for affiliated athletes;
+ * `nameLower|solo:category` for solo/unaffiliated athletes with a known category;
+ * `nameLower|` for solo athletes with no category info.
+ *
+ * Including category for solo athletes prevents two different people who share a
+ * name and race as "Individual" from being merged into a single profile.
+ */
+export function athleteKey(nameLower: string, team: string, category = ""): string {
+  if (!isSoloTeam(team)) return `${nameLower}|${teamNormalKey(team)}`;
+  const catKey = category
+    ? normalizeCategory(category).toLowerCase().replace(/\s+/g, "-")
+    : "";
+  return catKey ? `${nameLower}|solo:${catKey}` : `${nameLower}|`;
 }
 
 /**
@@ -198,7 +215,7 @@ export function buildAthletesIndex(
     for (const dist of stored.distances) {
       for (const r of dist.results) {
         const nameLower = normalizeName(r.name);
-        const key = athleteKey(nameLower, r.team);
+        const key = athleteKey(nameLower, r.team, r.category);
 
         if (!index.has(key)) {
           const id = getOrAssignId(key);
@@ -285,18 +302,35 @@ export function applyAthleteAliases(
     }
 
     for (const alias of rule.aliases) {
-      const aliasKey = athleteKey(normalizeName(alias.name), alias.team);
-      if (aliasKey === canonKey) continue;
-      const aliasEntry = index.get(aliasKey);
-      if (!aliasEntry) continue;
+      const aliasNameLower = normalizeName(alias.name);
 
-      // Merge alias results into canonical
-      canonical.results.push(...aliasEntry.results);
-      // Remap the alias ID to the canonical ID in the store (so URLs don't break)
-      if (aliasEntry.id !== canonical.id) {
-        idStore.set(aliasKey, canonical.id);
+      if (alias.team === "") {
+        // Empty team means "any solo entry for this athlete" — absorb all solo keys
+        // (both `nameLower|` and `nameLower|solo:*`) so aliases work regardless of
+        // which category-discriminated key was generated for this solo athlete.
+        const soloPrefix = `${aliasNameLower}|`;
+        for (const [k, aliasEntry] of [...index.entries()]) {
+          if (k === canonKey) continue;
+          if (!k.startsWith(soloPrefix)) continue;
+          if (!isSoloKey(k)) continue;
+          canonical.results.push(...aliasEntry.results);
+          if (aliasEntry.id !== canonical.id) idStore.set(k, canonical.id);
+          index.delete(k);
+        }
+      } else {
+        const aliasKey = athleteKey(aliasNameLower, alias.team);
+        if (aliasKey === canonKey) continue;
+        const aliasEntry = index.get(aliasKey);
+        if (!aliasEntry) continue;
+
+        // Merge alias results into canonical
+        canonical.results.push(...aliasEntry.results);
+        // Remap the alias ID to the canonical ID in the store (so URLs don't break)
+        if (aliasEntry.id !== canonical.id) {
+          idStore.set(aliasKey, canonical.id);
+        }
+        index.delete(aliasKey);
       }
-      index.delete(aliasKey);
     }
 
     // Re-sort after merging
@@ -334,10 +368,19 @@ export function mergeByLicence(
     const names = new Set(keys.map((k) => index.get(k)?.nameLower ?? "").filter(Boolean));
     if (names.size !== 1) continue; // different names → skip (data error or typo)
 
-    // Canonical entry: the one with the most results (most-represented team)
+    // Licence is the authoritative identity: merge all entries sharing the same licence
+    // and name, regardless of solo/team status. With category-discriminated solo keys,
+    // false positives (two different people with the same name) are prevented at the
+    // key level, so licence-based merge is safe here.
     const entries = keys.map((k) => ({ key: k, entry: index.get(k)! })).filter((x) => x.entry);
     if (entries.length < 2) continue;
-    entries.sort((a, b) => b.entry.results.length - a.entry.results.length || a.key.localeCompare(b.key));
+    // Canonical: prefer team-affiliated entry; if all solo, pick the one with most results
+    entries.sort((a, b) => {
+      const aTeam = isSoloKey(a.key) ? 0 : 1;
+      const bTeam = isSoloKey(b.key) ? 0 : 1;
+      if (aTeam !== bTeam) return bTeam - aTeam; // team entries first
+      return b.entry.results.length - a.entry.results.length || a.key.localeCompare(b.key);
+    });
     const { key: canonKey, entry: canonical } = entries[0]!;
 
     let merged = false;
@@ -355,34 +398,6 @@ export function mergeByLicence(
       const mostRecentTeam = canonical.results.find((r) => !isSoloTeam(r.team))?.team;
       if (mostRecentTeam) canonical.canonicalTeam = mostRecentTeam;
       mergedCount++;
-    }
-  }
-
-  // ── Phase 2: absorb solo ("nameLower|") entries into licence-bearing athletes ──
-  //
-  // An athlete who has a confirmed licence in some events may have raced as
-  // "Individual" (no team) in other events without providing their licence.
-  // Build a map: nameLower → canonical key, restricted to names that appear
-  // under exactly ONE canonical entry with a known licence (avoids ambiguity
-  // when two different people share a name).
-
-  const nameToCanon = new Map<string, string>(); // nameLower → canonKey (unique)
-  const ambiguous = new Set<string>();           // names with >1 licenced canonical entry
-
-  for (const [lic, keys] of licenceIndex) {
-    if (!lic) continue;
-    for (const k of keys) {
-      const entry = index.get(k);
-      if (!entry) continue;
-      const nl = entry.nameLower;
-      if (ambiguous.has(nl)) continue;
-      if (nameToCanon.has(nl) && nameToCanon.get(nl) !== k) {
-        // Two different canonical keys claim the same name → ambiguous, skip both
-        ambiguous.add(nl);
-        nameToCanon.delete(nl);
-      } else {
-        nameToCanon.set(nl, k);
-      }
     }
   }
 
@@ -472,7 +487,7 @@ export function buildAggregateRanking(
           const pts = Math.round(basePoints * coeff * 10) / 10;
 
           const nameLower = normalizeName(r.name);
-          const rawKey = athleteKey(nameLower, r.team);
+          const rawKey = athleteKey(nameLower, r.team, r.category);
           // Resolve to canonical key if this athlete was merged (different teams, same licence)
           const aKey = keyToCanonical.get(rawKey) ?? rawKey;
           const id = athleteIndex.get(aKey)?.id ?? 0;
