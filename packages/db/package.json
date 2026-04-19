@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "generate-schema": "drizzle-kit generate"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.30.4"
+  },
   "exports": {
     "./schema": {
       "types": "./src/schema.ts",

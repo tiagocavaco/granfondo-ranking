@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "generate-schema": "drizzle-kit generate",
     "decrypt-db": "tsx src/decrypt-db.ts",
     "scrape": "tsx src/index.ts",
     "scrape:force": "tsx src/index.ts --force",
@@ -16,7 +15,6 @@
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20.12.7",
     "@vitest/coverage-v8": "^4.1.4",
-    "drizzle-kit": "^0.30.4",
     "tsx": "^4.8.2",
     "typescript": "^5.4.5",
     "vitest": "^4.1.4"

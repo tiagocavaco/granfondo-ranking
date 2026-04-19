@@ -3,6 +3,7 @@
   "private": true,
   "workspaces": ["packages/*", "scraper", "frontend"],
   "scripts": {
+    "generate-schema": "npm run generate-schema --workspace=@granfondo/db",
     "scrape": "npm run scrape --workspace=scraper",
     "scrape:force": "npm run scrape:force --workspace=scraper",
     "dev": "npm run dev --workspace=frontend",
