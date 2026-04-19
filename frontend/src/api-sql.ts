@@ -1,11 +1,3 @@
-/**
- * api-sql.ts
- *
- * SQL-backed implementation of the data API. Drop-in replacement for api-json.ts.
- * Exports the same `api` object with identical function signatures.
- *
- * To activate: flip the export line in api.ts.
- */
 
 import { eq, desc, asc, inArray, like, or, and, sql, max } from "drizzle-orm";
 import * as schema from "@granfondo/db/schema";
@@ -24,7 +16,7 @@ import type {
   AthleteResultRef,
 } from "@granfondo/db/types";
 
-// ── Normalisation helpers (mirrors api-json.ts) ───────────────────────────────
+// ── Normalisation helpers ─────────────────────────────────────────────────────
 
 function normalizeName(name: string): string {
   return name

@@ -75,7 +75,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
   }
 }
 const DATA_DIR = path.join(__dirname, "..", "..", "frontend", "public", "data");
-const ATHLETE_IDS_PATH = path.join(__dirname, "..", "athlete-ids.json");
 const ATHLETE_ALIASES_PATH = path.join(__dirname, "..", "athlete-aliases.json");
 const RESULT_ASSIGNMENTS_PATH = path.join(__dirname, "..", "result-assignments.json");
 const SCRAPED_EVENTS_PATH = path.join(__dirname, "..", "scraped-events.json");
@@ -214,19 +213,13 @@ function loadResultsFromDb(
 // ── Athlete ID store ──────────────────────────────────────────────────────────
 
 function loadIdStore(sourceDb: BetterSqlite3.Database | null): AthleteIdStore {
-  if (sourceDb) {
-    try {
-      const rows = drizzle(sourceDb, { schema })
-        .select().from(schema.athleteLookup).all();
-      if (rows.length > 0) {
-        return new Map(rows.map((r) => [r.key, r.athleteId]));
-      }
-    } catch {}
+  if (!sourceDb) return new Map();
+  try {
+    const rows = drizzle(sourceDb, { schema }).select().from(schema.athleteLookup).all();
+    return new Map(rows.map((r) => [r.key, r.athleteId]));
+  } catch {
+    return new Map();
   }
-  // Fallback: legacy athlete-ids.json (removed once DB is established)
-  if (!fs.existsSync(ATHLETE_IDS_PATH)) return new Map();
-  const obj = JSON.parse(fs.readFileSync(ATHLETE_IDS_PATH, "utf-8")) as Record<string, number>;
-  return new Map(Object.entries(obj));
 }
 
 function loadAthleteAliases(): AthleteAliasRule[] {
