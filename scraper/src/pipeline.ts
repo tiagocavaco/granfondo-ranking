@@ -349,6 +349,7 @@ export function buildAthletesIndex(
 } {
   const flags: DuplicateFlag[] = [];
   const soloFlags: SoloCollisionFlag[] = [];
+  const deletedKeys = new Set<string>(); // keys removed from index by pass 6
   const crossPassFlags: CrossPassFlag[] = [];
   const ids = makeIdManager(idStore);
   const index = new Map<string, AthleteEntry>();
@@ -934,6 +935,8 @@ export function buildAthletesIndex(
   // Build (eventId, bib) → { key, resultIdx } for fast lookup
   // We need to scan result files for bib numbers since AthleteResultRef doesn't store bib
   let pass6 = 0;
+  // Track (athleteId, eventId) pairs assigned manually — exempt from post-pass category sweep
+  const manualAssignments = new Set<string>();
   for (const assignment of assignments) {
     const target = [...index.values()].find((e) => e.id === assignment.athleteId);
     if (!target) {
@@ -950,7 +953,8 @@ export function buildAthletesIndex(
         target.results.push(r);
         addToTeamsAndCategories(target, r);
         entry.results.splice(i, 1);
-        if (entry.results.length === 0) index.delete(key);
+        if (entry.results.length === 0) { deletedKeys.add(key); index.delete(key); }
+        manualAssignments.add(`${assignment.athleteId}:${assignment.eventId}`);
         pass6++;
         moved = true;
         break outer;
@@ -987,6 +991,7 @@ export function buildAthletesIndex(
           if (!r.category) return false; // no category data — never an outlier
           const canon = canonicalizeCategory(r.category);
           if (canon === "Unknown") return false; // unrecognised category — can't contradict
+          if (manualAssignments.has(`${entry.id}:${r.eventId}`)) return false; // exempt manual assignments
           return !categoriesCompatible(canon, canonCat);
         });
         const canonCount = yearResults.length - outliers.length;
@@ -1019,6 +1024,7 @@ export function buildAthletesIndex(
   const updatedIdStore = new Map(idStore);
   for (const [key, id] of ids.getMinted()) updatedIdStore.set(key, id);
   for (const [key, entry] of index) updatedIdStore.set(key, entry.id);
+  for (const key of deletedKeys) updatedIdStore.delete(key);
 
   return { index, updatedIdStore, flags, soloFlags, crossPassFlags };
 }
