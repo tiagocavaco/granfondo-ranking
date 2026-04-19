@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "frontend/**"
+      - "packages/**"
 
 permissions:
   contents: read
@@ -30,6 +31,8 @@ jobs:
 
       - name: Build frontend
         run: npm run build
+        env:
+          VITE_DATA_KEY: ${{ secrets.DATA_KEY }}
 
       - uses: actions/configure-pages@v4
 

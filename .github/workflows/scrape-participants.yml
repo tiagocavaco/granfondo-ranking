@@ -25,6 +25,8 @@ jobs:
       - name: Scrape participants
         run: npm run scrape:participants
         working-directory: scraper
+        env:
+          DATA_KEY: ${{ secrets.DATA_KEY }}
 
       - name: Commit updated participant files
         run: |
