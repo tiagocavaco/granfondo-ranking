@@ -100,18 +100,6 @@ function categoriesCompatible(a: string, b: string): boolean {
   return false;
 }
 
-// ── Duplicate flag ────────────────────────────────────────────────────────────
-
-export interface DuplicateFlag {
-  athleteId: number;
-  athleteName: string;
-  eventId: number;
-  eventName: string;
-  existing: { category: string; team: string };
-  incoming: { category: string; team: string };
-  resolution: "kept_licenced" | "kept_by_category" | "flagged_manual";
-}
-
 // ── Solo category rank (for cross-year merge) ────────────────────────────────
 
 export const SOLO_CAT_RANK: Record<string, number> = {
@@ -240,7 +228,6 @@ function addResult(
   entry: AthleteEntry,
   result: AthleteResultRef,
   hasLicence: boolean,
-  flags: DuplicateFlag[]
 ): void {
   const existing = entry.results.find((r) => r.eventId === result.eventId);
   if (!existing) {
@@ -262,7 +249,6 @@ function addResult(
 
   // Different categories — use athlete's known categories for this year to decide
   const year = String(result.eventYear);
-  // Canonicalize stored raw categories on-the-fly for comparison
   const knownCanon = (entry.categories[year] ?? []).map(canonicalizeCategory);
   const existingMatches = knownCanon.some((c) => categoriesCompatible(c, existingCat));
   const incomingMatches = knownCanon.some((c) => categoriesCompatible(c, incomingCat));
@@ -274,16 +260,7 @@ function addResult(
     return;
   }
 
-  // Same person cannot race the same event twice — keep existing, discard incoming, flag for review.
-  flags.push({
-    athleteId: entry.id,
-    athleteName: entry.name,
-    eventId: result.eventId,
-    eventName: result.eventName,
-    existing: { category: existing.category, team: existing.team },
-    incoming: { category: result.category, team: result.team },
-    resolution: "flagged_manual",
-  });
+  // Same person cannot race the same event twice — keep existing, discard incoming silently.
 }
 
 function deriveCanonicalTeam(entry: AthleteEntry): void {
@@ -343,11 +320,9 @@ export function buildAthletesIndex(
 ): {
   index: Map<string, AthleteEntry>;
   updatedIdStore: AthleteIdStore;
-  flags: DuplicateFlag[];
   soloFlags: SoloCollisionFlag[];
   crossPassFlags: CrossPassFlag[];
 } {
-  const flags: DuplicateFlag[] = [];
   const soloFlags: SoloCollisionFlag[] = [];
   const deletedKeys = new Set<string>(); // keys removed from index by pass 6
   const crossPassFlags: CrossPassFlag[] = [];
@@ -432,7 +407,7 @@ export function buildAthletesIndex(
       const rk = resultKey(event.id, dist.name, r.bib);
       if (assigned.has(rk)) continue;
       assigned.add(rk);
-      addResult(entry, toRef(r, event, dist), true, flags);
+      addResult(entry, toRef(r, event, dist), true);
     }
   }
 
@@ -465,7 +440,7 @@ export function buildAthletesIndex(
 
     if (candidates.length === 1) {
       assigned.add(rKey);
-      addResult(index.get(candidates[0]!)!, toRef(r, event, dist), false, flags);
+      addResult(index.get(candidates[0]!)!, toRef(r, event, dist), false);
       pass2++;
     } else if (candidates.length > 1) {
       console.warn(
@@ -496,7 +471,7 @@ export function buildAthletesIndex(
         if (!isSoloTeam(r.team)) continue;
         if (normalizeName(r.name) !== aliasNameLower) continue;
         assigned.add(rKey);
-        addResult(canonEntry, toRef(r, event, dist), false, flags);
+        addResult(canonEntry, toRef(r, event, dist), false);
         pass3++;
       }
     }
@@ -534,10 +509,10 @@ export function buildAthletesIndex(
 
     assigned.add(rKey);
     if (matchKey) {
-      addResult(index.get(matchKey)!, toRef(r, event, dist), false, flags);
+      addResult(index.get(matchKey)!, toRef(r, event, dist), false);
     } else {
       index.set(exactKey, newEntry(ids.get(exactKey), r.name, nameLower));
-      addResult(index.get(exactKey)!, toRef(r, event, dist), false, flags);
+      addResult(index.get(exactKey)!, toRef(r, event, dist), false);
       pass5Team++;
     }
   }
@@ -555,7 +530,7 @@ export function buildAthletesIndex(
       if (aliasKey === canonKey) continue;
       const aliasEntry = index.get(aliasKey);
       if (!aliasEntry) continue;
-      for (const result of aliasEntry.results) addResult(canonEntry, result, false, flags);
+      for (const result of aliasEntry.results) addResult(canonEntry, result, false);
       index.delete(aliasKey);
     }
     deriveCanonicalTeam(canonEntry);
@@ -583,7 +558,7 @@ export function buildAthletesIndex(
       const bibKey = `${nameLower}|solo:${canonCat}:${c.event.year}:${c.r.bib}`;
       index.set(bibKey, newEntry(ids.get(bibKey), c.r.name, nameLower));
       assigned.add(c.rKey);
-      addResult(index.get(bibKey)!, toRef(c.r, c.event, c.dist), false, flags);
+      addResult(index.get(bibKey)!, toRef(c.r, c.event, c.dist), false);
       pass5Solo++;
     };
 
@@ -689,7 +664,7 @@ export function buildAthletesIndex(
         const entry = index.get(groupKey)!;
         for (const c of mainCandidates) {
           assigned.add(c.rKey);
-          addResult(entry, toRef(c.r, c.event, c.dist), false, flags);
+          addResult(entry, toRef(c.r, c.event, c.dist), false);
         }
       }
     }
@@ -737,7 +712,7 @@ export function buildAthletesIndex(
       for (let i = 1; i < yearProfiles.length; i++) {
         const laterEntry = index.get(yearProfiles[i]!.key);
         if (!laterEntry) continue;
-        for (const result of laterEntry.results) addResult(canonEntry, result, false, flags);
+        for (const result of laterEntry.results) addResult(canonEntry, result, false);
         index.delete(yearProfiles[i]!.key);
         pass5d++;
       }
@@ -816,7 +791,7 @@ export function buildAthletesIndex(
       for (let i = 1; i < profiles.length; i++) {
         const later = profiles[i]!;
         if (!index.has(later.key)) continue;
-        for (const result of later.entry.results) addResult(canon.entry, result, false, flags);
+        for (const result of later.entry.results) addResult(canon.entry, result, false);
         index.delete(later.key);
         pass5f++;
       }
@@ -902,7 +877,7 @@ export function buildAthletesIndex(
 
       // Step E: merge or flag
       if (candidates.length === 1) {
-        for (const result of soloEntry.results) addResult(candidates[0]!.entry, result, false, flags);
+        for (const result of soloEntry.results) addResult(candidates[0]!.entry, result, false);
         index.delete(soloKey);
         deriveCanonicalTeam(candidates[0]!.entry);
         pass5e++;
@@ -1009,15 +984,6 @@ export function buildAthletesIndex(
         const canonCount = yearResults.length - outliers.length;
         if (canonCount <= outliers.length) continue; // no clear majority — leave for manual review
         for (const r of outliers) {
-          flags.push({
-            athleteId: entry.id,
-            athleteName: entry.name,
-            eventId: r.eventId,
-            eventName: r.eventName,
-            existing: { category: canonCat, team: r.team },
-            incoming: { category: r.category, team: r.team },
-            resolution: "flagged_manual",
-          });
           entry.results.splice(entry.results.indexOf(r), 1);
           yearCatDrops++;
         }
@@ -1038,7 +1004,7 @@ export function buildAthletesIndex(
   for (const [key, entry] of index) updatedIdStore.set(key, entry.id);
   for (const key of deletedKeys) updatedIdStore.delete(key);
 
-  return { index, updatedIdStore, flags, soloFlags, crossPassFlags };
+  return { index, updatedIdStore, soloFlags, crossPassFlags };
 }
 
 // ── Aggregate ranking ─────────────────────────────────────────────────────────

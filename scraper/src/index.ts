@@ -718,24 +718,16 @@ async function main() {
   const assignments = loadResultAssignments();
   const loader = (id: number) => allResults.get(id) ?? null;
 
-  const { index: athletesIndex, updatedIdStore, flags, soloFlags, crossPassFlags } = buildAthletesIndex(
+  const { index: athletesIndex, updatedIdStore, soloFlags, crossPassFlags } = buildAthletesIndex(
     scraped, loader, aliasRules, assignments, idStore
   );
 
-  writeJson("flags.json", flags);
-  if (flags.length > 0) {
-    console.warn(`⚠️  ${flags.length} duplicate event flag(s) require manual review — see frontend/public/data/flags.json`);
-  } else {
-    console.log(`✓ flags.json — no duplicates`);
-  }
-
   const manualSoloFlags = soloFlags.filter((f) => f.resolution === "flagged_manual");
   writeJson("solo-flags.json", manualSoloFlags);
-  if (soloFlags.length > 0) {
-    const manual = manualSoloFlags;
-    console.warn(`⚠️  ${soloFlags.length} solo collision(s) require manual review (${manual.length} unresolved, ${soloFlags.length - manual.length} auto-resolved) — see frontend/public/data/solo-flags.json`);
+  if (manualSoloFlags.length > 0) {
+    console.warn(`⚠️  ${manualSoloFlags.length} solo collision(s) require manual review — see frontend/public/data/solo-flags.json`);
   } else {
-    console.log(`✓ solo-flags.json — no collisions`);
+    console.log(`✓ solo-flags.json — no unresolved collisions`);
   }
 
   writeJson("cross-pass-flags.json", crossPassFlags);

@@ -19,7 +19,6 @@ import {
   type ResultAssignment,
   type AthleteIdStore,
   type SoloCollisionFlag,
-  type DuplicateFlag,
 } from "../pipeline.js";
 import type { ApiResult } from "../types.js";
 import type {
@@ -781,15 +780,14 @@ describe("buildAthletesIndex — duplicate event safeguard", () => {
         mkResult({ bib: "11", name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "Individual", category: "MASTERS B", genderPos: 231, athleteId: 0, pos: 231 }),
       ],
     }]);
-    const { index, flags } = runPipeline([event], loader);
+    const { index } = runPipeline([event], loader);
     const entries = [...index.values()].filter(e => e.nameLower === "hugo dias");
     expect(entries.length).toBe(1);
     expect(entries[0]!.results.length).toBe(1);
     expect(entries[0]!.results[0]!.category).toBe("MASTERS C");
-    expect(flags.length).toBe(0);
   });
 
-  it("same licence, same event, ambiguous categories → one result kept, flag emitted", () => {
+  it("same licence, same event, ambiguous categories → one result kept", () => {
     const events = [mkEvent(1, 2025, "2025-02-01"), mkEvent(2, 2025, "2025-04-27")];
     const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-02-01" : "2025-04-27", [{
       id: "1", name: "Granfondo", finisherCount: 100,
@@ -800,47 +798,39 @@ describe("buildAthletesIndex — duplicate event safeguard", () => {
             mkResult({ bib: "11", name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "Individual", category: "MASTERS B", genderPos: 231, athleteId: 0, pos: 231 }),
           ],
     }]);
-    const { index, flags } = runPipeline(events, loader);
+    const { index } = runPipeline(events, loader);
     const entries = [...index.values()].filter(e => e.nameLower === "hugo dias");
     expect(entries.length).toBe(1);
     expect(entries[0]!.results.length).toBe(2);
-    expect(flags.length).toBe(1);
-    expect(flags[0]!.athleteName).toBe("Hugo Dias");
-    expect(flags[0]!.resolution).toBe("flagged_manual");
   });
 
-  it("same licence, two different events → two results kept (no flag)", () => {
+  it("same licence, two different events → two results kept", () => {
     const events = [mkEvent(1, 2025, "2025-03-01"), mkEvent(2, 2025, "2025-04-01")];
     const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
       id: "1", name: "Granfondo", finisherCount: 100,
       results: [mkResult({ bib: "10", name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "CC Lisboa", category: "MASTERS C", genderPos: 10, athleteId: 0 })],
     }]);
-    const { index, flags } = runPipeline(events, loader);
+    const { index } = runPipeline(events, loader);
     const entries = [...index.values()].filter(e => e.nameLower === "hugo dias");
     expect(entries.length).toBe(1);
     expect(entries[0]!.results.length).toBe(2);
-    expect(flags.length).toBe(0);
   });
 });
 
 // ── buildAthletesIndex — year-category consistency sweep ───────────────────
 
 describe("buildAthletesIndex — year-category consistency sweep", () => {
-  it("5× MASTERS C + 1× MASTERS B in same year → MASTERS B result removed and flagged", () => {
+  it("5× MASTERS C + 1× MASTERS B in same year → MASTERS B result removed", () => {
     const events = [1, 2, 3, 4, 5, 6].map(id => mkEvent(id, 2025, `2025-0${id}-01`));
     const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
       id: "1", name: "Granfondo", finisherCount: 100,
       results: [mkResult({ bib: String(id), name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "CC Lagos", category: id === 5 ? "MASTERS B" : "MASTERS C", genderPos: 10, athleteId: 0 })],
     }]);
-    const { index, flags } = runPipeline(events, loader);
+    const { index } = runPipeline(events, loader);
     const entries = [...index.values()].filter(e => e.nameLower === "hugo dias");
     expect(entries.length).toBe(1);
     expect(entries[0]!.results.length).toBe(5);
     expect(entries[0]!.results.every(r => r.category === "MASTERS C")).toBe(true);
-    const yearFlags = flags.filter(f => f.athleteName === "Hugo Dias");
-    expect(yearFlags.length).toBe(1);
-    expect(yearFlags[0]!.incoming.category).toBe("MASTERS B");
-    expect(yearFlags[0]!.resolution).toBe("flagged_manual");
   });
 
   it("equal counts of two incompatible categories (1 vs 1) → no removal (ambiguous)", () => {
@@ -849,11 +839,10 @@ describe("buildAthletesIndex — year-category consistency sweep", () => {
       id: "1", name: "Granfondo", finisherCount: 100,
       results: [mkResult({ bib: String(id), name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "CC Lagos", category: id === 1 ? "MASTERS B" : "MASTERS C", genderPos: 10, athleteId: 0 })],
     }]);
-    const { index, flags } = runPipeline(events, loader);
+    const { index } = runPipeline(events, loader);
     const entries = [...index.values()].filter(e => e.nameLower === "hugo dias");
     expect(entries.length).toBe(1);
     expect(entries[0]!.results.length).toBe(2);
-    expect(flags.filter(f => f.athleteName === "Hugo Dias").length).toBe(0);
   });
 });
 
