@@ -932,8 +932,6 @@ export function buildAthletesIndex(
 
   // ── Pass 6: manual result assignments ────────────────────────────────────
 
-  // Build (eventId, bib) → { key, resultIdx } for fast lookup
-  // We need to scan result files for bib numbers since AthleteResultRef doesn't store bib
   let pass6 = 0;
   // Track (athleteId, eventId) pairs assigned manually — exempt from post-pass category sweep
   const manualAssignments = new Set<string>();
@@ -943,9 +941,23 @@ export function buildAthletesIndex(
       console.error(`  [pass6] ERROR: athleteId ${assignment.athleteId} not found — skipping`);
       continue;
     }
-    // Find result by (eventId, source bib) — search all entries
+    // Resolve bib → nameLower via the raw result loader so we find the right entry
+    const eventResults = loader(assignment.eventId);
+    let bibNameLower: string | null = null;
+    if (eventResults) {
+      for (const dist of eventResults.distances) {
+        const match = dist.results.find((r) => r.bib === assignment.bib);
+        if (match) { bibNameLower = match.nameLower; break; }
+      }
+    }
+    if (!bibNameLower) {
+      console.warn(`  [pass6] eventId=${assignment.eventId} bib=${assignment.bib} not found in raw results`);
+      continue;
+    }
+    // Find the index entry whose name matches the bib and has a result at this event
     let moved = false;
     outer: for (const [key, entry] of index) {
+      if (entry.nameLower !== bibNameLower) continue;
       for (let i = 0; i < entry.results.length; i++) {
         const r = entry.results[i]!;
         if (r.eventId !== assignment.eventId) continue;
@@ -960,7 +972,7 @@ export function buildAthletesIndex(
         break outer;
       }
     }
-    if (!moved) console.warn(`  [pass6] eventId=${assignment.eventId} bib=${assignment.bib} not found`);
+    if (!moved) console.warn(`  [pass6] eventId=${assignment.eventId} bib=${assignment.bib} (${bibNameLower}) not found in index`);
   }
 
   if (pass6 > 0) {
