@@ -86,21 +86,8 @@ export function finisherCoefficient(finisherCount: number): number {
 
 // ── Name normalization ────────────────────────────────────────────────────────
 
-/**
- * Normalize an athlete name for consistent cross-event matching.
- * Strips accents, lowercases, collapses whitespace, removes non-letter/space chars
- * (handles encoding artifacts like "gon?alves" → "goncalves").
- */
-export function normalizeName(name: string): string {
-  return name
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "") // strip combining diacritics
-    .replace(/[´`\u00b4\u02b9\u02bc\u2018\u2019''']/g, "") // strip non-combining apostrophe/accent chars
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, "") // strip non-alphanumeric chars (encoding artifacts like "?", punctuation)
-    .replace(/\s+/g, " ")
-    .trim();
-}
+export { normalizeName, fixRawTeamName, normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/db/normalize";
+import { normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/db/normalize";
 
 /**
  * Maps raw API distance names to canonical names used in rankings and deduplication.
@@ -164,74 +151,14 @@ export function isValidLicence(lic: string): boolean {
 }
 
 /**
- * Fix known encoding artifacts in raw team names before display or comparison.
- * Handles caret-as-circumflex (e.g., "Almodo^var" → "Almodôvar").
- */
-export function fixRawTeamName(name: string): string {
-  return name.replace(/([aeiouAEIOU])\^/g, (_, v: string) => {
-    const map: Record<string, string> = {
-      a: "â", e: "ê", i: "î", o: "ô", u: "û",
-      A: "Â", E: "Ê", I: "Î", O: "Ô", U: "Û",
-    };
-    return map[v] ?? v + "^";
-  });
-}
-
-/**
- * Normalize a team name to a canonical key for fuzzy deduplication.
- * - Fixes caret encoding artifacts
- * - Strips accents, lowercases
- * - Removes dots and commas (collapses abbreviations: "C.B." → "cb", "C. B." → "cb")
- * - Replaces all separators (/, |, \, ^, -, &, +) with space
- * - Strips apostrophes/quote chars (', ´, `)
- * - Merges consecutive single-letter tokens (e.g., "c e" → "ce")
- * - Collapses whitespace
- */
-export function normalizeTeam(name: string): string {
-  let s = fixRawTeamName(name);
-  // Strip accents + lowercase
-  s = s
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
-  // Strip apostrophes / quote chars (D'Encaixe → DEncaixe, not D-Encaixe)
-  s = s.replace(/['''`´\u2018\u2019\u02bc]/g, "");
-  // Strip leading # (e.g. "#Astantasteam" → "Astantasteam")
-  s = s.replace(/#/g, "");
-  // Replace dots and commas with spaces (turns "C.B." → "c b " and "C.B.Almodôvar" → "c b almodovar")
-  s = s.replace(/[.,]/g, " ");
-  // Replace all separator characters with space (& + @ treated as word separators)
-  s = s.replace(/[/|\\^&+@]/g, " ").replace(/\s*-\s*/g, " ");
-  // Collapse whitespace before single-char merging
-  s = s.replace(/\s+/g, " ").trim();
-  // Merge consecutive single-letter tokens separated by a single space
-  // e.g., "c b almodovar" → "cb almodovar", "a d fafe" → "ad fafe"
-  // Apply multiple times to handle chains like "a d s" → "ad s" → "ads"
-  for (let i = 0; i < 6; i++) {
-    s = s.replace(/(?<![a-z])([a-z]) ([a-z])(?![a-z])/g, "$1$2");
-  }
-  // Merge a short abbreviation prefix (1–3 chars) with a trailing single char
-  // e.g., "uf c barqueiros" → "ufc barqueiros" (U.F.C. written with dots vs without)
-  s = s.replace(/(?<![a-z])([a-z]{1,3}) ([a-z])(?![a-z])/g, "$1$2");
-  // Final whitespace collapse
-  s = s.replace(/\s+/g, " ").trim();
-  return s;
-}
-
-/**
  * Manual aliases for team names that cannot be resolved automatically.
  * Maps a normalized team key → canonical normalized key.
  * Used when the same club registers under structurally different names
  * (e.g., abbreviated form vs. full name, or reordered sponsor names).
- */
-/**
- * Manual aliases for team names that cannot be resolved automatically.
- * Source of truth: scraper/team-aliases.json (also published to frontend/public/data/).
- * Only needed for semantically different names that refer to the same club
- * (e.g. abbreviated form vs. full name, or reordered sponsor names).
  * Space/concatenation variants ("dblbike" vs "dbl bike") are handled
  * automatically by the compact equality and compact-prefix checks in
  * teamKeySimilarity — no alias needed for those.
+ * Source of truth: scraper/team-aliases.json.
  */
 import TEAM_ALIASES_JSON from "../team-aliases.json" with { type: "json" };
 const TEAM_ALIASES: Record<string, string> = TEAM_ALIASES_JSON;
@@ -537,8 +464,6 @@ export function canonicalizeCategory(raw: string): string {
 }
 
 // ── Solo team detection ───────────────────────────────────────────────────────
-
-export const SOLO_TEAM_KEYS = new Set(["individual", "independente", "no team", "sem equipa", ""]);
 
 /** True if the team name represents an unaffiliated/individual entry. */
 export function isSoloTeam(team: string): boolean {

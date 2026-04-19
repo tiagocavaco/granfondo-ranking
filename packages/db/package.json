@@ -25,6 +25,10 @@
     "./db-client": {
       "types": "./src/db-client.ts",
       "default": "./src/db-client.ts"
+    },
+    "./normalize": {
+      "types": "./src/normalize.ts",
+      "default": "./src/normalize.ts"
     }
   },
   "peerDependencies": {
