@@ -4,3 +4,7 @@ scraper/dist/
 *.js.map
 .env
 .env.*
+
+# Generated flag files — contain athlete names (PII), not for version control
+frontend/public/data/solo-flags.json
+frontend/public/data/cross-pass-flags.json

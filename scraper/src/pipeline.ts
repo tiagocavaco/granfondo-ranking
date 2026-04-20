@@ -581,31 +581,39 @@ export function buildAthletesIndex(
           const [a, b] = colliders as [SoloCand, SoloCand];
           let resolved = false;
 
-          // Distance filter (requires ≥1 non-collision result and different distances)
-          if (!resolved && nonCollision.length >= 1 && a.dist.name !== b.dist.name) {
-            const distCounts = new Map<string, number>();
-            for (const c of nonCollision) distCounts.set(c.dist.name, (distCounts.get(c.dist.name) ?? 0) + 1);
-            const topDist = [...distCounts.entries()].sort((x, y) => y[1] - x[1])[0]![0];
-            const keptC = a.dist.name === topDist ? a : b.dist.name === topDist ? b : null;
-            const routedC = keptC === a ? b : keptC === b ? a : null;
-            if (keptC && routedC) {
-              mainCandidates.push(keptC);
-              routeToBibKey(routedC);
-              soloFlags.push({
-                groupKey, eventId: a.event.id, eventName: a.event.name, resolution: "distance",
-                results: [
-                  { bib: keptC.r.bib, distance: keptC.dist.name, genderPos: keptC.r.genderPos, finisherCount: keptC.dist.finisherCount },
-                  { bib: routedC.r.bib, distance: routedC.dist.name, genderPos: routedC.r.genderPos, finisherCount: routedC.dist.finisherCount },
-                ],
-              });
-              resolved = true;
+          // Distance filter: different distances at same event → unambiguously two different people.
+          // If baseline exists, keep the distance matching the athlete's most common distance.
+          // If no baseline (first-time athlete), keep `a` arbitrarily — both splits are equally valid.
+          if (!resolved && a.dist.name !== b.dist.name) {
+            let keptC: SoloCand, routedC: SoloCand;
+            if (nonCollision.length >= 1) {
+              const distCounts = new Map<string, number>();
+              for (const c of nonCollision) distCounts.set(c.dist.name, (distCounts.get(c.dist.name) ?? 0) + 1);
+              const topDist = [...distCounts.entries()].sort((x, y) => y[1] - x[1])[0]![0];
+              keptC = a.dist.name === topDist ? a : b;
+              routedC = keptC === a ? b : a;
+            } else {
+              keptC = a;
+              routedC = b;
             }
+            mainCandidates.push(keptC);
+            routeToBibKey(routedC);
+            soloFlags.push({
+              groupKey, eventId: a.event.id, eventName: a.event.name, resolution: "distance",
+              results: [
+                { bib: keptC.r.bib, distance: keptC.dist.name, genderPos: keptC.r.genderPos, finisherCount: keptC.dist.finisherCount },
+                { bib: routedC.r.bib, distance: routedC.dist.name, genderPos: routedC.r.genderPos, finisherCount: routedC.dist.finisherCount },
+              ],
+            });
+            resolved = true;
           }
 
-          // Percentile filter (requires ≥2 non-collision results with valid genderPos)
+          // Percentile filter: compare each collider's percentile against the baseline median.
+          // ≥2 results → standard thresholds (within 15%, other >25%).
+          // ≥1 result  → stricter thresholds (within 10%, other >35%) since single data point is less reliable.
           if (!resolved) {
             const baseline = nonCollision.filter(c => !c.r.dnf && !c.r.dns && c.r.genderPos > 0 && c.dist.finisherCount > 0);
-            if (baseline.length >= 2) {
+            if (baseline.length >= 1) {
               const pcts = baseline.map(c => c.r.genderPos / c.dist.finisherCount).sort((x, y) => x - y);
               const median = pcts[Math.floor(pcts.length / 2)]!;
               const pctA = a.r.genderPos > 0 && a.dist.finisherCount > 0 ? a.r.genderPos / a.dist.finisherCount : null;
@@ -613,7 +621,8 @@ export function buildAthletesIndex(
               if (pctA !== null && pctB !== null) {
                 const diffA = Math.abs(pctA - median);
                 const diffB = Math.abs(pctB - median);
-                if ((diffA <= 0.15 && diffB > 0.25) || (diffB <= 0.15 && diffA > 0.25)) {
+                const [closeThresh, farThresh] = baseline.length >= 2 ? [0.15, 0.25] : [0.10, 0.35];
+                if ((diffA <= closeThresh && diffB > farThresh) || (diffB <= closeThresh && diffA > farThresh)) {
                   const keptC = diffA < diffB ? a : b;
                   const routedC = diffA < diffB ? b : a;
                   mainCandidates.push(keptC);

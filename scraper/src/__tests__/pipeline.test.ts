@@ -911,6 +911,18 @@ describe("buildAthletesIndex — Pass 5c: same-year solo grouping", () => {
     expect(soloFlags[0]!.resolution).toBe("distance");
   });
 
+  it("collision same event + different distances, no prior events → resolved by distance (no baseline needed)", () => {
+    const event = mkEvent(1, 2026, "2026-02-15");
+    const loader = () => mkEventResults(1, 2026, "2026-02-15", [
+      { id: "1", name: "Granfondo",  finisherCount: 100, results: [mkResult({ bib: "A", name: "Joao Silva", nameLower: "joao silva", team: "", category: "MASTERS A", genderPos: 20, athleteId: 0 })] },
+      { id: "2", name: "Mediofondo", finisherCount: 80,  results: [mkResult({ bib: "B", name: "Joao Silva", nameLower: "joao silva", team: "", category: "MASTERS A", genderPos: 15, athleteId: 0 })] },
+    ]);
+    const { index, soloFlags } = runPipeline([event], loader);
+    expect([...index.values()].filter(e => e.nameLower === "joao silva").length).toBe(2);
+    expect(soloFlags.length).toBe(1);
+    expect(soloFlags[0]!.resolution).toBe("distance");
+  });
+
   it("unresolvable collision (no baseline) → both bib-keyed + flagged_manual", () => {
     const events = [mkEvent(1, 2026, "2026-02-15")];
     const loader = () => mkEventResults(1, 2026, "2026-02-15", [{
@@ -1189,5 +1201,42 @@ describe("buildAthletesIndex — athlete-aliases regression (Pass 5e/5f)", () =>
     const entries = [...index.values()].filter(e => e.nameLower === "miguel garcia");
     expect(entries.length).toBe(1);
     expect(entries[0]!.results.length).toBe(2);
+  });
+});
+
+// ── buildAthletesIndex — Pass 6: manual result assignments ─────────────────
+
+describe("buildAthletesIndex — Pass 6: manual result assignments", () => {
+  it("manually assigned result exempt from post-pass category sweep", () => {
+    // Athlete has 5× MASTERS B results. One MASTERS A result at event 6 is manually
+    // assigned to the same athlete via resultAssignments. The post-pass sweep must NOT
+    // drop it even though it's a category outlier (1 vs 5).
+    const events = [1, 2, 3, 4, 5, 6].map(id => mkEvent(id, 2026, `2026-0${id}-01`));
+    const idStore: AthleteIdStore = new Map([["carlos matos|solo:Masters B Male:2026", 100]]);
+    const loader = (id: number) => mkEventResults(id, 2026, `2026-0${id}-01`, [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({ bib: String(id), name: "Carlos Matos", nameLower: "carlos matos", team: "", category: id < 6 ? "MASTERS B" : "MASTERS A", genderPos: 10, athleteId: 0 })],
+    }]);
+    const assignments: ResultAssignment[] = [{ athleteId: 100, eventId: 6, bib: "6" }];
+    const { index } = buildAthletesIndex(events, loader, [], assignments, idStore);
+    const entry = [...index.values()].find(e => e.id === 100);
+    expect(entry).toBeDefined();
+    expect(entry!.results.length).toBe(6);
+    expect(entry!.results.some(r => r.category === "MASTERS A")).toBe(true);
+  });
+
+  it("without manual assignment, category outlier is dropped by post-pass sweep", () => {
+    // Same setup but no resultAssignment → the MASTERS A result is dropped normally.
+    const events = [1, 2, 3, 4, 5, 6].map(id => mkEvent(id, 2026, `2026-0${id}-01`));
+    const idStore: AthleteIdStore = new Map([["carlos matos|solo:Masters B Male:2026", 100]]);
+    const loader = (id: number) => mkEventResults(id, 2026, `2026-0${id}-01`, [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({ bib: String(id), name: "Carlos Matos", nameLower: "carlos matos", team: "", category: id < 6 ? "MASTERS B" : "MASTERS A", genderPos: 10, athleteId: 0 })],
+    }]);
+    const { index } = buildAthletesIndex(events, loader, [], [], idStore);
+    const entry = [...index.values()].find(e => e.id === 100);
+    expect(entry).toBeDefined();
+    expect(entry!.results.length).toBe(5);
+    expect(entry!.results.every(r => r.category === "MASTERS B")).toBe(true);
   });
 });
