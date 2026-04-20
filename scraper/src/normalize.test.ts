@@ -9,17 +9,13 @@ import {
   normalizeName,
   fixRawTeamName,
   canonicalTeam,
-  posToBasePoints,
-  finisherCoefficient,
-  rankToTeamBasePoints,
-  teamCoefficient,
   timeToSeconds,
   formatTime,
   parseEventDate,
   getYear,
   isPast,
   levenshteinDistance,
-} from "../normalize.js";
+} from "./normalize.js";
 
 // ── normalizeTeam ──────────────────────────────────────────────────────────────
 
@@ -57,24 +53,18 @@ describe("teamKeySimilarity", () => {
   });
 
   it("compact equality: spaced vs concatenated", () => {
-    // "dbl bike" compacted → "dblbike"; "dblbike" compacted → "dblbike"
     expect(teamKeySimilarity("dbl bike", "dblbike")).toBe(1);
   });
 
   it("compact prefix: zossvog vs zoss vog cacb", () => {
-    // normalizeTeam("Zoss Vog") = "zoss vog", compact "zossvog"
-    // normalizeTeam("Zoss Vog CACB") = "zoss vog cacb", compact "zossvogcacb"
-    // "zossvog" is 7/11 = 63.6% prefix → above 0.6 threshold → 1
     expect(teamKeySimilarity("zoss vog", "zoss vog cacb")).toBe(1);
   });
 
   it("compact prefix: shorter name with ≥60% coverage", () => {
-    expect(teamKeySimilarity("abcdef", "abcdefghij")).toBe(1); // 6/10 = 60%
+    expect(teamKeySimilarity("abcdef", "abcdefghij")).toBe(1);
   });
 
   it("compact prefix: coverage below 60% returns <1", () => {
-    // "abc" (3 chars) is a prefix of "abcdefghij" (10 chars) but only 30% — below threshold
-    // Also length < 4 so the guard fails too
     expect(teamKeySimilarity("abc", "abcdefghij")).toBeLessThan(1);
   });
 
@@ -87,13 +77,11 @@ describe("teamKeySimilarity", () => {
   });
 
   it("returns 0 when one side has no significant tokens (all < 3 chars)", () => {
-    // "ab" has no token ≥3 chars → tokA.length === 0 → returns 0
     expect(teamKeySimilarity("ab", "vivavita")).toBe(0);
     expect(teamKeySimilarity("vivavita", "cd")).toBe(0);
   });
 
   it("jaccard: partial overlap", () => {
-    // "abc", "def" in both; "ghi" / "jkl" differ → intersection 2, union 4 = 0.5
     const sim = teamKeySimilarity("abc def ghi", "abc def jkl");
     expect(sim).toBeGreaterThanOrEqual(0.5);
     expect(sim).toBeLessThan(1);
@@ -288,11 +276,11 @@ describe("normalizeName", () => {
 describe("fixRawTeamName", () => {
   it("converts caret-circumflex encoding", () => {
     expect(fixRawTeamName("Almodo^var")).toBe("Almodôvar");
-    expect(fixRawTeamName("a^")).toBe("â");  // 'a' is a vowel
+    expect(fixRawTeamName("a^")).toBe("â");
   });
 
   it("does not convert non-vowel before caret", () => {
-    expect(fixRawTeamName("Enc^aixe")).toBe("Enc^aixe"); // 'c' is not a vowel
+    expect(fixRawTeamName("Enc^aixe")).toBe("Enc^aixe");
   });
 
   it("leaves normal names unchanged", () => {
@@ -319,77 +307,6 @@ describe("canonicalTeam", () => {
   });
 });
 
-// ── posToBasePoints ───────────────────────────────────────────────────────────
-
-describe("posToBasePoints", () => {
-  it("returns 75 for position 1", () => expect(posToBasePoints(1)).toBe(75));
-  it("returns 65 for position 2", () => expect(posToBasePoints(2)).toBe(65));
-  it("returns 60 for position 3", () => expect(posToBasePoints(3)).toBe(60));
-  it("returns 55 for position 4", () => expect(posToBasePoints(4)).toBe(55));
-  it("returns 50 for position 5", () => expect(posToBasePoints(5)).toBe(50));
-  it("returns 45 for position 6", () => expect(posToBasePoints(6)).toBe(45));
-  it("returns 40 for position 7", () => expect(posToBasePoints(7)).toBe(40));
-  it("returns 35 for position 8", () => expect(posToBasePoints(8)).toBe(35));
-  it("returns 30 for position 9", () => expect(posToBasePoints(9)).toBe(30));
-  it("returns 25 for position 10", () => expect(posToBasePoints(10)).toBe(25));
-  it("returns 7 for position 20", () => expect(posToBasePoints(20)).toBe(7));
-  it("returns 5 for position 25", () => expect(posToBasePoints(25)).toBe(5));
-  it("returns 1 for position 50", () => expect(posToBasePoints(50)).toBe(1));
-  it("returns 0 for position 51", () => expect(posToBasePoints(51)).toBe(0));
-  it("returns 0 for position 0", () => expect(posToBasePoints(0)).toBe(0));
-});
-
-// ── finisherCoefficient ───────────────────────────────────────────────────────
-
-describe("finisherCoefficient", () => {
-  it("returns 1.00 at reference (300 finishers)", () => {
-    expect(finisherCoefficient(300)).toBe(1);
-  });
-
-  it("returns 0.50 for 75 finishers (quarter reference)", () => {
-    expect(finisherCoefficient(75)).toBe(0.5);
-  });
-
-  it("returns > 1 for more than 300 finishers", () => {
-    expect(finisherCoefficient(600)).toBeGreaterThan(1);
-  });
-
-  it("returns > 0 for 1 finisher", () => {
-    expect(finisherCoefficient(1)).toBeGreaterThan(0);
-  });
-
-  it("rounds to 2 decimal places", () => {
-    const c = finisherCoefficient(150);
-    expect(c).toBe(Math.round(c * 100) / 100);
-  });
-});
-
-// ── rankToTeamBasePoints ──────────────────────────────────────────────────────
-
-describe("rankToTeamBasePoints", () => {
-  it("returns 25 for rank 1", () => expect(rankToTeamBasePoints(1)).toBe(25));
-  it("returns 20 for rank 2", () => expect(rankToTeamBasePoints(2)).toBe(20));
-  it("returns 15 for rank 3", () => expect(rankToTeamBasePoints(3)).toBe(15));
-  it("returns 1 for rank 10", () => expect(rankToTeamBasePoints(10)).toBe(1));
-  it("returns 0 for rank 11", () => expect(rankToTeamBasePoints(11)).toBe(0));
-});
-
-// ── teamCoefficient ───────────────────────────────────────────────────────────
-
-describe("teamCoefficient", () => {
-  it("returns 1.00 at reference (80 teams)", () => {
-    expect(teamCoefficient(80)).toBe(1);
-  });
-
-  it("returns < 1 for fewer than 80 teams", () => {
-    expect(teamCoefficient(20)).toBeLessThan(1);
-  });
-
-  it("returns > 0 for 1 team", () => {
-    expect(teamCoefficient(1)).toBeGreaterThan(0);
-  });
-});
-
 // ── timeToSeconds ─────────────────────────────────────────────────────────────
 
 describe("timeToSeconds", () => {
@@ -411,7 +328,7 @@ describe("timeToSeconds", () => {
   });
 
   it("returns 0 for malformed string (not HH:MM:SS)", () => {
-    expect(timeToSeconds("01:30")).toBe(0);  // only 2 parts
+    expect(timeToSeconds("01:30")).toBe(0);
     expect(timeToSeconds("invalid")).toBe(0);
   });
 });
@@ -480,7 +397,6 @@ describe("levenshteinDistance", () => {
 
   it("single substitution", () => {
     expect(levenshteinDistance("abc", "xbc")).toBe(1);
-    // Real-world: 'o' vs 's' typo in source data
     expect(levenshteinDistance("antonio pereira", "antsnio pereira")).toBe(1);
     expect(levenshteinDistance("antonio henriques", "antsnio henriques")).toBe(1);
     expect(levenshteinDistance("line ostergaard", "line stergaard")).toBe(1);
@@ -489,7 +405,6 @@ describe("levenshteinDistance", () => {
   it("single insertion / deletion", () => {
     expect(levenshteinDistance("abc", "ab")).toBe(1);
     expect(levenshteinDistance("ab", "abc")).toBe(1);
-    // Real-world: doubled letter in source data
     expect(levenshteinDistance("vasco botelhho", "vasco botelho")).toBe(1);
     expect(levenshteinDistance("joao guerrreiro", "joao guerreiro")).toBe(1);
     expect(levenshteinDistance("francissco cesar", "francisco cesar")).toBe(1);
@@ -497,9 +412,7 @@ describe("levenshteinDistance", () => {
   });
 
   it("distance 2 — real-world transposition / two-char diff", () => {
-    // 'coast' vs 'costa' — two edits
     expect(levenshteinDistance("nuno coast", "nuno costa")).toBe(2);
-    // 'dasilva' vs 'silva' — two deletes
     expect(levenshteinDistance("pedro dasilva", "pedro silva")).toBe(2);
   });
 

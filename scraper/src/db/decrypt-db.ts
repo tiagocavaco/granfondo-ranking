@@ -10,7 +10,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import * as crypto from "crypto";
+import { decryptBuffer } from "./encrypt.js";
 
 const envFile = path.join(import.meta.dirname, "..", ".env");
 if (fs.existsSync(envFile)) {
@@ -27,13 +27,7 @@ const encPath = path.resolve(import.meta.dirname, "../../frontend/public/data/da
 const outPath = process.argv[2] ?? "/tmp/granfondo.db";
 
 const enc = fs.readFileSync(encPath);
-const key = Buffer.from(keyHex, "hex");
-const iv = enc.subarray(0, 12);
-const tag = enc.subarray(12, 28);
-const ct = enc.subarray(28);
-const d = crypto.createDecipheriv("aes-256-gcm", key, iv);
-d.setAuthTag(tag);
-const plain = Buffer.concat([d.update(ct), d.final()]);
+const plain = decryptBuffer(enc, keyHex);
 
 fs.writeFileSync(outPath, plain);
 console.log(`Decrypted DB written to: ${outPath}`);

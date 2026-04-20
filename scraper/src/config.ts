@@ -1,9 +1,12 @@
 /**
  * config.ts
  *
- * Static event configuration: supplemental IDs, official URLs, default distances,
- * and participant list URLs. Update here when adding new events.
+ * Static event configuration: seasons, supplemental IDs, official URLs,
+ * default distances, and participant list URLs. Update here when adding new events.
  */
+
+export const YEARS = [2025, 2026]; // seasons to include in scrape and rankings
+export const DELAY_MS = 400;       // polite delay between API requests (ms)
 
 /**
  * Supplemental event IDs that are Portuguese granfondo-series events but don't

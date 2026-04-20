@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { extractEscalaoOptions, escalaoToGender } from "../external.js";
+import { escalaoToGender, extractEscalaoOptions } from "./apedalar.js";
 
 // ── escalaoToGender ────────────────────────────────────────────────────────────
 
@@ -25,7 +25,6 @@ describe("escalaoToGender", () => {
   });
 
   it("defaults to M when suffix is ambiguous", () => {
-    // no suffix at all → treat as M (safe default)
     expect(escalaoToGender("Elites")).toBe("M");
     expect(escalaoToGender("Open")).toBe("M");
   });
@@ -43,12 +42,7 @@ describe("extractEscalaoOptions", () => {
         <option value="Elites FEM">Elites FEM</option>
       </select>
     `;
-    expect(extractEscalaoOptions(html, "{}")).toEqual([
-      "Juniores M",
-      "Elites M",
-      "Masters A M",
-      "Elites FEM",
-    ]);
+    expect(extractEscalaoOptions(html, "{}")).toEqual(["Juniores M", "Elites M", "Masters A M", "Elites FEM"]);
   });
 
   it("extracts options from wire:model (no .live) select element", () => {
@@ -65,7 +59,6 @@ describe("extractEscalaoOptions", () => {
         <option value='Sub 23 M'>Sub 23 M</option>
       </select>
     `;
-    // empty value '' is filtered out
     expect(extractEscalaoOptions(html, "{}")).toEqual(["Elites M", "Masters 30 M", "Sub 23 M"]);
   });
 
@@ -74,17 +67,12 @@ describe("extractEscalaoOptions", () => {
       data: { escaloes: ["Elites M", "Masters A M", "Masters A F"] },
       memo: { name: "frontend.tempos.tempos-table" },
     });
-    expect(extractEscalaoOptions("", snapshot)).toEqual([
-      "Elites M",
-      "Masters A M",
-      "Masters A F",
-    ]);
+    expect(extractEscalaoOptions("", snapshot)).toEqual(["Elites M", "Masters A M", "Masters A F"]);
   });
 
   it("prefers HTML select over snapshot when both are present", () => {
     const html = `<select wire:model.live="escalao"><option value="Elites M">Elites M</option></select>`;
     const snapshot = JSON.stringify({ data: { escaloes: ["Masters A M"] } });
-    // HTML select wins
     expect(extractEscalaoOptions(html, snapshot)).toEqual(["Elites M"]);
   });
 
@@ -103,7 +91,6 @@ describe("extractEscalaoOptions", () => {
         <option value="Elites M">Elites M</option>
       </select>
     `;
-    // empty value "" is filtered out
     expect(extractEscalaoOptions(html, "{}")).toEqual(["Elites M"]);
   });
 });

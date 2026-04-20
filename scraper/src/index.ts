@@ -1,15 +1,10 @@
 import fs from "fs";
-import os from "os";
 import path from "path";
-import { createDecipheriv } from "crypto";
 import { fileURLToPath } from "url";
 
 import BetterSqlite3 from "better-sqlite3";
-import { drizzle } from "drizzle-orm/better-sqlite3";
-import { eq, inArray } from "drizzle-orm";
-import * as schema from "@granfondo/database/schema";
 
-import { fetchAllEvents, fetchUpcomingEvents, fetchNetEventById, fetchParticipants, fetchResults } from "./api.js";
+import { fetchParticipants, fetchResults } from "./scrapers/stopandgo.js";
 import {
   EXTERNAL_EVENTS,
   MANUAL_UPCOMING_EVENTS,
@@ -19,40 +14,34 @@ import {
   scrapeEtapaDaVolta,
   scrapeListaParticipants,
 } from "./external.js";
+import { isPast } from "./normalize.js";
 import {
-  parseEventDate,
-  getYear,
-  isPast,
-} from "./normalize.js";
-import {
-  isGranfondoName,
-  isKidsCamVariant,
   extractDistances,
   assignGenderPositions,
   transformResult,
 } from "./transform.js";
 import {
   buildAthletesIndex,
-  buildAggregateRanking,
-  buildTeamRanking,
-  type AthleteIdStore,
   type AthleteAliasRule,
   type ResultAssignment,
-} from "./pipeline.js";
+} from "./pipeline/pipeline.js";
+import { buildAggregateRanking, buildTeamRanking } from "./pipeline/ranking.js";
 import {
-  SUPPLEMENTAL_EVENT_IDS,
-  OFFICIAL_EVENT_URLS,
+  YEARS,
+  DELAY_MS,
   DEFAULT_DISTANCES,
   LISTA_URLS,
 } from "./config.js";
+import { DATA_DIR, ATHLETE_ALIASES_PATH, RESULT_ASSIGNMENTS_PATH, SCRAPED_EVENTS_PATH, DB_ENC_PATH } from "./paths.js";
 import { normalizeName } from "./normalize.js";
 import { buildDatabase, type AllScrapedData } from "@granfondo/database/db-writer";
-import { encryptBuffer } from "./encrypt.js";
+import { encryptBuffer } from "./db/encrypt.js";
+import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadExistingEventIds, writeParticipantsToDb } from "./db/db-loader.js";
+import { discoverGranfondos } from "./scrapers/stopandgo.js";
 import type {
   StoredEvent,
   StoredEventResults,
   StoredDistanceResults,
-  StoredResult,
   StoredParticipant,
   AthleteEntry,
   AggregateRanking,
@@ -62,10 +51,9 @@ import type { ApiAthlete } from "./types.js";
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 // Load .env from scraper root if present (local dev). CI injects env vars directly.
 {
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const envFile = path.join(__dirname, "..", ".env");
   if (fs.existsSync(envFile)) {
     for (const line of fs.readFileSync(envFile, "utf-8").split("\n")) {
@@ -74,16 +62,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
     }
   }
 }
-const DATA_DIR = path.join(__dirname, "..", "..", "frontend", "public", "data");
-const ATHLETE_ALIASES_PATH = path.join(__dirname, "..", "athlete-aliases.json");
-const RESULT_ASSIGNMENTS_PATH = path.join(__dirname, "..", "result-assignments.json");
-const SCRAPED_EVENTS_PATH = path.join(__dirname, "..", "scraped-events.json");
-const DB_ENC_PATH = path.join(DATA_DIR, "data.db.enc");
-const TMP_DB_PATH = path.join(os.tmpdir(), `granfondo-${process.pid}.db`);
+
 const FORCE = process.argv.includes("--force");
 const PARTICIPANTS_ONLY = process.argv.includes("--participants");
-const YEARS = [2025, 2026]; // seasons to include
-const DELAY_MS = 400; // polite delay between requests
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -106,142 +87,12 @@ function apiAthleteToParticipant(a: ApiAthlete): StoredParticipant {
   };
 }
 
-// ── Source-DB helpers ─────────────────────────────────────────────────────────
-
-/** Decrypts data.db.enc to a writable temp file and returns an open BetterSqlite3 DB. */
-function openSourceDb(): BetterSqlite3.Database | null {
-  if (!fs.existsSync(DB_ENC_PATH)) return null;
-  const keyHex = process.env.DATA_KEY;
-  if (!keyHex) return null;
-  try {
-    const enc = fs.readFileSync(DB_ENC_PATH);
-    const iv  = enc.subarray(0, 12);
-    const tag = enc.subarray(12, 28);
-    const ct  = enc.subarray(28);
-    const key = Buffer.from(keyHex, "hex");
-    const d = createDecipheriv("aes-256-gcm", key, iv);
-    d.setAuthTag(tag);
-    const plain = Buffer.concat([d.update(ct), d.final()]);
-    fs.writeFileSync(TMP_DB_PATH, plain);
-    return new BetterSqlite3(TMP_DB_PATH);
-  } catch (err) {
-    console.warn("⚠️  Could not open source DB:", err);
-    return null;
-  }
-}
-
-function closeSourceDb(db: BetterSqlite3.Database | null): void {
-  db?.close();
-  try { if (fs.existsSync(TMP_DB_PATH)) fs.unlinkSync(TMP_DB_PATH); } catch {}
-}
-
-/** Reconstruct StoredEventResults for one event from an open source DB. */
-function loadResultsFromDb(
-  sourceDb: BetterSqlite3.Database,
-  event: StoredEvent,
-): StoredEventResults | null {
-  const db = drizzle(sourceDb, { schema });
-
-  const rows = db.select().from(schema.results)
-    .where(eq(schema.results.eventId, event.id))
-    .orderBy(schema.results.distanceId, schema.results.pos, schema.results.name)
-    .all();
-
-  if (rows.length === 0) return null;
-
-  // Fetch all licences for these results in one typed query
-  const resultIds = rows.map((r) => r.id);
-  const licenceRows = db.select().from(schema.resultLicences)
-    .where(inArray(schema.resultLicences.resultId, resultIds))
-    .all();
-
-  const licencesByResultId = new Map<number, string[]>();
-  for (const lr of licenceRows) {
-    if (!licencesByResultId.has(lr.resultId)) licencesByResultId.set(lr.resultId, []);
-    licencesByResultId.get(lr.resultId)!.push(lr.licence);
-  }
-
-  const eventRow = db.select({ scrapedAt: schema.events.scrapedAt })
-    .from(schema.events)
-    .where(eq(schema.events.id, event.id))
-    .get();
-  const scrapedAt = eventRow?.scrapedAt ?? event.scrapedAt ?? new Date().toISOString();
-
-  const distanceMap = new Map<string, StoredDistanceResults>();
-  for (const row of rows) {
-    if (!distanceMap.has(row.distanceId)) {
-      distanceMap.set(row.distanceId, {
-        id: row.distanceId,
-        name: row.distanceName,
-        finisherCount: row.finisherCount,
-        results: [],
-      });
-    }
-    const dist = distanceMap.get(row.distanceId)!;
-    dist.results.push({
-      pos:          row.pos,
-      genderPos:    row.genderPos,
-      athleteId:    row.athleteId,
-      bib:          row.bib,
-      name:         row.name,
-      nameLower:    row.nameLower,
-      gender:       row.gender,
-      team:         row.team,
-      category:     row.category,
-      country:      row.country,
-      raceTime:     row.raceTime,
-      raceTimeSecs: row.raceTimeSecs,
-      gap:          row.gap,
-      gapSecs:      row.gapSecs,
-      points:       row.points,
-      dnf:          row.dnf === 1,
-      dns:          row.dns === 1,
-      licences:     licencesByResultId.get(row.id) ?? [],
-    });
-  }
-
-  return {
-    eventId:   event.id,
-    eventName: event.name,
-    eventDate: event.date,
-    eventYear: event.year,
-    scrapedAt,
-    distances: Array.from(distanceMap.values()),
-  };
-}
-
-// ── Athlete ID store ──────────────────────────────────────────────────────────
-
-function loadIdStore(sourceDb: BetterSqlite3.Database | null): AthleteIdStore {
-  if (!sourceDb) return new Map();
-  try {
-    const rows = drizzle(sourceDb, { schema }).select().from(schema.athleteLookup).all();
-    return new Map(rows.map((r) => [r.key, r.athleteId]));
-  } catch {
-    return new Map();
-  }
-}
-
-function loadAthleteAliases(): AthleteAliasRule[] {
-  if (!fs.existsSync(ATHLETE_ALIASES_PATH)) return [];
-  return JSON.parse(fs.readFileSync(ATHLETE_ALIASES_PATH, "utf-8")) as AthleteAliasRule[];
-}
-
-function loadResultAssignments(): ResultAssignment[] {
-  if (!fs.existsSync(RESULT_ASSIGNMENTS_PATH)) return [];
-  return JSON.parse(fs.readFileSync(RESULT_ASSIGNMENTS_PATH, "utf-8")) as ResultAssignment[];
-}
-
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function outPath(filename: string) {
-  return path.join(DATA_DIR, filename);
-}
-
-/** Used only for flag JSON files and scraped-events index. */
+/** Used only for flag JSON files. */
 function writeJson(filename: string, data: unknown) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
-  fs.writeFileSync(outPath(filename), JSON.stringify(data, null, 2), "utf-8");
+  fs.writeFileSync(path.join(DATA_DIR, filename), JSON.stringify(data, null, 2), "utf-8");
 }
 
 async function sleep(ms: number) {
@@ -260,6 +111,18 @@ function resolveDistances(athletes: StoredParticipant[], eventId: number) {
   return distances.length > 0 ? distances : (DEFAULT_DISTANCES[eventId] ?? []);
 }
 
+// ── Config loaders ────────────────────────────────────────────────────────────
+
+function loadAthleteAliases(): AthleteAliasRule[] {
+  if (!fs.existsSync(ATHLETE_ALIASES_PATH)) return [];
+  return JSON.parse(fs.readFileSync(ATHLETE_ALIASES_PATH, "utf-8")) as AthleteAliasRule[];
+}
+
+function loadResultAssignments(): ResultAssignment[] {
+  if (!fs.existsSync(RESULT_ASSIGNMENTS_PATH)) return [];
+  return JSON.parse(fs.readFileSync(RESULT_ASSIGNMENTS_PATH, "utf-8")) as ResultAssignment[];
+}
+
 // ── Scraped-events index ──────────────────────────────────────────────────────
 
 function loadScrapedEvents(): Record<string, string> {
@@ -271,7 +134,7 @@ function saveScrapedEvents(index: Record<string, string>): void {
   fs.writeFileSync(SCRAPED_EVENTS_PATH, JSON.stringify(index, null, 2), "utf-8");
 }
 
-// ── Database builder ──────────────────────────────────────────────────────────
+// ── Database output ───────────────────────────────────────────────────────────
 
 async function writeEncryptedDatabase(
   scraped: StoredEvent[],
@@ -318,105 +181,6 @@ async function writeEncryptedDatabase(
   console.log(`✓ scraped-events.json — ${Object.keys(scrapedEvents).length} stable events`);
 }
 
-// ── Event discovery ───────────────────────────────────────────────────────────
-
-async function discoverGranfondos(): Promise<StoredEvent[]> {
-  console.log("🔍 Fetching event list from StopAndGo API…");
-  const all = await fetchAllEvents();
-
-  const supplementalSet = new Set(SUPPLEMENTAL_EVENT_IDS);
-
-  const granfondos = all.filter((e) => {
-    const date = parseEventDate(e.data);
-    const year = getYear(date);
-    if (!YEARS.includes(year)) return false;
-    if (isKidsCamVariant(e.nome)) return false;
-    return isGranfondoName(e.nome) || supplementalSet.has(Number(e.id_evento));
-  });
-
-  const pastEvents: StoredEvent[] = granfondos.map((e) => {
-    const id = Number(e.id_evento);
-    return {
-      id,
-      name: e.nome,
-      year: getYear(parseEventDate(e.data)),
-      date: parseEventDate(e.data),
-      location: e.local,
-      officialUrl: OFFICIAL_EVENT_URLS[id] ?? `https://stopandgo.net/events/${id}`,
-      resultsUrl: `https://results.stopandgo.pro/${id}`,
-      hasResults: false,
-      distances: [],
-      participantCount: 0,
-      finisherCount: 0,
-      scrapedAt: null,
-    };
-  });
-
-  const pastIds = new Set(pastEvents.map((e) => e.id));
-  const seenIds = new Set(pastIds);
-  const upcomingEvents: StoredEvent[] = [];
-
-  for (const year of YEARS) {
-    const netEvents = await fetchUpcomingEvents(year);
-    for (const e of netEvents) {
-      if (isKidsCamVariant(e.nome)) continue;
-      if (!isGranfondoName(e.nome) && !supplementalSet.has(e.id)) continue;
-      if (seenIds.has(e.id)) continue;
-      seenIds.add(e.id);
-      const date = e.data_inicio?.slice(0, 10) ?? "";
-      if (!date) continue;
-      const eventYear = getYear(date);
-      if (!YEARS.includes(eventYear)) continue;
-      const location = (e.location ?? "").split(",")[0]?.trim() ?? "";
-      upcomingEvents.push({
-        id: e.id,
-        name: e.nome,
-        year: eventYear,
-        date,
-        location,
-        officialUrl: OFFICIAL_EVENT_URLS[e.id] ?? `https://stopandgo.net/events/${e.id}`,
-        resultsUrl: `https://results.stopandgo.pro/${e.id}`,
-        hasResults: false,
-        distances: [],
-        participantCount: 0,
-        finisherCount: 0,
-        scrapedAt: null,
-      });
-    }
-  }
-
-  for (const id of SUPPLEMENTAL_EVENT_IDS) {
-    if (seenIds.has(id)) continue;
-    const e = await fetchNetEventById(id);
-    if (!e) continue;
-    const date = e.data_inicio?.slice(0, 10) ?? "";
-    if (!date) continue;
-    const eventYear = getYear(date);
-    if (!YEARS.includes(eventYear)) continue;
-    if (isPast(date)) continue;
-    const location = (e.location ?? "").split(",")[0]?.trim() ?? "";
-    seenIds.add(id);
-    upcomingEvents.push({
-      id,
-      name: e.nome,
-      year: eventYear,
-      date,
-      location,
-      officialUrl: OFFICIAL_EVENT_URLS[id] ?? `https://stopandgo.net/events/${id}`,
-      resultsUrl: `https://results.stopandgo.pro/${id}`,
-      hasResults: false,
-      distances: [],
-      participantCount: 0,
-      finisherCount: 0,
-      scrapedAt: null,
-    });
-  }
-
-  console.log(`   Found ${pastEvents.length} past + ${upcomingEvents.length} upcoming granfondos in ${YEARS.join(", ")}\n`);
-
-  return [...pastEvents, ...upcomingEvents];
-}
-
 // ── Per-event scraping ────────────────────────────────────────────────────────
 
 async function scrapeEvent(
@@ -426,7 +190,7 @@ async function scrapeEvent(
 ): Promise<ScrapeResult> {
   const label = `[${event.id}] ${event.name} (${event.date})`;
 
-  // ── Step 1: participants / distance discovery ──────────────────────────────
+  // Step 1: participants / distance discovery
   let athletes: StoredParticipant[] = [];
   try {
     athletes = await fetchEventParticipants(event.id);
@@ -445,7 +209,7 @@ async function scrapeEvent(
     return { event, participants: athletes };
   }
 
-  // ── Step 2: results per distance ──────────────────────────────────────────
+  // Step 2: results per distance
   const isStable = !FORCE && (String(event.id) in scrapedEvents) && sourceDb !== null;
 
   if (isStable) {
@@ -531,14 +295,10 @@ async function scrapeParticipants() {
     return;
   }
 
-  const db = drizzle(sourceDb, { schema });
-  const existingEventIds = new Set(
-    db.select({ id: schema.events.id }).from(schema.events).all().map((r) => r.id)
-  );
+  const existingEventIds = loadExistingEventIds(sourceDb);
 
   const events = await discoverGranfondos();
 
-  // Collect all events for DB update, fetching participants for upcoming ones
   const updatedParticipants = new Map<number, { event: StoredEvent; athletes: StoredParticipant[] }>();
 
   for (const event of events) {
@@ -571,46 +331,7 @@ async function scrapeParticipants() {
     }
   }
 
-  // Surgical DB update inside a single transaction
-  sourceDb.transaction(() => {
-    for (const [eventId, { event, athletes }] of updatedParticipants) {
-      if (!existingEventIds.has(eventId)) {
-        db.insert(schema.events).values({
-          id:               eventId,
-          name:             event.name,
-          year:             event.year,
-          date:             event.date,
-          location:         event.location ?? "",
-          officialUrl:      event.officialUrl ?? null,
-          resultsUrl:       event.resultsUrl,
-          hasResults:       0,
-          participantCount: 0,
-          finisherCount:    0,
-          scrapedAt:        null,
-        }).onConflictDoNothing().run();
-      }
-
-      db.update(schema.events)
-        .set({ participantCount: event.participantCount })
-        .where(eq(schema.events.id, eventId))
-        .run();
-
-      db.delete(schema.eventDistances)
-        .where(eq(schema.eventDistances.eventId, eventId))
-        .run();
-      for (const d of event.distances) {
-        db.insert(schema.eventDistances).values({ id: d.id, eventId, name: d.name })
-          .onConflictDoNothing().run();
-      }
-
-      db.delete(schema.participants)
-        .where(eq(schema.participants.eventId, eventId))
-        .run();
-      for (const a of athletes) {
-        db.insert(schema.participants).values({ eventId, ...a }).run();
-      }
-    }
-  })();
+  writeParticipantsToDb(sourceDb, updatedParticipants, existingEventIds);
 
   const dbBuffer = sourceDb.serialize() as Buffer;
   const encrypted = encryptBuffer(dbBuffer, keyHex);

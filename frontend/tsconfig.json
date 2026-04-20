@@ -14,10 +14,10 @@
     "strict": true,
     "types": ["vite/client"],
     "paths": {
-      "@granfondo/database/schema": ["../packages/db/src/schema.ts"],
-      "@granfondo/database/types": ["../packages/db/src/types.ts"],
-      "@granfondo/database/db-writer": ["../packages/db/src/db-writer.ts"],
-      "@granfondo/database/db-client": ["../packages/db/src/db-client.ts"]
+      "@granfondo/database/schema": ["../database/src/schema.ts"],
+      "@granfondo/database/types": ["../database/src/types.ts"],
+      "@granfondo/database/db-writer": ["../database/src/db-writer.ts"],
+      "@granfondo/database/db-client": ["../database/src/db-client.ts"]
     }
   },
   "include": ["src"]
