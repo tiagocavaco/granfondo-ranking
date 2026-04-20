@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
-import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "@granfondo/db/types";
+import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
 
 interface Props {

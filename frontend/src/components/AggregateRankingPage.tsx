@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
-import type { AggregateRanking, AggregateAthlete } from "@granfondo/db/types";
+import type { AggregateRanking, AggregateAthlete } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
 
 const POINTS_MAX = 50; // total points available per race

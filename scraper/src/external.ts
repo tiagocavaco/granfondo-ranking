@@ -14,7 +14,7 @@ import type {
   StoredDistanceResults,
   StoredResult,
   StoredParticipant,
-} from "@granfondo/db/types";
+} from "@granfondo/database/types";
 import { normalizeName, timeToSeconds } from "./normalize.js";
 
 // ── Constants ─────────────────────────────────────────────────────────────────

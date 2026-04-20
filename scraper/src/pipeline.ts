@@ -41,7 +41,7 @@ import type {
   AggregateRanking,
   TeamRanking,
   TeamEntry,
-} from "@granfondo/db/types";
+} from "@granfondo/database/types";
 
 export type { AthleteEntry };
 export type ResultsLoader = (id: number) => StoredEventResults | null;

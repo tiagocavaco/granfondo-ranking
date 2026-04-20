@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
-import type { TeamRanking, TeamEntry } from "@granfondo/db/types";
+import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 

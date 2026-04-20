@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 import BetterSqlite3 from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import { eq, inArray } from "drizzle-orm";
-import * as schema from "@granfondo/db/schema";
+import * as schema from "@granfondo/database/schema";
 
 import { fetchAllEvents, fetchUpcomingEvents, fetchNetEventById, fetchParticipants, fetchResults } from "./api.js";
 import {
@@ -46,7 +46,7 @@ import {
   LISTA_URLS,
 } from "./config.js";
 import { normalizeName } from "./normalize.js";
-import { buildDatabase, type AllScrapedData } from "@granfondo/db/db-writer";
+import { buildDatabase, type AllScrapedData } from "@granfondo/database/db-writer";
 import { encryptBuffer } from "./encrypt.js";
 import type {
   StoredEvent,
@@ -57,7 +57,7 @@ import type {
   AthleteEntry,
   AggregateRanking,
   TeamRanking,
-} from "@granfondo/db/types";
+} from "@granfondo/database/types";
 import type { ApiAthlete } from "./types.js";
 
 // ── Config ────────────────────────────────────────────────────────────────────

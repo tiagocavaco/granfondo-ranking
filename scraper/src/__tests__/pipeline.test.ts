@@ -28,7 +28,7 @@ import type {
   StoredDistanceResults,
   StoredResult,
   AthleteEntry,
-} from "@granfondo/db/types";
+} from "@granfondo/database/types";
 
 // ── Fixtures ──────────────────────────────────────────────────────────────────
 

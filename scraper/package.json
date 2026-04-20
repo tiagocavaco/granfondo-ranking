@@ -20,7 +20,7 @@
     "vitest": "^4.1.4"
   },
   "dependencies": {
-    "@granfondo/db": "*",
+    "@granfondo/database": "*",
     "better-sqlite3": "^12.9.0",
     "drizzle-orm": "^0.38.4"
   }

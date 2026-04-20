@@ -1,15 +1,15 @@
 /**
  * db-client.ts
  *
- * Vite-specific wiring for the shared @granfondo/db client factory.
+ * Vite-specific wiring for the shared @granfondo/database client factory.
  * Provides WASM URL, encrypted DB URL, and Web Crypto decryption.
  */
 
-import { createDbClient } from "@granfondo/db/db-client";
+import { createDbClient } from "@granfondo/database/db-client";
 import { decryptDatabase } from "./decrypt";
 import sqlWasmUrl from "sql.js/dist/sql-wasm-browser.wasm?url";
 
-export type { DrizzleDb } from "@granfondo/db/db-client";
+export type { DrizzleDb } from "@granfondo/database/db-client";
 
 const { getDb } = createDbClient({
   fetchWasm: async () => {

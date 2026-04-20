@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import type { StoredEvent } from "@granfondo/db/types";
+import type { StoredEvent } from "@granfondo/database/types";
 
 interface Props {
   event: StoredEvent;

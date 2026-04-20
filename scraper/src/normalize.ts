@@ -86,8 +86,8 @@ export function finisherCoefficient(finisherCount: number): number {
 
 // ── Name normalization ────────────────────────────────────────────────────────
 
-export { normalizeName, fixRawTeamName, normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/db/normalize";
-import { normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/db/normalize";
+export { normalizeName, fixRawTeamName, normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/database/normalize";
+import { normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/database/normalize";
 
 /**
  * Maps raw API distance names to canonical names used in rankings and deduplication.

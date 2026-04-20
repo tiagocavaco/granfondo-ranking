@@ -12,7 +12,7 @@ import type {
   StoredDistance,
   StoredDistanceResults,
   StoredResult,
-} from "@granfondo/db/types";
+} from "@granfondo/database/types";
 
 export function isGranfondoName(name: string): boolean {
   const n = name.toLowerCase();

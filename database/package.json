@@ -1,5 +1,5 @@
 {
-  "name": "@granfondo/db",
+  "name": "@granfondo/database",
   "version": "1.0.0",
   "private": true,
   "type": "module",

@@ -1,9 +1,9 @@
 {
   "name": "granfondo-ranking",
   "private": true,
-  "workspaces": ["packages/*", "scraper", "frontend"],
+  "workspaces": ["database", "scraper", "frontend"],
   "scripts": {
-    "generate-schema": "npm run generate-schema --workspace=@granfondo/db",
+    "generate-schema": "npm run generate-schema --workspace=@granfondo/database",
     "scrape": "npm run scrape --workspace=scraper",
     "scrape:force": "npm run scrape:force --workspace=scraper",
     "dev": "npm run dev --workspace=frontend",

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "../api";
-import type { AthleteEntry, AthleteResultRef } from "@granfondo/db/types";
+import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 
 const DIST_COLOR: Record<string, string> = {

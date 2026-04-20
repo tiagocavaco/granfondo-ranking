@@ -1,6 +1,6 @@
 
 import { eq, desc, asc, inArray, like, or, and, sql, max } from "drizzle-orm";
-import * as schema from "@granfondo/db/schema";
+import * as schema from "@granfondo/database/schema";
 import { getDb } from "./db-client";
 import type {
   StoredEvent,
@@ -14,9 +14,9 @@ import type {
   TeamEntry,
   AthleteEntry,
   AthleteResultRef,
-} from "@granfondo/db/types";
+} from "@granfondo/database/types";
 
-import { normalizeName, normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/db/normalize";
+import { normalizeName, normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/database/normalize";
 
 // In-memory caches populated by initLookups()
 let teamAliasesCache = new Map<string, string>();
