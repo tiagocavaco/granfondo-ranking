@@ -8,3 +8,6 @@ scraper/dist/
 # Generated flag files — contain athlete names (PII), not for version control
 frontend/public/data/solo-flags.json
 frontend/public/data/cross-pass-flags.json
+
+# Local working file for team alias review — not for version control
+scraper/team-alias-candidates.json
