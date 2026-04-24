@@ -23,7 +23,7 @@ if (fs.existsSync(envFile)) {
 const keyHex = process.env.DATA_KEY;
 if (!keyHex) { console.error("DATA_KEY not set"); process.exit(1); }
 
-const encPath = path.resolve(import.meta.dirname, "../../frontend/public/data/data.db.enc");
+const encPath = path.resolve(import.meta.dirname, "../../../frontend/public/data/data.db.enc");
 const outPath = process.argv[2] ?? "/tmp/granfondo.db";
 
 const enc = fs.readFileSync(encPath);
