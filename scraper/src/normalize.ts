@@ -72,10 +72,13 @@ export function isValidLicence(lic: string): boolean {
  * Space/concatenation variants ("dblbike" vs "dbl bike") are handled
  * automatically by the compact equality and compact-prefix checks in
  * teamKeySimilarity — no alias needed for those.
- * Source of truth: scraper/team-aliases.json.
+ * Loaded from the encrypted DB at startup via initTeamAliases().
  */
-import TEAM_ALIASES_JSON from "../team-aliases.json" with { type: "json" };
-const TEAM_ALIASES: Record<string, string> = TEAM_ALIASES_JSON;
+const TEAM_ALIASES: Record<string, string> = {};
+
+export function initTeamAliases(aliases: Record<string, string>): void {
+  Object.assign(TEAM_ALIASES, aliases);
+}
 
 /**
  * Returns the canonical normalized key for a team name, applying fuzzy

@@ -1,7 +1,8 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeAll } from "vitest";
 import {
   normalizeTeam,
   teamNormalKey,
+  initTeamAliases,
   teamKeySimilarity,
   categoryTier,
   tierConflict,
@@ -16,6 +17,14 @@ import {
   isPast,
   levenshteinDistance,
 } from "./normalize.js";
+
+beforeAll(() => {
+  initTeamAliases({
+    "casa benfica almodovar":                     "cb almodovar banco primus swick",
+    "casa benfica almodovar banco primus swick":  "cb almodovar banco primus swick",
+    "penacova firstbike reconco":                 "penacova ceg reconco",
+  });
+});
 
 // ── normalizeTeam ──────────────────────────────────────────────────────────────
 
