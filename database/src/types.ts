@@ -150,3 +150,19 @@ export interface TeamRanking {
     [distance: string]: TeamEntry[];
   };
 }
+
+// ── Scraper config tables (written by scraper, read back at startup) ──────────
+
+export interface AthleteAliasRule {
+  name: string;
+  canonicalTeam: string;
+  aliases: Array<{ name: string; team: string }>;
+  note?: string;
+}
+
+export interface ResultAssignment {
+  eventId: number;
+  bib: string;
+  athleteId: number;
+  note?: string;
+}

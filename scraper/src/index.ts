@@ -20,11 +20,7 @@ import {
   assignGenderPositions,
   transformResult,
 } from "./transform.js";
-import {
-  buildAthletesIndex,
-  type AthleteAliasRule,
-  type ResultAssignment,
-} from "./pipeline/pipeline.js";
+import { buildAthletesIndex } from "./pipeline/pipeline.js";
 import { buildAggregateRanking, buildTeamRanking } from "./pipeline/ranking.js";
 import {
   YEARS,
@@ -32,11 +28,11 @@ import {
   DEFAULT_DISTANCES,
   LISTA_URLS,
 } from "./config.js";
-import { DATA_DIR, ATHLETE_ALIASES_PATH, RESULT_ASSIGNMENTS_PATH, SCRAPED_EVENTS_PATH, DB_ENC_PATH } from "./paths.js";
+import { DATA_DIR, SCRAPED_EVENTS_PATH, DB_ENC_PATH } from "./paths.js";
 import { normalizeName } from "./normalize.js";
 import { buildDatabase, type AllScrapedData } from "@granfondo/database/db-writer";
 import { encryptBuffer } from "./db/encrypt.js";
-import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadExistingEventIds, writeParticipantsToDb } from "./db/db-loader.js";
+import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadExistingEventIds, writeParticipantsToDb, loadAthleteAliases, loadResultAssignments } from "./db/db-loader.js";
 import { discoverGranfondos } from "./scrapers/stopandgo.js";
 import type {
   StoredEvent,
@@ -111,18 +107,6 @@ function resolveDistances(athletes: StoredParticipant[], eventId: number) {
   return distances.length > 0 ? distances : (DEFAULT_DISTANCES[eventId] ?? []);
 }
 
-// ── Config loaders ────────────────────────────────────────────────────────────
-
-function loadAthleteAliases(): AthleteAliasRule[] {
-  if (!fs.existsSync(ATHLETE_ALIASES_PATH)) return [];
-  return JSON.parse(fs.readFileSync(ATHLETE_ALIASES_PATH, "utf-8")) as AthleteAliasRule[];
-}
-
-function loadResultAssignments(): ResultAssignment[] {
-  if (!fs.existsSync(RESULT_ASSIGNMENTS_PATH)) return [];
-  return JSON.parse(fs.readFileSync(RESULT_ASSIGNMENTS_PATH, "utf-8")) as ResultAssignment[];
-}
-
 // ── Scraped-events index ──────────────────────────────────────────────────────
 
 function loadScrapedEvents(): Record<string, string> {
@@ -145,6 +129,8 @@ async function writeEncryptedDatabase(
   aggregateRanking: AggregateRanking,
   teamRanking: TeamRanking,
   stats: { uniqueAthletes: number; uniqueByYear: Record<string, number> },
+  aliasRules: import("@granfondo/database/types").AthleteAliasRule[],
+  assignments: import("@granfondo/database/types").ResultAssignment[],
 ): Promise<void> {
   const keyHex = process.env.DATA_KEY;
   if (!keyHex) {
@@ -164,6 +150,8 @@ async function writeEncryptedDatabase(
     aggregateRanking,
     teamRanking,
     stats,
+    aliasRules,
+    assignments,
   };
 
   const dbBuffer = buildDatabase(data);
@@ -424,8 +412,10 @@ async function main() {
     scraped.push(event);
   }
 
-  // Load athlete IDs from source DB before closing it
-  const idStore = loadIdStore(sourceDb);
+  // Load everything needed from source DB before closing it
+  const idStore    = loadIdStore(sourceDb);
+  const aliasRules = loadAthleteAliases(sourceDb);
+  const assignments = loadResultAssignments(sourceDb);
 
   // Source DB no longer needed — close before building new one
   closeSourceDb(sourceDb);
@@ -435,8 +425,6 @@ async function main() {
 
   // 4. Build athletes index
   console.log("🔨 Building athletes index…");
-  const aliasRules = loadAthleteAliases();
-  const assignments = loadResultAssignments();
   const loader = (id: number) => allResults.get(id) ?? null;
 
   const { index: athletesIndex, updatedIdStore, soloFlags, crossPassFlags } = buildAthletesIndex(
@@ -534,7 +522,7 @@ async function main() {
   // 8. Build encrypted SQLite database
   await writeEncryptedDatabase(
     scraped, allResults, allParticipants, athletesIndex, nameToId,
-    aggregateRanking, teamRanking, stats
+    aggregateRanking, teamRanking, stats, aliasRules, assignments
   );
 
   console.log("\n✅ Done.");

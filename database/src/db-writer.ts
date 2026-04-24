@@ -18,6 +18,8 @@ import type {
   AthleteEntry,
   AggregateRanking,
   TeamRanking,
+  AthleteAliasRule,
+  ResultAssignment,
 } from "./types.js";
 
 export interface AllScrapedData {
@@ -30,6 +32,8 @@ export interface AllScrapedData {
   aggregateRanking: AggregateRanking;
   teamRanking: TeamRanking;
   stats: { uniqueAthletes: number; uniqueByYear: Record<string, number> };
+  aliasRules: AthleteAliasRule[];
+  assignments: ResultAssignment[];
 }
 
 export function buildDatabase(data: AllScrapedData): Buffer {
@@ -72,6 +76,8 @@ export function buildDatabase(data: AllScrapedData): Buffer {
     insertLookups(db, data);
     insertRankings(db, data);
     insertStats(db, data);
+    insertAliasRules(db, data);
+    insertResultAssignments(db, data);
   })();
 
   buildFTS(sqlite);
@@ -268,6 +274,28 @@ function insertStats(db: ReturnType<typeof drizzle>, data: AllScrapedData): void
   db.insert(schema.stats).values({ key: "stats_json", value: JSON.stringify(data.stats) })
     .onConflictDoUpdate({ target: schema.stats.key, set: { value: sql`excluded.value` } })
     .run();
+}
+
+function insertAliasRules(db: ReturnType<typeof drizzle>, data: AllScrapedData): void {
+  for (const rule of data.aliasRules) {
+    db.insert(schema.athleteAliasRules).values({
+      name:          rule.name,
+      canonicalTeam: rule.canonicalTeam,
+      aliasesJson:   JSON.stringify(rule.aliases),
+      note:          rule.note ?? null,
+    }).run();
+  }
+}
+
+function insertResultAssignments(db: ReturnType<typeof drizzle>, data: AllScrapedData): void {
+  for (const a of data.assignments) {
+    db.insert(schema.resultAssignments).values({
+      eventId:   a.eventId,
+      bib:       a.bib,
+      athleteId: a.athleteId,
+      note:      a.note ?? null,
+    }).run();
+  }
 }
 
 // ── FTS population ────────────────────────────────────────────────────────────

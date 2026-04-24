@@ -34,6 +34,8 @@ import type {
   StoredResult,
   AthleteEntry,
   AthleteResultRef,
+  AthleteAliasRule,
+  ResultAssignment,
 } from "@granfondo/database/types";
 
 export type { AthleteEntry };
@@ -71,21 +73,7 @@ export function athleteKey(nameLower: string, team: string, category = ""): stri
   return catKey ? `${nameLower}|solo:${catKey}` : `${nameLower}|`;
 }
 
-// ── Alias types ───────────────────────────────────────────────────────────────
-
-export interface AthleteAliasRule {
-  name: string;
-  canonicalTeam: string;
-  aliases: Array<{ name: string; team: string }>;
-  note?: string;
-}
-
-export interface ResultAssignment {
-  eventId: number;
-  bib: string;
-  athleteId: number;
-  note?: string;
-}
+export type { AthleteAliasRule, ResultAssignment };
 
 /**
  * Returns true if two canonical categories are compatible for the same athlete.

@@ -180,3 +180,19 @@ export const stats = sqliteTable("stats", {
   key:   text("key").primaryKey(),
   value: text("value").notNull(),
 });
+
+export const athleteAliasRules = sqliteTable("athlete_alias_rules", {
+  id:            integer("id").primaryKey({ autoIncrement: true }),
+  name:          text("name").notNull(),
+  canonicalTeam: text("canonical_team").notNull(),
+  aliasesJson:   text("aliases_json").notNull().default("[]"),
+  note:          text("note"),
+});
+
+export const resultAssignments = sqliteTable("result_assignments", {
+  id:        integer("id").primaryKey({ autoIncrement: true }),
+  eventId:   integer("event_id").notNull(),
+  bib:       text("bib").notNull(),
+  athleteId: integer("athlete_id").notNull(),
+  note:      text("note"),
+});

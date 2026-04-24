@@ -6,6 +6,8 @@
  */
 
 import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import BetterSqlite3 from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
@@ -20,6 +22,8 @@ import type {
   StoredEventResults,
   StoredDistanceResults,
   StoredParticipant,
+  AthleteAliasRule,
+  ResultAssignment,
 } from "@granfondo/database/types";
 
 export function openSourceDb(): BetterSqlite3.Database | null {
@@ -176,4 +180,46 @@ export function writeParticipantsToDb(
       }
     }
   })();
+}
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ALIAS_RULES_JSON  = path.join(__dirname, "..", "..", "athlete-aliases.json");
+const ASSIGNMENTS_JSON  = path.join(__dirname, "..", "..", "result-assignments.json");
+
+export function loadAthleteAliases(sourceDb: BetterSqlite3.Database | null): AthleteAliasRule[] {
+  if (sourceDb) {
+    try {
+      const rows = drizzle(sourceDb, { schema }).select().from(schema.athleteAliasRules).all();
+      if (rows.length > 0) {
+        return rows.map((r) => ({
+          name:          r.name,
+          canonicalTeam: r.canonicalTeam,
+          aliases:       JSON.parse(r.aliasesJson) as Array<{ name: string; team: string }>,
+          note:          r.note ?? undefined,
+        }));
+      }
+    } catch { /* fall through to JSON */ }
+  }
+  if (fs.existsSync(ALIAS_RULES_JSON))
+    return JSON.parse(fs.readFileSync(ALIAS_RULES_JSON, "utf-8")) as AthleteAliasRule[];
+  return [];
+}
+
+export function loadResultAssignments(sourceDb: BetterSqlite3.Database | null): ResultAssignment[] {
+  if (sourceDb) {
+    try {
+      const rows = drizzle(sourceDb, { schema }).select().from(schema.resultAssignments).all();
+      if (rows.length > 0) {
+        return rows.map((r) => ({
+          eventId:   r.eventId,
+          bib:       r.bib,
+          athleteId: r.athleteId,
+          note:      r.note ?? undefined,
+        }));
+      }
+    } catch { /* fall through to JSON */ }
+  }
+  if (fs.existsSync(ASSIGNMENTS_JSON))
+    return JSON.parse(fs.readFileSync(ASSIGNMENTS_JSON, "utf-8")) as ResultAssignment[];
+  return [];
 }
