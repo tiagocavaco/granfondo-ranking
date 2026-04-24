@@ -6,6 +6,9 @@
  */
 
 export const YEARS = [2025, 2026]; // seasons to include in scrape and rankings
+
+/** Normalized names used as placeholders by race organizers — never create athlete profiles for these. */
+export const PLACEHOLDER_NAMES = new Set(["novo dorsal", "novo inscrito", "atleta teste"]);
 export const DELAY_MS = 400;       // polite delay between API requests (ms)
 
 /**

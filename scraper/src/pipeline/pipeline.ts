@@ -53,6 +53,7 @@ export {
   isSoloTeam,
   sameTeam,
 } from "../normalize.js";
+import { PLACEHOLDER_NAMES } from "../config.js";
 
 // ── Solo collision percentile thresholds ─────────────────────────────────────
 // Two-result baseline (≥2 clean non-collision results): looser window since the
@@ -957,13 +958,14 @@ export function buildAthletesIndex(
 } {
   const ids = makeIdManager(idStore);
 
-  // Preload all results
+  // Preload all results — skip known placeholder names used by organizers
   const allResults: RawResult[] = [];
   for (const event of events.filter((e) => e.hasResults)) {
     const stored = loader(event.id);
     if (!stored) continue;
     for (const dist of stored.distances) {
       for (const r of dist.results) {
+        if (PLACEHOLDER_NAMES.has(r.nameLower)) continue;
         allResults.push({ event, dist, r, rKey: resultDedupeKey(event.id, dist.name, r.bib) });
       }
     }
