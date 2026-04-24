@@ -126,6 +126,7 @@ async function writeEncryptedDatabase(
   allParticipants: Map<number, StoredParticipant[]>,
   athletesIndex: Map<string, AthleteEntry>,
   nameToId: Record<string, number>,
+  teamAliases: Record<string, string>,
   aggregateRanking: AggregateRanking,
   teamRanking: TeamRanking,
   stats: { uniqueAthletes: number; uniqueByYear: Record<string, number> },
@@ -146,7 +147,7 @@ async function writeEncryptedDatabase(
     allParticipants,
     athletesIndex,
     nameToId,
-    teamAliases: {},
+    teamAliases,
     aggregateRanking,
     teamRanking,
     stats,
@@ -414,8 +415,9 @@ async function main() {
   }
 
   // Load everything needed from source DB before closing it
-  const idStore    = loadIdStore(sourceDb);
-  const aliasRules = loadAthleteAliases(sourceDb);
+  const idStore     = loadIdStore(sourceDb);
+  const teamAliases = loadTeamAliases(sourceDb);
+  const aliasRules  = loadAthleteAliases(sourceDb);
   const assignments = loadResultAssignments(sourceDb);
 
   // Source DB no longer needed — close before building new one
@@ -523,7 +525,7 @@ async function main() {
   // 8. Build encrypted SQLite database
   await writeEncryptedDatabase(
     scraped, allResults, allParticipants, athletesIndex, nameToId,
-    aggregateRanking, teamRanking, stats, aliasRules, assignments
+    teamAliases, aggregateRanking, teamRanking, stats, aliasRules, assignments
   );
 
   console.log("\n✅ Done.");

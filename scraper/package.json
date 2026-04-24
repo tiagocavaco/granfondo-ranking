@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "decrypt-db": "tsx src/db/decrypt-db.ts",
+    "db:manage": "tsx src/db/manage-db.ts",
     "scrape": "tsx src/index.ts",
     "scrape:force": "tsx src/index.ts --force",
     "scrape:participants": "tsx src/index.ts --participants",

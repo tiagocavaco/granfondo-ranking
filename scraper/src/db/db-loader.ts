@@ -6,8 +6,6 @@
  */
 
 import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 
 import BetterSqlite3 from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
@@ -182,60 +180,34 @@ export function writeParticipantsToDb(
   })();
 }
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PENDING_ALIASES_JSON     = path.join(__dirname, "..", "..", "pending-aliases.json");
-const PENDING_ASSIGNMENTS_JSON = path.join(__dirname, "..", "..", "pending-assignments.json");
-const PENDING_TEAM_ALIASES_JSON = path.join(__dirname, "..", "..", "pending-team-aliases.json");
-
-function readJsonOrEmpty<T>(filePath: string, empty: T): T {
-  try {
-    if (fs.existsSync(filePath)) return JSON.parse(fs.readFileSync(filePath, "utf-8")) as T;
-  } catch { /* ignore malformed inbox */ }
-  return empty;
-}
-
 export function loadTeamAliases(sourceDb: BetterSqlite3.Database | null): Record<string, string> {
-  const fromDb: Record<string, string> = {};
-  if (sourceDb) {
-    try {
-      const rows = drizzle(sourceDb, { schema }).select().from(schema.teamAliases).all();
-      for (const r of rows) fromDb[r.aliasKey] = r.canonicalKey;
-    } catch { /* proceed with empty */ }
-  }
-  const pending = readJsonOrEmpty<Record<string, string>>(PENDING_TEAM_ALIASES_JSON, {});
-  return { ...fromDb, ...pending };
+  if (!sourceDb) return {};
+  try {
+    const rows = drizzle(sourceDb, { schema }).select().from(schema.teamAliases).all();
+    return Object.fromEntries(rows.map((r) => [r.aliasKey, r.canonicalKey]));
+  } catch { return {}; }
 }
 
 export function loadAthleteAliases(sourceDb: BetterSqlite3.Database | null): AthleteAliasRule[] {
-  const fromDb: AthleteAliasRule[] = [];
-  if (sourceDb) {
-    try {
-      const rows = drizzle(sourceDb, { schema }).select().from(schema.athleteAliasRules).all();
-      fromDb.push(...rows.map((r) => ({
-        name:          r.name,
-        canonicalTeam: r.canonicalTeam,
-        aliases:       JSON.parse(r.aliasesJson) as Array<{ name: string; team: string }>,
-        note:          r.note ?? undefined,
-      })));
-    } catch { /* proceed with empty */ }
-  }
-  const pending = readJsonOrEmpty<AthleteAliasRule[]>(PENDING_ALIASES_JSON, []);
-  return [...fromDb, ...pending];
+  if (!sourceDb) return [];
+  try {
+    return drizzle(sourceDb, { schema }).select().from(schema.athleteAliasRules).all().map((r) => ({
+      name:          r.name,
+      canonicalTeam: r.canonicalTeam,
+      aliases:       JSON.parse(r.aliasesJson) as Array<{ name: string; team: string }>,
+      note:          r.note ?? undefined,
+    }));
+  } catch { return []; }
 }
 
 export function loadResultAssignments(sourceDb: BetterSqlite3.Database | null): ResultAssignment[] {
-  const fromDb: ResultAssignment[] = [];
-  if (sourceDb) {
-    try {
-      const rows = drizzle(sourceDb, { schema }).select().from(schema.resultAssignments).all();
-      fromDb.push(...rows.map((r) => ({
-        eventId:   r.eventId,
-        bib:       r.bib,
-        athleteId: r.athleteId,
-        note:      r.note ?? undefined,
-      })));
-    } catch { /* proceed with empty */ }
-  }
-  const pending = readJsonOrEmpty<ResultAssignment[]>(PENDING_ASSIGNMENTS_JSON, []);
-  return [...fromDb, ...pending];
+  if (!sourceDb) return [];
+  try {
+    return drizzle(sourceDb, { schema }).select().from(schema.resultAssignments).all().map((r) => ({
+      eventId:   r.eventId,
+      bib:       r.bib,
+      athleteId: r.athleteId,
+      note:      r.note ?? undefined,
+    }));
+  } catch { return []; }
 }
