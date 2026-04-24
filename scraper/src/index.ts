@@ -29,7 +29,7 @@ import {
   LISTA_URLS,
 } from "./config.js";
 import { DATA_DIR, SCRAPED_EVENTS_PATH, DB_ENC_PATH } from "./paths.js";
-import { normalizeName, initTeamAliases } from "./normalize.js";
+import { normalizeName, teamNormalKey, initTeamAliases } from "./normalize.js";
 import { buildDatabase, type AllScrapedData } from "@granfondo/database/db-writer";
 import { encryptBuffer } from "./db/encrypt.js";
 import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadExistingEventIds, writeParticipantsToDb, loadTeamAliases, loadAthleteAliases, loadResultAssignments } from "./db/db-loader.js";
@@ -486,6 +486,17 @@ async function main() {
   const nameToId: Record<string, number> = {};
   for (const [key, id] of updatedIdStore) nameToId[key] = id;
   for (const [key, entry] of athletesIndex) nameToId[key] = entry.id;
+
+  // Add alias keys so participant registrations under alias names resolve to the canonical athlete
+  for (const rule of aliasRules) {
+    const canonKey = `${normalizeName(rule.name)}|${teamNormalKey(rule.canonicalTeam)}`;
+    const canonId = nameToId[canonKey];
+    if (canonId == null) continue;
+    for (const alias of rule.aliases) {
+      const aliasKey = `${normalizeName(alias.name)}|${teamNormalKey(alias.team)}`;
+      if (!(aliasKey in nameToId)) nameToId[aliasKey] = canonId;
+    }
+  }
 
   const athletesArray = Array.from(athletesIndex.values()).sort((a, b) =>
     a.nameLower.localeCompare(b.nameLower)

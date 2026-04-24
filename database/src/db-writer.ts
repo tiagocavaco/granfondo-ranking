@@ -11,6 +11,7 @@ import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { sql } from "drizzle-orm";
 import * as path from "path";
 import * as schema from "./schema.js";
+import { normalizeTeam } from "./normalize.js";
 import type {
   StoredEvent,
   StoredEventResults,
@@ -220,7 +221,9 @@ function insertLookups(db: ReturnType<typeof drizzle>, data: AllScrapedData): vo
       .onConflictDoUpdate({ target: schema.athleteLookup.key, set: { athleteId } })
       .run();
   }
-  for (const [aliasKey, canonicalKey] of Object.entries(data.teamAliases)) {
+  for (const [rawAlias, rawCanonical] of Object.entries(data.teamAliases)) {
+    const aliasKey = normalizeTeam(rawAlias);
+    const canonicalKey = normalizeTeam(rawCanonical);
     db.insert(schema.teamAliases).values({ aliasKey, canonicalKey })
       .onConflictDoUpdate({ target: schema.teamAliases.aliasKey, set: { canonicalKey } })
       .run();

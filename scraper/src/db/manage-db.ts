@@ -25,6 +25,7 @@ import { eq, and } from "drizzle-orm";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import * as schema from "@granfondo/database/schema";
 import { encryptBuffer, decryptBuffer } from "./encrypt.js";
+import { normalizeTeam } from "../normalize.js";
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 
@@ -139,10 +140,12 @@ function cmdAdd(args: Record<string, string>): void {
       console.error("Usage: add team-alias --from F --to T");
       process.exit(1);
     }
-    db.insert(schema.teamAliases).values({ aliasKey: from, canonicalKey: to })
-      .onConflictDoUpdate({ target: schema.teamAliases.aliasKey, set: { canonicalKey: to } })
+    const aliasKey = normalizeTeam(from);
+    const canonicalKey = normalizeTeam(to);
+    db.insert(schema.teamAliases).values({ aliasKey, canonicalKey })
+      .onConflictDoUpdate({ target: schema.teamAliases.aliasKey, set: { canonicalKey } })
       .run();
-    console.log(`✓ Added team alias: "${from}" → "${to}"`);
+    console.log(`✓ Added team alias: "${aliasKey}" → "${canonicalKey}"`);
 
   } else {
     console.error("Unknown add target. Use: alias | assignment | team-alias");
@@ -177,8 +180,14 @@ function cmdRemove(args: Record<string, string>): void {
   } else if (target === "team-alias") {
     const { from } = args;
     if (!from) { console.error("Usage: remove team-alias --from F"); process.exit(1); }
-    const result = db.delete(schema.teamAliases)
-      .where(eq(schema.teamAliases.aliasKey, from)).run() as unknown as { changes: number };
+    const key = normalizeTeam(from);
+    // Try normalized key first, then raw input (handles legacy raw-stored entries)
+    let result = db.delete(schema.teamAliases)
+      .where(eq(schema.teamAliases.aliasKey, key)).run() as unknown as { changes: number };
+    if (!result.changes) {
+      result = db.delete(schema.teamAliases)
+        .where(eq(schema.teamAliases.aliasKey, from)).run() as unknown as { changes: number };
+    }
     console.log(result.changes ? `✓ Removed team alias for "${from}"` : `⚠ No team alias found for "${from}"`);
 
   } else {

@@ -484,6 +484,7 @@ function runPass4(ctx: PipelineCtx): void {
       if (!aliasEntry) continue;
       for (const result of aliasEntry.results) addResult(canonEntry, result, false);
       index.delete(aliasKey);
+      ctx.deletedKeys.add(aliasKey);
     }
     deriveCanonicalTeam(canonEntry);
   }
@@ -677,6 +678,7 @@ function runPass6(ctx: PipelineCtx): void {
       const laterEntry = index.get(yearProfiles[i]!.key);
       if (!laterEntry) continue;
       for (const result of laterEntry.results) addResult(canonEntry, result, false);
+      ctx.deletedKeys.add(yearProfiles[i]!.key);
       index.delete(yearProfiles[i]!.key);
       count++;
     }
@@ -752,6 +754,7 @@ function runPass7(ctx: PipelineCtx): void {
       const later = profiles[i]!;
       if (!index.has(later.key)) continue;
       for (const result of later.entry.results) addResult(canon.entry, result, false);
+      ctx.deletedKeys.add(later.key);
       index.delete(later.key);
       count++;
     }
@@ -836,6 +839,7 @@ function runPass8(ctx: PipelineCtx): void {
 
     if (candidates.length === 1) {
       for (const result of soloEntry.results) addResult(candidates[0]!.entry, result, false);
+      ctx.deletedKeys.add(soloKey);
       index.delete(soloKey);
       deriveCanonicalTeam(candidates[0]!.entry);
       count++;

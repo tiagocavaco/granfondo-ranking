@@ -77,7 +77,9 @@ export function isValidLicence(lic: string): boolean {
 const TEAM_ALIASES: Record<string, string> = {};
 
 export function initTeamAliases(aliases: Record<string, string>): void {
-  Object.assign(TEAM_ALIASES, aliases);
+  for (const [k, v] of Object.entries(aliases)) {
+    TEAM_ALIASES[normalizeTeam(k)] = normalizeTeam(v);
+  }
 }
 
 /**
