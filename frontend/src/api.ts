@@ -1,7 +1,7 @@
 
 import { eq, desc, asc, inArray, like, or, and, sql, max } from "drizzle-orm";
 import * as schema from "@granfondo/database/schema";
-import { getDb } from "./db-client";
+import { getDb } from "./db/db-client";
 import type {
   StoredEvent,
   StoredEventResults,
