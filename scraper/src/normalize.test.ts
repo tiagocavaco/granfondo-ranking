@@ -23,6 +23,12 @@ beforeAll(() => {
     "casa benfica almodovar":                     "cb almodovar banco primus swick",
     "casa benfica almodovar banco primus swick":  "cb almodovar banco primus swick",
     "penacova firstbike reconco":                 "penacova ceg reconco",
+    // Chain: A → B → C (three hops)
+    "escola ciclismo de oeiras parracho mr print":         "escola ciclismo de oeiras parracho mr print reconco",
+    "escola ciclismo de oeiras parracho mr print reconco": "escola ciclismo oeiras parracho mr print reconco",
+    // Circular: X → Y → X
+    "clube circular a": "clube circular b",
+    "clube circular b": "clube circular a",
   });
 });
 
@@ -111,6 +117,24 @@ describe("teamNormalKey", () => {
 
   it("passthrough for unknown teams", () => {
     expect(teamNormalKey("Random Team")).toBe("random team");
+  });
+
+  it("follows two-hop chain to final canonical", () => {
+    // A → B → C: old single-hop code returned B, new code returns C
+    expect(teamNormalKey("Escola Ciclismo de Oeiras Parracho Mr Print"))
+      .toBe("escola ciclismo oeiras parracho mr print reconco");
+  });
+
+  it("does not infinite-loop on circular aliases", () => {
+    // X → Y → X: must terminate and return one of the two keys
+    const result = teamNormalKey("Clube Circular A");
+    expect(["clube circular a", "clube circular b"]).toContain(result);
+  });
+
+  it("circular aliases from either direction reach the same canonical", () => {
+    // Both sides of a circular must resolve to the same key (whichever wins)
+    expect(teamNormalKey("Clube Circular A")).toBe(teamNormalKey("Clube Circular A"));
+    expect(teamNormalKey("Clube Circular B")).toBe(teamNormalKey("Clube Circular B"));
   });
 });
 

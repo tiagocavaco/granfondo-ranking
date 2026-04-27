@@ -222,7 +222,7 @@ export async function scrapeListaParticipants(url: string): Promise<StoredPartic
       : distLower.includes("minifondo") ? "3"
       : "1";
 
-    athletes.push({ bib, name, fullName: name, gender, team, category, distance, distanceId });
+    athletes.push({ bib, name, fullName: name, gender, team, category, distance, distanceId, athleteId: 0 });
   }
 
   return athletes;

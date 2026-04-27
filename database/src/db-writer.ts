@@ -35,6 +35,8 @@ export interface AllScrapedData {
   stats: { uniqueAthletes: number; uniqueByYear: Record<string, number> };
   aliasRules: AthleteAliasRule[];
   assignments: ResultAssignment[];
+  /** Pre-resolved participant → athlete ID map. Key: "eventId:name:team". 0 = unlinked. */
+  participantAthleteIds?: Map<string, number>;
 }
 
 export function buildDatabase(data: AllScrapedData): Buffer {
@@ -158,7 +160,8 @@ function insertResults(db: ReturnType<typeof drizzle>, data: AllScrapedData): vo
 function insertParticipants(db: ReturnType<typeof drizzle>, data: AllScrapedData): void {
   for (const [eventId, athletes] of data.allParticipants) {
     for (const a of athletes) {
-      db.insert(schema.participants).values({ eventId, ...a }).run();
+      const athleteId = data.participantAthleteIds?.get(`${eventId}:${a.name}:${a.team}`) ?? 0;
+      db.insert(schema.participants).values({ eventId, ...a, athleteId }).run();
     }
   }
 }
@@ -170,7 +173,7 @@ function insertAthletes(db: ReturnType<typeof drizzle>, data: AllScrapedData): v
       name:          entry.name,
       nameLower:     entry.nameLower,
       canonicalTeam: entry.canonicalTeam ?? null,
-    }).run();
+    }).onConflictDoNothing().run();
 
     for (const team of entry.teams) {
       db.insert(schema.athleteTeams).values({

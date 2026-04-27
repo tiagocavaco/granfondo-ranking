@@ -86,7 +86,7 @@ export default function ParticipantsTab({ eventId }: Props) {
       <div className="text-center py-16 text-slate-400">
         <p className="text-5xl mb-3">👥</p>
         <p className="font-semibold text-slate-600">Participants not available</p>
-        <p className="text-sm mt-1 text-slate-400">No participant data yet for this event.</p>
+        <p className="text-sm mt-1 text-slate-400">Participant list is not available for this event.</p>
       </div>
     );
 
@@ -135,8 +135,8 @@ export default function ParticipantsTab({ eventId }: Props) {
               <tr key={i} className="hover:bg-slate-50/60 transition-colors">
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{p.bib}</td>
                 <td
-                  className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
-                  onClick={() => { const id = api.lookupAthleteId(p.fullName, p.team); if (id) navigate(`/athlete/${id}`); }}
+                  className={`px-4 py-3 font-semibold text-slate-900 transition-colors ${p.athleteId > 0 ? "hover:text-blue-600 cursor-pointer" : ""}`}
+                  onClick={() => { if (p.athleteId > 0) navigate(`/athlete/${p.athleteId}`); }}
                 >
                   {p.fullName}
                 </td>

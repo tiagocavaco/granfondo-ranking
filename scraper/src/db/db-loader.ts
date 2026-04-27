@@ -122,7 +122,17 @@ export function loadIdStore(sourceDb: BetterSqlite3.Database | null): AthleteIdS
   if (!sourceDb) return new Map();
   try {
     const rows = drizzle(sourceDb, { schema }).select().from(schema.athleteLookup).all();
-    return new Map(rows.map((r) => [r.key, r.athleteId]));
+    // Deduplicate: if two keys map to the same athlete_id, keep only the first one seen.
+    // This prevents pipeline corruption when expansion keys write duplicate ids to athlete_lookup.
+    const seen = new Set<number>();
+    const result = new Map<string, number>();
+    for (const r of rows) {
+      if (!seen.has(r.athleteId)) {
+        seen.add(r.athleteId);
+        result.set(r.key, r.athleteId);
+      }
+    }
+    return result;
   } catch {
     return new Map();
   }

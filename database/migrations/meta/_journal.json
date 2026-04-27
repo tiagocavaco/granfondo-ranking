@@ -15,6 +15,13 @@
       "when": 1777038588016,
       "tag": "0001_watery_saracen",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1777060468570,
+      "tag": "0002_slim_mesmero",
+      "breakpoints": true
     }
   ]
 }

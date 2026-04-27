@@ -79,6 +79,7 @@ export const participants = sqliteTable("participants", {
   category:   text("category").notNull().default(""),
   distance:   text("distance").notNull().default(""),
   distanceId: text("distance_id").notNull().default(""),
+  athleteId:  integer("athlete_id").notNull().default(0),
 }, (t) => [
   index("idx_participants_event").on(t.eventId),
 ]);

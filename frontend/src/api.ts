@@ -82,16 +82,7 @@ export const api = {
 
   async getParticipants(id: number): Promise<StoredParticipant[]> {
     const db = await getDb();
-    return db.select({
-        bib:        schema.participants.bib,
-        name:       schema.participants.name,
-        fullName:   schema.participants.fullName,
-        gender:     schema.participants.gender,
-        team:       schema.participants.team,
-        category:   schema.participants.category,
-        distance:   schema.participants.distance,
-        distanceId: schema.participants.distanceId,
-      })
+    const rows = db.select()
       .from(schema.participants)
       .where(eq(schema.participants.eventId, id))
       .orderBy(
@@ -99,6 +90,7 @@ export const api = {
         sql`CAST(${schema.participants.bib} AS INTEGER)`,
       )
       .all();
+    return rows.map(({ id: _id, eventId: _eventId, ...rest }) => rest);
   },
 
   async getResults(id: number): Promise<StoredEventResults> {

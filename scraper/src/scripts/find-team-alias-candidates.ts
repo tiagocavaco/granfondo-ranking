@@ -17,7 +17,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import BetterSqlite3 from "better-sqlite3";
-import { decryptBuffer } from "./encrypt.js";
+import { decryptBuffer } from "../db/encrypt.js";
 import { teamKeySimilarity } from "../normalize.js";
 
 const encPath = path.resolve(import.meta.dirname, "../../../frontend/public/data/data.db.enc");

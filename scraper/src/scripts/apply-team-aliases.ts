@@ -14,7 +14,7 @@ import BetterSqlite3 from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import * as schema from "@granfondo/database/schema";
-import { encryptBuffer, decryptBuffer } from "./encrypt.js";
+import { encryptBuffer, decryptBuffer } from "../db/encrypt.js";
 
 const encPath  = path.resolve(import.meta.dirname, "../../../frontend/public/data/data.db.enc");
 const tmpPath  = path.resolve(import.meta.dirname, "../../.tmp-apply.db");

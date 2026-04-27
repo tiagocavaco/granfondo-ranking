@@ -21,6 +21,7 @@ import {
   transformResult,
 } from "./transform.js";
 import { buildAthletesIndex } from "./pipeline/pipeline.js";
+import { resolveParticipantAthleteIds } from "./pipeline/participants.js";
 import { buildAggregateRanking, buildTeamRanking } from "./pipeline/ranking.js";
 import {
   YEARS,
@@ -29,7 +30,7 @@ import {
   LISTA_URLS,
 } from "./config.js";
 import { DATA_DIR, SCRAPED_EVENTS_PATH, DB_ENC_PATH } from "./paths.js";
-import { normalizeName, teamNormalKey, initTeamAliases } from "./normalize.js";
+import { normalizeName, teamNormalKey, teamKeySimilarity, initTeamAliases } from "./normalize.js";
 import { buildDatabase, type AllScrapedData } from "@granfondo/database/db-writer";
 import { encryptBuffer } from "./db/encrypt.js";
 import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadExistingEventIds, writeParticipantsToDb, loadTeamAliases, loadAthleteAliases, loadResultAssignments } from "./db/db-loader.js";
@@ -80,6 +81,7 @@ function apiAthleteToParticipant(a: ApiAthlete): StoredParticipant {
     category:   a.escalao ?? "",
     distance:   a.percurso ?? "",
     distanceId: a.id_percursos ?? "",
+    athleteId:  0,
   };
 }
 
@@ -132,6 +134,7 @@ async function writeEncryptedDatabase(
   stats: { uniqueAthletes: number; uniqueByYear: Record<string, number> },
   aliasRules: import("@granfondo/database/types").AthleteAliasRule[],
   assignments: import("@granfondo/database/types").ResultAssignment[],
+  participantAthleteIds: Map<string, number>,
 ): Promise<void> {
   const keyHex = process.env.DATA_KEY;
   if (!keyHex) {
@@ -153,6 +156,7 @@ async function writeEncryptedDatabase(
     stats,
     aliasRules,
     assignments,
+    participantAthleteIds,
   };
 
   const dbBuffer = buildDatabase(data);
@@ -263,6 +267,7 @@ async function scrapeEvent(
 }
 
 // ── Participants-only scrape ──────────────────────────────────────────────────
+
 
 /**
  * Lightweight scrape that updates participant lists for upcoming events in the
@@ -498,6 +503,10 @@ async function main() {
     }
   }
 
+  const { ids: participantAthleteIds, linked: participantLinked } =
+    resolveParticipantAthleteIds(nameToId, allParticipants);
+  console.log(`  [lookup] ${participantLinked} participants resolved to athlete profiles`);
+
   const athletesArray = Array.from(athletesIndex.values()).sort((a, b) =>
     a.nameLower.localeCompare(b.nameLower)
   );
@@ -536,7 +545,8 @@ async function main() {
   // 8. Build encrypted SQLite database
   await writeEncryptedDatabase(
     scraped, allResults, allParticipants, athletesIndex, nameToId,
-    teamAliases, aggregateRanking, teamRanking, stats, aliasRules, assignments
+    teamAliases, aggregateRanking, teamRanking, stats, aliasRules, assignments,
+    participantAthleteIds
   );
 
   console.log("\n✅ Done.");

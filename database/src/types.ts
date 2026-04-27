@@ -11,7 +11,7 @@ type TeamRow           = typeof schema.teamRanking.$inferSelect;
 
 // ── Participant (stored in DB, returned by frontend) ─────────────────────────
 
-/** Participant row without internal DB columns (id, eventId). */
+/** Participant row without internal DB columns (id, eventId). athleteId=0 means unlinked. */
 export type StoredParticipant = Omit<typeof schema.participants.$inferSelect, "id" | "eventId">;
 
 // ── Event ─────────────────────────────────────────────────────────────────────

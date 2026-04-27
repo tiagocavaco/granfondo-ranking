@@ -85,10 +85,16 @@ export function initTeamAliases(aliases: Record<string, string>): void {
 /**
  * Returns the canonical normalized key for a team name, applying fuzzy
  * normalization and then any manual alias overrides.
+ * Follows alias chains transitively (A→B→C returns C).
  */
 export function teamNormalKey(name: string): string {
-  const key = normalizeTeam(name);
-  return TEAM_ALIASES[key] ?? key;
+  let key = normalizeTeam(name);
+  const seen = new Set<string>();
+  while (TEAM_ALIASES[key] !== undefined && !seen.has(key)) {
+    seen.add(key);
+    key = TEAM_ALIASES[key]!;
+  }
+  return key;
 }
 
 /**

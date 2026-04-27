@@ -26,7 +26,7 @@ function mkParticipant(overrides: Partial<StoredParticipant> = {}): StoredPartic
   return {
     bib: "1", name: "Test", fullName: "Test Athlete",
     gender: "M", team: "Team Alpha", category: "ELITES M",
-    distance: "Granfondo", distanceId: "1",
+    distance: "Granfondo", distanceId: "1", athleteId: 0,
     ...overrides,
   };
 }
