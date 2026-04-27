@@ -171,7 +171,10 @@ export default function TeamRankingPage() {
                     <div className="text-2xl sm:text-4xl mb-1 sm:mb-2">
                       {t.rank === 1 ? "🥇" : t.rank === 2 ? "🥈" : "🥉"}
                     </div>
-                    <div className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-2 sm:mb-3 line-clamp-2">
+                    <div
+                      className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-2 sm:mb-3 line-clamp-2 hover:text-blue-700 transition-colors cursor-pointer"
+                      onClick={() => navigate(`/team/${encodeURIComponent(t.team)}`)}
+                    >
                       {t.team}
                     </div>
                     <div className={`text-lg sm:text-2xl font-black ${isFirst ? "text-amber-600" : "text-slate-700"}`}>
@@ -217,7 +220,12 @@ export default function TeamRankingPage() {
                         <RankBadge rank={t.rank} />
                       </td>
                       <td className="px-4 py-3">
-                        <div className="font-semibold text-slate-900">{t.team}</div>
+                        <span
+                          className="font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
+                          onClick={(e) => { e.stopPropagation(); navigate(`/team/${encodeURIComponent(t.team)}`); }}
+                        >
+                          {t.team}
+                        </span>
                       </td>
                       <td className="px-4 py-3 text-center text-slate-600 font-medium hidden sm:table-cell">
                         {t.eventsScored}

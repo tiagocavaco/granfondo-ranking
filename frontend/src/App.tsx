@@ -6,6 +6,7 @@ import AggregateRankingPage from "./components/AggregateRankingPage";
 import TeamRankingPage from "./components/TeamRankingPage";
 import AthleteProfile from "./components/AthleteProfile";
 import AthletesPage from "./components/AthletesPage";
+import TeamProfile from "./components/TeamProfile";
 import { api } from "./api";
 
 export default function App() {
@@ -106,6 +107,7 @@ export default function App() {
             <Route path="/athlete/:id" element={<AthleteProfile />} />
             <Route path="/ranking" element={<AggregateRankingPage />} />
             <Route path="/teams" element={<TeamRankingPage />} />
+            <Route path="/team/:teamName" element={<TeamProfile />} />
           </Routes>
         </main>
       </div>

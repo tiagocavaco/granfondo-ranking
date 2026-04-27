@@ -100,7 +100,12 @@ export default function AthleteProfile() {
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight">{athlete.name}</h1>
             {recentTeam && recentTeam !== "Individual" && (
-              <p className="text-blue-300 text-sm mt-1">{recentTeam}</p>
+              <Link
+                to={`/team/${encodeURIComponent(recentTeam)}`}
+                className="text-blue-300 hover:text-white text-sm mt-1 block transition-colors"
+              >
+                {recentTeam}
+              </Link>
             )}
           </div>
           <div className="flex gap-4 flex-wrap">
@@ -120,7 +125,12 @@ export default function AthleteProfile() {
           <h2 className="text-lg font-bold text-slate-800 mb-3 flex items-baseline gap-2">
             {year}
             {yearTeam && yearTeam !== "Individual" && (
-              <span className="text-sm font-normal text-slate-400">{yearTeam}</span>
+              <Link
+                to={`/team/${encodeURIComponent(yearTeam)}`}
+                className="text-sm font-normal text-slate-400 hover:text-blue-600 transition-colors"
+              >
+                {yearTeam}
+              </Link>
             )}
           </h2>
           <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">

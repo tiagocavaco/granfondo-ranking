@@ -200,7 +200,10 @@ export default function AggregateRankingPage() {
                     <div className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-1 line-clamp-2">
                       <span className="mr-1" title={a.country}>{countryFlag(a.country)}</span>{a.name}
                     </div>
-                    <div className="text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block">{a.team}</div>
+                    <div
+                      className="text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block hover:text-blue-600 transition-colors cursor-pointer"
+                      onClick={() => { if (a.team) navigate(`/team/${encodeURIComponent(a.team)}`); }}
+                    >{a.team}</div>
                     <div
                       className={`text-lg sm:text-2xl font-black ${
                         isFirst ? "text-amber-600" : "text-slate-700"
@@ -257,11 +260,17 @@ export default function AggregateRankingPage() {
                         >
                           <span className="mr-1.5" title={a.country}>{countryFlag(a.country)}</span>{a.name}
                         </span>
-                        <div className="text-xs text-slate-400 lg:hidden mt-0.5 truncate max-w-[160px]">
+                        <div
+                          className="text-xs text-slate-400 lg:hidden mt-0.5 truncate max-w-[160px] hover:text-blue-600 transition-colors cursor-pointer"
+                          onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(a.team)}`); }}
+                        >
                           {a.team}
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell max-w-[180px] truncate">
+                      <td
+                        className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell max-w-[180px] truncate hover:text-blue-600 transition-colors cursor-pointer"
+                        onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(a.team)}`); }}
+                      >
                         {a.team}
                       </td>
                       <td className="px-4 py-3 text-center hidden sm:table-cell">

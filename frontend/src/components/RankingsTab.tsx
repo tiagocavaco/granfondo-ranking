@@ -223,8 +223,15 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                 >
                   <span className="mr-1.5 text-base" title={r.country}>{countryFlag(r.country)}</span>{r.name}
                 </td>
-                <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell max-w-[140px] truncate">
-                  {r.team}
+                <td className="px-4 py-3 text-xs hidden md:table-cell max-w-[140px] truncate">
+                  {r.team ? (
+                    <span
+                      className="text-slate-500 hover:text-blue-600 transition-colors cursor-pointer"
+                      onClick={() => navigate(`/team/${encodeURIComponent(r.team)}`)}
+                    >
+                      {r.team}
+                    </span>
+                  ) : null}
                 </td>
                 <td className="px-4 py-3 text-xs hidden sm:table-cell">
                   {(() => {
