@@ -1,6 +1,6 @@
 // ── Name normalization ────────────────────────────────────────────────────────
 
-export { normalizeName, fixRawTeamName, normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/database/normalize";
+export { normalizeName, fixRawTeamName, normalizeTeam, SOLO_TEAM_KEYS, normalizeCountry } from "@granfondo/database/normalize";
 import { normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/database/normalize";
 
 /**

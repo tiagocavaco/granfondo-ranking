@@ -39,3 +39,36 @@ export function normalizeTeam(name: string): string {
 }
 
 export const SOLO_TEAM_KEYS = new Set(["individual", "independente", "no team", "sem equipa", ""]);
+
+// ── Country normalization ─────────────────────────────────────────────────────
+
+const COUNTRY_NAME_TO_ISO2: Record<string, string> = {
+  "Portugal": "PT", "Spain": "ES", "Brazil": "BR", "United Kingdom": "GB",
+  "France": "FR", "Italy": "IT", "Netherlands": "NL", "Germany": "DE",
+  "Russian Federation": "RU", "Belgium": "BE", "Ireland": "IE",
+  "United States of America": "US", "United States": "US", "Canada": "CA",
+  "Luxembourg": "LU", "Ukraine": "UA", "Austria": "AT", "Switzerland": "CH",
+  "Poland": "PL", "Sweden": "SE", "Denmark": "DK", "Norway": "NO",
+  "Finland": "FI", "Czech Republic": "CZ", "Hungary": "HU", "Romania": "RO",
+  "Australia": "AU", "New Zealand": "NZ", "Japan": "JP", "China": "CN",
+  "South Africa": "ZA", "Argentina": "AR", "Colombia": "CO", "Mexico": "MX",
+  "Angola": "AO", "Mozambique": "MZ", "Cape Verde": "CV",
+};
+
+/**
+ * Normalise a country value to ISO 3166-1 alpha-2.
+ * Handles: empty/null (→ "PT"), ISO2 pass-through, full country names.
+ * Defaults to "PT" — all events are held in Portugal.
+ */
+export function normalizeCountry(raw: string | undefined | null): string {
+  if (!raw) return "PT";
+  const trimmed = raw.trim();
+  if (trimmed.length === 2) return trimmed.toUpperCase();
+  return COUNTRY_NAME_TO_ISO2[trimmed] ?? "PT";
+}
+
+/** Convert an ISO 3166-1 alpha-2 code to a flag emoji. */
+export function countryFlag(iso2: string): string {
+  const code = normalizeCountry(iso2);
+  return [...code].map((c) => String.fromCodePoint(0x1f1e6 + c.charCodeAt(0) - 65)).join("");
+}

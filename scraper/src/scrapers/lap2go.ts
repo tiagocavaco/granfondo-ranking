@@ -1,4 +1,5 @@
 import { msToHHMMSS, fetchWithRetry, makeResult, toTitleCase } from "./shared.js";
+import { normalizeCountry } from "../normalize.js";
 import type { StoredEventResults, StoredDistanceResults, StoredResult } from "@granfondo/database/types";
 
 interface Lap2GoRow {
@@ -43,7 +44,7 @@ export async function scrapeFigueiraChampionsDay(): Promise<StoredEventResults> 
       gender: r.Sexo ?? "",
       team: r.Clube ?? "",
       category: r.Escalao ?? "",
-      country: r.Pais ?? "",
+      country: normalizeCountry(r.Pais),
       raceTime: msToHHMMSS(r.TempoOficial),
     });
 

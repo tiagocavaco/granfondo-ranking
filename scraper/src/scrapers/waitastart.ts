@@ -1,4 +1,5 @@
 import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult } from "./shared.js";
+import { normalizeCountry } from "../normalize.js";
 import type { StoredEventResults, StoredDistanceResults, StoredResult } from "@granfondo/database/types";
 
 /** Minimal CSV parser that handles double-quoted fields. */
@@ -64,7 +65,7 @@ async function waitastartFetch(rParam: string): Promise<StoredResult[]> {
       gender,
       team: r["Club"] ?? "",
       category: r["Category"] ?? "",
-      country: r["Nationality"] ?? "",
+      country: normalizeCountry(r["Nationality"]),
       raceTime: isFinished ? cleanTime(r["RUN.toficial"] ?? "") : "",
       dnf: isDnf,
       dns: isDns,

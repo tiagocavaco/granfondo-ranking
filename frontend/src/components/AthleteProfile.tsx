@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "../api";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
+import { countryFlag } from "@granfondo/database/normalize";
 
 const DIST_COLOR: Record<string, string> = {
   Granfondo: "bg-blue-50 text-blue-700",
@@ -91,7 +92,11 @@ export default function AthleteProfile() {
               <span className={`text-xs font-semibold px-2 py-0.5 rounded ${gender === "F" ? "bg-pink-500/30 text-pink-200" : "bg-blue-500/30 text-blue-200"}`}>
                 {gender === "F" ? "Women" : "Men"}
               </span>
-              {country && <span className="text-xs text-blue-300">{country}</span>}
+              {country && (
+                <span className="text-sm" title={country}>
+                  {countryFlag(country)}
+                </span>
+              )}
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight">{athlete.name}</h1>
             {recentTeam && recentTeam !== "Individual" && (

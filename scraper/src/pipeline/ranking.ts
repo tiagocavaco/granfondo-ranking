@@ -32,7 +32,7 @@ export function buildAggregateRanking(
 ): AggregateRanking {
   type AccEntry = {
     id: number; name: string; nameLower: string; gender: string;
-    team: string; teamDate: string; country: string;
+    team: string; teamDate: string; countryCounts: Map<string, number>;
     totalPoints: number; eventsScored: number; bestPos: number;
     results: AggregateAthlete["results"];
   };
@@ -80,7 +80,7 @@ export function buildAggregateRanking(
           if (!distMap.has(aKey)) {
             distMap.set(aKey, {
               id, name: r.name, nameLower, gender: r.gender,
-              team: r.team, teamDate: event.date, country: r.country,
+              team: r.team, teamDate: event.date, countryCounts: new Map(),
               totalPoints: 0, eventsScored: 0, bestPos: genderPos, results: [],
             });
           }
@@ -88,7 +88,7 @@ export function buildAggregateRanking(
           entry.totalPoints = Math.round((entry.totalPoints + pts) * 10) / 10;
           entry.eventsScored += 1;
           if (genderPos < entry.bestPos) entry.bestPos = genderPos;
-          entry.country = r.country || entry.country;
+          if (r.country) entry.countryCounts.set(r.country, (entry.countryCounts.get(r.country) ?? 0) + 1);
           if (event.date >= entry.teamDate && r.team) {
             entry.team = r.team; entry.teamDate = event.date;
           }
@@ -110,14 +110,17 @@ export function buildAggregateRanking(
       for (const [gender, distMap] of Object.entries(genders)) {
         const sorted = Array.from(distMap.values())
           .sort((a, b) => b.totalPoints - a.totalPoints || a.bestPos - b.bestPos);
-        ranking[year][dist][gender] = sorted.map((e, i) => ({
-          rank: i + 1, id: e.id, name: e.name, nameLower: e.nameLower,
-          gender: e.gender, team: e.team, country: e.country,
-          totalPoints: e.totalPoints, eventsScored: e.eventsScored, bestPos: e.bestPos,
-          results: e.results.sort(
-            (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
-          ),
-        }));
+        ranking[year][dist][gender] = sorted.map((e, i) => {
+          const country = [...e.countryCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "PT";
+          return {
+            rank: i + 1, id: e.id, name: e.name, nameLower: e.nameLower,
+            gender: e.gender, team: e.team, country,
+            totalPoints: e.totalPoints, eventsScored: e.eventsScored, bestPos: e.bestPos,
+            results: e.results.sort(
+              (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()
+            ),
+          };
+        });
       }
     }
   }

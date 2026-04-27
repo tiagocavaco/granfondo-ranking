@@ -1,4 +1,4 @@
-import { normalizeName, timeToSeconds } from "../normalize.js";
+import { normalizeName, timeToSeconds, normalizeCountry } from "../normalize.js";
 import type { StoredResult } from "@granfondo/database/types";
 
 export const BROWSER_UA =
@@ -80,7 +80,7 @@ export function makeResult(fields: {
     gender: fields.gender,
     team: fields.team,
     category: fields.category,
-    country: fields.country,
+    country: normalizeCountry(fields.country),
     raceTime: fields.raceTime,
     raceTimeSecs,
     gap: "",

@@ -4,6 +4,7 @@ import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import type { AggregateRanking, AggregateAthlete } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
+import { countryFlag } from "@granfondo/database/normalize";
 
 const POINTS_MAX = 50; // total points available per race
 
@@ -197,7 +198,7 @@ export default function AggregateRankingPage() {
                       {realRank === 1 ? "🥇" : realRank === 2 ? "🥈" : "🥉"}
                     </div>
                     <div className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-1 line-clamp-2">
-                      {a.name}
+                      <span className="mr-1" title={a.country}>{countryFlag(a.country)}</span>{a.name}
                     </div>
                     <div className="text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block">{a.team}</div>
                     <div
@@ -254,7 +255,7 @@ export default function AggregateRankingPage() {
                           className="font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
                           onClick={(e) => { e.stopPropagation(); navigate(`/athlete/${a.id}`); }}
                         >
-                          {a.name}
+                          <span className="mr-1.5" title={a.country}>{countryFlag(a.country)}</span>{a.name}
                         </span>
                         <div className="text-xs text-slate-400 lg:hidden mt-0.5 truncate max-w-[160px]">
                           {a.team}

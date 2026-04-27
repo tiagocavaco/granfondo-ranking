@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "@granfondo/database/types";
+import { countryFlag, normalizeCountry as toISO2 } from "@granfondo/database/normalize";
 import { Spinner, ErrorBanner } from "./EventList";
 
 interface Props {
@@ -74,6 +75,18 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
   const results: StoredResult[] = activeDist?.results ?? [];
   const totalFinisherCount = distances.reduce((sum, d) => sum + d.finisherCount, 0);
 
+  const nationalitySummary = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const r of results) {
+      if (r.dnf || r.dns) continue;
+      const iso2 = toISO2(r.country);
+      counts.set(iso2, (counts.get(iso2) ?? 0) + 1);
+    }
+    return [...counts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 6);
+  }, [results]);
+
   const categories = useMemo(() => {
     const base = genderFilter === "all" ? results : results.filter((r) => r.gender === genderFilter);
     return ["all", ...Array.from(new Set(base.map((r) => r.category).filter(Boolean))).sort()];
@@ -143,6 +156,16 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
         </span>
       </div>
 
+      {nationalitySummary.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-3">
+          {nationalitySummary.map(([iso2, count]) => (
+            <span key={iso2} className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600 font-medium">
+              {countryFlag(iso2)} {count.toLocaleString()}
+            </span>
+          ))}
+        </div>
+      )}
+
       <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm bg-white">
         <table className="w-full text-sm">
           <thead>
@@ -183,7 +206,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
                   onClick={() => { if (r.athleteId) navigate(`/athlete/${r.athleteId}`); }}
                 >
-                  {r.name}
+                  <span className="mr-1.5 text-base" title={r.country}>{countryFlag(r.country)}</span>{r.name}
                 </td>
                 <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell max-w-[140px] truncate">
                   {r.team}
