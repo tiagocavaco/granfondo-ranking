@@ -71,7 +71,7 @@ export default function EventCard({ event }: Props) {
             <span className="font-semibold text-slate-700">
               {event.participantCount.toLocaleString()}
             </span>
-            <span>registered</span>
+            <span>confirmed</span>
           </div>
         )}
       </div>

@@ -231,17 +231,15 @@ export async function scrapeListaParticipants(url: string): Promise<StoredPartic
 // ── Participant list scraper (stopandgo.net/events/{slug}/registrations) ──────
 
 /**
- * Scrape confirmed participants from a stopandgo.net/events/{slug}/registrations page.
+ * Parse one page of a stopandgo.net/events/{slug}/registrations HTML response.
  * Column order: td[0]=dorsal, td[1]=name, td[2]=empty, td[3]=gender, td[4]=team,
  *               td[5]=distance, td[6]=category, td[7]=status_text
  * Status is plain text: "Confirmado" | "Em Espera" | "Anulado"
+ * Returns { athletes, rowCount } where rowCount includes all statuses (used to detect end-of-pages).
  */
-export async function scrapeRegistrationsParticipants(url: string): Promise<StoredParticipant[]> {
-  const res = await fetchWithRetry(url, { headers: { "User-Agent": BROWSER_UA } });
-  if (!res.ok) throw new Error(`registrations HTTP ${res.status}: ${url}`);
-  const html = await res.text();
-
+function parseRegistrationsPage(html: string): { athletes: StoredParticipant[]; rowCount: number } {
   const athletes: StoredParticipant[] = [];
+  let rowCount = 0;
 
   const trPattern = /<tr[^>]*>([\s\S]*?)<\/tr>/g;
   for (const trMatch of html.matchAll(trPattern)) {
@@ -250,6 +248,7 @@ export async function scrapeRegistrationsParticipants(url: string): Promise<Stor
       m[1]!.replace(/<[^>]+>/g, "").trim()
     );
     if (tds.length < 8) continue;
+    rowCount++;
 
     const status = tds[7] ?? "";
     if (status !== "Confirmado") continue;
@@ -273,5 +272,29 @@ export async function scrapeRegistrationsParticipants(url: string): Promise<Stor
     athletes.push({ bib, name, fullName: name, gender, team, category, distance, distanceId, athleteId: 0 });
   }
 
-  return athletes;
+  return { athletes, rowCount };
+}
+
+/**
+ * Scrape all pages of confirmed participants from a stopandgo.net/events/{slug}/registrations page.
+ * Stops when a page returns no data rows (past the last page).
+ */
+export async function scrapeRegistrationsParticipants(url: string): Promise<StoredParticipant[]> {
+  const baseUrl = url.replace(/[?&]page=\d+(&|$)/, "$1").replace(/\?$/, "");
+  const all: StoredParticipant[] = [];
+
+  for (let page = 1; page <= 100; page++) {
+    const pageUrl = page === 1 ? baseUrl : `${baseUrl}?page=${page}`;
+    const res = await fetchWithRetry(pageUrl, { headers: { "User-Agent": BROWSER_UA } });
+    if (!res.ok) {
+      if (page === 1) throw new Error(`registrations HTTP ${res.status}: ${pageUrl}`);
+      break;
+    }
+    const html = await res.text();
+    const { athletes, rowCount } = parseRegistrationsPage(html);
+    all.push(...athletes);
+    if (rowCount === 0) break; // no more data rows — past the last page
+  }
+
+  return all;
 }

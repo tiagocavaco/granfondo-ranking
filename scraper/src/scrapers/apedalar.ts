@@ -1,6 +1,6 @@
 import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult } from "./shared.js";
 import { timeToSeconds } from "../normalize.js";
-import type { StoredEventResults, StoredDistanceResults, StoredResult } from "@granfondo/database/types";
+import type { StoredEventResults, StoredDistanceResults, StoredResult, StoredParticipant } from "@granfondo/database/types";
 
 /** Decode HTML attribute entities (for wire:snapshot attribute values) */
 function htmlAttrDecode(s: string): string {
@@ -150,6 +150,70 @@ async function apedalarLivewireFetch(
   };
   const comp = data.components[0]!;
   return { snapshot: comp.snapshot, html: comp.effects?.html ?? "" };
+}
+
+/**
+ * Scrape confirmed participants from an apedalar.pt event info page.
+ * Paginates via ?page=N until a page returns no data rows.
+ *
+ * Column layout (wire:key="table-row-*" rows):
+ *   td[0]=country flag, td[1]=name, td[2]=team, td[3]=bib,
+ *   td[4]=distance, td[5]=category, td[6]=payment status, td[7]=mobile-only
+ *
+ * Gender is derived from the category prefix: "F" → female, else male.
+ * Status: td[6] text contains "PAGO" for confirmed inscriptions.
+ */
+export async function scrapeApedalarParticipants(url: string): Promise<StoredParticipant[]> {
+  const baseUrl = url.replace(/[?&]page=\d+(&|$)/, "$1").replace(/\?$/, "");
+  const all: StoredParticipant[] = [];
+
+  for (let page = 1; page <= 100; page++) {
+    const pageUrl = page === 1 ? baseUrl : `${baseUrl}?page=${page}`;
+    const res = await fetchWithRetry(pageUrl, { headers: { "User-Agent": BROWSER_UA } });
+    if (!res.ok) {
+      if (page === 1) throw new Error(`apedalar participants HTTP ${res.status}: ${pageUrl}`);
+      break;
+    }
+    const html = await res.text();
+
+    const rowPattern = /<tr[^>]*wire:key="table-row-\d+"[^>]*>([\s\S]*?)<\/tr>/g;
+    let rowCount = 0;
+    for (const trMatch of html.matchAll(rowPattern)) {
+      rowCount++;
+      const row = trMatch[1]!;
+      const tds = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((m) => m[1]!);
+      if (tds.length < 6) continue;
+
+      // td[1] = name: strip mobile-only divs (md:hidden), then all tags, then collapse whitespace
+      const nameTd = (tds[1] ?? "")
+        .replace(/<div[^>]*md:hidden[^>]*>[\s\S]*?<\/div>/g, "")
+        .replace(/<[^>]+>/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      if (!nameTd) continue;
+
+      const team     = (tds[2] ?? "").replace(/<[^>]+>/g, "").trim();
+      const bib      = (tds[3] ?? "").replace(/<[^>]+>/g, "").trim();
+      const distance = (tds[4] ?? "").replace(/<[^>]+>/g, "").trim();
+      const category = (tds[5] ?? "").replace(/<[^>]+>/g, "").trim();
+      const statusRaw = (tds[6] ?? "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toUpperCase();
+      if (!statusRaw.includes("PAGO")) continue;
+
+      const gender: "M" | "F" = category.toUpperCase().startsWith("F") ? "F" : "M";
+      const distLower = distance.toLowerCase();
+      const distanceId =
+        distLower.includes("granfondo") || distLower.includes("grandfondo") ? "1"
+        : distLower.includes("mediofondo") ? "2"
+        : distLower.includes("minifondo") ? "3"
+        : "1";
+
+      all.push({ bib, name: nameTd, fullName: nameTd, gender, team, category, distance, distanceId, athleteId: 0 });
+    }
+
+    if (rowCount === 0) break;
+  }
+
+  return all;
 }
 
 export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {

@@ -11,6 +11,7 @@ import {
   scrapeFigueiraChampionsDay,
   scrapeAgitagueda,
   scrapeApedalar5Quinas,
+  scrapeApedalarParticipants,
   scrapeEtapaDaVolta,
 } from "./external.js";
 import { isPast } from "./normalize.js";
@@ -28,6 +29,7 @@ import {
   DEFAULT_DISTANCES,
   LISTA_URLS,
   REGISTRATIONS_URLS,
+  APEDALAR_PARTICIPANT_URLS,
 } from "./config.js";
 import { DATA_DIR, SCRAPED_EVENTS_PATH, DB_ENC_PATH, TMP_DB_PATH } from "./paths.js";
 import { normalizeName, teamNormalKey, teamKeySimilarity, initTeamAliases } from "./normalize.js";
@@ -100,6 +102,7 @@ async function sleep(ms: number) {
 async function fetchEventParticipants(eventId: number): Promise<StoredParticipant[]> {
   if (LISTA_URLS[eventId]) return scrapeListaParticipants(LISTA_URLS[eventId]!);
   if (REGISTRATIONS_URLS[eventId]) return scrapeRegistrationsParticipants(REGISTRATIONS_URLS[eventId]!);
+  if (APEDALAR_PARTICIPANT_URLS[eventId]) return scrapeApedalarParticipants(APEDALAR_PARTICIPANT_URLS[eventId]!);
   const athletes = await fetchParticipants(eventId);
   await sleep(DELAY_MS);
   return athletes.map(apiAthleteToParticipant);
@@ -258,7 +261,6 @@ async function scrapeEvent(
         finisherCount: results.filter((r) => !r.dnf && !r.dns).length,
         results,
       });
-      console.log(`  ✓ ${dist.name} — ${results.length} rows`);
     } catch (err) {
       console.error(`  ✗ ${dist.name}: ${err}`);
     }
@@ -267,6 +269,28 @@ async function scrapeEvent(
   if (distanceResults.length === 0) {
     console.log(`  ! no results scraped for ${label}`);
     return { event, participants: athletes };
+  }
+
+  // Re-assign distance names by winner time: longest course → shortest maps to
+  // the expected names in the order they appear on event.distances (GF, MF, Mini).
+  // This corrects events where the organizer's dist_id order doesn't match name order.
+  if (distanceResults.length > 1) {
+    const expectedNames = event.distances
+      .filter((d) => distanceResults.some((dr) => dr.id === d.id))
+      .map((d) => d.name);
+    distanceResults.sort((a, b) => {
+      const winA = a.results.find((r) => r.pos === 1)?.raceTimeSecs ?? 0;
+      const winB = b.results.find((r) => r.pos === 1)?.raceTimeSecs ?? 0;
+      return winB - winA; // descending: longest course first
+    });
+    distanceResults.forEach((dr, i) => {
+      dr.name = expectedNames[i] ?? dr.name;
+      dr.id = String(i + 1); // normalize IDs to 1,2,3 in GF→MF→Mini order for consistent DB sort
+    });
+  }
+
+  for (const dr of distanceResults) {
+    console.log(`  ✓ ${dr.name} — ${dr.results.length} rows`);
   }
 
   assignGenderPositions(distanceResults);
@@ -437,7 +461,7 @@ async function main() {
   // 3b. Add manual upcoming events (no StopAndGo ID yet) + fetch their participants
   for (const event of MANUAL_UPCOMING_EVENTS) {
     console.log(`⏳ [${event.id}] ${event.name}`);
-    if (LISTA_URLS[event.id]) {
+    if (LISTA_URLS[event.id] || REGISTRATIONS_URLS[event.id] || APEDALAR_PARTICIPANT_URLS[event.id]) {
       try {
         const athletes = await fetchEventParticipants(event.id);
         event.distances = resolveDistances(athletes, event.id);

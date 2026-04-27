@@ -156,6 +156,6 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
 
 export { scrapeFigueiraChampionsDay } from "./scrapers/lap2go.js";
 export { scrapeAgitagueda }          from "./scrapers/waitastart.js";
-export { scrapeApedalar5Quinas, extractEscalaoOptions, escalaoToGender } from "./scrapers/apedalar.js";
+export { scrapeApedalar5Quinas, scrapeApedalarParticipants, extractEscalaoOptions, escalaoToGender } from "./scrapers/apedalar.js";
 export { scrapeEtapaDaVolta }        from "./scrapers/classificacoes.js";
 export { scrapeListaParticipants }   from "./scrapers/stopandgo.js";

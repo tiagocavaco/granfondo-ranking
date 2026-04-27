@@ -123,6 +123,11 @@ export const LISTA_URLS: Record<number, string> = {
   90016: "https://inscricoes.cabreirasolutions.com/listas/grandfondo-portim-o-2026",
 };
 
+/** Events whose participant list is hosted on apedalar.pt/eventos/{id}/info */
+export const APEDALAR_PARTICIPANT_URLS: Record<number, string> = {
+  90012: "https://apedalar.pt/eventos/4197/info",
+};
+
 // Events using stopandgo.net/events/{slug}/registrations format (different column layout)
 export const REGISTRATIONS_URLS: Record<number, string> = {
   1798: "https://stopandgo.net/events/sao-mamede-granfondo-2026/registrations",
