@@ -92,6 +92,21 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
     return ["all", ...Array.from(new Set(base.map((r) => r.category).filter(Boolean))).sort()];
   }, [results, genderFilter]);
 
+  const catPosMap = useMemo(() => {
+    const map = new WeakMap<StoredResult, number>();
+    const byCategory = new Map<string, StoredResult[]>();
+    for (const r of results) {
+      if (r.dnf || r.dns || r.pos < 1 || !r.category) continue;
+      if (!byCategory.has(r.category)) byCategory.set(r.category, []);
+      byCategory.get(r.category)!.push(r);
+    }
+    for (const group of byCategory.values()) {
+      group.sort((a, b) => a.pos - b.pos);
+      group.forEach((r, i) => map.set(r, i + 1));
+    }
+    return map;
+  }, [results]);
+
   const filtered = useMemo(() => results.filter((r) => {
     const matchSearch =
       !search ||
@@ -211,7 +226,19 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                 <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell max-w-[140px] truncate">
                   {r.team}
                 </td>
-                <td className="px-4 py-3 text-slate-400 text-xs hidden sm:table-cell">{r.category}</td>
+                <td className="px-4 py-3 text-xs hidden sm:table-cell">
+                  {(() => {
+                    const cp = catPosMap.get(r);
+                    return (
+                      <div className="flex items-center gap-1">
+                        <span className="text-slate-400">{r.category}</span>
+                        {cp !== undefined && cp <= 3 && (
+                          <span>{cp === 1 ? "🥇" : cp === 2 ? "🥈" : "🥉"}</span>
+                        )}
+                      </div>
+                    );
+                  })()}
+                </td>
                 <td className="px-4 py-3 text-center hidden sm:table-cell">
                   <span
                     className={`text-xs font-semibold px-1.5 py-0.5 rounded ${
