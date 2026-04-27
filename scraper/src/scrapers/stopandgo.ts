@@ -227,3 +227,51 @@ export async function scrapeListaParticipants(url: string): Promise<StoredPartic
 
   return athletes;
 }
+
+// ── Participant list scraper (stopandgo.net/events/{slug}/registrations) ──────
+
+/**
+ * Scrape confirmed participants from a stopandgo.net/events/{slug}/registrations page.
+ * Column order: td[0]=dorsal, td[1]=name, td[2]=empty, td[3]=gender, td[4]=team,
+ *               td[5]=distance, td[6]=category, td[7]=status_text
+ * Status is plain text: "Confirmado" | "Em Espera" | "Anulado"
+ */
+export async function scrapeRegistrationsParticipants(url: string): Promise<StoredParticipant[]> {
+  const res = await fetchWithRetry(url, { headers: { "User-Agent": BROWSER_UA } });
+  if (!res.ok) throw new Error(`registrations HTTP ${res.status}: ${url}`);
+  const html = await res.text();
+
+  const athletes: StoredParticipant[] = [];
+
+  const trPattern = /<tr[^>]*>([\s\S]*?)<\/tr>/g;
+  for (const trMatch of html.matchAll(trPattern)) {
+    const row = trMatch[1]!;
+    const tds = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((m) =>
+      m[1]!.replace(/<[^>]+>/g, "").trim()
+    );
+    if (tds.length < 8) continue;
+
+    const status = tds[7] ?? "";
+    if (status !== "Confirmado") continue;
+
+    const bib      = tds[0] ?? "";
+    const name     = tds[1] ?? "";
+    const gender   = (tds[3] ?? "").toUpperCase() === "F" ? "F" : "M";
+    const team     = tds[4] ?? "";
+    const distance = tds[5] ?? "";
+    const category = tds[6] ?? "";
+
+    if (!name) continue;
+
+    const distLower = distance.toLowerCase();
+    const distanceId =
+      distLower.includes("granfondo") || distLower.includes("grandfondo") ? "1"
+      : distLower.includes("mediofondo") ? "2"
+      : distLower.includes("minifondo") ? "3"
+      : "1";
+
+    athletes.push({ bib, name, fullName: name, gender, team, category, distance, distanceId, athleteId: 0 });
+  }
+
+  return athletes;
+}

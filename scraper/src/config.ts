@@ -122,3 +122,10 @@ export const LISTA_URLS: Record<number, string> = {
   90015: "https://inscricoes.cabreirasolutions.com/listas/granfondo-serra-d-ossa-2026",
   90016: "https://inscricoes.cabreirasolutions.com/listas/grandfondo-portim-o-2026",
 };
+
+// Events using stopandgo.net/events/{slug}/registrations format (different column layout)
+export const REGISTRATIONS_URLS: Record<number, string> = {
+  1798: "https://stopandgo.net/events/sao-mamede-granfondo-2026/registrations",
+  1700: "https://stopandgo.net/events/granfondo-serra-da-estrela-2026/registrations",
+  1942: "https://stopandgo.net/events/tavira-granfondo-2026/registrations",
+};

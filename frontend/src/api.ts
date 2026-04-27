@@ -1,5 +1,5 @@
 
-import { eq, desc, asc, inArray, like, or, and, sql, max } from "drizzle-orm";
+import { eq, desc, asc, inArray, and, sql, max } from "drizzle-orm";
 import * as schema from "@granfondo/database/schema";
 import { getDb } from "./db/db-client";
 import type {
@@ -33,17 +33,6 @@ function athleteLookupKey(name: string, team: string): string {
   return (!tk || SOLO_TEAM_KEYS.has(tk)) ? `${nameLower}|` : `${nameLower}|${tk}`;
 }
 
-// ── FTS search helper ─────────────────────────────────────────────────────────
-
-/** Escapes a user search term for FTS5 MATCH. Returns null if term is empty. */
-function ftsMatch(term: string): string | null {
-  const t = term.trim();
-  if (!t) return null;
-  // Strip FTS5 special chars; keep only word chars, spaces, hyphens, apostrophes
-  const escaped = t.replace(/[^\p{L}\p{N}\s'\-]/gu, "").trim();
-  if (!escaped) return null;
-  return `"${escaped}"*`;
-}
 
 function safeJsonArray<T>(json: string): T[] {
   try { return JSON.parse(json) as T[]; } catch { return []; }
@@ -335,64 +324,33 @@ export const api = {
     }
   },
 
-  /** Search results for an event/distance — used by RankingsTab. */
-  async searchResults(
-    eventId: number,
-    distanceId: string,
-    search: string,
-  ): Promise<StoredResult[]> {
+
+  async searchAthletes(search: string): Promise<Array<{ id: number; name: string; canonicalTeam: string | null; resultCount: number }>> {
     const db = await getDb();
-    const match = ftsMatch(search);
+    const term = search.trim();
+    if (term.length < 2) return [];
 
-    const baseCondition = and(
-      eq(schema.results.eventId, eventId),
-      eq(schema.results.distanceId, distanceId),
-    );
-
-    const searchCondition = match
-      ? or(
-          sql`${schema.results.id} IN (SELECT rowid FROM results_fts WHERE results_fts MATCH ${match})`,
-          like(schema.results.bib, `${search.trim()}%`),
-        )
-      : undefined;
-
-    const resultRows = db.select().from(schema.results)
-      .where(and(baseCondition, searchCondition))
-      .orderBy(asc(schema.results.pos))
+    // sql.js WASM does not include FTS5 — use LIKE on name_lower (fast enough at 14k rows)
+    const pattern = `%${term.toLowerCase().replace(/[%_]/g, "\\$&")}%`;
+    const rows = db.select()
+      .from(schema.athletes)
+      .where(sql`${schema.athletes.nameLower} LIKE ${pattern}`)
+      .limit(50)
       .all();
 
-    const resultIds = resultRows.map((r) => r.id);
-    const licenceRows = resultIds.length > 0
-      ? db.select().from(schema.resultLicences)
-          .where(inArray(schema.resultLicences.resultId, resultIds))
-          .all()
-      : [];
+    const ids = rows.map((r) => r.id);
+    if (ids.length === 0) return [];
 
-    const licencesByResultId = new Map<number, string[]>();
-    for (const lr of licenceRows) {
-      if (!licencesByResultId.has(lr.resultId)) licencesByResultId.set(lr.resultId, []);
-      licencesByResultId.get(lr.resultId)!.push(lr.licence);
+    // Count via full select + JS aggregation to avoid Drizzle partial-select integer column bug
+    const countMap = new Map<number, number>();
+    for (const row of db.select().from(schema.athleteResults)
+      .where(inArray(schema.athleteResults.athleteId, ids))
+      .all()) {
+      countMap.set(row.athleteId, (countMap.get(row.athleteId) ?? 0) + 1);
     }
 
-    return resultRows.map((r) => ({
-      pos:          r.pos,
-      genderPos:    r.genderPos,
-      athleteId:    r.athleteId,
-      bib:          r.bib,
-      name:         r.name,
-      nameLower:    r.nameLower,
-      gender:       r.gender,
-      team:         r.team,
-      category:     r.category,
-      country:      r.country,
-      raceTime:     r.raceTime,
-      raceTimeSecs: r.raceTimeSecs,
-      gap:          r.gap,
-      gapSecs:      r.gapSecs,
-      points:       r.points,
-      licences:     licencesByResultId.get(r.id) ?? [],
-      dnf:          Boolean(r.dnf),
-      dns:          Boolean(r.dns),
-    }));
+    return rows
+      .map((r) => ({ id: r.id, name: r.name, canonicalTeam: r.canonicalTeam, resultCount: countMap.get(r.id) ?? 0 }))
+      .sort((a, b) => b.resultCount - a.resultCount);
   },
 };

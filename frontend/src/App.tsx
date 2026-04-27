@@ -5,6 +5,7 @@ import EventDetail from "./components/EventDetail";
 import AggregateRankingPage from "./components/AggregateRankingPage";
 import TeamRankingPage from "./components/TeamRankingPage";
 import AthleteProfile from "./components/AthleteProfile";
+import AthletesPage from "./components/AthletesPage";
 import { api } from "./api";
 
 export default function App() {
@@ -49,6 +50,18 @@ export default function App() {
                 Events
               </NavLink>
               <NavLink
+                to="/athletes"
+                className={({ isActive }) =>
+                  `px-3 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all ${
+                    isActive
+                      ? "bg-white/15 text-white backdrop-blur-sm"
+                      : "text-blue-200 hover:text-white hover:bg-white/8"
+                  }`
+                }
+              >
+                Athletes
+              </NavLink>
+              <NavLink
                 to="/ranking"
                 className={({ isActive }) =>
                   `px-3 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
@@ -89,6 +102,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<EventList />} />
             <Route path="/event/:id" element={<EventDetail />} />
+            <Route path="/athletes" element={<AthletesPage />} />
             <Route path="/athlete/:id" element={<AthleteProfile />} />
             <Route path="/ranking" element={<AggregateRankingPage />} />
             <Route path="/teams" element={<TeamRankingPage />} />

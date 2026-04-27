@@ -65,6 +65,15 @@ export default function EventCard({ event }: Props) {
             <span>finishers</span>
           </div>
         )}
+        {!isPast && event.participantCount > 0 && (
+          <div className="flex items-center gap-2">
+            <span className="text-slate-400">📋</span>
+            <span className="font-semibold text-slate-700">
+              {event.participantCount.toLocaleString()}
+            </span>
+            <span>registered</span>
+          </div>
+        )}
       </div>
 
       <div className="flex items-center justify-between gap-2">

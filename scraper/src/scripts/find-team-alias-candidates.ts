@@ -36,7 +36,7 @@ const allKeys = new Set<string>();
 for (const row of db.prepare("SELECT key FROM athlete_lookup").all() as { key: string }[]) {
   const parts = row.key.split("|");
   const teamKey = parts[1];
-  if (teamKey && teamKey.length >= 3) allKeys.add(teamKey);
+  if (teamKey && teamKey.length >= 3 && !teamKey.startsWith("solo:")) allKeys.add(teamKey);
 }
 
 // Also collect from results (catches teams not in lookup)

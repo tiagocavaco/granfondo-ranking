@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 
 import BetterSqlite3 from "better-sqlite3";
 
-import { fetchParticipants, fetchResults } from "./scrapers/stopandgo.js";
+import { fetchParticipants, fetchResults, scrapeListaParticipants, scrapeRegistrationsParticipants } from "./scrapers/stopandgo.js";
 import {
   EXTERNAL_EVENTS,
   MANUAL_UPCOMING_EVENTS,
@@ -12,7 +12,6 @@ import {
   scrapeAgitagueda,
   scrapeApedalar5Quinas,
   scrapeEtapaDaVolta,
-  scrapeListaParticipants,
 } from "./external.js";
 import { isPast } from "./normalize.js";
 import {
@@ -28,6 +27,7 @@ import {
   DELAY_MS,
   DEFAULT_DISTANCES,
   LISTA_URLS,
+  REGISTRATIONS_URLS,
 } from "./config.js";
 import { DATA_DIR, SCRAPED_EVENTS_PATH, DB_ENC_PATH, TMP_DB_PATH } from "./paths.js";
 import { normalizeName, teamNormalKey, teamKeySimilarity, initTeamAliases } from "./normalize.js";
@@ -99,6 +99,7 @@ async function sleep(ms: number) {
 
 async function fetchEventParticipants(eventId: number): Promise<StoredParticipant[]> {
   if (LISTA_URLS[eventId]) return scrapeListaParticipants(LISTA_URLS[eventId]!);
+  if (REGISTRATIONS_URLS[eventId]) return scrapeRegistrationsParticipants(REGISTRATIONS_URLS[eventId]!);
   const athletes = await fetchParticipants(eventId);
   await sleep(DELAY_MS);
   return athletes.map(apiAthleteToParticipant);
@@ -433,9 +434,20 @@ async function main() {
     scraped.push(event);
   }
 
-  // 3b. Add manual upcoming events (no StopAndGo ID yet)
+  // 3b. Add manual upcoming events (no StopAndGo ID yet) + fetch their participants
   for (const event of MANUAL_UPCOMING_EVENTS) {
     console.log(`⏳ [${event.id}] ${event.name}`);
+    if (LISTA_URLS[event.id]) {
+      try {
+        const athletes = await fetchEventParticipants(event.id);
+        event.distances = resolveDistances(athletes, event.id);
+        event.participantCount = athletes.length;
+        allParticipants.set(event.id, athletes);
+        console.log(`  ⏳ ${athletes.length} confirmed`);
+      } catch (err) {
+        console.error(`  ✗ ${err}`);
+      }
+    }
     scraped.push(event);
   }
 
