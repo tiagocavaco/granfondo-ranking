@@ -1,4 +1,4 @@
-import { BROWSER_UA, cleanTime, makeResult } from "./shared.js";
+import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult } from "./shared.js";
 import type { StoredEventResults, StoredDistanceResults, StoredResult } from "@granfondo/database/types";
 
 /** Minimal CSV parser that handles double-quoted fields. */
@@ -41,7 +41,7 @@ function parseCsv(text: string): Record<string, string>[] {
 
 async function waitastartFetch(rParam: string): Promise<StoredResult[]> {
   const url = `https://waitastart.com/results25/files/${rParam.toLowerCase()}.csv`;
-  const res = await fetch(url, { headers: { "User-Agent": BROWSER_UA } });
+  const res = await fetchWithRetry(url, { headers: { "User-Agent": BROWSER_UA } });
   if (!res.ok) throw new Error(`waitastart HTTP ${res.status}: ${url}`);
   const rows = parseCsv(await res.text());
 

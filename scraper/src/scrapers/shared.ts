@@ -4,6 +4,35 @@ import type { StoredResult } from "@granfondo/database/types";
 export const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36";
 
+const RETRYABLE = new Set([429, 500, 502, 503, 504]);
+
+/** fetch() with exponential backoff. Retries on network errors and 5xx/429. */
+export async function fetchWithRetry(
+  url: string,
+  init?: RequestInit,
+  maxRetries = 3,
+): Promise<Response> {
+  let lastErr: unknown;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    if (attempt > 0) {
+      const delay = (2 ** (attempt - 1)) * 1000 + Math.random() * 500;
+      console.warn(`  ↻ retry ${attempt}/${maxRetries} in ${Math.round(delay)}ms — ${url}`);
+      await new Promise((r) => setTimeout(r, delay));
+    }
+    try {
+      const res = await fetch(url, init);
+      if (!res.ok && RETRYABLE.has(res.status)) {
+        lastErr = new Error(`HTTP ${res.status}: ${url}`);
+        continue;
+      }
+      return res;
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+  throw lastErr;
+}
+
 /** Convert milliseconds to "HH:MM:SS" */
 export function msToHHMMSS(ms: number): string {
   const s = Math.round(ms / 1000);

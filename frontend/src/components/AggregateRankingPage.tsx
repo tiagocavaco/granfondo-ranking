@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
@@ -239,9 +239,8 @@ export default function AggregateRankingPage() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {ranked.slice(0, visibleCount).map((a) => (
-                  <>
+                  <React.Fragment key={a.id}>
                     <tr
-                      key={a.id}
                       onClick={() => setExpanded(expanded === String(a.id) ? null : String(a.id))}
                       className={`cursor-pointer transition-colors hover:bg-blue-50/40 ${
                         expanded === String(a.id) ? "bg-blue-50/60" : ""
@@ -335,7 +334,7 @@ export default function AggregateRankingPage() {
                         </td>
                       </tr>
                     )}
-                  </>
+                  </React.Fragment>
                 ))}
               </tbody>
             </table>

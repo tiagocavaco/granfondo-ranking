@@ -1,7 +1,7 @@
 import { parseEventDate, getYear, isPast } from "../normalize.js";
 import { isGranfondoName, isKidsCamVariant } from "../transform.js";
 import { YEARS, SUPPLEMENTAL_EVENT_IDS, OFFICIAL_EVENT_URLS } from "../config.js";
-import { BROWSER_UA } from "./shared.js";
+import { BROWSER_UA, fetchWithRetry } from "./shared.js";
 import type { ApiEvent, ApiResult, ApiNetEvent, ApiAthlete } from "../types.js";
 import type { StoredEvent, StoredParticipant } from "@granfondo/database/types";
 
@@ -16,7 +16,7 @@ const HEADERS = {
 };
 
 async function getJson<T>(url: string): Promise<T> {
-  const res = await fetch(url, { headers: HEADERS });
+  const res = await fetchWithRetry(url, { headers: HEADERS });
   if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
   const text = await res.text();
   if (!text.trim()) return [] as unknown as T;

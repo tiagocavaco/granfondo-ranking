@@ -1,4 +1,4 @@
-import { msToHHMMSS, makeResult, toTitleCase } from "./shared.js";
+import { msToHHMMSS, fetchWithRetry, makeResult, toTitleCase } from "./shared.js";
 import type { StoredEventResults, StoredDistanceResults, StoredResult } from "@granfondo/database/types";
 
 interface Lap2GoRow {
@@ -13,7 +13,7 @@ interface Lap2GoRow {
 }
 
 async function lap2goFetch(alias: string, nomeProva: string, numPassagem: number): Promise<Lap2GoRow[]> {
-  const res = await fetch("https://api.lap2go.com/Evento-Resultados", {
+  const res = await fetchWithRetry("https://api.lap2go.com/Evento-Resultados", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

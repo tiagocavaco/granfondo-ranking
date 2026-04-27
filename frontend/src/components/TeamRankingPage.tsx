@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
@@ -206,9 +206,8 @@ export default function TeamRankingPage() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {ranked.slice(0, visibleCount).map((t) => (
-                  <>
+                  <React.Fragment key={t.team}>
                     <tr
-                      key={t.team}
                       onClick={() => setExpanded(expanded === t.team ? null : t.team)}
                       className={`cursor-pointer transition-colors hover:bg-blue-50/40 ${
                         expanded === t.team ? "bg-blue-50/60" : ""
@@ -314,7 +313,7 @@ export default function TeamRankingPage() {
                         </td>
                       </tr>
                     )}
-                  </>
+                  </React.Fragment>
                 ))}
               </tbody>
             </table>

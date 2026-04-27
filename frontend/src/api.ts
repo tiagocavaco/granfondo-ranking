@@ -39,9 +39,14 @@ function athleteLookupKey(name: string, team: string): string {
 function ftsMatch(term: string): string | null {
   const t = term.trim();
   if (!t) return null;
-  const escaped = t.replace(/["*^]/g, " ").trim();
+  // Strip FTS5 special chars; keep only word chars, spaces, hyphens, apostrophes
+  const escaped = t.replace(/[^\p{L}\p{N}\s'\-]/gu, "").trim();
   if (!escaped) return null;
   return `"${escaped}"*`;
+}
+
+function safeJsonArray<T>(json: string): T[] {
+  try { return JSON.parse(json) as T[]; } catch { return []; }
 }
 
 // ── API ───────────────────────────────────────────────────────────────────────
@@ -205,7 +210,7 @@ export const api = {
         totalPoints:  row.totalPoints,
         eventsScored: row.eventsScored,
         bestPos:      row.bestPos,
-        results:      JSON.parse(row.resultsJson),
+        results:      safeJsonArray(row.resultsJson),
       };
       ranking[y][row.distance][row.gender].push(athlete);
     }
@@ -234,7 +239,7 @@ export const api = {
         totalPoints:  row.totalPoints,
         eventsScored: row.eventsScored,
         bestRank:     row.bestRank,
-        results:      JSON.parse(row.resultsJson),
+        results:      safeJsonArray(row.resultsJson),
       };
       ranking[y][row.distance].push(entry);
     }
@@ -324,8 +329,9 @@ export const api = {
 
       const lookupRows = db.select().from(schema.athleteLookup).all();
       nameToIdCache = new Map(lookupRows.map((r) => [r.key, r.athleteId]));
-    } catch {
-      // non-fatal: athlete navigation degrades gracefully
+    } catch (err) {
+      console.warn("[api] initLookups failed — athlete profile links will not work:", err);
+      throw err;
     }
   },
 

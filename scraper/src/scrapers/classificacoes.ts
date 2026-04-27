@@ -1,8 +1,8 @@
-import { BROWSER_UA, cleanTime, makeResult, toTitleCase } from "./shared.js";
+import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult, toTitleCase } from "./shared.js";
 import type { StoredEventResults } from "@granfondo/database/types";
 
 export async function scrapeEtapaDaVolta(): Promise<StoredEventResults> {
-  const res = await fetch(
+  const res = await fetchWithRetry(
     "https://www.classificacoes.net/ajax/action/results/13745",
     { headers: { "User-Agent": BROWSER_UA } }
   );

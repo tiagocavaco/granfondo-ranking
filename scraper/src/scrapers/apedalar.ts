@@ -1,4 +1,4 @@
-import { BROWSER_UA, cleanTime, makeResult } from "./shared.js";
+import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult } from "./shared.js";
 import { timeToSeconds } from "../normalize.js";
 import type { StoredEventResults, StoredDistanceResults, StoredResult } from "@granfondo/database/types";
 
@@ -127,7 +127,7 @@ async function apedalarLivewireFetch(
     }],
   };
 
-  const res = await fetch(livewireUri, {
+  const res = await fetchWithRetry(livewireUri, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -153,7 +153,7 @@ async function apedalarLivewireFetch(
 }
 
 export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
-  const pageRes = await fetch("https://apedalar.pt/eventos/3818/resultados", {
+  const pageRes = await fetchWithRetry("https://apedalar.pt/eventos/3818/resultados", {
     headers: { "User-Agent": BROWSER_UA },
   });
   if (!pageRes.ok) throw new Error(`apedalar page HTTP ${pageRes.status}`);

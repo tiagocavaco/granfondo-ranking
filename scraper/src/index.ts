@@ -29,7 +29,7 @@ import {
   DEFAULT_DISTANCES,
   LISTA_URLS,
 } from "./config.js";
-import { DATA_DIR, SCRAPED_EVENTS_PATH, DB_ENC_PATH } from "./paths.js";
+import { DATA_DIR, SCRAPED_EVENTS_PATH, DB_ENC_PATH, TMP_DB_PATH } from "./paths.js";
 import { normalizeName, teamNormalKey, teamKeySimilarity, initTeamAliases } from "./normalize.js";
 import { buildDatabase, type AllScrapedData } from "@granfondo/database/db-writer";
 import { encryptBuffer } from "./db/encrypt.js";
@@ -160,6 +160,26 @@ async function writeEncryptedDatabase(
   };
 
   const dbBuffer = buildDatabase(data);
+
+  // Sanity-check the DB before encrypting — catch silent data-loss early
+  const verifyPath = TMP_DB_PATH + ".verify";
+  fs.writeFileSync(verifyPath, dbBuffer);
+  const verifyDb = new BetterSqlite3(verifyPath);
+  const counts = {
+    athletes:     (verifyDb.prepare("SELECT COUNT(*) AS n FROM athletes").get() as { n: number }).n,
+    results:      (verifyDb.prepare("SELECT COUNT(*) AS n FROM results").get() as { n: number }).n,
+    participants: (verifyDb.prepare("SELECT COUNT(*) AS n FROM participants").get() as { n: number }).n,
+  };
+  verifyDb.close();
+  try { fs.unlinkSync(verifyPath); } catch {}
+  console.log(`   DB counts — athletes: ${counts.athletes}, results: ${counts.results}, participants: ${counts.participants}`);
+  const MINIMUMS = { athletes: 9_000, results: 25_000, participants: 0 };
+  for (const [table, min] of Object.entries(MINIMUMS)) {
+    if ((counts as Record<string, number>)[table] < min) {
+      throw new Error(`Sanity check failed: ${table} has ${(counts as Record<string, number>)[table]} rows (expected ≥ ${min})`);
+    }
+  }
+
   const encrypted = encryptBuffer(dbBuffer, keyHex);
   fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.writeFileSync(DB_ENC_PATH, encrypted);

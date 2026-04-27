@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import EventList from "./components/EventList";
 import EventDetail from "./components/EventDetail";
@@ -8,9 +8,12 @@ import AthleteProfile from "./components/AthleteProfile";
 import { api } from "./api";
 
 export default function App() {
-  useEffect(() => { api.initLookups(); }, []);
+  const [lookupsFailed, setLookupsFailed] = useState(false);
+  useEffect(() => {
+    api.initLookups().catch(() => setLookupsFailed(true));
+  }, []);
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <BrowserRouter basename={import.meta.env.BASE_URL} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <div className="min-h-screen bg-slate-50">
         {/* Header */}
         <header className="bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 shadow-xl sticky top-0 z-50">
@@ -77,6 +80,11 @@ export default function App() {
           </div>
         </header>
 
+        {lookupsFailed && (
+          <div className="bg-amber-50 border-b border-amber-200 text-amber-800 text-sm px-4 py-2 text-center">
+            Athlete profile links are unavailable — data may be loading or out of date.
+          </div>
+        )}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
           <Routes>
             <Route path="/" element={<EventList />} />
