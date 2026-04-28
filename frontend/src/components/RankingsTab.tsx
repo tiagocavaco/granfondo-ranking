@@ -186,11 +186,11 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
           <thead>
             <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
               <th className="px-4 py-3 text-left w-14">Pos</th>
-              <th className="px-4 py-3 text-left w-16">Bib</th>
+              <th className="px-4 py-3 text-left w-16 hidden sm:table-cell">Bib</th>
               <th className="px-4 py-3 text-left">Athlete</th>
-              <th className="px-4 py-3 text-left hidden md:table-cell">Team</th>
-              <th className="px-4 py-3 text-left hidden sm:table-cell">Cat</th>
-              <th className="px-4 py-3 text-center hidden sm:table-cell">G</th>
+              <th className="px-4 py-3 text-left hidden md:table-cell w-2/5">Team</th>
+              <th className="px-4 py-3 text-left hidden sm:table-cell w-40">Category</th>
+              <th className="px-4 py-3 text-center hidden sm:table-cell w-20">Gender</th>
               <th className="px-4 py-3 text-right">Time</th>
               <th className="px-4 py-3 text-right hidden sm:table-cell">Gap</th>
             </tr>
@@ -216,14 +216,24 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                     </span>
                   )}
                 </td>
-                <td className="px-4 py-3 font-mono text-xs text-slate-400">{r.bib}</td>
+                <td className="px-4 py-3 font-mono text-xs text-slate-400 hidden sm:table-cell">{r.bib}</td>
                 <td
-                  className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
+                  className="px-4 py-3 w-full max-w-0 overflow-hidden cursor-pointer"
                   onClick={() => { if (r.athleteId) navigate(`/athlete/${r.athleteId}`); }}
                 >
-                  <span className="mr-1.5 text-base" title={r.country}>{countryFlag(r.country)}</span>{r.name}
+                  <div className="font-semibold text-slate-900 hover:text-blue-600 transition-colors truncate">
+                    <span className="mr-1.5 text-base" title={r.country}>{countryFlag(r.country)}</span>{r.name}
+                  </div>
+                  {r.team && (
+                    <div
+                      className="text-xs text-slate-400 truncate mt-0.5 md:hidden hover:text-blue-600 transition-colors"
+                      onClick={(e) => { e.stopPropagation(); navigate(`/team/${encodeURIComponent(r.team)}`); }}
+                    >
+                      {r.team}
+                    </div>
+                  )}
                 </td>
-                <td className="px-4 py-3 text-xs hidden md:table-cell max-w-[140px] truncate">
+                <td className="px-4 py-3 text-xs hidden md:table-cell">
                   {r.team ? (
                     <span
                       className="text-slate-500 hover:text-blue-600 transition-colors cursor-pointer"
@@ -237,7 +247,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   {(() => {
                     const cp = catPosMap.get(r);
                     return (
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1 whitespace-nowrap">
                         <span className="text-slate-400">{r.category}</span>
                         {cp !== undefined && cp <= 3 && (
                           <span>{cp === 1 ? "🥇" : cp === 2 ? "🥈" : "🥉"}</span>
@@ -257,8 +267,9 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                     {r.gender}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-right font-mono text-xs font-semibold text-slate-700">
-                  {r.raceTime}
+                <td className="px-4 py-3 text-right">
+                  <div className="font-mono text-xs font-semibold text-slate-700">{r.raceTime}</div>
+                  {r.gap && <div className="font-mono text-xs text-slate-400 mt-0.5 sm:hidden">{r.gap}</div>}
                 </td>
                 <td className="px-4 py-3 text-right font-mono text-xs text-slate-400 hidden sm:table-cell">
                   {r.gap}
