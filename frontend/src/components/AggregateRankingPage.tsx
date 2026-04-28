@@ -121,9 +121,9 @@ export default function AggregateRankingPage() {
       {/* Page header */}
       <div className="mb-8">
         <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-          Season Ranking
+          Athlete Ranking
         </h2>
-        <p className="text-slate-500 mt-1 text-sm">
+        <p className="text-slate-500 mt-1 text-sm hidden sm:block">
           Points by position (75, 65, 60, 55, 50… down to 1 for top 50), multiplied by a{" "}
           <strong className="text-slate-700">difficulty coefficient</strong>{" "}
           based on number of finishers — larger races score higher.
@@ -148,6 +148,12 @@ export default function AggregateRankingPage() {
             Mediofondo: { active: "bg-violet-600 text-white", base: "text-violet-700 border-violet-200" },
             Minifondo: { active: "bg-emerald-600 text-white", base: "text-emerald-700 border-emerald-200" },
             "Time Trial": { active: "bg-amber-500 text-white", base: "text-amber-700 border-amber-200" },
+          }}
+          shortLabelMap={{
+            Granfondo: "GF",
+            Mediofondo: "MF",
+            Minifondo: "Mini",
+            "Time Trial": "TT",
           }}
         />
         <SegmentedControl
@@ -228,7 +234,7 @@ export default function AggregateRankingPage() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white" id="ranking-table">
+          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white" id="ranking-table">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
@@ -374,6 +380,7 @@ function SegmentedControl({
   onChange,
   colorMap,
   labelMap,
+  shortLabelMap,
 }: {
   label: string;
   options: string[];
@@ -381,6 +388,7 @@ function SegmentedControl({
   onChange: (v: string) => void;
   colorMap?: Record<string, { active: string; base: string }>;
   labelMap?: Record<string, string>;
+  shortLabelMap?: Record<string, string>;
 }) {
   return (
     <div className="flex items-center gap-2.5">
@@ -388,17 +396,24 @@ function SegmentedControl({
       <div className="flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
         {options.map((o) => {
           const colors = colorMap?.[o];
+          const fullLabel = labelMap?.[o] ?? o;
+          const shortLabel = shortLabelMap?.[o];
           return (
             <button
               key={o}
               onClick={() => onChange(o)}
-              className={`px-4 py-1.5 text-sm font-semibold transition-all ${
+              className={`px-3 sm:px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
                 value === o
                   ? colors?.active ?? "bg-blue-600 text-white"
                   : `text-slate-600 hover:bg-slate-50 ${colors ? "border-r last:border-r-0 " + colors.base : ""}`
               }`}
             >
-              {labelMap?.[o] ?? o}
+              {shortLabel ? (
+                <>
+                  <span className="sm:hidden">{shortLabel}</span>
+                  <span className="hidden sm:inline">{fullLabel}</span>
+                </>
+              ) : fullLabel}
             </button>
           );
         })}

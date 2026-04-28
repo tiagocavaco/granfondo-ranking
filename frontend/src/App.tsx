@@ -74,7 +74,7 @@ export default function App() {
                 }
               >
                 <span className="hidden sm:inline">🏆 </span>
-                <span className="sm:hidden">Athletes</span>
+                <span className="sm:hidden">Ranking</span>
                 <span className="hidden sm:inline">Athlete Ranking</span>
               </NavLink>
               <NavLink

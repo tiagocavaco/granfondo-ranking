@@ -139,7 +139,7 @@ export default function TeamProfile() {
           <h2 className="text-lg font-bold text-slate-800 mb-3">{year}</h2>
           <div className="space-y-4">
             {byYear[year]!.map(({ distance, entry }) => (
-              <div key={distance} className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
+              <div key={distance} className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
                 <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
                   <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${DIST_COLOR[distance] ?? "bg-slate-100 text-slate-600"}`}>
                     {distance}

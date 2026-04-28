@@ -78,7 +78,7 @@ export default function AthleteProfile() {
 
       {/* Hero */}
       <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-6 mb-8 text-white">
-        <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className={`text-xs font-semibold px-2 py-0.5 rounded ${gender === "F" ? "bg-pink-500/30 text-pink-200" : "bg-blue-500/30 text-blue-200"}`}>
@@ -100,15 +100,15 @@ export default function AthleteProfile() {
               </Link>
             )}
           </div>
-          <div className="flex flex-col items-end gap-3">
-            <div className="flex gap-4 flex-wrap justify-end">
+          <div className="flex flex-col gap-3 sm:items-end">
+            <div className="flex gap-3 flex-wrap">
               <Stat label="Races" value={athlete.results.length} />
               <Stat label="Finishes" value={finished.length} />
               {bestPos && <Stat label="Best Pos" value={`#${bestPos}`} highlight={bestPos <= 3} />}
             </div>
             <button
               onClick={() => navigate(`/compare?a=${athlete.id}`)}
-              className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-blue-200 hover:text-white border border-white/10 transition-colors"
+              className="self-start sm:self-auto text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-blue-200 hover:text-white border border-white/10 transition-colors"
             >
               Compare ↗
             </button>
@@ -137,7 +137,7 @@ export default function AthleteProfile() {
               </Link>
             )}
           </h2>
-          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
+          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">

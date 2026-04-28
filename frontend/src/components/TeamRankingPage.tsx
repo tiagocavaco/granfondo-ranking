@@ -110,7 +110,7 @@ export default function TeamRankingPage() {
         <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
           Team Ranking
         </h2>
-        <p className="text-slate-500 mt-1 text-sm">
+        <p className="text-slate-500 mt-1 text-sm hidden sm:block">
           Top 3 athletes per team per distance count. Teams need ≥3 finishers to score.
           Points (25→20→15→12→7→5→4→3→2→1) multiplied by a{" "}
           <strong className="text-slate-700">difficulty coefficient</strong> based on total
@@ -136,6 +136,12 @@ export default function TeamRankingPage() {
             Mediofondo: { active: "bg-violet-600 text-white" },
             Minifondo: { active: "bg-emerald-600 text-white" },
             "Time Trial": { active: "bg-amber-500 text-white" },
+          }}
+          shortLabelMap={{
+            Granfondo: "GF",
+            Mediofondo: "MF",
+            Minifondo: "Mini",
+            "Time Trial": "TT",
           }}
         />
         <input
@@ -196,7 +202,7 @@ export default function TeamRankingPage() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
+          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
@@ -350,30 +356,40 @@ function SegmentedControl({
   value,
   onChange,
   colorMap,
+  shortLabelMap,
 }: {
   label: string;
   options: string[];
   value: string;
   onChange: (v: string) => void;
   colorMap?: Record<string, { active: string }>;
+  shortLabelMap?: Record<string, string>;
 }) {
   return (
     <div className="flex items-center gap-2.5">
       <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">{label}</span>
       <div className="flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
-        {options.map((o) => (
-          <button
-            key={o}
-            onClick={() => onChange(o)}
-            className={`px-4 py-1.5 text-sm font-semibold transition-all ${
-              value === o
-                ? (colorMap?.[o]?.active ?? "bg-blue-600 text-white")
-                : "text-slate-600 hover:bg-slate-50"
-            }`}
-          >
-            {o}
-          </button>
-        ))}
+        {options.map((o) => {
+          const shortLabel = shortLabelMap?.[o];
+          return (
+            <button
+              key={o}
+              onClick={() => onChange(o)}
+              className={`px-3 sm:px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
+                value === o
+                  ? (colorMap?.[o]?.active ?? "bg-blue-600 text-white")
+                  : "text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              {shortLabel ? (
+                <>
+                  <span className="sm:hidden">{shortLabel}</span>
+                  <span className="hidden sm:inline">{o}</span>
+                </>
+              ) : o}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
