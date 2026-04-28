@@ -17,6 +17,7 @@ import type {
 } from "@granfondo/database/types";
 
 import { normalizeName, normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/database/normalize";
+import { buildCountryMap } from "./utils/athlete";
 
 // In-memory caches populated by initLookups()
 let teamAliasesCache = new Map<string, string>();
@@ -327,7 +328,40 @@ export const api = {
   },
 
 
-  async searchAthletes(search: string): Promise<Array<{ id: number; name: string; canonicalTeam: string | null; resultCount: number }>> {
+  async getTopAthletes(limit = 30): Promise<Array<{ id: number; name: string; canonicalTeam: string | null; resultCount: number; country: string }>> {
+    const db = await getDb();
+
+    // Count results per athlete (ascending date so last write = most recent country)
+    const resultRows = db.select({
+      athleteId: schema.athleteResults.athleteId,
+      country:   schema.athleteResults.country,
+    }).from(schema.athleteResults).orderBy(asc(schema.athleteResults.eventDate)).all();
+
+    const countMap = new Map<number, number>();
+    for (const row of resultRows) countMap.set(row.athleteId, (countMap.get(row.athleteId) ?? 0) + 1);
+    const countryMap = buildCountryMap(resultRows);
+
+    const topIds = [...countMap.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, limit)
+      .map(([id]) => id);
+
+    if (topIds.length === 0) return [];
+
+    const athleteRows = db.select().from(schema.athletes)
+      .where(inArray(schema.athletes.id, topIds))
+      .all();
+
+    const athleteById = new Map(athleteRows.map((r) => [r.id, r]));
+    return topIds
+      .map((id) => {
+        const a = athleteById.get(id)!;
+        return { id, name: a.name, canonicalTeam: a.canonicalTeam, resultCount: countMap.get(id)!, country: countryMap.get(id) ?? "" };
+      })
+      .filter((r) => r.name);
+  },
+
+  async searchAthletes(search: string): Promise<Array<{ id: number; name: string; canonicalTeam: string | null; resultCount: number; country: string }>> {
     const db = await getDb();
     const term = search.trim();
     if (term.length < 2) return [];
@@ -343,16 +377,18 @@ export const api = {
     const ids = rows.map((r) => r.id);
     if (ids.length === 0) return [];
 
-    // Count via full select + JS aggregation to avoid Drizzle partial-select integer column bug
-    const countMap = new Map<number, number>();
-    for (const row of db.select().from(schema.athleteResults)
+    // Count via full select + JS aggregation (ascending date so last write = most recent country)
+    const resultRows = db.select().from(schema.athleteResults)
       .where(inArray(schema.athleteResults.athleteId, ids))
-      .all()) {
-      countMap.set(row.athleteId, (countMap.get(row.athleteId) ?? 0) + 1);
-    }
+      .orderBy(asc(schema.athleteResults.eventDate))
+      .all();
+
+    const countMap = new Map<number, number>();
+    for (const row of resultRows) countMap.set(row.athleteId, (countMap.get(row.athleteId) ?? 0) + 1);
+    const countryMap = buildCountryMap(resultRows);
 
     return rows
-      .map((r) => ({ id: r.id, name: r.name, canonicalTeam: r.canonicalTeam, resultCount: countMap.get(r.id) ?? 0 }))
+      .map((r) => ({ id: r.id, name: r.name, canonicalTeam: r.canonicalTeam, resultCount: countMap.get(r.id) ?? 0, country: countryMap.get(r.id) ?? "" }))
       .sort((a, b) => b.resultCount - a.resultCount);
   },
 };

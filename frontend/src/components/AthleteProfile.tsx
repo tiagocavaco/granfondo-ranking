@@ -5,19 +5,9 @@ import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";
 import PerformanceChart from "./PerformanceChart";
-
-const DIST_COLOR: Record<string, string> = {
-  Granfondo: "bg-blue-50 text-blue-700",
-  GranFondo: "bg-blue-50 text-blue-700",
-  "BIG DAY": "bg-blue-50 text-blue-700",
-  "Clássica": "bg-blue-50 text-blue-700",
-  Mediofondo: "bg-violet-50 text-violet-700",
-  "HALF DAY": "bg-violet-50 text-violet-700",
-  Etapa: "bg-violet-50 text-violet-700",
-  Minifondo: "bg-emerald-50 text-emerald-700",
-  "Time Trial": "bg-amber-50 text-amber-700",
-  "TIME TRIAL": "bg-amber-50 text-amber-700",
-};
+import CareerHighlights from "./CareerHighlights";
+import { distBadgeClass } from "../utils/distance";
+import { mostRecentCountry } from "../utils/athlete";
 
 function posStyle(pos: number) {
   if (pos === 1) return "bg-gradient-to-br from-yellow-400 to-amber-500 text-white shadow-sm";
@@ -26,6 +16,7 @@ function posStyle(pos: number) {
   if (pos <= 10) return "bg-blue-50 text-blue-700 font-semibold";
   return "bg-slate-100 text-slate-500";
 }
+
 
 export default function AthleteProfile() {
   const { id } = useParams<{ id: string }>();
@@ -66,7 +57,7 @@ export default function AthleteProfile() {
   const bestPos = finished.length > 0 ? Math.min(...finished.map((r) => r.pos)) : null;
   const recentTeam = athlete.canonicalTeam ?? athlete.results[0]?.team ?? "";
   const gender = athlete.results[0]?.gender ?? "";
-  const country = athlete.results[0]?.country ?? "";
+  const country = mostRecentCountry(athlete.results);
   const sorted = [...athlete.results].sort((a, b) => a.eventDate.localeCompare(b.eventDate));
 
   // Group by year for the breakdown
@@ -111,9 +102,9 @@ export default function AthleteProfile() {
           </div>
           <div className="flex flex-col items-end gap-3">
             <div className="flex gap-4 flex-wrap justify-end">
-            <Stat label="Races" value={athlete.results.length} />
-            <Stat label="Finishes" value={finished.length} />
-            {bestPos && <Stat label="Best Pos" value={`#${bestPos}`} highlight={bestPos <= 3} />}
+              <Stat label="Races" value={athlete.results.length} />
+              <Stat label="Finishes" value={finished.length} />
+              {bestPos && <Stat label="Best Pos" value={`#${bestPos}`} highlight={bestPos <= 3} />}
             </div>
             <button
               onClick={() => navigate(`/compare?a=${athlete.id}`)}
@@ -124,6 +115,8 @@ export default function AthleteProfile() {
           </div>
         </div>
       </div>
+
+      <CareerHighlights results={athlete.results} />
 
       <PerformanceChart results={athlete.results} />
 
@@ -169,7 +162,7 @@ export default function AthleteProfile() {
                       <div className="text-xs text-slate-400 mt-0.5">{r.eventDate}</div>
                     </td>
                     <td className="px-4 py-3 hidden sm:table-cell">
-                      <span className={`text-[11px] px-2 py-0.5 rounded-full font-semibold ${DIST_COLOR[r.distance] ?? "bg-slate-100 text-slate-600"}`}>
+                      <span className={`text-[11px] px-2 py-0.5 rounded-full font-semibold ${distBadgeClass(r.distance)}`}>
                         {r.distance}
                       </span>
                     </td>
