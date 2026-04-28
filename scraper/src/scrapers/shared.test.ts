@@ -79,6 +79,22 @@ describe("toTitleCase", () => {
   it("handles empty string", () => {
     expect(toTitleCase("")).toBe("");
   });
+
+  it("does not capitalise mid-word after accented vowel (regression: JoãO → João)", () => {
+    expect(toTitleCase("JOÃO PEDRO")).toBe("João Pedro");
+  });
+
+  it("does not capitalise mid-word after é (regression: HéLder → Hélder)", () => {
+    expect(toTitleCase("HÉLDER LOUREIRO")).toBe("Hélder Loureiro");
+  });
+
+  it("does not capitalise mid-word after í (regression: LuíS → Luís)", () => {
+    expect(toTitleCase("LUÍS MIGUEL")).toBe("Luís Miguel");
+  });
+
+  it("capitalises after hyphens", () => {
+    expect(toTitleCase("MARIE-CLAIRE")).toBe("Marie-Claire");
+  });
 });
 
 // ── makeResult ────────────────────────────────────────────────────────────────

@@ -95,5 +95,7 @@ export function makeResult(fields: {
 
 /** Title-case a string (handles all-caps athlete names from some APIs) */
 export function toTitleCase(s: string): string {
-  return s.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+  // Use \p{L} with the `u` flag so accented chars (ã, é, í…) are treated as
+  // letters, not word boundaries — fixing "JoãO" → "João", "HéLder" → "Hélder"
+  return s.toLowerCase().replace(/(^|[\s\-])\p{L}/gu, (c) => c.toUpperCase());
 }
