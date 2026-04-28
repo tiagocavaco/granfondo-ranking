@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { injectAthleteIds } from "./index.js";
+import { injectAthleteIds } from "./inject.js";
 import type { AthleteEntry, StoredEventResults } from "@granfondo/database/types";
 
 function mkEntry(id: number, nameLower: string, results: AthleteEntry["results"]): AthleteEntry {
