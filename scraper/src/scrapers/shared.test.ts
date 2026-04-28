@@ -103,7 +103,7 @@ describe("makeResult", () => {
     expect(r.gender).toBe("M");
     expect(r.team).toBe("Team A");
     expect(r.category).toBe("ELITES M");
-    expect(r.country).toBe("Portugal");
+    expect(r.country).toBe("PT");
     expect(r.raceTime).toBe("03:25:10");
   });
 

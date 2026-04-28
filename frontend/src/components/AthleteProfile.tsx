@@ -4,6 +4,7 @@ import { api } from "../api";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";
+import PerformanceChart from "./PerformanceChart";
 
 const DIST_COLOR: Record<string, string> = {
   Granfondo: "bg-blue-50 text-blue-700",
@@ -108,13 +109,23 @@ export default function AthleteProfile() {
               </Link>
             )}
           </div>
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex flex-col items-end gap-3">
+            <div className="flex gap-4 flex-wrap justify-end">
             <Stat label="Races" value={athlete.results.length} />
             <Stat label="Finishes" value={finished.length} />
             {bestPos && <Stat label="Best Pos" value={`#${bestPos}`} highlight={bestPos <= 3} />}
+            </div>
+            <button
+              onClick={() => navigate(`/compare?a=${athlete.id}`)}
+              className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-blue-200 hover:text-white border border-white/10 transition-colors"
+            >
+              Compare ↗
+            </button>
           </div>
         </div>
       </div>
+
+      <PerformanceChart results={athlete.results} />
 
       {/* Results by year */}
       {Object.keys(byYear).sort().reverse().map((year) => {
@@ -162,7 +173,14 @@ export default function AthleteProfile() {
                         {r.distance}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-400 text-xs hidden md:table-cell">{r.category}</td>
+                    <td className="px-4 py-3 text-xs hidden md:table-cell">
+                      <span className="text-slate-400">{r.category}</span>
+                      {r.catPos > 0 && r.catPos <= 4 && (
+                        <span className="ml-1">
+                          {r.catPos === 1 ? "🥇" : r.catPos === 2 ? "🥈" : r.catPos === 3 ? "🥉" : "🍫"}
+                        </span>
+                      )}
+                    </td>
                     <td className="px-4 py-3 text-center">
                       {r.dnf || r.dns ? (
                         <span className="text-xs text-slate-400 font-bold">{r.dnf ? "DNF" : "DNS"}</span>

@@ -16,6 +16,7 @@ import {
   getYear,
   isPast,
   levenshteinDistance,
+  distancePriority,
 } from "./normalize.js";
 
 beforeAll(() => {
@@ -453,5 +454,38 @@ describe("levenshteinDistance", () => {
     expect(levenshteinDistance("manuel salvado", "luis madureira")).toBeGreaterThan(2);
     expect(levenshteinDistance("pedro marques", "pedro purito")).toBeGreaterThan(2);
     expect(levenshteinDistance("jose faria", "ze luis")).toBeGreaterThan(2);
+  });
+});
+
+// ── distancePriority ──────────────────────────────────────────────────────────
+
+describe("distancePriority", () => {
+  it("canonical names return correct priority order", () => {
+    expect(distancePriority("Granfondo")).toBeLessThan(distancePriority("Mediofondo"));
+    expect(distancePriority("Mediofondo")).toBeLessThan(distancePriority("Minifondo"));
+    expect(distancePriority("Minifondo")).toBeLessThan(distancePriority("Time Trial"));
+  });
+
+  it("aliases resolve to canonical priority", () => {
+    expect(distancePriority("BIG DAY")).toBe(distancePriority("Granfondo"));
+    expect(distancePriority("HALF DAY")).toBe(distancePriority("Mediofondo"));
+    expect(distancePriority("Clássica")).toBe(distancePriority("Granfondo"));
+    expect(distancePriority("Etapa")).toBe(distancePriority("Mediofondo"));
+  });
+
+  it("case insensitive for canonical names", () => {
+    expect(distancePriority("granfondo")).toBe(distancePriority("Granfondo"));
+    expect(distancePriority("MEDIOFONDO")).toBe(distancePriority("Mediofondo"));
+  });
+
+  it("unknown distance returns lowest priority (9)", () => {
+    expect(distancePriority("Unknown Race")).toBe(9);
+    expect(distancePriority("")).toBe(9);
+  });
+
+  it("sorting by priority yields GF → MF → Mini order", () => {
+    const names = ["Minifondo", "Granfondo", "Mediofondo"];
+    const sorted = [...names].sort((a, b) => distancePriority(a) - distancePriority(b));
+    expect(sorted).toEqual(["Granfondo", "Mediofondo", "Minifondo"]);
   });
 });

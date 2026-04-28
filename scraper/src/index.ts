@@ -14,10 +14,11 @@ import {
   scrapeApedalarParticipants,
   scrapeEtapaDaVolta,
 } from "./external.js";
-import { isPast } from "./normalize.js";
+import { isPast, distancePriority } from "./normalize.js";
 import {
   extractDistances,
   assignGenderPositions,
+  assignCategoryPositions,
   transformResult,
 } from "./transform.js";
 import { buildAthletesIndex } from "./pipeline/pipeline.js";
@@ -277,7 +278,8 @@ async function scrapeEvent(
   if (distanceResults.length > 1) {
     const expectedNames = event.distances
       .filter((d) => distanceResults.some((dr) => dr.id === d.id))
-      .map((d) => d.name);
+      .map((d) => d.name)
+      .sort((a, b) => distancePriority(a) - distancePriority(b));
     distanceResults.sort((a, b) => {
       const winA = a.results.find((r) => r.pos === 1)?.raceTimeSecs ?? 0;
       const winB = b.results.find((r) => r.pos === 1)?.raceTimeSecs ?? 0;
@@ -285,7 +287,7 @@ async function scrapeEvent(
     });
     distanceResults.forEach((dr, i) => {
       dr.name = expectedNames[i] ?? dr.name;
-      dr.id = String(i + 1); // normalize IDs to 1,2,3 in GF→MF→Mini order for consistent DB sort
+      dr.id = String(i + 1);
     });
   }
 
@@ -294,6 +296,7 @@ async function scrapeEvent(
   }
 
   assignGenderPositions(distanceResults);
+  assignCategoryPositions(distanceResults);
 
   const stored: StoredEventResults = {
     eventId:   event.id,
@@ -444,6 +447,7 @@ async function main() {
     try {
       const results = await fn();
       assignGenderPositions(results.distances);
+      assignCategoryPositions(results.distances);
       event.hasResults = true;
       event.finisherCount = results.distances.reduce((s, d) => s + d.finisherCount, 0);
       event.scrapedAt = results.scrapedAt;

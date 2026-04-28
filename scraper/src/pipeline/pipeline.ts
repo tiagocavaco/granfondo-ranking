@@ -274,6 +274,7 @@ function toRef(r: StoredResult, event: StoredEvent, dist: StoredDistanceResults)
     distance: dist.name,
     pos: r.pos,
     genderPos: r.genderPos,
+    catPos: r.catPos,
     finisherCount: dist.finisherCount,
     category: r.category,
     gender: r.gender,

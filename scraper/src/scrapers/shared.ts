@@ -73,6 +73,7 @@ export function makeResult(fields: {
   return {
     pos: fields.pos,
     genderPos: 0,
+    catPos: 0,
     athleteId: 0,
     bib: fields.bib,
     name: fields.name,

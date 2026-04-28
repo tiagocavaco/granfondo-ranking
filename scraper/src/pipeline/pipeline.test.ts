@@ -31,7 +31,7 @@ function mkEvent(id: number, year: number, date: string): StoredEvent {
 
 function mkResult(overrides: Partial<StoredResult> = {}): StoredResult {
   return {
-    pos: 1, genderPos: 1, athleteId: 0, bib: "1",
+    pos: 1, genderPos: 1, catPos: 0, athleteId: 0, bib: "1",
     name: "Test Athlete", nameLower: "test athlete",
     gender: "M", team: "Team Alpha", category: "ELITES M", country: "Portugal",
     raceTime: "03:25:10", raceTimeSecs: 12310,

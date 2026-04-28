@@ -23,6 +23,14 @@ export function normalizeDistance(name: string): string {
   return DISTANCE_ALIASES[name.toLowerCase()] ?? name;
 }
 
+const CANONICAL_PRIORITY: Record<string, number> = {
+  Granfondo: 0, Mediofondo: 1, Minifondo: 2, "Time Trial": 3,
+};
+
+export function distancePriority(name: string): number {
+  return CANONICAL_PRIORITY[normalizeDistance(name)] ?? 9;
+}
+
 /**
  * Levenshtein edit distance between two strings.
  * Used for fuzzy name matching in licence conflict resolution.

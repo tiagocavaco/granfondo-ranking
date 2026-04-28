@@ -38,15 +38,40 @@ export function extractDistances(athletes: StoredParticipant[]): StoredDistance[
 
 export function assignGenderPositions(distances: StoredDistanceResults[]): void {
   for (const dist of distances) {
-    const genderCounters = new Map<string, number>();
-    const finishers = dist.results
-      .filter((r) => !r.dnf && !r.dns && r.pos > 0)
-      .slice()
-      .sort((a, b) => a.raceTimeSecs - b.raceTimeSecs);
-    for (const r of finishers) {
-      const next = (genderCounters.get(r.gender) ?? 0) + 1;
-      genderCounters.set(r.gender, next);
-      r.genderPos = next;
+    const byGender = new Map<string, typeof dist.results>();
+    for (const r of dist.results) {
+      if (r.dnf || r.dns || r.pos < 1) continue;
+      if (!byGender.has(r.gender)) byGender.set(r.gender, []);
+      byGender.get(r.gender)!.push(r);
+    }
+    for (const group of byGender.values()) {
+      group.sort((a, b) => a.pos - b.pos);
+      let rank = 0;
+      let prevPos = -1;
+      for (const r of group) {
+        if (r.pos !== prevPos) { rank++; prevPos = r.pos; }
+        r.genderPos = rank;
+      }
+    }
+  }
+}
+
+export function assignCategoryPositions(distances: StoredDistanceResults[]): void {
+  for (const dist of distances) {
+    const byCategory = new Map<string, typeof dist.results>();
+    for (const r of dist.results) {
+      if (r.dnf || r.dns || r.pos < 1 || !r.category) continue;
+      if (!byCategory.has(r.category)) byCategory.set(r.category, []);
+      byCategory.get(r.category)!.push(r);
+    }
+    for (const group of byCategory.values()) {
+      group.sort((a, b) => a.pos - b.pos);
+      let rank = 0;
+      let prevPos = -1;
+      for (const r of group) {
+        if (r.pos !== prevPos) { rank++; prevPos = r.pos; }
+        r.catPos = rank;
+      }
     }
   }
 }
@@ -70,6 +95,7 @@ export function transformResult(r: ApiResult): StoredResult {
   return {
     pos: parseInt(r.pos, 10) || 0,
     genderPos: 0,
+    catPos: 0,
     athleteId: 0,
     bib: r.dorsal,
     name: r.nome,

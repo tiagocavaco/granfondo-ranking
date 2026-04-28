@@ -4,6 +4,7 @@ import {
   isKidsCamVariant,
   extractDistances,
   assignGenderPositions,
+  assignCategoryPositions,
   transformResult,
 } from "./transform.js";
 import type { ApiResult } from "./types.js";
@@ -13,7 +14,7 @@ import type { StoredParticipant, StoredDistanceResults, StoredResult } from "@gr
 
 function mkResult(overrides: Partial<StoredResult> = {}): StoredResult {
   return {
-    pos: 1, genderPos: 1, athleteId: 0, bib: "1",
+    pos: 1, genderPos: 1, catPos: 0, athleteId: 0, bib: "1",
     name: "Test Athlete", nameLower: "test athlete",
     gender: "M", team: "Team Alpha", category: "ELITES M", country: "Portugal",
     raceTime: "03:25:10", raceTimeSecs: 12310,
@@ -175,5 +176,89 @@ describe("transformResult", () => {
 
   it("sets genderPos to 0 (filled in later)", () => {
     expect(transformResult(mkApiResult()).genderPos).toBe(0);
+  });
+
+  it("sets catPos to 0 (filled in later)", () => {
+    expect(transformResult(mkApiResult()).catPos).toBe(0);
+  });
+});
+
+// ── assignCategoryPositions ───────────────────────────────────────────────────
+
+describe("assignCategoryPositions", () => {
+  it("assigns category positions sorted by overall pos", () => {
+    const dist: StoredDistanceResults = {
+      id: "1", name: "Granfondo", finisherCount: 3,
+      results: [
+        mkResult({ pos: 3, category: "ELITES M", name: "C" }),
+        mkResult({ pos: 1, category: "ELITES M", name: "A" }),
+        mkResult({ pos: 2, category: "ELITES M", name: "B" }),
+      ],
+    };
+    assignCategoryPositions([dist]);
+    expect(dist.results.find((r) => r.name === "A")?.catPos).toBe(1);
+    expect(dist.results.find((r) => r.name === "B")?.catPos).toBe(2);
+    expect(dist.results.find((r) => r.name === "C")?.catPos).toBe(3);
+  });
+
+  it("separates categories independently", () => {
+    const dist: StoredDistanceResults = {
+      id: "1", name: "Granfondo", finisherCount: 4,
+      results: [
+        mkResult({ pos: 1, category: "ELITES M",   name: "Elite1" }),
+        mkResult({ pos: 2, category: "MASTERS A M", name: "MasterA1" }),
+        mkResult({ pos: 3, category: "ELITES M",   name: "Elite2" }),
+        mkResult({ pos: 4, category: "MASTERS A M", name: "MasterA2" }),
+      ],
+    };
+    assignCategoryPositions([dist]);
+    expect(dist.results.find((r) => r.name === "Elite1")?.catPos).toBe(1);
+    expect(dist.results.find((r) => r.name === "Elite2")?.catPos).toBe(2);
+    expect(dist.results.find((r) => r.name === "MasterA1")?.catPos).toBe(1);
+    expect(dist.results.find((r) => r.name === "MasterA2")?.catPos).toBe(2);
+  });
+
+  it("uses dense ranking — tied pos share the same catPos", () => {
+    const dist: StoredDistanceResults = {
+      id: "1", name: "Granfondo", finisherCount: 3,
+      results: [
+        mkResult({ pos: 1, category: "ELITES M", name: "A" }),
+        mkResult({ pos: 1, category: "ELITES M", name: "B" }),
+        mkResult({ pos: 3, category: "ELITES M", name: "C" }),
+      ],
+    };
+    assignCategoryPositions([dist]);
+    expect(dist.results.find((r) => r.name === "A")?.catPos).toBe(1);
+    expect(dist.results.find((r) => r.name === "B")?.catPos).toBe(1);
+    expect(dist.results.find((r) => r.name === "C")?.catPos).toBe(2);
+  });
+
+  it("skips DNF and DNS entries", () => {
+    const dist: StoredDistanceResults = {
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [
+        mkResult({ pos: 1, category: "ELITES M", name: "Finisher", catPos: 0 }),
+        mkResult({ pos: 0, category: "ELITES M", name: "DNF", dnf: true, catPos: 0 }),
+        mkResult({ pos: 0, category: "ELITES M", name: "DNS", dns: true, catPos: 0 }),
+      ],
+    };
+    assignCategoryPositions([dist]);
+    expect(dist.results.find((r) => r.name === "Finisher")?.catPos).toBe(1);
+    expect(dist.results.find((r) => r.name === "DNF")?.catPos).toBe(0);
+    expect(dist.results.find((r) => r.name === "DNS")?.catPos).toBe(0);
+  });
+
+  it("processes multiple distances independently", () => {
+    const gf: StoredDistanceResults = {
+      id: "1", name: "Granfondo", finisherCount: 1,
+      results: [mkResult({ pos: 1, category: "ELITES M", name: "GF1" })],
+    };
+    const mf: StoredDistanceResults = {
+      id: "2", name: "Mediofondo", finisherCount: 1,
+      results: [mkResult({ pos: 1, category: "ELITES M", name: "MF1" })],
+    };
+    assignCategoryPositions([gf, mf]);
+    expect(gf.results[0]?.catPos).toBe(1);
+    expect(mf.results[0]?.catPos).toBe(1);
   });
 });

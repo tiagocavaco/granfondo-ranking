@@ -134,6 +134,7 @@ export const api = {
       const results: StoredResult[] = resultRows.map((r) => ({
         pos:          r.pos,
         genderPos:    r.genderPos,
+        catPos:       r.catPos,
         athleteId:    r.athleteId,
         bib:          r.bib,
         name:         r.name,
@@ -281,6 +282,7 @@ export const api = {
       distance:      r.distance,
       pos:           r.pos,
       genderPos:     r.genderPos,
+      catPos:        r.catPos,
       finisherCount: r.finisherCount,
       category:      r.category,
       gender:        r.gender,
