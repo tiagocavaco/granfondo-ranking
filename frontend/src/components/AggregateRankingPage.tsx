@@ -208,7 +208,7 @@ export default function AggregateRankingPage() {
                     </div>
                     <div
                       className="text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block hover:text-blue-600 transition-colors cursor-pointer"
-                      onClick={() => { if (a.team) navigate(`/team/${encodeURIComponent(a.team)}`); }}
+                      onClick={() => { if (a.team) navigate(`/team/${encodeURIComponent(a.team.replace(/\s+/g, ' ').trim())}`); }}
                     >{a.team}</div>
                     <div
                       className={`text-lg sm:text-2xl font-black ${
@@ -238,13 +238,13 @@ export default function AggregateRankingPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                  <th className="px-4 py-3 text-left w-14">Rank</th>
-                  <th className="px-4 py-3 text-left">Athlete</th>
+                  <th className="px-2 sm:px-4 py-3 text-left w-10 sm:w-14">Rank</th>
+                  <th className="px-2 sm:px-4 py-3 text-left">Athlete</th>
                   <th className="px-4 py-3 text-left hidden lg:table-cell">Team</th>
                   <th className="px-4 py-3 text-center hidden sm:table-cell w-16">G</th>
                   <th className="px-4 py-3 text-center hidden sm:table-cell w-20">Races</th>
                   <th className="px-4 py-3 text-center hidden md:table-cell w-20">Best Pos</th>
-                  <th className="px-4 py-3 text-right w-32">Points</th>
+                  <th className="px-2 sm:px-4 py-3 text-right w-20 sm:w-32">Points</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -256,10 +256,10 @@ export default function AggregateRankingPage() {
                         expanded === String(a.id) ? "bg-blue-50/60" : ""
                       } ${a.rank <= 3 ? "bg-slate-50/40" : ""}`}
                     >
-                      <td className="px-4 py-3">
+                      <td className="px-2 sm:px-4 py-3">
                         <RankBadge rank={a.rank} />
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-2 sm:px-4 py-3 w-full max-w-0 overflow-hidden">
                         <span
                           className="font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
                           onClick={(e) => { e.stopPropagation(); navigate(`/athlete/${a.id}`); }}
@@ -267,15 +267,15 @@ export default function AggregateRankingPage() {
                           <span className="mr-1.5" title={a.country}>{countryFlag(a.country)}</span>{a.name}
                         </span>
                         <div
-                          className="text-xs text-slate-400 lg:hidden mt-0.5 truncate max-w-[160px] hover:text-blue-600 transition-colors cursor-pointer"
-                          onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(a.team)}`); }}
+                          className="text-xs text-slate-400 lg:hidden mt-0.5 truncate hover:text-blue-600 transition-colors cursor-pointer"
+                          onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(a.team.replace(/\s+/g, ' ').trim())}`); }}
                         >
                           {a.team}
                         </div>
                       </td>
                       <td
                         className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell max-w-[180px] truncate hover:text-blue-600 transition-colors cursor-pointer"
-                        onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(a.team)}`); }}
+                        onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(a.team.replace(/\s+/g, ' ').trim())}`); }}
                       >
                         {a.team}
                       </td>
@@ -296,7 +296,7 @@ export default function AggregateRankingPage() {
                       <td className="px-4 py-3 text-center text-slate-600 hidden md:table-cell">
                         <span className="font-semibold text-slate-800">#{a.bestPos}</span>
                       </td>
-                      <td className="px-4 py-3 text-right">
+                      <td className="px-2 sm:px-4 py-3 text-right">
                         <div className="flex items-center justify-end gap-2">
                           {/* Mini bar */}
                           <div className="hidden sm:block w-20 h-1.5 bg-slate-100 rounded-full overflow-hidden">

@@ -39,7 +39,8 @@ export default function TeamProfile() {
     const entries: Array<{ year: string; distance: string; entry: TeamEntry }> = [];
     for (const [year, dists] of Object.entries(data)) {
       for (const [dist, teams] of Object.entries(dists)) {
-        const entry = teams.find((t) => t.team === teamName);
+        const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
+        const entry = teams.find((t) => norm(t.team) === norm(teamName));
         if (entry) entries.push({ year, distance: dist, entry });
       }
     }

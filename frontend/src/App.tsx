@@ -20,9 +20,9 @@ export default function App() {
       <div className="min-h-screen bg-slate-50">
         {/* Header */}
         <header className="bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 shadow-xl sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-6">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4 flex items-center gap-2 sm:gap-6 overflow-hidden">
             {/* Logo */}
-            <div className="flex items-center gap-3 mr-2">
+            <div className="flex items-center gap-3 shrink-0">
               <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-lg backdrop-blur-sm border border-white/10 shrink-0">
                 🚴
               </div>
@@ -37,12 +37,12 @@ export default function App() {
             </div>
 
             {/* Nav */}
-            <nav className="flex gap-0.5 sm:gap-1">
+            <nav className="flex gap-0.5 sm:gap-1 min-w-0">
               <NavLink
                 to="/"
                 end
                 className={({ isActive }) =>
-                  `px-3 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all ${
+                  `px-2.5 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all whitespace-nowrap ${
                     isActive
                       ? "bg-white/15 text-white backdrop-blur-sm"
                       : "text-blue-200 hover:text-white hover:bg-white/8"
@@ -54,7 +54,7 @@ export default function App() {
               <NavLink
                 to="/athletes"
                 className={({ isActive }) =>
-                  `px-3 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all ${
+                  `px-2.5 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all whitespace-nowrap ${
                     isActive
                       ? "bg-white/15 text-white backdrop-blur-sm"
                       : "text-blue-200 hover:text-white hover:bg-white/8"
@@ -66,30 +66,28 @@ export default function App() {
               <NavLink
                 to="/ranking"
                 className={({ isActive }) =>
-                  `px-3 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
+                  `px-2.5 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all whitespace-nowrap ${
                     isActive
                       ? "bg-white/15 text-white backdrop-blur-sm"
                       : "text-blue-200 hover:text-white hover:bg-white/8"
                   }`
                 }
               >
-                <span className="hidden sm:inline">🏆 </span>
+                <span className="hidden sm:inline">🏆 Athlete Ranking</span>
                 <span className="sm:hidden">Ranking</span>
-                <span className="hidden sm:inline">Athlete Ranking</span>
               </NavLink>
               <NavLink
                 to="/teams"
                 className={({ isActive }) =>
-                  `px-3 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
+                  `px-2.5 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all whitespace-nowrap ${
                     isActive
                       ? "bg-white/15 text-white backdrop-blur-sm"
                       : "text-blue-200 hover:text-white hover:bg-white/8"
                   }`
                 }
               >
-                <span className="hidden sm:inline">🏅 </span>
+                <span className="hidden sm:inline">🏅 Team Ranking</span>
                 <span className="sm:hidden">Teams</span>
-                <span className="hidden sm:inline">Team Ranking</span>
               </NavLink>
             </nav>
           </div>
