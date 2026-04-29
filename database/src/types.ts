@@ -116,9 +116,12 @@ export interface AggregateRanking {
 
 /** Stored as JSON inside team_ranking.results_json — no schema row. */
 export interface TeamRaceAthlete {
-  id:   number;
-  name: string;
-  pos:  number;
+  id:       number;
+  name:     string;
+  pos:      number;
+  scoring:  boolean;
+  country:  string;
+  category: string;
 }
 
 /** Stored as JSON inside team_ranking.results_json — no schema row. */

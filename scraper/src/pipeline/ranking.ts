@@ -155,19 +155,20 @@ export function buildTeamRanking(
       if (!acc[yearKey][distKey]) acc[yearKey][distKey] = new Map();
       const distMap = acc[yearKey][distKey];
 
-      const teamAthletes = new Map<string, Array<{ name: string; pos: number; rawTeam: string }>>();
+      const teamAthletes = new Map<string, Array<{ name: string; pos: number; rawTeam: string; athleteId: number; country: string }>>();
       for (const r of dist.results) {
         if (r.dnf || r.dns || r.pos < 1 || !r.team) continue;
         const tk = teamNormalKey(r.team);
         if (INDIVIDUAL_TEAM_KEYS.has(tk)) continue;
         if (!teamAthletes.has(tk)) teamAthletes.set(tk, []);
-        teamAthletes.get(tk)!.push({ name: r.name, pos: r.pos, rawTeam: fixRawTeamName(r.team) });
+        teamAthletes.get(tk)!.push({ name: r.name, pos: r.pos, rawTeam: fixRawTeamName(r.team), athleteId: r.athleteId ?? 0, country: r.country ?? "", category: r.category ?? "" });
       }
 
       const totalTeams = teamAthletes.size;
       type EligibleTeam = {
         tk: string; rawTeam: string; combinedScore: number; bestPos: number;
-        top3: Array<{ name: string; pos: number; rawTeam: string }>;
+        top3: Array<{ name: string; pos: number; rawTeam: string; athleteId: number; country: string; category: string }>;
+        all: Array<{ name: string; pos: number; rawTeam: string; athleteId: number; country: string; category: string }>;
       };
       const eligible: EligibleTeam[] = [];
 
@@ -178,7 +179,7 @@ export function buildTeamRanking(
         eligible.push({
           tk, rawTeam: sorted[0]!.rawTeam,
           combinedScore: top3.reduce((s, a) => s + a.pos, 0),
-          bestPos: top3[0]!.pos, top3,
+          bestPos: top3[0]!.pos, top3, all: sorted,
         });
       }
 
@@ -206,10 +207,13 @@ export function buildTeamRanking(
           eventId: event.id, eventName: event.name, eventDate: event.date,
           totalTeams, eligibleTeams, coefficient: coeff,
           teamRank, basePoints, points: pts, combinedScore: et.combinedScore,
-          athletes: et.top3.map((a) => {
-            const rk = `${normalizeName(a.name)}|${teamNormalKey(a.rawTeam)}`;
-            const canonRk = keyToCanonical.get(rk) ?? rk;
-            return { id: athleteIndex.get(canonRk)?.id ?? 0, name: a.name, pos: a.pos };
+          athletes: et.all.map((a) => {
+            const id = a.athleteId > 0 ? a.athleteId : (() => {
+              const rk = `${normalizeName(a.name)}|${teamNormalKey(a.rawTeam)}`;
+              return athleteIndex.get(keyToCanonical.get(rk) ?? rk)?.id ?? 0;
+            })();
+            const scoring = et.top3.some((t) => t.name === a.name && t.pos === a.pos);
+            return { id, name: a.name, pos: a.pos, scoring, country: a.country, category: a.category };
           }),
         });
       });

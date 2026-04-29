@@ -119,31 +119,47 @@ export default function TeamRankingPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-3 mb-8 items-center">
-        <SegmentedControl
-          label="Season"
-          options={years}
-          value={year}
-          onChange={handleYearChange}
-        />
-        <SegmentedControl
-          label="Distance"
-          options={distances}
-          value={distance}
-          onChange={handleDistChange}
-          colorMap={{
-            Granfondo: { active: "bg-blue-600 text-white" },
-            Mediofondo: { active: "bg-violet-600 text-white" },
-            Minifondo: { active: "bg-emerald-600 text-white" },
-            "Time Trial": { active: "bg-amber-500 text-white" },
-          }}
-          shortLabelMap={{
-            Granfondo: "GF",
-            Mediofondo: "MF",
-            Minifondo: "Mini",
-            "Time Trial": "TT",
-          }}
-        />
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 mb-8 sm:items-center">
+        <div className="flex items-center gap-2.5">
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Season</span>
+          <select
+            value={year}
+            onChange={(e) => handleYearChange(e.target.value)}
+            className="flex-1 sm:flex-none px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+          >
+            {years.map((y) => <option key={y} value={y}>{y}</option>)}
+          </select>
+        </div>
+        <div className="flex sm:hidden items-center gap-2.5">
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Distance</span>
+          <select
+            value={distance}
+            onChange={(e) => handleDistChange(e.target.value)}
+            className="flex-1 px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+          >
+            {distances.map((d) => <option key={d} value={d}>{d}</option>)}
+          </select>
+        </div>
+        <div className="hidden sm:block">
+          <SegmentedControl
+            label="Distance"
+            options={distances}
+            value={distance}
+            onChange={handleDistChange}
+            colorMap={{
+              Granfondo: { active: "bg-blue-600 text-white" },
+              Mediofondo: { active: "bg-violet-600 text-white" },
+              Minifondo: { active: "bg-emerald-600 text-white" },
+              "Time Trial": { active: "bg-amber-500 text-white" },
+            }}
+            shortLabelMap={{
+              Granfondo: "GF",
+              Mediofondo: "MF",
+              Minifondo: "Mini",
+              "Time Trial": "TT",
+            }}
+          />
+        </div>
         <input
           type="text"
           placeholder="Search team…"
@@ -292,7 +308,7 @@ export default function TeamRankingPage() {
                                 </div>
                                 {/* Top 3 athletes */}
                                 <div className="space-y-0.5">
-                                  {r.athletes.map((a, i) => (
+                                  {r.athletes.filter((a) => a.scoring).map((a, i) => (
                                     <div
                                       key={i}
                                       className="flex items-center gap-2 text-[11px] text-slate-500"
@@ -367,15 +383,15 @@ function SegmentedControl({
 }) {
   return (
     <div className="flex items-center gap-2.5">
-      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">{label}</span>
-      <div className="flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
+      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">{label}</span>
+      <div className="flex flex-1 sm:flex-none rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
         {options.map((o) => {
           const shortLabel = shortLabelMap?.[o];
           return (
             <button
               key={o}
               onClick={() => onChange(o)}
-              className={`px-3 sm:px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
+              className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
                 value === o
                   ? (colorMap?.[o]?.active ?? "bg-blue-600 text-white")
                   : "text-slate-600 hover:bg-slate-50"

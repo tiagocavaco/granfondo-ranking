@@ -1,3 +1,4 @@
+import { useState, useMemo } from "react";
 import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis,
   CartesianGrid, Tooltip,
@@ -23,7 +24,19 @@ export default function PerformanceChart({ results }: Props) {
   const finished = results.filter((r) => !r.dnf && !r.dns && r.pos > 0);
   if (finished.length < 2) return null;
 
-  const flat: FlatPoint[] = finished
+  const years = useMemo(
+    () => [...new Set(finished.map((r) => new Date(r.eventDate).getFullYear()))].sort((a, b) => b - a),
+    [finished.length]
+  );
+  const [selectedYear, setSelectedYear] = useState<number | "all">(() =>
+    window.innerWidth >= 640 ? "all" : (years[0] ?? "all")
+  );
+
+  const filteredFinished = selectedYear === "all"
+    ? finished
+    : finished.filter((r) => new Date(r.eventDate).getFullYear() === selectedYear);
+
+  const flat: FlatPoint[] = filteredFinished
     .map((r) => ({
       dateMs:        new Date(r.eventDate + "T12:00:00").getTime(),
       pos:           r.pos,
@@ -58,7 +71,17 @@ export default function PerformanceChart({ results }: Props) {
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 mb-8">
-      <h2 className="text-sm font-bold text-slate-700 mb-1 uppercase tracking-wide">Performance Trend</h2>
+      <div className="flex items-center justify-between gap-3 mb-1">
+        <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wide">Performance Trend</h2>
+        <select
+          value={selectedYear === "all" ? "all" : String(selectedYear)}
+          onChange={(e) => setSelectedYear(e.target.value === "all" ? "all" : Number(e.target.value))}
+          className="px-2.5 py-1 text-xs font-semibold border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+        >
+          <option value="all">All seasons</option>
+          {years.map((y) => <option key={y} value={y}>{y}</option>)}
+        </select>
+      </div>
 
       {/* Legend */}
       <div className="flex gap-3 mb-3 flex-wrap">

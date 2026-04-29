@@ -78,24 +78,25 @@ export default function AggregateRankingPage() {
     [data, year]
   );
 
-  const athletes: AggregateAthlete[] = useMemo(() => {
+  const ranked = useMemo(() => {
     if (!data || !year || !distance) return [];
     const list = data[year]?.[distance]?.[gender] ?? [];
-    if (!search) return list;
-    return list.filter(
+    const withRank = list.map((a, i) => ({ ...a, rank: i + 1 }));
+    if (!search) return withRank;
+    const q = search.toLowerCase();
+    return withRank.filter(
       (a) =>
-        a.name.toLowerCase().includes(search.toLowerCase()) ||
-        (a.team ?? "").toLowerCase().includes(search.toLowerCase())
+        a.name.toLowerCase().includes(q) ||
+        (a.team ?? "").toLowerCase().includes(q)
     );
   }, [data, year, distance, gender, search]);
 
-  const ranked = useMemo(
-    () => athletes.map((a, i) => ({ ...a, rank: i + 1 })),
-    [athletes]
-  );
-
-  // Max points in current view for bar scaling
-  const maxPoints = ranked[0]?.totalPoints ?? 1;
+  // Max points from rank #1 (unaffected by search filter) for bar scaling
+  const maxPoints = useMemo(() => {
+    if (!data || !year || !distance) return 1;
+    const list = data[year]?.[distance]?.[gender] ?? [];
+    return list[0]?.totalPoints ?? 1;
+  }, [data, year, distance, gender]);
 
   const resetKey = `${year}|${distance}|${gender}|${search}`;
   const { visibleCount, sentinelRef } = useInfiniteScroll(ranked.length, resetKey);
@@ -119,54 +120,69 @@ export default function AggregateRankingPage() {
   return (
     <div>
       {/* Page header */}
-      <div className="mb-8">
-        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-          Athlete Ranking
-        </h2>
-        <p className="text-slate-500 mt-1 text-sm hidden sm:block">
-          Points by position (75, 65, 60, 55, 50… down to 1 for top 50), multiplied by a{" "}
-          <strong className="text-slate-700">difficulty coefficient</strong>{" "}
-          based on number of finishers — larger races score higher.
-        </p>
+      <div className="flex items-start justify-between gap-4 mb-8">
+        <div>
+          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            Athlete Ranking
+          </h2>
+          <p className="text-slate-500 mt-1 text-sm hidden sm:block">
+            Points by position (75, 65, 60, 55, 50… down to 1 for top 50), multiplied by a{" "}
+            <strong className="text-slate-700">difficulty coefficient</strong>{" "}
+            based on number of finishers — larger races score higher.
+          </p>
+        </div>
+        <div className="sm:hidden">
+          <GenderToggle value={gender} onChange={(g) => { setGender(g as "M" | "F"); setExpanded(null); setSearch(""); }} compact />
+        </div>
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-3 mb-8 items-center">
-        <SegmentedControl
-          label="Season"
-          options={years}
-          value={year}
-          onChange={handleYearChange}
-        />
-        <SegmentedControl
-          label="Distance"
-          options={distances}
-          value={distance}
-          onChange={handleDistChange}
-          colorMap={{
-            Granfondo: { active: "bg-blue-600 text-white", base: "text-blue-700 border-blue-200" },
-            Mediofondo: { active: "bg-violet-600 text-white", base: "text-violet-700 border-violet-200" },
-            Minifondo: { active: "bg-emerald-600 text-white", base: "text-emerald-700 border-emerald-200" },
-            "Time Trial": { active: "bg-amber-500 text-white", base: "text-amber-700 border-amber-200" },
-          }}
-          shortLabelMap={{
-            Granfondo: "GF",
-            Mediofondo: "MF",
-            Minifondo: "Mini",
-            "Time Trial": "TT",
-          }}
-        />
-        <SegmentedControl
-          label="Gender"
-          options={["M", "F"]}
-          value={gender}
-          onChange={(g) => { setGender(g as "M" | "F"); setExpanded(null); setSearch(""); }}
-          colorMap={{
-            M: { active: "bg-blue-600 text-white", base: "text-blue-700 border-blue-200" },
-            F: { active: "bg-pink-500 text-white", base: "text-pink-600 border-pink-200" },
-          }}
-          labelMap={{ M: "Men", F: "Women" }}
-        />
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 mb-8 sm:items-center">
+        <div className="flex items-center gap-2.5">
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Season</span>
+          <select
+            value={year}
+            onChange={(e) => handleYearChange(e.target.value)}
+            className="flex-1 sm:flex-none px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+          >
+            {years.map((y) => <option key={y} value={y}>{y}</option>)}
+          </select>
+        </div>
+        <div className="flex sm:hidden items-center gap-2.5">
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Distance</span>
+          <select
+            value={distance}
+            onChange={(e) => handleDistChange(e.target.value)}
+            className="flex-1 px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+          >
+            {distances.map((d) => <option key={d} value={d}>{d}</option>)}
+          </select>
+        </div>
+        <div className="hidden sm:block">
+          <SegmentedControl
+            label="Distance"
+            options={distances}
+            value={distance}
+            onChange={handleDistChange}
+            colorMap={{
+              Granfondo: { active: "bg-blue-600 text-white", base: "text-blue-700 border-blue-200" },
+              Mediofondo: { active: "bg-violet-600 text-white", base: "text-violet-700 border-violet-200" },
+              Minifondo: { active: "bg-emerald-600 text-white", base: "text-emerald-700 border-emerald-200" },
+              "Time Trial": { active: "bg-amber-500 text-white", base: "text-amber-700 border-amber-200" },
+            }}
+            shortLabelMap={{
+              Granfondo: "GF",
+              Mediofondo: "MF",
+              Minifondo: "Mini",
+              "Time Trial": "TT",
+            }}
+          />
+        </div>
+
+        <div className="hidden sm:flex items-center gap-2.5">
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Gender</span>
+          <GenderToggle value={gender} onChange={(g) => { setGender(g as "M" | "F"); setExpanded(null); setSearch(""); }} />
+        </div>
 
         <input
           type="text"
@@ -241,7 +257,6 @@ export default function AggregateRankingPage() {
                   <th className="px-2 sm:px-4 py-3 text-left w-10 sm:w-14">Rank</th>
                   <th className="px-2 sm:px-4 py-3 text-left">Athlete</th>
                   <th className="px-4 py-3 text-left hidden lg:table-cell">Team</th>
-                  <th className="px-4 py-3 text-center hidden sm:table-cell w-16">G</th>
                   <th className="px-4 py-3 text-center hidden sm:table-cell w-20">Races</th>
                   <th className="px-4 py-3 text-center hidden md:table-cell w-20">Best Pos</th>
                   <th className="px-2 sm:px-4 py-3 text-right w-20 sm:w-32">Points</th>
@@ -279,17 +294,6 @@ export default function AggregateRankingPage() {
                       >
                         {a.team}
                       </td>
-                      <td className="px-4 py-3 text-center hidden sm:table-cell">
-                        <span
-                          className={`text-xs font-semibold px-1.5 py-0.5 rounded ${
-                            a.gender === "F"
-                              ? "bg-pink-50 text-pink-600"
-                              : "bg-blue-50 text-blue-600"
-                          }`}
-                        >
-                          {a.gender}
-                        </span>
-                      </td>
                       <td className="px-4 py-3 text-center text-slate-600 font-medium hidden sm:table-cell">
                         {a.eventsScored}
                       </td>
@@ -314,7 +318,7 @@ export default function AggregateRankingPage() {
 
                     {expanded === String(a.id) && (
                       <tr key={`${a.id}-detail`}>
-                        <td colSpan={7} className="px-4 pb-4 pt-1 bg-blue-50/60">
+                        <td colSpan={6} className="px-4 pb-4 pt-1 bg-blue-50/60">
                           <div className="text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wide">
                             Race breakdown
                           </div>
@@ -373,6 +377,27 @@ export default function AggregateRankingPage() {
   );
 }
 
+function GenderToggle({ value, onChange, compact }: { value: string; onChange: (v: string) => void; compact?: boolean }) {
+  return (
+    <div className="flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm shrink-0">
+      {[{ v: "M", label: "Men" }, { v: "F", label: "Women" }].map(({ v, label }) => (
+        <button
+          key={v}
+          onClick={() => onChange(v)}
+          className={`px-3 py-1.5 text-sm font-semibold transition-all ${
+            value === v
+              ? v === "M" ? "bg-blue-600 text-white" : "bg-pink-500 text-white"
+              : "text-slate-600 hover:bg-slate-50"
+          }`}
+        >
+          <span className="sm:hidden">{v}</span>
+          <span className="hidden sm:inline">{label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function SegmentedControl({
   label,
   options,
@@ -392,8 +417,8 @@ function SegmentedControl({
 }) {
   return (
     <div className="flex items-center gap-2.5">
-      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">{label}</span>
-      <div className="flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
+      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">{label}</span>
+      <div className="flex flex-1 sm:flex-none rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
         {options.map((o) => {
           const colors = colorMap?.[o];
           const fullLabel = labelMap?.[o] ?? o;
@@ -402,7 +427,7 @@ function SegmentedControl({
             <button
               key={o}
               onClick={() => onChange(o)}
-              className={`px-3 sm:px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
+              className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
                 value === o
                   ? colors?.active ?? "bg-blue-600 text-white"
                   : `text-slate-600 hover:bg-slate-50 ${colors ? "border-r last:border-r-0 " + colors.base : ""}`

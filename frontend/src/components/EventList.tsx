@@ -89,8 +89,8 @@ export default function EventList() {
               <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">
                 {value}
                 {sub && (
-                  <span className="block sm:inline text-xs sm:text-sm font-medium text-slate-400 sm:ml-1">
-                    <span className="hidden sm:inline">(</span>{sub}<span className="hidden sm:inline">)</span>
+                  <span className="hidden sm:inline text-sm font-medium text-slate-400 ml-1">
+                    ({sub})
                   </span>
                 )}
               </div>
@@ -101,14 +101,19 @@ export default function EventList() {
       )}
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-4 mb-6">
-        <FilterGroup
-          label="Season"
-          options={seasons}
-          value={season}
-          onChange={setSeason}
-          format={(s) => (s === "all" ? "All" : s)}
-        />
+      <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 mb-6">
+        <div className="flex items-center gap-2.5">
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Season</span>
+          <select
+            value={season}
+            onChange={(e) => setSeason(e.target.value)}
+            className="flex-1 sm:flex-none px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+          >
+            {seasons.map((s) => (
+              <option key={s} value={s}>{s === "all" ? "All seasons" : s}</option>
+            ))}
+          </select>
+        </div>
         <FilterGroup
           label="Status"
           options={["all", "past", "upcoming"]}
@@ -156,13 +161,13 @@ function FilterGroup({
 }) {
   return (
     <div className="flex items-center gap-2.5">
-      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">{label}</span>
-      <div className="flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
+      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">{label}</span>
+      <div className="flex flex-1 sm:flex-none rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
         {options.map((o) => (
           <button
             key={o}
             onClick={() => onChange(o)}
-            className={`px-3.5 py-1.5 text-sm font-semibold transition-all ${
+            className={`flex-1 sm:flex-none px-3.5 py-1.5 text-sm font-semibold transition-all ${
               value === o
                 ? "bg-blue-600 text-white shadow-sm"
                 : "text-slate-600 hover:bg-slate-50"

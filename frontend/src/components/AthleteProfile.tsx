@@ -78,40 +78,41 @@ export default function AthleteProfile() {
 
       {/* Hero */}
       <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-6 mb-8 text-white">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        {/* Top row: badges + compare */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <span className={`text-xs font-semibold px-2 py-0.5 rounded ${gender === "F" ? "bg-pink-500/30 text-pink-200" : "bg-blue-500/30 text-blue-200"}`}>
+              {gender === "F" ? "Women" : "Men"}
+            </span>
+            {country && (
+              <span className="text-sm" title={country}>{countryFlag(country)}</span>
+            )}
+          </div>
+          <button
+            onClick={() => navigate(`/compare?a=${athlete.id}`)}
+            className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-blue-200 hover:text-white border border-white/10 transition-colors"
+          >
+            Compare ↗
+          </button>
+        </div>
+
+        {/* Name/team + stats */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded ${gender === "F" ? "bg-pink-500/30 text-pink-200" : "bg-blue-500/30 text-blue-200"}`}>
-                {gender === "F" ? "Women" : "Men"}
-              </span>
-              {country && (
-                <span className="text-sm" title={country}>
-                  {countryFlag(country)}
-                </span>
-              )}
-            </div>
-            <h1 className="text-3xl font-extrabold tracking-tight">{athlete.name}</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight mb-1">{athlete.name}</h1>
             {recentTeam && recentTeam !== "Individual" && (
               <Link
                 to={`/team/${encodeURIComponent(recentTeam)}`}
-                className="text-blue-300 hover:text-white text-sm mt-1 block transition-colors"
+                className="text-blue-300 hover:text-white text-sm block transition-colors"
               >
                 {recentTeam}
               </Link>
             )}
           </div>
-          <div className="flex flex-col gap-3 sm:items-end">
-            <div className="flex gap-3 flex-wrap">
-              <Stat label="Races" value={athlete.results.length} />
-              <Stat label="Finishes" value={finished.length} />
-              {bestPos && <Stat label="Best Pos" value={`#${bestPos}`} highlight={bestPos <= 3} />}
-            </div>
-            <button
-              onClick={() => navigate(`/compare?a=${athlete.id}`)}
-              className="self-start sm:self-auto text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-blue-200 hover:text-white border border-white/10 transition-colors"
-            >
-              Compare ↗
-            </button>
+          <div className="flex gap-3 sm:shrink-0">
+            <Stat label="Races" value={athlete.results.length} />
+            <Stat label="Finishes" value={finished.length} />
+            {bestPos && <Stat label="Best Pos" value={`#${bestPos}`} highlight={bestPos <= 3} />}
           </div>
         </div>
       </div>
@@ -138,13 +139,21 @@ export default function AthleteProfile() {
             )}
           </h2>
           <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
-            <table className="w-full text-sm">
+            <table className="w-full text-sm table-fixed">
+              <colgroup>
+                <col />
+                <col className="hidden sm:table-column w-32" />
+                <col className="hidden md:table-column w-32" />
+                <col className="w-12 sm:w-16" />
+                <col className="w-28" />
+                <col className="hidden sm:table-column w-28" />
+              </colgroup>
               <thead>
                 <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
                   <th className="px-4 py-3 text-left">Event</th>
                   <th className="px-4 py-3 text-left hidden sm:table-cell">Distance</th>
                   <th className="px-4 py-3 text-left hidden md:table-cell">Category</th>
-                  <th className="px-4 py-3 text-center w-16">Pos</th>
+                  <th className="px-4 py-3 text-center">Pos</th>
                   <th className="px-4 py-3 text-right">Time</th>
                   <th className="px-4 py-3 text-right hidden sm:table-cell">Gap</th>
                 </tr>
@@ -203,7 +212,7 @@ export default function AthleteProfile() {
 
 function Stat({ label, value, highlight }: { label: string; value: string | number; highlight?: boolean }) {
   return (
-    <div className="text-center bg-white/10 rounded-xl px-4 py-2 border border-white/10">
+    <div className="flex-1 sm:flex-none text-center bg-white/10 rounded-xl px-4 py-2 border border-white/10">
       <div className={`text-xl font-extrabold ${highlight ? "text-amber-400" : "text-white"}`}>{value}</div>
       <div className="text-xs text-blue-300 font-medium mt-0.5">{label}</div>
     </div>

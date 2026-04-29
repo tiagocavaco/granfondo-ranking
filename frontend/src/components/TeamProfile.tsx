@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "../api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
+import { countryFlag } from "@granfondo/database/normalize";
 
 function rankBadge(rank: number) {
   if (rank === 1) return "🥇";
@@ -47,24 +48,56 @@ export default function TeamProfile() {
     return entries.sort((a, b) => b.year.localeCompare(a.year) || a.distance.localeCompare(b.distance));
   }, [data, teamName]);
 
-  const members = useMemo(() => {
-    const map = new Map<number, { id: number; name: string; appearances: number }>();
-    for (const { entry } of teamEntries) {
-      for (const r of entry.results) {
-        for (const a of r.athletes) {
-          if (!a.id) continue;
-          const existing = map.get(a.id);
-          if (existing) existing.appearances++;
-          else map.set(a.id, { id: a.id, name: a.name, appearances: 1 });
-        }
-      }
-    }
-    return [...map.values()].sort((a, b) => b.appearances - a.appearances);
-  }, [teamEntries]);
-
   const bestRank = teamEntries.reduce((best, { entry }) => Math.min(best, entry.bestRank), Infinity);
   const totalEventsScored = teamEntries.reduce((sum, { entry }) => sum + entry.eventsScored, 0);
   const seasons = [...new Set(teamEntries.map((e) => e.year))].sort().reverse();
+
+  const [memberSeason, setMemberSeason] = useState<string>("");
+  useEffect(() => {
+    if (seasons.length > 0) setMemberSeason(seasons[0]!);
+  }, [seasons[0]]);
+
+  const members = useMemo(() => {
+    const filtered = teamEntries.filter((e) => e.year === memberSeason);
+    const map = new Map<number, { id: number; name: string; countryCounts: Map<string, number>; categoryCounts: Map<string, number>; races: number; podiums: number; bestPodiumRank: number }>();
+    for (const { entry } of filtered) {
+      for (const r of entry.results) {
+        for (const a of r.athletes) {
+          if (!a.id) continue;
+          const isScoringPodium = r.teamRank <= 3 && a.scoring;
+          const existing = map.get(a.id);
+          if (existing) {
+            existing.races++;
+            if (a.country) existing.countryCounts.set(a.country, (existing.countryCounts.get(a.country) ?? 0) + 1);
+            if (a.category) existing.categoryCounts.set(a.category, (existing.categoryCounts.get(a.category) ?? 0) + 1);
+            if (isScoringPodium) { existing.podiums++; existing.bestPodiumRank = Math.min(existing.bestPodiumRank, r.teamRank); }
+          } else {
+            const countryCounts = new Map<string, number>();
+            const categoryCounts = new Map<string, number>();
+            if (a.country) countryCounts.set(a.country, 1);
+            if (a.category) categoryCounts.set(a.category, 1);
+            map.set(a.id, { id: a.id, name: a.name, countryCounts, categoryCounts, races: 1, podiums: isScoringPodium ? 1 : 0, bestPodiumRank: isScoringPodium ? r.teamRank : Infinity });
+          }
+        }
+      }
+    }
+    return [...map.values()]
+      .map(({ countryCounts, categoryCounts, ...m }) => ({
+        ...m,
+        country: [...countryCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "",
+        category: [...categoryCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "",
+      }))
+      .sort((a, b) => b.races - a.races || b.podiums - a.podiums);
+  }, [teamEntries, memberSeason]);
+
+  const totalMembers = useMemo(() => {
+    const ids = new Set<number>();
+    for (const { entry } of teamEntries)
+      for (const r of entry.results)
+        for (const a of r.athletes)
+          if (a.id) ids.add(a.id);
+    return ids.size;
+  }, [teamEntries]);
 
   const byYear = useMemo(() => {
     const map: Record<string, Array<{ distance: string; entry: TeamEntry }>> = {};
@@ -98,19 +131,21 @@ export default function TeamProfile() {
 
       {/* Hero */}
       <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-6 mb-8 text-white">
-        <div className="flex items-start justify-between gap-4 flex-wrap">
+        {/* Top row: label */}
+        <div className="mb-3">
+          <div className="text-blue-300 text-xs font-semibold uppercase tracking-widest">Team</div>
+        </div>
+
+        {/* Name/seasons + stats */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
-            <div className="text-blue-300 text-xs font-semibold uppercase tracking-widest mb-1">Team</div>
-            <h1 className="text-3xl font-extrabold tracking-tight">{teamName}</h1>
-            <p className="text-blue-300 text-sm mt-1">{seasons.join(" · ")}</p>
+            <h1 className="text-3xl font-extrabold tracking-tight mb-1">{teamName}</h1>
+            <p className="text-blue-300 text-sm">{seasons.join(" · ")}</p>
           </div>
-          <div className="flex gap-4 flex-wrap">
-            <Stat label="Events" value={totalEventsScored} />
+          <div className="flex gap-3 sm:shrink-0">
             <Stat label="Seasons" value={seasons.length} />
-            {isFinite(bestRank) && (
-              <Stat label="Best Rank" value={rankBadge(bestRank)} highlight={bestRank <= 3} />
-            )}
-            {members.length > 0 && <Stat label="Members" value={members.length} />}
+{totalMembers > 0 && <Stat label="Members" value={totalMembers} />}
+            <Stat label="Events" value={totalEventsScored} />
           </div>
         </div>
       </div>
@@ -118,18 +153,61 @@ export default function TeamProfile() {
       {/* Members */}
       {members.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-bold text-slate-800 mb-3">Members</h2>
-          <div className="flex flex-wrap gap-2">
-            {members.map((m) => (
-              <button
-                key={m.id}
-                onClick={() => navigate(`/athlete/${m.id}`)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-sm font-medium text-slate-700 hover:border-blue-400 hover:text-blue-700 transition-colors shadow-sm"
-              >
-                {m.name}
-                <span className="text-xs text-slate-400 font-normal">{m.appearances}</span>
-              </button>
-            ))}
+          <div className="flex items-center justify-between gap-4 mb-3">
+            <h2 className="text-lg font-bold text-slate-800">Members <span className="text-slate-400 font-normal text-sm">({members.length})</span></h2>
+            <select
+              value={memberSeason}
+              onChange={(e) => setMemberSeason(e.target.value)}
+              className="px-3 py-1.5 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600 font-semibold"
+            >
+              {seasons.map((s) => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
+            <table className="w-full text-sm table-fixed">
+              <colgroup>
+                <col />
+                <col className="hidden sm:table-column w-28" />
+                <col className="w-12 sm:w-20" />
+                <col className="w-20 sm:w-28" />
+              </colgroup>
+              <thead>
+                <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                  <th className="px-4 py-3 text-left">Athlete</th>
+                  <th className="px-4 py-3 text-left hidden sm:table-cell">Category</th>
+                  <th className="px-2 sm:px-4 py-3 text-center">Races</th>
+                  <th className="px-2 sm:px-4 py-3 text-center">Podiums</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {members.map((m) => (
+                  <tr
+                    key={m.id}
+                    onClick={() => navigate(`/athlete/${m.id}`)}
+                    className="hover:bg-slate-50/60 cursor-pointer transition-colors"
+                  >
+                    <td className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          {m.country && <span className="shrink-0" title={m.country}>{countryFlag(m.country)}</span>}
+                          <span className="truncate">{m.name}</span>
+                        </div>
+                        {m.category && <div className="sm:hidden text-xs font-normal text-slate-400 mt-0.5">{m.category}</div>}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 text-xs text-slate-400 hidden sm:table-cell">{m.category}</td>
+                    <td className="px-2 sm:px-4 py-3 text-center text-slate-600 font-medium">{m.races}</td>
+                    <td className="px-2 sm:px-4 py-3 text-center">
+                      {m.podiums > 0 ? (
+                        <span className="font-semibold text-amber-600">{m.podiums}</span>
+                      ) : (
+                        <span className="text-slate-300">—</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       )}
@@ -170,7 +248,7 @@ export default function TeamProfile() {
                         </div>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
-                        {r.athletes.map((a, i) => (
+                        {r.athletes.filter((a) => a.scoring).map((a, i) => (
                           <button
                             key={i}
                             onClick={() => { if (a.id) navigate(`/athlete/${a.id}`); }}
@@ -199,7 +277,7 @@ export default function TeamProfile() {
 
 function Stat({ label, value, highlight }: { label: string; value: string | number; highlight?: boolean }) {
   return (
-    <div className="text-center bg-white/10 rounded-xl px-4 py-2 border border-white/10">
+    <div className="flex-1 sm:flex-none text-center bg-white/10 rounded-xl px-4 py-2 border border-white/10">
       <div className={`text-xl font-extrabold ${highlight ? "text-amber-400" : "text-white"}`}>{value}</div>
       <div className="text-xs text-blue-300 font-medium mt-0.5">{label}</div>
     </div>
