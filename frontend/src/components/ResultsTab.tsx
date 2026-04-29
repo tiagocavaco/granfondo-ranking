@@ -12,7 +12,7 @@ interface Props {
   resultsUrl: string;
 }
 
-export default function RankingsTab({ eventId, resultsUrl }: Props) {
+export default function ResultsTab({ eventId, resultsUrl }: Props) {
   const [data, setData] = useState<StoredEventResults | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -132,13 +132,24 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
           className="w-full sm:w-48 px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
         {distances.length > 1 && (
-          <select
-            value={activeDistId}
-            onChange={(e) => { setActiveDistId(e.target.value); setCategoryFilter("all"); setGenderFilter("all"); setSearch(""); }}
-            className="px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {distances.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
-          </select>
+          <>
+            {/* Mobile: counts in options */}
+            <select
+              value={activeDistId}
+              onChange={(e) => { setActiveDistId(e.target.value); setCategoryFilter("all"); setGenderFilter("all"); setSearch(""); }}
+              className="w-full sm:hidden px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {distances.map((d) => <option key={d.id} value={d.id}>{d.name} ({d.finisherCount.toLocaleString()} finishers)</option>)}
+            </select>
+            {/* Desktop: plain labels */}
+            <select
+              value={activeDistId}
+              onChange={(e) => { setActiveDistId(e.target.value); setCategoryFilter("all"); setGenderFilter("all"); setSearch(""); }}
+              className="hidden sm:block px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {distances.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
+            </select>
+          </>
         )}
         <select
           value={genderFilter}
@@ -152,7 +163,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
               if (!available.has(categoryFilter)) setCategoryFilter("all");
             }
           }}
-          className="px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 sm:flex-none px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="all">All genders</option>
           <option value="M">Men</option>
@@ -161,13 +172,13 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
         <select
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
-          className="px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 sm:flex-none px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="all">All categories</option>
           {categories.slice(1).map((c) => <option key={c} value={c}>{c}</option>)}
         </select>
-        <span className="text-sm text-slate-500 sm:ml-auto">
-          <span className="font-semibold text-slate-700">{filtered.length.toLocaleString()}</span> of {totalFinisherCount.toLocaleString()}
+        <span className="hidden sm:inline text-sm text-slate-500 sm:ml-auto">
+          <span className="font-semibold text-slate-700">{filtered.length.toLocaleString()}</span> results
         </span>
       </div>
 
@@ -188,7 +199,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
               <th className="px-4 py-3 text-left w-14">Pos</th>
               <th className="px-4 py-3 text-left w-16 hidden sm:table-cell">Bib</th>
               <th className="px-4 py-3 text-left">Athlete</th>
-              <th className="px-4 py-3 text-left hidden md:table-cell w-2/5">Team</th>
+              <th className="px-4 py-3 text-left hidden md:table-cell">Team</th>
               <th className="px-4 py-3 text-left hidden sm:table-cell w-40">Category</th>
               <th className="px-4 py-3 text-center hidden sm:table-cell w-20">Gender</th>
               <th className="px-4 py-3 text-right">Time</th>
@@ -233,7 +244,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                     </div>
                   )}
                 </td>
-                <td className="px-4 py-3 text-xs hidden md:table-cell">
+                <td className="px-4 py-3 text-xs hidden md:table-cell whitespace-nowrap">
                   {r.team ? (
                     <span
                       className="text-slate-500 hover:text-blue-600 transition-colors cursor-pointer"

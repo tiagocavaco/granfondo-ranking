@@ -48,40 +48,34 @@ export default function EventCard({ event }: Props) {
       </div>
 
       <div className="space-y-1.5 text-xs text-slate-500 mb-4">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <span className="text-slate-400">📅</span>
           <span className="font-medium text-slate-700">{formatted}</span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <span className="text-slate-400">📍</span>
           <span className="truncate">{event.location}</span>
         </div>
-        {event.hasResults && (
-          <div className="flex items-center gap-2">
+        {event.hasResults && event.finisherCount > 0 && (
+          <div className="flex items-center gap-1.5">
             <span className="text-slate-400">🏁</span>
-            <span className="font-semibold text-slate-700">
-              {event.finisherCount.toLocaleString()}
-            </span>
-            <span>finishers</span>
+            <span><span className="font-semibold text-slate-700">{event.finisherCount.toLocaleString()}</span> finishers</span>
           </div>
         )}
         {!isPast && event.participantCount > 0 && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <span className="text-slate-400">📋</span>
-            <span className="font-semibold text-slate-700">
-              {event.participantCount.toLocaleString()}
-            </span>
-            <span>confirmed</span>
+            <span><span className="font-semibold text-slate-700">{event.participantCount.toLocaleString()}</span> participants</span>
           </div>
         )}
       </div>
 
       <div className="flex items-center justify-between gap-2">
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex gap-1.5 overflow-hidden min-w-0">
           {event.distances.map((d) => (
             <span
               key={d.id}
-              className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${
+              className={`shrink-0 text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${
                 DIST_COLORS[d.name] ?? "bg-slate-100 text-slate-600"
               }`}
             >
@@ -95,7 +89,7 @@ export default function EventCard({ event }: Props) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="shrink-0 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
+            className="hidden sm:block shrink-0 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
           >
             Official Page ↗
           </a>
@@ -106,7 +100,7 @@ export default function EventCard({ event }: Props) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="shrink-0 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
+            className="hidden sm:block shrink-0 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
           >
             Official Results ↗
           </a>

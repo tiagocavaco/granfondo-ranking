@@ -59,6 +59,14 @@ export default function ParticipantsTab({ eventId }: Props) {
     [participants]
   );
 
+  const distanceCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const p of participants) {
+      if (p.distance) counts[p.distance] = (counts[p.distance] ?? 0) + 1;
+    }
+    return counts;
+  }, [participants]);
+
   const categories = useMemo(
     () => ["all", ...Array.from(new Set(participants.map((p) => p.category).filter(Boolean))).sort()],
     [participants]
@@ -98,23 +106,29 @@ export default function ParticipantsTab({ eventId }: Props) {
           placeholder="Search name, team or bib…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 min-w-48 max-w-xs px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full sm:flex-1 sm:min-w-48 sm:max-w-xs px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
-        <Select value={distanceFilter} onChange={setDistanceFilter}>
+        {/* Mobile: counts in options */}
+        <Select value={distanceFilter} onChange={setDistanceFilter} className="w-full sm:hidden">
+          <option value="all">All distances ({participants.length} participants)</option>
+          {distances.slice(1).map((d) => <option key={d} value={d}>{d} ({distanceCounts[d] ?? 0} participants)</option>)}
+        </Select>
+        {/* Desktop: plain labels + separate counter */}
+        <Select value={distanceFilter} onChange={setDistanceFilter} className="hidden sm:block sm:flex-none">
           <option value="all">All distances</option>
           {distances.slice(1).map((d) => <option key={d} value={d}>{d}</option>)}
         </Select>
-        <Select value={categoryFilter} onChange={setCategoryFilter}>
+        <Select value={categoryFilter} onChange={setCategoryFilter} className="flex-1 sm:flex-none">
           <option value="all">All categories</option>
           {categories.slice(1).map((c) => <option key={c} value={c}>{c}</option>)}
         </Select>
-        <Select value={genderFilter} onChange={setGenderFilter}>
+        <Select value={genderFilter} onChange={setGenderFilter} className="flex-1 sm:flex-none">
           <option value="all">All genders</option>
           <option value="M">Men</option>
           <option value="F">Women</option>
         </Select>
-        <span className="text-sm text-slate-500 ml-auto">
-          <span className="font-semibold text-slate-700">{filtered.length}</span> of {participants.length}
+        <span className="hidden sm:inline text-sm text-slate-500 sm:ml-auto">
+          <span className="font-semibold text-slate-700">{filtered.length}</span> participants
         </span>
       </div>
 
@@ -127,7 +141,7 @@ export default function ParticipantsTab({ eventId }: Props) {
               <th className="px-4 py-3 text-left hidden md:table-cell">Team</th>
               <th className="px-4 py-3 text-left">Distance</th>
               <th className="px-4 py-3 text-left hidden sm:table-cell">Category</th>
-              <th className="px-4 py-3 text-center hidden sm:table-cell">G</th>
+              <th className="px-4 py-3 text-center hidden sm:table-cell">Gender</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -135,22 +149,30 @@ export default function ParticipantsTab({ eventId }: Props) {
               <tr key={i} className="hover:bg-slate-50/60 transition-colors">
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{p.bib}</td>
                 <td
-                  className={`px-4 py-3 font-semibold text-slate-900 transition-colors ${p.athleteId > 0 ? "hover:text-blue-600 cursor-pointer" : ""}`}
+                  className={`px-4 py-3 w-full max-w-0 overflow-hidden transition-colors ${p.athleteId > 0 ? "hover:text-blue-600 cursor-pointer" : ""}`}
                   onClick={() => { if (p.athleteId > 0) navigate(`/athlete/${p.athleteId}`); }}
                 >
-                  {p.fullName}
+                  <div className="font-semibold text-slate-900 truncate">{p.fullName}</div>
+                  {p.team && (
+                    <div className="md:hidden text-xs text-slate-400 truncate mt-0.5">{p.team}</div>
+                  )}
                 </td>
-                <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell max-w-[160px] truncate">
+                <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell whitespace-nowrap">
                   {p.team}
                 </td>
                 <td className="px-4 py-3">
-                  <span
-                    className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${
-                      DIST_PILL[p.distance] ?? "bg-slate-100 text-slate-600"
-                    }`}
-                  >
-                    {p.distance}
-                  </span>
+                  <div className="flex flex-col items-center gap-0.5">
+                    <span
+                      className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold whitespace-nowrap ${
+                        DIST_PILL[p.distance] ?? "bg-slate-100 text-slate-600"
+                      }`}
+                    >
+                      {p.distance}
+                    </span>
+                    {p.category && (
+                      <span className="sm:hidden text-xs text-slate-400 whitespace-nowrap">{p.category}</span>
+                    )}
+                  </div>
                 </td>
                 <td className="px-4 py-3 text-slate-400 text-xs hidden sm:table-cell">{p.category}</td>
                 <td className="px-4 py-3 text-center hidden sm:table-cell">
@@ -185,16 +207,18 @@ function Select({
   value,
   onChange,
   children,
+  className = "",
 }: {
   value: string;
   onChange: (v: string) => void;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+      className={`px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
     >
       {children}
     </select>

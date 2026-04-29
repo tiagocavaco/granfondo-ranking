@@ -24,7 +24,8 @@ function AthleteSearch({
   const userTyped = useRef(false);
 
   useEffect(() => {
-    if (selectedName) { userTyped.current = false; setSearch(selectedName); }
+    userTyped.current = false;
+    setSearch(selectedName ?? "");
   }, [selectedName]);
   const [results, setResults] = useState<AthleteRow[]>([]);
   const [open, setOpen] = useState(false);
@@ -51,7 +52,7 @@ function AthleteSearch({
   }, [search, excluded]);
 
   return (
-    <div ref={wrapRef} className="relative flex-1 min-w-0">
+    <div ref={wrapRef} className="relative w-full sm:flex-1 min-w-0">
       <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wide" style={{ color }}>
         {label}
       </label>
@@ -110,8 +111,8 @@ export default function ComparisonPage() {
     api.getAthlete(bId).then(setBData).catch(() => setBData(null)).finally(() => setBLoading(false));
   }, [bId]);
 
-  useEffect(() => { if (aData) setAName(aData.name); }, [aData]);
-  useEffect(() => { if (bData) setBName(bData.name); }, [bData]);
+  useEffect(() => { setAName(aData?.name ?? ""); }, [aData]);
+  useEffect(() => { setBName(bData?.name ?? ""); }, [bData]);
 
   // Shared events
   const shared = useMemo(() => {
@@ -317,6 +318,7 @@ export default function ComparisonPage() {
                               {p.a.eventName}
                             </span>
                             <div className="text-xs text-slate-400">{p.a.eventDate}</div>
+                            <div className="sm:hidden text-xs text-slate-400 mt-0.5">{p.a.distance}</div>
                           </td>
                           <td className="px-4 py-3 hidden sm:table-cell">
                             <span className="text-xs text-slate-500">{p.a.distance}</span>

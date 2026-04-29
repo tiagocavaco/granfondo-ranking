@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../api";
 import type { StoredEvent } from "@granfondo/database/types";
-import RankingsTab from "./RankingsTab";
+import ResultsTab from "./ResultsTab";
 import ParticipantsTab from "./ParticipantsTab";
 import { Spinner, ErrorBanner } from "./EventList";
 
@@ -79,38 +79,60 @@ export default function EventDetail() {
             >
               {isPast ? "Finished" : "Upcoming"}
             </span>
-            <span className="text-blue-300 text-xs font-medium">{event.year}</span>
+            <span className="text-blue-300 text-xs font-medium">📅 {date}</span>
+            <div className="hidden sm:flex gap-2 ml-auto">
+              {!isPast && (event.officialUrl ?? event.resultsUrl) && (
+                <a href={event.officialUrl ?? event.resultsUrl} target="_blank" rel="noopener noreferrer"
+                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors">
+                  Official Page ↗
+                </a>
+              )}
+              {isPast && event.officialUrl && (
+                <a href={event.officialUrl} target="_blank" rel="noopener noreferrer"
+                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors">
+                  Official Page ↗
+                </a>
+              )}
+              {isPast && event.resultsUrl && (
+                <a href={event.resultsUrl} target="_blank" rel="noopener noreferrer"
+                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors">
+                  Official Results ↗
+                </a>
+              )}
+            </div>
           </div>
 
           <h1 className="text-2xl font-extrabold text-white mb-4 leading-tight">
             {event.name}
           </h1>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm mb-4">
-            <div className="flex items-center gap-2 text-blue-200">
-              <span>📅</span>
-              <span>{date}</span>
-            </div>
-            <div className="flex items-center gap-2 text-blue-200">
+          {/* Mobile meta */}
+          <div className="sm:hidden flex flex-wrap items-center gap-x-4 gap-y-1 text-sm mb-4 text-blue-200">
+            <span className="flex items-center gap-1.5">
               <span>📍</span>
               <span>{event.location}</span>
-            </div>
-            {event.hasResults && (
-              <div className="flex items-center gap-2 text-blue-200">
+            </span>
+            {event.hasResults && event.finisherCount > 0 && (
+              <span className="flex items-center gap-1.5">
                 <span>🏁</span>
-                <span>
-                  <strong className="text-white">{event.finisherCount.toLocaleString()}</strong> finishers
-                </span>
-              </div>
+                <span><strong className="text-white">{event.finisherCount.toLocaleString()}</strong> finishers</span>
+              </span>
+            )}
+            {!event.hasResults && event.participantCount > 0 && (
+              <span className="flex items-center gap-1.5">
+                <span>📋</span>
+                <span><strong className="text-white">{event.participantCount.toLocaleString()}</strong> participants</span>
+              </span>
             )}
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex flex-wrap gap-2">
+          {/* Pills row — on desktop also shows location + finishers on the right */}
+          <div className="flex items-center gap-2 mb-3">
+            <div className="flex gap-2">
               {event.distances.map((d) => (
                 <span
                   key={d.id}
-                  className={`text-xs px-3 py-1 rounded-full font-semibold ${
+                  className={`shrink-0 text-xs px-3 py-1 rounded-full font-semibold ${
                     DIST_COLORS[d.name] ?? "bg-white/10 text-white border border-white/20"
                   }`}
                 >
@@ -118,7 +140,27 @@ export default function EventDetail() {
                 </span>
               ))}
             </div>
-            <div className="flex gap-2">
+            <div className="hidden sm:flex items-center gap-3 ml-auto text-sm text-blue-200">
+              <span className="flex items-center gap-1.5">
+                <span>📍</span>
+                <span>{event.location}</span>
+              </span>
+              {event.hasResults && event.finisherCount > 0 && (
+                <span className="flex items-center gap-1.5">
+                  <span>🏁</span>
+                  <span><strong className="text-white">{event.finisherCount.toLocaleString()}</strong> finishers</span>
+                </span>
+              )}
+              {!event.hasResults && event.participantCount > 0 && (
+                <span className="flex items-center gap-1.5">
+                  <span>📋</span>
+                  <span><strong className="text-white">{event.participantCount.toLocaleString()}</strong> participants</span>
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="flex sm:hidden gap-2 mt-1">
               {!isPast && (event.officialUrl ?? event.resultsUrl) && (
                 <a
                   href={event.officialUrl ?? event.resultsUrl}
@@ -150,12 +192,11 @@ export default function EventDetail() {
                 </a>
               )}
             </div>
-          </div>
         </div>
       </div>
 
       {isPast && event.hasResults
-        ? <RankingsTab eventId={event.id} distances={event.distances} resultsUrl={event.resultsUrl} />
+        ? <ResultsTab eventId={event.id} distances={event.distances} resultsUrl={event.resultsUrl} />
         : <ParticipantsTab eventId={event.id} />}
     </div>
   );

@@ -274,7 +274,7 @@ export default function AggregateRankingPage() {
                         </div>
                       </td>
                       <td
-                        className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell max-w-[180px] truncate hover:text-blue-600 transition-colors cursor-pointer"
+                        className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell whitespace-nowrap hover:text-blue-600 transition-colors cursor-pointer"
                         onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(a.team.replace(/\s+/g, ' ').trim())}`); }}
                       >
                         {a.team}
