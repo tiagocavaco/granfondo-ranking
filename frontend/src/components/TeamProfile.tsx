@@ -14,13 +14,14 @@ function rankBadge(rank: number) {
 }
 
 export default function TeamProfile() {
-  const { teamName: encoded } = useParams<{ teamName: string }>();
+  const { teamKey: encoded } = useParams<{ teamKey: string }>();
   const navigate = useNavigate();
-  const teamName = decodeURIComponent(encoded ?? "");
+  const teamKey = decodeURIComponent(encoded ?? "");
 
   const [data, setData] = useState<TeamRanking | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [fallback, setFallback] = useState<{ displayName: string; members: Array<{ id: number; name: string; country: string }> } | null | undefined>(undefined);
 
   useEffect(() => {
     Promise.all([api.getTeamRanking(), api.initLookups()])
@@ -31,20 +32,20 @@ export default function TeamProfile() {
 
   const teamEntries = useMemo(() => {
     if (!data) return [];
-    const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
-    const teamNameKey = resolveTeamKey(teamName);
+    // resolveTeamKey follows aliases (initLookups has completed before setData)
+    const resolvedKey = resolveTeamKey(teamKey);
 
     const entries: Array<{ year: string; distance: string; entry: TeamEntry }> = [];
     for (const [year, dists] of Object.entries(data)) {
       for (const [dist, teams] of Object.entries(dists)) {
         const entry = teams.find((t) =>
-          norm(t.team) === norm(teamName) || (t.teamKey !== "" && t.teamKey === teamNameKey)
+          t.teamKey !== "" && (t.teamKey === teamKey || t.teamKey === resolvedKey)
         );
         if (entry) entries.push({ year, distance: dist, entry });
       }
     }
     return entries.sort((a, b) => b.year.localeCompare(a.year) || a.distance.localeCompare(b.distance));
-  }, [data, teamName]);
+  }, [data, teamKey]);
 
   const totalEventsScored = teamEntries.reduce((sum, { entry }) => sum + entry.eventsScored, 0);
   const seasons = [...new Set(teamEntries.map((e) => e.year))].sort().reverse();
@@ -104,9 +105,20 @@ export default function TeamProfile() {
     return map;
   }, [teamEntries]);
 
+  const displayName = teamEntries[0]?.entry.team ?? fallback?.displayName ?? teamKey;
+
+  useEffect(() => {
+    if (!loading && !error && data && teamEntries.length === 0) {
+      const resolvedKey = resolveTeamKey(teamKey);
+      api.getTeamByKey(resolvedKey !== teamKey ? resolvedKey : teamKey)
+        .then(setFallback)
+        .catch(() => setFallback(null));
+    }
+  }, [loading, error, data, teamEntries.length, teamKey]);
+
   if (loading) return <Spinner />;
 
-  if (error || !data || teamEntries.length === 0)
+  if (error || !data)
     return (
       <div className="text-center py-16 text-slate-400">
         <p className="text-5xl mb-3">🏅</p>
@@ -116,6 +128,59 @@ export default function TeamProfile() {
         </button>
       </div>
     );
+
+  if (teamEntries.length === 0) {
+    if (fallback === undefined) return <Spinner />;
+    if (fallback !== null) return (
+      <div>
+        <button
+          onClick={() => navigate(-1)}
+          className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 mb-6 transition-colors"
+        >
+          ← Back
+        </button>
+        <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-6 mb-8 text-white">
+          <div className="mb-3">
+            <div className="text-blue-300 text-xs font-semibold uppercase tracking-widest">Team</div>
+          </div>
+          <h1 className="text-3xl font-extrabold tracking-tight mb-1">{displayName}</h1>
+          <p className="text-blue-300 text-sm">No team ranking — fewer than 3 members per event</p>
+        </div>
+        {fallback.members.length > 0 ? (
+          <div className="mb-8">
+            <h2 className="text-lg font-bold text-slate-800 mb-3">Members <span className="text-slate-400 font-normal text-sm">({fallback.members.length})</span></h2>
+            <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
+              <table className="w-full text-sm">
+                <tbody className="divide-y divide-slate-100">
+                  {fallback.members.map((m) => (
+                    <tr key={m.id} onClick={() => navigate(`/athlete/${m.id}`)} className="hover:bg-slate-50/60 cursor-pointer transition-colors">
+                      <td className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors">
+                        <div className="flex items-center gap-1.5">
+                          {m.country && <span className="shrink-0" title={m.country}>{countryFlag(m.country)}</span>}
+                          <span>{m.name}</span>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ) : (
+          <div className="text-center py-8 text-slate-400 text-sm">No members found</div>
+        )}
+      </div>
+    );
+    return (
+      <div className="text-center py-16 text-slate-400">
+        <p className="text-5xl mb-3">🏅</p>
+        <p className="font-semibold text-slate-600 text-lg">Team not found</p>
+        <button onClick={() => navigate(-1)} className="mt-4 text-sm text-blue-600 hover:underline">
+          ← Go back
+        </button>
+      </div>
+    );
+  }
 
   const seasonEntries = byYear[selectedSeason] ?? [];
 
@@ -135,7 +200,7 @@ export default function TeamProfile() {
         </div>
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight mb-1">{teamName}</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight mb-1">{displayName}</h1>
             <p className="text-blue-300 text-sm">{seasons.join(" · ")}</p>
           </div>
           <div className="flex gap-3 sm:shrink-0">

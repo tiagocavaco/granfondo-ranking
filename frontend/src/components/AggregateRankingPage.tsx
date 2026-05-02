@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api } from "../api";
+import { api, resolveTeamKey } from "../api";
 import type { AggregateRanking, AggregateAthlete } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";
@@ -224,7 +224,7 @@ export default function AggregateRankingPage() {
                     </div>
                     <div
                       className="text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block hover:text-blue-600 transition-colors cursor-pointer"
-                      onClick={() => { if (a.team) navigate(`/team/${encodeURIComponent(a.team.replace(/\s+/g, ' ').trim())}`); }}
+                      onClick={() => { if (a.team) navigate(`/team/${encodeURIComponent(resolveTeamKey(a.team))}`); }}
                     >{a.team}</div>
                     <div
                       className={`text-lg sm:text-2xl font-black ${
@@ -283,14 +283,14 @@ export default function AggregateRankingPage() {
                         </span>
                         <div
                           className="text-xs text-slate-400 lg:hidden mt-0.5 truncate hover:text-blue-600 transition-colors cursor-pointer"
-                          onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(a.team.replace(/\s+/g, ' ').trim())}`); }}
+                          onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(resolveTeamKey(a.team))}`); }}
                         >
                           {a.team}
                         </div>
                       </td>
                       <td
                         className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell whitespace-nowrap hover:text-blue-600 transition-colors cursor-pointer"
-                        onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(a.team.replace(/\s+/g, ' ').trim())}`); }}
+                        onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(resolveTeamKey(a.team))}`); }}
                       >
                         {a.team}
                       </td>

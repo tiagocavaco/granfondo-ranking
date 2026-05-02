@@ -396,4 +396,36 @@ export const api = {
       .map((r) => ({ id: r.id, name: r.name, canonicalTeam: r.canonicalTeam, resultCount: countMap.get(r.id) ?? 0, country: countryMap.get(r.id) ?? "" }))
       .sort((a, b) => b.resultCount - a.resultCount);
   },
+
+  async getTeamByKey(teamKey: string): Promise<{ displayName: string; members: Array<{ id: number; name: string; country: string }> } | null> {
+    const db = await getDb();
+
+    const memberRows = db.select({
+      id:            schema.athletes.id,
+      name:          schema.athletes.name,
+      canonicalTeam: schema.athletes.canonicalTeam,
+    })
+      .from(schema.athleteTeams)
+      .innerJoin(schema.athletes, eq(schema.athletes.id, schema.athleteTeams.athleteId))
+      .where(eq(schema.athleteTeams.teamKey, teamKey))
+      .orderBy(asc(schema.athletes.name))
+      .all();
+
+    if (memberRows.length === 0) return null;
+
+    const displayName = memberRows.find((r) => r.canonicalTeam)?.canonicalTeam ?? teamKey;
+
+    const ids = memberRows.map((r) => r.id);
+    const countryRows = db.select({ athleteId: schema.athleteResults.athleteId, country: schema.athleteResults.country })
+      .from(schema.athleteResults)
+      .where(inArray(schema.athleteResults.athleteId, ids))
+      .orderBy(asc(schema.athleteResults.eventDate))
+      .all();
+    const countryMap = buildCountryMap(countryRows);
+
+    return {
+      displayName,
+      members: memberRows.map((r) => ({ id: r.id, name: r.name, country: countryMap.get(r.id) ?? "" })),
+    };
+  },
 };

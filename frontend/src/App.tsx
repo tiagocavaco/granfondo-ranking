@@ -160,7 +160,7 @@ export default function App() {
             <Route path="/athlete/:id" element={<AthleteProfile />} />
             <Route path="/ranking" element={<AggregateRankingPage />} />
             <Route path="/teams" element={<TeamRankingPage />} />
-            <Route path="/team/:teamName" element={<TeamProfile />} />
+            <Route path="/team/:teamKey" element={<TeamProfile />} />
             <Route path="/compare" element={<ComparisonPage />} />
           </Routes>
         </main>

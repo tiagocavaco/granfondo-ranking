@@ -195,7 +195,7 @@ export default function TeamRankingPage() {
                     </div>
                     <div
                       className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-2 sm:mb-3 line-clamp-2 hover:text-blue-700 transition-colors cursor-pointer"
-                      onClick={() => navigate(`/team/${encodeURIComponent(t.team)}`)}
+                      onClick={() => navigate(`/team/${encodeURIComponent(t.teamKey)}`)}
                     >
                       {t.team}
                     </div>
@@ -244,7 +244,7 @@ export default function TeamRankingPage() {
                       <td className="px-4 py-3">
                         <span
                           className="font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
-                          onClick={(e) => { e.stopPropagation(); navigate(`/team/${encodeURIComponent(t.team)}`); }}
+                          onClick={(e) => { e.stopPropagation(); navigate(`/team/${encodeURIComponent(t.teamKey)}`); }}
                         >
                           {t.team}
                         </span>

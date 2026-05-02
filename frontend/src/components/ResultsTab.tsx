@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api } from "../api";
+import { api, resolveTeamKey } from "../api";
 import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "@granfondo/database/types";
 import { countryFlag, normalizeCountry as toISO2 } from "@granfondo/database/normalize";
 import { Spinner, ErrorBanner } from "./EventList";
@@ -238,7 +238,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   {r.team && (
                     <div
                       className="text-xs text-slate-400 truncate mt-0.5 md:hidden hover:text-blue-600 transition-colors"
-                      onClick={(e) => { e.stopPropagation(); navigate(`/team/${encodeURIComponent(r.team)}`); }}
+                      onClick={(e) => { e.stopPropagation(); navigate(`/team/${encodeURIComponent(resolveTeamKey(r.team))}`); }}
                     >
                       {r.team}
                     </div>
@@ -248,7 +248,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   {r.team ? (
                     <span
                       className="text-slate-500 hover:text-blue-600 transition-colors cursor-pointer"
-                      onClick={() => navigate(`/team/${encodeURIComponent(r.team)}`)}
+                      onClick={() => navigate(`/team/${encodeURIComponent(resolveTeamKey(r.team))}`)}
                     >
                       {r.team}
                     </span>

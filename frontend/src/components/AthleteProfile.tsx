@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { api } from "../api";
+import { api, resolveTeamKey } from "../api";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";
@@ -102,7 +102,7 @@ export default function AthleteProfile() {
             <h1 className="text-3xl font-extrabold tracking-tight mb-1">{athlete.name}</h1>
             {recentTeam && recentTeam !== "Individual" && (
               <Link
-                to={`/team/${encodeURIComponent(recentTeam)}`}
+                to={`/team/${encodeURIComponent(resolveTeamKey(recentTeam))}`}
                 className="text-blue-300 hover:text-white text-sm block transition-colors"
               >
                 {recentTeam}
@@ -131,7 +131,7 @@ export default function AthleteProfile() {
             {year}
             {yearTeam && yearTeam !== "Individual" && (
               <Link
-                to={`/team/${encodeURIComponent(yearTeam)}`}
+                to={`/team/${encodeURIComponent(resolveTeamKey(yearTeam))}`}
                 className="text-sm font-normal text-slate-400 hover:text-blue-600 transition-colors"
               >
                 {yearTeam}
