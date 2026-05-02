@@ -1,27 +1,7 @@
 // ── Name normalization ────────────────────────────────────────────────────────
 
-export { normalizeName, fixRawTeamName, normalizeTeam, SOLO_TEAM_KEYS, normalizeCountry } from "@granfondo/database/normalize";
-import { normalizeTeam, SOLO_TEAM_KEYS } from "@granfondo/database/normalize";
-
-/**
- * Maps raw API distance names to canonical names used in rankings and deduplication.
- * Some events use local branding ("BIG DAY", "Clássica", "Etapa") for standard distances.
- * Display names in stored results are kept as-is; this map is used for comparison only.
- */
-export const DISTANCE_ALIASES: Record<string, string> = {
-  granfondo: "Granfondo", mediofondo: "Mediofondo", minifondo: "Minifondo",
-  "time trial": "Time Trial",
-  // Figueira Champions Classic
-  "big day": "Granfondo", "half day": "Mediofondo",
-  // Aveiro Spring Classic
-  "clássica": "Granfondo", "classica": "Granfondo",
-  // Etapa da Volta
-  "etapa": "Mediofondo",
-};
-
-export function normalizeDistance(name: string): string {
-  return DISTANCE_ALIASES[name.toLowerCase()] ?? name;
-}
+export { normalizeName, fixRawTeamName, normalizeTeam, SOLO_TEAM_KEYS, normalizeCountry, normalizeDistance, DISTANCE_ALIASES } from "@granfondo/database/normalize";
+import { normalizeTeam, SOLO_TEAM_KEYS, normalizeDistance } from "@granfondo/database/normalize";
 
 const CANONICAL_PRIORITY: Record<string, number> = {
   Granfondo: 0, Mediofondo: 1, Minifondo: 2, "Time Trial": 3,

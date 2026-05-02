@@ -4,6 +4,7 @@ import { api, resolveTeamKey } from "../api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";
+import { distBadgeClass } from "../utils/distance";
 
 function rankBadge(rank: number) {
   if (rank === 1) return "🥇";
@@ -11,13 +12,6 @@ function rankBadge(rank: number) {
   if (rank === 3) return "🥉";
   return `#${rank}`;
 }
-
-const DIST_COLOR: Record<string, string> = {
-  Granfondo:   "bg-blue-100 text-blue-700",
-  Mediofondo:  "bg-violet-100 text-violet-700",
-  Minifondo:   "bg-emerald-100 text-emerald-700",
-  "Time Trial":"bg-amber-100 text-amber-700",
-};
 
 export default function TeamProfile() {
   const { teamName: encoded } = useParams<{ teamName: string }>();
@@ -246,7 +240,7 @@ export default function TeamProfile() {
             {seasonEntries.map(({ distance, entry }) => (
               <div key={distance} className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
                 <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
-                  <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${DIST_COLOR[distance] ?? "bg-slate-100 text-slate-600"}`}>
+                  <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${distBadgeClass(distance)}`}>
                     {distance}
                   </span>
                   <div className="text-xs text-slate-500 flex gap-3">

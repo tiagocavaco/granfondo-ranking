@@ -5,20 +5,7 @@ import type { StoredEvent } from "@granfondo/database/types";
 import ResultsTab from "./ResultsTab";
 import ParticipantsTab from "./ParticipantsTab";
 import { Spinner, ErrorBanner } from "./EventList";
-
-const DIST_COLORS: Record<string, string> = {
-  Granfondo: "bg-blue-100 text-blue-700 border border-blue-200",
-  GranFondo: "bg-blue-100 text-blue-700 border border-blue-200",
-  "BIG DAY": "bg-blue-100 text-blue-700 border border-blue-200",
-  Mediofondo: "bg-violet-100 text-violet-700 border border-violet-200",
-  "HALF DAY": "bg-violet-100 text-violet-700 border border-violet-200",
-  Etapa: "bg-violet-100 text-violet-700 border border-violet-200",
-  Minifondo: "bg-emerald-100 text-emerald-700 border border-emerald-200",
-  "Time Trial": "bg-amber-100 text-amber-700 border border-amber-200",
-  "TIME TRIAL": "bg-amber-100 text-amber-700 border border-amber-200",
-  "Clássica": "bg-blue-100 text-blue-700 border border-blue-200",
-  "Classica": "bg-blue-100 text-blue-700 border border-blue-200",
-};
+import { distBadgeClassBordered } from "../utils/distance";
 
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>();
@@ -133,7 +120,7 @@ export default function EventDetail() {
                 <span
                   key={d.id}
                   className={`shrink-0 text-xs px-3 py-1 rounded-full font-semibold ${
-                    DIST_COLORS[d.name] ?? "bg-white/10 text-white border border-white/20"
+                    distBadgeClassBordered(d.name)
                   }`}
                 >
                   {d.name}

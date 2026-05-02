@@ -86,7 +86,7 @@ for (const key of keys) {
 
 // Find candidate pairs
 const seen = new Set<string>();
-const candidates: Array<{ from: string; to: string; approved: null }> = [];
+const candidates: Array<{ from: string; to: string; approved: null | boolean }> = [];
 
 for (const [, group] of tokenIndex) {
   for (let i = 0; i < group.length; i++) {

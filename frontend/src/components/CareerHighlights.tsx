@@ -1,5 +1,5 @@
 import type { AthleteResultRef } from "@granfondo/database/types";
-import { canonDist, distBadgeClass } from "../utils/distance";
+import { distBadgeClass } from "../utils/distance";
 
 const DIST_ORDER = ["Granfondo", "Mediofondo", "Minifondo", "Time Trial"];
 
@@ -8,7 +8,7 @@ function buildStats(results: AthleteResultRef[]) {
 
   const bestByDist = new Map<string, number>();
   for (const r of finished) {
-    const d = canonDist(r.distance);
+    const d = r.distance;
     const prev = bestByDist.get(d);
     if (prev === undefined || r.pos < prev) bestByDist.set(d, r.pos);
   }

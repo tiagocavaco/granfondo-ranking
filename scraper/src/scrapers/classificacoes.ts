@@ -44,6 +44,6 @@ export async function scrapeEtapaDaVolta(): Promise<StoredEventResults> {
     eventDate: "2025-08-12",
     eventYear: 2025,
     scrapedAt: new Date().toISOString(),
-    distances: [{ id: "1", name: "Etapa", finisherCount: results.length, results }],
+    distances: [{ id: "1", name: "Mediofondo", finisherCount: results.length, results }],
   };
 }

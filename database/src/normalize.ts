@@ -40,6 +40,20 @@ export function normalizeTeam(name: string): string {
 
 export const SOLO_TEAM_KEYS = new Set(["individual", "independente", "no team", "sem equipa", ""]);
 
+// ── Distance normalization ────────────────────────────────────────────────────
+
+export const DISTANCE_ALIASES: Record<string, string> = {
+  granfondo: "Granfondo", mediofondo: "Mediofondo", minifondo: "Minifondo",
+  "time trial": "Time Trial",
+  "big day": "Granfondo", "half day": "Mediofondo",
+  "clássica": "Granfondo", "classica": "Granfondo",
+  "etapa": "Mediofondo",
+};
+
+export function normalizeDistance(name: string): string {
+  return DISTANCE_ALIASES[name.toLowerCase()] ?? name;
+}
+
 // ── Country normalization ─────────────────────────────────────────────────────
 
 const COUNTRY_NAME_TO_ISO2: Record<string, string> = {

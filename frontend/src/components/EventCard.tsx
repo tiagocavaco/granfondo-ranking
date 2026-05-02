@@ -1,18 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import type { StoredEvent } from "@granfondo/database/types";
+import { distBadgeClass } from "../utils/distance";
 
 interface Props {
   event: StoredEvent;
 }
-
-const DIST_COLORS: Record<string, string> = {
-  Granfondo: "bg-blue-100 text-blue-700",
-  GranFondo: "bg-blue-100 text-blue-700",
-  Mediofondo: "bg-violet-100 text-violet-700",
-  Minifondo: "bg-emerald-100 text-emerald-700",
-  "Time Trial": "bg-amber-100 text-amber-700",
-  "TIME TRIAL": "bg-amber-100 text-amber-700",
-};
 
 export default function EventCard({ event }: Props) {
   const navigate = useNavigate();
@@ -76,7 +68,7 @@ export default function EventCard({ event }: Props) {
             <span
               key={d.id}
               className={`shrink-0 text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${
-                DIST_COLORS[d.name] ?? "bg-slate-100 text-slate-600"
+                distBadgeClass(d.name)
               }`}
             >
               {d.name}

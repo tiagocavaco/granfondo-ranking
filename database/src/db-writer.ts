@@ -11,7 +11,7 @@ import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { sql } from "drizzle-orm";
 import * as path from "path";
 import * as schema from "./schema.js";
-import { normalizeTeam } from "./normalize.js";
+import { normalizeTeam, normalizeDistance } from "./normalize.js";
 import type {
   StoredEvent,
   StoredEventResults,
@@ -110,7 +110,7 @@ function insertEvents(db: ReturnType<typeof drizzle>, data: AllScrapedData): voi
       db.insert(schema.eventDistances).values({
         id:      d.id,
         eventId: e.id,
-        name:    d.name,
+        name:    normalizeDistance(d.name),
       }).onConflictDoNothing().run();
     }
   }
@@ -124,7 +124,7 @@ function insertResults(db: ReturnType<typeof drizzle>, data: AllScrapedData): vo
         const run = db.insert(schema.results).values({
           eventId,
           distanceId:    dist.id,
-          distanceName:  dist.name,
+          distanceName:  normalizeDistance(dist.name),
           finisherCount: dist.finisherCount,
           pos:           r.pos,
           genderPos:     r.genderPos,

@@ -4,7 +4,7 @@ import {
   CartesianGrid, Tooltip,
 } from "recharts";
 import type { AthleteResultRef } from "@granfondo/database/types";
-import { canonDist, distDotColor } from "../utils/distance";
+import { distDotColor } from "../utils/distance";
 
 type FlatPoint = {
   dateMs: number;
@@ -40,7 +40,7 @@ export default function PerformanceChart({ results }: Props) {
     .map((r) => ({
       dateMs:        new Date(r.eventDate + "T12:00:00").getTime(),
       pos:           r.pos,
-      dist:          canonDist(r.distance),
+      dist:          r.distance,
       eventName:     r.eventName,
       finisherCount: r.finisherCount,
     }))

@@ -62,7 +62,7 @@ function posStyle(pos: number) {
 function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
   const navigate = useNavigate();
   const defaultDistId =
-    distances.find((d) => d.name === "Granfondo" || d.name === "GranFondo")?.id ??
+    distances.find((d) => d.name === "Granfondo")?.id ??
     distances[0]?.id ??
     "";
 

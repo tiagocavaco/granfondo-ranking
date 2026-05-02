@@ -156,7 +156,7 @@ export function buildTeamRanking(
       if (!acc[yearKey][distKey]) acc[yearKey][distKey] = new Map();
       const distMap = acc[yearKey][distKey];
 
-      const teamAthletes = new Map<string, Array<{ name: string; pos: number; rawTeam: string; athleteId: number; country: string }>>();
+      const teamAthletes = new Map<string, Array<{ name: string; pos: number; rawTeam: string; athleteId: number; country: string; category: string }>>();
       for (const r of dist.results) {
         if (r.dnf || r.dns || r.pos < 1 || !r.team) continue;
         const tk = teamNormalKey(r.team);
