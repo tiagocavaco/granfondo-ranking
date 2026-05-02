@@ -171,6 +171,7 @@ export const teamRanking = sqliteTable("team_ranking", {
   distance:     text("distance").notNull(),
   rank:         integer("rank").notNull(),
   team:         text("team").notNull(),
+  teamKey:      text("team_key").notNull().default(""),
   totalPoints:  real("total_points").notNull().default(0),
   eventsScored: integer("events_scored").notNull().default(0),
   bestRank:     integer("best_rank").notNull().default(0),

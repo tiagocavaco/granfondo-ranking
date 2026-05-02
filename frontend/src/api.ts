@@ -28,6 +28,10 @@ function teamNormKey(name: string): string {
   return teamAliasesCache.get(key) ?? key;
 }
 
+export function resolveTeamKey(name: string): string {
+  return teamNormKey(name);
+}
+
 function athleteLookupKey(name: string, team: string): string {
   const nameLower = normalizeName(name);
   const tk = teamNormKey(team ?? "");
@@ -227,6 +231,7 @@ export const api = {
       const entry: TeamEntry = {
         rank:         row.rank,
         team:         row.team,
+        teamKey:      row.teamKey,
         totalPoints:  row.totalPoints,
         eventsScored: row.eventsScored,
         bestRank:     row.bestRank,

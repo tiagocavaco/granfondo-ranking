@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { api } from "../api";
+import { api, resolveTeamKey } from "../api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";
@@ -29,36 +29,39 @@ export default function TeamProfile() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    api.getTeamRanking()
-      .then(setData)
+    Promise.all([api.getTeamRanking(), api.initLookups()])
+      .then(([ranking]) => setData(ranking))
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
   }, []);
 
   const teamEntries = useMemo(() => {
     if (!data) return [];
+    const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
+    const teamNameKey = resolveTeamKey(teamName);
+
     const entries: Array<{ year: string; distance: string; entry: TeamEntry }> = [];
     for (const [year, dists] of Object.entries(data)) {
       for (const [dist, teams] of Object.entries(dists)) {
-        const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
-        const entry = teams.find((t) => norm(t.team) === norm(teamName));
+        const entry = teams.find((t) =>
+          norm(t.team) === norm(teamName) || (t.teamKey !== "" && t.teamKey === teamNameKey)
+        );
         if (entry) entries.push({ year, distance: dist, entry });
       }
     }
     return entries.sort((a, b) => b.year.localeCompare(a.year) || a.distance.localeCompare(b.distance));
   }, [data, teamName]);
 
-  const bestRank = teamEntries.reduce((best, { entry }) => Math.min(best, entry.bestRank), Infinity);
   const totalEventsScored = teamEntries.reduce((sum, { entry }) => sum + entry.eventsScored, 0);
   const seasons = [...new Set(teamEntries.map((e) => e.year))].sort().reverse();
 
-  const [memberSeason, setMemberSeason] = useState<string>("");
+  const [selectedSeason, setSelectedSeason] = useState<string>("");
   useEffect(() => {
-    if (seasons.length > 0) setMemberSeason(seasons[0]!);
+    if (seasons.length > 0) setSelectedSeason(seasons[0]!);
   }, [seasons[0]]);
 
   const members = useMemo(() => {
-    const filtered = teamEntries.filter((e) => e.year === memberSeason);
+    const filtered = teamEntries.filter((e) => e.year === selectedSeason);
     const map = new Map<number, { id: number; name: string; countryCounts: Map<string, number>; categoryCounts: Map<string, number>; races: number; podiums: number; bestPodiumRank: number }>();
     for (const { entry } of filtered) {
       for (const r of entry.results) {
@@ -88,7 +91,7 @@ export default function TeamProfile() {
         category: [...categoryCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "",
       }))
       .sort((a, b) => b.races - a.races || b.podiums - a.podiums);
-  }, [teamEntries, memberSeason]);
+  }, [teamEntries, selectedSeason]);
 
   const totalMembers = useMemo(() => {
     const ids = new Set<number>();
@@ -120,6 +123,8 @@ export default function TeamProfile() {
       </div>
     );
 
+  const seasonEntries = byYear[selectedSeason] ?? [];
+
   return (
     <div>
       <button
@@ -131,12 +136,9 @@ export default function TeamProfile() {
 
       {/* Hero */}
       <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-6 mb-8 text-white">
-        {/* Top row: label */}
         <div className="mb-3">
           <div className="text-blue-300 text-xs font-semibold uppercase tracking-widest">Team</div>
         </div>
-
-        {/* Name/seasons + stats */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight mb-1">{teamName}</h1>
@@ -144,25 +146,49 @@ export default function TeamProfile() {
           </div>
           <div className="flex gap-3 sm:shrink-0">
             <Stat label="Seasons" value={seasons.length} />
-{totalMembers > 0 && <Stat label="Members" value={totalMembers} />}
+            {totalMembers > 0 && <Stat label="Members" value={totalMembers} />}
             <Stat label="Events" value={totalEventsScored} />
           </div>
         </div>
       </div>
 
+      {/* Season selector — shared between members and results */}
+      {seasons.length > 1 && (
+        <div className="flex items-center gap-3 mb-6">
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Season</span>
+          {/* Mobile: full-width select */}
+          <select
+            value={selectedSeason}
+            onChange={(e) => setSelectedSeason(e.target.value)}
+            className="sm:hidden flex-1 px-3 py-1.5 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600 font-semibold"
+          >
+            {seasons.map((s) => <option key={s} value={s}>{s}</option>)}
+          </select>
+          {/* Desktop: segmented pill toggle */}
+          <div className="hidden sm:flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
+            {seasons.map((s) => (
+              <button
+                key={s}
+                onClick={() => setSelectedSeason(s)}
+                className={`px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
+                  selectedSeason === s
+                    ? "bg-blue-600 text-white"
+                    : "text-slate-600 hover:bg-slate-50"
+                }`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Members */}
       {members.length > 0 && (
         <div className="mb-8">
-          <div className="flex items-center justify-between gap-4 mb-3">
-            <h2 className="text-lg font-bold text-slate-800">Members <span className="text-slate-400 font-normal text-sm">({members.length})</span></h2>
-            <select
-              value={memberSeason}
-              onChange={(e) => setMemberSeason(e.target.value)}
-              className="px-3 py-1.5 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600 font-semibold"
-            >
-              {seasons.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
-          </div>
+          <h2 className="text-lg font-bold text-slate-800 mb-3">
+            Members <span className="text-slate-400 font-normal text-sm">({members.length})</span>
+          </h2>
           <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
             <table className="w-full text-sm table-fixed">
               <colgroup>
@@ -212,12 +238,12 @@ export default function TeamProfile() {
         </div>
       )}
 
-      {/* Results by year */}
-      {seasons.map((year) => (
-        <div key={year} className="mb-8">
-          <h2 className="text-lg font-bold text-slate-800 mb-3">{year}</h2>
+      {/* Results for selected season */}
+      {seasonEntries.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-lg font-bold text-slate-800 mb-3">Results</h2>
           <div className="space-y-4">
-            {byYear[year]!.map(({ distance, entry }) => (
+            {seasonEntries.map(({ distance, entry }) => (
               <div key={distance} className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
                 <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
                   <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${DIST_COLOR[distance] ?? "bg-slate-100 text-slate-600"}`}>
@@ -270,7 +296,7 @@ export default function TeamProfile() {
             ))}
           </div>
         </div>
-      ))}
+      )}
     </div>
   );
 }

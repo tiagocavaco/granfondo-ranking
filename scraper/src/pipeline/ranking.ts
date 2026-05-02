@@ -142,6 +142,7 @@ export function buildTeamRanking(
     totalPoints: number; eventsScored: number; bestRank: number;
     results: TeamEntry["results"];
   };
+  // teamKey is already the canonical key (after alias resolution via teamNormalKey)
   const acc: Record<string, Record<string, Map<string, AccTeam>>> = {};
 
   for (const event of events.filter((e) => e.hasResults)) {
@@ -227,7 +228,7 @@ export function buildTeamRanking(
       const sorted = Array.from(distMap.values())
         .sort((a, b) => b.totalPoints - a.totalPoints || a.bestRank - b.bestRank);
       ranking[year][dist] = sorted.map((entry, i) => ({
-        rank: i + 1, team: canonicalTeam(entry.nameOcc),
+        rank: i + 1, team: canonicalTeam(entry.nameOcc), teamKey: entry.teamKey,
         totalPoints: entry.totalPoints, eventsScored: entry.eventsScored, bestRank: entry.bestRank,
         results: entry.results.sort(
           (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()

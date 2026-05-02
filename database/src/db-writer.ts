@@ -268,6 +268,7 @@ function insertRankings(db: ReturnType<typeof drizzle>, data: AllScrapedData): v
           distance,
           rank:         t.rank,
           team:         t.team,
+          teamKey:      t.teamKey,
           totalPoints:  t.totalPoints,
           eventsScored: t.eventsScored,
           bestRank:     t.bestRank,

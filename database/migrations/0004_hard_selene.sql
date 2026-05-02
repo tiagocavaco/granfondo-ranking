@@ -1,0 +1,1 @@
+ALTER TABLE `team_ranking` ADD `team_key` text DEFAULT '' NOT NULL;

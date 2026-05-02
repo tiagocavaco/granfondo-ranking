@@ -15,7 +15,7 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     date: "2025-02-15",
     location: "Figueira da Foz",
     resultsUrl: "https://www.lap2go.com/pt/evento/figueira-champions-day-2025",
-    officialUrl: null,
+    officialUrl: "https://www.figueirachampionsclassic.com",
     hasResults: false,
     distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }],
     participantCount: 0,
