@@ -173,7 +173,7 @@ export default function TeamProfile() {
         </div>
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight mb-1">{displayName}</h1>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-1 break-words">{displayName}</h1>
             <p className="text-blue-300 text-sm">{allSeasons.join(" · ")}</p>
           </div>
           <div className="flex gap-3 sm:shrink-0">
@@ -372,22 +372,26 @@ export default function TeamProfile() {
                 const grouped = new Map<number, { eventName: string; eventDate: string; distances: string[] }>();
                 for (const ev of nonQualifyingEvents) {
                   const g = grouped.get(ev.eventId);
-                  if (g) g.distances.push(ev.distance);
+                  if (g) { if (!g.distances.includes(ev.distance)) g.distances.push(ev.distance); }
                   else grouped.set(ev.eventId, { eventName: ev.eventName, eventDate: ev.eventDate, distances: [ev.distance] });
                 }
-                return [...grouped.entries()].map(([eventId, g]) => (
+                const distOrder = ["Granfondo", "Mediofondo", "Minifondo"];
+                return [...grouped.entries()].map(([eventId, g]) => {
+                  g.distances.sort((a, b) => (distOrder.indexOf(a) + 1 || 99) - (distOrder.indexOf(b) + 1 || 99));
+                  return (
                   <div key={eventId} className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-3 gap-1 sm:gap-3">
-                    <Link to={`/event/${eventId}`} className="font-semibold text-slate-900 hover:text-blue-600 transition-colors text-sm">{g.eventName}</Link>
-                    <div className="flex items-center gap-2 text-xs text-slate-400 shrink-0">
-                      <div className="flex gap-1">
-                        {g.distances.map((d) => (
-                          <span key={d} className={`font-semibold px-2.5 py-1 rounded-full ${distBadgeClass(d)}`}>{d}</span>
-                        ))}
-                      </div>
-                      <span>{g.eventDate}</span>
+                    <div className="min-w-0">
+                      <Link to={`/event/${eventId}`} className="font-semibold text-slate-900 hover:text-blue-600 transition-colors text-sm">{g.eventName}</Link>
+                      <div className="text-xs text-slate-400 mt-0.5">{g.eventDate}</div>
+                    </div>
+                    <div className="flex flex-wrap gap-1 sm:shrink-0">
+                      {g.distances.map((d) => (
+                        <span key={d} className={`text-xs font-semibold px-2.5 py-1 rounded-full ${distBadgeClass(d)}`}>{d}</span>
+                      ))}
                     </div>
                   </div>
-                ));
+                  );
+                });
               })()}
             </div>
           </div>
