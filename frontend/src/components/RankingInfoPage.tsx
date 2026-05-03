@@ -41,7 +41,7 @@ export default function RankingInfoPage({ mode }: { mode: "athlete" | "team" }) 
   const isAthlete = mode === "athlete";
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div>
       <button
         onClick={() => navigate(-1)}
         className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
@@ -75,7 +75,7 @@ export default function RankingInfoPage({ mode }: { mode: "athlete" | "team" }) 
         )}
       </div>
 
-      <div className="grid sm:grid-cols-2 gap-6 mb-8">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {/* Points table */}
         <div>
           <h2 className="text-base font-bold text-slate-800 mb-3">
@@ -133,7 +133,7 @@ export default function RankingInfoPage({ mode }: { mode: "athlete" | "team" }) 
                       <td className={`px-4 py-2 font-medium ${isRef ? "text-blue-700" : "text-slate-700"}`}>
                         {val}{isRef && <span className="ml-2 text-xs font-normal text-blue-400">reference*</span>}
                       </td>
-                      <td className={`px-4 py-2 text-right font-extrabold ${isRef ? "text-blue-700" : "text-slate-700"}`}>
+                      <td className={`px-4 py-2 text-right font-extrabold tabular-nums ${isRef ? "text-blue-700" : "text-slate-700"}`}>
                         {row.coeff}
                       </td>
                     </tr>
@@ -148,27 +148,26 @@ export default function RankingInfoPage({ mode }: { mode: "athlete" | "team" }) 
               : "* 25 eligible teams = 1.00. Races with more teams reward more points."}
           </p>
         </div>
-      </div>
 
-      {/* Extra rules */}
-      <div className="rounded-2xl border border-slate-200 bg-white px-6 py-5 space-y-3 text-sm text-slate-600">
-        <h2 className="text-base font-bold text-slate-800">Rules</h2>
-        {isAthlete ? (
-          <ul className="space-y-2 list-disc list-inside marker:text-slate-300">
-            <li>Points are awarded per gender — men and women have separate rankings.</li>
-            <li>Rankings are per distance (Granfondo, Mediofondo, Minifondo, Time Trial).</li>
-            <li>Season total is the sum of points across all scored races — there is no cap on how many races count.</li>
-            <li>DNF and DNS results do not score.</li>
-          </ul>
-        ) : (
-          <ul className="space-y-2 list-disc list-inside marker:text-slate-300">
-            <li>A team must have at least 3 finishers per distance to score — these are the eligible teams used in the coefficient.</li>
-            <li>The top 3 finishers' overall race positions are summed — lowest combined score wins (overall position, not gender position).</li>
-            <li>Rankings are per distance. Mixed-gender teams are allowed.</li>
-            <li>Season total is the sum of points across all scored events — there is no cap on how many events count.</li>
-            <li>DNF and DNS athletes do not count towards the team's 3 required finishers.</li>
-          </ul>
-        )}
+        {/* Rules */}
+        <div>
+          <h2 className="text-base font-bold text-slate-800 mb-3">Rules</h2>
+          <div className="rounded-2xl border border-slate-200 bg-white px-6 py-5 text-sm text-slate-600">
+          {isAthlete ? (
+            <ul className="space-y-2 list-disc list-inside marker:text-slate-300">
+              <li>Points are awarded per gender.</li>
+              <li>Only the top 50 finishers score points.</li>
+              <li>Rankings are per distance.</li>
+            </ul>
+          ) : (
+            <ul className="space-y-2 list-disc list-inside marker:text-slate-300">
+              <li>A team must have at least 3 finishers per distance to score — these are the eligible teams used in the coefficient.</li>
+              <li>The top 3 finishers' positions are summed — lowest combined score wins (overall position, not gender).</li>
+              <li>Rankings are per distance.</li>
+            </ul>
+          )}
+          </div>
+        </div>
       </div>
     </div>
   );
