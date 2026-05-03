@@ -96,7 +96,7 @@ function AppShell() {
           Athlete profile links are unavailable — data may be loading or out of date.
         </div>
       )}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-8">
         <Routes>
           <Route path="/" element={<EventList />} />
           <Route path="/event/:id" element={<EventDetail />} />

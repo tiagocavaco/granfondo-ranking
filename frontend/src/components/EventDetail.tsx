@@ -41,13 +41,11 @@ export default function EventDetail() {
 
   return (
     <div>
-      {/* Back */}
       <button
         onClick={() => navigate("/")}
-        className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-800 mb-5 group"
+        className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
       >
-        <span className="group-hover:-translate-x-0.5 transition-transform">←</span>
-        Back to events
+        ← Back
       </button>
 
       {/* Event hero */}

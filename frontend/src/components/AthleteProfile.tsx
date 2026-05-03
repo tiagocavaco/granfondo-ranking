@@ -72,7 +72,7 @@ export default function AthleteProfile() {
       {/* Back */}
       <button
         onClick={() => navigate(-1)}
-        className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 mb-6 transition-colors"
+        className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
       >
         ← Back
       </button>
