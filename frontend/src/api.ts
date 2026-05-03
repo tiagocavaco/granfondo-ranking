@@ -422,19 +422,21 @@ export const api = {
     const allTeamKeySet = new Set(allTeamKeys);
     const teamResults = resultRows.filter((r) => allTeamKeySet.has(normalizeTeam(r.team)));
 
-    // Per-athlete most-frequent country and category (across all their results for this team)
+    // Per-athlete most-frequent category across their 3 most recent races for this team
     const countryMap = buildCountryMap(teamResults);
-    const categoryByAthlete = new Map<number, Map<string, number>>();
+    const recentByAthlete = new Map<number, { date: string; category: string }[]>();
     for (const r of teamResults) {
       if (!r.category) continue;
-      if (!categoryByAthlete.has(r.athleteId)) categoryByAthlete.set(r.athleteId, new Map());
-      const cm = categoryByAthlete.get(r.athleteId)!;
-      cm.set(r.category, (cm.get(r.category) ?? 0) + 1);
+      if (!recentByAthlete.has(r.athleteId)) recentByAthlete.set(r.athleteId, []);
+      recentByAthlete.get(r.athleteId)!.push({ date: r.eventDate, category: r.category });
     }
     const categoryMap = new Map(
-      [...categoryByAthlete.entries()].map(([id, cm]) => [
-        id, [...cm.entries()].sort((a, b) => b[1] - a[1])[0]![0],
-      ])
+      [...recentByAthlete.entries()].map(([id, rows]) => {
+        const recent = rows.sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
+        const freq = new Map<string, number>();
+        for (const { category } of recent) freq.set(category, (freq.get(category) ?? 0) + 1);
+        return [id, [...freq.entries()].sort((a, b) => b[1] - a[1])[0]![0]];
+      })
     );
 
     const nameById = new Map(memberRows.map((r) => [r.id, r.name]));
