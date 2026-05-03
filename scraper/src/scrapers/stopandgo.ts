@@ -1,4 +1,4 @@
-import { parseEventDate, getYear, isPast } from "../normalize.js";
+import { parseEventDate, getYear, isPast, fixRawTeamName } from "../normalize.js";
 import { isGranfondoName, isKidsCamVariant } from "../transform.js";
 import { YEARS, SUPPLEMENTAL_EVENT_IDS, OFFICIAL_EVENT_URLS } from "../config.js";
 import { BROWSER_UA, fetchWithRetry } from "./shared.js";
@@ -209,7 +209,7 @@ export async function scrapeListaParticipants(url: string): Promise<StoredPartic
     const name     = tds[1] ?? "";
     const distance = tds[2] ?? "";
     const category = tds[3] ?? "";
-    const team     = tds[4] ?? "";
+    const team     = fixRawTeamName(tds[4] ?? "");
 
     if (!name) continue;
 
@@ -256,7 +256,7 @@ function parseRegistrationsPage(html: string): { athletes: StoredParticipant[]; 
     const bib      = tds[0] ?? "";
     const name     = tds[1] ?? "";
     const gender   = (tds[3] ?? "").toUpperCase() === "F" ? "F" : "M";
-    const team     = tds[4] ?? "";
+    const team     = fixRawTeamName(tds[4] ?? "");
     const distance = tds[5] ?? "";
     const category = tds[6] ?? "";
 

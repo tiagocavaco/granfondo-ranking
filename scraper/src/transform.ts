@@ -5,7 +5,7 @@
  * Pure functions: no side effects, no I/O.
  */
 
-import { normalizeName, formatTime, timeToSeconds, normalizeCountry } from "./normalize.js";
+import { normalizeName, formatTime, timeToSeconds, normalizeCountry, fixRawTeamName } from "./normalize.js";
 import type { ApiResult } from "./types.js";
 import type {
   StoredParticipant,
@@ -101,7 +101,7 @@ export function transformResult(r: ApiResult): StoredResult {
     name: r.nome,
     nameLower: normalizeName(r.nome),
     gender: r.sexo || "M",
-    team: r.equipa ?? "",
+    team: fixRawTeamName(r.equipa ?? ""),
     category: r.escalao ?? "",
     country: normalizeCountry(r.pais_iso2 || r.pais_nome),
     raceTime: formatTime(r.tempo),

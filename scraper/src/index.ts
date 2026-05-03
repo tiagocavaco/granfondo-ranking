@@ -34,7 +34,7 @@ import {
   APEDALAR_PARTICIPANT_URLS,
 } from "./config.js";
 import { DATA_DIR, SCRAPED_EVENTS_PATH, DB_ENC_PATH, TMP_DB_PATH } from "./paths.js";
-import { normalizeName, teamNormalKey, teamKeySimilarity, initTeamAliases } from "./normalize.js";
+import { normalizeName, teamNormalKey, teamKeySimilarity, initTeamAliases, fixRawTeamName } from "./normalize.js";
 import { buildDatabase, type AllScrapedData } from "@granfondo/database/db-writer";
 import { encryptBuffer } from "./db/encrypt.js";
 import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadExistingEventIds, writeParticipantsToDb, loadTeamAliases, loadAthleteAliases, loadResultAssignments } from "./db/db-loader.js";
@@ -81,7 +81,7 @@ function apiAthleteToParticipant(a: ApiAthlete): StoredParticipant {
     name:       a.nome ?? "",
     fullName:   a.nomecompleto ?? "",
     gender:     a.sexo ?? "",
-    team:       a.equipa ?? "",
+    team:       fixRawTeamName(a.equipa ?? ""),
     category:   a.escalao ?? "",
     distance:   a.percurso ?? "",
     distanceId: a.id_percursos ?? "",
