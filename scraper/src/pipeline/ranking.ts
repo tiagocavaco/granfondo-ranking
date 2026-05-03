@@ -10,7 +10,7 @@ import {
   finisherCoefficient,
   rankToTeamBasePoints,
   teamCoefficient,
-} from "./scoring.js";
+} from "@granfondo/utils/scoring";
 import type { ResultsLoader } from "./pipeline.js";
 import type {
   StoredEvent,

@@ -8,6 +8,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "paths": {
+      "@granfondo/utils/scoring": ["../utils/src/scoring.ts"],
       "@granfondo/database/schema": ["../database/src/schema.ts"],
       "@granfondo/database/types": ["../database/src/types.ts"],
       "@granfondo/database/db-writer": ["../database/src/db-writer.ts"],

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { api } from "../api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
@@ -110,12 +110,6 @@ export default function TeamRankingPage() {
         <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
           Team Ranking
         </h2>
-        <p className="text-slate-500 mt-1 text-sm hidden sm:block">
-          Top 3 athletes per team per distance count. Teams need ≥3 finishers to score.
-          Points (25→20→15→12→7→5→4→3→2→1) multiplied by a{" "}
-          <strong className="text-slate-700">difficulty coefficient</strong> based on total
-          number of teams present — more teams, higher coefficient.
-        </p>
       </div>
 
       {/* Filters */}
@@ -212,10 +206,13 @@ export default function TeamRankingPage() {
             </div>
           )}
 
-          <div className="mb-4">
+          <div className="mb-4 flex items-center justify-between">
             <p className="text-sm text-slate-500">
               <span className="font-semibold text-slate-700">{ranked.length}</span> teams scored
             </p>
+            <Link to="/teams-info" className="text-xs text-blue-600 hover:text-blue-800 hover:underline transition-colors">
+              How scoring works →
+            </Link>
           </div>
 
           <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
@@ -265,8 +262,8 @@ export default function TeamRankingPage() {
                               style={{ width: `${(t.totalPoints / maxPoints) * 100}%` }}
                             />
                           </div>
-                          <span className="font-extrabold text-blue-700 tabular-nums">
-                            {t.totalPoints}
+                          <span className="font-extrabold text-blue-700 tabular-nums inline-block w-14 text-right">
+                            {t.totalPoints.toFixed(1)}
                           </span>
                         </div>
                       </td>

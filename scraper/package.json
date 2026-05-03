@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@granfondo/database": "*",
+    "@granfondo/utils": "*",
     "better-sqlite3": "^12.9.0",
     "drizzle-orm": "^0.38.4"
   }

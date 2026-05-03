@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api, resolveTeamKey } from "../api";
 import type { AggregateRanking, AggregateAthlete } from "@granfondo/database/types";
@@ -125,11 +125,6 @@ export default function AggregateRankingPage() {
           <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
             Athlete Ranking
           </h2>
-          <p className="text-slate-500 mt-1 text-sm hidden sm:block">
-            Points by position (75, 65, 60, 55, 50… down to 1 for top 50), multiplied by a{" "}
-            <strong className="text-slate-700">difficulty coefficient</strong>{" "}
-            based on number of finishers — larger races score higher.
-          </p>
         </div>
         <div className="sm:hidden">
           <GenderToggle value={gender} onChange={(g) => { setGender(g as "M" | "F"); setExpanded(null); setSearch(""); }} compact />
@@ -248,6 +243,9 @@ export default function AggregateRankingPage() {
             <p className="text-sm text-slate-500">
               <span className="font-semibold text-slate-700">{ranked.length}</span> athletes scored
             </p>
+            <Link to="/ranking-info" className="text-xs text-blue-600 hover:text-blue-800 hover:underline transition-colors">
+              How scoring works →
+            </Link>
           </div>
 
           <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white" id="ranking-table">
@@ -281,18 +279,18 @@ export default function AggregateRankingPage() {
                         >
                           <span className="mr-1.5" title={a.country}>{countryFlag(a.country)}</span>{a.name}
                         </span>
-                        <div
-                          className="text-xs text-slate-400 lg:hidden mt-0.5 truncate hover:text-blue-600 transition-colors cursor-pointer"
-                          onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(resolveTeamKey(a.team))}`); }}
-                        >
-                          {a.team}
+                        <div className="text-xs text-slate-400 lg:hidden mt-0.5 truncate">
+                          <span
+                            className="hover:text-blue-600 transition-colors cursor-pointer"
+                            onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(resolveTeamKey(a.team))}`); }}
+                          >{a.team}</span>
                         </div>
                       </td>
-                      <td
-                        className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell whitespace-nowrap hover:text-blue-600 transition-colors cursor-pointer"
-                        onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(resolveTeamKey(a.team))}`); }}
-                      >
-                        {a.team}
+                      <td className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell whitespace-nowrap">
+                        <span
+                          className="hover:text-blue-600 transition-colors cursor-pointer"
+                          onClick={(e) => { e.stopPropagation(); if (a.team) navigate(`/team/${encodeURIComponent(resolveTeamKey(a.team))}`); }}
+                        >{a.team}</span>
                       </td>
                       <td className="px-4 py-3 text-center text-slate-600 font-medium hidden sm:table-cell">
                         {a.eventsScored}
@@ -309,8 +307,8 @@ export default function AggregateRankingPage() {
                               style={{ width: `${(a.totalPoints / maxPoints) * 100}%` }}
                             />
                           </div>
-                          <span className="font-extrabold text-blue-700 tabular-nums">
-                            {a.totalPoints}
+                          <span className="font-extrabold text-blue-700 tabular-nums inline-block w-14 text-right">
+                            {a.totalPoints.toFixed(1)}
                           </span>
                         </div>
                       </td>

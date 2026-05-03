@@ -8,6 +8,7 @@ import AthleteProfile from "./components/AthleteProfile";
 import AthletesPage from "./components/AthletesPage";
 import TeamProfile from "./components/TeamProfile";
 import ComparisonPage from "./components/ComparisonPage";
+import RankingInfoPage from "./components/RankingInfoPage";
 import { api } from "./api";
 
 function RankingDropdown() {
@@ -162,6 +163,8 @@ export default function App() {
             <Route path="/teams" element={<TeamRankingPage />} />
             <Route path="/team/:teamKey" element={<TeamProfile />} />
             <Route path="/compare" element={<ComparisonPage />} />
+            <Route path="/ranking-info" element={<RankingInfoPage mode="athlete" />} />
+            <Route path="/teams-info" element={<RankingInfoPage mode="team" />} />
           </Routes>
         </main>
       </div>

@@ -4,7 +4,7 @@ import {
   finisherCoefficient,
   rankToTeamBasePoints,
   teamCoefficient,
-} from "./scoring.js";
+} from "@granfondo/utils/scoring";
 
 // ── posToBasePoints ───────────────────────────────────────────────────────────
 
@@ -64,12 +64,12 @@ describe("rankToTeamBasePoints", () => {
 // ── teamCoefficient ───────────────────────────────────────────────────────────
 
 describe("teamCoefficient", () => {
-  it("returns 1.00 at reference (80 teams)", () => {
-    expect(teamCoefficient(80)).toBe(1);
+  it("returns 1.00 at reference (25 teams)", () => {
+    expect(teamCoefficient(25)).toBe(1);
   });
 
-  it("returns < 1 for fewer than 80 teams", () => {
-    expect(teamCoefficient(20)).toBeLessThan(1);
+  it("returns < 1 for fewer than 25 teams", () => {
+    expect(teamCoefficient(12)).toBeLessThan(1);
   });
 
   it("returns > 0 for 1 team", () => {
