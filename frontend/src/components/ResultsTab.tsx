@@ -4,7 +4,7 @@ import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import { resolveTeamKey } from "../utils/lookups";
 import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "@granfondo/database/types";
-import { countryFlag, normalizeCountry as toISO2 } from "@granfondo/database/normalize";
+import { countryFlag, normalizeCountry as toISO2, SOLO_TEAM_KEYS, normalizeTeam } from "@granfondo/database/normalize";
 import { Spinner, ErrorBanner } from "./EventList";
 
 interface Props {
@@ -238,8 +238,8 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   </div>
                   {r.team && (
                     <div
-                      className="text-xs text-slate-400 truncate mt-0.5 md:hidden hover:text-blue-600 transition-colors"
-                      onClick={(e) => { e.stopPropagation(); navigate(`/team/${encodeURIComponent(resolveTeamKey(r.team))}`); }}
+                      className={`text-xs text-slate-400 truncate mt-0.5 md:hidden ${!SOLO_TEAM_KEYS.has(normalizeTeam(r.team)) ? "hover:text-blue-600 transition-colors" : ""}`}
+                      onClick={(e) => { if (!SOLO_TEAM_KEYS.has(normalizeTeam(r.team))) { e.stopPropagation(); navigate(`/team/${encodeURIComponent(resolveTeamKey(r.team))}`); } }}
                     >
                       {r.team}
                     </div>
@@ -248,8 +248,8 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                 <td className="px-4 py-3 text-xs hidden md:table-cell whitespace-nowrap">
                   {r.team ? (
                     <span
-                      className="text-slate-500 hover:text-blue-600 transition-colors cursor-pointer"
-                      onClick={() => navigate(`/team/${encodeURIComponent(resolveTeamKey(r.team))}`)}
+                      className={`text-slate-500 ${!SOLO_TEAM_KEYS.has(normalizeTeam(r.team)) ? "hover:text-blue-600 transition-colors cursor-pointer" : ""}`}
+                      onClick={() => { if (!SOLO_TEAM_KEYS.has(normalizeTeam(r.team))) navigate(`/team/${encodeURIComponent(resolveTeamKey(r.team))}`); }}
                     >
                       {r.team}
                     </span>

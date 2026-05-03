@@ -25,8 +25,8 @@ export default function TeamProfile() {
   const [teamDetail, setTeamDetail] = useState<{ displayName: string; events: Array<{ eventId: number; eventName: string; eventDate: string; distance: string; athletes: Array<{ id: number; name: string; pos: number; raceTime: string; dnf: number; dns: number; country: string; category: string }> }> } | null | undefined>(undefined);
 
   useEffect(() => {
-    Promise.all([api.getTeamRanking(), api.initLookups()])
-      .then(([ranking]) => setData(ranking))
+    Promise.all([api.getTeamRanking(), api.initLookups(), api.getTeamByKey(teamKey)])
+      .then(([ranking, , detail]) => { setData(ranking); setTeamDetail(detail); })
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
   }, []);
@@ -63,15 +63,13 @@ export default function TeamProfile() {
   const [selectedSeason, setSelectedSeason] = useState<string>("");
   const [membersSearch, setMembersSearch] = useState("");
   const [membersExpanded, setMembersExpanded] = useState(false);
-  useEffect(() => {
-    if (allSeasons.length > 0 && !selectedSeason) setSelectedSeason(allSeasons[0]!);
-  }, [allSeasons[0]]);
+  const effectiveSeason = selectedSeason || allSeasons[0] || "";
 
   // All athletes who raced for this team in the selected season.
   // Country/category come directly from the event athletes. Team ranking podiums overlaid from teamEntries.
   const allSeasonMembers = useMemo(() => {
     if (!teamDetail?.events) return [];
-    const seasonEvents = teamDetail.events.filter((ev) => ev.eventDate.startsWith(selectedSeason));
+    const seasonEvents = teamDetail.events.filter((ev) => ev.eventDate.startsWith(effectiveSeason));
     const map = new Map<number, { id: number; name: string; country: string; category: string; races: number; podiums: number }>();
     for (const ev of seasonEvents) {
       for (const a of ev.athletes) {
@@ -81,7 +79,7 @@ export default function TeamProfile() {
         else { map.set(a.id, { id: a.id, name: a.name, country: a.country, category: a.category, races: 1, podiums: 0 }); }
       }
     }
-    for (const { entry } of teamEntries.filter((e) => e.year === selectedSeason)) {
+    for (const { entry } of teamEntries.filter((e) => e.year === effectiveSeason)) {
       for (const r of entry.results) {
         if (r.teamRank > 3) continue;
         for (const a of r.athletes) {
@@ -90,7 +88,7 @@ export default function TeamProfile() {
       }
     }
     return [...map.values()].sort((a, b) => b.races - a.races || b.podiums - a.podiums || a.name.localeCompare(b.name));
-  }, [teamDetail?.events, selectedSeason, teamEntries]);
+  }, [teamDetail?.events, effectiveSeason, teamEntries]);
 
   const byYear = useMemo(() => {
     const map: Record<string, Array<{ distance: string; entry: TeamEntry }>> = {};
@@ -103,26 +101,18 @@ export default function TeamProfile() {
   const nonQualifyingEvents = useMemo(() => {
     if (!teamDetail?.events) return [];
     const rankedKeys = new Set(
-      (byYear[selectedSeason] ?? []).flatMap(({ distance, entry }) =>
+      (byYear[effectiveSeason] ?? []).flatMap(({ distance, entry }) =>
         entry.results.map((r) => `${r.eventId}|${distance}`)
       )
     );
     return teamDetail.events.filter(
-      (ev) => ev.eventDate.startsWith(selectedSeason) && !rankedKeys.has(`${ev.eventId}|${ev.distance}`)
+      (ev) => ev.eventDate.startsWith(effectiveSeason) && !rankedKeys.has(`${ev.eventId}|${ev.distance}`)
     );
-  }, [teamDetail?.events, byYear, selectedSeason]);
+  }, [teamDetail?.events, byYear, effectiveSeason]);
 
 
   const displayName = teamEntries[0]?.entry.team ?? teamDetail?.displayName ?? teamKey;
 
-  useEffect(() => {
-    if (!loading && !error && data) {
-      const resolvedKey = resolveTeamKey(teamKey);
-      api.getTeamByKey(resolvedKey || teamKey)
-        .then(setTeamDetail)
-        .catch(() => setTeamDetail(null));
-    }
-  }, [loading, error, data, teamKey]);
 
   if (loading) return <Spinner />;
 
@@ -150,7 +140,7 @@ export default function TeamProfile() {
     );
   }
 
-  const seasonEntries = byYear[selectedSeason] ?? [];
+  const seasonEntries = byYear[effectiveSeason] ?? [];
   const effectiveMembers = allSeasonMembers;
   const effectiveTotalMembers = teamDetail?.events
     ? new Set(teamDetail.events.flatMap((ev) => ev.athletes.map((a) => a.id).filter(Boolean))).size
@@ -203,7 +193,7 @@ export default function TeamProfile() {
                 key={s}
                 onClick={() => setSelectedSeason(s)}
                 className={`px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
-                  selectedSeason === s
+                  effectiveSeason === s
                     ? "bg-blue-600 text-white"
                     : "text-slate-600 hover:bg-slate-50"
                 }`}

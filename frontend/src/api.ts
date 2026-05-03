@@ -377,11 +377,22 @@ export const api = {
   } | null> {
     const db = await getDb();
 
+    // Resolve alias chain: follow until we reach a key that is not itself an alias
+    let canonicalKey = teamKey;
+    for (let i = 0; i < 10; i++) {
+      const hop = db.select({ canonicalKey: schema.teamAliases.canonicalKey })
+        .from(schema.teamAliases)
+        .where(eq(schema.teamAliases.aliasKey, canonicalKey))
+        .get();
+      if (!hop) break;
+      canonicalKey = hop.canonicalKey;
+    }
+
     const aliasRows = db.select({ aliasKey: schema.teamAliases.aliasKey })
       .from(schema.teamAliases)
-      .where(eq(schema.teamAliases.canonicalKey, teamKey))
+      .where(eq(schema.teamAliases.canonicalKey, canonicalKey))
       .all();
-    const allTeamKeys = [teamKey, ...aliasRows.map((r) => r.aliasKey)];
+    const allTeamKeys = [canonicalKey, ...aliasRows.map((r) => r.aliasKey)];
 
     const memberRows = db.select({
       id:            schema.athletes.id,

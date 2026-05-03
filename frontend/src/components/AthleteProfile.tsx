@@ -4,7 +4,7 @@ import { api } from "../api";
 import { resolveTeamKey } from "../utils/lookups";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
-import { countryFlag } from "@granfondo/database/normalize";
+import { countryFlag, SOLO_TEAM_KEYS, normalizeTeam } from "@granfondo/database/normalize";
 import PerformanceChart from "./PerformanceChart";
 import CareerHighlights from "./CareerHighlights";
 import { distBadgeClass } from "../utils/distance";
@@ -102,7 +102,7 @@ export default function AthleteProfile() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight mb-1">{athlete.name}</h1>
-            {recentTeam && recentTeam !== "Individual" && (
+            {recentTeam && !SOLO_TEAM_KEYS.has(normalizeTeam(recentTeam)) && (
               <Link
                 to={`/team/${encodeURIComponent(resolveTeamKey(recentTeam))}`}
                 className="text-blue-300 hover:text-white text-sm block transition-colors"
@@ -131,7 +131,7 @@ export default function AthleteProfile() {
         <div key={year} className="mb-8">
           <h2 className="text-lg font-bold text-slate-800 mb-3 flex items-baseline gap-2">
             {year}
-            {yearTeam && yearTeam !== "Individual" && (
+            {yearTeam && !SOLO_TEAM_KEYS.has(normalizeTeam(yearTeam)) && (
               <Link
                 to={`/team/${encodeURIComponent(resolveTeamKey(yearTeam))}`}
                 className="text-sm font-normal text-slate-400 hover:text-blue-600 transition-colors"
