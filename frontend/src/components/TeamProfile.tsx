@@ -22,7 +22,7 @@ export default function TeamProfile() {
   const [data, setData] = useState<TeamRanking | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [fallback, setFallback] = useState<{ displayName: string; seasons: string[]; eventCount: number; members: Array<{ id: number; name: string; country: string; category: string; races: number; podiums: number }>; events: Array<{ eventId: number; eventName: string; eventDate: string; distance: string; athletes: Array<{ id: number; name: string; pos: number; raceTime: string; dnf: number; dns: number }> }> } | null | undefined>(undefined);
+  const [teamDetail, setTeamDetail] = useState<{ displayName: string; events: Array<{ eventId: number; eventName: string; eventDate: string; distance: string; athletes: Array<{ id: number; name: string; pos: number; raceTime: string; dnf: number; dns: number; country: string; category: string }> }> } | null | undefined>(undefined);
 
   useEffect(() => {
     Promise.all([api.getTeamRanking(), api.initLookups()])
@@ -51,10 +51,14 @@ export default function TeamProfile() {
   const totalEventsScored = teamEntries.reduce((sum, { entry }) => sum + entry.eventsScored, 0);
   const seasons = [...new Set(teamEntries.map((e) => e.year))].sort().reverse();
 
+  const detailSeasons = useMemo(() => {
+    if (!teamDetail?.events) return [];
+    return [...new Set(teamDetail.events.map((ev) => ev.eventDate.slice(0, 4)))].sort().reverse();
+  }, [teamDetail?.events]);
+
   const allSeasons = useMemo(() => {
-    const set = new Set([...seasons, ...(fallback?.seasons ?? [])]);
-    return [...set].sort().reverse();
-  }, [seasons, fallback?.seasons]);
+    return [...new Set([...seasons, ...detailSeasons])].sort().reverse();
+  }, [seasons, detailSeasons]);
 
   const [selectedSeason, setSelectedSeason] = useState<string>("");
   const [membersSearch, setMembersSearch] = useState("");
@@ -63,47 +67,30 @@ export default function TeamProfile() {
     if (allSeasons.length > 0 && !selectedSeason) setSelectedSeason(allSeasons[0]!);
   }, [allSeasons[0]]);
 
-  const members = useMemo(() => {
-    const filtered = teamEntries.filter((e) => e.year === selectedSeason);
-    const map = new Map<number, { id: number; name: string; countryCounts: Map<string, number>; categoryCounts: Map<string, number>; races: number; podiums: number; bestPodiumRank: number }>();
-    for (const { entry } of filtered) {
+  // All athletes who raced for this team in the selected season.
+  // Country/category come directly from the event athletes. Team ranking podiums overlaid from teamEntries.
+  const allSeasonMembers = useMemo(() => {
+    if (!teamDetail?.events) return [];
+    const seasonEvents = teamDetail.events.filter((ev) => ev.eventDate.startsWith(selectedSeason));
+    const map = new Map<number, { id: number; name: string; country: string; category: string; races: number; podiums: number }>();
+    for (const ev of seasonEvents) {
+      for (const a of ev.athletes) {
+        if (!a.id) continue;
+        const existing = map.get(a.id);
+        if (existing) { existing.races++; }
+        else { map.set(a.id, { id: a.id, name: a.name, country: a.country, category: a.category, races: 1, podiums: 0 }); }
+      }
+    }
+    for (const { entry } of teamEntries.filter((e) => e.year === selectedSeason)) {
       for (const r of entry.results) {
+        if (r.teamRank > 3) continue;
         for (const a of r.athletes) {
-          if (!a.id) continue;
-          const isScoringPodium = r.teamRank <= 3 && a.scoring;
-          const existing = map.get(a.id);
-          if (existing) {
-            existing.races++;
-            if (a.country) existing.countryCounts.set(a.country, (existing.countryCounts.get(a.country) ?? 0) + 1);
-            if (a.category) existing.categoryCounts.set(a.category, (existing.categoryCounts.get(a.category) ?? 0) + 1);
-            if (isScoringPodium) { existing.podiums++; existing.bestPodiumRank = Math.min(existing.bestPodiumRank, r.teamRank); }
-          } else {
-            const countryCounts = new Map<string, number>();
-            const categoryCounts = new Map<string, number>();
-            if (a.country) countryCounts.set(a.country, 1);
-            if (a.category) categoryCounts.set(a.category, 1);
-            map.set(a.id, { id: a.id, name: a.name, countryCounts, categoryCounts, races: 1, podiums: isScoringPodium ? 1 : 0, bestPodiumRank: isScoringPodium ? r.teamRank : Infinity });
-          }
+          if (a.id && a.scoring) { const m = map.get(a.id); if (m) m.podiums++; }
         }
       }
     }
-    return [...map.values()]
-      .map(({ countryCounts, categoryCounts, ...m }) => ({
-        ...m,
-        country: [...countryCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "",
-        category: [...categoryCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "",
-      }))
-      .sort((a, b) => b.races - a.races || b.podiums - a.podiums);
-  }, [teamEntries, selectedSeason]);
-
-  const totalMembers = useMemo(() => {
-    const ids = new Set<number>();
-    for (const { entry } of teamEntries)
-      for (const r of entry.results)
-        for (const a of r.athletes)
-          if (a.id) ids.add(a.id);
-    return ids.size;
-  }, [teamEntries]);
+    return [...map.values()].sort((a, b) => b.races - a.races || b.podiums - a.podiums || a.name.localeCompare(b.name));
+  }, [teamDetail?.events, selectedSeason, teamEntries]);
 
   const byYear = useMemo(() => {
     const map: Record<string, Array<{ distance: string; entry: TeamEntry }>> = {};
@@ -114,25 +101,26 @@ export default function TeamProfile() {
   }, [teamEntries]);
 
   const nonQualifyingEvents = useMemo(() => {
-    if (!fallback?.events) return [];
+    if (!teamDetail?.events) return [];
     const rankedKeys = new Set(
       (byYear[selectedSeason] ?? []).flatMap(({ distance, entry }) =>
         entry.results.map((r) => `${r.eventId}|${distance}`)
       )
     );
-    return fallback.events.filter(
+    return teamDetail.events.filter(
       (ev) => ev.eventDate.startsWith(selectedSeason) && !rankedKeys.has(`${ev.eventId}|${ev.distance}`)
     );
-  }, [fallback?.events, byYear, selectedSeason]);
+  }, [teamDetail?.events, byYear, selectedSeason]);
 
-  const displayName = teamEntries[0]?.entry.team ?? fallback?.displayName ?? teamKey;
+
+  const displayName = teamEntries[0]?.entry.team ?? teamDetail?.displayName ?? teamKey;
 
   useEffect(() => {
     if (!loading && !error && data) {
       const resolvedKey = resolveTeamKey(teamKey);
       api.getTeamByKey(resolvedKey || teamKey)
-        .then(setFallback)
-        .catch(() => setFallback(null));
+        .then(setTeamDetail)
+        .catch(() => setTeamDetail(null));
     }
   }, [loading, error, data, teamKey]);
 
@@ -150,8 +138,8 @@ export default function TeamProfile() {
     );
 
   if (teamEntries.length === 0) {
-    if (fallback === undefined) return <Spinner />;
-    if (fallback === null) return (
+    if (teamDetail === undefined) return <Spinner />;
+    if (teamDetail === null) return (
       <div className="text-center py-16 text-slate-400">
         <p className="text-5xl mb-3">🏅</p>
         <p className="font-semibold text-slate-600 text-lg">Team not found</p>
@@ -163,9 +151,11 @@ export default function TeamProfile() {
   }
 
   const seasonEntries = byYear[selectedSeason] ?? [];
-  const effectiveMembers = members.length > 0 ? members : (fallback?.members ?? []);
-  const effectiveTotalMembers = totalMembers || (fallback?.members.length ?? 0);
-  const effectiveTotalEvents = totalEventsScored || (fallback?.eventCount ?? 0);
+  const effectiveMembers = allSeasonMembers;
+  const effectiveTotalMembers = teamDetail?.events
+    ? new Set(teamDetail.events.flatMap((ev) => ev.athletes.map((a) => a.id).filter(Boolean))).size
+    : 0;
+  const effectiveTotalEvents = totalEventsScored || (teamDetail?.events ? new Set(teamDetail.events.map((ev) => ev.eventId)).size : 0);
 
   return (
     <div>
@@ -378,15 +368,27 @@ export default function TeamProfile() {
               <span className="text-xs text-slate-400 font-medium">No team ranking — fewer than 3 members per event</span>
             </div>
             <div className="divide-y divide-slate-100">
-              {nonQualifyingEvents.map((ev) => (
-                <div key={`${ev.eventId}|${ev.distance}`} className="flex items-center justify-between px-4 py-3">
-                  <Link to={`/event/${ev.eventId}`} className="font-semibold text-slate-900 hover:text-blue-600 transition-colors text-sm">{ev.eventName}</Link>
-                  <div className="flex items-center gap-2 text-xs text-slate-400 shrink-0">
-                    <span className={`font-semibold px-2.5 py-1 rounded-full ${distBadgeClass(ev.distance)}`}>{ev.distance}</span>
-                    <span>{ev.eventDate}</span>
+              {(() => {
+                const grouped = new Map<number, { eventName: string; eventDate: string; distances: string[] }>();
+                for (const ev of nonQualifyingEvents) {
+                  const g = grouped.get(ev.eventId);
+                  if (g) g.distances.push(ev.distance);
+                  else grouped.set(ev.eventId, { eventName: ev.eventName, eventDate: ev.eventDate, distances: [ev.distance] });
+                }
+                return [...grouped.entries()].map(([eventId, g]) => (
+                  <div key={eventId} className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-3 gap-1 sm:gap-3">
+                    <Link to={`/event/${eventId}`} className="font-semibold text-slate-900 hover:text-blue-600 transition-colors text-sm">{g.eventName}</Link>
+                    <div className="flex items-center gap-2 text-xs text-slate-400 shrink-0">
+                      <div className="flex gap-1">
+                        {g.distances.map((d) => (
+                          <span key={d} className={`font-semibold px-2.5 py-1 rounded-full ${distBadgeClass(d)}`}>{d}</span>
+                        ))}
+                      </div>
+                      <span>{g.eventDate}</span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ));
+              })()}
             </div>
           </div>
         </div>

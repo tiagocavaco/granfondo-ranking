@@ -373,15 +373,10 @@ export const api = {
 
   async getTeamByKey(teamKey: string): Promise<{
     displayName: string;
-    seasons: string[];
-    eventCount: number;
-    members: Array<{ id: number; name: string; country: string; category: string; races: number; podiums: number }>;
-    events: Array<{ eventId: number; eventName: string; eventDate: string; distance: string; athletes: Array<{ id: number; name: string; pos: number; raceTime: string; dnf: number; dns: number }> }>;
+    events: Array<{ eventId: number; eventName: string; eventDate: string; distance: string; athletes: Array<{ id: number; name: string; pos: number; raceTime: string; dnf: number; dns: number; country: string; category: string }> }>;
   } | null> {
     const db = await getDb();
 
-    // Expand to all alias keys so aliased teams (e.g. "casa benfica almodovar" → canonical)
-    // find members and results stored under any spelling variant.
     const aliasRows = db.select({ aliasKey: schema.teamAliases.aliasKey })
       .from(schema.teamAliases)
       .where(eq(schema.teamAliases.canonicalKey, teamKey))
@@ -396,23 +391,21 @@ export const api = {
       .from(schema.athleteTeams)
       .innerJoin(schema.athletes, eq(schema.athletes.id, schema.athleteTeams.athleteId))
       .where(inArray(schema.athleteTeams.teamKey, allTeamKeys))
-      .orderBy(asc(schema.athletes.name))
       .all();
 
     if (memberRows.length === 0) return null;
 
     const displayName = memberRows.find((r) => r.canonicalTeam)?.canonicalTeam ?? teamKey;
-    // Deduplicate athletes (same person may appear under multiple alias keys)
     const seenIds = new Set<number>();
-    const uniqueMembers = memberRows.filter((r) => seenIds.has(r.id) ? false : (seenIds.add(r.id), true));
-    const ids = uniqueMembers.map((r) => r.id);
+    const ids = memberRows
+      .filter((r) => seenIds.has(r.id) ? false : (seenIds.add(r.id), true))
+      .map((r) => r.id);
 
     const resultRows = db.select({
       athleteId:  schema.athleteResults.athleteId,
       eventId:    schema.athleteResults.eventId,
       eventName:  schema.athleteResults.eventName,
       eventDate:  schema.athleteResults.eventDate,
-      eventYear:  schema.athleteResults.eventYear,
       distance:   schema.athleteResults.distance,
       team:       schema.athleteResults.team,
       country:    schema.athleteResults.country,
@@ -424,57 +417,41 @@ export const api = {
     })
       .from(schema.athleteResults)
       .where(inArray(schema.athleteResults.athleteId, ids))
-      .orderBy(asc(schema.athleteResults.eventDate))
       .all();
 
     const allTeamKeySet = new Set(allTeamKeys);
     const teamResults = resultRows.filter((r) => allTeamKeySet.has(normalizeTeam(r.team)));
 
+    // Per-athlete most-frequent country and category (across all their results for this team)
     const countryMap = buildCountryMap(teamResults);
-    const seasonSet = new Set(teamResults.map((r) => String(r.eventYear)));
-    const eventSet  = new Set(teamResults.map((r) => r.eventId));
-
-    const racesByAthlete   = new Map<number, number>();
-    const podiumsByAthlete = new Map<number, number>();
     const categoryByAthlete = new Map<number, Map<string, number>>();
     for (const r of teamResults) {
-      racesByAthlete.set(r.athleteId, (racesByAthlete.get(r.athleteId) ?? 0) + 1);
-      if (!r.dnf && !r.dns && r.pos >= 1 && r.pos <= 3)
-        podiumsByAthlete.set(r.athleteId, (podiumsByAthlete.get(r.athleteId) ?? 0) + 1);
-      if (r.category) {
-        if (!categoryByAthlete.has(r.athleteId)) categoryByAthlete.set(r.athleteId, new Map());
-        const cm = categoryByAthlete.get(r.athleteId)!;
-        cm.set(r.category, (cm.get(r.category) ?? 0) + 1);
-      }
+      if (!r.category) continue;
+      if (!categoryByAthlete.has(r.athleteId)) categoryByAthlete.set(r.athleteId, new Map());
+      const cm = categoryByAthlete.get(r.athleteId)!;
+      cm.set(r.category, (cm.get(r.category) ?? 0) + 1);
     }
+    const categoryMap = new Map(
+      [...categoryByAthlete.entries()].map(([id, cm]) => [
+        id, [...cm.entries()].sort((a, b) => b[1] - a[1])[0]![0],
+      ])
+    );
 
-    const members = uniqueMembers
-      .map((r) => {
-        const cm = categoryByAthlete.get(r.id);
-        const category = cm ? [...cm.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "" : "";
-        return {
-          id: r.id, name: r.name, country: countryMap.get(r.id) ?? "",
-          category, races: racesByAthlete.get(r.id) ?? 0, podiums: podiumsByAthlete.get(r.id) ?? 0,
-        };
-      })
-      .sort((a, b) => b.races - a.races || b.podiums - a.podiums || a.name.localeCompare(b.name));
-
-    const nameById = new Map(uniqueMembers.map((r) => [r.id, r.name]));
-    type FallbackEvent = { eventId: number; eventName: string; eventDate: string; distance: string; athletes: Array<{ id: number; name: string; pos: number; raceTime: string; dnf: number; dns: number }> };
-    const eventMap = new Map<string, FallbackEvent>();
+    const nameById = new Map(memberRows.map((r) => [r.id, r.name]));
+    const eventMap = new Map<string, { eventId: number; eventName: string; eventDate: string; distance: string; athletes: Array<{ id: number; name: string; pos: number; raceTime: string; dnf: number; dns: number; country: string; category: string }> }>();
     for (const r of [...teamResults].sort((a, b) => b.eventDate.localeCompare(a.eventDate))) {
       const key = `${r.eventId}|${r.distance}`;
       if (!eventMap.has(key)) eventMap.set(key, { eventId: r.eventId, eventName: r.eventName, eventDate: r.eventDate, distance: r.distance, athletes: [] });
-      eventMap.get(key)!.athletes.push({ id: r.athleteId, name: nameById.get(r.athleteId) ?? "", pos: r.pos, raceTime: r.raceTime, dnf: r.dnf, dns: r.dns });
+      eventMap.get(key)!.athletes.push({
+        id: r.athleteId, name: nameById.get(r.athleteId) ?? "",
+        pos: r.pos, raceTime: r.raceTime, dnf: r.dnf, dns: r.dns,
+        country: countryMap.get(r.athleteId) ?? "", category: categoryMap.get(r.athleteId) ?? "",
+      });
     }
-    const events = [...eventMap.values()].map((e) => ({ ...e, athletes: e.athletes.sort((a, b) => (a.dnf || a.dns ? 1 : 0) - (b.dnf || b.dns ? 1 : 0) || a.pos - b.pos) }));
+    const events = [...eventMap.values()].map((e) => ({
+      ...e, athletes: e.athletes.sort((a, b) => (a.dnf || a.dns ? 1 : 0) - (b.dnf || b.dns ? 1 : 0) || a.pos - b.pos),
+    }));
 
-    return {
-      displayName,
-      seasons: [...seasonSet].sort().reverse(),
-      eventCount: eventSet.size,
-      members,
-      events,
-    };
+    return { displayName, events };
   },
 };
