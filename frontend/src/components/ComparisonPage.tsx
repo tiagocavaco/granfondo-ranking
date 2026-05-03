@@ -131,18 +131,31 @@ export default function ComparisonPage() {
     return pairs.sort((x, y) => x.a.eventDate.localeCompare(y.a.eventDate));
   }, [aData, bData]);
 
+  const sharedYears = useMemo(
+    () => [...new Set(shared.map((p) => new Date(p.a.eventDate).getFullYear()))].sort((a, b) => b - a),
+    [shared]
+  );
+  const [selectedYear, setSelectedYear] = useState<number | "all">("all");
+  useEffect(() => {
+    if (sharedYears.length > 0 && window.innerWidth < 640) setSelectedYear(sharedYears[0]!);
+  }, [sharedYears]);
+  const filteredShared = useMemo(() =>
+    selectedYear === "all" ? shared : shared.filter((p) => new Date(p.a.eventDate).getFullYear() === selectedYear),
+    [shared, selectedYear]
+  );
+
   // Chart data
-  const chartData = useMemo(() => shared.map((p) => ({
+  const chartData = useMemo(() => filteredShared.map((p) => ({
     dateMs: new Date(p.a.eventDate + "T12:00:00").getTime(),
     dateLabel: tickDate(new Date(p.a.eventDate + "T12:00:00").getTime()),
     eventName: p.a.eventName,
     a: p.a.pos || null,
     b: p.b.pos || null,
-  })), [shared]);
+  })), [filteredShared]);
 
   const maxPos = useMemo(() =>
-    Math.max(...shared.flatMap((p) => [p.a.pos, p.b.pos]), 10),
-    [shared]
+    Math.max(...filteredShared.flatMap((p) => [p.a.pos, p.b.pos]), 10),
+    [filteredShared]
   );
 
   const aWins = shared.filter((p) => p.a.pos < p.b.pos).length;
@@ -253,9 +266,19 @@ export default function ComparisonPage() {
               {/* Chart */}
               {chartData.length >= 2 && (
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 mb-6">
-                  <h2 className="text-sm font-bold text-slate-700 mb-4 uppercase tracking-wide">
-                    Overall position — shared events
-                  </h2>
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wide">
+                      Overall Trend
+                    </h2>
+                    <select
+                      value={selectedYear === "all" ? "all" : String(selectedYear)}
+                      onChange={(e) => setSelectedYear(e.target.value === "all" ? "all" : Number(e.target.value))}
+                      className="px-2.5 py-1 text-xs font-semibold border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+                    >
+                      <option value="all">All seasons</option>
+                      {sharedYears.map((y) => <option key={y} value={y}>{y}</option>)}
+                    </select>
+                  </div>
                   <ResponsiveContainer width="100%" height={220}>
                     <LineChart data={chartData} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
@@ -292,54 +315,67 @@ export default function ComparisonPage() {
                 </div>
               )}
 
-              {/* Table */}
-              <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                      <th className="px-4 py-3 text-left">Event</th>
-                      <th className="px-4 py-3 text-left hidden sm:table-cell w-24">Distance</th>
-                      <th className="px-4 py-3 text-center w-24" style={{ color: COLORS[0] }}>{aData.name.split(" ")[0]}</th>
-                      <th className="px-4 py-3 text-center w-24" style={{ color: COLORS[1] }}>{bData.name.split(" ")[0]}</th>
-                      <th className="px-4 py-3 text-center hidden md:table-cell w-16">Winner</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {shared.map((p, i) => {
-                      const aWon = p.a.pos < p.b.pos;
-                      const tie = p.a.pos === p.b.pos;
-                      return (
-                        <tr key={i} className="hover:bg-slate-50/60 transition-colors">
-                          <td className="px-4 py-3">
-                            <span
-                              className="font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
-                              onClick={() => navigate(`/event/${p.a.eventId}`)}
-                            >
-                              {p.a.eventName}
-                            </span>
-                            <div className="text-xs text-slate-400">{p.a.eventDate}</div>
-                            <div className="sm:hidden text-xs text-slate-400 mt-0.5">{p.a.distance}</div>
-                          </td>
-                          <td className="px-4 py-3 hidden sm:table-cell">
-                            <span className="text-xs text-slate-500">{p.a.distance}</span>
-                          </td>
-                          <td className={`px-4 py-3 text-center font-mono text-xs font-semibold ${aWon ? "text-blue-600" : "text-slate-500"}`}>
-                            <div>#{p.a.pos}</div>
-                            <div className="text-slate-400 font-normal">{p.a.raceTime}</div>
-                          </td>
-                          <td className={`px-4 py-3 text-center font-mono text-xs font-semibold ${!aWon && !tie ? "text-rose-500" : "text-slate-500"}`}>
-                            <div>#{p.b.pos}</div>
-                            <div className="text-slate-400 font-normal">{p.b.raceTime}</div>
-                          </td>
-                          <td className="px-4 py-3 text-center hidden md:table-cell text-sm">
-                            {tie ? "—" : aWon ? "🔵" : "🔴"}
-                          </td>
+              {/* Table grouped by year */}
+              {(() => {
+                const byYear = shared.reduce<Record<number, typeof shared>>((acc, p) => {
+                  const y = new Date(p.a.eventDate).getFullYear();
+                  (acc[y] ??= []).push(p);
+                  return acc;
+                }, {});
+                const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+                return years.map((year) => (
+                  <div key={year} className="mb-8">
+                    <h2 className="text-lg font-bold text-slate-800 mb-3">{year}</h2>
+                    <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                          <th className="px-4 py-2.5 text-left">Event</th>
+                          <th className="px-4 py-2.5 text-left hidden sm:table-cell w-24">Distance</th>
+                          <th className="px-4 py-2.5 text-center w-24" style={{ color: COLORS[0] }}>{aData.name.split(" ")[0]}</th>
+                          <th className="px-4 py-2.5 text-center w-24" style={{ color: COLORS[1] }}>{bData.name.split(" ")[0]}</th>
+                          <th className="px-4 py-2.5 text-center hidden md:table-cell w-16">Winner</th>
                         </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {byYear[year]!.map((p, i) => {
+                          const aWon = p.a.pos < p.b.pos;
+                          const tie = p.a.pos === p.b.pos;
+                          return (
+                            <tr key={i} className="hover:bg-slate-50/60 transition-colors">
+                              <td className="px-4 py-3">
+                                <span
+                                  className="font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
+                                  onClick={() => navigate(`/event/${p.a.eventId}`)}
+                                >
+                                  {p.a.eventName}
+                                </span>
+                                <div className="text-xs text-slate-400">{p.a.eventDate}</div>
+                                <div className="sm:hidden text-xs text-slate-400 mt-0.5">{p.a.distance}</div>
+                              </td>
+                              <td className="px-4 py-3 hidden sm:table-cell">
+                                <span className="text-xs text-slate-500">{p.a.distance}</span>
+                              </td>
+                              <td className={`px-4 py-3 text-center font-mono text-xs font-semibold ${aWon ? "text-blue-600" : "text-slate-500"}`}>
+                                <div>#{p.a.pos}</div>
+                                <div className="text-slate-400 font-normal">{p.a.raceTime}</div>
+                              </td>
+                              <td className={`px-4 py-3 text-center font-mono text-xs font-semibold ${!aWon && !tie ? "text-rose-500" : "text-slate-500"}`}>
+                                <div>#{p.b.pos}</div>
+                                <div className="text-slate-400 font-normal">{p.b.raceTime}</div>
+                              </td>
+                              <td className="px-4 py-3 text-center hidden md:table-cell text-sm">
+                                {tie ? "—" : aWon ? "🔵" : "🔴"}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                    </div>
+                  </div>
+                ));
+              })()}
             </>
           )}
         </>

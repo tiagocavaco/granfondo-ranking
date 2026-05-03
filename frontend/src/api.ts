@@ -371,11 +371,11 @@ export const api = {
     const term = search.trim();
     if (term.length < 2) return [];
 
-    // sql.js WASM does not include FTS5 — use LIKE on name_lower (fast enough at 14k rows)
+    // sql.js WASM does not include FTS5 — use LIKE on name_lower / canonical_team (fast enough at 14k rows)
     const pattern = `%${term.toLowerCase().replace(/[%_]/g, "\\$&")}%`;
     const rows = db.select()
       .from(schema.athletes)
-      .where(sql`${schema.athletes.nameLower} LIKE ${pattern}`)
+      .where(sql`${schema.athletes.nameLower} LIKE ${pattern} OR lower(${schema.athletes.canonicalTeam}) LIKE ${pattern}`)
       .limit(50)
       .all();
 

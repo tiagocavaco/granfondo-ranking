@@ -54,6 +54,7 @@ export default function AthleteProfile() {
   const athlete = data;
 
   const finished = athlete.results.filter((r) => !r.dnf && !r.dns);
+  const podiums = finished.filter((r) => r.genderPos > 0 && r.genderPos <= 3).length;
   const bestPos = finished.length > 0 ? Math.min(...finished.map((r) => r.pos)) : null;
   const recentTeam = athlete.canonicalTeam ?? athlete.results[0]?.team ?? "";
   const gender = athlete.results[0]?.gender ?? "";
@@ -111,7 +112,7 @@ export default function AthleteProfile() {
           </div>
           <div className="flex gap-3 sm:shrink-0">
             <Stat label="Races" value={athlete.results.length} />
-            <Stat label="Finishes" value={finished.length} />
+            <Stat label="Podiums" value={podiums} highlight={podiums > 0} />
             {bestPos && <Stat label="Best Pos" value={`#${bestPos}`} highlight={bestPos <= 3} />}
           </div>
         </div>

@@ -50,7 +50,7 @@ export default function AthletesPage() {
     <div className="max-w-2xl mx-auto">
       <div className="mb-6">
         <h1 className="text-2xl font-extrabold text-slate-900 mb-1">Athletes</h1>
-        <p className="text-sm text-slate-500">Search by name, or browse the most active racers</p>
+        <p className="text-sm text-slate-500">Search by name or team, or browse the most active racers</p>
       </div>
 
       <div className="relative mb-6">
@@ -60,7 +60,7 @@ export default function AthletesPage() {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by name…"
+          placeholder="Search by name or team…"
           className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white shadow-sm text-sm font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
         />
         {search && (
