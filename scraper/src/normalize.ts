@@ -160,6 +160,17 @@ export function timeToSeconds(time: string): number {
 }
 
 /**
+ * Format seconds → "HH:MM:SS" (used for gap display; rounds to whole seconds).
+ */
+export function formatGapSecs(secs: number): string {
+  const s = Math.round(secs);
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+}
+
+/**
  * Format "HH:MM:SS.mmm" → "HH:MM:SS" (drop milliseconds).
  */
 export function formatTime(raw: string): string {

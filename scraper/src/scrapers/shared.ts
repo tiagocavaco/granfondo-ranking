@@ -66,6 +66,8 @@ export function makeResult(fields: {
   category: string;
   country: string;
   raceTime: string;
+  gap?: string;
+  gapSecs?: number;
   dnf?: boolean;
   dns?: boolean;
 }): StoredResult {
@@ -84,8 +86,8 @@ export function makeResult(fields: {
     country: normalizeCountry(fields.country),
     raceTime: fields.raceTime,
     raceTimeSecs,
-    gap: "",
-    gapSecs: 0,
+    gap: fields.gap ?? "",
+    gapSecs: fields.gapSecs ?? 0,
     points: 0,
     licences: [],
     dnf: fields.dnf ?? false,

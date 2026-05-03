@@ -1,5 +1,5 @@
 import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult } from "./shared.js";
-import { timeToSeconds } from "../normalize.js";
+import { timeToSeconds, formatGapSecs } from "../normalize.js";
 import type { StoredEventResults, StoredDistanceResults, StoredResult, StoredParticipant } from "@granfondo/database/types";
 
 /** Decode HTML attribute entities (for wire:snapshot attribute values) */
@@ -18,6 +18,7 @@ interface ApedalarRow {
   name: string;
   team: string;
   time: string; // "H:MM:SS.mmm"
+  gap: string;  // "H:MM:SS.mmm" or "-:--:--.---" for winner
   gender: "M" | "F";
   category: string;
 }
@@ -74,6 +75,7 @@ function parseApedalarRows(html: string, gender: "M" | "F"): ApedalarRow[] {
 
     const nameMatch = row.match(/hidden sm:table-cell px-4 py-3"[^>]*>([^<]+)</);
     const teamMatch = row.match(/hidden lg:table-cell px-4 py-3"[^>]*>([^<]+)</);
+    const gapMatch  = row.match(/hidden xl:table-cell px-4 py-3 font-mono"[^>]*>([^<]+)</);
 
     if (!nameMatch) continue;
 
@@ -83,6 +85,7 @@ function parseApedalarRows(html: string, gender: "M" | "F"): ApedalarRow[] {
       name:     nameMatch[1]!.trim(),
       team:     teamMatch?.[1]?.trim() ?? "",
       time:     monoValues[1] ?? "",
+      gap:      gapMatch?.[1]?.trim() ?? "",
       gender,
       category: "",
     });
@@ -93,12 +96,13 @@ function parseApedalarRows(html: string, gender: "M" | "F"): ApedalarRow[] {
 /** Sort rows by time (tiebreak: server-assigned pos), assign overall positions, produce StoredResult[] */
 function combineAndRankByTime(rows: ApedalarRow[]): StoredResult[] {
   rows.sort((a, b) => {
-    const dt = timeToSeconds(cleanTime(a.time)) - timeToSeconds(cleanTime(b.time));
+    const dt = timeToSeconds(a.time) - timeToSeconds(b.time);
     if (dt !== 0) return dt;
     return a.pos - b.pos;
   });
-  return rows.map((r, i) =>
-    makeResult({
+  return rows.map((r, i) => {
+    const gapSecs = (r.gap && r.gap !== "-:--:--.---") ? timeToSeconds(r.gap) : 0;
+    return makeResult({
       pos:      i + 1,
       bib:      r.bib,
       name:     r.name,
@@ -107,8 +111,10 @@ function combineAndRankByTime(rows: ApedalarRow[]): StoredResult[] {
       category: r.category,
       country:  "",
       raceTime: cleanTime(r.time),
-    })
-  );
+      gap:      formatGapSecs(gapSecs),
+      gapSecs,
+    });
+  });
 }
 
 async function apedalarLivewireFetch(
