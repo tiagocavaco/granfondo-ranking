@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { api, resolveTeamKey } from "../api";
+import { api } from "../api";
+import { resolveTeamKey } from "../utils/lookups";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";

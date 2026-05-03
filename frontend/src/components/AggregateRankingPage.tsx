@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api, resolveTeamKey } from "../api";
+import { api } from "../api";
+import { resolveTeamKey } from "../utils/lookups";
 import type { AggregateRanking, AggregateAthlete } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";

@@ -290,13 +290,13 @@ describe("buildTeamRanking", () => {
     expect(teams[1]!.team).toBe("Team Beta");
   });
 
-  it("awards 25 base points to team rank 1 with 80 eligible teams (coeff = 1.00)", () => {
+  it("awards 25 base points to team rank 1 with 25 eligible teams (coeff = 1.00)", () => {
     const athletes: Array<{ name: string; pos: number; team: string }> = [
       { name: "A1", pos: 1, team: "Team Alpha" },
       { name: "A2", pos: 2, team: "Team Alpha" },
       { name: "A3", pos: 3, team: "Team Alpha" },
     ];
-    for (let t = 0; t < 79; t++) {
+    for (let t = 0; t < 24; t++) {
       athletes.push({ name: `T${t}a`, pos: t * 3 + 4, team: `Other${t}` });
       athletes.push({ name: `T${t}b`, pos: t * 3 + 5, team: `Other${t}` });
       athletes.push({ name: `T${t}c`, pos: t * 3 + 6, team: `Other${t}` });

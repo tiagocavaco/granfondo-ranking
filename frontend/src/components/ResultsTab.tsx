@@ -1,7 +1,8 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api, resolveTeamKey } from "../api";
+import { api } from "../api";
+import { resolveTeamKey } from "../utils/lookups";
 import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "@granfondo/database/types";
 import { countryFlag, normalizeCountry as toISO2 } from "@granfondo/database/normalize";
 import { Spinner, ErrorBanner } from "./EventList";
