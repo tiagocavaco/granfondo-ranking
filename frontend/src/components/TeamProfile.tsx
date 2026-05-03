@@ -21,7 +21,7 @@ export default function TeamProfile() {
   const [data, setData] = useState<TeamRanking | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [fallback, setFallback] = useState<{ displayName: string; members: Array<{ id: number; name: string; country: string }> } | null | undefined>(undefined);
+  const [fallback, setFallback] = useState<{ displayName: string; seasons: string[]; eventCount: number; members: Array<{ id: number; name: string; country: string; category: string; races: number; podiums: number }>; events: Array<{ eventId: number; eventName: string; eventDate: string; distance: string; athletes: Array<{ id: number; name: string; pos: number; raceTime: string; dnf: number; dns: number }> }> } | null | undefined>(undefined);
 
   useEffect(() => {
     Promise.all([api.getTeamRanking(), api.initLookups()])
@@ -50,10 +50,17 @@ export default function TeamProfile() {
   const totalEventsScored = teamEntries.reduce((sum, { entry }) => sum + entry.eventsScored, 0);
   const seasons = [...new Set(teamEntries.map((e) => e.year))].sort().reverse();
 
+  const allSeasons = useMemo(() => {
+    const set = new Set([...seasons, ...(fallback?.seasons ?? [])]);
+    return [...set].sort().reverse();
+  }, [seasons, fallback?.seasons]);
+
   const [selectedSeason, setSelectedSeason] = useState<string>("");
+  const [membersSearch, setMembersSearch] = useState("");
+  const [membersExpanded, setMembersExpanded] = useState(false);
   useEffect(() => {
-    if (seasons.length > 0) setSelectedSeason(seasons[0]!);
-  }, [seasons[0]]);
+    if (allSeasons.length > 0 && !selectedSeason) setSelectedSeason(allSeasons[0]!);
+  }, [allSeasons[0]]);
 
   const members = useMemo(() => {
     const filtered = teamEntries.filter((e) => e.year === selectedSeason);
@@ -105,16 +112,28 @@ export default function TeamProfile() {
     return map;
   }, [teamEntries]);
 
+  const nonQualifyingEvents = useMemo(() => {
+    if (!fallback?.events) return [];
+    const rankedKeys = new Set(
+      (byYear[selectedSeason] ?? []).flatMap(({ distance, entry }) =>
+        entry.results.map((r) => `${r.eventId}|${distance}`)
+      )
+    );
+    return fallback.events.filter(
+      (ev) => ev.eventDate.startsWith(selectedSeason) && !rankedKeys.has(`${ev.eventId}|${ev.distance}`)
+    );
+  }, [fallback?.events, byYear, selectedSeason]);
+
   const displayName = teamEntries[0]?.entry.team ?? fallback?.displayName ?? teamKey;
 
   useEffect(() => {
-    if (!loading && !error && data && teamEntries.length === 0) {
+    if (!loading && !error && data) {
       const resolvedKey = resolveTeamKey(teamKey);
-      api.getTeamByKey(resolvedKey !== teamKey ? resolvedKey : teamKey)
+      api.getTeamByKey(resolvedKey || teamKey)
         .then(setFallback)
         .catch(() => setFallback(null));
     }
-  }, [loading, error, data, teamEntries.length, teamKey]);
+  }, [loading, error, data, teamKey]);
 
   if (loading) return <Spinner />;
 
@@ -131,47 +150,7 @@ export default function TeamProfile() {
 
   if (teamEntries.length === 0) {
     if (fallback === undefined) return <Spinner />;
-    if (fallback !== null) return (
-      <div>
-        <button
-          onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 mb-6 transition-colors"
-        >
-          ← Back
-        </button>
-        <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-6 mb-8 text-white">
-          <div className="mb-3">
-            <div className="text-blue-300 text-xs font-semibold uppercase tracking-widest">Team</div>
-          </div>
-          <h1 className="text-3xl font-extrabold tracking-tight mb-1">{displayName}</h1>
-          <p className="text-blue-300 text-sm">No team ranking — fewer than 3 members per event</p>
-        </div>
-        {fallback.members.length > 0 ? (
-          <div className="mb-8">
-            <h2 className="text-lg font-bold text-slate-800 mb-3">Members <span className="text-slate-400 font-normal text-sm">({fallback.members.length})</span></h2>
-            <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
-              <table className="w-full text-sm">
-                <tbody className="divide-y divide-slate-100">
-                  {fallback.members.map((m) => (
-                    <tr key={m.id} onClick={() => navigate(`/athlete/${m.id}`)} className="hover:bg-slate-50/60 cursor-pointer transition-colors">
-                      <td className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors">
-                        <div className="flex items-center gap-1.5">
-                          {m.country && <span className="shrink-0" title={m.country}>{countryFlag(m.country)}</span>}
-                          <span>{m.name}</span>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        ) : (
-          <div className="text-center py-8 text-slate-400 text-sm">No members found</div>
-        )}
-      </div>
-    );
-    return (
+    if (fallback === null) return (
       <div className="text-center py-16 text-slate-400">
         <p className="text-5xl mb-3">🏅</p>
         <p className="font-semibold text-slate-600 text-lg">Team not found</p>
@@ -183,6 +162,9 @@ export default function TeamProfile() {
   }
 
   const seasonEntries = byYear[selectedSeason] ?? [];
+  const effectiveMembers = members.length > 0 ? members : (fallback?.members ?? []);
+  const effectiveTotalMembers = totalMembers || (fallback?.members.length ?? 0);
+  const effectiveTotalEvents = totalEventsScored || (fallback?.eventCount ?? 0);
 
   return (
     <div>
@@ -201,18 +183,18 @@ export default function TeamProfile() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight mb-1">{displayName}</h1>
-            <p className="text-blue-300 text-sm">{seasons.join(" · ")}</p>
+            <p className="text-blue-300 text-sm">{allSeasons.join(" · ")}</p>
           </div>
           <div className="flex gap-3 sm:shrink-0">
-            <Stat label="Seasons" value={seasons.length} />
-            {totalMembers > 0 && <Stat label="Members" value={totalMembers} />}
-            <Stat label="Events" value={totalEventsScored} />
+            <Stat label="Seasons" value={allSeasons.length} />
+            {effectiveTotalMembers > 0 && <Stat label="Members" value={effectiveTotalMembers} />}
+            {effectiveTotalEvents > 0 && <Stat label="Events" value={effectiveTotalEvents} />}
           </div>
         </div>
       </div>
 
       {/* Season selector — shared between members and results */}
-      {seasons.length > 1 && (
+      {allSeasons.length > 1 && (
         <div className="flex items-center gap-3 mb-6">
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Season</span>
           {/* Mobile: full-width select */}
@@ -221,11 +203,11 @@ export default function TeamProfile() {
             onChange={(e) => setSelectedSeason(e.target.value)}
             className="sm:hidden flex-1 px-3 py-1.5 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600 font-semibold"
           >
-            {seasons.map((s) => <option key={s} value={s}>{s}</option>)}
+            {allSeasons.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
           {/* Desktop: segmented pill toggle */}
           <div className="hidden sm:flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
-            {seasons.map((s) => (
+            {allSeasons.map((s) => (
               <button
                 key={s}
                 onClick={() => setSelectedSeason(s)}
@@ -243,64 +225,97 @@ export default function TeamProfile() {
       )}
 
       {/* Members */}
-      {members.length > 0 && (
-        <div className="mb-8">
-          <h2 className="text-lg font-bold text-slate-800 mb-3">
-            Members <span className="text-slate-400 font-normal text-sm">({members.length})</span>
-          </h2>
-          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
-            <table className="w-full text-sm table-fixed">
-              <colgroup>
-                <col />
-                <col className="hidden sm:table-column w-28" />
-                <col className="w-12 sm:w-20" />
-                <col className="w-20 sm:w-28" />
-              </colgroup>
-              <thead>
-                <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                  <th className="px-4 py-3 text-left">Athlete</th>
-                  <th className="px-4 py-3 text-left hidden sm:table-cell">Category</th>
-                  <th className="px-2 sm:px-4 py-3 text-center">Races</th>
-                  <th className="px-2 sm:px-4 py-3 text-center">Podiums</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {members.map((m) => (
-                  <tr
-                    key={m.id}
-                    onClick={() => navigate(`/athlete/${m.id}`)}
-                    className="hover:bg-slate-50/60 cursor-pointer transition-colors"
-                  >
-                    <td className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors">
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5">
-                          {m.country && <span className="shrink-0" title={m.country}>{countryFlag(m.country)}</span>}
-                          <span className="truncate">{m.name}</span>
-                        </div>
-                        {m.category && <div className="sm:hidden text-xs font-normal text-slate-400 mt-0.5">{m.category}</div>}
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 text-xs text-slate-400 hidden sm:table-cell">{m.category}</td>
-                    <td className="px-2 sm:px-4 py-3 text-center text-slate-600 font-medium">{m.races}</td>
-                    <td className="px-2 sm:px-4 py-3 text-center">
-                      {m.podiums > 0 ? (
-                        <span className="font-semibold text-amber-600">{m.podiums}</span>
-                      ) : (
-                        <span className="text-slate-300">—</span>
-                      )}
-                    </td>
+      {effectiveMembers.length > 0 && (() => {
+        const searchTerm = membersSearch.trim().toLowerCase();
+        const filtered = searchTerm
+          ? effectiveMembers.filter((m) =>
+              m.name.toLowerCase().includes(searchTerm) ||
+              m.category.toLowerCase().includes(searchTerm)
+            )
+          : effectiveMembers;
+        const LIMIT = 10;
+        const showExpand = !membersExpanded && !searchTerm && filtered.length > LIMIT;
+        const visible = showExpand ? filtered.slice(0, LIMIT) : filtered;
+        return (
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-lg font-bold text-slate-800">
+                Members <span className="text-slate-400 font-normal text-sm">({effectiveMembers.length})</span>
+              </h2>
+              <input
+                type="search"
+                value={membersSearch}
+                onChange={(e) => { setMembersSearch(e.target.value); setMembersExpanded(false); }}
+                placeholder="Search name or category…"
+                className="w-48 sm:w-56 px-3 py-1.5 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600 placeholder-slate-400"
+              />
+            </div>
+            <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
+              <table className="w-full text-sm table-fixed">
+                <colgroup>
+                  <col />
+                  <col className="hidden sm:table-column w-28" />
+                  <col className="w-12 sm:w-20" />
+                  <col className="w-20 sm:w-28" />
+                </colgroup>
+                <thead>
+                  <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                    <th className="px-4 py-3 text-left">Athlete</th>
+                    <th className="px-4 py-3 text-left hidden sm:table-cell">Category</th>
+                    <th className="px-2 sm:px-4 py-3 text-center">Races</th>
+                    <th className="px-2 sm:px-4 py-3 text-center">Podiums</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {visible.length === 0 ? (
+                    <tr><td colSpan={4} className="px-4 py-6 text-center text-sm text-slate-400">No members match</td></tr>
+                  ) : visible.map((m) => (
+                    <tr
+                      key={m.id}
+                      onClick={() => navigate(`/athlete/${m.id}`)}
+                      className="hover:bg-slate-50/60 cursor-pointer transition-colors"
+                    >
+                      <td className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors">
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            {m.country && <span className="shrink-0" title={m.country}>{countryFlag(m.country)}</span>}
+                            <span className="truncate">{m.name}</span>
+                          </div>
+                          {m.category && <div className="sm:hidden text-xs font-normal text-slate-400 mt-0.5">{m.category}</div>}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-xs text-slate-400 hidden sm:table-cell">{m.category}</td>
+                      <td className="px-2 sm:px-4 py-3 text-center text-slate-600 font-medium">{m.races}</td>
+                      <td className="px-2 sm:px-4 py-3 text-center">
+                        {m.podiums > 0 ? (
+                          <span className="font-semibold text-amber-600">{m.podiums}</span>
+                        ) : (
+                          <span className="text-slate-300">—</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {showExpand && (
+                <button
+                  onClick={() => setMembersExpanded(true)}
+                  className="w-full py-3 text-sm text-blue-600 hover:text-blue-800 font-medium border-t border-slate-100 hover:bg-slate-50 transition-colors"
+                >
+                  Show all {filtered.length} members ↓
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Results for selected season */}
+      {(seasonEntries.length > 0 || nonQualifyingEvents.length > 0) && (
+        <h2 className="text-lg font-bold text-slate-800 mb-3">Results</h2>
+      )}
       {seasonEntries.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-bold text-slate-800 mb-3">Results</h2>
           <div className="space-y-4">
             {seasonEntries.map(({ distance, entry }) => (
               <div key={distance} className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
@@ -332,7 +347,7 @@ export default function TeamProfile() {
                           <span className="font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">+{r.points}</span>
                         </div>
                       </div>
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-1.5">
                         {r.athletes.filter((a) => a.scoring).map((a, i) => (
                           <button
                             key={i}
@@ -344,15 +359,34 @@ export default function TeamProfile() {
                             <span className="opacity-60">#{a.pos}</span> {a.name}
                           </button>
                         ))}
-                        <span className="text-[11px] text-slate-400 self-center ml-1">
-                          combined {r.combinedScore} · {r.eligibleTeams} teams eligible
-                        </span>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Non-qualifying participations for selected season */}
+      {nonQualifyingEvents.length > 0 && (
+        <div className="mb-8">
+          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
+            <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
+              <span className="text-xs text-slate-400 font-medium">No team ranking — fewer than 3 members per event</span>
+            </div>
+            <div className="divide-y divide-slate-100">
+              {nonQualifyingEvents.map((ev) => (
+                <div key={`${ev.eventId}|${ev.distance}`} className="flex items-center justify-between px-4 py-3">
+                  <Link to={`/event/${ev.eventId}`} className="font-semibold text-slate-900 hover:text-blue-600 transition-colors text-sm">{ev.eventName}</Link>
+                  <div className="flex items-center gap-2 text-xs text-slate-400 shrink-0">
+                    <span className={`font-semibold px-2.5 py-1 rounded-full ${distBadgeClass(ev.distance)}`}>{ev.distance}</span>
+                    <span>{ev.eventDate}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
