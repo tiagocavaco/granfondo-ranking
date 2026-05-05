@@ -145,6 +145,7 @@ export interface TeamRaceResult {
  */
 export type TeamEntry =
   Omit<TeamRow, "id" | "year" | "distance" | "resultsJson"> & {
+    teamKey?: string;  // canonical key — used internally by scraper, not persisted to DB
     results: TeamRaceResult[];
   };
 

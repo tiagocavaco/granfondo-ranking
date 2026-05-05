@@ -21,10 +21,10 @@ const tmpPath = "/tmp/granfondo_unlinked.db";
 fs.writeFileSync(tmpPath, plain);
 const db = new BetterSqlite3(tmpPath);
 
-const aliases = Object.fromEntries(
-  (db.prepare("SELECT alias_key, canonical_key FROM team_aliases").all() as any[])
-    .map((r: any) => [r.alias_key, r.canonical_key])
-);
+const aliases: Record<string, string> = {};
+for (const r of db.prepare("SELECT canonical_key, alias_keys FROM teams").all() as { canonical_key: string; alias_keys: string }[]) {
+  for (const alias of JSON.parse(r.alias_keys) as string[]) aliases[alias] = r.canonical_key;
+}
 initTeamAliases(aliases);
 
 // Build name → [team keys] index from athlete_lookup

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
-import { resolveTeamKey } from "../utils/lookups";
+import { resolveTeamId } from "../utils/lookups";
 import type { AggregateRanking, AggregateAthlete } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
 import { countryFlag, SOLO_TEAM_KEYS, normalizeTeam } from "@granfondo/database/normalize";
@@ -221,7 +221,7 @@ export default function AggregateRankingPage() {
                     {(() => { const isTeam = a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team)); return (
                     <div
                       className={`text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block ${isTeam ? "hover:text-blue-600 transition-colors cursor-pointer" : ""}`}
-                      onClick={() => { if (isTeam) navigate(`/team/${encodeURIComponent(resolveTeamKey(a.team))}`); }}
+                      onClick={() => { if (isTeam) { const id = resolveTeamId(a.team); if (id !== undefined) navigate(`/team/${id}`); } }}
                     >{a.team}</div>
                     ); })()}
                     <div
@@ -286,7 +286,7 @@ export default function AggregateRankingPage() {
                           {(() => { const isTeam = a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team)); return (
                           <span
                             className={isTeam ? "hover:text-blue-600 transition-colors cursor-pointer" : ""}
-                            onClick={(e) => { if (isTeam) { e.stopPropagation(); navigate(`/team/${encodeURIComponent(resolveTeamKey(a.team))}`); } }}
+                            onClick={(e) => { if (isTeam) { e.stopPropagation(); { const id = resolveTeamId(a.team); if (id !== undefined) navigate(`/team/${id}`); }; } }}
                           >{a.team}</span>
                           ); })()}
                         </div>
@@ -295,7 +295,7 @@ export default function AggregateRankingPage() {
                         {(() => { const isTeam = a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team)); return (
                         <span
                           className={isTeam ? "hover:text-blue-600 transition-colors cursor-pointer" : ""}
-                          onClick={(e) => { if (isTeam) { e.stopPropagation(); navigate(`/team/${encodeURIComponent(resolveTeamKey(a.team))}`); } }}
+                          onClick={(e) => { if (isTeam) { e.stopPropagation(); { const id = resolveTeamId(a.team); if (id !== undefined) navigate(`/team/${id}`); }; } }}
                         >{a.team}</span>
                         ); })()}
                       </td>

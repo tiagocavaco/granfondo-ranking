@@ -48,8 +48,8 @@ for (const row of db.prepare("SELECT DISTINCT team FROM results WHERE length(tea
 
 // Load existing aliases so we can exclude already-handled pairs
 const existingAliases = new Map<string, string>();
-for (const row of db.prepare("SELECT alias_key, canonical_key FROM team_aliases").all() as { alias_key: string; canonical_key: string }[]) {
-  existingAliases.set(row.alias_key, row.canonical_key);
+for (const row of db.prepare("SELECT canonical_key, alias_keys FROM teams").all() as { canonical_key: string; alias_keys: string }[]) {
+  for (const alias of JSON.parse(row.alias_keys) as string[]) existingAliases.set(alias, row.canonical_key);
 }
 
 db.close();

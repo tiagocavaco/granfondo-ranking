@@ -22,7 +22,7 @@ function mkEvent(id: number, year: number, date: string): StoredEvent {
 function mkResult(overrides: Partial<StoredResult> = {}): StoredResult {
   return {
     pos: 1, genderPos: 1, catPos: 0, athleteId: 0, bib: "1",
-    name: "Test Athlete", nameLower: "test athlete",
+    name: "Test Athlete",
     gender: "M", team: "Team Alpha", category: "ELITES M", country: "Portugal",
     raceTime: "03:25:10", raceTimeSecs: 12310,
     gap: "", gapSecs: 0, points: 0, licences: [], dnf: false, dns: false,
@@ -51,7 +51,7 @@ describe("buildAggregateRanking", () => {
   it("awards points to position 1 with coefficient", () => {
     const event = mkEvent(1, 2025, "2025-03-15");
     const results = Array.from({ length: 300 }, (_, i) =>
-      mkResult({ pos: i + 1, genderPos: i + 1, raceTimeSecs: (i + 1) * 100, name: `Athlete ${i}`, nameLower: `athlete ${i}` })
+      mkResult({ pos: i + 1, genderPos: i + 1, raceTimeSecs: (i + 1) * 100, name: `Athlete ${i}` })
     );
     const loader = () => mkEventResults(1, 2025, "2025-03-15", [{ id: "1", name: "Granfondo", finisherCount: 300, results }]);
     const ranking = buildAggregateRanking([event], loader);
@@ -84,7 +84,7 @@ describe("buildAggregateRanking", () => {
       id: "1", name: "Granfondo", finisherCount: 1,
       results: [
         mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100 }),
-        mkResult({ pos: 0, genderPos: 0, dnf: true, name: "Dnf Athlete", nameLower: "dnf athlete" }),
+        mkResult({ pos: 0, genderPos: 0, dnf: true, name: "Dnf Athlete" }),
       ],
     }]);
     const ranking = buildAggregateRanking([event], loader);
@@ -95,10 +95,10 @@ describe("buildAggregateRanking", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
     const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
       id: "1", name: "Granfondo", finisherCount: 1,
-      results: [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, name: "Ana Silva", nameLower: "ana silva", team: id === 1 ? "Team Alpha" : "Team Beta" })],
+      results: [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, name: "Ana Silva", team: id === 1 ? "Team Alpha" : "Team Beta" })],
     }]);
     const ranking = buildAggregateRanking(events, loader);
-    const anaSilvaEntries = ranking["2025"]!["Granfondo"]!["M"]!.filter((a) => a.nameLower === "ana silva");
+    const anaSilvaEntries = ranking["2025"]!["Granfondo"]!["M"]!.filter((a) => a.name.toLowerCase() === "ana silva");
     expect(anaSilvaEntries.length).toBe(2);
     expect(anaSilvaEntries.every((a) => a.eventsScored === 1)).toBe(true);
   });
@@ -107,11 +107,11 @@ describe("buildAggregateRanking", () => {
     const event = mkEvent(1, 2025, "2025-03-15");
     const loader = () => mkEventResults(1, 2025, "2025-03-15", [{
       id: "1", name: "Granfondo", finisherCount: 1,
-      results: [mkResult({ name: "Ana Silva", nameLower: "ana silva", team: "Team Alpha" })],
+      results: [mkResult({ name: "Ana Silva", team: "Team Alpha" })],
     }]);
     const athleteIndex = new Map([["ana silva|team alpha", mkAthleteEntry(99, "ana silva")]]);
     const ranking = buildAggregateRanking([event], loader, athleteIndex);
-    expect(ranking["2025"]!["Granfondo"]!["M"]!.find((a) => a.nameLower === "ana silva")?.id).toBe(99);
+    expect(ranking["2025"]!["Granfondo"]!["M"]!.find((a) => a.name.toLowerCase() === "ana silva")?.id).toBe(99);
   });
 
   it("improves bestPos when athlete finishes higher in a later event", () => {
@@ -120,24 +120,24 @@ describe("buildAggregateRanking", () => {
       id: "1", name: "Granfondo", finisherCount: id === 1 ? 3 : 1,
       results: id === 1
         ? [
-            mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, name: "Other1", nameLower: "other1", team: "Team X" }),
-            mkResult({ pos: 2, genderPos: 2, raceTimeSecs: 200, name: "Other2", nameLower: "other2", team: "Team Y" }),
-            mkResult({ pos: 3, genderPos: 3, raceTimeSecs: 300, name: "Ana Silva", nameLower: "ana silva", team: "Team Alpha" }),
+            mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, name: "Other1", team: "Team X" }),
+            mkResult({ pos: 2, genderPos: 2, raceTimeSecs: 200, name: "Other2", team: "Team Y" }),
+            mkResult({ pos: 3, genderPos: 3, raceTimeSecs: 300, name: "Ana Silva", team: "Team Alpha" }),
           ]
-        : [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, name: "Ana Silva", nameLower: "ana silva", team: "Team Alpha" })],
+        : [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, name: "Ana Silva", team: "Team Alpha" })],
     }]);
     const ranking = buildAggregateRanking(events, loader);
-    expect(ranking["2025"]!["Granfondo"]!["M"]!.find((a) => a.nameLower === "ana silva")?.bestPos).toBe(1);
+    expect(ranking["2025"]!["Granfondo"]!["M"]!.find((a) => a.name.toLowerCase() === "ana silva")?.bestPos).toBe(1);
   });
 
   it("falls back to existing country when result has empty country", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-04-20")];
     const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-03-15" : "2025-04-20", [{
       id: "1", name: "Granfondo", finisherCount: 1,
-      results: [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, name: "Ana Silva", nameLower: "ana silva", team: "Team Alpha", country: id === 1 ? "Portugal" : "" })],
+      results: [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, name: "Ana Silva", team: "Team Alpha", country: id === 1 ? "Portugal" : "" })],
     }]);
     const ranking = buildAggregateRanking(events, loader);
-    expect(ranking["2025"]!["Granfondo"]!["M"]!.find((a) => a.nameLower === "ana silva")?.country).toBe("Portugal");
+    expect(ranking["2025"]!["Granfondo"]!["M"]!.find((a) => a.name.toLowerCase() === "ana silva")?.country).toBe("Portugal");
   });
 
   it("handles loader returning null", () => {
@@ -150,9 +150,9 @@ describe("buildAggregateRanking", () => {
     const loader = () => mkEventResults(1, 2025, "2025-03-15", [{
       id: "1", name: "Granfondo", finisherCount: 3,
       results: [
-        mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, name: "Winner", nameLower: "winner" }),
-        mkResult({ pos: 2, genderPos: 2, raceTimeSecs: 200, name: "Second", nameLower: "second" }),
-        mkResult({ pos: 3, genderPos: 3, raceTimeSecs: 300, name: "Third",  nameLower: "third" }),
+        mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, name: "Winner" }),
+        mkResult({ pos: 2, genderPos: 2, raceTimeSecs: 200, name: "Second" }),
+        mkResult({ pos: 3, genderPos: 3, raceTimeSecs: 300, name: "Third" }),
       ],
     }]);
     const athletes = buildAggregateRanking([event], loader)["2025"]!["Granfondo"]!["M"]!;
@@ -171,15 +171,15 @@ describe("buildAggregateRanking — athleteId consolidation", () => {
     const loader = (id: number) => mkEventResults(id, 2026, id === 1 ? "2026-02-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 300,
       results: [
-        ...(id === 1 ? [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, athleteId: 1, name: "Jose Borges", nameLower: "jose borges", team: "Team Alpha" })] : []),
-        ...(id === 2 ? [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, athleteId: 1, name: "Jose Borges", nameLower: "jose borges", team: "Guest Team" })] : []),
+        ...(id === 1 ? [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, athleteId: 1, name: "Jose Borges", team: "Team Alpha" })] : []),
+        ...(id === 2 ? [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, athleteId: 1, name: "Jose Borges", team: "Guest Team" })] : []),
         ...Array.from({ length: 299 }, (_, i) =>
-          mkResult({ pos: i + 2, genderPos: i + 2, raceTimeSecs: (i + 2) * 100, athleteId: 0, name: `Filler ${i}`, nameLower: `filler ${i}`, team: "Filler Team" })
+          mkResult({ pos: i + 2, genderPos: i + 2, raceTimeSecs: (i + 2) * 100, athleteId: 0, name: `Filler ${i}`, team: "Filler Team" })
         ),
       ],
     }]);
     const ranking = buildAggregateRanking(events, loader, athleteIndex);
-    const joseEntries = ranking["2026"]!["Granfondo"]!["M"]!.filter((a) => a.nameLower === "jose borges");
+    const joseEntries = ranking["2026"]!["Granfondo"]!["M"]!.filter((a) => a.name.toLowerCase() === "jose borges");
     expect(joseEntries.length).toBe(1);
     expect(joseEntries[0]!.id).toBe(1);
     expect(joseEntries[0]!.eventsScored).toBe(2);
@@ -189,16 +189,16 @@ describe("buildAggregateRanking — athleteId consolidation", () => {
     const events = [mkEvent(1, 2026, "2026-02-15"), mkEvent(2, 2026, "2026-03-22")];
     const loader = (id: number) => mkEventResults(id, 2026, id === 1 ? "2026-02-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 1,
-      results: [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, athleteId: 0, name: "Jose Borges", nameLower: "jose borges", team: id === 1 ? "Team Alpha" : "Guest Team" })],
+      results: [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, athleteId: 0, name: "Jose Borges", team: id === 1 ? "Team Alpha" : "Guest Team" })],
     }]);
-    expect(buildAggregateRanking(events, loader)["2026"]!["Granfondo"]!["M"]!.filter((a) => a.nameLower === "jose borges").length).toBe(2);
+    expect(buildAggregateRanking(events, loader)["2026"]!["Granfondo"]!["M"]!.filter((a) => a.name.toLowerCase() === "jose borges").length).toBe(2);
   });
 
   it("uses athleteId to resolve id even when name+team key is not in athleteIndex", () => {
     const athleteIndex = new Map([["jose borges|canonical team", mkAthleteEntry(42, "jose borges", ["canonical team"])]]);
     const loader = () => mkEventResults(1, 2026, "2026-02-15", [{
       id: "1", name: "Granfondo", finisherCount: 1,
-      results: [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, athleteId: 42, name: "Jose Borges", nameLower: "jose borges", team: "Totally Different Team" })],
+      results: [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, athleteId: 42, name: "Jose Borges", team: "Totally Different Team" })],
     }]);
     expect(buildAggregateRanking([mkEvent(1, 2026, "2026-02-15")], loader, athleteIndex)["2026"]!["Granfondo"]!["M"]![0]!.id).toBe(42);
   });
@@ -209,9 +209,9 @@ describe("buildAggregateRanking — athleteId consolidation", () => {
     const loader = (id: number) => mkEventResults(id, 2026, id === 1 ? "2026-02-15" : "2026-03-22", [{
       id: "1", name: id === 1 ? "BIG DAY" : "Clássica", finisherCount: 300,
       results: [
-        mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, athleteId: 1, name: "Jose Borges", nameLower: "jose borges", team: "Team Alpha" }),
+        mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, athleteId: 1, name: "Jose Borges", team: "Team Alpha" }),
         ...Array.from({ length: 299 }, (_, i) =>
-          mkResult({ pos: i + 2, genderPos: i + 2, raceTimeSecs: (i + 2) * 100, athleteId: 0, name: `Filler ${i}`, nameLower: `filler ${i}`, team: "Filler" })
+          mkResult({ pos: i + 2, genderPos: i + 2, raceTimeSecs: (i + 2) * 100, athleteId: 0, name: `Filler ${i}`, team: "Filler" })
         ),
       ],
     }]);
@@ -228,7 +228,7 @@ describe("buildAggregateRanking — athleteId consolidation", () => {
 describe("buildAggregateRanking — points cutoff", () => {
   it("gives 0 points to finishers outside top 50 — they don't appear in ranking", () => {
     const results = Array.from({ length: 60 }, (_, i) =>
-      mkResult({ pos: i + 1, genderPos: i + 1, raceTimeSecs: (i + 1) * 100, name: `Athlete ${i + 1}`, nameLower: `athlete ${i + 1}` })
+      mkResult({ pos: i + 1, genderPos: i + 1, raceTimeSecs: (i + 1) * 100, name: `Athlete ${i + 1}` })
     );
     const loader = () => mkEventResults(1, 2026, "2026-02-15", [{ id: "1", name: "Granfondo", finisherCount: 60, results }]);
     const gf_m = buildAggregateRanking([mkEvent(1, 2026, "2026-02-15")], loader)["2026"]!["Granfondo"]!["M"]!;
@@ -238,7 +238,7 @@ describe("buildAggregateRanking — points cutoff", () => {
 
   it("position 50 scores 1 base point, position 51 scores nothing", () => {
     const results = Array.from({ length: 300 }, (_, i) =>
-      mkResult({ pos: i + 1, genderPos: i + 1, raceTimeSecs: (i + 1) * 100, name: `Athlete ${i + 1}`, nameLower: `athlete ${i + 1}` })
+      mkResult({ pos: i + 1, genderPos: i + 1, raceTimeSecs: (i + 1) * 100, name: `Athlete ${i + 1}` })
     );
     const loader = () => mkEventResults(1, 2026, "2026-02-15", [{ id: "1", name: "Granfondo", finisherCount: 300, results }]);
     const gf_m = buildAggregateRanking([mkEvent(1, 2026, "2026-02-15")], loader)["2026"]!["Granfondo"]!["M"]!;
@@ -248,10 +248,10 @@ describe("buildAggregateRanking — points cutoff", () => {
 
   it("athlete finishing outside top 50 does not appear in ranking", () => {
     const results = Array.from({ length: 200 }, (_, i) =>
-      mkResult({ pos: i + 1, genderPos: i + 1, raceTimeSecs: (i + 1) * 100, name: i === 140 ? "Tiago Cavaco" : `Athlete ${i + 1}`, nameLower: i === 140 ? "tiago cavaco" : `athlete ${i + 1}`, athleteId: i === 140 ? 999 : 0 })
+      mkResult({ pos: i + 1, genderPos: i + 1, raceTimeSecs: (i + 1) * 100, name: i === 140 ? "Tiago Cavaco" : `Athlete ${i + 1}`, athleteId: i === 140 ? 999 : 0 })
     );
     const loader = () => mkEventResults(1, 2026, "2026-02-21", [{ id: "1", name: "Mediofondo", finisherCount: 200, results }]);
-    expect(buildAggregateRanking([mkEvent(1, 2026, "2026-02-21")], loader)["2026"]!["Mediofondo"]!["M"]!.find((a) => a.nameLower === "tiago cavaco")).toBeUndefined();
+    expect(buildAggregateRanking([mkEvent(1, 2026, "2026-02-21")], loader)["2026"]!["Mediofondo"]!["M"]!.find((a) => a.name.toLowerCase() === "tiago cavaco")).toBeUndefined();
   });
 });
 
@@ -262,7 +262,7 @@ describe("buildTeamRanking", () => {
     return mkEventResults(1, 2025, "2025-03-15", [{
       id: "1", name: "Granfondo", finisherCount: teamAthletes.length,
       results: teamAthletes.map((a, i) =>
-        mkResult({ pos: a.pos, genderPos: i + 1, raceTimeSecs: a.pos * 100, name: a.name, nameLower: a.name.toLowerCase(), team: a.team })
+        mkResult({ pos: a.pos, genderPos: i + 1, raceTimeSecs: a.pos * 100, name: a.name, team: a.team })
       ),
     }]);
   }

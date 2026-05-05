@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "../api";
-import { resolveTeamKey } from "../utils/lookups";
+import { resolveTeamId } from "../utils/lookups";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 import { countryFlag, SOLO_TEAM_KEYS, normalizeTeam } from "@granfondo/database/normalize";
@@ -102,9 +102,9 @@ export default function AthleteProfile() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight mb-1">{athlete.name}</h1>
-            {recentTeam && !SOLO_TEAM_KEYS.has(normalizeTeam(recentTeam)) && (
+            {recentTeam && !SOLO_TEAM_KEYS.has(normalizeTeam(recentTeam)) && resolveTeamId(recentTeam) !== undefined && (
               <Link
-                to={`/team/${encodeURIComponent(resolveTeamKey(recentTeam))}`}
+                to={`/team/${resolveTeamId(recentTeam)}`}
                 className="text-blue-300 hover:text-white text-sm block transition-colors"
               >
                 {recentTeam}
@@ -131,9 +131,9 @@ export default function AthleteProfile() {
         <div key={year} className="mb-8">
           <h2 className="text-lg font-bold text-slate-800 mb-3 flex items-baseline gap-2">
             {year}
-            {yearTeam && !SOLO_TEAM_KEYS.has(normalizeTeam(yearTeam)) && (
+            {yearTeam && !SOLO_TEAM_KEYS.has(normalizeTeam(yearTeam)) && resolveTeamId(yearTeam) !== undefined && (
               <Link
-                to={`/team/${encodeURIComponent(resolveTeamKey(yearTeam))}`}
+                to={`/team/${resolveTeamId(yearTeam)}`}
                 className="text-sm font-normal text-slate-400 hover:text-blue-600 transition-colors"
               >
                 {yearTeam}

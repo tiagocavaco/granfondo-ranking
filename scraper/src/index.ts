@@ -22,7 +22,7 @@ import { buildAggregateRanking, buildTeamRanking } from "./pipeline/ranking.js";
 import { YEARS, LISTA_URLS, REGISTRATIONS_URLS, APEDALAR_PARTICIPANT_URLS } from "./config.js";
 import { DATA_DIR } from "./paths.js";
 import { normalizeName, teamNormalKey } from "./normalize.js";
-import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadTeamAliases, loadAthleteAliases, loadResultAssignments } from "./db/db-loader.js";
+import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadTeamAliases, loadAthleteAliases, loadResultAssignments, loadTeamIdStore } from "./db/db-loader.js";
 import { discoverGranfondos } from "./scrapers/stopandgo.js";
 import { loadScrapedEvents, writeEncryptedDatabase } from "./db/write-db.js";
 import { type ScrapeResult, fetchEventParticipants, resolveDistances, scrapeEvent } from "./pipeline/event-pipeline.js";
@@ -158,6 +158,7 @@ async function main() {
   const teamAliases = loadTeamAliases(sourceDb);
   const aliasRules  = loadAthleteAliases(sourceDb);
   const assignments = loadResultAssignments(sourceDb);
+  const teamIdStore = loadTeamIdStore(sourceDb);
 
   // Source DB no longer needed — close before building new one
   closeSourceDb(sourceDb);
@@ -271,6 +272,7 @@ async function main() {
     aliasRules,
     assignments,
     participantAthleteIds,
+    teamIdStore,
   });
 
   console.log("\n✅ Done.");

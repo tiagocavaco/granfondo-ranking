@@ -123,11 +123,6 @@ describe("makeResult", () => {
     expect(r.raceTime).toBe("03:25:10");
   });
 
-  it("sets nameLower to normalized lowercase", () => {
-    const r = makeResult(base);
-    expect(r.nameLower).toBe(r.nameLower.toLowerCase());
-  });
-
   it("computes raceTimeSecs from raceTime", () => {
     const r = makeResult({ ...base, raceTime: "01:00:00" });
     expect(r.raceTimeSecs).toBe(3600);

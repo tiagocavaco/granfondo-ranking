@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
-import { resolveTeamKey } from "../utils/lookups";
+import { resolveTeamId } from "../utils/lookups";
 import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "@granfondo/database/types";
 import { countryFlag, normalizeCountry as toISO2, SOLO_TEAM_KEYS, normalizeTeam } from "@granfondo/database/normalize";
 import { Spinner, ErrorBanner } from "./EventList";
@@ -239,7 +239,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   {r.team && (
                     <div
                       className={`text-xs text-slate-400 truncate mt-0.5 md:hidden ${!SOLO_TEAM_KEYS.has(normalizeTeam(r.team)) ? "hover:text-blue-600 transition-colors" : ""}`}
-                      onClick={(e) => { if (!SOLO_TEAM_KEYS.has(normalizeTeam(r.team))) { e.stopPropagation(); navigate(`/team/${encodeURIComponent(resolveTeamKey(r.team))}`); } }}
+                      onClick={(e) => { if (!SOLO_TEAM_KEYS.has(normalizeTeam(r.team))) { e.stopPropagation(); const id = resolveTeamId(r.team); if (id !== undefined) navigate(`/team/${id}`); } }}
                     >
                       {r.team}
                     </div>
@@ -249,7 +249,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   {r.team ? (
                     <span
                       className={`text-slate-500 ${!SOLO_TEAM_KEYS.has(normalizeTeam(r.team)) ? "hover:text-blue-600 transition-colors cursor-pointer" : ""}`}
-                      onClick={() => { if (!SOLO_TEAM_KEYS.has(normalizeTeam(r.team))) navigate(`/team/${encodeURIComponent(resolveTeamKey(r.team))}`); }}
+                      onClick={() => { if (!SOLO_TEAM_KEYS.has(normalizeTeam(r.team))) { const id = resolveTeamId(r.team); if (id !== undefined) navigate(`/team/${id}`); } }}
                     >
                       {r.team}
                     </span>

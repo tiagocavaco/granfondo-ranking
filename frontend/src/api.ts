@@ -22,6 +22,7 @@ import {
   lookupAthleteId as _lookupAthleteId,
   initLookups as _initLookups,
 } from "./utils/lookups.js";
+export { resolveTeamId, resolveTeamKey } from "./utils/lookups.js";
 
 
 function safeJsonArray<T>(json: string): T[] {
@@ -128,7 +129,6 @@ export const api = {
         athleteId:    r.athleteId,
         bib:          r.bib,
         name:         r.name,
-        nameLower:    r.nameLower,
         gender:       r.gender,
         team:         r.team,
         category:     r.category,
@@ -183,7 +183,6 @@ export const api = {
         rank:         row.rank,
         id:           row.athleteId,
         name:         row.name,
-        nameLower:    row.nameLower,
         gender:       row.gender,
         team:         row.team,
         country:      row.country,
@@ -216,7 +215,7 @@ export const api = {
       const entry: TeamEntry = {
         rank:         row.rank,
         team:         row.team,
-        teamKey:      row.teamKey,
+        teamId:       row.teamId,
         totalPoints:  row.totalPoints,
         eventsScored: row.eventsScored,
         bestRank:     row.bestRank,
@@ -250,7 +249,9 @@ export const api = {
       .orderBy(desc(schema.athleteResults.eventDate))
       .all();
 
-    const teamRows = db.select().from(schema.athleteTeams)
+    const teamRows = db.select({ canonicalKey: schema.teams.canonicalKey })
+      .from(schema.athleteTeams)
+      .innerJoin(schema.teams, eq(schema.teams.id, schema.athleteTeams.teamId))
       .where(eq(schema.athleteTeams.athleteId, id))
       .all();
 
@@ -292,7 +293,7 @@ export const api = {
       name:          athleteRow.name,
       nameLower:     athleteRow.nameLower,
       canonicalTeam: athleteRow.canonicalTeam ?? undefined,
-      teams:         teamRows.map((t) => t.teamKey),
+      teams:         teamRows.map((t) => t.canonicalKey),
       categories,
       results,
     };
@@ -302,7 +303,7 @@ export const api = {
     return _lookupAthleteId(name, team);
   },
 
-  async initLookups(): Promise<void> {
+  async initLookups(): Promise<{ teamsLoaded: boolean }> {
     return _initLookups();
   },
 
@@ -371,28 +372,30 @@ export const api = {
       .sort((a, b) => b.resultCount - a.resultCount);
   },
 
+  async getTeamById(id: number): Promise<{
+    displayName: string;
+    events: Array<{ eventId: number; eventName: string; eventDate: string; distance: string; athletes: Array<{ id: number; name: string; pos: number; raceTime: string; dnf: number; dns: number; country: string; category: string }> }>;
+  } | null> {
+    const db = await getDb();
+    const teamRow = db.select().from(schema.teams).where(eq(schema.teams.id, id)).get();
+    if (!teamRow) return null;
+    return this.getTeamByKey(teamRow.canonicalKey);
+  },
+
   async getTeamByKey(teamKey: string): Promise<{
     displayName: string;
     events: Array<{ eventId: number; eventName: string; eventDate: string; distance: string; athletes: Array<{ id: number; name: string; pos: number; raceTime: string; dnf: number; dns: number; country: string; category: string }> }>;
   } | null> {
     const db = await getDb();
 
-    // Resolve alias chain: follow until we reach a key that is not itself an alias
-    let canonicalKey = teamKey;
-    for (let i = 0; i < 10; i++) {
-      const hop = db.select({ canonicalKey: schema.teamAliases.canonicalKey })
-        .from(schema.teamAliases)
-        .where(eq(schema.teamAliases.aliasKey, canonicalKey))
-        .get();
-      if (!hop) break;
-      canonicalKey = hop.canonicalKey;
-    }
-
-    const aliasRows = db.select({ aliasKey: schema.teamAliases.aliasKey })
-      .from(schema.teamAliases)
-      .where(eq(schema.teamAliases.canonicalKey, canonicalKey))
-      .all();
-    const allTeamKeys = [canonicalKey, ...aliasRows.map((r) => r.aliasKey)];
+    // Resolve alias and collect all keys for this team (canonical + aliases) in one row
+    const teamRow = db.select().from(schema.teams)
+      .where(eq(schema.teams.canonicalKey, teamKey))
+      .get();
+    const canonicalKey = teamRow?.canonicalKey ?? teamKey;
+    const allTeamKeys = teamRow
+      ? [canonicalKey, ...(safeJsonArray<string>(teamRow.aliasKeys))]
+      : [canonicalKey];
 
     const memberRows = db.select({
       id:            schema.athletes.id,
@@ -401,7 +404,7 @@ export const api = {
     })
       .from(schema.athleteTeams)
       .innerJoin(schema.athletes, eq(schema.athletes.id, schema.athleteTeams.athleteId))
-      .where(inArray(schema.athleteTeams.teamKey, allTeamKeys))
+      .where(teamRow ? eq(schema.athleteTeams.teamId, teamRow.id) : sql`0`)
       .all();
 
     if (memberRows.length === 0) return null;

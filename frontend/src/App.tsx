@@ -18,13 +18,18 @@ const navLink = (isActive: boolean) =>
 
 function AppShell() {
   const [lookupsFailed, setLookupsFailed] = useState(false);
+  const [teamsUnavailable, setTeamsUnavailable] = useState(false);
   const [rankingsOpen, setRankingsOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const headerRef = useRef<HTMLElement>(null);
   const isRankingsActive = location.pathname === "/ranking" || location.pathname === "/teams";
 
-  useEffect(() => { api.initLookups().catch(() => setLookupsFailed(true)); }, []);
+  useEffect(() => {
+    api.initLookups()
+      .then(({ teamsLoaded }) => { if (!teamsLoaded) setTeamsUnavailable(true); })
+      .catch(() => setLookupsFailed(true));
+  }, []);
   useEffect(() => { setRankingsOpen(false); }, [location.pathname]);
   useEffect(() => {
     function handler(e: MouseEvent) {
@@ -96,6 +101,11 @@ function AppShell() {
           Athlete profile links are unavailable — data may be loading or out of date.
         </div>
       )}
+      {teamsUnavailable && (
+        <div className="bg-amber-50 border-b border-amber-200 text-amber-800 text-sm px-4 py-2 text-center">
+          Team profile links are unavailable — a re-scrape is needed to enable them.
+        </div>
+      )}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-8">
         <Routes>
           <Route path="/" element={<EventList />} />
@@ -104,7 +114,7 @@ function AppShell() {
           <Route path="/athlete/:id" element={<AthleteProfile />} />
           <Route path="/ranking" element={<AggregateRankingPage />} />
           <Route path="/teams" element={<TeamRankingPage />} />
-          <Route path="/team/:teamKey" element={<TeamProfile />} />
+          <Route path="/team/:teamId" element={<TeamProfile />} />
           <Route path="/compare" element={<ComparisonPage />} />
           <Route path="/ranking-info" element={<RankingInfoPage mode="athlete" />} />
           <Route path="/teams-info" element={<RankingInfoPage mode="team" />} />

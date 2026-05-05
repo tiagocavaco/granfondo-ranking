@@ -43,7 +43,6 @@ export const results = sqliteTable("results", {
   athleteId:     integer("athlete_id").notNull().default(0),
   bib:           text("bib").notNull().default(""),
   name:          text("name").notNull(),
-  nameLower:     text("name_lower").notNull(),
   gender:        text("gender").notNull().default(""),
   team:          text("team").notNull().default(""),
   category:      text("category").notNull().default(""),
@@ -96,9 +95,9 @@ export const athletes = sqliteTable("athletes", {
 
 export const athleteTeams = sqliteTable("athlete_teams", {
   athleteId: integer("athlete_id").notNull().references(() => athletes.id),
-  teamKey:   text("team_key").notNull(),
+  teamId:    integer("team_id").notNull().default(0).references(() => teams.id),
 }, (t) => [
-  primaryKey({ columns: [t.athleteId, t.teamKey] }),
+  primaryKey({ columns: [t.athleteId, t.teamId] }),
 ]);
 
 export const athleteCategories = sqliteTable("athlete_categories", {
@@ -140,9 +139,10 @@ export const athleteLookup = sqliteTable("athlete_lookup", {
   athleteId: integer("athlete_id").notNull(),
 });
 
-export const teamAliases = sqliteTable("team_aliases", {
-  aliasKey:     text("alias_key").primaryKey(),
-  canonicalKey: text("canonical_key").notNull(),
+export const teams = sqliteTable("teams", {
+  id:           integer("id").primaryKey(),
+  canonicalKey: text("canonical_key").notNull().unique(),
+  aliasKeys:    text("alias_keys").notNull().default("[]"),
 });
 
 export const aggregateAthletes = sqliteTable("aggregate_athletes", {
@@ -153,7 +153,6 @@ export const aggregateAthletes = sqliteTable("aggregate_athletes", {
   rank:         integer("rank").notNull(),
   athleteId:    integer("athlete_id").notNull(),
   name:         text("name").notNull(),
-  nameLower:    text("name_lower").notNull(),
   team:         text("team").notNull().default(""),
   country:      text("country").notNull().default(""),
   totalPoints:  real("total_points").notNull().default(0),
@@ -171,7 +170,7 @@ export const teamRanking = sqliteTable("team_ranking", {
   distance:     text("distance").notNull(),
   rank:         integer("rank").notNull(),
   team:         text("team").notNull(),
-  teamKey:      text("team_key").notNull().default(""),
+  teamId:       integer("team_id").notNull().default(0),
   totalPoints:  real("total_points").notNull().default(0),
   eventsScored: integer("events_scored").notNull().default(0),
   bestRank:     integer("best_rank").notNull().default(0),

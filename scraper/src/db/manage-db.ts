@@ -26,6 +26,7 @@ import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import * as schema from "@granfondo/database/schema";
 import { encryptBuffer, decryptBuffer } from "./encrypt.js";
 import { normalizeTeam } from "../normalize.js";
+import { loadAliasMap, validateAndFlattenAlias } from "./alias-utils.js";
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 
@@ -78,7 +79,8 @@ function cmdList(): void {
 
   const aliases = db.select().from(schema.athleteAliasRules).all();
   const assignments = db.select().from(schema.resultAssignments).all();
-  const teamAliases = db.select().from(schema.teamAliases).all();
+  const teamRows = sqlite.prepare("SELECT canonical_key, alias_keys FROM teams ORDER BY canonical_key").all() as { canonical_key: string; alias_keys: string }[];
+  const totalAliases = teamRows.reduce((n, r) => n + (JSON.parse(r.alias_keys) as string[]).length, 0);
 
   console.log(`\n── Athlete alias rules (${aliases.length}) ──────────────────────`);
   for (const r of aliases) {
@@ -94,9 +96,10 @@ function cmdList(): void {
     if (r.note) console.log(`       note: ${r.note}`);
   }
 
-  console.log(`\n── Team aliases (${teamAliases.length}) ──────────────────────`);
-  for (const r of teamAliases) {
-    console.log(`  "${r.aliasKey}" → "${r.canonicalKey}"`);
+  console.log(`\n── Team aliases (${totalAliases}) ──────────────────────`);
+  for (const r of teamRows) {
+    const aliases2 = JSON.parse(r.alias_keys) as string[];
+    for (const a of aliases2) console.log(`  "${a}" → "${r.canonical_key}"`);
   }
 
   sqlite.close();
@@ -140,11 +143,23 @@ function cmdAdd(args: Record<string, string>): void {
       console.error("Usage: add team-alias --from F --to T");
       process.exit(1);
     }
-    const aliasKey = normalizeTeam(from);
-    const canonicalKey = normalizeTeam(to);
-    db.insert(schema.teamAliases).values({ aliasKey, canonicalKey })
-      .onConflictDoUpdate({ target: schema.teamAliases.aliasKey, set: { canonicalKey } })
-      .run();
+    const aliasMap = loadAliasMap(sqlite);
+    let aliasKey: string, canonicalKey: string;
+    try {
+      ({ aliasKey, canonicalKey } = validateAndFlattenAlias(normalizeTeam(from), normalizeTeam(to), aliasMap));
+    } catch (e) {
+      console.error(`✗ ${(e as Error).message}`);
+      process.exit(1);
+    }
+    // Ensure canonical row exists (may be absent before first scrape)
+    sqlite.prepare("INSERT OR IGNORE INTO teams (id, canonical_key, alias_keys) VALUES (NULL, ?, '[]')").run(canonicalKey);
+    // Append aliasKey to the canonical's alias_keys array (if not already present)
+    const row = sqlite.prepare("SELECT alias_keys FROM teams WHERE canonical_key = ?").get(canonicalKey) as { alias_keys: string };
+    const existing = JSON.parse(row.alias_keys) as string[];
+    if (!existing.includes(aliasKey)) {
+      existing.push(aliasKey);
+      sqlite.prepare("UPDATE teams SET alias_keys = ? WHERE canonical_key = ?").run(JSON.stringify(existing), canonicalKey);
+    }
     console.log(`✓ Added team alias: "${aliasKey}" → "${canonicalKey}"`);
 
   } else {
@@ -181,14 +196,20 @@ function cmdRemove(args: Record<string, string>): void {
     const { from } = args;
     if (!from) { console.error("Usage: remove team-alias --from F"); process.exit(1); }
     const key = normalizeTeam(from);
-    // Try normalized key first, then raw input (handles legacy raw-stored entries)
-    let result = db.delete(schema.teamAliases)
-      .where(eq(schema.teamAliases.aliasKey, key)).run() as unknown as { changes: number };
-    if (!result.changes) {
-      result = db.delete(schema.teamAliases)
-        .where(eq(schema.teamAliases.aliasKey, from)).run() as unknown as { changes: number };
+    // Remove aliasKey from whichever canonical's alias_keys array contains it
+    const teamRows2 = sqlite.prepare("SELECT canonical_key, alias_keys FROM teams").all() as { canonical_key: string; alias_keys: string }[];
+    let removed = false;
+    for (const r of teamRows2) {
+      const arr = JSON.parse(r.alias_keys) as string[];
+      const idx = arr.indexOf(key) !== -1 ? arr.indexOf(key) : arr.indexOf(from);
+      if (idx !== -1) {
+        arr.splice(idx, 1);
+        sqlite.prepare("UPDATE teams SET alias_keys = ? WHERE canonical_key = ?").run(JSON.stringify(arr), r.canonical_key);
+        removed = true;
+        break;
+      }
     }
-    console.log(result.changes ? `✓ Removed team alias for "${from}"` : `⚠ No team alias found for "${from}"`);
+    console.log(removed ? `✓ Removed team alias for "${from}"` : `⚠ No team alias found for "${from}"`);
 
   } else {
     console.error("Unknown remove target. Use: alias | assignment | team-alias");

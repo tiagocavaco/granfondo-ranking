@@ -31,7 +31,7 @@ export function buildAggregateRanking(
   keyToCanonical: Map<string, string> = new Map()
 ): AggregateRanking {
   type AccEntry = {
-    id: number; name: string; nameLower: string; gender: string;
+    id: number; name: string; gender: string;
     team: string; teamDate: string; countryCounts: Map<string, number>;
     totalPoints: number; eventsScored: number; bestPos: number;
     results: AggregateAthlete["results"];
@@ -79,7 +79,7 @@ export function buildAggregateRanking(
 
           if (!distMap.has(aKey)) {
             distMap.set(aKey, {
-              id, name: r.name, nameLower, gender: r.gender,
+              id, name: r.name, gender: r.gender,
               team: r.team, teamDate: event.date, countryCounts: new Map(),
               totalPoints: 0, eventsScored: 0, bestPos: genderPos, results: [],
             });
@@ -113,7 +113,7 @@ export function buildAggregateRanking(
         ranking[year][dist][gender] = sorted.map((e, i) => {
           const country = [...e.countryCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "PT";
           return {
-            rank: i + 1, id: e.id, name: e.name, nameLower: e.nameLower,
+            rank: i + 1, id: e.id, name: e.name,
             gender: e.gender, team: e.team, country,
             totalPoints: e.totalPoints, eventsScored: e.eventsScored, bestPos: e.bestPos,
             results: e.results.sort(
@@ -228,7 +228,7 @@ export function buildTeamRanking(
       const sorted = Array.from(distMap.values())
         .sort((a, b) => b.totalPoints - a.totalPoints || a.bestRank - b.bestRank);
       ranking[year][dist] = sorted.map((entry, i) => ({
-        rank: i + 1, team: canonicalTeam(entry.nameOcc), teamKey: entry.teamKey,
+        rank: i + 1, team: canonicalTeam(entry.nameOcc), teamKey: entry.teamKey, teamId: 0,
         totalPoints: entry.totalPoints, eventsScored: entry.eventsScored, bestRank: entry.bestRank,
         results: entry.results.sort(
           (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime()

@@ -15,7 +15,7 @@ import type { StoredParticipant, StoredDistanceResults, StoredResult } from "@gr
 function mkResult(overrides: Partial<StoredResult> = {}): StoredResult {
   return {
     pos: 1, genderPos: 1, catPos: 0, athleteId: 0, bib: "1",
-    name: "Test Athlete", nameLower: "test athlete",
+    name: "Test Athlete",
     gender: "M", team: "Team Alpha", category: "ELITES M", country: "Portugal",
     raceTime: "03:25:10", raceTimeSecs: 12310,
     gap: "", gapSecs: 0, points: 0, licences: [], dnf: false, dns: false,
@@ -139,7 +139,6 @@ describe("transformResult", () => {
     const r = transformResult(mkApiResult());
     expect(r.pos).toBe(1);
     expect(r.name).toBe("Test Athlete");
-    expect(r.nameLower).toBe("test athlete");
     expect(r.gender).toBe("M");
     expect(r.team).toBe("Team Alpha");
     expect(r.raceTime).toBe("03:25:10");

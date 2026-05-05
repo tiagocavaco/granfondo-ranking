@@ -93,7 +93,6 @@ export function loadResultsFromDb(
       athleteId:    row.athleteId,
       bib:          row.bib,
       name:         row.name,
-      nameLower:    row.nameLower,
       gender:       row.gender,
       team:         row.team,
       category:     row.category,
@@ -186,8 +185,12 @@ export function writeParticipantsToDb(
 export function loadTeamAliases(sourceDb: BetterSqlite3.Database | null): Record<string, string> {
   if (!sourceDb) return {};
   try {
-    const rows = drizzle(sourceDb, { schema }).select().from(schema.teamAliases).all();
-    return Object.fromEntries(rows.map((r) => [r.aliasKey, r.canonicalKey]));
+    const rows = sourceDb.prepare("SELECT canonical_key, alias_keys FROM teams").all() as { canonical_key: string; alias_keys: string }[];
+    const out: Record<string, string> = {};
+    for (const r of rows) {
+      for (const alias of JSON.parse(r.alias_keys) as string[]) out[alias] = r.canonical_key;
+    }
+    return out;
   } catch { return {}; }
 }
 
@@ -201,6 +204,14 @@ export function loadAthleteAliases(sourceDb: BetterSqlite3.Database | null): Ath
       note:          r.note ?? undefined,
     }));
   } catch { return []; }
+}
+
+export function loadTeamIdStore(sourceDb: BetterSqlite3.Database | null): Map<string, number> {
+  if (!sourceDb) return new Map();
+  try {
+    const rows = sourceDb.prepare("SELECT canonical_key, id FROM teams").all() as { canonical_key: string; id: number }[];
+    return new Map(rows.map((r) => [r.canonical_key, r.id]));
+  } catch { return new Map(); }
 }
 
 export function loadResultAssignments(sourceDb: BetterSqlite3.Database | null): ResultAssignment[] {

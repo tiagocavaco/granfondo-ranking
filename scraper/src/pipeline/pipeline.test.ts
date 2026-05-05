@@ -32,7 +32,7 @@ function mkEvent(id: number, year: number, date: string): StoredEvent {
 function mkResult(overrides: Partial<StoredResult> = {}): StoredResult {
   return {
     pos: 1, genderPos: 1, catPos: 0, athleteId: 0, bib: "1",
-    name: "Test Athlete", nameLower: "test athlete",
+    name: "Test Athlete",
     gender: "M", team: "Team Alpha", category: "ELITES M", country: "Portugal",
     raceTime: "03:25:10", raceTimeSecs: 12310,
     gap: "", gapSecs: 0, points: 0, licences: [], dnf: false, dns: false,
@@ -58,7 +58,7 @@ function mkTeamEvent(eventId: number, year: number, date: string, name: string, 
   const event = mkEvent(eventId, year, date);
   const loader = () => mkEventResults(eventId, year, date, [{
     id: "1", name: distance, finisherCount: 100,
-    results: [mkResult({ bib: String(eventId), name, nameLower: name.toLowerCase(), team, category, genderPos, country, athleteId: 0 })],
+    results: [mkResult({ bib: String(eventId), name, team, category, genderPos, country, athleteId: 0 })],
   }]);
   return { event, loader };
 }
@@ -146,8 +146,8 @@ describe("buildAthletesIndex — duplicate event safeguard", () => {
     const loader = () => mkEventResults(1, 2025, "2025-04-27", [{
       id: "1", name: "Mediofondo", finisherCount: 100,
       results: [
-        mkResult({ bib: "10", name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "Individual", category: "MASTERS C", genderPos: 19, athleteId: 0, pos: 19 }),
-        mkResult({ bib: "11", name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "Individual", category: "MASTERS B", genderPos: 231, athleteId: 0, pos: 231 }),
+        mkResult({ bib: "10", name: "Hugo Dias", licences: ["12345678"], team: "Individual", category: "MASTERS C", genderPos: 19, athleteId: 0, pos: 19 }),
+        mkResult({ bib: "11", name: "Hugo Dias", licences: ["12345678"], team: "Individual", category: "MASTERS B", genderPos: 231, athleteId: 0, pos: 231 }),
       ],
     }]);
     const { index } = runPipeline([event], loader);
@@ -162,10 +162,10 @@ describe("buildAthletesIndex — duplicate event safeguard", () => {
     const loader = (id: number) => mkEventResults(id, 2025, id === 1 ? "2025-02-01" : "2025-04-27", [{
       id: "1", name: "Granfondo", finisherCount: 100,
       results: id === 1
-        ? [mkResult({ bib: "1", name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "CC Lagos", category: "MASTERS B", genderPos: 20, athleteId: 0 })]
+        ? [mkResult({ bib: "1", name: "Hugo Dias", licences: ["12345678"], team: "CC Lagos", category: "MASTERS B", genderPos: 20, athleteId: 0 })]
         : [
-            mkResult({ bib: "10", name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "Individual", category: "MASTERS C", genderPos: 19, athleteId: 0, pos: 19 }),
-            mkResult({ bib: "11", name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "Individual", category: "MASTERS B", genderPos: 231, athleteId: 0, pos: 231 }),
+            mkResult({ bib: "10", name: "Hugo Dias", licences: ["12345678"], team: "Individual", category: "MASTERS C", genderPos: 19, athleteId: 0, pos: 19 }),
+            mkResult({ bib: "11", name: "Hugo Dias", licences: ["12345678"], team: "Individual", category: "MASTERS B", genderPos: 231, athleteId: 0, pos: 231 }),
           ],
     }]);
     const { index } = runPipeline(events, loader);
@@ -178,7 +178,7 @@ describe("buildAthletesIndex — duplicate event safeguard", () => {
     const events = [mkEvent(1, 2025, "2025-03-01"), mkEvent(2, 2025, "2025-04-01")];
     const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: "10", name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "CC Lisboa", category: "MASTERS C", genderPos: 10, athleteId: 0 })],
+      results: [mkResult({ bib: "10", name: "Hugo Dias", licences: ["12345678"], team: "CC Lisboa", category: "MASTERS C", genderPos: 10, athleteId: 0 })],
     }]);
     const { index } = runPipeline(events, loader);
     const entries = [...index.values()].filter(e => e.nameLower === "hugo dias");
@@ -194,7 +194,7 @@ describe("buildAthletesIndex — year-category consistency sweep", () => {
     const events = [1, 2, 3, 4, 5, 6].map(id => mkEvent(id, 2025, `2025-0${id}-01`));
     const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "CC Lagos", category: id === 5 ? "MASTERS B" : "MASTERS C", genderPos: 10, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Hugo Dias", licences: ["12345678"], team: "CC Lagos", category: id === 5 ? "MASTERS B" : "MASTERS C", genderPos: 10, athleteId: 0 })],
     }]);
     const { index } = runPipeline(events, loader);
     const entries = [...index.values()].filter(e => e.nameLower === "hugo dias");
@@ -207,7 +207,7 @@ describe("buildAthletesIndex — year-category consistency sweep", () => {
     const events = [mkEvent(1, 2025, "2025-03-01"), mkEvent(2, 2025, "2025-06-01")];
     const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Hugo Dias", nameLower: "hugo dias", licences: ["12345678"], team: "CC Lagos", category: id === 1 ? "MASTERS B" : "MASTERS C", genderPos: 10, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Hugo Dias", licences: ["12345678"], team: "CC Lagos", category: id === 1 ? "MASTERS B" : "MASTERS C", genderPos: 10, athleteId: 0 })],
     }]);
     const { index } = runPipeline(events, loader);
     const entries = [...index.values()].filter(e => e.nameLower === "hugo dias");
@@ -223,7 +223,7 @@ describe("buildAthletesIndex — Pass 5: same-year solo grouping", () => {
     const events = [mkEvent(1, 2026, "2026-02-15"), mkEvent(2, 2026, "2026-03-22")];
     const loader = (id: number) => mkEventResults(id, 2026, id === 1 ? "2026-02-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: id === 1 ? "10" : "20", name: "Joao Silva", nameLower: "joao silva", team: "", category: "MASTERS A", genderPos: 5, athleteId: 0 })],
+      results: [mkResult({ bib: id === 1 ? "10" : "20", name: "Joao Silva", team: "", category: "MASTERS A", genderPos: 5, athleteId: 0 })],
     }]);
     const { index, soloFlags } = runPipeline(events, loader);
     const soloEntries = [...index.values()].filter(e => e.nameLower === "joao silva");
@@ -236,7 +236,7 @@ describe("buildAthletesIndex — Pass 5: same-year solo grouping", () => {
     const events = [mkEvent(1, 2026, "2026-02-15"), mkEvent(2, 2026, "2026-03-22")];
     const loader = (id: number) => mkEventResults(id, 2026, id === 1 ? "2026-02-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Joao Silva", nameLower: "joao silva", team: "", category: id === 1 ? "MASTERS A" : "MASTERS B", genderPos: 5, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Joao Silva", team: "", category: id === 1 ? "MASTERS A" : "MASTERS B", genderPos: 5, athleteId: 0 })],
     }]);
     expect([...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "joao silva").length).toBe(2);
   });
@@ -246,12 +246,12 @@ describe("buildAthletesIndex — Pass 5: same-year solo grouping", () => {
     const loader = (id: number) => mkEventResults(id, 2026, id === 1 ? "2026-02-15" : id === 2 ? "2026-03-22" : "2026-04-12", [{
       id: "1", name: "Granfondo", finisherCount: 100,
       results: id === 1
-        ? [mkResult({ bib: "10", name: "Joao Silva", nameLower: "joao silva", team: "", category: "MASTERS A", genderPos: 10, athleteId: 0 })]
+        ? [mkResult({ bib: "10", name: "Joao Silva", team: "", category: "MASTERS A", genderPos: 10, athleteId: 0 })]
         : id === 2
-        ? [mkResult({ bib: "20", name: "Joao Silva", nameLower: "joao silva", team: "", category: "MASTERS A", genderPos: 12, athleteId: 0 })]
+        ? [mkResult({ bib: "20", name: "Joao Silva", team: "", category: "MASTERS A", genderPos: 12, athleteId: 0 })]
         : [
-            mkResult({ bib: "A", name: "Joao Silva", nameLower: "joao silva", team: "", category: "MASTERS A", genderPos: 11, athleteId: 0 }),
-            mkResult({ bib: "B", name: "Joao Silva", nameLower: "joao silva", team: "", category: "MASTERS A", genderPos: 80, athleteId: 0, pos: 80 }),
+            mkResult({ bib: "A", name: "Joao Silva", team: "", category: "MASTERS A", genderPos: 11, athleteId: 0 }),
+            mkResult({ bib: "B", name: "Joao Silva", team: "", category: "MASTERS A", genderPos: 80, athleteId: 0, pos: 80 }),
           ],
     }]);
     const { index, soloFlags } = runPipeline(events, loader);
@@ -266,11 +266,11 @@ describe("buildAthletesIndex — Pass 5: same-year solo grouping", () => {
     const loader = (id: number) => {
       if (id === 1) return mkEventResults(1, 2026, "2026-02-15", [{
         id: "1", name: "Granfondo", finisherCount: 100,
-        results: [mkResult({ bib: "10", name: "Ana Costa", nameLower: "ana costa", team: "", category: "MASTERS A FEM", genderPos: 5, athleteId: 0, gender: "F" })],
+        results: [mkResult({ bib: "10", name: "Ana Costa", team: "", category: "MASTERS A FEM", genderPos: 5, athleteId: 0, gender: "F" })],
       }]);
       return mkEventResults(2, 2026, "2026-03-22", [
-        { id: "1", name: "Granfondo",  finisherCount: 100, results: [mkResult({ bib: "A", name: "Ana Costa", nameLower: "ana costa", team: "", category: "MASTERS A FEM", genderPos: 5, athleteId: 0, gender: "F" })] },
-        { id: "2", name: "Mediofondo", finisherCount: 80,  results: [mkResult({ bib: "B", name: "Ana Costa", nameLower: "ana costa", team: "", category: "MASTERS A FEM", genderPos: 3, athleteId: 0, gender: "F" })] },
+        { id: "1", name: "Granfondo",  finisherCount: 100, results: [mkResult({ bib: "A", name: "Ana Costa", team: "", category: "MASTERS A FEM", genderPos: 5, athleteId: 0, gender: "F" })] },
+        { id: "2", name: "Mediofondo", finisherCount: 80,  results: [mkResult({ bib: "B", name: "Ana Costa", team: "", category: "MASTERS A FEM", genderPos: 3, athleteId: 0, gender: "F" })] },
       ]);
     };
     const { index, soloFlags } = runPipeline(events, loader);
@@ -280,8 +280,8 @@ describe("buildAthletesIndex — Pass 5: same-year solo grouping", () => {
 
   it("collision same event + different distances, no prior events → resolved by distance", () => {
     const loader = () => mkEventResults(1, 2026, "2026-02-15", [
-      { id: "1", name: "Granfondo",  finisherCount: 100, results: [mkResult({ bib: "A", name: "Joao Silva", nameLower: "joao silva", team: "", category: "MASTERS A", genderPos: 20, athleteId: 0 })] },
-      { id: "2", name: "Mediofondo", finisherCount: 80,  results: [mkResult({ bib: "B", name: "Joao Silva", nameLower: "joao silva", team: "", category: "MASTERS A", genderPos: 15, athleteId: 0 })] },
+      { id: "1", name: "Granfondo",  finisherCount: 100, results: [mkResult({ bib: "A", name: "Joao Silva", team: "", category: "MASTERS A", genderPos: 20, athleteId: 0 })] },
+      { id: "2", name: "Mediofondo", finisherCount: 80,  results: [mkResult({ bib: "B", name: "Joao Silva", team: "", category: "MASTERS A", genderPos: 15, athleteId: 0 })] },
     ]);
     const { index, soloFlags } = runPipeline([mkEvent(1, 2026, "2026-02-15")], loader);
     expect([...index.values()].filter(e => e.nameLower === "joao silva").length).toBe(2);
@@ -292,8 +292,8 @@ describe("buildAthletesIndex — Pass 5: same-year solo grouping", () => {
     const loader = () => mkEventResults(1, 2026, "2026-02-15", [{
       id: "1", name: "Granfondo", finisherCount: 100,
       results: [
-        mkResult({ bib: "X", name: "Pedro Nunes", nameLower: "pedro nunes", team: "", category: "MASTERS B", genderPos: 10, athleteId: 0 }),
-        mkResult({ bib: "Y", name: "Pedro Nunes", nameLower: "pedro nunes", team: "", category: "MASTERS B", genderPos: 50, athleteId: 0, pos: 50 }),
+        mkResult({ bib: "X", name: "Pedro Nunes", team: "", category: "MASTERS B", genderPos: 10, athleteId: 0 }),
+        mkResult({ bib: "Y", name: "Pedro Nunes", team: "", category: "MASTERS B", genderPos: 50, athleteId: 0, pos: 50 }),
       ],
     }]);
     const { index, soloFlags } = runPipeline([mkEvent(1, 2026, "2026-02-15")], loader);
@@ -305,7 +305,7 @@ describe("buildAthletesIndex — Pass 5: same-year solo grouping", () => {
     const events = [mkEvent(1, 2026, "2026-02-15"), mkEvent(2, 2026, "2026-03-22")];
     const loader = (id: number) => mkEventResults(id, 2026, id === 1 ? "2026-02-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Joao Silva", nameLower: "joao silva", team: "", category: id === 1 ? "M Elite" : "MASTERS A", genderPos: 5, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Joao Silva", team: "", category: id === 1 ? "M Elite" : "MASTERS A", genderPos: 5, athleteId: 0 })],
     }]);
     expect([...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "joao silva").length).toBe(2);
   });
@@ -318,7 +318,7 @@ describe("buildAthletesIndex — Pass 6: cross-year solo merge", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2026, "2026-03-22")];
     const loader = (id: number) => mkEventResults(id, id === 1 ? 2025 : 2026, id === 1 ? "2025-03-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Rui Ferreira", nameLower: "rui ferreira", team: "", category: id === 1 ? "MASTERS A" : "MASTERS B", genderPos: 5, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Rui Ferreira", team: "", category: id === 1 ? "MASTERS A" : "MASTERS B", genderPos: 5, athleteId: 0 })],
     }]);
     const entries = [...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "rui ferreira");
     expect(entries.length).toBe(1);
@@ -329,7 +329,7 @@ describe("buildAthletesIndex — Pass 6: cross-year solo merge", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2026, "2026-03-22")];
     const loader = (id: number) => mkEventResults(id, id === 1 ? 2025 : 2026, id === 1 ? "2025-03-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Rui Ferreira", nameLower: "rui ferreira", team: "", category: id === 1 ? "MASTERS B" : "MASTERS A", genderPos: 5, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Rui Ferreira", team: "", category: id === 1 ? "MASTERS B" : "MASTERS A", genderPos: 5, athleteId: 0 })],
     }]);
     expect([...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "rui ferreira").length).toBe(2);
   });
@@ -338,7 +338,7 @@ describe("buildAthletesIndex — Pass 6: cross-year solo merge", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2026, "2026-03-22")];
     const loader = (id: number) => mkEventResults(id, id === 1 ? 2025 : 2026, id === 1 ? "2025-03-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Rui Ferreira", nameLower: "rui ferreira", team: "", category: id === 1 ? "MASTERS A" : "MASTERS C", genderPos: 5, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Rui Ferreira", team: "", category: id === 1 ? "MASTERS A" : "MASTERS C", genderPos: 5, athleteId: 0 })],
     }]);
     expect([...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "rui ferreira").length).toBe(2);
   });
@@ -347,7 +347,7 @@ describe("buildAthletesIndex — Pass 6: cross-year solo merge", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2026, "2026-03-22")];
     const loader = (id: number) => mkEventResults(id, id === 1 ? 2025 : 2026, id === 1 ? "2025-03-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Ana Costa", nameLower: "ana costa", team: "", category: id === 1 ? "F Elite" : "F 19-34", genderPos: 5, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Ana Costa", team: "", category: id === 1 ? "F Elite" : "F 19-34", genderPos: 5, athleteId: 0 })],
     }]);
     const entries = [...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "ana costa");
     expect(entries.length).toBe(1);
@@ -358,7 +358,7 @@ describe("buildAthletesIndex — Pass 6: cross-year solo merge", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2026, "2026-03-22")];
     const loader = (id: number) => mkEventResults(id, id === 1 ? 2025 : 2026, id === 1 ? "2025-03-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Carlos Matos", nameLower: "carlos matos", team: "", category: id === 1 ? "M 19-34" : "MASTERS A", genderPos: 5, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Carlos Matos", team: "", category: id === 1 ? "M 19-34" : "MASTERS A", genderPos: 5, athleteId: 0 })],
     }]);
     const entries = [...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "carlos matos");
     expect(entries.length).toBe(1);
@@ -369,7 +369,7 @@ describe("buildAthletesIndex — Pass 6: cross-year solo merge", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2026, "2026-03-22")];
     const loader = (id: number) => mkEventResults(id, id === 1 ? 2025 : 2026, id === 1 ? "2025-03-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Carlos Matos", nameLower: "carlos matos", team: "", category: id === 1 ? "MASTERS A" : "M 19-34", genderPos: 5, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Carlos Matos", team: "", category: id === 1 ? "MASTERS A" : "M 19-34", genderPos: 5, athleteId: 0 })],
     }]);
     const entries = [...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "carlos matos");
     expect(entries.length).toBe(1);
@@ -380,7 +380,7 @@ describe("buildAthletesIndex — Pass 6: cross-year solo merge", () => {
     const events = [mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2026, "2026-03-22")];
     const loader = (id: number) => mkEventResults(id, id === 1 ? 2025 : 2026, id === 1 ? "2025-03-15" : "2026-03-22", [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Carlos Matos", nameLower: "carlos matos", team: "", category: id === 1 ? "M 19-34" : "MASTERS B", genderPos: 5, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Carlos Matos", team: "", category: id === 1 ? "M 19-34" : "MASTERS B", genderPos: 5, athleteId: 0 })],
     }]);
     expect([...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "carlos matos").length).toBe(2);
   });
@@ -438,8 +438,8 @@ describe("buildAthletesIndex — Pass 8: team ↔ solo cross-pass merge", () => 
     const loader = (id: number) => mkEventResults(id, 2025, "2025-03-15", [{
       id: "1", name: "Granfondo", finisherCount: 100,
       results: [
-        mkResult({ bib: "10", name: "Maria Sousa", nameLower: "maria sousa", team: "CC Faro", category: "MASTERS A", genderPos: 5, athleteId: 0 }),
-        mkResult({ bib: "20", name: "Maria Sousa", nameLower: "maria sousa", team: "", category: "MASTERS A", genderPos: 6, athleteId: 0 }),
+        mkResult({ bib: "10", name: "Maria Sousa", team: "CC Faro", category: "MASTERS A", genderPos: 5, athleteId: 0 }),
+        mkResult({ bib: "20", name: "Maria Sousa", team: "", category: "MASTERS A", genderPos: 6, athleteId: 0 }),
       ],
     }]);
     expect([...runPipeline([e1], loader).index.values()].filter(e => e.nameLower === "maria sousa").length).toBe(2);
@@ -455,7 +455,7 @@ describe("buildAthletesIndex — Pass 8: team ↔ solo cross-pass merge", () => 
     const events = [mkEvent(1, 2025, "2025-01-15"), mkEvent(2, 2025, "2025-02-15"), mkEvent(3, 2025, "2025-04-15"), mkEvent(4, 2025, "2025-05-15")];
     const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-15`, [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Maria Sousa", nameLower: "maria sousa", team: id <= 2 ? "CC Faro" : "", category: "MASTERS A", genderPos: id <= 2 ? 60 : 3, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Maria Sousa", team: id <= 2 ? "CC Faro" : "", category: "MASTERS A", genderPos: id <= 2 ? 60 : 3, athleteId: 0 })],
     }]);
     expect([...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "maria sousa").length).toBe(2);
   });
@@ -470,7 +470,7 @@ describe("buildAthletesIndex — Pass 8: team ↔ solo cross-pass merge", () => 
     const events = [mkEvent(1, 2025, "2025-02-01"), mkEvent(2, 2025, "2025-03-01"), mkEvent(3, 2025, "2025-04-01")];
     const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Maria Sousa", nameLower: "maria sousa", team: id === 1 ? "CC Faro" : id === 2 ? "Bike Team X" : "", category: "MASTERS A", genderPos: 5, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Maria Sousa", team: id === 1 ? "CC Faro" : id === 2 ? "Bike Team X" : "", category: "MASTERS A", genderPos: 5, athleteId: 0 })],
     }]);
     expect([...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "maria sousa").length).toBe(3);
   });
@@ -530,7 +530,7 @@ describe("buildAthletesIndex — Pass 9: manual result assignments", () => {
     const idStore: AthleteIdStore = new Map([["carlos matos|solo:Masters B Male:2026", 100]]);
     const loader = (id: number) => mkEventResults(id, 2026, `2026-0${id}-01`, [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Carlos Matos", nameLower: "carlos matos", team: "", category: id < 6 ? "MASTERS B" : "MASTERS A", genderPos: 10, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Carlos Matos", team: "", category: id < 6 ? "MASTERS B" : "MASTERS A", genderPos: 10, athleteId: 0 })],
     }]);
     const assignments: ResultAssignment[] = [{ athleteId: 100, eventId: 6, bib: "6" }];
     const { index } = buildAthletesIndex(events, loader, [], assignments, idStore);
@@ -545,7 +545,7 @@ describe("buildAthletesIndex — Pass 9: manual result assignments", () => {
     const idStore: AthleteIdStore = new Map([["carlos matos|solo:Masters B Male:2026", 100]]);
     const loader = (id: number) => mkEventResults(id, 2026, `2026-0${id}-01`, [{
       id: "1", name: "Granfondo", finisherCount: 100,
-      results: [mkResult({ bib: String(id), name: "Carlos Matos", nameLower: "carlos matos", team: "", category: id < 6 ? "MASTERS B" : "MASTERS A", genderPos: 10, athleteId: 0 })],
+      results: [mkResult({ bib: String(id), name: "Carlos Matos", team: "", category: id < 6 ? "MASTERS B" : "MASTERS A", genderPos: 10, athleteId: 0 })],
     }]);
     const { index } = buildAthletesIndex(events, loader, [], [], idStore);
     const entry = [...index.values()].find(e => e.id === 100);

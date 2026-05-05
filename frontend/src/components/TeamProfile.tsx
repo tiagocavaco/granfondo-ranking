@@ -1,7 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "../api";
-import { resolveTeamKey } from "../utils/lookups";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";
@@ -15,9 +14,9 @@ function rankBadge(rank: number) {
 }
 
 export default function TeamProfile() {
-  const { teamKey: encoded } = useParams<{ teamKey: string }>();
+  const { teamId: teamIdParam } = useParams<{ teamId: string }>();
   const navigate = useNavigate();
-  const teamKey = decodeURIComponent(encoded ?? "");
+  const teamId = Number(teamIdParam ?? 0);
 
   const [data, setData] = useState<TeamRanking | null>(null);
   const [loading, setLoading] = useState(true);
@@ -25,28 +24,24 @@ export default function TeamProfile() {
   const [teamDetail, setTeamDetail] = useState<{ displayName: string; events: Array<{ eventId: number; eventName: string; eventDate: string; distance: string; athletes: Array<{ id: number; name: string; pos: number; raceTime: string; dnf: number; dns: number; country: string; category: string }> }> } | null | undefined>(undefined);
 
   useEffect(() => {
-    Promise.all([api.getTeamRanking(), api.initLookups(), api.getTeamByKey(teamKey)])
+    Promise.all([api.getTeamRanking(), api.initLookups(), api.getTeamById(teamId)])
       .then(([ranking, , detail]) => { setData(ranking); setTeamDetail(detail); })
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
   }, []);
 
   const teamEntries = useMemo(() => {
-    if (!data) return [];
-    // resolveTeamKey follows aliases (initLookups has completed before setData)
-    const resolvedKey = resolveTeamKey(teamKey);
+    if (!data || !teamDetail) return [];
 
     const entries: Array<{ year: string; distance: string; entry: TeamEntry }> = [];
     for (const [year, dists] of Object.entries(data)) {
       for (const [dist, teams] of Object.entries(dists)) {
-        const entry = teams.find((t) =>
-          t.teamKey !== "" && (t.teamKey === teamKey || t.teamKey === resolvedKey)
-        );
+        const entry = teams.find((t) => t.teamId === teamId);
         if (entry) entries.push({ year, distance: dist, entry });
       }
     }
     return entries.sort((a, b) => b.year.localeCompare(a.year) || a.distance.localeCompare(b.distance));
-  }, [data, teamKey]);
+  }, [data, teamId, teamDetail]);
 
   const totalEventsScored = teamEntries.reduce((sum, { entry }) => sum + entry.eventsScored, 0);
   const seasons = [...new Set(teamEntries.map((e) => e.year))].sort().reverse();
@@ -111,7 +106,7 @@ export default function TeamProfile() {
   }, [teamDetail?.events, byYear, effectiveSeason]);
 
 
-  const displayName = teamEntries[0]?.entry.team ?? teamDetail?.displayName ?? teamKey;
+  const displayName = teamEntries[0]?.entry.team ?? teamDetail?.displayName ?? "";
 
 
   if (loading) return <Spinner />;

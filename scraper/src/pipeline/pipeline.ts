@@ -876,7 +876,7 @@ function runPass9(ctx: PipelineCtx): void {
     if (eventResults) {
       for (const dist of eventResults.distances) {
         const match = dist.results.find((r) => r.bib === assignment.bib);
-        if (match) { bibNameLower = match.nameLower; break; }
+        if (match) { bibNameLower = normalizeName(match.name); break; }
       }
     }
     if (!bibNameLower) {
@@ -971,7 +971,7 @@ export function buildAthletesIndex(
     if (!stored) continue;
     for (const dist of stored.distances) {
       for (const r of dist.results) {
-        if (PLACEHOLDER_NAMES.has(r.nameLower)) continue;
+        if (PLACEHOLDER_NAMES.has(normalizeName(r.name))) continue;
         allResults.push({ event, dist, r, rKey: resultDedupeKey(event.id, dist.name, r.bib) });
       }
     }

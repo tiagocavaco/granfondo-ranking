@@ -11,7 +11,7 @@ import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { sql } from "drizzle-orm";
 import * as path from "path";
 import * as schema from "./schema.js";
-import { normalizeTeam, normalizeDistance } from "./normalize.js";
+import { normalizeTeam, normalizeDistance, SOLO_TEAM_KEYS } from "./normalize.js";
 import type {
   StoredEvent,
   StoredEventResults,
@@ -37,6 +37,8 @@ export interface AllScrapedData {
   assignments: ResultAssignment[];
   /** Pre-resolved participant → athlete ID map. Key: "eventId:name:team". 0 = unlinked. */
   participantAthleteIds?: Map<string, number>;
+  /** Canonical team key → stable integer ID, seeded from previous DB. */
+  teamIdStore: Map<string, number>;
 }
 
 export function buildDatabase(data: AllScrapedData): Buffer {
@@ -51,39 +53,20 @@ export function buildDatabase(data: AllScrapedData): Buffer {
     migrationsFolder: path.join(import.meta.dirname, "..", "migrations"),
   });
 
-  // FTS5 virtual tables — not supported by Drizzle, applied via raw SQL
-  sqlite.exec(`
-    CREATE VIRTUAL TABLE results_fts USING fts5(
-      name, team, bib UNINDEXED,
-      content='results', content_rowid='id', tokenize='unicode61'
-    );
-    CREATE VIRTUAL TABLE participants_fts USING fts5(
-      full_name, team, bib UNINDEXED,
-      content='participants', content_rowid='id', tokenize='unicode61'
-    );
-    CREATE VIRTUAL TABLE athletes_fts USING fts5(
-      name, canonical_team,
-      content='athletes', content_rowid='id', tokenize='unicode61'
-    );
-    CREATE VIRTUAL TABLE aggregate_fts USING fts5(
-      name, team,
-      content='aggregate_athletes', content_rowid='id', tokenize='unicode61'
-    );
-  `);
+  const teamIds = buildTeamIds(data);
 
   sqlite.transaction(() => {
     insertEvents(db, data);
     insertResults(db, data);
     insertParticipants(db, data);
-    insertAthletes(db, data);
+    insertTeams(db, teamIds, data);
+    insertAthletes(db, data, teamIds);
     insertLookups(db, data);
-    insertRankings(db, data);
+    insertRankings(db, data, teamIds);
     insertStats(db, data);
     insertAliasRules(db, data);
     insertResultAssignments(db, data);
   })();
-
-  buildFTS(sqlite);
 
   return sqlite.serialize() as Buffer;
 }
@@ -132,7 +115,6 @@ function insertResults(db: ReturnType<typeof drizzle>, data: AllScrapedData): vo
           athleteId:     r.athleteId,
           bib:           r.bib,
           name:          r.name,
-          nameLower:     r.nameLower,
           gender:        r.gender,
           team:          r.team,
           category:      r.category,
@@ -167,7 +149,7 @@ function insertParticipants(db: ReturnType<typeof drizzle>, data: AllScrapedData
   }
 }
 
-function insertAthletes(db: ReturnType<typeof drizzle>, data: AllScrapedData): void {
+function insertAthletes(db: ReturnType<typeof drizzle>, data: AllScrapedData, teamIds: Map<string, number>): void {
   for (const entry of data.athletesIndex.values()) {
     db.insert(schema.athletes).values({
       id:            entry.id,
@@ -177,9 +159,10 @@ function insertAthletes(db: ReturnType<typeof drizzle>, data: AllScrapedData): v
     }).onConflictDoNothing().run();
 
     for (const team of entry.teams) {
+      const teamId = teamIds.get(team) ?? 0;
       db.insert(schema.athleteTeams).values({
         athleteId: entry.id,
-        teamKey:   team,
+        teamId,
       }).onConflictDoNothing().run();
     }
 
@@ -226,16 +209,44 @@ function insertLookups(db: ReturnType<typeof drizzle>, data: AllScrapedData): vo
       .onConflictDoUpdate({ target: schema.athleteLookup.key, set: { athleteId } })
       .run();
   }
+}
+
+function buildTeamIds(data: AllScrapedData): Map<string, number> {
+  const canonicalKeys = new Set<string>();
+
+  for (const entry of data.athletesIndex.values()) {
+    for (const tk of entry.teams) {
+      if (tk && !SOLO_TEAM_KEYS.has(tk)) canonicalKeys.add(tk);
+    }
+  }
+
+  const ids = new Map(data.teamIdStore);
+  let nextId = ids.size > 0 ? Math.max(...ids.values()) + 1 : 1;
+  for (const key of canonicalKeys) {
+    if (!ids.has(key)) ids.set(key, nextId++);
+  }
+  return ids;
+}
+
+function insertTeams(db: ReturnType<typeof drizzle>, teamIds: Map<string, number>, data: AllScrapedData): void {
+  // Group alias keys by their canonical
+  const aliasByCanonical = new Map<string, string[]>();
   for (const [rawAlias, rawCanonical] of Object.entries(data.teamAliases)) {
     const aliasKey = normalizeTeam(rawAlias);
     const canonicalKey = normalizeTeam(rawCanonical);
-    db.insert(schema.teamAliases).values({ aliasKey, canonicalKey })
-      .onConflictDoUpdate({ target: schema.teamAliases.aliasKey, set: { canonicalKey } })
+    if (!aliasByCanonical.has(canonicalKey)) aliasByCanonical.set(canonicalKey, []);
+    aliasByCanonical.get(canonicalKey)!.push(aliasKey);
+  }
+
+  for (const [canonicalKey, id] of teamIds) {
+    const aliasKeys = aliasByCanonical.get(canonicalKey) ?? [];
+    db.insert(schema.teams).values({ id, canonicalKey, aliasKeys: JSON.stringify(aliasKeys) })
+      .onConflictDoUpdate({ target: schema.teams.id, set: { canonicalKey, aliasKeys: JSON.stringify(aliasKeys) } })
       .run();
   }
 }
 
-function insertRankings(db: ReturnType<typeof drizzle>, data: AllScrapedData): void {
+function insertRankings(db: ReturnType<typeof drizzle>, data: AllScrapedData, teamIds: Map<string, number>): void {
   for (const [year, distances] of Object.entries(data.aggregateRanking)) {
     for (const [distance, genders] of Object.entries(distances)) {
       for (const [gender, athletes] of Object.entries(genders)) {
@@ -247,7 +258,6 @@ function insertRankings(db: ReturnType<typeof drizzle>, data: AllScrapedData): v
             rank:         a.rank,
             athleteId:    a.id,
             name:         a.name,
-            nameLower:    a.nameLower,
             team:         a.team,
             country:      a.country,
             totalPoints:  a.totalPoints,
@@ -268,7 +278,7 @@ function insertRankings(db: ReturnType<typeof drizzle>, data: AllScrapedData): v
           distance,
           rank:         t.rank,
           team:         t.team,
-          teamKey:      t.teamKey,
+          teamId:       teamIds.get(t.teamKey ?? "") ?? 0,
           totalPoints:  t.totalPoints,
           eventsScored: t.eventsScored,
           bestRank:     t.bestRank,
@@ -307,11 +317,3 @@ function insertResultAssignments(db: ReturnType<typeof drizzle>, data: AllScrape
   }
 }
 
-// ── FTS population ────────────────────────────────────────────────────────────
-
-function buildFTS(sqlite: BetterSqlite3.Database): void {
-  sqlite.exec(`INSERT INTO results_fts(rowid, name, team, bib) SELECT id, name, team, bib FROM results`);
-  sqlite.exec(`INSERT INTO participants_fts(rowid, full_name, team, bib) SELECT id, full_name, team, bib FROM participants`);
-  sqlite.exec(`INSERT INTO athletes_fts(rowid, name, canonical_team) SELECT id, name, COALESCE(canonical_team, '') FROM athletes`);
-  sqlite.exec(`INSERT INTO aggregate_fts(rowid, name, team) SELECT id, name, team FROM aggregate_athletes`);
-}

@@ -38,8 +38,10 @@ export function injectAthleteIds(
         const raw = dist.results.find(
           (r) => r.pos === ref.pos && r.team === ref.team,
         );
-        if (raw && raw.nameLower !== canonName) {
-          resultLookup.set(`${ref.eventId}|${raw.nameLower}|${raw.team}`, entry.id);
+        if (!raw) continue;
+        const rawNameLower = normalizeName(raw.name);
+        if (rawNameLower !== canonName) {
+          resultLookup.set(`${ref.eventId}|${rawNameLower}|${raw.team}`, entry.id);
         }
       }
     }
@@ -50,7 +52,7 @@ export function injectAthleteIds(
     let changed = false;
     for (const dist of stored.distances) {
       for (const r of dist.results) {
-        const k = `${eventId}|${r.nameLower}|${r.team}`;
+        const k = `${eventId}|${normalizeName(r.name)}|${r.team}`;
         const id = resultLookup.get(k) ?? 0;
         if (r.athleteId !== id) { r.athleteId = id; changed = true; }
       }

@@ -12,6 +12,7 @@ function minimalData(overrides: Partial<AllScrapedData> = {}): AllScrapedData {
     athletesIndex:   new Map(),
     nameToId:        {},
     teamAliases:     {},
+    teamIdStore:     new Map(),
     aggregateRanking: {},
     teamRanking:      {},
     stats:           { uniqueAthletes: 0, uniqueByYear: {} },
