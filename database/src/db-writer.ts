@@ -32,7 +32,7 @@ export interface AllScrapedData {
   teamAliases: Record<string, string>;
   aggregateRanking: AggregateRanking;
   teamRanking: TeamRanking;
-  stats: { uniqueAthletes: number; uniqueByYear: Record<string, number> };
+  stats: { uniqueAthletes: number; uniqueByYear: Record<string, number>; scrapedAt: string };
   aliasRules: AthleteAliasRule[];
   assignments: ResultAssignment[];
   /** Pre-resolved participant → athlete ID map. Key: "eventId:name:team". 0 = unlinked. */
@@ -66,6 +66,7 @@ export function buildDatabase(data: AllScrapedData): Buffer {
     insertStats(db, data);
     insertAliasRules(db, data);
     insertResultAssignments(db, data);
+    pruneGhostAthletes(sqlite);
   })();
 
   return sqlite.serialize() as Buffer;
@@ -315,5 +316,13 @@ function insertResultAssignments(db: ReturnType<typeof drizzle>, data: AllScrape
       note:      a.note ?? null,
     }).run();
   }
+}
+
+function pruneGhostAthletes(sqlite: BetterSqlite3.Database): void {
+  const ghosts = `SELECT id FROM athletes WHERE id NOT IN (SELECT DISTINCT athlete_id FROM athlete_results)`;
+  sqlite.prepare(`DELETE FROM athlete_teams      WHERE athlete_id IN (${ghosts})`).run();
+  sqlite.prepare(`DELETE FROM athlete_categories WHERE athlete_id IN (${ghosts})`).run();
+  sqlite.prepare(`DELETE FROM athlete_lookup     WHERE athlete_id IN (${ghosts})`).run();
+  sqlite.prepare(`DELETE FROM athletes           WHERE id         IN (${ghosts})`).run();
 }
 

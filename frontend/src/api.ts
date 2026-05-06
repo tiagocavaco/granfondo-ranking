@@ -226,14 +226,14 @@ export const api = {
     return ranking;
   },
 
-  async getStats(): Promise<{ uniqueAthletes: number; uniqueByYear: Record<string, number> }> {
+  async getStats(): Promise<{ uniqueAthletes: number; uniqueByYear: Record<string, number>; scrapedAt: string }> {
     const db = await getDb();
     const row = db.select({ value: schema.stats.value })
       .from(schema.stats)
       .where(eq(schema.stats.key, "stats_json"))
       .get();
-    if (!row) return { uniqueAthletes: 0, uniqueByYear: {} };
-    return JSON.parse(row.value) as { uniqueAthletes: number; uniqueByYear: Record<string, number> };
+    if (!row) return { uniqueAthletes: 0, uniqueByYear: {}, scrapedAt: "" };
+    return JSON.parse(row.value) as { uniqueAthletes: number; uniqueByYear: Record<string, number>; scrapedAt: string };
   },
 
   async getAthlete(id: number): Promise<AthleteEntry> {

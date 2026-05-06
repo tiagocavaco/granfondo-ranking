@@ -181,5 +181,12 @@ export async function scrapeEvent(
   event.finisherCount = distanceResults.reduce((s, d) => s + d.finisherCount, 0);
   event.scrapedAt = stored.scrapedAt;
 
+  if (sourceDb) {
+    const prev = (sourceDb.prepare("SELECT finisher_count FROM events WHERE id = ?").get(event.id) as { finisher_count: number } | undefined)?.finisher_count ?? 0;
+    if (prev > 0 && event.finisherCount < prev * 0.5) {
+      console.warn(`⚠️  Regression: ${event.name} finishers dropped ${prev} → ${event.finisherCount} (>${Math.round((1 - event.finisherCount / prev) * 100)}% drop)`);
+    }
+  }
+
   return { event, results: stored, participants: athletes };
 }

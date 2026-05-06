@@ -234,7 +234,7 @@ async function main() {
       (a) => a.results.some((r) => r.eventYear === year)
     ).length;
   }
-  const stats = { uniqueAthletes: athletesArray.length, uniqueByYear };
+  const stats = { uniqueAthletes: athletesArray.filter((a) => a.results.length > 0).length, uniqueByYear, scrapedAt: new Date().toISOString() };
 
   // 6. Build aggregate ranking
   console.log("🏆 Building aggregate ranking…");

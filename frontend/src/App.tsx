@@ -10,6 +10,7 @@ import TeamProfile from "./components/TeamProfile";
 import ComparisonPage from "./components/ComparisonPage";
 import RankingInfoPage from "./components/RankingInfoPage";
 import { api } from "./api";
+import { formatAge } from "./utils/date";
 
 const navLink = (isActive: boolean) =>
   `px-2.5 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all whitespace-nowrap ${
@@ -120,7 +121,21 @@ function AppShell() {
           <Route path="/teams-info" element={<RankingInfoPage mode="team" />} />
         </Routes>
       </main>
+      <Footer />
     </div>
+  );
+}
+
+function Footer() {
+  const [scrapedAt, setScrapedAt] = useState<string>("");
+  useEffect(() => { api.getStats().then((s) => setScrapedAt(s.scrapedAt)).catch(() => {}); }, []);
+  return (
+    <footer className="border-t border-slate-200 mt-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between text-xs text-slate-400">
+        <span>Granfondo Portugal</span>
+        {scrapedAt && <span>Data updated {formatAge(scrapedAt)}</span>}
+      </div>
+    </footer>
   );
 }
 
