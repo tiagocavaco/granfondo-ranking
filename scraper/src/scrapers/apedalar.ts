@@ -44,8 +44,8 @@ export function extractEscalaoOptions(html: string, snapshot: string): string[] 
       const vals = (escaloes as unknown[]).filter((e) => typeof e === "string" && e) as string[];
       if (vals.length > 0) return vals;
     }
-  } catch {
-    // ignore parse errors
+  } catch (err) {
+    console.warn(`apedalar: failed to parse escalao options from snapshot: ${err}`);
   }
   return [];
 }

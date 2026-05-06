@@ -112,6 +112,7 @@ export async function scrapeEvent(
   }
 
   const distanceResults: StoredDistanceResults[] = [];
+  let fetchErrors = 0;
 
   for (const dist of event.distances) {
     try {
@@ -134,11 +135,17 @@ export async function scrapeEvent(
       });
     } catch (err) {
       console.error(`  ✗ ${dist.name}: ${err}`);
+      fetchErrors++;
     }
   }
 
   if (distanceResults.length === 0) {
     console.log(`  ! no results scraped for ${label}`);
+    return { event, participants: athletes };
+  }
+
+  if (fetchErrors > 0) {
+    console.warn(`⚠️  ${label}: ${fetchErrors} distance(s) failed to fetch — results will NOT be cached to avoid partial data`);
     return { event, participants: athletes };
   }
 

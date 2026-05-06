@@ -25,7 +25,7 @@ import { normalizeName, teamNormalKey } from "./normalize.js";
 import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadTeamAliases, loadAthleteAliases, loadResultAssignments, loadTeamIdStore } from "./db/db-loader.js";
 import { discoverGranfondos } from "./scrapers/stopandgo.js";
 import { loadScrapedEvents, writeEncryptedDatabase } from "./db/write-db.js";
-import { type ScrapeResult, fetchEventParticipants, resolveDistances, scrapeEvent } from "./pipeline/event-pipeline.js";
+import { fetchEventParticipants, resolveDistances, scrapeEvent } from "./pipeline/event-pipeline.js";
 import { scrapeParticipants } from "./pipeline/participants-update.js";
 import { initTeamAliases } from "./normalize.js";
 import type {
@@ -129,6 +129,12 @@ async function main() {
       console.log(
         `  ✓ ${results.distances.map((d) => `${d.name}: ${d.finisherCount}`).join(", ")}`
       );
+      if (sourceDb) {
+        const prev = (sourceDb.prepare("SELECT finisher_count FROM events WHERE id = ?").get(event.id) as { finisher_count: number } | undefined)?.finisher_count ?? 0;
+        if (prev > 0 && event.finisherCount < prev * 0.5) {
+          console.warn(`⚠️  Regression: ${event.name} finishers dropped ${prev} → ${event.finisherCount} (>${Math.round((1 - event.finisherCount / prev) * 100)}% drop)`);
+        }
+      }
     } catch (err) {
       console.error(`  ✗ ${err}`);
     }

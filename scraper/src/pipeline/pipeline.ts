@@ -1,7 +1,7 @@
 /**
  * pipeline.ts
  *
- * 9-pass athlete index builder. See ATHLETE_PIPELINE_PLAN.md for full design rationale.
+ * 9-pass athlete index builder.
  *
  * Pass 1 — Licence athletes only (authoritative)
  * Pass 2 — Unlicensed team results matched by name + team
@@ -11,7 +11,7 @@
  * Pass 6 — Cross-year solo merge (valid age-group progression)
  * Pass 7 — Cross-year team-change merge
  * Pass 8 — Team ↔ solo cross-pass merge
- * Pass 9 — Manual result assignments (result-assignments.json)
+ * Pass 9 — Manual result assignments (loaded from DB result_assignments table)
  */
 
 import {
