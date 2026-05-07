@@ -21,7 +21,7 @@ import { resolveParticipantAthleteIds } from "./pipeline/participants.js";
 import { buildAggregateRanking, buildTeamRanking } from "./pipeline/ranking.js";
 import { YEARS, LISTA_URLS, REGISTRATIONS_URLS, APEDALAR_PARTICIPANT_URLS } from "./config.js";
 import { DATA_DIR } from "./paths.js";
-import { normalizeName, teamNormalKey } from "./normalize.js";
+import { normalizeName, teamNormalKey, isSoloTeam } from "./normalize.js";
 import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadTeamAliases, loadAthleteAliases, loadResultAssignments, loadTeamIdStore } from "./db/db-loader.js";
 import { discoverGranfondos } from "./scrapers/stopandgo.js";
 import { loadScrapedEvents, writeEncryptedDatabase } from "./db/write-db.js";
@@ -176,8 +176,29 @@ async function main() {
   console.log("🔨 Building athletes index…");
   const loader = (id: number) => allResults.get(id) ?? null;
 
+  // Extend teamIdStore with IDs for teams not yet in the DB so the pipeline has
+  // stable numeric IDs for all teams it will encounter (new teams get fresh IDs
+  // continuing from the current max; the db-writer receives the same store).
+  const extendedTeamIdStore = new Map(teamIdStore);
+  {
+    const maxId = teamIdStore.size > 0 ? Math.max(...teamIdStore.values()) : 0;
+    let nextTeamId = maxId + 1;
+    for (const [, results] of allResults) {
+      for (const dist of results.distances) {
+        for (const r of dist.results) {
+          if (!isSoloTeam(r.team)) {
+            const canonKey = teamNormalKey(r.team);
+            if (canonKey && !extendedTeamIdStore.has(canonKey)) {
+              extendedTeamIdStore.set(canonKey, nextTeamId++);
+            }
+          }
+        }
+      }
+    }
+  }
+
   const { index: athletesIndex, updatedIdStore, soloFlags, crossPassFlags } = buildAthletesIndex(
-    scraped, loader, aliasRules, assignments, idStore
+    scraped, loader, aliasRules, assignments, idStore, extendedTeamIdStore
   );
 
   const manualSoloFlags = soloFlags.filter((f) => f.resolution === "flagged_manual");
@@ -216,17 +237,19 @@ async function main() {
 
   // Add alias keys so participant registrations under alias names resolve to the canonical athlete
   for (const rule of aliasRules) {
-    const canonKey = `${normalizeName(rule.name)}|${teamNormalKey(rule.canonicalTeam)}`;
+    const canonTeamId = extendedTeamIdStore.get(teamNormalKey(rule.canonicalTeam)) ?? 0;
+    const canonKey = `${normalizeName(rule.name)}|${canonTeamId}`;
     const canonId = nameToId[canonKey];
     if (canonId == null) continue;
     for (const alias of rule.aliases) {
-      const aliasKey = `${normalizeName(alias.name)}|${teamNormalKey(alias.team)}`;
+      const aliasTeamId = extendedTeamIdStore.get(teamNormalKey(alias.team)) ?? 0;
+      const aliasKey = `${normalizeName(alias.name)}|${aliasTeamId}`;
       if (!(aliasKey in nameToId)) nameToId[aliasKey] = canonId;
     }
   }
 
   const { ids: participantAthleteIds, linked: participantLinked } =
-    resolveParticipantAthleteIds(nameToId, allParticipants);
+    resolveParticipantAthleteIds(nameToId, allParticipants, extendedTeamIdStore);
   console.log(`  [lookup] ${participantLinked} participants resolved to athlete profiles`);
 
   const athletesArray = Array.from(athletesIndex.values()).sort((a, b) =>
@@ -244,7 +267,7 @@ async function main() {
 
   // 6. Build aggregate ranking
   console.log("🏆 Building aggregate ranking…");
-  const aggregateRanking = buildAggregateRanking(scraped, loader, athletesIndex, keyToCanonical);
+  const aggregateRanking = buildAggregateRanking(scraped, loader, athletesIndex, keyToCanonical, extendedTeamIdStore);
   for (const [year, distances] of Object.entries(aggregateRanking)) {
     for (const [dist, genders] of Object.entries(distances)) {
       for (const [gender, athletes] of Object.entries(genders)) {
@@ -256,7 +279,7 @@ async function main() {
 
   // 7. Build team ranking
   console.log("🏅 Building team ranking…");
-  const teamRanking = buildTeamRanking(scraped, loader, athletesIndex, keyToCanonical);
+  const teamRanking = buildTeamRanking(scraped, loader, athletesIndex, keyToCanonical, extendedTeamIdStore);
   for (const [year, distances] of Object.entries(teamRanking)) {
     for (const [dist, teams] of Object.entries(distances)) {
       console.log(`   ${year} ${dist}: ${teams.length} teams scored`);
@@ -278,7 +301,7 @@ async function main() {
     aliasRules,
     assignments,
     participantAthleteIds,
-    teamIdStore,
+    teamIdStore: extendedTeamIdStore,
   });
 
   console.log("\n✅ Done.");

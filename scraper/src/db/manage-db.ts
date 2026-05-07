@@ -26,7 +26,7 @@ import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import * as schema from "@granfondo/database/schema";
 import { encryptBuffer, decryptBuffer } from "./encrypt.js";
 import { normalizeTeam } from "../normalize.js";
-import { loadAliasMap, validateAndFlattenAlias } from "./alias-utils.js";
+import { loadAliasMap, validateAndFlattenAlias, rewriteLookupKeysForAlias } from "./alias-utils.js";
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 
@@ -160,6 +160,15 @@ function cmdAdd(args: Record<string, string>): void {
       existing.push(aliasKey);
       sqlite.prepare("UPDATE teams SET alias_keys = ? WHERE canonical_key = ?").run(JSON.stringify(existing), canonicalKey);
     }
+
+    // Rewrite athlete_lookup keys so the next scrape seed preserves athlete IDs
+    const aliasTeamRow  = sqlite.prepare("SELECT id FROM teams WHERE canonical_key = ?").get(aliasKey)  as { id: number } | undefined;
+    const canonTeamRow  = sqlite.prepare("SELECT id FROM teams WHERE canonical_key = ?").get(canonicalKey) as { id: number } | undefined;
+    if (aliasTeamRow && canonTeamRow) {
+      const changed = rewriteLookupKeysForAlias(sqlite, aliasTeamRow.id, canonTeamRow.id);
+      if (changed > 0) console.log(`  · rewrote ${changed} athlete_lookup key(s): team ID ${aliasTeamRow.id} → ${canonTeamRow.id}`);
+    }
+
     console.log(`✓ Added team alias: "${aliasKey}" → "${canonicalKey}"`);
 
   } else {

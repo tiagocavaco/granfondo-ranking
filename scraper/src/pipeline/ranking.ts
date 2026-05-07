@@ -4,6 +4,7 @@ import {
   normalizeDistance,
   fixRawTeamName,
   canonicalTeam,
+  isSoloTeam,
 } from "../normalize.js";
 import {
   posToBasePoints,
@@ -28,7 +29,8 @@ export function buildAggregateRanking(
   events: StoredEvent[],
   loader: ResultsLoader,
   athleteIndex: Map<string, AthleteEntry> = new Map(),
-  keyToCanonical: Map<string, string> = new Map()
+  keyToCanonical: Map<string, string> = new Map(),
+  teamIdStore: Map<string, number> = new Map()
 ): AggregateRanking {
   type AccEntry = {
     id: number; name: string; gender: string;
@@ -71,7 +73,8 @@ export function buildAggregateRanking(
           const pts = Math.round(basePoints * coeff * 10) / 10;
           const nameLower = normalizeName(r.name);
           const storedId = r.athleteId ?? 0;
-          const rawKey = `${nameLower}|${teamNormalKey(r.team)}`;
+          const teamId = isSoloTeam(r.team) ? 0 : (teamIdStore.get(teamNormalKey(r.team)) ?? 0);
+          const rawKey = `${nameLower}|${teamId === 0 ? "" : teamId}`;
           const aKey = (storedId > 0 && idToCanonicalKey.has(storedId))
             ? idToCanonicalKey.get(storedId)!
             : (keyToCanonical.get(rawKey) ?? rawKey);
@@ -135,7 +138,8 @@ export function buildTeamRanking(
   events: StoredEvent[],
   loader: ResultsLoader,
   athleteIndex: Map<string, AthleteEntry> = new Map(),
-  keyToCanonical: Map<string, string> = new Map()
+  keyToCanonical: Map<string, string> = new Map(),
+  teamIdStore: Map<string, number> = new Map()
 ): TeamRanking {
   type AccTeam = {
     teamKey: string; nameOcc: Map<string, number>;
@@ -210,7 +214,8 @@ export function buildTeamRanking(
           teamRank, basePoints, points: pts, combinedScore: et.combinedScore,
           athletes: et.all.map((a) => {
             const id = a.athleteId > 0 ? a.athleteId : (() => {
-              const rk = `${normalizeName(a.name)}|${teamNormalKey(a.rawTeam)}`;
+              const tid = isSoloTeam(a.rawTeam) ? 0 : (teamIdStore.get(teamNormalKey(a.rawTeam)) ?? 0);
+              const rk = `${normalizeName(a.name)}|${tid === 0 ? "" : tid}`;
               return athleteIndex.get(keyToCanonical.get(rk) ?? rk)?.id ?? 0;
             })();
             const scoring = et.top3.some((t) => t.name === a.name && t.pos === a.pos);

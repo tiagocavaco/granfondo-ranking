@@ -97,7 +97,8 @@ describe("buildAggregateRanking", () => {
       id: "1", name: "Granfondo", finisherCount: 1,
       results: [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, name: "Ana Silva", team: id === 1 ? "Team Alpha" : "Team Beta" })],
     }]);
-    const ranking = buildAggregateRanking(events, loader);
+    const teamIdStore = new Map([["team alpha", 1], ["team beta", 2]]);
+    const ranking = buildAggregateRanking(events, loader, new Map(), new Map(), teamIdStore);
     const anaSilvaEntries = ranking["2025"]!["Granfondo"]!["M"]!.filter((a) => a.name.toLowerCase() === "ana silva");
     expect(anaSilvaEntries.length).toBe(2);
     expect(anaSilvaEntries.every((a) => a.eventsScored === 1)).toBe(true);
@@ -109,8 +110,9 @@ describe("buildAggregateRanking", () => {
       id: "1", name: "Granfondo", finisherCount: 1,
       results: [mkResult({ name: "Ana Silva", team: "Team Alpha" })],
     }]);
-    const athleteIndex = new Map([["ana silva|team alpha", mkAthleteEntry(99, "ana silva")]]);
-    const ranking = buildAggregateRanking([event], loader, athleteIndex);
+    const teamIdStore = new Map([["team alpha", 1]]);
+    const athleteIndex = new Map([["ana silva|1", mkAthleteEntry(99, "ana silva")]]);
+    const ranking = buildAggregateRanking([event], loader, athleteIndex, new Map(), teamIdStore);
     expect(ranking["2025"]!["Granfondo"]!["M"]!.find((a) => a.name.toLowerCase() === "ana silva")?.id).toBe(99);
   });
 
@@ -191,7 +193,8 @@ describe("buildAggregateRanking — athleteId consolidation", () => {
       id: "1", name: "Granfondo", finisherCount: 1,
       results: [mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100, athleteId: 0, name: "Jose Borges", team: id === 1 ? "Team Alpha" : "Guest Team" })],
     }]);
-    expect(buildAggregateRanking(events, loader)["2026"]!["Granfondo"]!["M"]!.filter((a) => a.name.toLowerCase() === "jose borges").length).toBe(2);
+    const teamIdStore = new Map([["team alpha", 1], ["guest team", 2]]);
+    expect(buildAggregateRanking(events, loader, new Map(), new Map(), teamIdStore)["2026"]!["Granfondo"]!["M"]!.filter((a) => a.name.toLowerCase() === "jose borges").length).toBe(2);
   });
 
   it("uses athleteId to resolve id even when name+team key is not in athleteIndex", () => {
@@ -347,12 +350,13 @@ describe("buildTeamRanking", () => {
       { name: "A2", pos: 2, team: "Team Alpha" },
       { name: "A3", pos: 3, team: "Team Alpha" },
     ];
+    const teamIdStore = new Map([["team alpha", 1]]);
     const athleteIndex = new Map([
-      ["a1|team alpha", mkAthleteEntry(10, "a1")],
-      ["a2|team alpha", mkAthleteEntry(20, "a2")],
-      ["a3|team alpha", mkAthleteEntry(30, "a3")],
+      ["a1|1", mkAthleteEntry(10, "a1")],
+      ["a2|1", mkAthleteEntry(20, "a2")],
+      ["a3|1", mkAthleteEntry(30, "a3")],
     ]);
-    const ranking = buildTeamRanking([mkEvent(1, 2025, "2025-03-15")], () => mkTeamResults(athletes), athleteIndex);
+    const ranking = buildTeamRanking([mkEvent(1, 2025, "2025-03-15")], () => mkTeamResults(athletes), athleteIndex, new Map(), teamIdStore);
     expect(ranking["2025"]!["Granfondo"]![0]!.results[0]!.athletes.map((a) => a.id)).toEqual([10, 20, 30]);
   });
 });

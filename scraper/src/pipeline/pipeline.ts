@@ -17,7 +17,6 @@
 import {
   normalizeName,
   teamNormalKey,
-  teamKeySimilarity,
   levenshteinDistance,
   isValidLicence,
   normalizeDistance,
@@ -66,9 +65,15 @@ const PERCENTILE_FAR_2   = 0.25;
 const PERCENTILE_CLOSE_1 = 0.10;
 const PERCENTILE_FAR_1   = 0.35;
 
-/** Composite key for team athletes; solo:category key for unaffiliated. */
-export function athleteKey(nameLower: string, team: string, category = ""): string {
-  if (!isSoloTeam(team)) return `${nameLower}|${teamNormalKey(team)}`;
+/** Returns the team ID for a team name, or 0 for solo/unknown teams. */
+function resolveTeamId(team: string, store: Map<string, number>): number {
+  if (isSoloTeam(team)) return 0;
+  return store.get(teamNormalKey(team)) ?? 0;
+}
+
+/** Composite key for team athletes (`name|teamId`); solo:category key for unaffiliated. */
+export function athleteKey(nameLower: string, team: string, teamIdStore: Map<string, number>, category = ""): string {
+  if (!isSoloTeam(team)) return `${nameLower}|${resolveTeamId(team, teamIdStore)}`;
   const catKey = category
     ? normalizeCategory(category).toLowerCase().replace(/\s+/g, "-")
     : "";
@@ -122,11 +127,12 @@ export interface SoloCollisionFlag {
   resolution: "distance" | "percentile" | "flagged_manual";
   // For distance/percentile: results[0] is kept in the group, results[1] routed to bib-key.
   // For flagged_manual: all results are bib-keyed (none kept in group).
-  results: Array<{ bib: string; distance: string; genderPos: number; finisherCount: number }>;
+  results: Array<{ athleteId: number; bib: string; distance: string; genderPos: number; finisherCount: number }>;
 }
 
 export interface CrossPassFlag {
   soloKey: string;
+  soloAthleteId: number;
   soloName: string;
   teamCandidates: Array<{ athleteId: number; canonicalTeam: string | undefined }>;
 }
@@ -323,6 +329,7 @@ interface PipelineCtx {
   aliasRules: AthleteAliasRule[];
   assignments: ResultAssignment[];
   loader: ResultsLoader;
+  teamIdStore: Map<string, number>;
   // Mutable pipeline state
   index: Map<string, AthleteEntry>;
   assigned: Set<string>;
@@ -376,8 +383,8 @@ function runPass1(ctx: PipelineCtx): void {
     const teamResult = results
       .filter((x) => !isSoloTeam(x.r.team))
       .sort((a, b) => new Date(b.event.date).getTime() - new Date(a.event.date).getTime())[0];
-    const teamKey = teamResult ? teamNormalKey(teamResult.r.team) : "";
-    const key = `${canonName}|${teamKey}`;
+    const teamId = teamResult ? resolveTeamId(teamResult.r.team, ctx.teamIdStore) : 0;
+    const key = `${canonName}|${teamId}`;
 
     if (!index.has(key)) {
       const displayName = results.reduce(
@@ -440,19 +447,9 @@ function runPass3(ctx: PipelineCtx): { teamCount: number } {
     if (isSoloTeam(r.team)) continue;
 
     const nameLower = normalizeName(r.name);
-    const tk = teamNormalKey(r.team);
-    const exactKey = `${nameLower}|${tk}`;
+    const exactKey = `${nameLower}|${resolveTeamId(r.team, ctx.teamIdStore)}`;
 
-    let matchKey: string | undefined;
-    if (index.has(exactKey)) {
-      matchKey = exactKey;
-    } else {
-      for (const [k, e] of index) {
-        if (e.nameLower !== nameLower) continue;
-        const kTeam = k.includes("|") ? k.slice(k.indexOf("|") + 1) : "";
-        if (teamKeySimilarity(tk, kTeam) === 1) { matchKey = k; break; }
-      }
-    }
+    const matchKey: string | undefined = index.has(exactKey) ? exactKey : undefined;
 
     assigned.add(rKey);
     if (matchKey) {
@@ -474,13 +471,13 @@ function runPass4(ctx: PipelineCtx): void {
 
   for (const rule of aliasRules) {
     const canonNameLower = normalizeName(rule.name);
-    const canonKey = `${canonNameLower}|${teamNormalKey(rule.canonicalTeam)}`;
+    const canonKey = `${canonNameLower}|${resolveTeamId(rule.canonicalTeam, ctx.teamIdStore)}`;
     const canonEntry = index.get(canonKey);
     if (!canonEntry) continue;
 
     for (const alias of rule.aliases) {
       if (alias.team === "") continue;
-      const aliasKey = `${normalizeName(alias.name)}|${teamNormalKey(alias.team)}`;
+      const aliasKey = `${normalizeName(alias.name)}|${resolveTeamId(alias.team, ctx.teamIdStore)}`;
       if (aliasKey === canonKey) continue;
       const aliasEntry = index.get(aliasKey);
       if (!aliasEntry) continue;
@@ -498,14 +495,16 @@ function runPass5(ctx: PipelineCtx): { soloCount: number } {
   const { allResults, index, assigned, ids, soloFlags, soloGroupKeys } = ctx;
   let soloCount = 0;
 
-  const routeToBibKey = (c: RawResult): void => {
+  const routeToBibKey = (c: RawResult): number => {
     const nameLower = normalizeName(c.r.name);
     const canonCat = canonicalizeCategory(c.r.category);
     const bibKey = `${nameLower}|solo:${canonCat}:${c.event.year}:${c.r.bib}`;
-    index.set(bibKey, newEntry(ids.get(bibKey), c.r.name, nameLower));
+    const id = ids.get(bibKey);
+    index.set(bibKey, newEntry(id, c.r.name, nameLower));
     assigned.add(c.rKey);
     addResult(index.get(bibKey)!, toRef(c.r, c.event, c.dist), false);
     soloCount++;
+    return id;
   };
 
   // Group all remaining unassigned results by (name, canonCat, year)
@@ -552,12 +551,12 @@ function runPass5(ctx: PipelineCtx): { soloCount: number } {
             routedCandidate = b;
           }
           mainCandidates.push(keptCandidate);
-          routeToBibKey(routedCandidate);
+          const routedId = routeToBibKey(routedCandidate);
           soloFlags.push({
             groupKey, eventId: a.event.id, eventName: a.event.name, resolution: "distance",
             results: [
-              { bib: keptCandidate.r.bib, distance: keptCandidate.dist.name, genderPos: keptCandidate.r.genderPos, finisherCount: keptCandidate.dist.finisherCount },
-              { bib: routedCandidate.r.bib, distance: routedCandidate.dist.name, genderPos: routedCandidate.r.genderPos, finisherCount: routedCandidate.dist.finisherCount },
+              { athleteId: 0, bib: keptCandidate.r.bib, distance: keptCandidate.dist.name, genderPos: keptCandidate.r.genderPos, finisherCount: keptCandidate.dist.finisherCount },
+              { athleteId: routedId, bib: routedCandidate.r.bib, distance: routedCandidate.dist.name, genderPos: routedCandidate.r.genderPos, finisherCount: routedCandidate.dist.finisherCount },
             ],
           });
           resolved = true;
@@ -583,12 +582,12 @@ function runPass5(ctx: PipelineCtx): { soloCount: number } {
                 const keptCandidate = diffA < diffB ? a : b;
                 const routedCandidate = diffA < diffB ? b : a;
                 mainCandidates.push(keptCandidate);
-                routeToBibKey(routedCandidate);
+                const routedIdPct = routeToBibKey(routedCandidate);
                 soloFlags.push({
                   groupKey, eventId: a.event.id, eventName: a.event.name, resolution: "percentile",
                   results: [
-                    { bib: keptCandidate.r.bib, distance: keptCandidate.dist.name, genderPos: keptCandidate.r.genderPos, finisherCount: keptCandidate.dist.finisherCount },
-                    { bib: routedCandidate.r.bib, distance: routedCandidate.dist.name, genderPos: routedCandidate.r.genderPos, finisherCount: routedCandidate.dist.finisherCount },
+                    { athleteId: 0, bib: keptCandidate.r.bib, distance: keptCandidate.dist.name, genderPos: keptCandidate.r.genderPos, finisherCount: keptCandidate.dist.finisherCount },
+                    { athleteId: routedIdPct, bib: routedCandidate.r.bib, distance: routedCandidate.dist.name, genderPos: routedCandidate.r.genderPos, finisherCount: routedCandidate.dist.finisherCount },
                   ],
                 });
                 resolved = true;
@@ -598,24 +597,24 @@ function runPass5(ctx: PipelineCtx): { soloCount: number } {
         }
 
         if (!resolved) {
-          routeToBibKey(a);
-          routeToBibKey(b);
+          const idA = routeToBibKey(a);
+          const idB = routeToBibKey(b);
           soloFlags.push({
             groupKey, eventId: a.event.id, eventName: a.event.name, resolution: "flagged_manual",
             results: [
-              { bib: a.r.bib, distance: a.dist.name, genderPos: a.r.genderPos, finisherCount: a.dist.finisherCount },
-              { bib: b.r.bib, distance: b.dist.name, genderPos: b.r.genderPos, finisherCount: b.dist.finisherCount },
+              { athleteId: idA, bib: a.r.bib, distance: a.dist.name, genderPos: a.r.genderPos, finisherCount: a.dist.finisherCount },
+              { athleteId: idB, bib: b.r.bib, distance: b.dist.name, genderPos: b.r.genderPos, finisherCount: b.dist.finisherCount },
             ],
           });
         }
       } else {
         // 3+ collision results for the same event — flag all
+        const colliderIds = colliders.map(c => routeToBibKey(c));
         soloFlags.push({
           groupKey, eventId: colliders[0]!.event.id, eventName: colliders[0]!.event.name,
           resolution: "flagged_manual",
-          results: colliders.map(c => ({ bib: c.r.bib, distance: c.dist.name, genderPos: c.r.genderPos, finisherCount: c.dist.finisherCount })),
+          results: colliders.map((c, i) => ({ athleteId: colliderIds[i]!, bib: c.r.bib, distance: c.dist.name, genderPos: c.r.genderPos, finisherCount: c.dist.finisherCount })),
         });
-        for (const c of colliders) routeToBibKey(c);
       }
     }
 
@@ -848,6 +847,7 @@ function runPass8(ctx: PipelineCtx): void {
     } else {
       crossPassFlags.push({
         soloKey,
+        soloAthleteId: soloEntry.id,
         soloName: soloEntry.name,
         teamCandidates: candidates.map(c => ({ athleteId: c.entry.id, canonicalTeam: c.entry.canonicalTeam })),
       });
@@ -955,7 +955,8 @@ export function buildAthletesIndex(
   loader: ResultsLoader,
   aliasRules: AthleteAliasRule[],
   assignments: ResultAssignment[],
-  idStore: AthleteIdStore = new Map()
+  idStore: AthleteIdStore = new Map(),
+  teamIdStore: Map<string, number> = new Map()
 ): {
   index: Map<string, AthleteEntry>;
   updatedIdStore: AthleteIdStore;
@@ -978,7 +979,7 @@ export function buildAthletesIndex(
   }
 
   const ctx: PipelineCtx = {
-    allResults, aliasRules, assignments, loader,
+    allResults, aliasRules, assignments, loader, teamIdStore,
     index: new Map(),
     assigned: new Set(),
     ids,

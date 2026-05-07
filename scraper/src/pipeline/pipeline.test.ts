@@ -11,6 +11,7 @@ import {
   type AthleteIdStore,
   type SoloCollisionFlag,
 } from "./pipeline.js";
+import { teamNormalKey } from "../normalize.js";
 import type {
   StoredEvent,
   StoredEventResults,
@@ -51,7 +52,22 @@ function runPipeline(
   events: StoredEvent[],
   loader: (id: number) => StoredEventResults | null
 ) {
-  return buildAthletesIndex(events, loader, [], [], new Map());
+  // Build a teamIdStore from fixture data using the real teamNormalKey normalizer
+  const teamIdStore = new Map<string, number>();
+  let nextId = 1;
+  for (const e of events) {
+    const res = loader(e.id);
+    if (!res) continue;
+    for (const dist of res.distances) {
+      for (const r of dist.results) {
+        if (!isSoloTeam(r.team)) {
+          const key = teamNormalKey(r.team);
+          if (key && !teamIdStore.has(key)) teamIdStore.set(key, nextId++);
+        }
+      }
+    }
+  }
+  return buildAthletesIndex(events, loader, [], [], new Map(), teamIdStore);
 }
 
 function mkTeamEvent(eventId: number, year: number, date: string, name: string, team: string, category: string, genderPos: number, distance = "Granfondo", country = "Portugal") {
@@ -101,28 +117,34 @@ describe("normalizeDistance", () => {
 // ── athleteKey / isSoloTeam ───────────────────────────────────────────────────
 
 describe("athleteKey", () => {
-  it("returns nameLower|teamNormalKey for affiliated athletes", () => {
-    expect(athleteKey("ana silva", "Team Alpha")).toBe("ana silva|team alpha");
+  const store = new Map([["team alpha", 10], ["cb almodovar", 20]]);
+
+  it("returns nameLower|teamId for affiliated athletes", () => {
+    expect(athleteKey("ana silva", "Team Alpha", store)).toBe("ana silva|10");
+  });
+
+  it("returns nameLower|0 for team not in store (unknown team)", () => {
+    expect(athleteKey("ana silva", "Unknown Club", store)).toBe("ana silva|0");
   });
 
   it("returns nameLower| for solo athletes (empty team, no category)", () => {
-    expect(athleteKey("ana silva", "")).toBe("ana silva|");
+    expect(athleteKey("ana silva", "", store)).toBe("ana silva|");
   });
 
   it("returns nameLower|solo:category for 'Individual' team with category", () => {
-    expect(athleteKey("ana silva", "Individual", "MASTERS B")).toBe("ana silva|solo:masters-b");
+    expect(athleteKey("ana silva", "Individual", store, "MASTERS B")).toBe("ana silva|solo:masters-b");
   });
 
   it("returns nameLower|solo:category for 'Indivídual' (accented) with category", () => {
-    expect(athleteKey("ana silva", "Indivídual", "MASTERS A")).toBe("ana silva|solo:masters-a");
+    expect(athleteKey("ana silva", "Indivídual", store, "MASTERS A")).toBe("ana silva|solo:masters-a");
   });
 
   it("returns nameLower| for 'Individual' team with no category", () => {
-    expect(athleteKey("ana silva", "Individual")).toBe("ana silva|");
+    expect(athleteKey("ana silva", "Individual", store)).toBe("ana silva|");
   });
 
-  it("normalizes team name (strips accents, merges single letters)", () => {
-    expect(athleteKey("test", "C.B. Almodovar")).toBe("test|cb almodovar");
+  it("normalizes team name before ID lookup", () => {
+    expect(athleteKey("test", "C.B. Almodovar", store)).toBe("test|20");
   });
 });
 
