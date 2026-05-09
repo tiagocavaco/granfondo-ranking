@@ -8,7 +8,6 @@ import {
   scrapeFigueiraChampionsDay,
   scrapeAgitagueda,
   scrapeApedalar5Quinas,
-  scrapeEtapaDaVolta,
 } from "./external.js";
 import { isPast } from "./normalize.js";
 import {
@@ -99,7 +98,6 @@ async function main() {
     { event: EXTERNAL_EVENTS[0]!, fn: scrapeFigueiraChampionsDay },
     { event: EXTERNAL_EVENTS[1]!, fn: scrapeAgitagueda },
     { event: EXTERNAL_EVENTS[2]!, fn: scrapeApedalar5Quinas },
-    { event: EXTERNAL_EVENTS[3]!, fn: scrapeEtapaDaVolta },
   ];
 
   for (const { event, fn } of externalScrapers) {

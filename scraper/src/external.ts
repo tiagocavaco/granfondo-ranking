@@ -50,20 +50,6 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     finisherCount: 0,
     scrapedAt: null,
   },
-  {
-    id: 90004,
-    name: "Etapa da Volta 2025",
-    year: 2025,
-    date: "2025-08-12",
-    location: "Viseu",
-    resultsUrl: "https://www.classificacoes.net/modalidades/ciclismo/18-etapa-da-volta-rtp#results",
-    officialUrl: null,
-    hasResults: false,
-    distances: [{ id: "1", name: "Mediofondo" }],
-    participantCount: 0,
-    finisherCount: 0,
-    scrapedAt: null,
-  },
 ];
 
 /** Upcoming events with no StopAndGo ID yet — shown in the events list but not scraped. */
@@ -111,20 +97,6 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
     scrapedAt: null,
   },
   {
-    id: 90014,
-    name: "Etapa da Volta 2026",
-    year: 2026,
-    date: "2026-08-11",
-    location: "Viseu",
-    resultsUrl: "https://www.classificacoes.net",
-    officialUrl: null,
-    hasResults: false,
-    distances: [{ id: "1", name: "Mediofondo" }],
-    participantCount: 0,
-    finisherCount: 0,
-    scrapedAt: null,
-  },
-  {
     id: 90015,
     name: "Granfondo Serra d'Ossa 2026",
     year: 2026,
@@ -157,5 +129,4 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
 export { scrapeFigueiraChampionsDay } from "./scrapers/lap2go.js";
 export { scrapeAgitagueda }          from "./scrapers/waitastart.js";
 export { scrapeApedalar5Quinas, scrapeApedalarParticipants, extractEscalaoOptions, escalaoToGender } from "./scrapers/apedalar.js";
-export { scrapeEtapaDaVolta }        from "./scrapers/classificacoes.js";
 export { scrapeListaParticipants }   from "./scrapers/stopandgo.js";
