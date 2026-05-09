@@ -82,7 +82,6 @@ export type AthleteEntry =
 
 // ── Aggregate ranking ─────────────────────────────────────────────────────────
 
-/** Stored as JSON inside aggregate_athletes.results_json — no schema row. */
 export interface AggregateResult {
   eventId:           number;
   eventName:         string;
@@ -95,11 +94,11 @@ export interface AggregateResult {
 }
 
 /**
- * Aggregate ranking row with parsed results and athleteId exposed as `id`.
+ * Aggregate ranking row with results joined from aggregate_results table.
  * Adding a column to `aggregate_athletes` automatically widens this type.
  */
 export type AggregateAthlete =
-  Omit<AggregateRow, "id" | "athleteId" | "year" | "distance" | "resultsJson"> & {
+  Omit<AggregateRow, "id" | "athleteId" | "year" | "distance"> & {
     id:      number;              // athleteId from DB
     results: AggregateResult[];
   };
@@ -114,7 +113,6 @@ export interface AggregateRanking {
 
 // ── Team ranking ──────────────────────────────────────────────────────────────
 
-/** Stored as JSON inside team_ranking.results_json — no schema row. */
 export interface TeamRaceAthlete {
   id:       number;
   name:     string;
@@ -124,7 +122,6 @@ export interface TeamRaceAthlete {
   category: string;
 }
 
-/** Stored as JSON inside team_ranking.results_json — no schema row. */
 export interface TeamRaceResult {
   eventId:       number;
   eventName:     string;
@@ -140,11 +137,11 @@ export interface TeamRaceResult {
 }
 
 /**
- * Team ranking row with parsed results.
+ * Team ranking row with results joined from team_race_results / team_race_athletes tables.
  * Adding a column to `team_ranking` automatically widens this type.
  */
 export type TeamEntry =
-  Omit<TeamRow, "id" | "year" | "distance" | "resultsJson"> & {
+  Omit<TeamRow, "id" | "year" | "distance"> & {
     teamKey?: string;  // canonical key — used internally by scraper, not persisted to DB
     results: TeamRaceResult[];
   };

@@ -158,7 +158,6 @@ export const aggregateAthletes = sqliteTable("aggregate_athletes", {
   totalPoints:  real("total_points").notNull().default(0),
   eventsScored: integer("events_scored").notNull().default(0),
   bestPos:      integer("best_pos").notNull().default(0),
-  resultsJson:  text("results_json").notNull().default("[]"),
 }, (t) => [
   index("idx_agg_slice").on(t.year, t.distance, t.gender, t.rank),
   index("idx_agg_athlete").on(t.athleteId),
@@ -174,9 +173,54 @@ export const teamRanking = sqliteTable("team_ranking", {
   totalPoints:  real("total_points").notNull().default(0),
   eventsScored: integer("events_scored").notNull().default(0),
   bestRank:     integer("best_rank").notNull().default(0),
-  resultsJson:  text("results_json").notNull().default("[]"),
 }, (t) => [
   index("idx_team_slice").on(t.year, t.distance, t.rank),
+]);
+
+export const teamRaceResults = sqliteTable("team_race_results", {
+  id:            integer("id").primaryKey({ autoIncrement: true }),
+  teamRankingId: integer("team_ranking_id").notNull().references(() => teamRanking.id, { onDelete: "cascade" }),
+  eventId:       integer("event_id").notNull(),
+  eventName:     text("event_name").notNull().default(""),
+  eventDate:     text("event_date").notNull().default(""),
+  totalTeams:    integer("total_teams").notNull().default(0),
+  eligibleTeams: integer("eligible_teams").notNull().default(0),
+  coefficient:   real("coefficient").notNull().default(0),
+  teamRank:      integer("team_rank").notNull().default(0),
+  basePoints:    real("base_points").notNull().default(0),
+  points:        real("points").notNull().default(0),
+  combinedScore: real("combined_score").notNull().default(0),
+}, (t) => [
+  index("idx_trr_ranking").on(t.teamRankingId),
+]);
+
+export const teamRaceAthletes = sqliteTable("team_race_athletes", {
+  id:               integer("id").primaryKey({ autoIncrement: true }),
+  teamRaceResultId: integer("team_race_result_id").notNull().references(() => teamRaceResults.id, { onDelete: "cascade" }),
+  athleteId:        integer("athlete_id").notNull().default(0),
+  name:             text("name").notNull().default(""),
+  pos:              integer("pos").notNull().default(0),
+  scoring:          integer("scoring").notNull().default(0),
+  country:          text("country").notNull().default(""),
+  category:         text("category").notNull().default(""),
+}, (t) => [
+  index("idx_tra_result").on(t.teamRaceResultId),
+  index("idx_tra_athlete").on(t.athleteId),
+]);
+
+export const aggregateResults = sqliteTable("aggregate_results", {
+  id:                 integer("id").primaryKey({ autoIncrement: true }),
+  aggregateAthleteId: integer("aggregate_athlete_id").notNull().references(() => aggregateAthletes.id, { onDelete: "cascade" }),
+  eventId:            integer("event_id").notNull(),
+  eventName:          text("event_name").notNull().default(""),
+  eventDate:          text("event_date").notNull().default(""),
+  distanceFinishers:  integer("distance_finishers").notNull().default(0),
+  coefficient:        real("coefficient").notNull().default(0),
+  pos:                integer("pos").notNull().default(0),
+  basePoints:         real("base_points").notNull().default(0),
+  points:             real("points").notNull().default(0),
+}, (t) => [
+  index("idx_ar_athlete").on(t.aggregateAthleteId),
 ]);
 
 export const stats = sqliteTable("stats", {

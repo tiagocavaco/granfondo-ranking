@@ -254,7 +254,7 @@ function insertRankings(db: ReturnType<typeof drizzle>, data: AllScrapedData, te
     for (const [distance, genders] of Object.entries(distances)) {
       for (const [gender, athletes] of Object.entries(genders)) {
         for (const a of athletes) {
-          db.insert(schema.aggregateAthletes).values({
+          const aggRun = db.insert(schema.aggregateAthletes).values({
             year:         Number(year),
             distance,
             gender,
@@ -266,8 +266,22 @@ function insertRankings(db: ReturnType<typeof drizzle>, data: AllScrapedData, te
             totalPoints:  a.totalPoints,
             eventsScored: a.eventsScored,
             bestPos:      a.bestPos,
-            resultsJson:  JSON.stringify(a.results),
-          }).run();
+          }).run() as unknown as { lastInsertRowid: bigint };
+
+          const aggId = Number(aggRun.lastInsertRowid);
+          for (const r of a.results) {
+            db.insert(schema.aggregateResults).values({
+              aggregateAthleteId: aggId,
+              eventId:            r.eventId,
+              eventName:          r.eventName,
+              eventDate:          r.eventDate,
+              distanceFinishers:  r.distanceFinishers,
+              coefficient:        r.coefficient,
+              pos:                r.pos,
+              basePoints:         r.basePoints,
+              points:             r.points,
+            }).run();
+          }
         }
       }
     }
@@ -276,7 +290,7 @@ function insertRankings(db: ReturnType<typeof drizzle>, data: AllScrapedData, te
   for (const [year, distances] of Object.entries(data.teamRanking)) {
     for (const [distance, teams] of Object.entries(distances)) {
       for (const t of teams) {
-        db.insert(schema.teamRanking).values({
+        const teamRun = db.insert(schema.teamRanking).values({
           year:         Number(year),
           distance,
           rank:         t.rank,
@@ -285,8 +299,37 @@ function insertRankings(db: ReturnType<typeof drizzle>, data: AllScrapedData, te
           totalPoints:  t.totalPoints,
           eventsScored: t.eventsScored,
           bestRank:     t.bestRank,
-          resultsJson:  JSON.stringify(t.results),
-        }).run();
+        }).run() as unknown as { lastInsertRowid: bigint };
+
+        const teamRankId = Number(teamRun.lastInsertRowid);
+        for (const r of t.results) {
+          const raceRun = db.insert(schema.teamRaceResults).values({
+            teamRankingId: teamRankId,
+            eventId:       r.eventId,
+            eventName:     r.eventName,
+            eventDate:     r.eventDate,
+            totalTeams:    r.totalTeams,
+            eligibleTeams: r.eligibleTeams,
+            coefficient:   r.coefficient,
+            teamRank:      r.teamRank,
+            basePoints:    r.basePoints,
+            points:        r.points,
+            combinedScore: r.combinedScore,
+          }).run() as unknown as { lastInsertRowid: bigint };
+
+          const raceId = Number(raceRun.lastInsertRowid);
+          for (const a of r.athletes) {
+            db.insert(schema.teamRaceAthletes).values({
+              teamRaceResultId: raceId,
+              athleteId:        a.id,
+              name:             a.name,
+              pos:              a.pos,
+              scoring:          a.scoring ? 1 : 0,
+              country:          a.country,
+              category:         a.category,
+            }).run();
+          }
+        }
       }
     }
   }
@@ -331,8 +374,18 @@ function pruneGhostAthletes(sqlite: BetterSqlite3.Database): void {
   // two profiles and the discarded ID was written to lookup/ranking tables.
   sqlite.prepare("DELETE FROM athlete_lookup     WHERE athlete_id NOT IN (SELECT id FROM athletes)").run();
   sqlite.prepare("DELETE FROM aggregate_athletes WHERE athlete_id NOT IN (SELECT id FROM athletes)").run();
-  sqlite.prepare("UPDATE results      SET athlete_id = 0 WHERE athlete_id != 0 AND athlete_id NOT IN (SELECT id FROM athletes)").run();
-  sqlite.prepare("UPDATE participants SET athlete_id = 0 WHERE athlete_id != 0 AND athlete_id NOT IN (SELECT id FROM athletes)").run();
+  sqlite.prepare("UPDATE results            SET athlete_id = 0 WHERE athlete_id != 0 AND athlete_id NOT IN (SELECT id FROM athletes)").run();
+  sqlite.prepare("UPDATE participants       SET athlete_id = 0 WHERE athlete_id != 0 AND athlete_id NOT IN (SELECT id FROM athletes)").run();
+  sqlite.prepare("UPDATE team_race_athletes SET athlete_id = 0 WHERE athlete_id != 0 AND athlete_id NOT IN (SELECT id FROM athletes)").run();
+
+  // Remove lookup keys referencing a team ID that no longer exists — stale entries
+  // from teams that were merged away during the pipeline.
+  sqlite.prepare(`
+    DELETE FROM athlete_lookup
+    WHERE SUBSTR(key, INSTR(key, '|') + 1) GLOB '[0-9]*'
+      AND CAST(SUBSTR(key, INSTR(key, '|') + 1) AS INTEGER) > 0
+      AND CAST(SUBSTR(key, INSTR(key, '|') + 1) AS INTEGER) NOT IN (SELECT id FROM teams)
+  `).run();
 }
 
 

@@ -10,8 +10,11 @@ import type {
   StoredParticipant,
   AggregateRanking,
   AggregateAthlete,
+  AggregateResult,
   TeamRanking,
   TeamEntry,
+  TeamRaceResult,
+  TeamRaceAthlete,
   AthleteEntry,
   AthleteResultRef,
 } from "@granfondo/database/types";
@@ -175,6 +178,22 @@ export const api = {
       )
       .all();
 
+    const arRows = db.select().from(schema.aggregateResults).all();
+    const resultsByAthlete = new Map<number, AggregateResult[]>();
+    for (const ar of arRows) {
+      if (!resultsByAthlete.has(ar.aggregateAthleteId)) resultsByAthlete.set(ar.aggregateAthleteId, []);
+      resultsByAthlete.get(ar.aggregateAthleteId)!.push({
+        eventId:           ar.eventId,
+        eventName:         ar.eventName,
+        eventDate:         ar.eventDate,
+        distanceFinishers: ar.distanceFinishers,
+        coefficient:       ar.coefficient,
+        pos:               ar.pos,
+        basePoints:        ar.basePoints,
+        points:            ar.points,
+      });
+    }
+
     const ranking: AggregateRanking = {};
     for (const row of rows) {
       const y = String(row.year);
@@ -192,7 +211,7 @@ export const api = {
         totalPoints:  row.totalPoints,
         eventsScored: row.eventsScored,
         bestPos:      row.bestPos,
-        results:      safeJsonArray(row.resultsJson),
+        results:      resultsByAthlete.get(row.id) ?? [],
       };
       ranking[y][row.distance][row.gender].push(athlete);
     }
@@ -209,6 +228,40 @@ export const api = {
       )
       .all();
 
+    const trrRows = db.select().from(schema.teamRaceResults).all();
+    const traRows = db.select().from(schema.teamRaceAthletes).all();
+
+    const athletesByResult = new Map<number, TeamRaceAthlete[]>();
+    for (const tra of traRows) {
+      if (!athletesByResult.has(tra.teamRaceResultId)) athletesByResult.set(tra.teamRaceResultId, []);
+      athletesByResult.get(tra.teamRaceResultId)!.push({
+        id:       tra.athleteId,
+        name:     tra.name,
+        pos:      tra.pos,
+        scoring:  Boolean(tra.scoring),
+        country:  tra.country,
+        category: tra.category,
+      });
+    }
+
+    const resultsByRanking = new Map<number, TeamRaceResult[]>();
+    for (const trr of trrRows) {
+      if (!resultsByRanking.has(trr.teamRankingId)) resultsByRanking.set(trr.teamRankingId, []);
+      resultsByRanking.get(trr.teamRankingId)!.push({
+        eventId:       trr.eventId,
+        eventName:     trr.eventName,
+        eventDate:     trr.eventDate,
+        totalTeams:    trr.totalTeams,
+        eligibleTeams: trr.eligibleTeams,
+        coefficient:   trr.coefficient,
+        teamRank:      trr.teamRank,
+        basePoints:    trr.basePoints,
+        points:        trr.points,
+        combinedScore: trr.combinedScore,
+        athletes:      athletesByResult.get(trr.id) ?? [],
+      });
+    }
+
     const ranking: TeamRanking = {};
     for (const row of rows) {
       const y = String(row.year);
@@ -222,7 +275,7 @@ export const api = {
         totalPoints:  row.totalPoints,
         eventsScored: row.eventsScored,
         bestRank:     row.bestRank,
-        results:      safeJsonArray(row.resultsJson),
+        results:      resultsByRanking.get(row.id) ?? [],
       };
       ranking[y][row.distance].push(entry);
     }
