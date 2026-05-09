@@ -106,7 +106,10 @@ export const api = {
           eq(schema.results.eventId, id),
           eq(schema.results.distanceId, dist.distanceId),
         ))
-        .orderBy(asc(schema.results.pos))
+        .orderBy(
+          sql`CASE WHEN ${schema.results.dnf} = 1 OR ${schema.results.dns} = 1 THEN 1 ELSE 0 END`,
+          asc(schema.results.pos),
+        )
         .all();
 
       const resultIds = resultRows.map((r) => r.id);
