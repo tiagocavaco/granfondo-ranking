@@ -6,7 +6,7 @@
  * FTS5 virtual tables are not supported by Drizzle and live in db-writer.ts.
  */
 
-import { sqliteTable, text, integer, real, primaryKey, index } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, real, primaryKey, index, uniqueIndex } from "drizzle-orm/sqlite-core";
 import { sql } from "drizzle-orm";
 
 export const events = sqliteTable("events", {
@@ -132,6 +132,7 @@ export const athleteResults = sqliteTable("athlete_results", {
   dns:           integer("dns").notNull().default(0),
 }, (t) => [
   index("idx_athlete_results_athlete").on(t.athleteId),
+  uniqueIndex("uq_athlete_results_race").on(t.athleteId, t.eventId, t.distance),
 ]);
 
 export const athleteLookup = sqliteTable("athlete_lookup", {
@@ -161,6 +162,7 @@ export const aggregateAthletes = sqliteTable("aggregate_athletes", {
 }, (t) => [
   index("idx_agg_slice").on(t.year, t.distance, t.gender, t.rank),
   index("idx_agg_athlete").on(t.athleteId),
+  uniqueIndex("uq_agg_athlete_slice").on(t.year, t.distance, t.gender, t.athleteId),
 ]);
 
 export const teamRanking = sqliteTable("team_ranking", {
