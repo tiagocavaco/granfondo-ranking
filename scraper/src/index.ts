@@ -19,7 +19,7 @@ import { buildAthletesIndex } from "./pipeline/pipeline.js";
 import { injectAthleteIds } from "./pipeline/inject.js";
 import { resolveParticipantAthleteIds } from "./pipeline/participants.js";
 import { buildAggregateRanking, buildTeamRanking } from "./pipeline/ranking.js";
-import { YEARS, LISTA_URLS, REGISTRATIONS_URLS, APEDALAR_PARTICIPANT_URLS } from "./config.js";
+import { YEARS, LISTA_URLS, REGISTRATIONS_URLS, APEDALAR_PARTICIPANT_URLS, normalizeEventName } from "./config.js";
 import { DATA_DIR } from "./paths.js";
 import { normalizeName, teamNormalKey, isSoloTeam } from "./normalize.js";
 import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadTeamAliases, loadAthleteAliases, loadResultAssignments, loadTeamIdStore } from "./db/db-loader.js";
@@ -171,6 +171,10 @@ async function main() {
 
   const withResults = scraped.filter((e) => e.hasResults).length;
   console.log(`\n✓ ${scraped.length} events, ${withResults} with results`);
+
+  // Normalise event names (canonical map + fallback title-caser for all-caps names)
+  for (const event of scraped) event.name = normalizeEventName(event.id, event.name);
+  for (const [eventId, evResults] of allResults) evResults.eventName = normalizeEventName(eventId, evResults.eventName);
 
   // 4. Build athletes index
   console.log("🔨 Building athletes index…");

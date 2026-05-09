@@ -7,6 +7,47 @@
 
 export const YEARS = [2025, 2026]; // seasons to include in scrape and rankings
 
+/**
+ * Canonical display names for events whose names from the StopAndGo API are
+ * wrong (all-caps, typo, abbreviation, missing accent, trailing whitespace).
+ * Applied at DB write time so they propagate to all tables on every scrape.
+ * Extend here when new events have bad names.
+ */
+export const CANONICAL_EVENT_NAMES: Record<number, string> = {
+  1390: "Viana Granfondo 2025",
+  1505: "São Mamede Granfondo 2025",
+  1553: "Monção e Melgaço Granfondo 2025",
+  1590: "Granfondo Coimbra Region 2025",
+  1592: "Time Trial Granfondo Coimbra Region 2025",
+  1612: "Tavira Granfondo 2025",
+  1681: "Granfondo Médio Tejo 2025",           // typo: "Grandfondo"
+  1692: "Granfondo Terras de Basto 2025",
+  1720: "Viana Granfondo by KTM 2026",
+  1780: "Granfondo Serra d'Ossa 2025",
+  1798: "São Mamede Granfondo 2026",
+  1801: "Granfondo Portimão 2025",             // trailing space + remove "de"
+  1828: "Ourém-Fátima Granfondo 2026",         // missing accent + hyphen
+  1942: "Tavira Granfondo 2026",
+  1943: "Monção e Melgaço Granfondo 2026",
+  1977: "Granfondo Médio Tejo 2026",           // typo: "Grandfondo"
+};
+
+const SMALL_WORDS = new Set(["de", "da", "do", "dos", "das", "e", "em", "no", "na", "nos", "nas", "por", "com", "para", "by", "the", "of"]);
+
+function titleCaseEvent(name: string): string {
+  return name.toLowerCase().split(" ").map((word, i) =>
+    (i > 0 && SMALL_WORDS.has(word)) ? word : word.charAt(0).toUpperCase() + word.slice(1)
+  ).join(" ");
+}
+
+/** Normalise an event name: canonical map first, then trim + title-case (all-caps only) + GF→Granfondo. */
+export function normalizeEventName(id: number, name: string): string {
+  if (id in CANONICAL_EVENT_NAMES) return CANONICAL_EVENT_NAMES[id]!;
+  name = name.trim();
+  if (name === name.toUpperCase()) name = titleCaseEvent(name);
+  return name.replace(/\bGF\b/gi, "Granfondo");
+}
+
 /** Normalized names used as placeholders by race organizers — never create athlete profiles for these. */
 export const PLACEHOLDER_NAMES = new Set(["novo dorsal", "novo inscrito", "atleta teste"]);
 export const DELAY_MS = 400;       // polite delay between API requests (ms)
