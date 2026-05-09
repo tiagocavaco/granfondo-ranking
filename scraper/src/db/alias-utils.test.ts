@@ -84,6 +84,28 @@ describe("rewriteLookupKeysForAlias", () => {
     sqlite.close();
   });
 
+  it("keeps the lower athlete_id when collision occurs (source wins)", () => {
+    const sqlite = makeDb();
+    ins(sqlite, "joao silva|5", 3);   // source, lower id → should win
+    ins(sqlite, "joao silva|10", 99); // target, higher id → replaced
+    rewriteLookupKeysForAlias(sqlite, 5, 10);
+    expect(keys(sqlite)).toEqual(["joao silva|10"]);
+    const row = sqlite.prepare("SELECT athlete_id FROM athlete_lookup WHERE key = 'joao silva|10'").get() as { athlete_id: number };
+    expect(row.athlete_id).toBe(3);
+    sqlite.close();
+  });
+
+  it("keeps the lower athlete_id when collision occurs (target wins)", () => {
+    const sqlite = makeDb();
+    ins(sqlite, "joao silva|5", 99);  // source, higher id → dropped
+    ins(sqlite, "joao silva|10", 3);  // target, lower id → kept
+    rewriteLookupKeysForAlias(sqlite, 5, 10);
+    expect(keys(sqlite)).toEqual(["joao silva|10"]);
+    const row = sqlite.prepare("SELECT athlete_id FROM athlete_lookup WHERE key = 'joao silva|10'").get() as { athlete_id: number };
+    expect(row.athlete_id).toBe(3);
+    sqlite.close();
+  });
+
   it("is a no-op when fromTeamId equals toTeamId", () => {
     const sqlite = makeDb();
     ins(sqlite, "ana|5", 1);

@@ -221,10 +221,12 @@ function buildTeamIds(data: AllScrapedData): Map<string, number> {
     }
   }
 
-  const ids = new Map(data.teamIdStore);
-  let nextId = ids.size > 0 ? Math.max(...ids.values()) + 1 : 1;
+  // Only include teams that have athletes — avoids ghost rows for aliased-away canonical keys.
+  const maxExisting = data.teamIdStore.size > 0 ? Math.max(...data.teamIdStore.values()) : 0;
+  let nextId = maxExisting + 1;
+  const ids = new Map<string, number>();
   for (const key of canonicalKeys) {
-    if (!ids.has(key)) ids.set(key, nextId++);
+    ids.set(key, data.teamIdStore.get(key) ?? nextId++);
   }
   return ids;
 }
@@ -324,5 +326,13 @@ function pruneGhostAthletes(sqlite: BetterSqlite3.Database): void {
   sqlite.prepare(`DELETE FROM athlete_categories WHERE athlete_id IN (${ghosts})`).run();
   sqlite.prepare(`DELETE FROM athlete_lookup     WHERE athlete_id IN (${ghosts})`).run();
   sqlite.prepare(`DELETE FROM athletes           WHERE id         IN (${ghosts})`).run();
+
+  // Remove dangling athlete_id references that can occur when the pipeline merges
+  // two profiles and the discarded ID was written to lookup/ranking tables.
+  sqlite.prepare("DELETE FROM athlete_lookup     WHERE athlete_id NOT IN (SELECT id FROM athletes)").run();
+  sqlite.prepare("DELETE FROM aggregate_athletes WHERE athlete_id NOT IN (SELECT id FROM athletes)").run();
+  sqlite.prepare("UPDATE results      SET athlete_id = 0 WHERE athlete_id != 0 AND athlete_id NOT IN (SELECT id FROM athletes)").run();
+  sqlite.prepare("UPDATE participants SET athlete_id = 0 WHERE athlete_id != 0 AND athlete_id NOT IN (SELECT id FROM athletes)").run();
 }
+
 
