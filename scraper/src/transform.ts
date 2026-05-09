@@ -56,6 +56,25 @@ export function assignGenderPositions(distances: StoredDistanceResults[]): void 
   }
 }
 
+/** Fill gap/gapSecs for results where gap is missing but raceTimeSecs is present.
+ *  Safe to call on events that already have gaps — skips rows where gap !== "". */
+export function computeGaps(distances: StoredDistanceResults[]): void {
+  for (const dist of distances) {
+    const winner = dist.results.find((r) => r.pos === 1 && !r.dnf && !r.dns);
+    if (!winner || winner.raceTimeSecs === 0) continue;
+    for (const r of dist.results) {
+      if (r.gap !== "" || r.dnf || r.dns || r.raceTimeSecs === 0) continue;
+      const gapSecs = r.raceTimeSecs - winner.raceTimeSecs;
+      if (gapSecs < 0) continue;
+      r.gapSecs = gapSecs;
+      const h = Math.floor(gapSecs / 3600);
+      const m = Math.floor((gapSecs % 3600) / 60);
+      const s = Math.floor(gapSecs % 60);
+      r.gap = `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+  }
+}
+
 export function assignCategoryPositions(distances: StoredDistanceResults[]): void {
   for (const dist of distances) {
     const byCategory = new Map<string, typeof dist.results>();

@@ -14,6 +14,7 @@ import { isPast } from "./normalize.js";
 import {
   assignGenderPositions,
   assignCategoryPositions,
+  computeGaps,
 } from "./transform.js";
 import { buildAthletesIndex } from "./pipeline/pipeline.js";
 import { injectAthleteIds } from "./pipeline/inject.js";
@@ -172,9 +173,13 @@ async function main() {
   const withResults = scraped.filter((e) => e.hasResults).length;
   console.log(`\n✓ ${scraped.length} events, ${withResults} with results`);
 
-  // Normalise event names (canonical map + fallback title-caser for all-caps names)
+  // Normalise event names and fill missing gaps — applied to all events including
+  // cached ones so the DB is consistent regardless of which events were re-scraped.
   for (const event of scraped) event.name = normalizeEventName(event.id, event.name);
-  for (const [eventId, evResults] of allResults) evResults.eventName = normalizeEventName(eventId, evResults.eventName);
+  for (const [eventId, evResults] of allResults) {
+    evResults.eventName = normalizeEventName(eventId, evResults.eventName);
+    computeGaps(evResults.distances);
+  }
 
   // 4. Build athletes index
   console.log("🔨 Building athletes index…");
