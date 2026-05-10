@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import { resolveTeamId } from "../utils/lookups";
@@ -229,31 +229,38 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   )}
                 </td>
                 <td className="px-4 py-3 font-mono text-xs text-slate-400 hidden sm:table-cell">{r.bib}</td>
-                <td
-                  className="px-4 py-3 w-full max-w-0 overflow-hidden cursor-pointer"
-                  onClick={() => { if (r.athleteId) navigate(`/athlete/${r.athleteId}`); }}
-                >
-                  <div className="font-semibold text-slate-900 hover:text-blue-600 transition-colors truncate">
-                    <span className="mr-1.5 text-base" title={r.country}>{countryFlag(r.country)}</span>{r.name}
-                  </div>
-                  {r.team && (
-                    <div
-                      className={`text-xs text-slate-400 truncate mt-0.5 md:hidden ${!SOLO_TEAM_KEYS.has(normalizeTeam(r.team)) ? "hover:text-blue-600 transition-colors" : ""}`}
-                      onClick={(e) => { if (!SOLO_TEAM_KEYS.has(normalizeTeam(r.team))) { e.stopPropagation(); const id = resolveTeamId(r.team); if (id !== undefined) navigate(`/team/${id}`); } }}
-                    >
-                      {r.team}
+                <td className="px-4 py-3 w-full max-w-0 overflow-hidden">
+                  {r.athleteId ? (
+                    <Link to={`/athlete/${r.athleteId}`} className="block font-semibold text-slate-900 hover:text-blue-600 transition-colors truncate">
+                      <span className="mr-1.5 text-base" title={r.country}>{countryFlag(r.country)}</span>{r.name}
+                    </Link>
+                  ) : (
+                    <div className="font-semibold text-slate-900 truncate">
+                      <span className="mr-1.5 text-base" title={r.country}>{countryFlag(r.country)}</span>{r.name}
                     </div>
                   )}
+                  {r.team && (() => {
+                    const teamId = !SOLO_TEAM_KEYS.has(normalizeTeam(r.team)) ? resolveTeamId(r.team) : undefined;
+                    return teamId !== undefined ? (
+                      <Link to={`/team/${teamId}`} className="block text-xs text-slate-400 truncate mt-0.5 md:hidden hover:text-blue-600 transition-colors">
+                        {r.team}
+                      </Link>
+                    ) : (
+                      <div className="text-xs text-slate-400 truncate mt-0.5 md:hidden">{r.team}</div>
+                    );
+                  })()}
                 </td>
                 <td className="px-4 py-3 text-xs hidden md:table-cell whitespace-nowrap">
-                  {r.team ? (
-                    <span
-                      className={`text-slate-500 ${!SOLO_TEAM_KEYS.has(normalizeTeam(r.team)) ? "hover:text-blue-600 transition-colors cursor-pointer" : ""}`}
-                      onClick={() => { if (!SOLO_TEAM_KEYS.has(normalizeTeam(r.team))) { const id = resolveTeamId(r.team); if (id !== undefined) navigate(`/team/${id}`); } }}
-                    >
-                      {r.team}
-                    </span>
-                  ) : null}
+                  {r.team && (() => {
+                    const teamId = !SOLO_TEAM_KEYS.has(normalizeTeam(r.team)) ? resolveTeamId(r.team) : undefined;
+                    return teamId !== undefined ? (
+                      <Link to={`/team/${teamId}`} className="text-slate-500 hover:text-blue-600 transition-colors">
+                        {r.team}
+                      </Link>
+                    ) : (
+                      <span className="text-slate-500">{r.team}</span>
+                    );
+                  })()}
                 </td>
                 <td className="px-4 py-3 text-xs hidden sm:table-cell">
                   {(() => {

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import type { StoredEvent } from "@granfondo/database/types";
 import { distBadgeClass } from "../utils/distance";
 
@@ -7,7 +7,6 @@ interface Props {
 }
 
 export default function EventCard({ event }: Props) {
-  const navigate = useNavigate();
   const isPast = new Date(event.date + "T12:00:00") < new Date();
   const date = new Date(event.date + "T12:00:00");
   const formatted = date.toLocaleDateString("en-GB", {
@@ -17,9 +16,9 @@ export default function EventCard({ event }: Props) {
   });
 
   return (
-    <div
-      onClick={() => navigate(`/event/${event.id}`)}
-      className="bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer card-hover group overflow-hidden relative"
+    <Link
+      to={`/event/${event.id}`}
+      className="bg-white rounded-2xl border border-slate-200 p-5 card-hover group overflow-hidden relative block"
     >
       {/* Accent bar */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl" />
@@ -98,6 +97,6 @@ export default function EventCard({ event }: Props) {
           </a>
         )}
       </div>
-    </div>
+    </Link>
   );
 }

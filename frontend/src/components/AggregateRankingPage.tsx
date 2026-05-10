@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import { resolveTeamId } from "../utils/lookups";
@@ -47,7 +47,6 @@ function RankBadge({ rank }: { rank: number }) {
 }
 
 export default function AggregateRankingPage() {
-  const navigate = useNavigate();
   const [data, setData] = useState<AggregateRanking | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -200,11 +199,11 @@ export default function AggregateRankingPage() {
               {[topThree[1], topThree[0], topThree[2]].map((a, podiumIdx) => {
                 const realRank = a.rank;
                 const isFirst = realRank === 1;
+                const podiumTeamId = a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team)) ? resolveTeamId(a.team) : undefined;
                 return (
                   <div
                     key={a.id}
-                    onClick={() => navigate(`/athlete/${a.id}`)}
-                    className={`rounded-2xl p-3 sm:p-5 text-center relative overflow-hidden border cursor-pointer ${
+                    className={`rounded-2xl p-3 sm:p-5 text-center relative overflow-hidden border ${
                       isFirst
                         ? "bg-gradient-to-b from-amber-50 to-white border-amber-200 shadow-md hover:shadow-lg"
                         : podiumIdx === 0
@@ -212,28 +211,33 @@ export default function AggregateRankingPage() {
                         : "bg-gradient-to-b from-orange-50 to-white border-orange-200 hover:border-orange-300"
                     } ${isFirst ? "mt-0" : "mt-4"} transition-shadow`}
                   >
-                    <div className="text-2xl sm:text-4xl mb-1 sm:mb-2">
-                      {realRank === 1 ? "🥇" : realRank === 2 ? "🥈" : "🥉"}
-                    </div>
-                    <div className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-1 line-clamp-2">
-                      <span className="mr-1" title={a.country}>{countryFlag(a.country)}</span>{a.name}
-                    </div>
-                    {(() => { const isTeam = a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team)); return (
-                    <div
-                      className={`text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block ${isTeam ? "hover:text-blue-600 transition-colors cursor-pointer" : ""}`}
-                      onClick={() => { if (isTeam) { const id = resolveTeamId(a.team); if (id !== undefined) navigate(`/team/${id}`); } }}
-                    >{a.team}</div>
-                    ); })()}
-                    <div
-                      className={`text-lg sm:text-2xl font-black ${
-                        isFirst ? "text-amber-600" : "text-slate-700"
-                      }`}
-                    >
-                      {a.totalPoints}
-                    </div>
-                    <div className="text-[10px] sm:text-[11px] text-slate-400 font-medium">pts</div>
-                    <div className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 hidden sm:block">
-                      {a.eventsScored} races · best #{a.bestPos}
+                    <Link to={`/athlete/${a.id}`} className="absolute inset-0" aria-label={a.name} />
+                    <div className="relative">
+                      <div className="text-2xl sm:text-4xl mb-1 sm:mb-2">
+                        {realRank === 1 ? "🥇" : realRank === 2 ? "🥈" : "🥉"}
+                      </div>
+                      <div className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-1 line-clamp-2">
+                        <span className="mr-1" title={a.country}>{countryFlag(a.country)}</span>{a.name}
+                      </div>
+                      {podiumTeamId !== undefined ? (
+                        <Link
+                          to={`/team/${podiumTeamId}`}
+                          className="text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block hover:text-blue-600 transition-colors"
+                        >{a.team}</Link>
+                      ) : (
+                        <div className="text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block">{a.team}</div>
+                      )}
+                      <div
+                        className={`text-lg sm:text-2xl font-black ${
+                          isFirst ? "text-amber-600" : "text-slate-700"
+                        }`}
+                      >
+                        {a.totalPoints}
+                      </div>
+                      <div className="text-[10px] sm:text-[11px] text-slate-400 font-medium">pts</div>
+                      <div className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 hidden sm:block">
+                        {a.eventsScored} races · best #{a.bestPos}
+                      </div>
                     </div>
                   </div>
                 );
@@ -276,28 +280,35 @@ export default function AggregateRankingPage() {
                         <RankBadge rank={a.rank} />
                       </td>
                       <td className="px-2 sm:px-4 py-3 w-full max-w-0 overflow-hidden">
-                        <span
-                          className="font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
-                          onClick={(e) => { e.stopPropagation(); navigate(`/athlete/${a.id}`); }}
+                        <Link
+                          to={`/athlete/${a.id}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="font-semibold text-slate-900 hover:text-blue-600 transition-colors"
                         >
                           <span className="mr-1.5" title={a.country}>{countryFlag(a.country)}</span>{a.name}
-                        </span>
-                        <div className="text-xs text-slate-400 lg:hidden mt-0.5 truncate">
-                          {(() => { const isTeam = a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team)); return (
-                          <span
-                            className={isTeam ? "hover:text-blue-600 transition-colors cursor-pointer" : ""}
-                            onClick={(e) => { if (isTeam) { e.stopPropagation(); { const id = resolveTeamId(a.team); if (id !== undefined) navigate(`/team/${id}`); }; } }}
-                          >{a.team}</span>
-                          ); })()}
-                        </div>
+                        </Link>
+                        {(() => {
+                          const teamId = a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team)) ? resolveTeamId(a.team) : undefined;
+                          return (
+                            <div className="text-xs text-slate-400 lg:hidden mt-0.5 truncate">
+                              {teamId !== undefined ? (
+                                <Link to={`/team/${teamId}`} onClick={(e) => e.stopPropagation()} className="hover:text-blue-600 transition-colors">{a.team}</Link>
+                              ) : (
+                                <span>{a.team}</span>
+                              )}
+                            </div>
+                          );
+                        })()}
                       </td>
                       <td className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell whitespace-nowrap">
-                        {(() => { const isTeam = a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team)); return (
-                        <span
-                          className={isTeam ? "hover:text-blue-600 transition-colors cursor-pointer" : ""}
-                          onClick={(e) => { if (isTeam) { e.stopPropagation(); { const id = resolveTeamId(a.team); if (id !== undefined) navigate(`/team/${id}`); }; } }}
-                        >{a.team}</span>
-                        ); })()}
+                        {(() => {
+                          const teamId = a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team)) ? resolveTeamId(a.team) : undefined;
+                          return teamId !== undefined ? (
+                            <Link to={`/team/${teamId}`} onClick={(e) => e.stopPropagation()} className="hover:text-blue-600 transition-colors">{a.team}</Link>
+                          ) : (
+                            <span>{a.team}</span>
+                          );
+                        })()}
                       </td>
                       <td className="px-4 py-3 text-center text-slate-600 font-medium hidden sm:table-cell">
                         {a.eventsScored}

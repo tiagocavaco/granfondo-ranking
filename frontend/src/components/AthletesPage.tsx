@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { api } from "../api";
 import { Spinner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";
@@ -7,7 +7,6 @@ import { countryFlag } from "@granfondo/database/normalize";
 type AthleteRow = { id: number; name: string; canonicalTeam: string | null; resultCount: number; country: string };
 
 export default function AthletesPage() {
-  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<AthleteRow[]>([]);
   const [topAthletes, setTopAthletes] = useState<AthleteRow[]>([]);
@@ -90,23 +89,24 @@ export default function AthletesPage() {
           <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
             <ul className="divide-y divide-slate-100">
               {displayList.map((a) => (
-                <li
-                  key={a.id}
-                  onClick={() => navigate(`/athlete/${a.id}`)}
-                  className="flex items-center justify-between px-5 py-3.5 cursor-pointer hover:bg-blue-50/50 transition-colors group"
-                >
-                  <div className="min-w-0">
-                    <div className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors truncate flex items-center gap-1.5">
-                      {a.country && <span className="text-sm shrink-0">{countryFlag(a.country)}</span>}
-                      {a.name}
+                <li key={a.id} className="group">
+                  <Link
+                    to={`/athlete/${a.id}`}
+                    className="flex items-center justify-between px-5 py-3.5 hover:bg-blue-50/50 transition-colors"
+                  >
+                    <div className="min-w-0">
+                      <div className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors truncate flex items-center gap-1.5">
+                        {a.country && <span className="text-sm shrink-0">{countryFlag(a.country)}</span>}
+                        {a.name}
+                      </div>
+                      {a.canonicalTeam && (
+                        <div className="text-xs text-slate-500 truncate mt-0.5">{a.canonicalTeam}</div>
+                      )}
                     </div>
-                    {a.canonicalTeam && (
-                      <div className="text-xs text-slate-500 truncate mt-0.5">{a.canonicalTeam}</div>
-                    )}
-                  </div>
-                  <div className="shrink-0 ml-4 text-xs font-semibold text-slate-400">
-                    {a.resultCount} {a.resultCount === 1 ? "race" : "races"}
-                  </div>
+                    <div className="shrink-0 ml-4 text-xs font-semibold text-slate-400">
+                      {a.resultCount} {a.resultCount === 1 ? "race" : "races"}
+                    </div>
+                  </Link>
                 </li>
               ))}
             </ul>
