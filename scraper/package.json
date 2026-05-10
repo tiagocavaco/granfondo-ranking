@@ -6,6 +6,8 @@
   "scripts": {
     "decrypt-db": "tsx src/db/decrypt-db.ts",
     "db:manage": "tsx src/db/manage-db.ts",
+    "db:check-team-orphans": "tsx src/scripts/check-team-orphans.ts",
+    "db:check-participant-links": "tsx src/scripts/check-participant-links.ts",
     "db:find-unlinked": "tsx src/scripts/find-unlinked-participants.ts",
     "db:find-team-aliases": "tsx src/scripts/find-team-alias-candidates.ts",
     "db:apply-team-aliases": "tsx src/scripts/apply-team-aliases.ts",

@@ -685,7 +685,7 @@ function runPass6(ctx: PipelineCtx): void {
     }
   }
 
-  if (count > 0) console.log(`  [pass9] ${count} cross-year solo profile(s) merged`);
+  if (count > 0) console.log(`  [pass6] ${count} cross-year solo profile(s) merged`);
 }
 
 // ── Pass 7: cross-year team-change merge ─────────────────────────────────────
@@ -709,57 +709,41 @@ function runPass7(ctx: PipelineCtx): void {
     if (profiles.length < 2) continue;
     profiles.sort((a, b) => a.minYear - b.minYear);
 
-    let hasOverlap = false;
+    // Pairwise evaluation: try to merge each profile into any earlier profile that
+    // passes all checks. This avoids blocking valid merges when other same-name profiles
+    // from genuinely different people overlap in years.
     for (let i = 0; i < profiles.length - 1; i++) {
-      if (profiles[i]!.maxYear >= profiles[i + 1]!.minYear) { hasOverlap = true; break; }
-    }
-    if (hasOverlap) continue;
+      const canon = profiles[i]!;
+      if (!index.has(canon.key)) continue;
 
-    let catOk = true;
-    for (let i = 0; i < profiles.length - 1; i++) {
-      const prev = profiles[i]!, curr = profiles[i + 1]!;
-      const prevCat = entryCanonCatForYear(prev.entry, prev.maxYear);
-      const currCat = entryCanonCatForYear(curr.entry, curr.minYear);
-      if (!prevCat || !currCat || !isValidCatTransition(prevCat, currCat, curr.minYear - prev.maxYear)) {
-        catOk = false; break;
+      for (let j = i + 1; j < profiles.length; j++) {
+        const later = profiles[j]!;
+        if (!index.has(later.key)) continue;
+
+        if (canon.maxYear >= later.minYear) continue; // year overlap → different people
+
+        const prevCat = entryCanonCatForYear(canon.entry, canon.maxYear);
+        const currCat = entryCanonCatForYear(later.entry, later.minYear);
+        if (!prevCat || !currCat || !isValidCatTransition(prevCat, currCat, later.minYear - canon.maxYear)) continue;
+
+        if (!setsIntersect(profileDistanceSet(canon.entry.results), profileDistanceSet(later.entry.results))) continue;
+
+        const mA = profileMedianPercentile(canon.entry.results);
+        const mB = profileMedianPercentile(later.entry.results);
+        if (mA !== null && mB !== null && Math.abs(mA - mB) > 0.25) continue;
+
+        const cA = profileCountry(canon.entry.results);
+        const cB = profileCountry(later.entry.results);
+        if (cA !== null && cB !== null && cA !== cB) continue;
+
+        for (const result of later.entry.results) addResult(canon.entry, result, false);
+        ctx.deletedKeys.add(later.key);
+        index.delete(later.key);
+        canon.maxYear = Math.max(canon.maxYear, later.maxYear);
+        deriveCanonicalTeam(canon.entry);
+        count++;
       }
     }
-    if (!catOk) continue;
-
-    let distOk = true;
-    for (let i = 0; i < profiles.length - 1; i++) {
-      if (!setsIntersect(profileDistanceSet(profiles[i]!.entry.results), profileDistanceSet(profiles[i + 1]!.entry.results))) {
-        distOk = false; break;
-      }
-    }
-    if (!distOk) continue;
-
-    let pctOk = true;
-    for (let i = 0; i < profiles.length - 1; i++) {
-      const mA = profileMedianPercentile(profiles[i]!.entry.results);
-      const mB = profileMedianPercentile(profiles[i + 1]!.entry.results);
-      if (mA !== null && mB !== null && Math.abs(mA - mB) > 0.25) { pctOk = false; break; }
-    }
-    if (!pctOk) continue;
-
-    let countryOk = true;
-    for (let i = 0; i < profiles.length - 1; i++) {
-      const cA = profileCountry(profiles[i]!.entry.results);
-      const cB = profileCountry(profiles[i + 1]!.entry.results);
-      if (cA !== null && cB !== null && cA !== cB) { countryOk = false; break; }
-    }
-    if (!countryOk) continue;
-
-    const canon = profiles[0]!;
-    for (let i = 1; i < profiles.length; i++) {
-      const later = profiles[i]!;
-      if (!index.has(later.key)) continue;
-      for (const result of later.entry.results) addResult(canon.entry, result, false);
-      ctx.deletedKeys.add(later.key);
-      index.delete(later.key);
-      count++;
-    }
-    deriveCanonicalTeam(canon.entry);
   }
 
   if (count > 0) console.log(`  [pass7] ${count} cross-year team profile(s) merged`);

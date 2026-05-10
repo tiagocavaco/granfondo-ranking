@@ -132,7 +132,7 @@ export const athleteResults = sqliteTable("athlete_results", {
   dns:           integer("dns").notNull().default(0),
 }, (t) => [
   index("idx_athlete_results_athlete").on(t.athleteId),
-  uniqueIndex("uq_athlete_results_race").on(t.athleteId, t.eventId, t.distance),
+  uniqueIndex("uq_athlete_results_race").on(t.athleteId, t.eventId, t.distance).where(sql`athlete_id != 0`),
 ]);
 
 export const athleteLookup = sqliteTable("athlete_lookup", {
@@ -162,7 +162,7 @@ export const aggregateAthletes = sqliteTable("aggregate_athletes", {
 }, (t) => [
   index("idx_agg_slice").on(t.year, t.distance, t.gender, t.rank),
   index("idx_agg_athlete").on(t.athleteId),
-  uniqueIndex("uq_agg_athlete_slice").on(t.year, t.distance, t.gender, t.athleteId),
+  uniqueIndex("uq_agg_athlete_slice").on(t.year, t.distance, t.gender, t.athleteId).where(sql`athlete_id != 0`),
 ]);
 
 export const teamRanking = sqliteTable("team_ranking", {

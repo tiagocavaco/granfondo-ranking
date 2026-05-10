@@ -5,7 +5,7 @@
  * default distances, and participant list URLs. Update here when adding new events.
  */
 
-export const YEARS = [2025, 2026]; // seasons to include in scrape and rankings
+export const YEARS = [2024, 2025, 2026]; // seasons to include in scrape and rankings
 
 /**
  * Canonical display names for events whose names from the StopAndGo API are
@@ -14,6 +14,11 @@ export const YEARS = [2025, 2026]; // seasons to include in scrape and rankings
  * Extend here when new events have bad names.
  */
 export const CANONICAL_EVENT_NAMES: Record<number, string> = {
+  // 2024 events
+  1216: "Monção e Melgaço Granfondo 2024",  // API name likely "MONÇÃO e MELGAÇO GF"
+  1349: "Granfondo Médio Tejo 2024",         // typo: "Grandfondo"
+  1457: "Granfondo Serra D'Ossa 2024",       // auto title-case lowercases 'O' in D'Ossa
+  // 2025 events
   1390: "Viana Granfondo 2025",
   1505: "São Mamede Granfondo 2025",
   1553: "Monção e Melgaço Granfondo 2025",
@@ -58,6 +63,12 @@ export const DELAY_MS = 400;       // polite delay between API requests (ms)
  * Add entries here when the name-based filter misses an event.
  */
 export const SUPPLEMENTAL_EVENT_IDS: number[] = [
+  // 2024 events with non-standard names (no "granfondo" in StopAndGo title)
+  1238, // Figueira Champions Classic 2024
+  1307, // Aveiro Spring Classic 2024
+  1447, // Clássica Douro Internacional 2024
+  1137, // L'Étape Portugal by Tour de France 2024
+  1216, // Monção e Melgaço Granfondo 2024 (API name uses "GF" abbreviation)
   // 2025 events with non-standard names
   1621, // Aveiro Spring Classic 2025
   1553, // MONÇÃO e MELGAÇO GF 2025
@@ -85,7 +96,30 @@ export const SUPPLEMENTAL_EVENT_IDS: number[] = [
  * https://stopandgo.net/events/{id} (which redirects to the slug-based page).
  */
 export const OFFICIAL_EVENT_URLS: Record<number, string> = {
-  // BikeService
+  // 2024 events
+  1059: "https://granfondoserradaestrela.com/",
+  1067: "https://bikeservice.pt/event/eurobec-granfondo/",
+  1076: "https://bikeservice.pt/event/viana-granfondo/",
+  1089: "https://dourogranfondo.com/",
+  1101: "https://bikeservice.pt/event/geres-granfondo/",
+  1135: "https://bikeservice.pt/event/braganca-granfondo/",
+  1137: "https://portugal.letapebytourdefrance.com/",
+  1183: "http://saomamedegranfondo.pt/",
+  1216: "https://www.moncaoemelgacogranfondo.com/",
+  1221: "https://www.algarvegranfondo.com/",
+  1238: "https://www.figueirachampionsclassic.com/",
+  1266: "https://www.cm-amarante.pt/eventos/amarante-granfondo/",
+  1292: "https://www.granfondocoimbraregion.com/",
+  1293: "https://www.granfondocoimbraregion.com/",
+  1306: "https://granfondotavira.wordpress.com/",
+  1307: "https://cabreirasolutions.com/evento/aveiro-spring-classic/",
+  1326: "https://cabreirasolutions.com/evento/granfondo-torres-vedras/",
+  1349: "https://cabreirasolutions.com/evento/granfondo-medio-tejo/",
+  1366: "https://cabreirasolutions.com/evento/granfondo-terras-de-basto/",
+  1447: "https://classicadourointernacional.com/",
+  1457: "https://cabreirasolutions.com/evento/granfondo-serra-dossa/",
+  1482: "https://cabreirasolutions.com/evento/granfondo-portimao/",
+  // 2025+ events — BikeService
   1720: "https://bikeservice.pt/event/viana-granfondo/",
   1741: "https://bikeservice.pt/event/eurobec-granfondo/",
   1766: "https://bikeservice.pt/event/douro-granfondo/",

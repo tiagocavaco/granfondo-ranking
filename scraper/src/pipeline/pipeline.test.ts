@@ -99,8 +99,21 @@ describe("normalizeDistance", () => {
     expect(normalizeDistance("time trial")).toBe("Time Trial");
     expect(normalizeDistance("big day")).toBe("Granfondo");
     expect(normalizeDistance("half day")).toBe("Mediofondo");
-    expect(normalizeDistance("classica")).toBe("Granfondo");
     expect(normalizeDistance("etapa")).toBe("Mediofondo");
+    // Figueira Champions Classic (with km suffix)
+    expect(normalizeDistance("BIG DAY 129KM")).toBe("Granfondo");
+    expect(normalizeDistance("HALF DAY 77,3KM")).toBe("Mediofondo");
+    // Clássica Douro Internacional
+    expect(normalizeDistance("Clássica Longa")).toBe("Granfondo");
+    expect(normalizeDistance("Clássica Média")).toBe("Mediofondo");
+    expect(normalizeDistance("Clássica Curta")).toBe("Minifondo");
+    expect(normalizeDistance("Classica Longa")).toBe("Granfondo");
+    expect(normalizeDistance("Classica Média")).toBe("Mediofondo");
+    expect(normalizeDistance("Classica Curta")).toBe("Minifondo");
+    // L'Étape Portugal by Tour de France
+    expect(normalizeDistance("L'Étape 125")).toBe("Granfondo");
+    expect(normalizeDistance("L'Étape 100")).toBe("Mediofondo");
+    expect(normalizeDistance("L'Étape 50")).toBe("Minifondo");
   });
 
   it("passes through unknown distance names", () => {
@@ -441,6 +454,32 @@ describe("buildAthletesIndex — Pass 7: cross-year team-change merge", () => {
     const { event: e1, loader: l1 } = mkTeamEvent(1, 2025, "2025-03-15", "Abel Carmona", "Velocistar Cycling", "MASTERS B", 5, "Granfondo", "ES");
     const { event: e2, loader: l2 } = mkTeamEvent(2, 2026, "2026-03-22", "Abel Carmona", "Pedalistas Porto", "MASTERS B", 5, "Granfondo", "PT");
     expect([...runMulti([{ event: e1, loader: l1 }, { event: e2, loader: l2 }]).index.values()].filter(e => e.nameLower === "abel carmona").length).toBe(2);
+  });
+
+  it("valid pair not blocked by third same-name profile with year overlap (pairwise regression)", () => {
+    // Profile A: 2025 Team Alpha ES — same person as C, different year
+    // Profile B: 2025 Team Beta PT — genuinely different person (country differs, same year as A so overlap blocks A-B anyway)
+    // Profile C: 2026 Team Gamma ES — should merge with A; old code blocked this because B overlapped with A
+    const { event: e1, loader: l1 } = mkTeamEvent(1, 2025, "2025-03-15", "Miguel Garcia", "Team Alpha", "MASTERS A", 4, "Granfondo", "ES");
+    const { event: e2, loader: l2 } = mkTeamEvent(2, 2025, "2025-06-15", "Miguel Garcia", "Team Beta",  "MASTERS A", 4, "Granfondo", "PT");
+    const { event: e3, loader: l3 } = mkTeamEvent(3, 2026, "2026-03-15", "Miguel Garcia", "Team Gamma", "MASTERS B", 6, "Granfondo", "ES");
+    const entries = [...runMulti([{ event: e1, loader: l1 }, { event: e2, loader: l2 }, { event: e3, loader: l3 }]).index.values()].filter(e => e.nameLower === "miguel garcia");
+    expect(entries.length).toBe(2); // A+C merged, B stays separate
+    expect(entries.some(e => e.results.length === 2)).toBe(true); // one profile has both 2025 and 2026 results
+  });
+
+  it("non-overlapping years but divergent percentiles → NOT merged", () => {
+    // Ensures the percentile check still guards against false positives after the pairwise fix
+    // Profile A: top 3% in 2025; Profile B: ~40% in 2026 — |0.03 - 0.40| = 0.37 > 0.25
+    const events = [
+      mkEvent(1, 2025, "2025-03-15"), mkEvent(2, 2025, "2025-06-15"),
+      mkEvent(3, 2026, "2026-03-15"), mkEvent(4, 2026, "2026-06-15"),
+    ];
+    const loader = (id: number) => mkEventResults(id, id <= 2 ? 2025 : 2026, id === 1 ? "2025-03-15" : id === 2 ? "2025-06-15" : id === 3 ? "2026-03-15" : "2026-06-15", [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({ bib: String(id), name: "Rui Alves", team: id <= 2 ? "Team Fast" : "Team Slow", category: "MASTERS A", genderPos: id <= 2 ? 3 : 40, athleteId: 0 })],
+    }]);
+    expect([...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "rui alves").length).toBe(2);
   });
 });
 

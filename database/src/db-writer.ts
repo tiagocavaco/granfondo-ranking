@@ -90,7 +90,11 @@ function insertEvents(db: ReturnType<typeof drizzle>, data: AllScrapedData): voi
       scrapedAt:        e.scrapedAt ?? null,
     }).run();
 
-    for (const d of e.distances) {
+    // Prefer distances from actual results (excludes API stubs with no results).
+    // Fall back to event.distances for upcoming events with no results yet.
+    const resultDists = data.allResults.get(e.id)?.distances;
+    const distancesToStore = resultDists && resultDists.length > 0 ? resultDists : e.distances;
+    for (const d of distancesToStore) {
       db.insert(schema.eventDistances).values({
         id:      d.id,
         eventId: e.id,
@@ -231,12 +235,25 @@ function buildTeamIds(data: AllScrapedData): Map<string, number> {
   return ids;
 }
 
+function resolveAliasChain(key: string, aliases: Record<string, string>): string {
+  const seen = new Set<string>();
+  let cur = key;
+  while (aliases[cur] && !seen.has(cur)) {
+    seen.add(cur);
+    cur = aliases[cur]!;
+  }
+  return cur;
+}
+
 function insertTeams(db: ReturnType<typeof drizzle>, teamIds: Map<string, number>, data: AllScrapedData): void {
-  // Group alias keys by their canonical
+  // Group alias keys by their final canonical (following full alias chains).
+  // Without chain-following, intermediate canonical keys that were merged away
+  // would cause their downstream aliases to be silently dropped.
   const aliasByCanonical = new Map<string, string[]>();
   for (const [rawAlias, rawCanonical] of Object.entries(data.teamAliases)) {
     const aliasKey = normalizeTeam(rawAlias);
-    const canonicalKey = normalizeTeam(rawCanonical);
+    const canonicalKey = resolveAliasChain(normalizeTeam(rawCanonical), data.teamAliases);
+    if (aliasKey === canonicalKey) continue;
     if (!aliasByCanonical.has(canonicalKey)) aliasByCanonical.set(canonicalKey, []);
     aliasByCanonical.get(canonicalKey)!.push(aliasKey);
   }

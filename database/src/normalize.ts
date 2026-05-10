@@ -31,6 +31,9 @@ export function normalizeTeam(name: string): string {
   s = s.replace(/#/g, "");
   s = s.replace(/[.,]/g, " ");
   s = s.replace(/[/|\\^&+@]/g, " ").replace(/\s*-\s*/g, " ");
+  // Strip any remaining non-alphanumeric chars (catches symbols like %, €, (, ), _, ™ etc.
+  // that aren't explicitly handled above). Replace with space to avoid letter merging.
+  s = s.replace(/[^a-z0-9 ]/g, " ");
   s = s.replace(/\s+/g, " ").trim();
   for (let i = 0; i < 6; i++) s = s.replace(/(?<![a-z])([a-z]) ([a-z])(?![a-z])/g, "$1$2");
   s = s.replace(/(?<![a-z])([a-z]{1,3}) ([a-z])(?![a-z])/g, "$1$2");
@@ -38,20 +41,34 @@ export function normalizeTeam(name: string): string {
   return s;
 }
 
-export const SOLO_TEAM_KEYS = new Set(["individual", "independente", "no team", "sem equipa", ""]);
+export const SOLO_TEAM_KEYS = new Set(["individual", "individoal", "independente", "no team", "sem equipa", ""]);
 
 // ── Distance normalization ────────────────────────────────────────────────────
 
 export const DISTANCE_ALIASES: Record<string, string> = {
   granfondo: "Granfondo", mediofondo: "Mediofondo", minifondo: "Minifondo",
-  "time trial": "Time Trial",
+  "time trial": "Time Trial", "contrarrelógio": "Time Trial", "contrarrelogio": "Time Trial",
+  // Figueira Champions Classic
   "big day": "Granfondo", "half day": "Mediofondo",
+  // Clássica Douro Internacional (accented and unaccented variants)
   "clássica": "Granfondo", "classica": "Granfondo",
+  "clássica longa": "Granfondo",  "classica longa": "Granfondo",
+  "clássica média": "Mediofondo", "classica média": "Mediofondo",
+  "clássica curta": "Minifondo",  "classica curta": "Minifondo",
+  // L'Étape Portugal by Tour de France
+  "l'étape 125": "Granfondo", "l'étape 100": "Mediofondo", "l'étape 50": "Minifondo",
   "etapa": "Mediofondo",
 };
 
 export function normalizeDistance(name: string): string {
-  return DISTANCE_ALIASES[name.toLowerCase()] ?? name;
+  // Normalise curly apostrophes (U+2019) to straight (U+0027) before lookup
+  const lower = name.toLowerCase().replace(/’/g, "'");
+  if (lower in DISTANCE_ALIASES) return DISTANCE_ALIASES[lower]!;
+  // Prefix match for names with km suffixes (e.g. "big day 129km", "half day 77,3km")
+  for (const [key, val] of Object.entries(DISTANCE_ALIASES)) {
+    if (lower.startsWith(key + " ")) return val;
+  }
+  return name;
 }
 
 // ── Country normalization ─────────────────────────────────────────────────────

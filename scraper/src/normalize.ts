@@ -258,36 +258,44 @@ export function tierConflict(a: CategoryTier, b: CategoryTier): boolean {
  * Gender is preserved where present (e.g. "Masters B F").
  */
 export function normalizeCategory(cat: string): string {
-  const s = cat.toLowerCase().replace(/[^a-z0-9]/g, '');
+  // Fix known typos before pattern matching
+  const s = cat.toLowerCase().replace(/[^a-z0-9]/g, '').replace('mastres', 'masters');
+
+  // Masters F (80+) — must precede isFemale: the trailing 'F' is the age grade, not gender
+  if (/^masters?f$/.test(s)) return 'Masters F';
+
   const isFemale = /\bf\b|fem|fem$|^f/.test(cat.toLowerCase());
   const suffix = isFemale ? ' F' : '';
 
   // Juniors / Sub23
   if (/sub23/.test(s)) return `Sub 23${suffix}`;
-  if (/junior|juniore|cadete/.test(s) || /^[mf]?jun$/.test(s)) return `Junior${suffix}`;
+  if (/junior|juniore|cadete|juv/.test(s) || /^[mf]?jun$/.test(s)) return `Junior${suffix}`;
 
   // Elite
   if (/elite/.test(s)) return `Elite${suffix}`;
   // Age-band "19-34" spans Elite + Masters A — keep as-is, don't collapse to Elite
   if (s === 'm1934' || s === 'f1934' || /^[mf]19\d\d/.test(s)) return `Open 19-34${suffix}`;
 
-  // Masters A (30–39) — covers MASTER 30, MASTER 35, M 35-39, Masters A
-  if (/masters?a/.test(s) || /master[23]/.test(s) || /^[mf]3[0-9]/.test(s)) return `Masters A${suffix}`;
+  // Masters A (30–39) — covers MASTER 30, MASTER 35, M 35-39, Masters A, Masters 30 M/F
+  if (/masters?a/.test(s) || /master[23]/.test(s) || /masters[23]\d/.test(s) || /^[mf]3[0-9]/.test(s)) return `Masters A${suffix}`;
 
-  // Masters B (40–49) — MASTER 40, MASTER 45, M 40-44, M 45-49, Masters B
-  if (/masters?b/.test(s) || /master4/.test(s) || /^[mf]4/.test(s)) return `Masters B${suffix}`;
+  // Masters B (40–49) — MASTER 40, MASTER 45, M 40-44, M 45-49, Masters B, Masters 40 M/F
+  if (/masters?b/.test(s) || /master4/.test(s) || /masters4\d/.test(s) || /^[mf]4/.test(s)) return `Masters B${suffix}`;
 
-  // Masters C (50–59)
-  if (/masters?c/.test(s) || /master5/.test(s) || /^[mf]5/.test(s)) return `Masters C${suffix}`;
+  // Masters C (50–59) — Masters 50 M/F
+  if (/masters?c/.test(s) || /master5/.test(s) || /masters5\d/.test(s) || /^[mf]5/.test(s)) return `Masters C${suffix}`;
 
-  // Masters D (60–64)
-  if (/masters?d/.test(s) || /master6/.test(s) || /^[mf]6/.test(s)) return `Masters D${suffix}`;
+  // Masters D (60–64) — Masters 60 M/F
+  if (/masters?d/.test(s) || /master6/.test(s) || /masters6\d/.test(s) || /^[mf]6/.test(s)) return `Masters D${suffix}`;
 
-  // Masters E (65+)
-  if (/masters?e/.test(s) || /master[78]/.test(s) || /^[mf]7/.test(s) || /^[mf]8/.test(s)) return `Masters E${suffix}`;
+  // Masters E (65–79)
+  if (/masters?e/.test(s) || /master[67]/.test(s) || /^[mf]7/.test(s)) return `Masters E${suffix}`;
+
+  // Masters F (80+)
+  if (/masters?f/.test(s) || /master8/.test(s) || /^[mf]8/.test(s)) return `Masters F${suffix}`;
 
   // Specials
-  if (/ebike|e.?bike/.test(s)) return 'E-Bike';
+  if (/ebike|e.?bike|electrica/.test(s)) return 'E-Bike';
   if (/para/.test(s)) return 'Paracycling';
 
   // Fall back to trimmed original

@@ -9,7 +9,7 @@ import BetterSqlite3 from "better-sqlite3";
 
 import { fetchParticipants, fetchResults, scrapeListaParticipants, scrapeRegistrationsParticipants } from "../scrapers/stopandgo.js";
 import { scrapeApedalarParticipants } from "../external.js";
-import { isPast, distancePriority, fixRawTeamName } from "../normalize.js";
+import { isPast, distancePriority, normalizeDistance, fixRawTeamName } from "../normalize.js";
 import {
   extractDistances,
   assignGenderPositions,
@@ -152,6 +152,8 @@ export async function scrapeEvent(
   // Re-assign distance names by winner time: longest course → shortest maps to
   // the expected names in the order they appear on event.distances (GF, MF, Mini).
   // This corrects events where the organizer's dist_id order doesn't match name order.
+  // When a priority gap exists (e.g. GF + Mini with no MF), use positional canonical
+  // names so a 2-distance Clássica event becomes GF + MF rather than GF + Mini.
   if (distanceResults.length > 1) {
     const expectedNames = event.distances
       .filter((d) => distanceResults.some((dr) => dr.id === d.id))
@@ -162,8 +164,15 @@ export async function scrapeEvent(
       const winB = b.results.find((r) => r.pos === 1)?.raceTimeSecs ?? 0;
       return winB - winA; // descending: longest course first
     });
+    const CANONICAL_ORDER = ["Granfondo", "Mediofondo", "Minifondo"];
+    const canonicals = expectedNames.map((n) => normalizeDistance(n));
+    // Gap: a known canonical appears at the wrong position (e.g. Mini at index 1 instead of MF)
+    const hasGap = canonicals.some((c, i) => {
+      const expected = CANONICAL_ORDER[i];
+      return expected !== undefined && CANONICAL_ORDER.includes(c) && c !== expected;
+    });
     distanceResults.forEach((dr, i) => {
-      dr.name = expectedNames[i] ?? dr.name;
+      dr.name = hasGap ? (CANONICAL_ORDER[i] ?? dr.name) : (expectedNames[i] ?? dr.name);
       dr.id = String(i + 1);
     });
   }
