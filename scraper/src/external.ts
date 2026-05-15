@@ -14,7 +14,7 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     year: 2025,
     date: "2025-02-15",
     location: "Figueira da Foz",
-    resultsUrl: "https://www.lap2go.com/pt/evento/figueira-champions-day-2025",
+    resultsUrl: "https://lap2go.com/pt/event/figueira-champions-day-2025/timetable",
     officialUrl: "https://www.figueirachampionsclassic.com",
     hasResults: false,
     distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }],
@@ -46,6 +46,20 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     officialUrl: null,
     hasResults: false,
     distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }],
+    participantCount: 0,
+    finisherCount: 0,
+    scrapedAt: null,
+  },
+  {
+    id: 90004,
+    name: "Porto Gaia Granfondo 2024",
+    year: 2024,
+    date: "2024-04-14",
+    location: "Porto",
+    resultsUrl: "https://timerspeed.com/live/g-live.html?f=events/2024/pggf_2024.clax",
+    officialUrl: "https://portogaiagranfondo.com",
+    hasResults: true,
+    distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -130,3 +144,4 @@ export { scrapeFigueiraChampionsDay } from "./scrapers/lap2go.js";
 export { scrapeAgitagueda }          from "./scrapers/waitastart.js";
 export { scrapeApedalar5Quinas, scrapeApedalarParticipants, extractEscalaoOptions, escalaoToGender } from "./scrapers/apedalar.js";
 export { scrapeListaParticipants }   from "./scrapers/stopandgo.js";
+export { scrapePortoGaiaGranfondo2024 } from "./scrapers/timerspeed.js";

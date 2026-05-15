@@ -58,6 +58,9 @@ try { fs.unlinkSync("/tmp/granfondo_candidates.db"); } catch {}
 const keys = [...allKeys].sort();
 console.log(`Comparing ${keys.length} distinct team keys...`);
 
+// Strip all separators (spaces, hyphens, slashes, dots) for compact comparison
+const stripSeps = (s: string) => s.replace(/[\s\-\/\.]/g, "");
+
 // Group keys by significant tokens for efficiency — only compare keys sharing ≥1 token
 const sigTok = (s: string) => s.split(" ").filter((t) => t.length >= 3);
 
@@ -84,36 +87,58 @@ for (const key of keys) {
   }
 }
 
+// Also group by stripped form — catches "bikematinal" ↔ "bike matinal" where the
+// compound word shares no tokens with the spaced version
+const strippedIndex = new Map<string, string[]>();
+for (const key of keys) {
+  const stripped = stripSeps(key);
+  if (stripped.length >= 4) {
+    if (!strippedIndex.has(stripped)) strippedIndex.set(stripped, []);
+    strippedIndex.get(stripped)!.push(key);
+  }
+}
+
 // Find candidate pairs
 const seen = new Set<string>();
 const candidates: Array<{ from: string; to: string; approved: null | boolean }> = [];
 
+function emitPair(a: string, b: string, requireSharedTokens: boolean) {
+  if (a === b) return;
+  const pairKey = a < b ? `${a}|||${b}` : `${b}|||${a}`;
+  if (seen.has(pairKey)) return;
+  seen.add(pairKey);
+
+  if (existingAliases.has(a) || existingAliases.has(b)) return;
+
+  if (requireSharedTokens) {
+    const toksA = new Set(sigTokFiltered(a));
+    const toksB = new Set(sigTokFiltered(b));
+    const shared = [...toksA].filter((t) => toksB.has(t));
+    if (shared.length < 2) return;
+  }
+
+  const sim = teamKeySimilarity(a, b);
+  if (sim < 1) return;
+
+  const [from, to] = a.length >= b.length ? [a, b] : [b, a];
+  candidates.push({ from, to, approved: null });
+}
+
+// Pass 1: token-based grouping (finds word-order swaps, suffix diffs, etc.)
 for (const [, group] of tokenIndex) {
   for (let i = 0; i < group.length; i++) {
     for (let j = i + 1; j < group.length; j++) {
-      const a = group[i]!;
-      const b = group[j]!;
-      const pairKey = a < b ? `${a}|||${b}` : `${b}|||${a}`;
-      if (seen.has(pairKey)) continue;
-      seen.add(pairKey);
+      emitPair(group[i]!, group[j]!, true);
+    }
+  }
+}
 
-      if (a === b) continue;
-
-      // Skip if either key is already an alias (handled)
-      if (existingAliases.has(a) || existingAliases.has(b)) continue;
-
-      // Require at least 2 shared non-generic tokens
-      const toksA = new Set(sigTokFiltered(a));
-      const toksB = new Set(sigTokFiltered(b));
-      const shared = [...toksA].filter((t) => toksB.has(t));
-      if (shared.length < 2) continue;
-
-      const sim = teamKeySimilarity(a, b);
-      if (sim < 1) continue;
-
-      // Longer key is alias → shorter/canonical goes in "to"
-      const [from, to] = a.length >= b.length ? [a, b] : [b, a];
-      candidates.push({ from, to, approved: null });
+// Pass 2: stripped-form grouping (finds separator-only differences like "bikematinal" ↔ "bike matinal")
+for (const [, group] of strippedIndex) {
+  if (group.length < 2) continue;
+  for (let i = 0; i < group.length; i++) {
+    for (let j = i + 1; j < group.length; j++) {
+      emitPair(group[i]!, group[j]!, false);
     }
   }
 }

@@ -95,6 +95,11 @@ function categoriesCompatible(a: string, b: string): boolean {
   if (b === OPEN_M) return a === "Elite Male" || a === "Masters A Male" || a === OPEN_M;
   if (a === OPEN_F) return b === "Elite Female" || b === "Masters A Female" || b === OPEN_F;
   if (b === OPEN_F) return a === "Elite Female" || a === "Masters A Female" || a === OPEN_F;
+  // Gender-agnostic forms (e.g. "Masters A" from normalizeCategory fallback on unknown
+  // category strings) are compatible with their gendered variants. This prevents the
+  // post-pass from incorrectly removing results from events that omit the gender suffix.
+  const stripGender = (s: string) => s.replace(/ (?:Male|Female|F)$/, "");
+  if (stripGender(a) === stripGender(b)) return true;
   return false;
 }
 
@@ -152,7 +157,7 @@ function profileDistanceSet(results: AthleteResultRef[]): Set<string> {
 /** Median genderPos/finisherCount for valid results. Returns null if < 2 valid results. */
 function profileMedianPercentile(results: AthleteResultRef[]): number | null {
   const valid = results.filter(r => !r.dnf && !r.dns && r.genderPos > 0 && r.finisherCount > 0);
-  if (valid.length < 2) return null;
+  if (valid.length < 1) return null;
   const sorted = valid.map(r => r.genderPos / r.finisherCount).sort((a, b) => a - b);
   return sorted[Math.floor(sorted.length / 2)]!;
 }
@@ -174,7 +179,7 @@ function setsIntersect<T>(a: Set<T>, b: Set<T>): boolean {
 }
 
 /** Validate a single year-to-year category transition (same logic as Pass 5d). */
-function isValidCatTransition(prevCat: string, currCat: string, yearDiff: number): boolean {
+export function isValidCatTransition(prevCat: string, currCat: string, yearDiff: number): boolean {
   if (prevCat === currCat) return true;
   if (prevCat.startsWith("Open 19-34") || currCat.startsWith("Open 19-34")) {
     return categoriesCompatible(prevCat, currCat);
@@ -183,7 +188,12 @@ function isValidCatTransition(prevCat: string, currCat: string, yearDiff: number
   const currRank = SOLO_CAT_RANK[currCat];
   if (prevRank === undefined || currRank === undefined) return false;
   if (currRank < prevRank) return false;
-  if (currRank - prevRank > yearDiff) return false;
+  const rankDiff = currRank - prevRank;
+  // Each category spans ~10 years. Adjacent transition (rank diff 1) needs just 1 year
+  // (athlete aging over a boundary), but skipping a category requires nearly a full decade
+  // per skipped band. E.g. Elite→Masters B needs at least 11 years (29→40), not 2.
+  const minYears = (rankDiff - 1) * 10 + 1;
+  if (yearDiff < minYears) return false;
   return true;
 }
 
@@ -464,6 +474,102 @@ function runPass3(ctx: PipelineCtx): { teamCount: number } {
   return { teamCount };
 }
 
+// ── Pass 3b: merge full-legal-name entries into short-name entries (same team) ─
+//
+// Some events register athletes under their full legal name (e.g. "Elio Fernando
+// Oliveira Silva") while all other events use a short form ("Elio Silva").  Pass 3
+// creates two separate entries for the same person.  This pass merges them when:
+//   1. Both entries share the same numeric team ID (same canonical club).
+//   2. The long name's first token == the short name's first token AND the long
+//      name's last token == the short name's last token (primary rule).
+//      — OR, for exactly 3-token long names [A B C], also check [A B] as an
+//        alternative short form: Spanish convention uses the father's surname (B)
+//        as the everyday identifier, not the mother's (C).  If an [A B] entry
+//        exists, it is preferred over [A C].  If both exist, the match is
+//        ambiguous and the long entry is left unmerged.
+//   3. The match is unambiguous — exactly one short candidate and exactly one
+//      long candidate per short target.
+
+function runPass3b(ctx: PipelineCtx): void {
+  const { index } = ctx;
+
+  type MemberInfo = { key: string; entry: AthleteEntry; tokens: string[] };
+  const byTeamId = new Map<string, MemberInfo[]>();
+
+  for (const [key, entry] of index) {
+    if (key.includes("|solo:")) continue;
+    const teamIdStr = key.slice(key.lastIndexOf("|") + 1);
+    if (teamIdStr === "0") continue;
+    const tokens = entry.nameLower.split(" ").filter(Boolean);
+    if (!byTeamId.has(teamIdStr)) byTeamId.set(teamIdStr, []);
+    byTeamId.get(teamIdStr)!.push({ key, entry, tokens });
+  }
+
+  /** Returns candidates in the same team whose name is a "short form" of `long`. */
+  function findShortCandidates(long: MemberInfo, members: MemberInfo[]): MemberInfo[] {
+    const longFirst  = long.tokens[0]!;
+    const longLast   = long.tokens[long.tokens.length - 1]!;
+    const longSecond = long.tokens.length === 3 ? long.tokens[1]! : null;
+
+    // Primary: [first + last token] match (Portuguese / general convention)
+    const lastTokenMatches = members.filter(m =>
+      m.key !== long.key &&
+      index.has(m.key) &&
+      m.tokens.length < long.tokens.length &&
+      m.tokens[0] === longFirst &&
+      m.tokens[m.tokens.length - 1] === longLast
+    );
+
+    // Alternative (3-token only): [first + second token] match (Spanish convention —
+    // father's surname is the everyday last name, not the mother's).
+    const secondTokenMatches = longSecond !== null ? members.filter(m =>
+      m.key !== long.key &&
+      index.has(m.key) &&
+      m.tokens.length < long.tokens.length &&
+      m.tokens[0] === longFirst &&
+      m.tokens[m.tokens.length - 1] === longSecond
+    ) : [];
+
+    // If the Spanish-convention match exists, prefer it and treat any last-token
+    // match as a distinct person → ambiguous, return nothing.
+    if (secondTokenMatches.length > 0 && lastTokenMatches.length > 0) return [];
+    if (secondTokenMatches.length > 0) return secondTokenMatches;
+    return lastTokenMatches;
+  }
+
+  let count = 0;
+  for (const members of byTeamId.values()) {
+    if (members.length < 2) continue;
+
+    for (const long of [...members]) {
+      if (!index.has(long.key)) continue;
+      if (long.tokens.length < 3) continue;
+
+      const shortCandidates = findShortCandidates(long, members);
+      if (shortCandidates.length !== 1) continue;
+
+      const short = shortCandidates[0]!;
+      const siblingsForShort = members.filter(m =>
+        m.key !== short.key &&
+        index.has(m.key) &&
+        m.tokens.length > short.tokens.length &&
+        m.tokens[0] === short.tokens[0] &&
+        m.tokens[m.tokens.length - 1] === short.tokens[short.tokens.length - 1]
+      );
+      if (siblingsForShort.length !== 1) continue;
+
+      for (const result of long.entry.results) addResult(short.entry, result, false);
+      ctx.deletedKeys.add(long.key);
+      index.delete(long.key);
+      deriveCanonicalTeam(short.entry);
+      count++;
+      console.log(`  [pass3b] "${long.entry.nameLower}" → "${short.entry.nameLower}" (team ${short.key.slice(short.key.lastIndexOf("|") + 1)})`);
+    }
+  }
+
+  if (count > 0) console.log(`  [pass3b] ${count} full-name profile(s) merged into short-name entries`);
+}
+
 // ── Pass 4: team-based athlete aliases ───────────────────────────────────────
 
 function runPass4(ctx: PipelineCtx): void {
@@ -722,6 +828,12 @@ function runPass7(ctx: PipelineCtx): void {
 
         if (canon.maxYear >= later.minYear) continue; // year overlap → different people
 
+        // Don't merge a licence-only individual (teamId=0, all solo teams) into a team
+        // athlete. These are frequently different people who share a name. They should
+        // be handled by Pass 8 (team ↔ solo) or left separate.
+        const laterTeamId = parseInt(later.key.slice(later.key.lastIndexOf("|") + 1), 10);
+        if (laterTeamId === 0 && later.entry.results.every(r => isSoloTeam(r.team))) continue;
+
         const prevCat = entryCanonCatForYear(canon.entry, canon.maxYear);
         const currCat = entryCanonCatForYear(later.entry, later.minYear);
         if (!prevCat || !currCat || !isValidCatTransition(prevCat, currCat, later.minYear - canon.maxYear)) continue;
@@ -977,6 +1089,7 @@ export function buildAthletesIndex(
   runPass1(ctx);
   runPass2(ctx);
   const { teamCount } = runPass3(ctx);
+  runPass3b(ctx);
   runPass4(ctx);
   const { soloCount } = runPass5(ctx);
   runPass6(ctx);

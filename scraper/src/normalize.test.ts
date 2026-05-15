@@ -7,6 +7,7 @@ import {
   categoryTier,
   tierConflict,
   normalizeCategory,
+  canonicalizeCategory,
   normalizeName,
   fixRawTeamName,
   canonicalTeam,
@@ -17,6 +18,7 @@ import {
   isPast,
   levenshteinDistance,
   distancePriority,
+  isValidLicence,
 } from "./normalize.js";
 
 beforeAll(() => {
@@ -270,8 +272,10 @@ describe("normalizeCategory", () => {
     expect(normalizeCategory("Sub23 Fem")).toBe("Sub 23 F");
   });
 
-  it("Junior female", () => {
-    expect(normalizeCategory("JUNIOR FEM")).toBe("Junior F");
+  it("Junior / Cadete → Elite (normalizeCategory fallback)", () => {
+    expect(normalizeCategory("JUNIOR FEM")).toBe("Elite F");
+    expect(normalizeCategory("JUNIOR M")).toBe("Elite");
+    expect(normalizeCategory("Cadete")).toBe("Elite");
   });
 
   it("E-Bike → E-Bike", () => {
@@ -286,6 +290,117 @@ describe("normalizeCategory", () => {
 
   it("unknown category falls back to trimmed original", () => {
     expect(normalizeCategory("  Custom Cat  ")).toBe("Custom Cat");
+  });
+});
+
+// ── canonicalizeCategory ──────────────────────────────────────────────────────
+
+describe("canonicalizeCategory", () => {
+  it("standard CATEGORY_MAP entries resolve with gender", () => {
+    expect(canonicalizeCategory("MASTERS A")).toBe("Masters A Male");
+    expect(canonicalizeCategory("M 35-39")).toBe("Masters A Male");
+    expect(canonicalizeCategory("F 35-39")).toBe("Masters A Female");
+    expect(canonicalizeCategory("M 40-44")).toBe("Masters B Male");
+    expect(canonicalizeCategory("M 19-34")).toBe("Open 19-34 Male");
+  });
+
+  it("en-dash (U+2013) category strings used by Granfondo Coimbra 2024", () => {
+    // These caused post-pass to silently remove results for athletes with
+    // gendered canonical categories — en-dash wasn't in CATEGORY_MAP so the
+    // fallback returned gender-agnostic "Masters A" instead of "Masters A Male".
+    expect(canonicalizeCategory("M35–39")).toBe("Masters A Male");
+    expect(canonicalizeCategory("M40–44")).toBe("Masters B Male");
+    expect(canonicalizeCategory("M45–49")).toBe("Masters B Male");
+    expect(canonicalizeCategory("M50–54")).toBe("Masters C Male");
+    expect(canonicalizeCategory("M55–59")).toBe("Masters C Male");
+    expect(canonicalizeCategory("M60–64")).toBe("Masters D Male");
+    expect(canonicalizeCategory("M19–34")).toBe("Open 19-34 Male");
+    expect(canonicalizeCategory("F35–39")).toBe("Masters A Female");
+    expect(canonicalizeCategory("F40–44")).toBe("Masters B Female");
+    expect(canonicalizeCategory("F 19–34")).toBe("Open 19-34 Female");
+  });
+
+  it("no-space hyphen variants also used by Coimbra 2024 older age groups", () => {
+    expect(canonicalizeCategory("M70-74")).toBe("Masters E Male");
+    expect(canonicalizeCategory("M75-79")).toBe("Masters E Male");
+    expect(canonicalizeCategory("M65- 69")).toBe("Masters D Male");
+  });
+
+  it("Junior / Cadete map to Elite (most races don't have separate Junior/Cadete category)", () => {
+    expect(canonicalizeCategory("M JUN")).toBe("Elite Male");
+    expect(canonicalizeCategory("F JUN")).toBe("Elite Female");
+    expect(canonicalizeCategory("Juniores Masc")).toBe("Elite Male");
+    expect(canonicalizeCategory("Juniores F")).toBe("Elite Female");
+    expect(canonicalizeCategory("M Cadete")).toBe("Elite Male");
+    expect(canonicalizeCategory("Junior Male")).toBe("Elite Male");
+    expect(canonicalizeCategory("Cadete Female")).toBe("Elite Female");
+  });
+
+  it("already-canonical strings pass through unchanged", () => {
+    expect(canonicalizeCategory("Masters A Male")).toBe("Masters A Male");
+    expect(canonicalizeCategory("Masters B Female")).toBe("Masters B Female");
+    expect(canonicalizeCategory("Elite Male")).toBe("Elite Male");
+  });
+
+  it("unknown strings return Unknown", () => {
+    expect(canonicalizeCategory("XYZ")).toBe("Unknown");
+    expect(canonicalizeCategory("")).toBe("Unknown");
+  });
+});
+
+// ── isValidLicence ────────────────────────────────────────────────────────────
+
+describe("isValidLicence", () => {
+  it("returns false for empty or falsy values", () => {
+    expect(isValidLicence("")).toBe(false);
+  });
+
+  it("rejects explicit dummy strings", () => {
+    expect(isValidLicence("NAOFEDERADO")).toBe(false);
+    expect(isValidLicence("naofederado")).toBe(false); // case-insensitive
+    expect(isValidLicence("11111")).toBe(false);
+    expect(isValidLicence("12345")).toBe(false);
+    expect(isValidLicence("23456")).toBe(false);
+  });
+
+  it("rejects negative numbers", () => {
+    expect(isValidLicence("-1")).toBe(false);
+    expect(isValidLicence("-999")).toBe(false);
+  });
+
+  it("rejects scientific notation artifacts", () => {
+    expect(isValidLicence("1.23e10")).toBe(false);
+    expect(isValidLicence("9.87E5")).toBe(false);
+  });
+
+  it("rejects 10^10 variants", () => {
+    expect(isValidLicence("1000000000")).toBe(false);
+    expect(isValidLicence("10000000001")).toBe(false);
+  });
+
+  it("rejects all-zero strings", () => {
+    expect(isValidLicence("000")).toBe(false);
+    expect(isValidLicence("0000")).toBe(false);
+  });
+
+  it("rejects small pure integers without leading zero (< 100)", () => {
+    expect(isValidLicence("1")).toBe(false);
+    expect(isValidLicence("99")).toBe(false);
+    expect(isValidLicence("100")).toBe(true); // boundary: 100 is valid
+  });
+
+  it("rejects federation name strings", () => {
+    expect(isValidLicence("federacao")).toBe(false);
+    expect(isValidLicence("FEDERAÇÃO")).toBe(false);
+    expect(isValidLicence("FederaÇão")).toBe(false);
+    expect(isValidLicence("federac anything")).toBe(false);
+  });
+
+  it("accepts real-looking licence numbers", () => {
+    expect(isValidLicence("PT12345")).toBe(true);
+    expect(isValidLicence("123456")).toBe(true);
+    expect(isValidLicence("0123")).toBe(true); // leading zero → not a plain small int
+    expect(isValidLicence("ABC100")).toBe(true);
   });
 });
 

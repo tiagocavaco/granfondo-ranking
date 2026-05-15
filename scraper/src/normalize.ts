@@ -269,7 +269,7 @@ export function normalizeCategory(cat: string): string {
 
   // Juniors / Sub23
   if (/sub23/.test(s)) return `Sub 23${suffix}`;
-  if (/junior|juniore|cadete|juv/.test(s) || /^[mf]?jun$/.test(s)) return `Junior${suffix}`;
+  if (/junior|juniore|cadete|juv/.test(s) || /^[mf]?jun$/.test(s)) return `Elite${suffix}`;
 
   // Elite
   if (/elite/.test(s)) return `Elite${suffix}`;
@@ -309,6 +309,21 @@ export function normalizeCategory(cat: string): string {
 // Falls back to normalizeCategory() for unknown patterns, then "Unknown".
 
 const CATEGORY_MAP: Record<string, string> = {
+  // Already-canonical strings — must map to themselves so canonicalizeCategory
+  // doesn't re-process them through normalizeCategory (which strips gender suffixes)
+  "Elite Male": "Elite Male",             "Elite Female": "Elite Female",
+  "Open 19-34 Male": "Open 19-34 Male",   "Open 19-34 Female": "Open 19-34 Female",
+  "Junior Male": "Elite Male",            "Junior Female": "Elite Female",
+  "Cadete Male": "Elite Male",            "Cadete Female": "Elite Female",
+  "Masters A Male": "Masters A Male",     "Masters A Female": "Masters A Female",
+  "Masters B Male": "Masters B Male",     "Masters B Female": "Masters B Female",
+  "Masters C Male": "Masters C Male",     "Masters C Female": "Masters C Female",
+  "Masters D Male": "Masters D Male",     "Masters D Female": "Masters D Female",
+  "Masters E Male": "Masters E Male",     "Masters E Female": "Masters E Female",
+  "Masters F Male": "Masters F Male",     "Masters F Female": "Masters F Female",
+  "Masters F": "Masters F",
+  "E-Bike": "E-Bike",
+  "Paracycling": "Paracycling",
   // Elite Male
   "ELITES M": "Elite Male", "M ELITES": "Elite Male", "Elite M.": "Elite Male",
   "Elite Masc": "Elite Male", "M Elite": "Elite Male",
@@ -322,15 +337,26 @@ const CATEGORY_MAP: Record<string, string> = {
   // Open 19-34 — ambiguous between Elite and Masters A; rules out Masters B+
   "M 19-34": "Open 19-34 Male",
   "F 19-34": "Open 19-34 Female",
-  // Junior Male
-  "M JUN": "Junior Male", "M Junior": "Junior Male",
-  "Junior M.": "Junior Male", "Juniores Masc": "Junior Male",
-  "Juniores M": "Junior Male",
-  // Junior Female
-  "F JUN": "Junior Female", "Junior F.": "Junior Female",
-  "Juniores F": "Junior Female",
+  // En-dash (U+2013) variants — used by Granfondo Coimbra Region 2024 and similar events
+  "M19–34": "Open 19-34 Male",  "F 19–34": "Open 19-34 Female",
+  "M35–39": "Masters A Male",   "F35–39": "Masters A Female",
+  "M40–44": "Masters B Male",   "F40–44": "Masters B Female",
+  "M45–49": "Masters B Male",   "F45–49": "Masters B Female",
+  "M50–54": "Masters C Male",   "F50–54": "Masters C Female",
+  "M55–59": "Masters C Male",   "F55–59": "Masters C Female",
+  "M60–64": "Masters D Male",   "F60–64": "Masters D Female",
+  // No-space hyphen variants (also used by Coimbra 2024 for older age groups)
+  "M70-74": "Masters E Male",  "M75-79": "Masters E Male",
+  "M65- 69": "Masters D Male",
+  // Junior / Cadete Male — mapped to Elite (most races don't have separate Junior/Cadete category)
+  "M JUN": "Elite Male", "M Junior": "Elite Male",
+  "Junior M.": "Elite Male", "Juniores Masc": "Elite Male",
+  "Juniores M": "Elite Male",
+  // Junior / Cadete Female
+  "F JUN": "Elite Female", "Junior F.": "Elite Female",
+  "Juniores F": "Elite Female",
   // Cadete Male
-  "M Cadete": "Cadete Male", "Cadete Masc": "Cadete Male",
+  "M Cadete": "Elite Male", "Cadete Masc": "Elite Male",
   // Masters A Male
   "MASTERS A": "Masters A Male", "M Masters A": "Masters A Male",
   "Master A": "Masters A Male", "MasterA Masc": "Masters A Male",

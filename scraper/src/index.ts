@@ -8,6 +8,7 @@ import {
   scrapeFigueiraChampionsDay,
   scrapeAgitagueda,
   scrapeApedalar5Quinas,
+  scrapePortoGaiaGranfondo2024,
 } from "./external.js";
 import { isPast } from "./normalize.js";
 import {
@@ -91,14 +92,16 @@ async function main() {
 
   // 3. Scrape external platform events
   console.log("\n🌐 Scraping external platform events…");
-  const externalScrapers: Array<{
-    event: StoredEvent;
-    fn: () => Promise<StoredEventResults>;
-  }> = [
-    { event: EXTERNAL_EVENTS[0]!, fn: scrapeFigueiraChampionsDay },
-    { event: EXTERNAL_EVENTS[1]!, fn: scrapeAgitagueda },
-    { event: EXTERNAL_EVENTS[2]!, fn: scrapeApedalar5Quinas },
-  ];
+  const externalScraperFns = new Map<number, () => Promise<StoredEventResults>>([
+    [90001, scrapeFigueiraChampionsDay],
+    [90002, scrapeAgitagueda],
+    [90003, scrapeApedalar5Quinas],
+    [90004, scrapePortoGaiaGranfondo2024],
+  ]);
+  const externalScrapers = EXTERNAL_EVENTS.map((event) => ({
+    event,
+    fn: externalScraperFns.get(event.id),
+  })).filter((e): e is { event: StoredEvent; fn: () => Promise<StoredEventResults> } => !!e.fn);
 
   for (const { event, fn } of externalScrapers) {
     console.log(`✅ [${event.id}] ${event.name}`);

@@ -6,6 +6,7 @@ import {
   isSoloTeam,
   SOLO_TEAM_KEYS,
   buildAthletesIndex,
+  isValidCatTransition,
   type AthleteAliasRule,
   type ResultAssignment,
   type AthleteIdStore,
@@ -346,6 +347,45 @@ describe("buildAthletesIndex — Pass 5: same-year solo grouping", () => {
   });
 });
 
+// ── isValidCatTransition ──────────────────────────────────────────────────────
+
+describe("isValidCatTransition", () => {
+  it("same category is always valid", () => {
+    expect(isValidCatTransition("Masters B Male", "Masters B Male", 1)).toBe(true);
+    expect(isValidCatTransition("Elite Male", "Elite Male", 5)).toBe(true);
+  });
+
+  it("adjacent step (rank diff 1) is valid with 1+ year gap", () => {
+    expect(isValidCatTransition("Elite Male", "Masters A Male", 1)).toBe(true);
+    expect(isValidCatTransition("Masters A Male", "Masters B Male", 1)).toBe(true);
+    expect(isValidCatTransition("Masters B Male", "Masters C Male", 1)).toBe(true);
+  });
+
+  it("going backwards in rank is never valid", () => {
+    expect(isValidCatTransition("Masters B Male", "Elite Male", 5)).toBe(false);
+    expect(isValidCatTransition("Masters A Male", "Elite Female", 10)).toBe(false);
+  });
+
+  it("skipping a category (rank diff 2) requires at least 11 years", () => {
+    // The bug: Elite → Masters B in 2 years was allowed (2 > 2 = false)
+    expect(isValidCatTransition("Elite Male", "Masters B Male", 2)).toBe(false);
+    expect(isValidCatTransition("Elite Male", "Masters B Male", 10)).toBe(false);
+    expect(isValidCatTransition("Elite Male", "Masters B Male", 11)).toBe(true);
+    expect(isValidCatTransition("Masters A Male", "Masters C Male", 11)).toBe(true);
+    expect(isValidCatTransition("Masters A Male", "Masters C Male", 10)).toBe(false);
+  });
+
+  it("skipping two categories (rank diff 3) requires at least 21 years", () => {
+    expect(isValidCatTransition("Elite Male", "Masters C Male", 20)).toBe(false);
+    expect(isValidCatTransition("Elite Male", "Masters C Male", 21)).toBe(true);
+  });
+
+  it("unknown category returns false", () => {
+    expect(isValidCatTransition("Elite Male", "Unknown", 5)).toBe(false);
+    expect(isValidCatTransition("Unknown", "Masters A Male", 5)).toBe(false);
+  });
+});
+
 // ── buildAthletesIndex — Pass 6: cross-year solo merge ────────────────────────
 
 describe("buildAthletesIndex — Pass 6: cross-year solo merge", () => {
@@ -481,6 +521,26 @@ describe("buildAthletesIndex — Pass 7: cross-year team-change merge", () => {
     }]);
     expect([...runPipeline(events, loader).index.values()].filter(e => e.nameLower === "rui alves").length).toBe(2);
   });
+
+  it("licence-only solo athlete (teamId=0, all-solo results) is NOT merged into a same-name team athlete", () => {
+    // Regression: Elite team cyclist in 2025 + a DIFFERENT person with the same name racing
+    // solo as Masters A in 2026 with a licence. Elite→Masters A in 1 year is a valid category
+    // transition and the percentile difference (4% vs 22%) is under the 0.25 threshold — before
+    // the fix, Pass 7 merged them; after the fix, the |0 all-solo entry stays separate.
+    const { event: e1, loader: l1 } = mkTeamEvent(1, 2025, "2025-03-15", "Ruben Pereira", "Team Carpintaria", "ELITES M", 4);
+    const e2 = mkEvent(2, 2026, "2026-03-22");
+    const l2 = () => mkEventResults(2, 2026, "2026-03-22", [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({ bib: "142", name: "Ruben Pereira", team: "Individual", category: "MASTERS A", genderPos: 22, licences: ["97734"], athleteId: 0 })],
+    }]);
+    const entries = [...runMulti([{ event: e1, loader: l1 }, { event: e2, loader: l2 }]).index.values()]
+      .filter(e => e.nameLower === "ruben pereira");
+    expect(entries.length).toBe(2);
+    // The team athlete's profile is not contaminated
+    const teamAthlete = entries.find(e => e.results.some(r => r.team === "Team Carpintaria"));
+    expect(teamAthlete).toBeDefined();
+    expect(teamAthlete!.results.length).toBe(1);
+  });
 });
 
 // ── buildAthletesIndex — Pass 8: team ↔ solo cross-pass merge ────────────────
@@ -613,5 +673,29 @@ describe("buildAthletesIndex — Pass 9: manual result assignments", () => {
     expect(entry).toBeDefined();
     expect(entry!.results.length).toBe(5);
     expect(entry!.results.every(r => r.category === "MASTERS B")).toBe(true);
+  });
+
+  it("en-dash category variants (Coimbra 2024 format) are not dropped as outliers", () => {
+    // Regression: "M40–44" (en-dash) was not in CATEGORY_MAP so canonicalizeCategory
+    // returned gender-agnostic "Masters B" instead of "Masters B Male".
+    // categoriesCompatible("Masters B", "Masters B Male") was false → result removed.
+    const events = [1, 2, 3, 4, 5].map(id => mkEvent(id, 2024, `2024-0${id}-01`));
+    const teamId = 99;
+    const idStore: AthleteIdStore = new Map([[`pedro silva|${teamId}`, 200]]);
+    const teamIdStore = new Map([["team alpha", teamId]]);
+    // Events 1-4: standard CATEGORY_MAP format ("MASTERS B") → "Masters B Male"
+    // Event 5: en-dash format ("M40–44") — should NOT be dropped
+    const loader = (id: number) => mkEventResults(id, 2024, `2024-0${id}-01`, [{
+      id: "1", name: "Granfondo", finisherCount: 200,
+      results: [mkResult({
+        bib: String(id), name: "Pedro Silva", team: "Team Alpha",
+        category: id < 5 ? "MASTERS B" : "M40–44",  // U+2013 = en-dash
+        pos: id * 10, genderPos: id * 10, athleteId: 0,
+      })],
+    }]);
+    const { index } = buildAthletesIndex(events, loader, [], [], idStore, teamIdStore);
+    const entry = [...index.values()].find(e => e.id === 200);
+    expect(entry).toBeDefined();
+    expect(entry!.results.length).toBe(5);  // all 5 results kept, including en-dash one
   });
 });
