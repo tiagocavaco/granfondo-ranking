@@ -698,4 +698,108 @@ describe("buildAthletesIndex — Pass 9: manual result assignments", () => {
     expect(entry).toBeDefined();
     expect(entry!.results.length).toBe(5);  // all 5 results kept, including en-dash one
   });
+
+  it("already-on-target result is protected from post-pass sweep by manual assignment", () => {
+    // Regression: if the pipeline already placed the result on the correct athlete
+    // (entry === target in Pass 9), the old code skipped manualAssignments.add()
+    // so the post-pass sweep could still drop it as a category outlier.
+    // Events 1-5: Masters B (dominant). Event 6: Masters A (outlier).
+    // The pipeline groups all of these under the SAME team athlete since all share
+    // the same team and licence. Without manual protection, Masters A gets swept.
+    const teamId = 77;
+    const teamIdStore = new Map([["team beta", teamId]]);
+    const idStore: AthleteIdStore = new Map([[`paulo lopes|${teamId}`, 200]]);
+    const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({
+        bib: String(id), name: "Paulo Lopes", team: "Team Beta",
+        category: id < 6 ? "MASTERS B" : "MASTERS A",
+        licences: ["55555"], pos: id * 5, genderPos: id * 5, athleteId: 0,
+      })],
+    }]);
+    const events = [1, 2, 3, 4, 5, 6].map(id => mkEvent(id, 2025, `2025-0${id}-01`));
+    const assignments: ResultAssignment[] = [{ athleteId: 200, eventId: 6, bib: "6" }];
+    const { index } = buildAthletesIndex(events, loader, [], assignments, idStore, teamIdStore);
+    const entry = [...index.values()].find(e => e.id === 200);
+    expect(entry).toBeDefined();
+    expect(entry!.results.length).toBe(6);  // Masters A result kept despite being an outlier
+    expect(entry!.results.some(r => r.category === "MASTERS A")).toBe(true);
+  });
+});
+
+describe("buildAthletesIndex — Pass 1: licence majority-vote outlier detection", () => {
+  it("dominant name (≥3 results, ≥3× others) proceeds; outlier results excluded", () => {
+    // Licence 12345 appears under "Jose Silva" 4× and "Jo Silva" 1×.
+    // The dominant name is "Jose Silva" → licence proceeds; the outlier result is ignored.
+    const events = [1, 2, 3, 4, 5].map(id => mkEvent(id, 2025, `2025-0${id}-01`));
+    const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
+      id: "1", name: "Granfondo", finisherCount: 50,
+      results: [mkResult({
+        bib: String(id), name: id < 5 ? "Jose Silva" : "Jo Silva",
+        team: "Team Gamma", licences: ["12345"], genderPos: id * 5, athleteId: 0,
+      })],
+    }]);
+    const { index } = runPipeline(events, loader);
+    const entries = [...index.values()].filter(e => e.nameLower === "jose silva");
+    expect(entries.length).toBe(1);
+    expect(entries[0]!.results.length).toBe(4);  // outlier "Jo Silva" event excluded
+  });
+
+  it("non-dominant split (2 vs 2) is skipped entirely — licence not used", () => {
+    // Both names appear equally → not dominant → licence is skipped.
+    // The athletes end up as separate unlicenced profiles via later passes.
+    const events = [1, 2, 3, 4].map(id => mkEvent(id, 2025, `2025-0${id}-01`));
+    const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
+      id: "1", name: "Granfondo", finisherCount: 50,
+      results: [mkResult({
+        bib: String(id), name: id <= 2 ? "Rui Matos" : "Rui Oliveira",
+        team: "Team Delta", licences: ["99999"], genderPos: id * 5, athleteId: 0,
+      })],
+    }]);
+    const { index } = runPipeline(events, loader);
+    // Licence skipped — the two names produce two separate unlicenced team profiles
+    const ruis = [...index.values()].filter(e => e.nameLower.startsWith("rui "));
+    expect(ruis.length).toBe(2);
+  });
+});
+
+describe("buildAthletesIndex — licence conflict guard (Pass 7)", () => {
+  it("disjoint licences block Pass 7 merge even when all soft checks pass", () => {
+    // Two team profiles: non-overlapping years, same name, compatible category,
+    // same distance, similar percentile, same country — all soft checks pass.
+    // But each profile has a distinct licence → they are definitively different people.
+    const e1 = mkEvent(1, 2025, "2025-03-15");
+    const e2 = mkEvent(2, 2026, "2026-03-22");
+    const l1 = () => mkEventResults(1, 2025, "2025-03-15", [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({ bib: "10", name: "Nuno Costa", team: "CC Porto", category: "MASTERS B", licences: ["111001"], genderPos: 10, athleteId: 0 })],
+    }]);
+    const l2 = () => mkEventResults(2, 2026, "2026-03-22", [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({ bib: "20", name: "Nuno Costa", team: "CC Lisboa", category: "MASTERS C", licences: ["222002"], genderPos: 10, athleteId: 0 })],
+    }]);
+    const entries = [...runMulti([{ event: e1, loader: l1 }, { event: e2, loader: l2 }]).index.values()]
+      .filter(e => e.nameLower === "nuno costa");
+    expect(entries.length).toBe(2);  // NOT merged — disjoint licences
+  });
+
+  it("shared licence in Pass 7 merges profiles despite incompatible category", () => {
+    // Same licence appearing on two profiles with incompatible categories (Masters B → Masters A,
+    // a de-aging) triggers the shareLicence shortcut — merges with a warning rather than skipping.
+    // This is the expected behaviour: licence is authoritative, category mismatch is logged.
+    const e1 = mkEvent(1, 2025, "2025-03-15");
+    const e2 = mkEvent(2, 2026, "2026-03-22");
+    const l1 = () => mkEventResults(1, 2025, "2025-03-15", [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({ bib: "10", name: "Luis Silva", team: "Club A", category: "MASTERS B", licences: ["77777"], genderPos: 5, athleteId: 0 })],
+    }]);
+    const l2 = () => mkEventResults(2, 2026, "2026-03-22", [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({ bib: "20", name: "Luis Silva", team: "Club B", category: "MASTERS A", licences: ["77777"], genderPos: 5, athleteId: 0 })],
+    }]);
+    const entries = [...runMulti([{ event: e1, loader: l1 }, { event: e2, loader: l2 }]).index.values()]
+      .filter(e => e.nameLower === "luis silva");
+    expect(entries.length).toBe(1);   // merged via shared licence
+    expect(entries[0]!.results.length).toBe(2);
+  });
 });

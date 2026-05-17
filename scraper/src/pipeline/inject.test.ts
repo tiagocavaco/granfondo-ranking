@@ -57,7 +57,10 @@ describe("injectAthleteIds", () => {
     expect(allResults.get(1)!.distances[0]!.results[0]!.athleteId).toBe(523);
   });
 
-  it("does not assign an athleteId to a result from a different team", () => {
+  it("assigns athleteId by position even when result team differs from athlete's canonical team", () => {
+    // The pos-based approach uses position as the sole discriminator for finishers.
+    // If the pipeline placed athlete 523 at pos=5 for this event, the result row at
+    // pos=5 is their result regardless of which team name appears in the raw data.
     const entry = mkEntry(523, "filipe oliveira", [mkRef({ eventId: 1, pos: 5, team: "Team Penacova", distance: "Granfondo" })]);
     const allResults = new Map([[1, mkEventResults(1, [
       { nameLower: "filipe andre da silva oliveira", pos: 5, team: "Team Lisboa" },
@@ -65,7 +68,24 @@ describe("injectAthleteIds", () => {
 
     injectAthleteIds(new Map([["filipe oliveira", entry]]), allResults);
 
-    expect(allResults.get(1)!.distances[0]!.results[0]!.athleteId).toBe(0);
+    expect(allResults.get(1)!.distances[0]!.results[0]!.athleteId).toBe(523);
+  });
+
+  it("tied positions: two athletes at the same pos each get their correct athleteId via name fallback", () => {
+    // Regression: pos key collision when timing system records both athletes as pos=4.
+    // The pos key is marked ambiguous; injection falls back to name lookup.
+    const entryA = mkEntry(10, "diogo graca", [mkRef({ eventId: 1, pos: 4, team: "Team A", distance: "Granfondo" })]);
+    const entryB = mkEntry(20, "ricardo silva", [mkRef({ eventId: 1, pos: 4, team: "Team B", distance: "Granfondo" })]);
+    const allResults = new Map([[1, mkEventResults(1, [
+      { nameLower: "diogo graca",   pos: 4, team: "Team A" },
+      { nameLower: "ricardo silva", pos: 4, team: "Team B" },
+    ])]]);
+
+    injectAthleteIds(new Map([["diogo graca", entryA], ["ricardo silva", entryB]]), allResults);
+
+    const results = allResults.get(1)!.distances[0]!.results;
+    expect(results.find(r => r.name === "diogo graca")!.athleteId).toBe(10);
+    expect(results.find(r => r.name === "ricardo silva")!.athleteId).toBe(20);
   });
 
   it("leaves DNF results (pos=0) with athleteId=0 when only name variant differs", () => {
@@ -78,6 +98,25 @@ describe("injectAthleteIds", () => {
     injectAthleteIds(new Map([["filipe oliveira", entry]]), allResults);
 
     expect(allResults.get(1)!.distances[0]!.results[0]!.athleteId).toBe(0);
+  });
+
+  it("does not assign athleteId via name fallback to an unrelated result at the same event", () => {
+    // Regression: two athletes with the same name at the same event in different positions.
+    // Athlete 17523 is at pos=195 (Masters C, Individual). A different athlete (17611) is at
+    // pos=27 (Elite, team) but has no result ref in the index for this event.
+    // The name fallback must NOT assign 17523 to the pos=27 result row — that would be wrong.
+    // Only tied positions should register a name fallback key; non-tied positions must not.
+    const entry = mkEntry(17523, "joao pereira", [mkRef({ eventId: 1, pos: 195, team: "", distance: "Granfondo" })]);
+    const allResults = new Map([[1, mkEventResults(1, [
+      { nameLower: "joao pereira", pos: 27, team: "Escola Ciclismo" },
+      { nameLower: "joao pereira", pos: 195, team: "" },
+    ])]]);
+
+    injectAthleteIds(new Map([["joao pereira", entry]]), allResults);
+
+    const results = allResults.get(1)!.distances[0]!.results;
+    expect(results.find(r => r.pos === 195)!.athleteId).toBe(17523); // correctly assigned
+    expect(results.find(r => r.pos === 27)!.athleteId).toBe(0);      // NOT cross-assigned
   });
 
   it("returns the count of events with at least one updated row", () => {

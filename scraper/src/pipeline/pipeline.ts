@@ -989,6 +989,15 @@ function runPass7(ctx: PipelineCtx): void {
             return cb !== undefined && cb !== r.bib;
           });
           if (hasCollision) continue;
+          // Shared licence bypasses soft checks, but flag a warning if categories are
+          // incompatible — this likely means the licence was scraped onto the wrong result
+          // at one event rather than genuinely being the same person.
+          const canonCatSL = entryCanonCatForYear(canon.entry, canon.maxYear);
+          const laterCatSL = entryCanonCatForYear(later.entry, later.minYear);
+          if (canonCatSL && laterCatSL && !isValidCatTransition(canonCatSL, laterCatSL, later.minYear - canon.maxYear)) {
+            const sharedLics = [...(ctx.entryLicences.get(canon.key) ?? new Set())].filter(l => ctx.entryLicences.get(later.key)?.has(l));
+            console.warn(`  [pass7] WARNING: shared licence (${sharedLics.join(", ")}) but incompatible categories "${canonCatSL}" → "${laterCatSL}" for "${canon.entry.name}" — merging anyway, but likely a scraped licence error`);
+          }
         } else {
           if (canon.maxYear >= later.minYear) continue; // year overlap → different people
 
@@ -1141,10 +1150,17 @@ function runPass9(ctx: PipelineCtx): void {
 
     const eventResults = loader(assignment.eventId);
     let bibNameLower: string | null = null;
+    let bibPos: number | null = null;
+    let bibDistNorm: string | null = null;
     if (eventResults) {
       for (const dist of eventResults.distances) {
         const match = dist.results.find((r) => r.bib === assignment.bib);
-        if (match) { bibNameLower = normalizeName(match.name); break; }
+        if (match) {
+          bibNameLower = normalizeName(match.name);
+          bibPos = match.pos;
+          bibDistNorm = normalizeDistance(dist.name);
+          break;
+        }
       }
     }
     if (!bibNameLower) {
@@ -1158,9 +1174,13 @@ function runPass9(ctx: PipelineCtx): void {
       for (let i = 0; i < entry.results.length; i++) {
         const r = entry.results[i]!;
         if (r.eventId !== assignment.eventId) continue;
+        // When bib pos is known, ensure we're acting on the correct result ref
+        // (same-name athletes at the same event can have multiple result refs).
+        if (bibPos !== null && bibDistNorm !== null && (r.pos !== bibPos || r.distance !== bibDistNorm)) continue;
         if (entry === target) {
           // Already on target — protect from post-pass eviction without moving anything.
           manualAssignments.add(`${assignment.athleteId}:${assignment.eventId}`);
+          moved = true;
           break outer;
         }
         // Evict any result already on target for the same (eventId, distance) —
