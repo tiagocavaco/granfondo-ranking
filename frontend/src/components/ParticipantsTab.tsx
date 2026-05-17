@@ -4,6 +4,7 @@ import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import type { StoredParticipant } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
+import { normalizeName } from "@granfondo/database/normalize";
 
 interface Props {
   eventId: number;
@@ -72,17 +73,20 @@ export default function ParticipantsTab({ eventId }: Props) {
     [participants]
   );
 
-  const filtered = useMemo(() => participants.filter((p) => {
+  const filtered = useMemo(() => {
+    const searchNorm = normalizeName(search);
+    return participants.filter((p) => {
     const matchSearch =
       !search ||
-      p.fullName.toLowerCase().includes(search.toLowerCase()) ||
+      normalizeName(p.fullName).includes(searchNorm) ||
       p.team.toLowerCase().includes(search.toLowerCase()) ||
       p.bib.includes(search);
     const matchDist = distanceFilter === "all" || p.distance === distanceFilter;
     const matchCat = categoryFilter === "all" || p.category === categoryFilter;
     const matchGender = genderFilter === "all" || p.gender === genderFilter;
     return matchSearch && matchDist && matchCat && matchGender;
-  }), [participants, search, distanceFilter, categoryFilter, genderFilter]);
+  });
+  }, [participants, search, distanceFilter, categoryFilter, genderFilter]);
 
   const resetKey = `${search}|${distanceFilter}|${categoryFilter}|${genderFilter}`;
   const { visibleCount, sentinelRef } = useInfiniteScroll(filtered.length, resetKey);

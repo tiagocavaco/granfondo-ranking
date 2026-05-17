@@ -465,7 +465,10 @@ export const api = {
 
     if (memberRows.length === 0) return null;
 
-    const displayName = memberRows.find((r) => r.canonicalTeam)?.canonicalTeam ?? teamKey;
+    const ownKeys = new Set(allTeamKeys);
+    const displayName = memberRows.find((r) => r.canonicalTeam && ownKeys.has(normalizeTeam(r.canonicalTeam)))?.canonicalTeam
+      ?? memberRows.find((r) => r.canonicalTeam)?.canonicalTeam
+      ?? teamKey;
     const seenIds = new Set<number>();
     const ids = memberRows
       .filter((r) => seenIds.has(r.id) ? false : (seenIds.add(r.id), true))

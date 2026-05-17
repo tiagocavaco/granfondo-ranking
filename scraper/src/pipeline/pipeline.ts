@@ -1129,7 +1129,7 @@ function runPass8(ctx: PipelineCtx): void {
 // ── Pass 9: manual result assignments ────────────────────────────────────────
 
 function runPass9(ctx: PipelineCtx): void {
-  const { index, assigned, assignments, loader, deletedKeys, manualAssignments } = ctx;
+  const { index, assigned, assignments, loader, deletedKeys, manualAssignments, ids, teamIdStore } = ctx;
   let count = 0;
 
   for (const assignment of assignments) {
@@ -1158,7 +1158,48 @@ function runPass9(ctx: PipelineCtx): void {
       for (let i = 0; i < entry.results.length; i++) {
         const r = entry.results[i]!;
         if (r.eventId !== assignment.eventId) continue;
-        if (entry === target) break outer;
+        if (entry === target) {
+          // Already on target — protect from post-pass eviction without moving anything.
+          manualAssignments.add(`${assignment.athleteId}:${assignment.eventId}`);
+          break outer;
+        }
+        // Evict any result already on target for the same (eventId, distance) —
+        // the manually-assigned result takes priority over an earlier pipeline match.
+        const conflictIdx = target.results.findIndex(
+          (x) => x.eventId === r.eventId && x.distance === r.distance,
+        );
+        if (conflictIdx >= 0) {
+          const evicted = target.results[conflictIdx]!;
+          target.results.splice(conflictIdx, 1);
+          // Re-home the evicted result rather than discarding it.
+          // Recover the original name from raw event data (AthleteResultRef has no name field).
+          let evictedName = target.name;
+          let evictedNameLower = target.nameLower;
+          if (eventResults) {
+            evictNameSearch: for (const d of eventResults.distances) {
+              if (normalizeDistance(d.name) !== evicted.distance) continue;
+              for (const raw of d.results) {
+                if (raw.pos === evicted.pos && raw.team === evicted.team && raw.category === evicted.category) {
+                  evictedName = raw.name;
+                  evictedNameLower = normalizeName(raw.name);
+                  break evictNameSearch;
+                }
+              }
+            }
+          }
+          const evictedKey = athleteKey(evictedNameLower, evicted.team, teamIdStore, evicted.category);
+          let evictedEntry = index.get(evictedKey);
+          if (!evictedEntry) {
+            const freshId = ids.get(evictedKey);
+            evictedEntry = newEntry(freshId, evictedName, evictedNameLower);
+            index.set(evictedKey, evictedEntry);
+            console.log(`  [pass9] evicted ${evictedName} (${evicted.category}) ev=${evicted.eventId} → new athlete id=${freshId}`);
+          } else {
+            console.log(`  [pass9] evicted ${evictedName} (${evicted.category}) ev=${evicted.eventId} → merged into existing id=${evictedEntry.id}`);
+          }
+          evictedEntry.results.push(evicted);
+          addToTeamsAndCategories(evictedEntry, evicted);
+        }
         target.results.push(r);
         addToTeamsAndCategories(target, r);
         entry.results.splice(i, 1);
@@ -1279,9 +1320,10 @@ export function buildAthletesIndex(
   runPass9(ctx);
   runPostPass(ctx);
 
-  // Build updated ID store
+  // Build updated ID store — only include live athletes (final index).
+  // Minted IDs for intermediate entries that were merged away are intentionally
+  // excluded: storing them inflates Math.max(idStore.values()) and causes gaps.
   const updatedIdStore = new Map(idStore);
-  for (const [key, id] of ids.getMinted()) updatedIdStore.set(key, id);
   for (const [key, entry] of ctx.index) updatedIdStore.set(key, entry.id);
   for (const key of ctx.deletedKeys) updatedIdStore.delete(key);
 

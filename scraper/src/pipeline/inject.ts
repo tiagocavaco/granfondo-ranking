@@ -1,18 +1,16 @@
-import { normalizeName } from "../normalize.js";
+import { normalizeName, normalizeDistance } from "../normalize.js";
 import type { AthleteEntry, StoredEventResults } from "@granfondo/database/types";
 
 /**
  * Injects athlete IDs into raw result rows in-place.
  *
- * Builds a lookup keyed by (eventId, nameLower, team). For each athlete entry
- * the canonical name is always registered; if the pipeline matched a result
- * whose scraped name differs from the canonical (e.g. "Filipe André Da Silva
- * Oliveira" matched to athlete "Filipe Oliveira"), the raw name variant is also
- * registered so the injection step can resolve it.
+ * Uses (eventId, distance, pos) as the primary key for finishers (pos > 0).
+ * Position is unique within a distance so this unambiguously handles same-name
+ * athletes (e.g. two "José Lopes / Individual" in different categories). It
+ * also covers scraped-name variants without a separate secondary lookup.
  *
- * DNF/DNS results (pos=0) are skipped for variant lookup because pos alone
- * cannot uniquely identify a row when multiple athletes from the same team
- * did not finish.
+ * DNF/DNS rows (pos=0) fall back to (eventId, distance, nameLower, team) since
+ * multiple non-finishers can share pos=0.
  *
  * Returns the number of events that had at least one row updated.
  */
@@ -22,27 +20,11 @@ export function injectAthleteIds(
 ): number {
   const resultLookup = new Map<string, number>();
   for (const entry of athletesIndex.values()) {
-    const canonName = normalizeName(entry.nameLower);
     for (const ref of entry.results) {
-      // Primary key: canonical name (handles exact matches)
-      resultLookup.set(`${ref.eventId}|${canonName}|${ref.team}`, entry.id);
-
-      // Also register under the actual scraped name for this result, which may
-      // differ (e.g. "Filipe André Da Silva Oliveira" → athlete "Filipe Oliveira")
-      const stored = allResults.get(ref.eventId);
-      if (!stored) continue;
-      for (const dist of stored.distances) {
-        if (dist.name !== ref.distance) continue;
-        // Skip DNF/DNS (pos=0): ambiguous without a unique tiebreaker
-        if (ref.pos === 0) continue;
-        const raw = dist.results.find(
-          (r) => r.pos === ref.pos && r.team === ref.team,
-        );
-        if (!raw) continue;
-        const rawNameLower = normalizeName(raw.name);
-        if (rawNameLower !== canonName) {
-          resultLookup.set(`${ref.eventId}|${rawNameLower}|${raw.team}`, entry.id);
-        }
+      if (ref.pos > 0) {
+        resultLookup.set(`${ref.eventId}|${ref.distance}|${ref.pos}`, entry.id);
+      } else {
+        resultLookup.set(`${ref.eventId}|${ref.distance}|${entry.nameLower}|${ref.team}`, entry.id);
       }
     }
   }
@@ -51,8 +33,11 @@ export function injectAthleteIds(
   for (const [eventId, stored] of allResults) {
     let changed = false;
     for (const dist of stored.distances) {
+      const distNorm = normalizeDistance(dist.name);
       for (const r of dist.results) {
-        const k = `${eventId}|${normalizeName(r.name)}|${r.team}`;
+        const k = r.pos > 0
+          ? `${eventId}|${distNorm}|${r.pos}`
+          : `${eventId}|${distNorm}|${normalizeName(r.name)}|${r.team}`;
         const id = resultLookup.get(k) ?? 0;
         if (r.athleteId !== id) { r.athleteId = id; changed = true; }
       }

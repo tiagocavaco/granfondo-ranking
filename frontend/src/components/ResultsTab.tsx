@@ -4,7 +4,7 @@ import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import { resolveTeamId } from "../utils/lookups";
 import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "@granfondo/database/types";
-import { countryFlag, normalizeCountry as toISO2, SOLO_TEAM_KEYS, normalizeTeam } from "@granfondo/database/normalize";
+import { countryFlag, normalizeCountry as toISO2, SOLO_TEAM_KEYS, normalizeTeam, normalizeName } from "@granfondo/database/normalize";
 import { Spinner, ErrorBanner } from "./EventList";
 
 interface Props {
@@ -108,16 +108,19 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
     return map;
   }, [results]);
 
-  const filtered = useMemo(() => results.filter((r) => {
+  const filtered = useMemo(() => {
+    const searchNorm = normalizeName(search);
+    return results.filter((r) => {
     const matchSearch =
       !search ||
-      r.name.toLowerCase().includes(search.toLowerCase()) ||
+      normalizeName(r.name).includes(searchNorm) ||
       r.team.toLowerCase().includes(search.toLowerCase()) ||
       r.bib.includes(search);
     const matchCat = categoryFilter === "all" || r.category === categoryFilter;
     const matchGender = genderFilter === "all" || r.gender === genderFilter;
     return matchSearch && matchCat && matchGender;
-  }), [results, search, categoryFilter, genderFilter]);
+  });
+  }, [results, search, categoryFilter, genderFilter]);
 
   const resetKey = `${activeDistId}|${search}|${categoryFilter}|${genderFilter}`;
   const { visibleCount, sentinelRef } = useInfiniteScroll(filtered.length, resetKey);
