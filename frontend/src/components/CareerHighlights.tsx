@@ -1,7 +1,6 @@
 import type { AthleteResultRef } from "@granfondo/database/types";
 import { distBadgeClass } from "../utils/distance";
-
-const DIST_ORDER = ["Granfondo", "Mediofondo", "Minifondo", "Time Trial"];
+import { DISTANCES } from "@granfondo/utils/distance";
 
 function buildStats(results: AthleteResultRef[]) {
   const finished = results.filter((r) => !r.dnf && !r.dns && r.pos > 0);
@@ -23,7 +22,7 @@ interface Props { results: AthleteResultRef[] }
 export default function CareerHighlights({ results }: Props) {
   const { bestByDist, podiums } = buildStats(results);
 
-  const distEntries = DIST_ORDER
+  const distEntries = DISTANCES
     .filter((d) => bestByDist.has(d))
     .map((d) => ({ dist: d, best: bestByDist.get(d)! }));
 

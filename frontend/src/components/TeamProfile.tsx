@@ -5,6 +5,7 @@ import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";
 import { distBadgeClass } from "../utils/distance";
+import { DISTANCES } from "@granfondo/utils/distance";
 
 function rankBadge(rank: number) {
   if (rank === 1) return "🥇";
@@ -360,9 +361,8 @@ export default function TeamProfile() {
                   if (g) { if (!g.distances.includes(ev.distance)) g.distances.push(ev.distance); }
                   else grouped.set(ev.eventId, { eventName: ev.eventName, eventDate: ev.eventDate, distances: [ev.distance] });
                 }
-                const distOrder = ["Granfondo", "Mediofondo", "Minifondo"];
                 return [...grouped.entries()].map(([eventId, g]) => {
-                  g.distances.sort((a, b) => (distOrder.indexOf(a) + 1 || 99) - (distOrder.indexOf(b) + 1 || 99));
+                  g.distances.sort((a, b) => (DISTANCES.indexOf(a) + 1 || 99) - (DISTANCES.indexOf(b) + 1 || 99));
                   return (
                   <div key={eventId} className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-3 gap-1 sm:gap-3">
                     <div className="min-w-0">

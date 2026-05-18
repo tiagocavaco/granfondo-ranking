@@ -9,6 +9,8 @@ import AthletesPage from "./components/AthletesPage";
 import TeamProfile from "./components/TeamProfile";
 import ComparisonPage from "./components/ComparisonPage";
 import RankingInfoPage from "./components/RankingInfoPage";
+import PredictionsPage from "./components/PredictionsPage";
+import PredictionsInfoPage from "./components/PredictionsInfoPage";
 import { api } from "./api";
 import { formatAge } from "./utils/date";
 
@@ -111,6 +113,7 @@ function AppShell() {
         <Routes>
           <Route path="/" element={<EventList />} />
           <Route path="/event/:id" element={<EventDetail />} />
+          <Route path="/event/:id/predictions" element={<PredictionsPage />} />
           <Route path="/athletes" element={<AthletesPage />} />
           <Route path="/athlete/:id" element={<AthleteProfile />} />
           <Route path="/ranking" element={<AggregateRankingPage />} />
@@ -119,6 +122,7 @@ function AppShell() {
           <Route path="/compare" element={<ComparisonPage />} />
           <Route path="/ranking-info" element={<RankingInfoPage mode="athlete" />} />
           <Route path="/teams-info" element={<RankingInfoPage mode="team" />} />
+          <Route path="/predictions-info" element={<PredictionsInfoPage />} />
         </Routes>
       </main>
       <Footer />

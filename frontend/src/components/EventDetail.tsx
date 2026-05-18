@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "../api";
 import type { StoredEvent } from "@granfondo/database/types";
 import ResultsTab from "./ResultsTab";
@@ -66,6 +66,12 @@ export default function EventDetail() {
             </span>
             <span className="text-blue-300 text-xs font-medium">📅 {date}</span>
             <div className="hidden sm:flex gap-2 ml-auto">
+              {!isPast && event.participantCount > 0 && (
+                <Link to={`/event/${event.id}/predictions`}
+                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/30 hover:bg-amber-400/30 transition-colors">
+                  Predictions ✦
+                </Link>
+              )}
               {!isPast && (event.officialUrl ?? event.resultsUrl) && (
                 <a href={event.officialUrl ?? event.resultsUrl} target="_blank" rel="noopener noreferrer"
                   className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors">
@@ -146,6 +152,14 @@ export default function EventDetail() {
           </div>
 
           <div className="flex sm:hidden gap-2 mt-1">
+              {!isPast && event.participantCount > 0 && (
+                <Link
+                  to={`/event/${event.id}/predictions`}
+                  className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/30 hover:bg-amber-400/30 transition-colors"
+                >
+                  Predictions ✦
+                </Link>
+              )}
               {!isPast && (event.officialUrl ?? event.resultsUrl) && (
                 <a
                   href={event.officialUrl ?? event.resultsUrl}

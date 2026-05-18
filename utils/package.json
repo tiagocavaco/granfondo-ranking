@@ -11,6 +11,14 @@
     "./scoring": {
       "types": "./src/scoring.ts",
       "default": "./src/scoring.ts"
+    },
+    "./category": {
+      "types": "./src/category.ts",
+      "default": "./src/category.ts"
+    },
+    "./distance": {
+      "types": "./src/distance.ts",
+      "default": "./src/distance.ts"
     }
   },
   "devDependencies": {
