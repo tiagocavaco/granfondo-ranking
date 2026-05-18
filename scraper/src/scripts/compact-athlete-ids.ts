@@ -269,6 +269,8 @@ function verifySnapshot(
     ["SELECT COUNT(*) as c FROM results WHERE athlete_id != 0 AND athlete_id NOT IN (SELECT id FROM athletes)", "results.athlete_id orphans"],
     ["SELECT COUNT(*) as c FROM aggregate_athletes WHERE athlete_id NOT IN (SELECT id FROM athletes)", "aggregate_athletes.athlete_id orphans"],
     ["SELECT COUNT(*) as c FROM athlete_teams WHERE athlete_id NOT IN (SELECT id FROM athletes)", "athlete_teams.athlete_id orphans"],
+    ["SELECT COUNT(*) as c FROM athlete_categories WHERE athlete_id NOT IN (SELECT id FROM athletes)", "athlete_categories.athlete_id orphans"],
+    ["SELECT COUNT(*) as c FROM participants WHERE athlete_id != 0 AND athlete_id NOT IN (SELECT id FROM athletes)", "participants.athlete_id orphans"],
     ["SELECT COUNT(*) as c FROM athlete_teams WHERE team_id NOT IN (SELECT id FROM teams)", "athlete_teams.team_id orphans"],
     ["SELECT COUNT(*) as c FROM team_ranking WHERE team_id NOT IN (SELECT id FROM teams)", "team_ranking.team_id orphans"],
   ];
@@ -344,12 +346,14 @@ if (aGaps > 0) {
   console.log("\nPhase 2a: Compacting athlete IDs...");
   athleteMap = compactIds(db, "athletes", "id", [
     { table: "athlete_results",    col: "athlete_id" },
+    { table: "athlete_categories", col: "athlete_id" },
     { table: "athlete_lookup",     col: "athlete_id" },
+    { table: "athlete_teams",      col: "athlete_id" },
     { table: "results",            col: "athlete_id" },
+    { table: "participants",       col: "athlete_id" },
     { table: "aggregate_athletes", col: "athlete_id" },
     { table: "team_race_athletes", col: "athlete_id" },
     { table: "result_assignments", col: "athlete_id" },
-    { table: "athlete_teams",      col: "athlete_id" },
   ]);
   console.log(`  Remapped ${athleteMap.size.toLocaleString()} athlete IDs`);
 } else {
