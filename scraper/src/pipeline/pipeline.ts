@@ -112,7 +112,28 @@ export const SOLO_CAT_RANK: Record<string, number> = {
   "Masters C Male": 3,    "Masters C Female": 3,
   "Masters D Male": 4,    "Masters D Female": 4,
   "Masters E Male": 5,    "Masters E Female": 5,
+  "Masters F Male": 6,    "Masters F Female": 6,
 };
+
+// Inverse of SOLO_CAT_RANK: rank → canonical name per gender suffix.
+// Derived at module load so SOLO_CAT_RANK stays the single source of truth.
+const RANK_TO_CAT = (() => {
+  const m = new Map<number, { male: string; female: string }>();
+  for (const [name, rank] of Object.entries(SOLO_CAT_RANK)) {
+    const isFemale = name.endsWith(" Female");
+    const entry = m.get(rank) ?? { male: "", female: "" };
+    if (isFemale) entry.female = name; else entry.male = name;
+    m.set(rank, entry);
+  }
+  return m;
+})();
+
+/** Maximum rank an athlete in baseCat can legitimately reach after yearDiff seasons.
+ *  Uses the same per-decade formula as isValidCatTransition. */
+function clampRank(baseRank: number, yearDiff: number): number {
+  const maxRankDiff = Math.floor((yearDiff - 1) / 10) + 1;
+  return Math.min(baseRank + maxRankDiff, Math.max(...RANK_TO_CAT.keys()));
+}
 
 /**
  * Normalise a canonical category for solo group key building.
@@ -197,15 +218,17 @@ export function isValidCatTransition(prevCat: string, currCat: string, yearDiff:
   return true;
 }
 
-/** Most common canonical category for a given year in an entry, or null. */
+/** Most common canonical category for a given year in an entry, or null.
+ *  Counts per result (not per unique raw string) so that 3×Masters B beats 1×Masters C. */
 function entryCanonCatForYear(entry: AthleteEntry, year: number): string | null {
-  const rawCats = entry.categories[String(year)];
-  if (!rawCats || rawCats.length === 0) return null;
   const counts = new Map<string, number>();
-  for (const raw of rawCats) {
-    const c = canonicalizeCategory(raw);
+  for (const r of entry.results) {
+    if (r.eventYear !== year) continue;
+    const c = canonicalizeCategory(r.category);
+    if (c === 'Unknown') continue;
     counts.set(c, (counts.get(c) ?? 0) + 1);
   }
+  if (!counts.size) return null;
   return [...counts.entries()].sort((a, b) => b[1] - a[1])[0]![0];
 }
 
@@ -1244,37 +1267,148 @@ function runPass9(ctx: PipelineCtx): void {
 
 // ── Post-pass: year-category consistency sweep ────────────────────────────────
 
+
 function runPostPass(ctx: PipelineCtx): void {
-  const { index, manualAssignments } = ctx;
+  const { index, manualAssignments, ids, teamIdStore, loader } = ctx;
   let drops = 0;
+  let rehomed = 0;
 
   for (const entry of index.values()) {
     const yearSet = new Set(entry.results.map(r => r.eventYear));
+
+    // Phase 1: compute canonCat per year, then enforce forward-only progression.
+    // An athlete cannot get younger: rank must be non-decreasing over time.
+    // A year whose majority-vote category has a higher rank than the next year's
+    // was polluted by wrong-athlete merges — override it with the next year's canon.
+    const yearCatMap = new Map<number, string>();
     for (const year of yearSet) {
-      const canonCat = entryCanonCatForYear(entry, year);
-      if (!canonCat) continue;
+      const cc = entryCanonCatForYear(entry, year);
+      if (cc) yearCatMap.set(year, cc);
+    }
+    const overriddenYears = new Set<number>();
+    const sortedYears = [...yearCatMap.keys()].sort((a, b) => a - b);
+
+    // Adjacent pass (right to left): fix backward transitions and adjacent
+    // forward-too-fast skips (e.g. A→C in 1 year).  Uses isValidCatTransition
+    // which already encodes both rules.
+    for (let i = sortedYears.length - 2; i >= 0; i--) {
+      const y     = sortedYears[i]!;
+      const yNext = sortedYears[i + 1]!;
+      const catY    = yearCatMap.get(y)!;
+      const catNext = yearCatMap.get(yNext)!;
+      if (isValidCatTransition(catY, catNext, yNext - y)) continue;
+      const rankY    = SOLO_CAT_RANK[catY]    ?? -1;
+      const rankNext = SOLO_CAT_RANK[catNext] ?? -1;
+      const suffix = (rankY > rankNext ? catNext : catY).endsWith(" Female") ? " Female" : " Male";
+      if (rankY > rankNext && rankNext >= 0) {
+        yearCatMap.set(y, catNext);
+      } else if (rankY < rankNext) {
+        const clamped = RANK_TO_CAT.get(clampRank(rankY, yNext - y));
+        if (clamped) yearCatMap.set(yNext, suffix === " Female" ? clamped.female : clamped.male);
+      }
+      overriddenYears.add(rankY > rankNext ? y : yNext);
+    }
+
+    // Non-adjacent pass (left to right): catch multi-step forward-too-fast spans
+    // (e.g. A 2024 → B 2025 → C 2026 — each adjacent step looks valid but
+    // isValidCatTransition(A, C, 2) is false).
+    for (let i = 0; i < sortedYears.length; i++) {
+      for (let j = i + 2; j < sortedYears.length; j++) {
+        const y1 = sortedYears[i]!;
+        const y2 = sortedYears[j]!;
+        const cat1 = yearCatMap.get(y1)!;
+        const cat2 = yearCatMap.get(y2)!;
+        const rank1 = SOLO_CAT_RANK[cat1] ?? -1;
+        const rank2 = SOLO_CAT_RANK[cat2] ?? -1;
+        if (rank1 >= rank2 || rank1 < 0) continue;
+        if (isValidCatTransition(cat1, cat2, y2 - y1)) continue;
+        const suffix = cat1.endsWith(" Female") ? " Female" : " Male";
+        const clamped = RANK_TO_CAT.get(clampRank(rank1, y2 - y1));
+        if (clamped) { yearCatMap.set(y2, suffix === " Female" ? clamped.female : clamped.male); overriddenYears.add(y2); }
+      }
+    }
+
+    // Phase 2: evict outliers using the (possibly adjusted) canonCats.
+    // A result is only evictable if its athleteKey routes to a DIFFERENT entry —
+    // if it would map back to this same entry, eviction would be a no-op (the
+    // result is inseparable without a manual assignment).
+    const evicted: AthleteResultRef[] = [];
+    for (const year of yearSet) {
       const yearResults = entry.results.filter(r => r.eventYear === year);
+      const canonCat = yearCatMap.get(year);
+      if (!canonCat) continue;
       const outliers = yearResults.filter(r => {
         if (!r.category) return false;
         const canon = canonicalizeCategory(r.category);
         if (canon === "Unknown") return false;
         if (manualAssignments.has(`${entry.id}:${r.eventId}`)) return false;
-        return !categoriesCompatible(canon, canonCat);
+        if (categoriesCompatible(canon, canonCat)) return false;
+        // Skip if eviction would re-home back to this same entry (inseparable
+        // without a manual assignment — don't evict, leave mixed).
+        const rehomeKey = athleteKey(entry.nameLower, r.team, teamIdStore, r.category);
+        if (index.get(rehomeKey) === entry) return false;
+        return true;
       });
       const canonCount = yearResults.length - outliers.length;
-      if (canonCount <= outliers.length) continue;
+      // When canonCat was overridden by cross-year evidence (impossible backward
+      // transition), bypass the minority guard — the override is justified by
+      // external data, not the current year's vote count.
+      if (!overriddenYears.has(year) && canonCount <= outliers.length) continue;
       for (const r of outliers) {
         entry.results.splice(entry.results.indexOf(r), 1);
         drops++;
+        evicted.push(r);
       }
     }
+
+    // Re-home all evicted results. Results with the same athleteKey (same name +
+    // team/category) land in the same entry automatically — so evicted results that
+    // belong to the same other athlete stay together rather than being dropped.
+    for (const r of evicted) {
+      const eventData = loader(r.eventId);
+      let rehomeName = entry.name;
+      let rehomeNameLower = entry.nameLower;
+      if (eventData) {
+        outer: for (const d of eventData.distances) {
+          if (normalizeDistance(d.name) !== r.distance) continue;
+          for (const raw of d.results) {
+            if (raw.pos === r.pos && raw.team === r.team && raw.category === r.category) {
+              rehomeName = raw.name;
+              rehomeNameLower = normalizeName(raw.name);
+              break outer;
+            }
+          }
+        }
+      }
+      const key = athleteKey(rehomeNameLower, r.team, teamIdStore, r.category);
+      let dest = index.get(key);
+      const isNew = !dest;
+      if (!dest) {
+        dest = newEntry(ids.get(key), rehomeName, rehomeNameLower);
+        index.set(key, dest);
+      }
+      dest.results.push(r);
+      addToTeamsAndCategories(dest, r);
+      rehomed++;
+      console.log(`  [post] re-homed ev=${r.eventId} "${rehomeName}" (${r.category}) from id=${entry.id} → ${isNew ? "new" : "existing"} id=${dest.id}`);
+    }
+
     entry.categories = {};
     entry.teams = [];
     for (const r of entry.results) addToTeamsAndCategories(entry, r);
     deriveCanonicalTeam(entry);
   }
 
-  if (drops > 0) console.log(`  [post] ${drops} result(s) removed — category inconsistent with athlete's year category`);
+  if (drops > 0) console.log(`  [post] ${drops} result(s) re-homed — category inconsistent with athlete's year category`);
+}
+
+// ── ID store helpers ──────────────────────────────────────────────────────────
+
+/** Build a fresh ID store from only the live athletes in the final index. */
+export function buildUpdatedIdStore(index: Map<string, AthleteEntry>): AthleteIdStore {
+  const store = new Map<string, number>();
+  for (const [key, entry] of index) store.set(key, entry.id);
+  return store;
 }
 
 // ── Main builder ──────────────────────────────────────────────────────────────
@@ -1340,12 +1474,11 @@ export function buildAthletesIndex(
   runPass9(ctx);
   runPostPass(ctx);
 
-  // Build updated ID store — only include live athletes (final index).
-  // Minted IDs for intermediate entries that were merged away are intentionally
-  // excluded: storing them inflates Math.max(idStore.values()) and causes gaps.
-  const updatedIdStore = new Map(idStore);
-  for (const [key, entry] of ctx.index) updatedIdStore.set(key, entry.id);
-  for (const key of ctx.deletedKeys) updatedIdStore.delete(key);
+  // Build updated ID store from ONLY the live athletes in the final index.
+  // Intentionally do NOT inherit stale keys from idStore — merged/evicted athletes
+  // inflate Math.max(idStore.values()) and cause the next scrape to mint
+  // unnecessarily high IDs, creating gaps.
+  const updatedIdStore = buildUpdatedIdStore(ctx.index);
 
   return { index: ctx.index, updatedIdStore, soloFlags: ctx.soloFlags, crossPassFlags: ctx.crossPassFlags };
 }

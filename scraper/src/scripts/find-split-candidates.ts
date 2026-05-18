@@ -420,17 +420,30 @@ for (const group of nameGroupRows) {
 const rejPath     = path.resolve(import.meta.dirname, "../../split-candidates-rejected.json");
 const appliedPath = path.resolve(import.meta.dirname, "../../split-candidates-applied.json");
 
+// Pair identity: prefer stable name+team key (survives ID remapping); fall back to id:id.
+function pairNameKey(c: CandidateEntry): string {
+  const [a, b] = [c.keep, c.absorb].sort((x, y) => x.name.localeCompare(y.name) || x.team.localeCompare(y.team));
+  return `${a!.name}|${a!.team}||${b!.name}|${b!.team}`;
+}
+function pairIdKey(c: CandidateEntry): string { return `${c.keep.id}:${c.absorb.id}`; }
+
 let rejectedEntries: CandidateEntry[] = [];
 if (fs.existsSync(rejPath)) {
   try { rejectedEntries = JSON.parse(fs.readFileSync(rejPath, "utf-8")); } catch {}
 }
-const rejectedKeys = new Set(rejectedEntries.map((c) => `${c.keep.id}:${c.absorb.id}`));
+const rejectedIdKeys   = new Set(rejectedEntries.map(pairIdKey));
+const rejectedNameKeys = new Set(rejectedEntries.map(pairNameKey));
 
 let appliedEntries: CandidateEntry[] = [];
 if (fs.existsSync(appliedPath)) {
   try { appliedEntries = JSON.parse(fs.readFileSync(appliedPath, "utf-8")); } catch {}
 }
-const appliedKeys = new Set(appliedEntries.map((c) => `${c.keep.id}:${c.absorb.id}`));
+const appliedIdKeys   = new Set(appliedEntries.map(pairIdKey));
+const appliedNameKeys = new Set(appliedEntries.map(pairNameKey));
+
+function isDecided(c: CandidateEntry, idKeys: Set<string>, nameKeys: Set<string>): boolean {
+  return idKeys.has(pairIdKey(c)) || nameKeys.has(pairNameKey(c));
+}
 
 // ── Migrate decided entries out of the main file ──────────────────────────────
 
@@ -440,26 +453,27 @@ if (fs.existsSync(outPath)) {
 }
 
 const newlyRejected = existing.filter(
-  (c) => c.approved === false && !rejectedKeys.has(`${c.keep.id}:${c.absorb.id}`),
+  (c) => c.approved === false && !isDecided(c, rejectedIdKeys, rejectedNameKeys),
 );
 if (newlyRejected.length > 0) {
   rejectedEntries.push(...newlyRejected);
-  for (const c of newlyRejected) rejectedKeys.add(`${c.keep.id}:${c.absorb.id}`);
+  for (const c of newlyRejected) { rejectedIdKeys.add(pairIdKey(c)); rejectedNameKeys.add(pairNameKey(c)); }
   fs.writeFileSync(rejPath, JSON.stringify(rejectedEntries, null, 2));
 }
 
 const newlyApplied = existing.filter(
-  (c) => c.approved === true && !appliedKeys.has(`${c.keep.id}:${c.absorb.id}`),
+  (c) => c.approved === true && !isDecided(c, appliedIdKeys, appliedNameKeys),
 );
 if (newlyApplied.length > 0) {
   appliedEntries.push(...newlyApplied);
-  for (const c of newlyApplied) appliedKeys.add(`${c.keep.id}:${c.absorb.id}`);
+  for (const c of newlyApplied) { appliedIdKeys.add(pairIdKey(c)); appliedNameKeys.add(pairNameKey(c)); }
   fs.writeFileSync(appliedPath, JSON.stringify(appliedEntries, null, 2));
 }
 
 // Remove all decided pairs — main file only ever contains pending (null) entries
-const decidedKeys = new Set([...rejectedKeys, ...appliedKeys]);
-const pending = candidates.filter((c) => !decidedKeys.has(`${c.keep.id}:${c.absorb.id}`));
+const pending = candidates.filter(
+  (c) => !isDecided(c, rejectedIdKeys, rejectedNameKeys) && !isDecided(c, appliedIdKeys, appliedNameKeys),
+);
 
 // ── Filter by --top N if specified ───────────────────────────────────────────
 

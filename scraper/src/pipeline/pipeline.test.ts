@@ -226,7 +226,26 @@ describe("buildAthletesIndex — duplicate event safeguard", () => {
 // ── buildAthletesIndex — year-category consistency sweep ──────────────────────
 
 describe("buildAthletesIndex — year-category consistency sweep", () => {
-  it("5× MASTERS C + 1× MASTERS B in same year → MASTERS B result removed", () => {
+  it("5× MASTERS C + 1× MASTERS B in same year → MASTERS B result re-homed to separate entry", () => {
+    // All results solo (Individual). Licence groups them into one entry keyed "hugo dias|0".
+    // The MASTERS B outlier re-homes to "hugo dias|solo:masters-b" (different key) → eviction
+    // is not self-referential so it proceeds. Main entry ends with 5 MASTERS C results.
+    const events = [1, 2, 3, 4, 5, 6].map(id => mkEvent(id, 2025, `2025-0${id}-01`));
+    const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({ bib: String(id), name: "Hugo Dias", licences: ["12345678"], team: "Individual", category: id === 5 ? "MASTERS B" : "MASTERS C", genderPos: 10, athleteId: 0 })],
+    }]);
+    const { index } = runPipeline(events, loader);
+    const entries = [...index.values()].filter(e => e.nameLower === "hugo dias");
+    const main = entries.find(e => e.results.every(r => r.category === "MASTERS C"));
+    expect(main).toBeDefined();
+    expect(main!.results.length).toBe(5);
+  });
+
+  it("5× MASTERS C + 1× MASTERS B same team in same year → all kept (self-referential, inseparable)", () => {
+    // When all results share the same team, the outlier's rehome key equals the entry's own
+    // key. The self-referential guard fires and keeps all 6 results — the mixed categories
+    // can only be separated via a manual assignment.
     const events = [1, 2, 3, 4, 5, 6].map(id => mkEvent(id, 2025, `2025-0${id}-01`));
     const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
       id: "1", name: "Granfondo", finisherCount: 100,
@@ -235,8 +254,7 @@ describe("buildAthletesIndex — year-category consistency sweep", () => {
     const { index } = runPipeline(events, loader);
     const entries = [...index.values()].filter(e => e.nameLower === "hugo dias");
     expect(entries.length).toBe(1);
-    expect(entries[0]!.results.length).toBe(5);
-    expect(entries[0]!.results.every(r => r.category === "MASTERS C")).toBe(true);
+    expect(entries[0]!.results.length).toBe(6);
   });
 
   it("equal counts of two incompatible categories (1 vs 1) → no removal (ambiguous)", () => {
@@ -783,10 +801,12 @@ describe("buildAthletesIndex — licence conflict guard (Pass 7)", () => {
     expect(entries.length).toBe(2);  // NOT merged — disjoint licences
   });
 
-  it("shared licence in Pass 7 merges profiles despite incompatible category", () => {
-    // Same licence appearing on two profiles with incompatible categories (Masters B → Masters A,
-    // a de-aging) triggers the shareLicence shortcut — merges with a warning rather than skipping.
-    // This is the expected behaviour: licence is authoritative, category mismatch is logged.
+  it("shared licence merges profiles; backward-transition override then separates the de-aged year", () => {
+    // Same licence on Masters B (2025) and Masters A (2026). Pass 1 merges them into one
+    // entry (licence is authoritative for identity). However the post-pass backward-transition
+    // override detects an impossible de-aging (B→A) and evicts the 2025 Masters B result,
+    // re-homing it to a new entry. The two years end up in separate profiles.
+    // Organiser data errors like this can be resolved with a manual alias rule.
     const e1 = mkEvent(1, 2025, "2025-03-15");
     const e2 = mkEvent(2, 2026, "2026-03-22");
     const l1 = () => mkEventResults(1, 2025, "2025-03-15", [{
@@ -799,7 +819,137 @@ describe("buildAthletesIndex — licence conflict guard (Pass 7)", () => {
     }]);
     const entries = [...runMulti([{ event: e1, loader: l1 }, { event: e2, loader: l2 }]).index.values()]
       .filter(e => e.nameLower === "luis silva");
-    expect(entries.length).toBe(1);   // merged via shared licence
-    expect(entries[0]!.results.length).toBe(2);
+    // Backward override splits: one entry per year, each with 1 result.
+    expect(entries.length).toBe(2);
+    expect(entries.every(e => e.results.length === 1)).toBe(true);
+  });
+});
+
+// ── buildAthletesIndex — post-pass self-referential eviction guard ─────────────
+
+describe("buildAthletesIndex — post-pass self-referential eviction guard", () => {
+  it("outlier whose rehome key maps back to same entry is NOT evicted", () => {
+    // 4× MASTERS B + 1× MASTERS A, all under the same team in 2025.
+    // MASTERS A is a backward outlier (de-aging) and would normally be evicted.
+    // But athleteKey("name", "CC Faro", store, "MASTERS A") == entry's own key →
+    // self-referential guard fires → result is kept (inseparable without a manual
+    // assignment).
+    const teamIdStore = new Map([["cc faro", 5]]);
+    const idStore: AthleteIdStore = new Map([["carlos mendes|5", 100]]);
+    const events = [1, 2, 3, 4, 5].map(id => mkEvent(id, 2025, `2025-0${id}-01`));
+    const loader = (id: number) => mkEventResults(id, 2025, `2025-0${id}-01`, [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({
+        bib: String(id), name: "Carlos Mendes", team: "CC Faro",
+        category: id < 5 ? "MASTERS B" : "MASTERS A",
+        licences: ["55001"], genderPos: id * 5, athleteId: 0,
+      })],
+    }]);
+    const { index } = buildAthletesIndex(events, loader, [], [], idStore, teamIdStore);
+    const entry = [...index.values()].find(e => e.id === 100)!;
+    expect(entry).toBeDefined();
+    // All 5 results kept — eviction was self-referential so the outlier stays
+    expect(entry.results.length).toBe(5);
+    expect(entry.results.some(r => r.category === "MASTERS A")).toBe(true);
+  });
+});
+
+// ── buildAthletesIndex — post-pass backward transition override ───────────────
+
+describe("buildAthletesIndex — post-pass backward transition override", () => {
+  it("backward year sequence overrides earlier year's canon and evicts its results", () => {
+    // Solo athlete (licence 66001) races as MASTERS D in 2024 and MASTERS A in 2025.
+    // MASTERS D → MASTERS A is an impossible backward transition (de-aging by 3 ranks).
+    // The post-pass overrides 2024 canon to MASTERS A, then evicts all MASTERS D results
+    // from 2024 — bypassing the minority guard because the year was overridden.
+    // Solo key ("name|") != rehome key ("name|solo:masters-d") → not self-referential.
+    const events = [1, 2, 3, 4, 5, 6].map(id => mkEvent(id, id <= 3 ? 2024 : 2025, `202${id <= 3 ? 4 : 5}-0${id <= 3 ? id : id - 3}-01`));
+    const loader = (id: number) => {
+      const year = id <= 3 ? 2024 : 2025;
+      const date = `${year}-0${id <= 3 ? id : id - 3}-01`;
+      return mkEventResults(id, year, date, [{
+        id: "1", name: "Granfondo", finisherCount: 100,
+        results: [mkResult({
+          bib: String(id), name: "Dinis Fonseca", team: "Individual",
+          category: id <= 3 ? "MASTERS D" : "MASTERS A",
+          licences: ["66001"], genderPos: id * 5, athleteId: 0,
+        })],
+      }]);
+    };
+    const { index } = runPipeline(events, loader);
+    const entries = [...index.values()].filter(e => e.nameLower === "dinis fonseca");
+    // All 2024 MASTERS D results evicted; only 2025 MASTERS A results remain on this entry.
+    const main = entries.find(e => e.results.every(r => r.category === "MASTERS A"));
+    expect(main).toBeDefined();
+    expect(main!.results.length).toBe(3);
+    expect(main!.results.every(r => r.eventYear === 2025)).toBe(true);
+  });
+
+  it("equal counts in a backward year do not block eviction when year is overridden", () => {
+    // 1× MASTERS D in 2024 and 1× MASTERS A in 2025 — same licence groups them.
+    // Normally 1 outlier vs 0 compatible (0 ≤ 1) would block eviction.
+    // But the 2024 year is overridden by the backward sequence → minority guard bypassed.
+    const events = [mkEvent(1, 2024, "2024-03-01"), mkEvent(2, 2025, "2025-03-01")];
+    const loader = (id: number) => mkEventResults(id, id === 1 ? 2024 : 2025, `${id === 1 ? 2024 : 2025}-03-01`, [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({
+        bib: String(id), name: "Egas Vieira", team: "Individual",
+        category: id === 1 ? "MASTERS D" : "MASTERS A",
+        licences: ["66002"], genderPos: 10, athleteId: 0,
+      })],
+    }]);
+    const { index } = runPipeline(events, loader);
+    const entries = [...index.values()].filter(e => e.nameLower === "egas vieira");
+    const main = entries.find(e => e.results.some(r => r.category === "MASTERS A"));
+    expect(main).toBeDefined();
+    expect(main!.results.filter(r => r.category === "MASTERS D").length).toBe(0);
+  });
+});
+
+// ── buildAthletesIndex — post-pass non-adjacent forward-too-fast ──────────────
+
+describe("buildAthletesIndex — post-pass non-adjacent forward-too-fast", () => {
+  it("A→B→C over 3 years is valid (each step +1 rank, +1 year)", () => {
+    // Adjacent steps are both valid; span A→C in 2 years is also within the
+    // 1-rank-per-year limit (A is rank 1, C is rank 3, 2 years apart).
+    // Wait — rankDiff(A→C) = 2, maxRankDiff for 2 years = 1 → too fast!
+    // So this test verifies the 3-year case (enough time) is NOT evicted.
+    const events = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(id =>
+      mkEvent(id, id <= 3 ? 2024 : id <= 6 ? 2025 : 2026, `${id <= 3 ? 2024 : id <= 6 ? 2025 : 2026}-0${((id - 1) % 3) + 1}-01`));
+    const loader = (id: number) => {
+      const year = id <= 3 ? 2024 : id <= 6 ? 2025 : 2026;
+      const month = ((id - 1) % 3) + 1;
+      const cat = year === 2024 ? "MASTERS A" : year === 2025 ? "MASTERS B" : "MASTERS C";
+      return mkEventResults(id, year, `${year}-0${month}-01`, [{
+        id: "1", name: "Granfondo", finisherCount: 100,
+        results: [mkResult({ bib: String(id), name: "Fabio Monteiro", team: "Individual", category: cat, licences: ["77001"], genderPos: 10, athleteId: 0 })],
+      }]);
+    };
+    // A→C spans 2 years (2024→2026): isValidCatTransition(A,C,2) is false → clamped
+    // The non-adjacent pass fires and 2026 MASTERS C results are evicted.
+    // 6 results remain (3 MASTERS A + 3 MASTERS B), 0 MASTERS C.
+    const { index } = runPipeline(events, loader);
+    const entries = [...index.values()].filter(e => e.nameLower === "fabio monteiro");
+    const main = entries.find(e => e.results.some(r => r.category === "MASTERS A"));
+    expect(main).toBeDefined();
+    expect(main!.results.filter(r => r.category === "MASTERS C").length).toBe(0);
+    expect(main!.results.filter(r => r.category === "MASTERS A" || r.category === "MASTERS B").length).toBe(6);
+  });
+
+  it("A→B→C over 22+ years is valid (enough time to reach C from A)", () => {
+    // 2004 MASTERS A, 2015 MASTERS B, 2026 MASTERS C — well within allowed pace.
+    const events = [mkEvent(1, 2004, "2004-03-01"), mkEvent(2, 2015, "2015-03-01"), mkEvent(3, 2026, "2026-03-01")];
+    const loader = (id: number) => {
+      const year = id === 1 ? 2004 : id === 2 ? 2015 : 2026;
+      const cat = id === 1 ? "MASTERS A" : id === 2 ? "MASTERS B" : "MASTERS C";
+      return mkEventResults(id, year, `${year}-03-01`, [{
+        id: "1", name: "Granfondo", finisherCount: 100,
+        results: [mkResult({ bib: String(id), name: "Gaspar Branco", team: "Individual", category: cat, licences: ["77002"], genderPos: 10, athleteId: 0 })],
+      }]);
+    };
+    const { index } = runPipeline(events, loader);
+    const entries = [...index.values()].filter(e => e.nameLower === "gaspar branco");
+    expect(entries.length).toBe(1);
+    expect(entries[0]!.results.length).toBe(3);
   });
 });

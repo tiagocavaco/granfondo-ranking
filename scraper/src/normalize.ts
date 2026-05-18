@@ -212,8 +212,8 @@ export type CategoryTier = 'elite' | 'masters_a' | 'masters_b_plus' | 'open_1934
 export function categoryTier(cat: string): CategoryTier {
   const s = cat.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-  // Masters B, C, D, E (any gender)
-  if (/masters?[bcde]/.test(s)) return 'masters_b_plus';
+  // Masters B, C, D, E, F (any gender)
+  if (/masters?[bcdef]/.test(s)) return 'masters_b_plus';
   // MASTER 40 / 45 / 50 / … / 80
   if (/master[4-9]/.test(s)) return 'masters_b_plus';
   // Age-range bands: "M 40-44" → "m4044", "F 55-59" → "f5559"

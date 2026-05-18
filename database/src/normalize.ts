@@ -41,7 +41,7 @@ export function normalizeTeam(name: string): string {
   return s;
 }
 
-export const SOLO_TEAM_KEYS = new Set(["individual", "individoal", "independente", "no team", "sem equipa", ""]);
+export const SOLO_TEAM_KEYS = new Set(["individual", "individoal", "independente", "no team", "n team", "sem equipa", ""]);
 
 // ── Distance normalization ────────────────────────────────────────────────────
 
