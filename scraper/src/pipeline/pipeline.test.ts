@@ -779,6 +779,41 @@ describe("buildAthletesIndex — Pass 1: licence majority-vote outlier detection
   });
 });
 
+describe("buildAthletesIndex — Pass 1: bib collision guard", () => {
+  it("co-occurring licences with different bibs at the same event are NOT merged", () => {
+    // Licences 111001 and 222002 appear together on Event A's result row, which makes
+    // `hasCooc = true` in the within-Pass-1 merge — enough to attempt a merge.
+    // At Event B (later, determines teamId), the same-named athletes have DIFFERENT bibs
+    // (bib "10" vs "20"), which is physical proof of two distinct people competing
+    // simultaneously. The bib collision guard must block the merge and keep 2 entries.
+    //
+    // Regression: before `bib` was added to AthleteResultRef (toRef() omitted it), r.bib
+    // was always undefined at runtime. canonBibBySlot then mapped every slot to undefined,
+    // so `canonBib !== undefined` was always false — all hasCooc pairs incorrectly merged.
+    const eA = mkEvent(1, 2025, "2025-03-15");
+    const eB = mkEvent(2, 2025, "2025-06-15");
+    const lA = () => mkEventResults(1, 2025, "2025-03-15", [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [mkResult({ bib: "5", name: "Joao Pereira", team: "Team Alpha", category: "MASTERS B",
+        licences: ["111001", "222002"], genderPos: 10, athleteId: 0 })],
+    }]);
+    const lB = () => mkEventResults(2, 2025, "2025-06-15", [{
+      id: "1", name: "Granfondo", finisherCount: 100,
+      results: [
+        mkResult({ bib: "10", name: "Joao Pereira", team: "Team Alpha", category: "MASTERS B",
+          licences: ["111001"], genderPos: 10, athleteId: 0 }),
+        mkResult({ bib: "20", name: "Joao Pereira", team: "Team Beta",  category: "MASTERS B",
+          licences: ["222002"], genderPos: 20, athleteId: 0 }),
+      ],
+    }]);
+    const entries = [...runMulti([{ event: eA, loader: lA }, { event: eB, loader: lB }]).index.values()]
+      .filter(e => e.nameLower === "joao pereira");
+    expect(entries.length).toBe(2);
+    expect(entries.some(e => e.results.some(r => r.bib === "10"))).toBe(true);
+    expect(entries.some(e => e.results.some(r => r.bib === "20"))).toBe(true);
+  });
+});
+
 describe("buildAthletesIndex — licence conflict guard (Pass 7)", () => {
   it("disjoint licences block Pass 7 merge even when all soft checks pass", () => {
     // Two team profiles: non-overlapping years, same name, compatible category,

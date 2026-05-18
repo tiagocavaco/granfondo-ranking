@@ -324,6 +324,7 @@ function toRef(r: StoredResult, event: StoredEvent, dist: StoredDistanceResults)
     gapSecs: r.gapSecs,
     dnf: r.dnf,
     dns: r.dns,
+    bib: r.bib,
   };
 }
 

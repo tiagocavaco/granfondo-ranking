@@ -66,6 +66,7 @@ export type AthleteResultRef =
   Omit<AthleteResultsRow, "id" | "athleteId" | "dnf" | "dns"> & {
     dnf: boolean;
     dns: boolean;
+    bib: string;
   };
 
 /**

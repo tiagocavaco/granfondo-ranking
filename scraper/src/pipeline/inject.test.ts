@@ -12,7 +12,7 @@ function mkRef(overrides: Partial<AthleteEntry["results"][number]> = {}): Athlet
     distance: "Granfondo", pos: 1, genderPos: 1, catPos: 0, finisherCount: 100,
     category: "ELITES M", gender: "M", team: "Team Alpha", country: "Portugal",
     raceTime: "03:25:10", raceTimeSecs: 12310, gap: "", gapSecs: 0,
-    dnf: false, dns: false,
+    dnf: false, dns: false, bib: "",
     ...overrides,
   };
 }
