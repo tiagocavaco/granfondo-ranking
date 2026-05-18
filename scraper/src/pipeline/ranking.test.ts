@@ -147,6 +147,35 @@ describe("buildAggregateRanking", () => {
     expect(Object.keys(ranking).length).toBe(0);
   });
 
+  it("awards equal points to tied athletes (same genderPos)", () => {
+    // Ricardo Silva / Diogo Graça regression: old code sorted by raceTimeSecs
+    // and used idx+1, which assigned sequential positions to tied athletes.
+    // Both athletes finished 4th (same genderPos=4, same raceTimeSecs).
+    const event = mkEvent(1, 2026, "2026-03-15");
+    const loader = () => mkEventResults(1, 2026, "2026-03-15", [{
+      id: "1", name: "Granfondo", finisherCount: 300,
+      results: [
+        mkResult({ pos: 1, genderPos: 1, raceTimeSecs: 100,  name: "First" }),
+        mkResult({ pos: 2, genderPos: 2, raceTimeSecs: 200,  name: "Second" }),
+        mkResult({ pos: 3, genderPos: 3, raceTimeSecs: 300,  name: "Third" }),
+        mkResult({ pos: 4, genderPos: 4, raceTimeSecs: 400,  name: "Tied A", team: "Team A" }),
+        mkResult({ pos: 4, genderPos: 4, raceTimeSecs: 400,  name: "Tied B", team: "Team B" }),
+        ...Array.from({ length: 295 }, (_, i) =>
+          mkResult({ pos: i + 6, genderPos: i + 6, raceTimeSecs: (i + 6) * 100, name: `Filler ${i}`, team: `Fill${i}` })
+        ),
+      ],
+    }]);
+    const ranking = buildAggregateRanking([event], loader);
+    const gf_m = ranking["2026"]!["Granfondo"]!["M"]!;
+    const tiedA = gf_m.find((a) => a.name === "Tied A")!;
+    const tiedB = gf_m.find((a) => a.name === "Tied B")!;
+    expect(tiedA).toBeDefined();
+    expect(tiedB).toBeDefined();
+    expect(tiedA.totalPoints).toBe(tiedB.totalPoints);
+    expect(tiedA.bestPos).toBe(4);
+    expect(tiedB.bestPos).toBe(4);
+  });
+
   it("ranks athletes by totalPoints descending", () => {
     const event = mkEvent(1, 2025, "2025-03-15");
     const loader = () => mkEventResults(1, 2025, "2025-03-15", [{

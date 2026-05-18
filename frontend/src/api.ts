@@ -22,7 +22,6 @@ import type {
 import { normalizeTeam } from "@granfondo/database/normalize";
 import { buildCountryMap } from "./utils/athlete";
 import {
-  lookupAthleteId as _lookupAthleteId,
   initLookups as _initLookups,
 } from "./utils/lookups.js";
 export { resolveTeamId, resolveTeamKey } from "./utils/lookups.js";
@@ -353,10 +352,6 @@ export const api = {
       categories,
       results,
     };
-  },
-
-  lookupAthleteId(name: string, team: string): number | null {
-    return _lookupAthleteId(name, team);
   },
 
   async initLookups(): Promise<{ teamsLoaded: boolean }> {

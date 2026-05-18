@@ -20,9 +20,7 @@ import {
   levenshteinDistance,
   isValidLicence,
   normalizeDistance,
-  DISTANCE_ALIASES,
   normalizeCategory,
-  fixRawTeamName,
   canonicalizeCategory,
   isSoloTeam,
   sameTeam,
@@ -1161,7 +1159,7 @@ function runPass8(ctx: PipelineCtx): void {
 // ── Pass 9: manual result assignments ────────────────────────────────────────
 
 function runPass9(ctx: PipelineCtx): void {
-  const { index, assigned, assignments, loader, deletedKeys, manualAssignments, ids, teamIdStore } = ctx;
+  const { index, assignments, loader, deletedKeys, manualAssignments, ids, teamIdStore } = ctx;
   let count = 0;
 
   for (const assignment of assignments) {

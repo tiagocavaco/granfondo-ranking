@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import { resolveTeamId } from "../utils/lookups";
-import type { AggregateRanking, AggregateAthlete } from "@granfondo/database/types";
+import type { AggregateRanking } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
 import { countryFlag, SOLO_TEAM_KEYS, normalizeTeam } from "@granfondo/database/normalize";
-
-const POINTS_MAX = 50; // total points available per race
 
 function pointsBarColor(pts: number, max: number) {
   const pct = pts / max;
@@ -127,7 +125,7 @@ export default function AggregateRankingPage() {
           </h2>
         </div>
         <div className="sm:hidden">
-          <GenderToggle value={gender} onChange={(g) => { setGender(g as "M" | "F"); setExpanded(null); setSearch(""); }} compact />
+          <GenderToggle value={gender} onChange={(g) => { setGender(g as "M" | "F"); setExpanded(null); setSearch(""); }} />
         </div>
       </div>
 
@@ -393,7 +391,7 @@ export default function AggregateRankingPage() {
   );
 }
 
-function GenderToggle({ value, onChange, compact }: { value: string; onChange: (v: string) => void; compact?: boolean }) {
+function GenderToggle({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   return (
     <div className="flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm shrink-0">
       {[{ v: "M", label: "Men" }, { v: "F", label: "Women" }].map(({ v, label }) => (

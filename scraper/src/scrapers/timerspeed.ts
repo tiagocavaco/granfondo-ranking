@@ -62,7 +62,7 @@ async function parseClax(url: string): Promise<{ engages: Map<string, Engage>; t
 function buildDistances(
   engages: Map<string, Engage>,
   times: Map<string, string>,
-  eventId: number,
+  _eventId: number,
   distanceConfig: { key: string; id: string; name: string }[],
 ): StoredDistanceResults[] {
   const byDist = new Map<string, { bib: string; time: string; eng: Engage }[]>();

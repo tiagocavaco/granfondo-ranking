@@ -19,6 +19,7 @@ import {
   levenshteinDistance,
   distancePriority,
   isValidLicence,
+  isSoloTeam,
 } from "./normalize.js";
 
 beforeAll(() => {
@@ -401,6 +402,35 @@ describe("isValidLicence", () => {
     expect(isValidLicence("123456")).toBe(true);
     expect(isValidLicence("0123")).toBe(true); // leading zero → not a plain small int
     expect(isValidLicence("ABC100")).toBe(true);
+  });
+});
+
+// ── isSoloTeam ────────────────────────────────────────────────────────────────
+
+describe("isSoloTeam", () => {
+  it("treats empty string as solo", () => {
+    expect(isSoloTeam("")).toBe(true);
+  });
+
+  it("treats 'Individual' as solo", () => {
+    expect(isSoloTeam("Individual")).toBe(true);
+  });
+
+  it("treats 'Independente' as solo", () => {
+    expect(isSoloTeam("Independente")).toBe(true);
+  });
+
+  it("treats 'Nøteam' as solo (Scandinavian placeholder normalized to 'n team')", () => {
+    expect(isSoloTeam("Nøteam")).toBe(true);
+  });
+
+  it("treats 'Sem Equipa' as solo", () => {
+    expect(isSoloTeam("Sem Equipa")).toBe(true);
+  });
+
+  it("does not treat a real team name as solo", () => {
+    expect(isSoloTeam("Team Alpha")).toBe(false);
+    expect(isSoloTeam("Orion")).toBe(false);
   });
 });
 

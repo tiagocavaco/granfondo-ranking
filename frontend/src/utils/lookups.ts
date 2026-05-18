@@ -5,13 +5,12 @@
  * Populated at startup via initLookups().
  */
 
-import { normalizeTeam, normalizeName, SOLO_TEAM_KEYS } from "@granfondo/database/normalize";
+import { normalizeTeam } from "@granfondo/database/normalize";
 import * as schema from "@granfondo/database/schema";
 import { getDb } from "../db/db-client";
 
 // In-memory caches populated by initLookups()
 let teamAliasesCache = new Map<string, string>();
-let nameToIdCache = new Map<string, number>();
 let teamKeyToIdCache = new Map<string, number>();
 
 function teamNormKey(name: string): string {
@@ -27,22 +26,9 @@ export function resolveTeamId(name: string): number | undefined {
   return teamKeyToIdCache.get(teamNormKey(name));
 }
 
-export function athleteLookupKey(name: string, team: string): string {
-  const nameLower = normalizeName(name);
-  const tk = teamNormKey(team ?? "");
-  return (!tk || SOLO_TEAM_KEYS.has(tk)) ? `${nameLower}|` : `${nameLower}|${tk}`;
-}
-
-export function lookupAthleteId(name: string, team: string): number | null {
-  return nameToIdCache.get(athleteLookupKey(name, team)) ?? null;
-}
-
 export async function initLookups(): Promise<{ teamsLoaded: boolean }> {
   try {
     const db = await getDb();
-
-    const lookupRows = db.select().from(schema.athleteLookup).all();
-    nameToIdCache = new Map(lookupRows.map((r) => [r.key, r.athleteId]));
 
     try {
       const teamRows = db.select().from(schema.teams).all();

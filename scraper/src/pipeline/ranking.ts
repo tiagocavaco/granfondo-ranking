@@ -61,14 +61,13 @@ export function buildAggregateRanking(
       }
 
       for (const [gender, finishers] of byGender) {
-        finishers.sort((a, b) => a.raceTimeSecs - b.raceTimeSecs);
         const coeff = finisherCoefficient(finishers.length);
         if (!acc[yearKey][distKey][gender]) acc[yearKey][distKey][gender] = new Map();
         const distMap = acc[yearKey][distKey][gender];
 
-        finishers.forEach((r, idx) => {
-          const genderPos = idx + 1;
-          const basePoints = posToBasePoints(genderPos);
+        finishers.forEach((r) => {
+          const genderPos = r.genderPos;
+const basePoints = posToBasePoints(genderPos);
           if (basePoints === 0) return;
           const pts = Math.round(basePoints * coeff * 10) / 10;
           const nameLower = normalizeName(r.name);

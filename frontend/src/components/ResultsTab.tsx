@@ -1,11 +1,11 @@
 import { useEffect, useState, useMemo } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import { resolveTeamId } from "../utils/lookups";
 import type { StoredEventResults, StoredResult, StoredDistanceResults, StoredDistance } from "@granfondo/database/types";
 import { countryFlag, normalizeCountry as toISO2, SOLO_TEAM_KEYS, normalizeTeam, normalizeName } from "@granfondo/database/normalize";
-import { Spinner, ErrorBanner } from "./EventList";
+import { Spinner } from "./EventList";
 
 interface Props {
   eventId: number;
@@ -61,7 +61,6 @@ function posStyle(pos: number) {
 }
 
 function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
-  const navigate = useNavigate();
   const defaultDistId =
     distances.find((d) => d.name === "Granfondo")?.id ??
     distances[0]?.id ??
@@ -74,7 +73,6 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
 
   const activeDist = distances.find((d) => d.id === activeDistId) ?? distances[0];
   const results: StoredResult[] = activeDist?.results ?? [];
-  const totalFinisherCount = distances.reduce((sum, d) => sum + d.finisherCount, 0);
 
   const nationalitySummary = useMemo(() => {
     const counts = new Map<string, number>();

@@ -47,7 +47,6 @@ const pairCounts = new Map<string, { from: string; to: string; count: number; na
 for (const p of participants) {
   const nameLower = normalizeName(p.name);
   const teamKey   = teamNormalKey(p.team);
-  const lookupKey = `${nameLower}|${teamKey}`;
 
   if (p.athlete_id && p.athlete_id !== 0) continue; // already linked
   const existingTeams = nameToTeams.get(nameLower);

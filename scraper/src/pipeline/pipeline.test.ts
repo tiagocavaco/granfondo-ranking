@@ -7,10 +7,8 @@ import {
   SOLO_TEAM_KEYS,
   buildAthletesIndex,
   isValidCatTransition,
-  type AthleteAliasRule,
   type ResultAssignment,
   type AthleteIdStore,
-  type SoloCollisionFlag,
 } from "./pipeline.js";
 import { teamNormalKey } from "../normalize.js";
 import type {
