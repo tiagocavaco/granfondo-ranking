@@ -142,3 +142,29 @@ export function canonicalizeCategory(raw: string): string {
 export function isFemaleCategory(raw: string): boolean {
   return canonicalizeCategory(raw).endsWith("Female");
 }
+
+/** Canonical display order for category groups (gender suffix stripped). */
+export const CANON_ORDER = [
+  "Elite", "Open 19-34",
+  "Masters A", "Masters B", "Masters C", "Masters D", "Masters E", "Masters F",
+  "E-Bike", "Paracycling",
+] as const;
+
+/**
+ * Returns a [groupIndex, subIndex] tuple for sorting raw category strings.
+ * Within the Elite band: Junior < Sub23 < Elite (age-ascending).
+ * Within Masters bands: sorted by numeric age (30 < 35 < 40 …).
+ * Unknown categories sort to the end.
+ */
+export function categorySortKey(raw: string): [number, number] {
+  const canon = canonicalizeCategory(raw).replace(/ (Male|Female)$/, "");
+  const idx = CANON_ORDER.indexOf(canon as typeof CANON_ORDER[number]);
+  let sub = 0;
+  if (canon === "Elite") {
+    const u = raw.toUpperCase();
+    sub = /JUN|JUNIOR|CADETE/.test(u) ? 0 : /SUB/.test(u) ? 1 : 2;
+  } else {
+    sub = parseInt(raw.match(/\d+/)?.[0] ?? "0", 10);
+  }
+  return [idx === -1 ? CANON_ORDER.length : idx, sub];
+}

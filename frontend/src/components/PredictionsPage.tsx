@@ -6,22 +6,9 @@ import { DISTANCES } from "@granfondo/utils/distance";
 import { Spinner } from "./EventList";
 import { distBadgeClass } from "../utils/distance";
 import { countryFlag } from "@granfondo/database/normalize";
-import { canonicalizeCategory, isFemaleCategory } from "@granfondo/utils/category";
+import { isFemaleCategory, categorySortKey } from "@granfondo/utils/category";
 
 const COLLAPSED_COUNT = 3;
-
-// Canonical category order: Elite → Open 19-34 → Masters A–F → specials
-const CANON_ORDER = [
-  "Elite", "Open 19-34",
-  "Masters A", "Masters B", "Masters C", "Masters D", "Masters E", "Masters F",
-  "E-Bike", "Paracycling",
-];
-
-function catSortKey(raw: string): number {
-  const canon = canonicalizeCategory(raw).replace(/ (Male|Female)$/, "");
-  const idx = CANON_ORDER.indexOf(canon);
-  return idx === -1 ? CANON_ORDER.length : idx;
-}
 
 function rankBadge(rank: number) {
   if (rank === 1) return "bg-amber-400 text-white";
@@ -187,7 +174,11 @@ function DistancePanel({ data }: { data: DistancePredictions }) {
 
   const sortedCats = Object.entries(data.categories)
     .filter(([cat, c]) => (c.ranked.length > 0 || c.newcomers > 0) && isFemaleCategory(cat) === (gender === "F"))
-    .sort(([a], [b]) => catSortKey(a) - catSortKey(b));
+    .sort(([a], [b]) => {
+      const [ai, aa] = categorySortKey(a);
+      const [bi, ba] = categorySortKey(b);
+      return ai !== bi ? ai - bi : aa - ba;
+    });
 
   return (
     <div className="space-y-6">
