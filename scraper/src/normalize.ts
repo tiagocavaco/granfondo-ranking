@@ -290,3 +290,33 @@ export function sameTeam(a: string, b: string): boolean {
   const kb = teamNormalKey(b);
   return ka === kb || teamKeySimilarity(ka, kb) === 1;
 }
+
+/**
+ * Portuguese convention: short name = first + last token of the long name.
+ * Example: "João Ferreira" as short form of "João Da Silva Ferreira".
+ */
+export function isPortugueseNameAbbrev(shortTokens: string[], longTokens: string[]): boolean {
+  return shortTokens.length < longTokens.length
+    && shortTokens[0] === longTokens[0]
+    && shortTokens[shortTokens.length - 1] === longTokens[longTokens.length - 1];
+}
+
+/**
+ * Spanish convention: short name = first + second token of a 3-token long name.
+ * Father's surname is the everyday identifier, not the mother's:
+ * "Luis Garcia" as short form of "Luis Garcia Fernandez".
+ */
+export function isSpanishNameAbbrev(shortTokens: string[], longTokens: string[]): boolean {
+  return longTokens.length === 3
+    && shortTokens.length < longTokens.length
+    && shortTokens[0] === longTokens[0]
+    && shortTokens[shortTokens.length - 1] === longTokens[1];
+}
+
+/**
+ * True if `shortTokens` is a recognised abbreviated form of `longTokens`
+ * under either the Portuguese (first+last) or Spanish (first+second) convention.
+ */
+export function nameIsShortFormOf(shortTokens: string[], longTokens: string[]): boolean {
+  return isPortugueseNameAbbrev(shortTokens, longTokens) || isSpanishNameAbbrev(shortTokens, longTokens);
+}

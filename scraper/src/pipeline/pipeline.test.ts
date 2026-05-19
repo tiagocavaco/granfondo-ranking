@@ -10,7 +10,7 @@ import {
   type ResultAssignment,
   type AthleteIdStore,
 } from "./pipeline.js";
-import { teamNormalKey } from "../normalize.js";
+import { teamNormalKey, isPortugueseNameAbbrev, isSpanishNameAbbrev, nameIsShortFormOf } from "../normalize.js";
 import type {
   StoredEvent,
   StoredEventResults,
@@ -984,5 +984,121 @@ describe("buildAthletesIndex — post-pass non-adjacent forward-too-fast", () =>
     const entries = [...index.values()].filter(e => e.nameLower === "gaspar branco");
     expect(entries.length).toBe(1);
     expect(entries[0]!.results.length).toBe(3);
+  });
+});
+
+// ── isPortugueseNameAbbrev ────────────────────────────────────────────────────
+
+describe("isPortugueseNameAbbrev", () => {
+  it("matches first + last token (core case)", () =>
+    expect(isPortugueseNameAbbrev(["joao", "silva"], ["joao", "da", "silva"])).toBe(true));
+
+  it("matches 2-token short vs 4-token long", () =>
+    expect(isPortugueseNameAbbrev(["joao", "ferreira"], ["joao", "da", "silva", "ferreira"])).toBe(true));
+
+  it("returns false when first tokens differ", () =>
+    expect(isPortugueseNameAbbrev(["pedro", "silva"], ["joao", "da", "silva"])).toBe(false));
+
+  it("returns false when last tokens differ", () =>
+    expect(isPortugueseNameAbbrev(["joao", "costa"], ["joao", "da", "silva"])).toBe(false));
+
+  it("returns false when short is not strictly shorter", () =>
+    expect(isPortugueseNameAbbrev(["joao", "silva"], ["joao", "silva"])).toBe(false));
+
+  it("returns false when short is longer than long", () =>
+    expect(isPortugueseNameAbbrev(["joao", "da", "silva"], ["joao", "silva"])).toBe(false));
+});
+
+// ── isSpanishNameAbbrev ───────────────────────────────────────────────────────
+
+describe("isSpanishNameAbbrev", () => {
+  it("matches first + second token for 3-token long name (core case)", () =>
+    expect(isSpanishNameAbbrev(["luis", "garcia"], ["luis", "garcia", "fernandez"])).toBe(true));
+
+  it("returns false when long name has more than 3 tokens", () =>
+    expect(isSpanishNameAbbrev(["luis", "garcia"], ["luis", "garcia", "fernandez", "lopez"])).toBe(false));
+
+  it("returns false when long name has fewer than 3 tokens", () =>
+    expect(isSpanishNameAbbrev(["luis", "garcia"], ["luis", "garcia"])).toBe(false));
+
+  it("returns false when first tokens differ", () =>
+    expect(isSpanishNameAbbrev(["pedro", "garcia"], ["luis", "garcia", "fernandez"])).toBe(false));
+
+  it("returns false when short last token ≠ long second token", () =>
+    expect(isSpanishNameAbbrev(["luis", "fernandez"], ["luis", "garcia", "fernandez"])).toBe(false));
+
+  it("does not match Portuguese convention (first + last of 3-token)", () =>
+    // "luis fernandez" as short form of "luis garcia fernandez" → NOT Spanish (second token is garcia)
+    expect(isSpanishNameAbbrev(["luis", "fernandez"], ["luis", "garcia", "fernandez"])).toBe(false));
+});
+
+// ── nameIsShortFormOf ─────────────────────────────────────────────────────────
+
+describe("nameIsShortFormOf", () => {
+  it("accepts Portuguese convention", () =>
+    expect(nameIsShortFormOf(["joao", "silva"], ["joao", "da", "silva"])).toBe(true));
+
+  it("accepts Spanish convention", () =>
+    expect(nameIsShortFormOf(["luis", "garcia"], ["luis", "garcia", "fernandez"])).toBe(true));
+
+  it("rejects when neither convention matches", () =>
+    expect(nameIsShortFormOf(["joao", "costa"], ["joao", "da", "silva"])).toBe(false));
+
+  it("rejects equal-length tokens", () =>
+    expect(nameIsShortFormOf(["joao", "silva"], ["joao", "silva"])).toBe(false));
+});
+
+// ── pass 3b — full-name profile merged into short-name within same team ───────
+
+describe("pipeline pass 3b (short↔long name merge, same team)", () => {
+  it("merges full-name entry into short-name entry (Portuguese convention)", () => {
+    // "João Da Silva" and "João Silva" in same team — long form merged into short
+    const fixtures = [
+      mkTeamEvent(1, 2025, "2025-03-01", "Joao Da Silva", "Sporting", "Masters A", 5),
+      mkTeamEvent(2, 2025, "2025-04-01", "Joao Silva",    "Sporting", "Masters A", 5),
+    ];
+    const { index } = runMulti(fixtures);
+    const entries = [...index.values()].filter(e => e.nameLower === "joao silva" || e.nameLower === "joao da silva");
+    expect(entries.length).toBe(1);
+    expect(entries[0]!.nameLower).toBe("joao silva");
+    expect(entries[0]!.results.length).toBe(2);
+  });
+
+  it("merges full-name entry into short-name entry (Spanish convention)", () => {
+    // "Luis Garcia Fernandez" and "Luis Garcia" in same team — long form merged into short
+    const fixtures = [
+      mkTeamEvent(1, 2025, "2025-03-01", "Luis Garcia Fernandez", "Sporting", "Masters A", 5),
+      mkTeamEvent(2, 2025, "2025-04-01", "Luis Garcia",           "Sporting", "Masters A", 5),
+    ];
+    const { index } = runMulti(fixtures);
+    const entries = [...index.values()].filter(e => e.nameLower === "luis garcia" || e.nameLower === "luis garcia fernandez");
+    expect(entries.length).toBe(1);
+    expect(entries[0]!.nameLower).toBe("luis garcia");
+    expect(entries[0]!.results.length).toBe(2);
+  });
+
+  it("does NOT merge when long name has Spanish AND Portuguese match (ambiguous)", () => {
+    // "Luis Garcia Fernandez": Portuguese short = "Luis Fernandez", Spanish short = "Luis Garcia"
+    // Both exist → ambiguous → no merge
+    const fixtures = [
+      mkTeamEvent(1, 2025, "2025-03-01", "Luis Garcia Fernandez", "Sporting", "Masters A", 5),
+      mkTeamEvent(2, 2025, "2025-04-01", "Luis Garcia",           "Sporting", "Masters A", 6),
+      mkTeamEvent(3, 2025, "2025-05-01", "Luis Fernandez",        "Sporting", "Masters A", 7),
+    ];
+    const { index } = runMulti(fixtures);
+    const entries = [...index.values()].filter(e =>
+      ["luis garcia fernandez", "luis garcia", "luis fernandez"].includes(e.nameLower)
+    );
+    expect(entries.length).toBe(3);
+  });
+
+  it("does NOT merge athletes from different teams", () => {
+    const fixtures = [
+      mkTeamEvent(1, 2025, "2025-03-01", "Joao Da Silva", "Sporting", "Masters A", 5),
+      mkTeamEvent(2, 2025, "2025-04-01", "Joao Silva",    "Benfica",  "Masters A", 5),
+    ];
+    const { index } = runMulti(fixtures);
+    const entries = [...index.values()].filter(e => e.nameLower === "joao silva" || e.nameLower === "joao da silva");
+    expect(entries.length).toBe(2);
   });
 });

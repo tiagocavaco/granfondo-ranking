@@ -100,3 +100,17 @@ export function toTitleCase(s: string): string {
   // letters, not word boundaries — fixing "JoãO" → "João", "HéLder" → "Hélder"
   return s.toLowerCase().replace(/(^|[\s\-])\p{L}/gu, (c) => c.toUpperCase());
 }
+
+/** Decode common HTML entities left behind after stripping tags from scraped HTML. */
+export function decodeHtmlEntities(s: string): string {
+  return s
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)));
+}

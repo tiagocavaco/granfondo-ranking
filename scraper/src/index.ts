@@ -258,9 +258,25 @@ async function main() {
     }
   }
 
-  const { ids: participantAthleteIds, linked: participantLinked } =
-    resolveParticipantAthleteIds(nameToId, allParticipants, extendedTeamIdStore);
-  console.log(`  [lookup] ${participantLinked} participants resolved to athlete profiles`);
+  // Build athleteId → all team IDs for pass-4 secondary-team matching
+  const athleteAllTeamIds = new Map<number, number[]>();
+  for (const [, entry] of athletesIndex) {
+    const teamIds = entry.teams
+      .map((tk) => extendedTeamIdStore.get(tk) ?? 0)
+      .filter((id) => id > 0);
+    if (teamIds.length > 0) athleteAllTeamIds.set(entry.id, teamIds);
+  }
+
+  // Build athleteId → all known categories for pass-2 category-based disambiguation
+  const athleteCategories = new Map<number, string[]>();
+  for (const [, entry] of athletesIndex) {
+    const cats = Object.values(entry.categories ?? {}).flat();
+    if (cats.length > 0) athleteCategories.set(entry.id, cats);
+  }
+
+  const { ids: participantAthleteIds, linked: participantLinked, passes: participantPasses } =
+    resolveParticipantAthleteIds(nameToId, allParticipants, extendedTeamIdStore, teamAliases, athleteAllTeamIds, athleteCategories);
+  console.log(`  [lookup] ${participantLinked} participants resolved (p1:${participantPasses[0]} exact, p2:${participantPasses[1]} solo-unique, p3:${participantPasses[2]} fuzzy-team, p4:${participantPasses[3]} secondary-team, p5:${participantPasses[4]} name-variant)`);
 
   const athletesArray = Array.from(athletesIndex.values()).sort((a, b) =>
     a.nameLower.localeCompare(b.nameLower)

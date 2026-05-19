@@ -1,4 +1,4 @@
-import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult } from "./shared.js";
+import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult, decodeHtmlEntities } from "./shared.js";
 import { timeToSeconds, formatGapSecs } from "../normalize.js";
 import type { StoredEventResults, StoredDistanceResults, StoredResult, StoredParticipant } from "@granfondo/database/types";
 
@@ -191,14 +191,14 @@ export async function scrapeApedalarParticipants(url: string): Promise<StoredPar
       if (tds.length < 6) continue;
 
       // td[1] = name: strip mobile-only divs (md:hidden), then all tags, then collapse whitespace
-      const nameTd = (tds[1] ?? "")
+      const nameTd = decodeHtmlEntities((tds[1] ?? "")
         .replace(/<div[^>]*md:hidden[^>]*>[\s\S]*?<\/div>/g, "")
         .replace(/<[^>]+>/g, "")
         .replace(/\s+/g, " ")
-        .trim();
+        .trim());
       if (!nameTd) continue;
 
-      const team     = (tds[2] ?? "").replace(/<[^>]+>/g, "").trim();
+      const team     = decodeHtmlEntities((tds[2] ?? "").replace(/<[^>]+>/g, "").trim());
       const bib      = (tds[3] ?? "").replace(/<[^>]+>/g, "").trim();
       const distance = (tds[4] ?? "").replace(/<[^>]+>/g, "").trim();
       const category = (tds[5] ?? "").replace(/<[^>]+>/g, "").trim();

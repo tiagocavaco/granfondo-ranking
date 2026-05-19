@@ -1,7 +1,7 @@
 import { parseEventDate, getYear, isPast, fixRawTeamName } from "../normalize.js";
 import { isGranfondoName, isKidsCamVariant } from "../transform.js";
 import { YEARS, SUPPLEMENTAL_EVENT_IDS, OFFICIAL_EVENT_URLS } from "../config.js";
-import { BROWSER_UA, fetchWithRetry } from "./shared.js";
+import { BROWSER_UA, fetchWithRetry, decodeHtmlEntities } from "./shared.js";
 import type { ApiEvent, ApiResult, ApiNetEvent, ApiAthlete } from "../types.js";
 import type { StoredEvent, StoredParticipant } from "@granfondo/database/types";
 
@@ -197,7 +197,7 @@ export async function scrapeListaParticipants(url: string): Promise<StoredPartic
   for (const trMatch of html.matchAll(trPattern)) {
     const row = trMatch[1]!;
     const tds = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((m) =>
-      m[1]!.replace(/<[^>]+>/g, "").trim()
+      decodeHtmlEntities(m[1]!.replace(/<[^>]+>/g, "").trim())
     );
     if (tds.length < 6) continue;
 
@@ -245,7 +245,7 @@ function parseRegistrationsPage(html: string): { athletes: StoredParticipant[]; 
   for (const trMatch of html.matchAll(trPattern)) {
     const row = trMatch[1]!;
     const tds = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((m) =>
-      m[1]!.replace(/<[^>]+>/g, "").trim()
+      decodeHtmlEntities(m[1]!.replace(/<[^>]+>/g, "").trim())
     );
     if (tds.length < 8) continue;
     rowCount++;

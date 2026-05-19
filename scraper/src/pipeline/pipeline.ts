@@ -24,6 +24,9 @@ import {
   canonicalizeCategory,
   isSoloTeam,
   sameTeam,
+  isPortugueseNameAbbrev,
+  isSpanishNameAbbrev,
+  nameIsShortFormOf,
 } from "../normalize.js";
 import type {
   StoredEvent,
@@ -669,30 +672,14 @@ function runPass3b(ctx: PipelineCtx): void {
 
   /** Returns candidates in the same team whose name is a "short form" of `long`. */
   function findShortCandidates(long: MemberInfo, members: MemberInfo[]): MemberInfo[] {
-    const longFirst  = long.tokens[0]!;
-    const longLast   = long.tokens[long.tokens.length - 1]!;
-    const longSecond = long.tokens.length === 3 ? long.tokens[1]! : null;
+    const active = (m: MemberInfo) => m.key !== long.key && index.has(m.key);
 
-    // Primary: [first + last token] match (Portuguese / general convention)
-    const lastTokenMatches = members.filter(m =>
-      m.key !== long.key &&
-      index.has(m.key) &&
-      m.tokens.length < long.tokens.length &&
-      m.tokens[0] === longFirst &&
-      m.tokens[m.tokens.length - 1] === longLast
-    );
+    // Portuguese convention: short form = first + last token
+    const lastTokenMatches  = members.filter(m => active(m) && isPortugueseNameAbbrev(m.tokens, long.tokens));
+    // Spanish convention: short form = first + second token (3-token long name only)
+    const secondTokenMatches = members.filter(m => active(m) && isSpanishNameAbbrev(m.tokens, long.tokens));
 
-    // Alternative (3-token only): [first + second token] match (Spanish convention —
-    // father's surname is the everyday last name, not the mother's).
-    const secondTokenMatches = longSecond !== null ? members.filter(m =>
-      m.key !== long.key &&
-      index.has(m.key) &&
-      m.tokens.length < long.tokens.length &&
-      m.tokens[0] === longFirst &&
-      m.tokens[m.tokens.length - 1] === longSecond
-    ) : [];
-
-    // If the Spanish-convention match exists, prefer it and treat any last-token
+    // If the Spanish-convention match exists, prefer it and treat any Portuguese
     // match as a distinct person → ambiguous, return nothing.
     if (secondTokenMatches.length > 0 && lastTokenMatches.length > 0) return [];
     if (secondTokenMatches.length > 0) return secondTokenMatches;
@@ -711,12 +698,12 @@ function runPass3b(ctx: PipelineCtx): void {
       if (shortCandidates.length !== 1) continue;
 
       const short = shortCandidates[0]!;
+      // Find all longer-name members for which `short` is a valid abbreviation
+      // (either Portuguese first+last or Spanish first+second convention).
       const siblingsForShort = members.filter(m =>
         m.key !== short.key &&
         index.has(m.key) &&
-        m.tokens.length > short.tokens.length &&
-        m.tokens[0] === short.tokens[0] &&
-        m.tokens[m.tokens.length - 1] === short.tokens[short.tokens.length - 1]
+        nameIsShortFormOf(short.tokens, m.tokens)
       );
       if (siblingsForShort.length !== 1) continue;
 
