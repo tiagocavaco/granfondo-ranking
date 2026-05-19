@@ -24,7 +24,8 @@ describe("resolveParticipantAthleteIds", () => {
   });
 
   it("returns 0 linked when team ID is unknown", () => {
-    const nameToId = { "joao silva|10": 42 };
+    // Two "João Silva" athletes — name is ambiguous, so pass 6 won't fire either
+    const nameToId = { "joao silva|10": 42, "joao silva|20": 99 };
     const teamIdStore = new Map<string, number>(); // team not in store
     const { ids, linked } = resolveParticipantAthleteIds(
       nameToId,
@@ -114,8 +115,9 @@ describe("resolveParticipantAthleteIds", () => {
 
   it("does not fuzzy-match when similarity is below threshold", () => {
     // "totally different club" should not fuzzy-match "sporting"
-    const teamIdStore = new Map([["sporting", 10]]);
-    const nameToId = { "joao silva|10": 42 };
+    // Two "João Silva" athletes — name is ambiguous so pass 6 won't fire either
+    const teamIdStore = new Map([["sporting", 10], ["benfica", 20]]);
+    const nameToId = { "joao silva|10": 42, "joao silva|20": 99 };
     const { linked } = resolveParticipantAthleteIds(
       nameToId,
       makeParticipants([{ name: "João Silva", team: "Totally Different Club" }]),
@@ -145,10 +147,11 @@ describe("resolveParticipantAthleteIds", () => {
 
   it("pass 4 does not match when athlete does not have participant's team", () => {
     // Same setup but athlete does NOT have team 12 → should not match
-    const nameToId = { "daniel marques|11": 3439 };
-    const teamIdStore = new Map([["cacb", 11], ["cb almodovar banco primus swick", 12]]);
+    // Second "Daniel Marques" added so pass 6 (globally unique name) won't fire either
+    const nameToId = { "daniel marques|11": 3439, "daniel marques|99": 9999 };
+    const teamIdStore = new Map([["cacb", 11], ["cb almodovar banco primus swick", 12], ["other club", 99]]);
     const teamAliases = { "casa benfica almodovar": "cb almodovar banco primus swick" };
-    const athleteAllTeamIds = new Map([[3439, [11]]]); // only team 11
+    const athleteAllTeamIds = new Map([[3439, [11]], [9999, [99]]]); // neither has team 12
     const { linked } = resolveParticipantAthleteIds(
       nameToId,
       makeParticipants([{ name: "Daniel Marques", team: "CASA BENFICA ALMODÔVAR" }]),
@@ -296,5 +299,89 @@ describe("resolveParticipantAthleteIds", () => {
     expect(linked).toBe(1);
     expect(passes[1]).toBe(1); // matched by pass 2
     expect(ids.get(`${EVENT_ID}:João Silva:Individual`)).toBe(10);
+  });
+
+  it("pass 6 does not match elite participant to athlete whose effective tier is masters_a (has open_1934 + masters_a)", () => {
+    // Athlete has M19–34 (open_1934) + Masters A → effective tier = masters_a.
+    // Participant registers as Elite → no match.
+    const nameToId = { "daniel marques|11": 3435 };
+    const teamIdStore = new Map([["cacb", 11]]);
+    const athleteCategories = new Map([[3435, ["M19–34", "Masters A"]]]);
+    const { linked } = resolveParticipantAthleteIds(
+      nameToId,
+      makeParticipants([{ name: "Daniel Marques", team: "GDBP", category: "M ELITES" }]),
+      teamIdStore,
+      {},
+      new Map(),
+      athleteCategories,
+    );
+    expect(linked).toBe(0);
+  });
+
+  it("pass 6 does not match elite participant to athlete with open_1934 + masters_a + elite (masters_a overrides elite)", () => {
+    // Athlete has all three tiers; effective tier resolves to masters_a (most age-senior).
+    // Participant is Elite → no match.
+    const nameToId = { "daniel marques|11": 3435 };
+    const teamIdStore = new Map([["cacb", 11]]);
+    const athleteCategories = new Map([[3435, ["M19–34", "Elite", "Masters A"]]]);
+    const { linked } = resolveParticipantAthleteIds(
+      nameToId,
+      makeParticipants([{ name: "Daniel Marques", team: "GDBP", category: "M ELITES" }]),
+      teamIdStore,
+      {},
+      new Map(),
+      athleteCategories,
+    );
+    expect(linked).toBe(0);
+  });
+
+  it("pass 6 matches elite participant to athlete with open_1934 + elite (no masters)", () => {
+    // Athlete has M19–34 (open_1934) + Elite → effective tier = elite → matches.
+    const nameToId = { "daniel marques|11": 3435 };
+    const teamIdStore = new Map([["cacb", 11]]);
+    const athleteCategories = new Map([[3435, ["M19–34", "Elite"]]]);
+    const { linked, passes } = resolveParticipantAthleteIds(
+      nameToId,
+      makeParticipants([{ name: "Daniel Marques", team: "GDBP", category: "M ELITES" }]),
+      teamIdStore,
+      {},
+      new Map(),
+      athleteCategories,
+    );
+    expect(linked).toBe(1);
+    expect(passes[5]).toBe(1);
+  });
+
+  it("pass 6 matches open_1934 participant to athlete with only open_1934 (effective tier = open_1934)", () => {
+    // Athlete has only M19–34 → effective = open_1934. Participant is M19-34 → matches.
+    const nameToId = { "daniel marques|11": 3435 };
+    const teamIdStore = new Map([["cacb", 11]]);
+    const athleteCategories = new Map([[3435, ["M19–34"]]]);
+    const { linked, passes } = resolveParticipantAthleteIds(
+      nameToId,
+      makeParticipants([{ name: "Daniel Marques", team: "GDBP", category: "M 19-34" }]),
+      teamIdStore,
+      {},
+      new Map(),
+      athleteCategories,
+    );
+    expect(linked).toBe(1);
+    expect(passes[5]).toBe(1);
+  });
+
+  it("pass 6 does not match open_1934 participant to athlete whose effective tier is elite", () => {
+    // Athlete has only Elite → effective = elite. Participant is M19-34 (open_1934) → no match.
+    const nameToId = { "daniel marques|11": 3435 };
+    const teamIdStore = new Map([["cacb", 11]]);
+    const athleteCategories = new Map([[3435, ["Elite"]]]);
+    const { linked } = resolveParticipantAthleteIds(
+      nameToId,
+      makeParticipants([{ name: "Daniel Marques", team: "GDBP", category: "M 19-34" }]),
+      teamIdStore,
+      {},
+      new Map(),
+      athleteCategories,
+    );
+    expect(linked).toBe(0);
   });
 });

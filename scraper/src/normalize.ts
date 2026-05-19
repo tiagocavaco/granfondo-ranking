@@ -198,33 +198,52 @@ export function isPast(isoDate: string): boolean {
 /**
  * Broad category tier for dedup safety.
  *
- * 'elite'        — Elite, Sub23, Junior, Cadete (age < ~30)
- * 'masters_a'    — Masters A, MASTER 30/35, M 30-39 (age 30–39)
- * 'masters_b_plus' — Masters B/C/D/E, MASTER 40+ (age 40+)
- * 'open_1934'    — "M 19-34" / "F 19-34" bands that span Elite + Masters A;
- *                  compatible with both 'elite' and 'masters_a', conflicts only with 'masters_b_plus'
- * 'unknown'      — E-Bike, Para, unrecognised — no conflict raised
+ * 'elite'          — Elite, Sub23, Junior, Cadete (age < ~30)
+ * 'masters_a'      — Masters A, MASTER 30/35, M 30-39 (age 30–39)
+ * 'masters_b'      — Masters B, MASTER 40/45, M 40-49 (age 40–49)
+ * 'masters_c'      — Masters C, MASTER 50/55, M 50-59 (age 50–59)
+ * 'masters_d'      — Masters D, MASTER 60/65, M 60-69 (age 60–69)
+ * 'masters_e'      — Masters E, MASTER 70/75, M 70-79 (age 70–79)
+ * 'masters_f_plus' — Masters F+, MASTER 80+, M 80+ (age 80+)
+ * 'open_1934'      — "M 19-34" / "F 19-34" bands that span Elite + Masters A
+ * 'unknown'        — E-Bike, Para, unrecognised
  */
-export type CategoryTier = 'elite' | 'masters_a' | 'masters_b_plus' | 'open_1934' | 'unknown';
+export type CategoryTier = 'elite' | 'masters_a' | 'masters_b' | 'masters_c' | 'masters_d' | 'masters_e' | 'masters_f_plus' | 'open_1934' | 'unknown';
 
 export function categoryTier(cat: string): CategoryTier {
   const s = cat.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-  // Masters B, C, D, E, F (any gender)
-  if (/masters?[bcdef]/.test(s)) return 'masters_b_plus';
-  // MASTER 40 / 45 / 50 / … / 80
-  if (/master[4-9]/.test(s)) return 'masters_b_plus';
-  // Age-range bands: "M 40-44" → "m4044", "F 55-59" → "f5559"
-  if (/^[mf][4-9]\d/.test(s)) return 'masters_b_plus';
+  // Masters F+ (80+)
+  if (/masters?f/.test(s)) return 'masters_f_plus';
+  if (/master[89]/.test(s)) return 'masters_f_plus';
+  if (/^[mf][89]\d/.test(s)) return 'masters_f_plus';
 
-  // Masters A (30–39) and MASTER 30/35
+  // Masters E (70–79)
+  if (/masters?e/.test(s)) return 'masters_e';
+  if (/master7/.test(s)) return 'masters_e';
+  if (/^[mf]7\d/.test(s)) return 'masters_e';
+
+  // Masters D (60–69)
+  if (/masters?d/.test(s)) return 'masters_d';
+  if (/master6/.test(s)) return 'masters_d';
+  if (/^[mf]6\d/.test(s)) return 'masters_d';
+
+  // Masters C (50–59)
+  if (/masters?c/.test(s)) return 'masters_c';
+  if (/master5/.test(s)) return 'masters_c';
+  if (/^[mf]5\d/.test(s)) return 'masters_c';
+
+  // Masters B (40–49)
+  if (/masters?b/.test(s)) return 'masters_b';
+  if (/master4/.test(s)) return 'masters_b';
+  if (/^[mf]4\d/.test(s)) return 'masters_b';
+
+  // Masters A (30–39)
   if (/masters?a/.test(s) || /master[23]/.test(s)) return 'masters_a';
-  // "M 35-39" is unambiguously Masters A range
   if (/^[mf]35/.test(s) || /^[mf]3[6-9]/.test(s)) return 'masters_a';
 
   // Elite / open adult
   if (/elite/.test(s)) return 'elite';
-  // Sub23, Junior, Cadete
   if (/sub23|junior|juniore|cadete/.test(s)) return 'elite';
   if (/^[mf]?jun$/.test(s) || /^mjun/.test(s) || /^fjun/.test(s)) return 'elite';
 
@@ -235,17 +254,22 @@ export function categoryTier(cat: string): CategoryTier {
 }
 
 /**
- * Returns true if two category tiers are incompatible (cannot be the same athlete in the same year).
- * 'unknown' never conflicts. 'open_1934' only conflicts with 'masters_b_plus'.
+ * Resolves an athlete's effective category tier from their full category history.
+ * The age-senior tier takes precedence:
+ * masters_f_plus > masters_e > masters_d > masters_c > masters_b > masters_a > elite > open_1934
+ * Returns 'unknown' when no usable tier can be determined.
  */
-export function tierConflict(a: CategoryTier, b: CategoryTier): boolean {
-  if (a === 'unknown' || b === 'unknown') return false;
-  if (a === b) return false;
-  if (a === 'open_1934' || b === 'open_1934') {
-    const other = a === 'open_1934' ? b : a;
-    return other === 'masters_b_plus';
-  }
-  return true;
+export function athleteEffectiveTier(cats: string[]): CategoryTier {
+  const tiers = new Set(cats.map(categoryTier).filter((t): t is CategoryTier => t !== "unknown"));
+  if (tiers.size === 0) return "unknown";
+  if (tiers.has("masters_f_plus")) return "masters_f_plus";
+  if (tiers.has("masters_e"))      return "masters_e";
+  if (tiers.has("masters_d"))      return "masters_d";
+  if (tiers.has("masters_c"))      return "masters_c";
+  if (tiers.has("masters_b"))      return "masters_b";
+  if (tiers.has("masters_a"))      return "masters_a";
+  if (tiers.has("elite"))          return "elite";
+  return "open_1934";
 }
 
 // ── Category normalization ─────────────────────────────────────────────────────

@@ -1,4 +1,4 @@
-import { normalizeName, teamNormalKey, isSoloTeam, teamKeySimilarity, categoryTier, tierConflict } from "../normalize.js";
+import { normalizeName, teamNormalKey, isSoloTeam, teamKeySimilarity, categoryTier, athleteEffectiveTier } from "../normalize.js";
 
 export function resolveParticipantAthleteIds(
   nameToId: Record<string, number>,
@@ -9,10 +9,10 @@ export function resolveParticipantAthleteIds(
   athleteAllTeamIds: Map<number, number[]> = new Map(),
   /** athleteId → all known categories across years (for category-based disambiguation) */
   athleteCategories: Map<number, string[]> = new Map(),
-): { ids: Map<string, number>; linked: number; passes: [number, number, number, number, number] } {
+): { ids: Map<string, number>; linked: number; passes: [number, number, number, number, number, number] } {
   const ids = new Map<string, number>();
   let linked = 0;
-  const passes: [number, number, number, number, number] = [0, 0, 0, 0, 0];
+  const passes: [number, number, number, number, number, number] = [0, 0, 0, 0, 0, 0];
 
   // Combine canonical and alias keys: knownKey → teamId (for pass-2/3/4 reverse lookup)
   const allTeamKeys = new Map<string, number>(teamIdStore);
@@ -100,12 +100,12 @@ export function resolveParticipantAthleteIds(
         if (p.category) {
           const pTier = categoryTier(p.category);
           if (pTier !== "unknown") {
-            // Always apply: if all candidates conflict, uniqueIds becomes empty → no match.
             uniqueIds = new Set(
               [...uniqueIds].filter((id) => {
                 const knownCats = athleteCategories.get(id) ?? [];
-                // Keep athlete if we have no known categories (can't rule out) or any is compatible
-                return knownCats.length === 0 || knownCats.some((c) => !tierConflict(pTier, categoryTier(c)));
+                if (knownCats.length === 0) return true;
+                const effTier = athleteEffectiveTier(knownCats);
+                return effTier === "unknown" || effTier === pTier;
               })
             );
           }
@@ -182,6 +182,40 @@ export function resolveParticipantAthleteIds(
         if (matchedIds.size === 1) {
           ids.set(pKey, [...matchedIds][0]!);
           linked++; passes[4]++;
+          continue;
+        }
+      }
+
+      // Pass 6: globally unique name — exactly one athlete in the entire DB shares this
+      // normalized name across all teams. Team mismatch is accepted (athlete may be
+      // switching teams or the participant team string has no alias yet).
+      // Stricter category filter than pass 2: open_1934 is inconclusive here; the
+      // athlete must have the same specific tier in their history to be kept.
+      // Only for non-solo participants (solo already covered by pass 2).
+      // Debug log every match for manual review.
+      if (!solo) {
+        const allCandidates = nameLookup.get(nameLower) ?? [];
+        let uniqueIds = new Set(allCandidates.map((c) => c.athleteId));
+        if (p.category) {
+          const pTier = categoryTier(p.category);
+          if (pTier !== "unknown") {
+            uniqueIds = new Set(
+              [...uniqueIds].filter((id) => {
+                const knownCats = athleteCategories.get(id) ?? [];
+                if (knownCats.length === 0) return true;
+                const effTier = athleteEffectiveTier(knownCats);
+                // Pass 6 needs positive confirmation: unknown effective tier means
+                // we can't confirm the match, so exclude.
+                return effTier !== "unknown" && effTier === pTier;
+              })
+            );
+          }
+        }
+        if (uniqueIds.size === 1) {
+          const matchedId = [...uniqueIds][0]!;
+          console.log(`  [p6] ev=${eventId} "${p.name}" (${p.team}) → athlete ${matchedId}`);
+          ids.set(pKey, matchedId);
+          linked++; passes[5]++;
           continue;
         }
       }

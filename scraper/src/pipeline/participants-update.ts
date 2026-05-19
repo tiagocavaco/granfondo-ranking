@@ -97,7 +97,7 @@ export async function scrapeParticipants() {
 
   // Resolve participant → athlete links using the existing athlete index
   const { ids: resolvedIds, linked, passes } = resolveParticipantAthleteIds(nameToId, allParticipantsForResolution, teamIdStore, teamAliases, athleteAllTeamIds, athleteCategories);
-  console.log(`  [lookup] ${linked} participants resolved (p1:${passes[0]} exact, p2:${passes[1]} solo-unique, p3:${passes[2]} fuzzy-team, p4:${passes[3]} secondary-team, p5:${passes[4]} name-variant)`);
+  console.log(`  [lookup] ${linked} participants resolved (p1:${passes[0]} exact, p2:${passes[1]} solo-unique, p3:${passes[2]} fuzzy-team, p4:${passes[3]} secondary-team, p5:${passes[4]} name-variant, p6:${passes[5]} unique-name)`);
 
   // Apply resolved athlete IDs back into the participant objects before writing
   for (const [eventId, { athletes }] of updatedParticipants) {

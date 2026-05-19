@@ -5,7 +5,6 @@ import {
   initTeamAliases,
   teamKeySimilarity,
   categoryTier,
-  tierConflict,
   normalizeCategory,
   canonicalizeCategory,
   normalizeName,
@@ -166,13 +165,47 @@ describe("categoryTier", () => {
     expect(categoryTier("F 36")).toBe("masters_a");
   });
 
-  it("Masters B/C/D/E → 'masters_b_plus'", () => {
-    expect(categoryTier("MASTERS B")).toBe("masters_b_plus");
-    expect(categoryTier("Masters C Fem")).toBe("masters_b_plus");
-    expect(categoryTier("MASTER 40")).toBe("masters_b_plus");
-    expect(categoryTier("MASTER 55")).toBe("masters_b_plus");
-    expect(categoryTier("M 40-44")).toBe("masters_b_plus");
-    expect(categoryTier("F 65")).toBe("masters_b_plus");
+  it("Masters B (40–49) → 'masters_b'", () => {
+    expect(categoryTier("MASTERS B")).toBe("masters_b");
+    expect(categoryTier("Masters B Masc")).toBe("masters_b");
+    expect(categoryTier("MASTER 40")).toBe("masters_b");
+    expect(categoryTier("MASTER 45")).toBe("masters_b");
+    expect(categoryTier("M 40-44")).toBe("masters_b");
+    expect(categoryTier("F 45-49")).toBe("masters_b");
+  });
+
+  it("Masters C (50–59) → 'masters_c'", () => {
+    expect(categoryTier("MASTERS C")).toBe("masters_c");
+    expect(categoryTier("Masters C Fem")).toBe("masters_c");
+    expect(categoryTier("MASTER 50")).toBe("masters_c");
+    expect(categoryTier("MASTER 55")).toBe("masters_c");
+    expect(categoryTier("M 50-54")).toBe("masters_c");
+    expect(categoryTier("F 55-59")).toBe("masters_c");
+  });
+
+  it("Masters D (60–69) → 'masters_d'", () => {
+    expect(categoryTier("MASTERS D")).toBe("masters_d");
+    expect(categoryTier("Masters D Masc")).toBe("masters_d");
+    expect(categoryTier("MASTER 60")).toBe("masters_d");
+    expect(categoryTier("MASTER 65")).toBe("masters_d");
+    expect(categoryTier("M 60-64")).toBe("masters_d");
+    expect(categoryTier("F 65")).toBe("masters_d");
+  });
+
+  it("Masters E (70–79) → 'masters_e'", () => {
+    expect(categoryTier("MASTERS E")).toBe("masters_e");
+    expect(categoryTier("Masters E Male")).toBe("masters_e");
+    expect(categoryTier("MASTER 70")).toBe("masters_e");
+    expect(categoryTier("MASTER 75")).toBe("masters_e");
+    expect(categoryTier("M 70-74")).toBe("masters_e");
+  });
+
+  it("Masters F+ (80+) → 'masters_f_plus'", () => {
+    expect(categoryTier("MASTERS F")).toBe("masters_f_plus");
+    expect(categoryTier("Masters F Fem")).toBe("masters_f_plus");
+    expect(categoryTier("MASTER 80")).toBe("masters_f_plus");
+    expect(categoryTier("MASTER 85")).toBe("masters_f_plus");
+    expect(categoryTier("M 80-84")).toBe("masters_f_plus");
   });
 
   it("M 19-34 → 'open_1934'", () => {
@@ -187,44 +220,6 @@ describe("categoryTier", () => {
   });
 });
 
-// ── tierConflict ───────────────────────────────────────────────────────────────
-
-describe("tierConflict", () => {
-  it("same tier → no conflict", () => {
-    expect(tierConflict("elite", "elite")).toBe(false);
-    expect(tierConflict("masters_b_plus", "masters_b_plus")).toBe(false);
-  });
-
-  it("unknown → never conflicts", () => {
-    expect(tierConflict("unknown", "masters_b_plus")).toBe(false);
-    expect(tierConflict("elite", "unknown")).toBe(false);
-  });
-
-  it("elite vs masters_a → conflict (different age groups, same year)", () => {
-    expect(tierConflict("elite", "masters_a")).toBe(true);
-  });
-
-  it("elite vs masters_b_plus → conflict", () => {
-    expect(tierConflict("elite", "masters_b_plus")).toBe(true);
-  });
-
-  it("masters_a vs masters_b_plus → conflict", () => {
-    expect(tierConflict("masters_a", "masters_b_plus")).toBe(true);
-  });
-
-  it("open_1934 vs elite → no conflict (M19-34 can be Elite)", () => {
-    expect(tierConflict("open_1934", "elite")).toBe(false);
-  });
-
-  it("open_1934 vs masters_a → no conflict (M19-34 spans into Masters A)", () => {
-    expect(tierConflict("open_1934", "masters_a")).toBe(false);
-  });
-
-  it("open_1934 vs masters_b_plus → conflict (19-34 cannot be 40+)", () => {
-    expect(tierConflict("open_1934", "masters_b_plus")).toBe(true);
-    expect(tierConflict("masters_b_plus", "open_1934")).toBe(true);
-  });
-});
 
 // ── normalizeCategory ─────────────────────────────────────────────────────────
 

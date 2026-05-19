@@ -721,6 +721,69 @@ function runPass3b(ctx: PipelineCtx): void {
   if (count > 0) console.log(`  [pass3b] ${count} full-name profile(s) merged into short-name entries`);
 }
 
+// ── Pass 3c: missing-space name merge (same team) ─────────────────────────────
+//
+// When an event organizer types a name without spaces ("PedroGalante" instead of
+// "Pedro Galante"), passes 2–3 create a separate entry for the same person.
+// This pass merges pairs on the same team where one name is a single token and
+// the other's tokens concatenate to the same string.
+// Guard: at least one name must be a single token — the specific missing-space
+// pattern. This avoids false positives from coincidentally similar spaced names.
+
+function runPass3c(ctx: PipelineCtx): void {
+  const { index } = ctx;
+
+  type MemberInfo = { key: string; entry: AthleteEntry; noSpace: string };
+  // Group non-solo entries by teamId → noSpaceName → members
+  const byTeamId = new Map<string, Map<string, MemberInfo[]>>();
+
+  for (const [key, entry] of index) {
+    if (key.includes("|solo:")) continue;
+    const teamIdStr = key.slice(key.lastIndexOf("|") + 1);
+    if (teamIdStr === "0") continue;
+    const noSpace = entry.nameLower.replace(/\s+/g, "");
+    if (!byTeamId.has(teamIdStr)) byTeamId.set(teamIdStr, new Map());
+    const teamMap = byTeamId.get(teamIdStr)!;
+    if (!teamMap.has(noSpace)) teamMap.set(noSpace, []);
+    teamMap.get(noSpace)!.push({ key, entry, noSpace });
+  }
+
+  let count = 0;
+  for (const teamMap of byTeamId.values()) {
+    for (const members of teamMap.values()) {
+      if (members.length < 2) continue;
+      if (members.length > 2) {
+        console.warn(`  [pass3c] ${members.length}-way no-space collision on "${members[0]!.noSpace}" — skipped`);
+        continue;
+      }
+      const [a, b] = members as [MemberInfo, MemberInfo];
+      if (!index.has(a.key) || !index.has(b.key)) continue;
+
+      // Require exactly one name to be a single token — the "missing space" pattern.
+      const aHasSpace = a.entry.nameLower.includes(" ");
+      const bHasSpace = b.entry.nameLower.includes(" ");
+      if (aHasSpace === bHasSpace) continue;
+
+      if (licencesConflict(a.key, b.key, ctx.entryLicences)) continue;
+
+      // Keep the entry with more results; on a tie, keep the spaced (longer) name
+      const [surviving, absorbed] = a.entry.results.length >= b.entry.results.length
+        ? [a, b]
+        : [b, a];
+
+      for (const result of absorbed.entry.results) addResult(surviving.entry, result, false);
+      mergeLicenceSets(surviving.key, absorbed.key, ctx.entryLicences);
+      ctx.deletedKeys.add(absorbed.key);
+      index.delete(absorbed.key);
+      deriveCanonicalTeam(surviving.entry);
+      count++;
+      console.log(`  [pass3c] "${absorbed.entry.nameLower}" → "${surviving.entry.nameLower}" (team ${surviving.key.slice(surviving.key.lastIndexOf("|") + 1)})`);
+    }
+  }
+
+  if (count > 0) console.log(`  [pass3c] ${count} missing-space name pair(s) merged`);
+}
+
 // ── Pass 4: team-based athlete aliases ───────────────────────────────────────
 
 function runPass4(ctx: PipelineCtx): void {
@@ -1444,6 +1507,7 @@ export function buildAthletesIndex(
   runPass2(ctx);
   const { teamCount } = runPass3(ctx);
   runPass3b(ctx);
+  runPass3c(ctx);
   runPass4(ctx);
   const { soloCount } = runPass5(ctx);
   runPass6(ctx);

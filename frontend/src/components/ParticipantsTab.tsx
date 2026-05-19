@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import type { StoredParticipant } from "@granfondo/database/types";
@@ -25,7 +25,6 @@ const DIST_PILL: Record<string, string> = {
 };
 
 export default function ParticipantsTab({ eventId }: Props) {
-  const navigate = useNavigate();
   const [participants, setParticipants] = useState<StoredParticipant[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -152,13 +151,21 @@ export default function ParticipantsTab({ eventId }: Props) {
             {filtered.slice(0, visibleCount).map((p, i) => (
               <tr key={i} className="hover:bg-slate-50/60 transition-colors">
                 <td className="px-4 py-3 font-mono text-xs text-slate-400">{p.bib}</td>
-                <td
-                  className={`px-4 py-3 w-full max-w-0 overflow-hidden transition-colors ${p.athleteId > 0 ? "hover:text-blue-600 cursor-pointer" : ""}`}
-                  onClick={() => { if (p.athleteId > 0) navigate(`/athlete/${p.athleteId}`); }}
-                >
-                  <div className="font-semibold text-slate-900 truncate">{p.fullName}</div>
-                  {p.team && (
-                    <div className="md:hidden text-xs text-slate-400 truncate mt-0.5">{p.team}</div>
+                <td className="px-4 py-3 w-full max-w-0 overflow-hidden">
+                  {p.athleteId > 0 ? (
+                    <Link to={`/athlete/${p.athleteId}`} className="block hover:text-blue-600 transition-colors">
+                      <div className="font-semibold text-slate-900 truncate">{p.fullName}</div>
+                      {p.team && (
+                        <div className="md:hidden text-xs text-slate-400 truncate mt-0.5">{p.team}</div>
+                      )}
+                    </Link>
+                  ) : (
+                    <>
+                      <div className="font-semibold text-slate-900 truncate">{p.fullName}</div>
+                      {p.team && (
+                        <div className="md:hidden text-xs text-slate-400 truncate mt-0.5">{p.team}</div>
+                      )}
+                    </>
                   )}
                 </td>
                 <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell whitespace-nowrap">

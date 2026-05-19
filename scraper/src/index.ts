@@ -276,7 +276,7 @@ async function main() {
 
   const { ids: participantAthleteIds, linked: participantLinked, passes: participantPasses } =
     resolveParticipantAthleteIds(nameToId, allParticipants, extendedTeamIdStore, teamAliases, athleteAllTeamIds, athleteCategories);
-  console.log(`  [lookup] ${participantLinked} participants resolved (p1:${participantPasses[0]} exact, p2:${participantPasses[1]} solo-unique, p3:${participantPasses[2]} fuzzy-team, p4:${participantPasses[3]} secondary-team, p5:${participantPasses[4]} name-variant)`);
+  console.log(`  [lookup] ${participantLinked} participants resolved (p1:${participantPasses[0]} exact, p2:${participantPasses[1]} solo-unique, p3:${participantPasses[2]} fuzzy-team, p4:${participantPasses[3]} secondary-team, p5:${participantPasses[4]} name-variant, p6:${participantPasses[5]} unique-name)`);
 
   const athletesArray = Array.from(athletesIndex.values()).sort((a, b) =>
     a.nameLower.localeCompare(b.nameLower)
