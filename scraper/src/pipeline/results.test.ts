@@ -9,7 +9,7 @@ import {
   isValidCatTransition,
   type ResultAssignment,
   type AthleteIdStore,
-} from "./pipeline.js";
+} from "./results.js";
 import { teamNormalKey, isPortugueseNameAbbrev, isSpanishNameAbbrev, nameIsShortFormOf } from "../normalize.js";
 import type {
   StoredEvent,
