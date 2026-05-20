@@ -21,7 +21,7 @@ import type {
 
 import { normalizeTeam } from "@granfondo/database/normalize";
 import { isFemaleCategory } from "@granfondo/utils/category";
-import { buildCountryMap } from "./utils/athlete";
+import { buildCountryMap, buildMostFrequentCountryMap } from "./utils/athlete";
 import {
   initLookups as _initLookups,
 } from "./utils/lookups.js";
@@ -240,6 +240,24 @@ export const api = {
       });
     }
 
+    // Use canonical name and all-time most-frequent country from the athletes table
+    // and athlete_results. The stored values in aggregate_athletes come from whichever
+    // raw result was processed first (name) or only from scoring results in that year
+    // (country), both of which can be wrong.
+    const athleteRows = db.select({
+      id:      schema.athletes.id,
+      name:    schema.athletes.name,
+    }).from(schema.athletes).all();
+    const athleteNameMap = new Map<number, string>(athleteRows.map((a) => [a.id, a.name]));
+
+    const countryRows = db.select({
+      athleteId: schema.athleteResults.athleteId,
+      country:   schema.athleteResults.country,
+    })
+      .from(schema.athleteResults)
+      .all();
+    const countryMap = buildMostFrequentCountryMap(countryRows);
+
     const ranking: AggregateRanking = {};
     for (const row of rows) {
       const y = String(row.year);
@@ -250,10 +268,10 @@ export const api = {
       const athlete: AggregateAthlete = {
         rank:         row.rank,
         id:           row.athleteId,
-        name:         row.name,
+        name:         athleteNameMap.get(row.athleteId) ?? row.name,
         gender:       row.gender,
         team:         row.team,
-        country:      row.country,
+        country:      countryMap.get(row.athleteId) ?? row.country,
         totalPoints:  row.totalPoints,
         eventsScored: row.eventsScored,
         bestPos:      row.bestPos,
