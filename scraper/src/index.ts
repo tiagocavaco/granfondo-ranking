@@ -16,7 +16,7 @@ import {
   assignCategoryPositions,
   computeGaps,
 } from "./transform.js";
-import { buildAthletesIndex } from "./pipeline/pipeline.js";
+import { buildAthletesIndex } from "./pipeline/results.js";
 import { injectAthleteIds } from "./pipeline/inject.js";
 import { resolveParticipantAthleteIds } from "./pipeline/participants.js";
 import { buildAggregateRanking, buildTeamRanking } from "./pipeline/ranking.js";
