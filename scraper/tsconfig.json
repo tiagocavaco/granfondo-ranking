@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@granfondo/db/schema": ["../packages/db/src/schema.ts"],
+      "@granfondo/db/types": ["../packages/db/src/types.ts"],
+      "@granfondo/db/db-writer": ["../packages/db/src/db-writer.ts"],
+      "@granfondo/db/db-client": ["../packages/db/src/db-client.ts"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
