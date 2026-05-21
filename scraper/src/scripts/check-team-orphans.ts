@@ -18,32 +18,49 @@ if (!sourceDb) {
 }
 
 const knownKeys = new Set<string>();
-const teams = sourceDb.prepare("SELECT canonical_key, alias_keys FROM teams").all() as {
+const teams = sourceDb
+  .prepare("SELECT canonical_key, alias_keys FROM teams")
+  .all() as {
   canonical_key: string;
   alias_keys: string;
 }[];
 for (const t of teams) {
   knownKeys.add(t.canonical_key);
-  for (const a of JSON.parse(t.alias_keys) as string[]) knownKeys.add(a);
+  for (const a of JSON.parse(t.alias_keys) as string[]) {
+    knownKeys.add(a);
+  }
 }
 
 const rawTeams = sourceDb
-  .prepare("SELECT DISTINCT team, COUNT(*) as n FROM results WHERE team != '' GROUP BY team ORDER BY n DESC")
+  .prepare(
+    "SELECT DISTINCT team, COUNT(*) as n FROM results WHERE team != '' GROUP BY team ORDER BY n DESC",
+  )
   .all() as { team: string; n: number }[];
 
 const orphaned: { raw: string; normalized: string; count: number }[] = [];
 for (const row of rawTeams) {
   const key = normalizeTeam(row.team);
-  if (SOLO_TEAM_KEYS.has(key)) continue;
-  if (!knownKeys.has(key)) orphaned.push({ raw: row.team, normalized: key, count: row.n });
+  if (SOLO_TEAM_KEYS.has(key)) {
+    continue;
+  }
+
+  if (!knownKeys.has(key)) {
+    orphaned.push({ raw: row.team, normalized: key, count: row.n });
+  }
 }
 
 if (orphaned.length === 0) {
   console.log("✓ No orphaned team names found.");
 } else {
-  console.log("Orphaned team names (in results but not resolvable to any team):\n");
+  console.log(
+    "Orphaned team names (in results but not resolvable to any team):\n",
+  );
   orphaned
     .sort((a, b) => b.count - a.count)
-    .forEach(o => console.log(`${String(o.count).padStart(4)}  ${o.raw}  →  ${o.normalized}`));
+    .forEach((o) =>
+      console.log(
+        `${String(o.count).padStart(4)}  ${o.raw}  →  ${o.normalized}`,
+      ),
+    );
   console.log(`\nTotal: ${orphaned.length}`);
 }

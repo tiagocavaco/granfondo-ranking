@@ -42,7 +42,12 @@ describe("extractEscalaoOptions", () => {
         <option value="Elites FEM">Elites FEM</option>
       </select>
     `;
-    expect(extractEscalaoOptions(html, "{}")).toEqual(["Juniores M", "Elites M", "Masters A M", "Elites FEM"]);
+    expect(extractEscalaoOptions(html, "{}")).toEqual([
+      "Juniores M",
+      "Elites M",
+      "Masters A M",
+      "Elites FEM",
+    ]);
   });
 
   it("extracts options from wire:model (no .live) select element", () => {
@@ -59,7 +64,11 @@ describe("extractEscalaoOptions", () => {
         <option value='Sub 23 M'>Sub 23 M</option>
       </select>
     `;
-    expect(extractEscalaoOptions(html, "{}")).toEqual(["Elites M", "Masters 30 M", "Sub 23 M"]);
+    expect(extractEscalaoOptions(html, "{}")).toEqual([
+      "Elites M",
+      "Masters 30 M",
+      "Sub 23 M",
+    ]);
   });
 
   it("falls back to snapshot data.escaloes array when HTML has no select", () => {
@@ -67,7 +76,11 @@ describe("extractEscalaoOptions", () => {
       data: { escaloes: ["Elites M", "Masters A M", "Masters A F"] },
       memo: { name: "frontend.tempos.tempos-table" },
     });
-    expect(extractEscalaoOptions("", snapshot)).toEqual(["Elites M", "Masters A M", "Masters A F"]);
+    expect(extractEscalaoOptions("", snapshot)).toEqual([
+      "Elites M",
+      "Masters A M",
+      "Masters A F",
+    ]);
   });
 
   it("prefers HTML select over snapshot when both are present", () => {
@@ -77,7 +90,9 @@ describe("extractEscalaoOptions", () => {
   });
 
   it("returns empty array when neither HTML nor snapshot has options", () => {
-    expect(extractEscalaoOptions("<div>no select here</div>", "{}")).toEqual([]);
+    expect(extractEscalaoOptions("<div>no select here</div>", "{}")).toEqual(
+      [],
+    );
   });
 
   it("returns empty array when snapshot JSON is invalid", () => {

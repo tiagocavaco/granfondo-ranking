@@ -7,16 +7,32 @@
 
 import BetterSqlite3 from "better-sqlite3";
 
-import { fetchParticipants, fetchResults, scrapeListaParticipants, scrapeRegistrationsParticipants } from "../scrapers/stopandgo.js";
+import {
+  fetchParticipants,
+  fetchResults,
+  scrapeListaParticipants,
+  scrapeRegistrationsParticipants,
+} from "../scrapers/stopandgo.js";
 import { scrapeApedalarParticipants } from "../external.js";
-import { isPast, distancePriority, normalizeDistance, fixRawTeamName } from "../normalize.js";
+import {
+  isPast,
+  distancePriority,
+  normalizeDistance,
+  fixRawTeamName,
+} from "../normalize.js";
 import {
   extractDistances,
   assignGenderPositions,
   assignCategoryPositions,
   transformResult,
 } from "../transform.js";
-import { DELAY_MS, DEFAULT_DISTANCES, LISTA_URLS, REGISTRATIONS_URLS, APEDALAR_PARTICIPANT_URLS } from "../config.js";
+import {
+  DELAY_MS,
+  DEFAULT_DISTANCES,
+  LISTA_URLS,
+  REGISTRATIONS_URLS,
+  APEDALAR_PARTICIPANT_URLS,
+} from "../config.js";
 import { loadResultsFromDb } from "../db/db-loader.js";
 import type {
   StoredEvent,
@@ -42,28 +58,42 @@ async function sleep(ms: number) {
 
 export function apiAthleteToParticipant(a: ApiAthlete): StoredParticipant {
   return {
-    bib:        a.dorsal ?? "",
-    name:       a.nome ?? "",
-    fullName:   a.nomecompleto ?? "",
-    gender:     a.sexo ?? "",
-    team:       fixRawTeamName(a.equipa ?? ""),
-    category:   a.escalao ?? "",
-    distance:   a.percurso ?? "",
+    bib: a.dorsal ?? "",
+    name: a.nome ?? "",
+    fullName: a.nomecompleto ?? "",
+    gender: a.sexo ?? "",
+    team: fixRawTeamName(a.equipa ?? ""),
+    category: a.escalao ?? "",
+    distance: a.percurso ?? "",
     distanceId: a.id_percursos ?? "",
-    athleteId:  0,
+    athleteId: 0,
   };
 }
 
-export async function fetchEventParticipants(eventId: number): Promise<StoredParticipant[]> {
-  if (LISTA_URLS[eventId]) return scrapeListaParticipants(LISTA_URLS[eventId]!);
-  if (REGISTRATIONS_URLS[eventId]) return scrapeRegistrationsParticipants(REGISTRATIONS_URLS[eventId]!);
-  if (APEDALAR_PARTICIPANT_URLS[eventId]) return scrapeApedalarParticipants(APEDALAR_PARTICIPANT_URLS[eventId]!);
+export async function fetchEventParticipants(
+  eventId: number,
+): Promise<StoredParticipant[]> {
+  if (LISTA_URLS[eventId]) {
+    return scrapeListaParticipants(LISTA_URLS[eventId]!);
+  }
+
+  if (REGISTRATIONS_URLS[eventId]) {
+    return scrapeRegistrationsParticipants(REGISTRATIONS_URLS[eventId]!);
+  }
+
+  if (APEDALAR_PARTICIPANT_URLS[eventId]) {
+    return scrapeApedalarParticipants(APEDALAR_PARTICIPANT_URLS[eventId]!);
+  }
+
   const athletes = await fetchParticipants(eventId);
   await sleep(DELAY_MS);
   return athletes.map(apiAthleteToParticipant);
 }
 
-export function resolveDistances(athletes: StoredParticipant[], eventId: number) {
+export function resolveDistances(
+  athletes: StoredParticipant[],
+  eventId: number,
+) {
   const distances = extractDistances(athletes);
   return distances.length > 0 ? distances : (DEFAULT_DISTANCES[eventId] ?? []);
 }
@@ -92,21 +122,27 @@ export async function scrapeEvent(
 
   if (!isPast(event.date)) {
     console.log(
-      `  ⏳ upcoming — ${athletes.length} registered, ${event.distances.map((d) => d.name).join(" / ")}`
+      `  ⏳ upcoming — ${athletes.length} registered, ${event.distances.map((d) => d.name).join(" / ")}`,
     );
     return { event, participants: athletes };
   }
 
   // Step 2: results per distance
-  const isStable = !force && (String(event.id) in scrapedEvents) && sourceDb !== null;
+  const isStable =
+    !force && String(event.id) in scrapedEvents && sourceDb !== null;
 
   if (isStable) {
     const cached = loadResultsFromDb(sourceDb, event);
     if (cached) {
       event.hasResults = true;
-      event.finisherCount = cached.distances.reduce((s, d) => s + d.finisherCount, 0);
+      event.finisherCount = cached.distances.reduce(
+        (s, d) => s + d.finisherCount,
+        0,
+      );
       event.scrapedAt = cached.scrapedAt;
-      console.log(`  · cached — ${event.finisherCount} finishers across ${cached.distances.length} distances`);
+      console.log(
+        `  · cached — ${event.finisherCount} finishers across ${cached.distances.length} distances`,
+      );
       return { event, results: cached, participants: athletes };
     }
   }
@@ -145,7 +181,9 @@ export async function scrapeEvent(
   }
 
   if (fetchErrors > 0) {
-    console.warn(`⚠️  ${label}: ${fetchErrors} distance(s) failed to fetch — results will NOT be cached to avoid partial data`);
+    console.warn(
+      `⚠️  ${label}: ${fetchErrors} distance(s) failed to fetch — results will NOT be cached to avoid partial data`,
+    );
     return { event, participants: athletes };
   }
 
@@ -169,10 +207,14 @@ export async function scrapeEvent(
     // Gap: a known canonical appears at the wrong position (e.g. Mini at index 1 instead of MF)
     const hasGap = canonicals.some((c, i) => {
       const expected = CANONICAL_ORDER[i];
-      return expected !== undefined && CANONICAL_ORDER.includes(c) && c !== expected;
+      return (
+        expected !== undefined && CANONICAL_ORDER.includes(c) && c !== expected
+      );
     });
     distanceResults.forEach((dr, i) => {
-      dr.name = hasGap ? (CANONICAL_ORDER[i] ?? dr.name) : (expectedNames[i] ?? dr.name);
+      dr.name = hasGap
+        ? (CANONICAL_ORDER[i] ?? dr.name)
+        : (expectedNames[i] ?? dr.name);
       dr.id = String(i + 1);
     });
   }
@@ -185,7 +227,7 @@ export async function scrapeEvent(
   assignCategoryPositions(distanceResults);
 
   const stored: StoredEventResults = {
-    eventId:   event.id,
+    eventId: event.id,
     eventName: event.name,
     eventDate: event.date,
     eventYear: event.year,
@@ -194,13 +236,23 @@ export async function scrapeEvent(
   };
 
   event.hasResults = true;
-  event.finisherCount = distanceResults.reduce((s, d) => s + d.finisherCount, 0);
+  event.finisherCount = distanceResults.reduce(
+    (s, d) => s + d.finisherCount,
+    0,
+  );
   event.scrapedAt = stored.scrapedAt;
 
   if (sourceDb) {
-    const prev = (sourceDb.prepare("SELECT finisher_count FROM events WHERE id = ?").get(event.id) as { finisher_count: number } | undefined)?.finisher_count ?? 0;
+    const prev =
+      (
+        sourceDb
+          .prepare("SELECT finisher_count FROM events WHERE id = ?")
+          .get(event.id) as { finisher_count: number } | undefined
+      )?.finisher_count ?? 0;
     if (prev > 0 && event.finisherCount < prev * 0.5) {
-      console.warn(`⚠️  Regression: ${event.name} finishers dropped ${prev} → ${event.finisherCount} (>${Math.round((1 - event.finisherCount / prev) * 100)}% drop)`);
+      console.warn(
+        `⚠️  Regression: ${event.name} finishers dropped ${prev} → ${event.finisherCount} (>${Math.round((1 - event.finisherCount / prev) * 100)}% drop)`,
+      );
     }
   }
 

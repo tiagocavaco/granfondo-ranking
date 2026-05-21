@@ -4,11 +4,17 @@ export const DISTANCES = ["Granfondo", "Mediofondo", "Minifondo", "Time Trial"];
 export const ROAD_DISTANCES = ["Granfondo", "Mediofondo", "Minifondo"];
 
 export const DISTANCE_ABBR: Record<string, string> = {
-  Granfondo: "GF", Mediofondo: "MF", Minifondo: "Mini", "Time Trial": "TT",
+  Granfondo: "GF",
+  Mediofondo: "MF",
+  Minifondo: "Mini",
+  "Time Trial": "TT",
 };
 
 const DIST_RANK: Record<string, number> = {
-  Granfondo: 0, Mediofondo: 1, Minifondo: 2, "Time Trial": 3,
+  Granfondo: 0,
+  Mediofondo: 1,
+  Minifondo: 2,
+  "Time Trial": 3,
 };
 
 /** Sort key for a distance name — lower value sorts first. Unknown → 9. */
@@ -27,12 +33,20 @@ export const PRED_YEAR_STEP = 0.1;
  * (longer-distance history transfers down well). Each step longer = −0.2 penalty.
  * Time Trial is isolated: only counts 1.0 if both distances are Time Trial, else 0.
  */
-export function predictionDistCoeff(registered: string, historical: string): number {
-  if (registered === "Time Trial" || historical === "Time Trial")
+export function predictionDistCoeff(
+  registered: string,
+  historical: string,
+): number {
+  if (registered === "Time Trial" || historical === "Time Trial") {
     return registered === historical ? 1.0 : 0;
+  }
+
   const r = DIST_RANK[registered];
   const h = DIST_RANK[historical];
-  if (r === undefined || h === undefined) return registered === historical ? 1.0 : 0;
+  if (r === undefined || h === undefined) {
+    return registered === historical ? 1.0 : 0;
+  }
+
   return 1.0 + (r - h) * PRED_DIST_STEP;
 }
 

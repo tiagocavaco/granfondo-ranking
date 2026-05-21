@@ -13,24 +13,30 @@ export function rewriteLookupKeysForAlias(
   fromTeamId: number,
   toTeamId: number,
 ): number {
-  if (fromTeamId === toTeamId) return 0;
+  if (fromTeamId === toTeamId) {
+    return 0;
+  }
 
-  const sourceRows = sqlite.prepare(
-    `SELECT key, athlete_id FROM athlete_lookup WHERE key LIKE ? AND key NOT LIKE '%|solo:%'`,
-  ).all(`%|${fromTeamId}`) as { key: string; athlete_id: number }[];
+  const sourceRows = sqlite
+    .prepare(
+      `SELECT key, athlete_id FROM athlete_lookup WHERE key LIKE ? AND key NOT LIKE '%|solo:%'`,
+    )
+    .all(`%|${fromTeamId}`) as { key: string; athlete_id: number }[];
 
   let changes = 0;
   const getTarget = sqlite.prepare<[string], { athlete_id: number }>(
     `SELECT athlete_id FROM athlete_lookup WHERE key = ?`,
   );
-  const update = sqlite.prepare(`UPDATE athlete_lookup SET key = ? WHERE key = ?`);
-  const del    = sqlite.prepare(`DELETE FROM athlete_lookup WHERE key = ?`);
+  const update = sqlite.prepare(
+    `UPDATE athlete_lookup SET key = ? WHERE key = ?`,
+  );
+  const del = sqlite.prepare(`DELETE FROM athlete_lookup WHERE key = ?`);
 
   sqlite.transaction(() => {
     for (const { key, athlete_id } of sourceRows) {
-      const prefix    = key.slice(0, key.lastIndexOf("|") + 1);
+      const prefix = key.slice(0, key.lastIndexOf("|") + 1);
       const targetKey = `${prefix}${toTeamId}`;
-      const existing  = getTarget.get(targetKey);
+      const existing = getTarget.get(targetKey);
 
       if (!existing) {
         update.run(targetKey, key);
@@ -42,6 +48,7 @@ export function rewriteLookupKeysForAlias(
         // Target already has a better (lower) ID — drop source
         del.run(key);
       }
+
       changes++;
     }
   })();
@@ -50,23 +57,37 @@ export function rewriteLookupKeysForAlias(
 }
 
 /** Load team aliases from the teams table into a Map<aliasKey, canonicalKey>. */
-export function loadAliasMap(sqlite: BetterSqlite3.Database): Map<string, string> {
-  const rows = sqlite.prepare("SELECT canonical_key, alias_keys FROM teams").all() as { canonical_key: string; alias_keys: string }[];
+export function loadAliasMap(
+  sqlite: BetterSqlite3.Database,
+): Map<string, string> {
+  const rows = sqlite
+    .prepare("SELECT canonical_key, alias_keys FROM teams")
+    .all() as {
+    canonical_key: string;
+    alias_keys: string;
+  }[];
   const map = new Map<string, string>();
   for (const r of rows) {
-    for (const alias of JSON.parse(r.alias_keys) as string[]) map.set(alias, r.canonical_key);
+    for (const alias of JSON.parse(r.alias_keys) as string[]) {
+      map.set(alias, r.canonical_key);
+    }
   }
+
   return map;
 }
 
 /** Follow alias chain to ultimate canonical (cycle-safe). */
-export function resolveAlias(key: string, aliases: Map<string, string>): string {
+export function resolveAlias(
+  key: string,
+  aliases: Map<string, string>,
+): string {
   const seen = new Set<string>();
   let cur = key;
   while (aliases.has(cur) && !seen.has(cur)) {
     seen.add(cur);
     cur = aliases.get(cur)!;
   }
+
   return cur;
 }
 
@@ -95,7 +116,9 @@ export function validateAndFlattenAlias(
   simulated.set(from, canonicalKey);
   const resolved = resolveAlias(canonicalKey, simulated);
   if (resolved === from || simulated.get(resolved) === from) {
-    throw new Error(`Adding "${from}" → "${canonicalKey}" would create a cycle`);
+    throw new Error(
+      `Adding "${from}" → "${canonicalKey}" would create a cycle`,
+    );
   }
 
   return { aliasKey: from, canonicalKey };

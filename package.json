@@ -1,12 +1,28 @@
 {
   "name": "granfondo-ranking",
   "private": true,
-  "workspaces": ["database", "utils", "scraper", "frontend"],
+  "workspaces": [
+    "database",
+    "utils",
+    "scraper",
+    "frontend"
+  ],
   "scripts": {
     "generate-schema": "npm run generate-schema --workspace=@granfondo/database",
     "scrape": "npm run scrape --workspace=scraper",
     "scrape:force": "npm run scrape:force --workspace=scraper",
     "dev": "npm run dev --workspace=frontend",
-    "build": "npm run build --workspace=frontend"
+    "build": "npm run build --workspace=frontend",
+    "lint": "eslint \"**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx}\""
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.59.4",
+    "@typescript-eslint/parser": "^8.59.4",
+    "eslint": "^10.4.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.3"
   }
 }

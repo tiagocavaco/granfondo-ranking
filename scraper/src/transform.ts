@@ -5,7 +5,12 @@
  * Pure functions: no side effects, no I/O.
  */
 
-import { formatTime, timeToSeconds, normalizeCountry, fixRawTeamName } from "./normalize.js";
+import {
+  formatTime,
+  timeToSeconds,
+  normalizeCountry,
+  fixRawTeamName,
+} from "./normalize.js";
 import type { ApiResult } from "./types.js";
 import type {
   StoredParticipant,
@@ -21,35 +26,56 @@ export function isGranfondoName(name: string): boolean {
 
 export function isKidsCamVariant(name: string): boolean {
   const n = name.toLowerCase();
-  return n.includes("kids") || n.includes("caminhada") || n.includes(" vip") || n.includes("kids/cam");
+  return (
+    n.includes("kids") ||
+    n.includes("caminhada") ||
+    n.includes(" vip") ||
+    n.includes("kids/cam")
+  );
 }
 
-export function extractDistances(athletes: StoredParticipant[]): StoredDistance[] {
+export function extractDistances(
+  athletes: StoredParticipant[],
+): StoredDistance[] {
   const seen = new Map<string, string>();
   for (const a of athletes) {
     if (a.distanceId && a.distance && !seen.has(a.distanceId)) {
       seen.set(a.distanceId, a.distance);
     }
   }
+
   return Array.from(seen.entries())
     .map(([id, name]) => ({ id, name }))
     .sort((a, b) => Number(a.id) - Number(b.id));
 }
 
-export function assignGenderPositions(distances: StoredDistanceResults[]): void {
+export function assignGenderPositions(
+  distances: StoredDistanceResults[],
+): void {
   for (const dist of distances) {
     const byGender = new Map<string, typeof dist.results>();
     for (const r of dist.results) {
-      if (r.dnf || r.dns || r.pos < 1) continue;
-      if (!byGender.has(r.gender)) byGender.set(r.gender, []);
+      if (r.dnf || r.dns || r.pos < 1) {
+        continue;
+      }
+
+      if (!byGender.has(r.gender)) {
+        byGender.set(r.gender, []);
+      }
+
       byGender.get(r.gender)!.push(r);
     }
+
     for (const group of byGender.values()) {
       group.sort((a, b) => a.pos - b.pos);
       let rank = 0;
       let prevPos = -1;
       for (const r of group) {
-        if (r.pos !== prevPos) { rank++; prevPos = r.pos; }
+        if (r.pos !== prevPos) {
+          rank++;
+          prevPos = r.pos;
+        }
+
         r.genderPos = rank;
       }
     }
@@ -61,11 +87,20 @@ export function assignGenderPositions(distances: StoredDistanceResults[]): void 
 export function computeGaps(distances: StoredDistanceResults[]): void {
   for (const dist of distances) {
     const winner = dist.results.find((r) => r.pos === 1 && !r.dnf && !r.dns);
-    if (!winner || winner.raceTimeSecs === 0) continue;
+    if (!winner || winner.raceTimeSecs === 0) {
+      continue;
+    }
+
     for (const r of dist.results) {
-      if (r.gap !== "" || r.dnf || r.dns || r.raceTimeSecs === 0) continue;
+      if (r.gap !== "" || r.dnf || r.dns || r.raceTimeSecs === 0) {
+        continue;
+      }
+
       const gapSecs = r.raceTimeSecs - winner.raceTimeSecs;
-      if (gapSecs < 0) continue;
+      if (gapSecs < 0) {
+        continue;
+      }
+
       r.gapSecs = gapSecs;
       const h = Math.floor(gapSecs / 3600);
       const m = Math.floor((gapSecs % 3600) / 60);
@@ -75,20 +110,33 @@ export function computeGaps(distances: StoredDistanceResults[]): void {
   }
 }
 
-export function assignCategoryPositions(distances: StoredDistanceResults[]): void {
+export function assignCategoryPositions(
+  distances: StoredDistanceResults[],
+): void {
   for (const dist of distances) {
     const byCategory = new Map<string, typeof dist.results>();
     for (const r of dist.results) {
-      if (r.dnf || r.dns || r.pos < 1 || !r.category) continue;
-      if (!byCategory.has(r.category)) byCategory.set(r.category, []);
+      if (r.dnf || r.dns || r.pos < 1 || !r.category) {
+        continue;
+      }
+
+      if (!byCategory.has(r.category)) {
+        byCategory.set(r.category, []);
+      }
+
       byCategory.get(r.category)!.push(r);
     }
+
     for (const group of byCategory.values()) {
       group.sort((a, b) => a.pos - b.pos);
       let rank = 0;
       let prevPos = -1;
       for (const r of group) {
-        if (r.pos !== prevPos) { rank++; prevPos = r.pos; }
+        if (r.pos !== prevPos) {
+          rank++;
+          prevPos = r.pos;
+        }
+
         r.catPos = rank;
       }
     }

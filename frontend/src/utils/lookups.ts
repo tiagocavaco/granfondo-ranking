@@ -41,15 +41,22 @@ export async function initLookups(): Promise<{ teamsLoaded: boolean }> {
           newIdCache.set(alias, t.id);
         }
       }
+
       teamAliasesCache = newAliasCache;
       teamKeyToIdCache = newIdCache;
       return { teamsLoaded: true };
     } catch (err) {
-      console.warn("[api] teams table unavailable — team profile links will not work (re-scrape needed):", err);
+      console.warn(
+        "[api] teams table unavailable — team profile links will not work (re-scrape needed):",
+        err,
+      );
       return { teamsLoaded: false };
     }
   } catch (err) {
-    console.warn("[api] initLookups failed — athlete profile links will not work:", err);
+    console.warn(
+      "[api] initLookups failed — athlete profile links will not work:",
+      err,
+    );
     throw err;
   }
 }

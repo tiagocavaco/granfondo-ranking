@@ -14,10 +14,14 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     year: 2025,
     date: "2025-02-15",
     location: "Figueira da Foz",
-    resultsUrl: "https://lap2go.com/pt/event/figueira-champions-day-2025/timetable",
+    resultsUrl:
+      "https://lap2go.com/pt/event/figueira-champions-day-2025/timetable",
     officialUrl: "https://www.figueirachampionsclassic.com",
     hasResults: false,
-    distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }],
+    distances: [
+      { id: "1", name: "Granfondo" },
+      { id: "2", name: "Mediofondo" },
+    ],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -31,7 +35,11 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     resultsUrl: "https://www.waitastart.com/events/granfondo-agitagueda-2025",
     officialUrl: null,
     hasResults: false,
-    distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+    distances: [
+      { id: "1", name: "Granfondo" },
+      { id: "2", name: "Mediofondo" },
+      { id: "3", name: "Minifondo" },
+    ],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -45,7 +53,10 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     resultsUrl: "https://apedalar.pt/eventos/3818/resultados",
     officialUrl: null,
     hasResults: false,
-    distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }],
+    distances: [
+      { id: "1", name: "Granfondo" },
+      { id: "2", name: "Mediofondo" },
+    ],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -56,10 +67,15 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     year: 2024,
     date: "2024-04-14",
     location: "Porto",
-    resultsUrl: "https://timerspeed.com/live/g-live.html?f=events/2024/pggf_2024.clax",
+    resultsUrl:
+      "https://timerspeed.com/live/g-live.html?f=events/2024/pggf_2024.clax",
     officialUrl: "https://portogaiagranfondo.com",
     hasResults: true,
-    distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+    distances: [
+      { id: "1", name: "Granfondo" },
+      { id: "2", name: "Mediofondo" },
+      { id: "3", name: "Minifondo" },
+    ],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -74,10 +90,15 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
     year: 2026,
     date: "2026-06-21",
     location: "Mondim de Basto",
-    resultsUrl: "https://cabreirasolutions.com/evento/granfondo-terras-de-basto/",
+    resultsUrl:
+      "https://cabreirasolutions.com/evento/granfondo-terras-de-basto/",
     officialUrl: null,
     hasResults: false,
-    distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+    distances: [
+      { id: "1", name: "Granfondo" },
+      { id: "2", name: "Mediofondo" },
+      { id: "3", name: "Minifondo" },
+    ],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -91,7 +112,10 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
     resultsUrl: "https://apedalar.pt/eventos/4197/info",
     officialUrl: null,
     hasResults: false,
-    distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }],
+    distances: [
+      { id: "1", name: "Granfondo" },
+      { id: "2", name: "Mediofondo" },
+    ],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -105,7 +129,11 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
     resultsUrl: "https://cabreirasolutions.com/evento/granfondo-paredes/",
     officialUrl: null,
     hasResults: false,
-    distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+    distances: [
+      { id: "1", name: "Granfondo" },
+      { id: "2", name: "Mediofondo" },
+      { id: "3", name: "Minifondo" },
+    ],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -119,7 +147,11 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
     resultsUrl: "https://cabreirasolutions.com/evento/granfondo-serra-dossa/",
     officialUrl: null,
     hasResults: false,
-    distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+    distances: [
+      { id: "1", name: "Granfondo" },
+      { id: "2", name: "Mediofondo" },
+      { id: "3", name: "Minifondo" },
+    ],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -133,7 +165,11 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
     resultsUrl: "https://cabreirasolutions.com/evento/granfondo-portimao/",
     officialUrl: null,
     hasResults: false,
-    distances: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+    distances: [
+      { id: "1", name: "Granfondo" },
+      { id: "2", name: "Mediofondo" },
+      { id: "3", name: "Minifondo" },
+    ],
     participantCount: 0,
     finisherCount: 0,
     scrapedAt: null,
@@ -141,7 +177,12 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
 ];
 
 export { scrapeFigueiraChampionsDay } from "./scrapers/lap2go.js";
-export { scrapeAgitagueda }          from "./scrapers/waitastart.js";
-export { scrapeApedalar5Quinas, scrapeApedalarParticipants, extractEscalaoOptions, escalaoToGender } from "./scrapers/apedalar.js";
-export { scrapeListaParticipants }   from "./scrapers/stopandgo.js";
+export { scrapeAgitagueda } from "./scrapers/waitastart.js";
+export {
+  scrapeApedalar5Quinas,
+  scrapeApedalarParticipants,
+  extractEscalaoOptions,
+  escalaoToGender,
+} from "./scrapers/apedalar.js";
+export { scrapeListaParticipants } from "./scrapers/stopandgo.js";
 export { scrapePortoGaiaGranfondo2024 } from "./scrapers/timerspeed.js";

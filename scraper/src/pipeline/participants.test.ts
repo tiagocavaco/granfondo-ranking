@@ -4,8 +4,8 @@ import { resolveParticipantAthleteIds } from "./participants.js";
 const EVENT_ID = 1;
 
 function makeParticipants(
-  entries: Array<{ name: string; team: string }>,
-): Map<number, Array<{ name: string; team: string }>> {
+  entries: Array<{ name: string; team: string; category?: string }>,
+): Map<number, Array<{ name: string; team: string; category?: string }>> {
   return new Map([[EVENT_ID, entries]]);
 }
 
@@ -80,7 +80,11 @@ describe("resolveParticipantAthleteIds", () => {
       [1, [{ name: "Carlos Mota", team: "Benfica" }]],
       [2, [{ name: "Carlos Mota", team: "Benfica" }]],
     ]);
-    const { ids, linked } = resolveParticipantAthleteIds(nameToId, allParticipants, teamIdStore);
+    const { ids, linked } = resolveParticipantAthleteIds(
+      nameToId,
+      allParticipants,
+      teamIdStore,
+    );
     expect(linked).toBe(2);
     expect(ids.get("1:Carlos Mota:Benfica")).toBe(7);
     expect(ids.get("2:Carlos Mota:Benfica")).toBe(7);
@@ -100,27 +104,38 @@ describe("resolveParticipantAthleteIds", () => {
     // "penacova first bike reconco" compacts to "penacovafirstbikereconco",
     // identical to alias "penacova firstbike reconco" → teamKeySimilarity = 1.0
     const teamIdStore = new Map([["penacova ceg reconco", 1]]);
-    const teamAliases = { "penacova firstbike reconco": "penacova ceg reconco" };
+    const teamAliases = {
+      "penacova firstbike reconco": "penacova ceg reconco",
+    };
     const nameToId = { "nuno almeida|1": 28 };
     const { ids, linked, passes } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "Nuno Almeida", team: "PENACOVA | FIRST BIKE | RECONCO" }]),
+      makeParticipants([
+        { name: "Nuno Almeida", team: "PENACOVA | FIRST BIKE | RECONCO" },
+      ]),
       teamIdStore,
       teamAliases,
     );
     expect(linked).toBe(1);
     expect(passes[2]).toBe(1); // matched by pass 3
-    expect(ids.get(`${EVENT_ID}:Nuno Almeida:PENACOVA | FIRST BIKE | RECONCO`)).toBe(28);
+    expect(
+      ids.get(`${EVENT_ID}:Nuno Almeida:PENACOVA | FIRST BIKE | RECONCO`),
+    ).toBe(28);
   });
 
   it("does not fuzzy-match when similarity is below threshold", () => {
     // "totally different club" should not fuzzy-match "sporting"
     // Two "João Silva" athletes — name is ambiguous so pass 6 won't fire either
-    const teamIdStore = new Map([["sporting", 10], ["benfica", 20]]);
+    const teamIdStore = new Map([
+      ["sporting", 10],
+      ["benfica", 20],
+    ]);
     const nameToId = { "joao silva|10": 42, "joao silva|20": 99 };
     const { linked } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "João Silva", team: "Totally Different Club" }]),
+      makeParticipants([
+        { name: "João Silva", team: "Totally Different Club" },
+      ]),
       teamIdStore,
     );
     expect(linked).toBe(0);
@@ -130,31 +145,51 @@ describe("resolveParticipantAthleteIds", () => {
     // Daniel Marques: primary key is team 11 (cacb), but also races for team 12
     // (cb almodovar). Participant registers under team 12 → should resolve via pass 4.
     const nameToId = { "daniel marques|11": 3439 };
-    const teamIdStore = new Map([["cacb", 11], ["cb almodovar banco primus swick", 12]]);
-    const teamAliases = { "casa benfica almodovar": "cb almodovar banco primus swick" };
+    const teamIdStore = new Map([
+      ["cacb", 11],
+      ["cb almodovar banco primus swick", 12],
+    ]);
+    const teamAliases = {
+      "casa benfica almodovar": "cb almodovar banco primus swick",
+    };
     const athleteAllTeamIds = new Map([[3439, [11, 12]]]);
     const { ids, linked, passes } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "Daniel Marques", team: "CASA BENFICA ALMODÔVAR" }]),
+      makeParticipants([
+        { name: "Daniel Marques", team: "CASA BENFICA ALMODÔVAR" },
+      ]),
       teamIdStore,
       teamAliases,
       athleteAllTeamIds,
     );
     expect(linked).toBe(1);
     expect(passes[3]).toBe(1); // matched by pass 4
-    expect(ids.get(`${EVENT_ID}:Daniel Marques:CASA BENFICA ALMODÔVAR`)).toBe(3439);
+    expect(ids.get(`${EVENT_ID}:Daniel Marques:CASA BENFICA ALMODÔVAR`)).toBe(
+      3439,
+    );
   });
 
   it("pass 4 does not match when athlete does not have participant's team", () => {
     // Same setup but athlete does NOT have team 12 → should not match
     // Second "Daniel Marques" added so pass 6 (globally unique name) won't fire either
     const nameToId = { "daniel marques|11": 3439, "daniel marques|99": 9999 };
-    const teamIdStore = new Map([["cacb", 11], ["cb almodovar banco primus swick", 12], ["other club", 99]]);
-    const teamAliases = { "casa benfica almodovar": "cb almodovar banco primus swick" };
-    const athleteAllTeamIds = new Map([[3439, [11]], [9999, [99]]]); // neither has team 12
+    const teamIdStore = new Map([
+      ["cacb", 11],
+      ["cb almodovar banco primus swick", 12],
+      ["other club", 99],
+    ]);
+    const teamAliases = {
+      "casa benfica almodovar": "cb almodovar banco primus swick",
+    };
+    const athleteAllTeamIds = new Map([
+      [3439, [11]],
+      [9999, [99]],
+    ]); // neither has team 12
     const { linked } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "Daniel Marques", team: "CASA BENFICA ALMODÔVAR" }]),
+      makeParticipants([
+        { name: "Daniel Marques", team: "CASA BENFICA ALMODÔVAR" },
+      ]),
       teamIdStore,
       teamAliases,
       athleteAllTeamIds,
@@ -165,8 +200,15 @@ describe("resolveParticipantAthleteIds", () => {
   it("pass 4 does not match when multiple same-name athletes have the same team", () => {
     // Two "Carlos Mota" athletes both associated with team 7 → ambiguous, skip
     const nameToId = { "carlos mota|5": 100, "carlos mota|8": 200 };
-    const teamIdStore = new Map([["benfica", 7], ["sporting", 5], ["porto", 8]]);
-    const athleteAllTeamIds = new Map([[100, [5, 7]], [200, [8, 7]]]);
+    const teamIdStore = new Map([
+      ["benfica", 7],
+      ["sporting", 5],
+      ["porto", 8],
+    ]);
+    const athleteAllTeamIds = new Map([
+      [100, [5, 7]],
+      [200, [8, 7]],
+    ]);
     const { linked } = resolveParticipantAthleteIds(
       nameToId,
       makeParticipants([{ name: "Carlos Mota", team: "Benfica" }]),
@@ -182,16 +224,22 @@ describe("resolveParticipantAthleteIds", () => {
     // (4-token → first+last = "filipe oliveira" match)
     const nameToId = { "filipe oliveira|12": 80 };
     const teamIdStore = new Map([["cb almodovar banco primus swick", 12]]);
-    const teamAliases = { "casa benfica almodovar": "cb almodovar banco primus swick" };
+    const teamAliases = {
+      "casa benfica almodovar": "cb almodovar banco primus swick",
+    };
     const { ids, linked, passes } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "Filipe Da Silva Oliveira", team: "CASA BENFICA ALMODÔVAR" }]),
+      makeParticipants([
+        { name: "Filipe Da Silva Oliveira", team: "CASA BENFICA ALMODÔVAR" },
+      ]),
       teamIdStore,
       teamAliases,
     );
     expect(linked).toBe(1);
     expect(passes[4]).toBe(1); // matched by pass 5
-    expect(ids.get(`${EVENT_ID}:Filipe Da Silva Oliveira:CASA BENFICA ALMODÔVAR`)).toBe(80);
+    expect(
+      ids.get(`${EVENT_ID}:Filipe Da Silva Oliveira:CASA BENFICA ALMODÔVAR`),
+    ).toBe(80);
   });
 
   it("resolves short participant name to long athlete name (pass 5, reverse)", () => {
@@ -254,7 +302,10 @@ describe("resolveParticipantAthleteIds", () => {
   it("pass 2 does not match solo participant when name is ambiguous (two athletes)", () => {
     // Two athletes named "João Silva" in different teams — ambiguous, do not match
     const nameToId = { "joao silva|5": 10, "joao silva|8": 20 };
-    const teamIdStore = new Map([["sporting", 5], ["benfica", 8]]);
+    const teamIdStore = new Map([
+      ["sporting", 5],
+      ["benfica", 8],
+    ]);
     const { linked } = resolveParticipantAthleteIds(
       nameToId,
       makeParticipants([{ name: "João Silva", team: "Individual" }]),
@@ -270,7 +321,9 @@ describe("resolveParticipantAthleteIds", () => {
     const athleteCategories = new Map([[501, ["Masters B"]]]);
     const { linked } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "Natalio Penas", team: "Individual", category: "Elite" }]),
+      makeParticipants([
+        { name: "Natalio Penas", team: "Individual", category: "Elite" },
+      ]),
       teamIdStore,
       {},
       new Map(),
@@ -283,14 +336,19 @@ describe("resolveParticipantAthleteIds", () => {
     // Two "João Silva" athletes — one Masters B, one Elite.
     // Participant registers as Individual, category "Masters B" → only athlete 10 matches.
     const nameToId = { "joao silva|5": 10, "joao silva|8": 20 };
-    const teamIdStore = new Map([["sporting", 5], ["benfica", 8]]);
+    const teamIdStore = new Map([
+      ["sporting", 5],
+      ["benfica", 8],
+    ]);
     const athleteCategories = new Map([
-      [10, ["Masters B"]],   // Masters B tier
-      [20, ["Elite"]],       // Elite tier — conflicts with Masters B
+      [10, ["Masters B"]], // Masters B tier
+      [20, ["Elite"]], // Elite tier — conflicts with Masters B
     ]);
     const { ids, linked, passes } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "João Silva", team: "Individual", category: "Masters B" }]),
+      makeParticipants([
+        { name: "João Silva", team: "Individual", category: "Masters B" },
+      ]),
       teamIdStore,
       {},
       new Map(),
@@ -309,7 +367,9 @@ describe("resolveParticipantAthleteIds", () => {
     const athleteCategories = new Map([[3435, ["M19–34", "Masters A"]]]);
     const { linked } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "Daniel Marques", team: "GDBP", category: "M ELITES" }]),
+      makeParticipants([
+        { name: "Daniel Marques", team: "GDBP", category: "M ELITES" },
+      ]),
       teamIdStore,
       {},
       new Map(),
@@ -323,10 +383,14 @@ describe("resolveParticipantAthleteIds", () => {
     // Participant is Elite → no match.
     const nameToId = { "daniel marques|11": 3435 };
     const teamIdStore = new Map([["cacb", 11]]);
-    const athleteCategories = new Map([[3435, ["M19–34", "Elite", "Masters A"]]]);
+    const athleteCategories = new Map([
+      [3435, ["M19–34", "Elite", "Masters A"]],
+    ]);
     const { linked } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "Daniel Marques", team: "GDBP", category: "M ELITES" }]),
+      makeParticipants([
+        { name: "Daniel Marques", team: "GDBP", category: "M ELITES" },
+      ]),
       teamIdStore,
       {},
       new Map(),
@@ -342,7 +406,9 @@ describe("resolveParticipantAthleteIds", () => {
     const athleteCategories = new Map([[3435, ["M19–34", "Elite"]]]);
     const { linked, passes } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "Daniel Marques", team: "GDBP", category: "M ELITES" }]),
+      makeParticipants([
+        { name: "Daniel Marques", team: "GDBP", category: "M ELITES" },
+      ]),
       teamIdStore,
       {},
       new Map(),
@@ -359,7 +425,9 @@ describe("resolveParticipantAthleteIds", () => {
     const athleteCategories = new Map([[3435, ["M19–34"]]]);
     const { linked, passes } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "Daniel Marques", team: "GDBP", category: "M 19-34" }]),
+      makeParticipants([
+        { name: "Daniel Marques", team: "GDBP", category: "M 19-34" },
+      ]),
       teamIdStore,
       {},
       new Map(),
@@ -376,7 +444,9 @@ describe("resolveParticipantAthleteIds", () => {
     const athleteCategories = new Map([[3435, ["Elite"]]]);
     const { linked } = resolveParticipantAthleteIds(
       nameToId,
-      makeParticipants([{ name: "Daniel Marques", team: "GDBP", category: "M 19-34" }]),
+      makeParticipants([
+        { name: "Daniel Marques", team: "GDBP", category: "M 19-34" },
+      ]),
       teamIdStore,
       {},
       new Map(),

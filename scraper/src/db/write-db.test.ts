@@ -10,18 +10,27 @@ describe("loadScrapedEvents", () => {
   let tmpFile: string | null = null;
 
   afterEach(() => {
-    if (tmpFile && fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
+    if (tmpFile && fs.existsSync(tmpFile)) {
+      fs.unlinkSync(tmpFile);
+    }
+
     tmpFile = null;
   });
 
   it("returns {} when file does not exist", () => {
-    const nonExistent = path.join(os.tmpdir(), `granfondo-test-missing-${Date.now()}.json`);
+    const nonExistent = path.join(
+      os.tmpdir(),
+      `granfondo-test-missing-${Date.now()}.json`,
+    );
     expect(loadScrapedEvents(nonExistent)).toEqual({});
   });
 
   it("parses a JSON file correctly", () => {
     tmpFile = path.join(os.tmpdir(), `granfondo-test-${Date.now()}.json`);
-    const data = { "123": "2025-01-01T00:00:00.000Z", "456": "2025-06-15T12:00:00.000Z" };
+    const data = {
+      "123": "2025-01-01T00:00:00.000Z",
+      "456": "2025-06-15T12:00:00.000Z",
+    };
     fs.writeFileSync(tmpFile, JSON.stringify(data, null, 2), "utf-8");
     expect(loadScrapedEvents(tmpFile)).toEqual(data);
   });
@@ -33,7 +42,10 @@ describe("saveScrapedEvents", () => {
   let tmpFile: string | null = null;
 
   afterEach(() => {
-    if (tmpFile && fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
+    if (tmpFile && fs.existsSync(tmpFile)) {
+      fs.unlinkSync(tmpFile);
+    }
+
     tmpFile = null;
   });
 
@@ -53,12 +65,18 @@ describe("saveScrapedEvents / loadScrapedEvents round-trip", () => {
   let tmpFile: string | null = null;
 
   afterEach(() => {
-    if (tmpFile && fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
+    if (tmpFile && fs.existsSync(tmpFile)) {
+      fs.unlinkSync(tmpFile);
+    }
+
     tmpFile = null;
   });
 
   it("save then load returns the same object", () => {
-    tmpFile = path.join(os.tmpdir(), `granfondo-test-roundtrip-${Date.now()}.json`);
+    tmpFile = path.join(
+      os.tmpdir(),
+      `granfondo-test-roundtrip-${Date.now()}.json`,
+    );
     const original: Record<string, string> = {
       "1001": "2025-03-15T09:00:00.000Z",
       "1002": "2025-05-20T07:45:00.000Z",

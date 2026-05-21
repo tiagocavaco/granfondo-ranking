@@ -6,7 +6,10 @@ import * as path from "path";
 import * as schema from "@granfondo/database/schema";
 import { rewriteLookupKeysForAlias } from "./alias-utils.js";
 
-const migrationsPath = path.resolve(import.meta.dirname, "../../../database/migrations");
+const migrationsPath = path.resolve(
+  import.meta.dirname,
+  "../../../database/migrations",
+);
 
 function makeDb(): BetterSqlite3.Database {
   const sqlite = new BetterSqlite3(":memory:");
@@ -14,17 +17,37 @@ function makeDb(): BetterSqlite3.Database {
   return sqlite;
 }
 
-function ins(sqlite: BetterSqlite3.Database, key: string, athleteId: number): void {
-  sqlite.prepare("INSERT INTO athlete_lookup (key, athlete_id) VALUES (?, ?)").run(key, athleteId);
+function ins(
+  sqlite: BetterSqlite3.Database,
+  key: string,
+  athleteId: number,
+): void {
+  sqlite
+    .prepare("INSERT INTO athlete_lookup (key, athlete_id) VALUES (?, ?)")
+    .run(key, athleteId);
 }
 
 function keys(sqlite: BetterSqlite3.Database): string[] {
-  return (sqlite.prepare("SELECT key FROM athlete_lookup ORDER BY key").all() as { key: string }[]).map((r) => r.key);
+  return (
+    sqlite.prepare("SELECT key FROM athlete_lookup ORDER BY key").all() as {
+      key: string;
+    }[]
+  ).map((r) => r.key);
 }
 
 function insTeam(sqlite: BetterSqlite3.Database, canonicalKey: string): number {
-  sqlite.prepare("INSERT INTO teams (id, canonical_key, alias_keys) VALUES (NULL, ?, '[]')").run(canonicalKey);
-  return (sqlite.prepare("SELECT id FROM teams WHERE canonical_key = ?").get(canonicalKey) as { id: number }).id;
+  sqlite
+    .prepare(
+      "INSERT INTO teams (id, canonical_key, alias_keys) VALUES (NULL, ?, '[]')",
+    )
+    .run(canonicalKey);
+  return (
+    sqlite
+      .prepare("SELECT id FROM teams WHERE canonical_key = ?")
+      .get(canonicalKey) as {
+      id: number;
+    }
+  ).id;
 }
 
 // ── rewriteLookupKeysForAlias ─────────────────────────────────────────────────
@@ -53,7 +76,10 @@ describe("rewriteLookupKeysForAlias", () => {
     ins(sqlite, "david vaz|solo:Masters A Male:2025", 3);
     ins(sqlite, "david vaz|5", 4);
     rewriteLookupKeysForAlias(sqlite, 5, 10);
-    expect(keys(sqlite).sort()).toEqual(["david vaz|10", "david vaz|solo:Masters A Male:2025"]);
+    expect(keys(sqlite).sort()).toEqual([
+      "david vaz|10",
+      "david vaz|solo:Masters A Male:2025",
+    ]);
     sqlite.close();
   });
 
@@ -67,7 +93,7 @@ describe("rewriteLookupKeysForAlias", () => {
 
   it("does not partially match a longer team ID (5 vs 15, 50)", () => {
     const sqlite = makeDb();
-    ins(sqlite, "a|5",  1);
+    ins(sqlite, "a|5", 1);
     ins(sqlite, "b|15", 2);
     ins(sqlite, "c|50", 3);
     rewriteLookupKeysForAlias(sqlite, 5, 99);
@@ -86,22 +112,30 @@ describe("rewriteLookupKeysForAlias", () => {
 
   it("keeps the lower athlete_id when collision occurs (source wins)", () => {
     const sqlite = makeDb();
-    ins(sqlite, "joao silva|5", 3);   // source, lower id → should win
+    ins(sqlite, "joao silva|5", 3); // source, lower id → should win
     ins(sqlite, "joao silva|10", 99); // target, higher id → replaced
     rewriteLookupKeysForAlias(sqlite, 5, 10);
     expect(keys(sqlite)).toEqual(["joao silva|10"]);
-    const row = sqlite.prepare("SELECT athlete_id FROM athlete_lookup WHERE key = 'joao silva|10'").get() as { athlete_id: number };
+    const row = sqlite
+      .prepare(
+        "SELECT athlete_id FROM athlete_lookup WHERE key = 'joao silva|10'",
+      )
+      .get() as { athlete_id: number };
     expect(row.athlete_id).toBe(3);
     sqlite.close();
   });
 
   it("keeps the lower athlete_id when collision occurs (target wins)", () => {
     const sqlite = makeDb();
-    ins(sqlite, "joao silva|5", 99);  // source, higher id → dropped
-    ins(sqlite, "joao silva|10", 3);  // target, lower id → kept
+    ins(sqlite, "joao silva|5", 99); // source, higher id → dropped
+    ins(sqlite, "joao silva|10", 3); // target, lower id → kept
     rewriteLookupKeysForAlias(sqlite, 5, 10);
     expect(keys(sqlite)).toEqual(["joao silva|10"]);
-    const row = sqlite.prepare("SELECT athlete_id FROM athlete_lookup WHERE key = 'joao silva|10'").get() as { athlete_id: number };
+    const row = sqlite
+      .prepare(
+        "SELECT athlete_id FROM athlete_lookup WHERE key = 'joao silva|10'",
+      )
+      .get() as { athlete_id: number };
     expect(row.athlete_id).toBe(3);
     sqlite.close();
   });
@@ -118,7 +152,11 @@ describe("rewriteLookupKeysForAlias", () => {
     const sqlite = makeDb();
     ins(sqlite, "joao silva|5", 42);
     rewriteLookupKeysForAlias(sqlite, 5, 10);
-    const row = sqlite.prepare("SELECT athlete_id FROM athlete_lookup WHERE key = 'joao silva|10'").get() as { athlete_id: number };
+    const row = sqlite
+      .prepare(
+        "SELECT athlete_id FROM athlete_lookup WHERE key = 'joao silva|10'",
+      )
+      .get() as { athlete_id: number };
     expect(row.athlete_id).toBe(42);
     sqlite.close();
   });
@@ -132,18 +170,28 @@ describe("athlete ID stability after team alias + lookup rewrite", () => {
 
     // Scrape 1: athlete under team "sporting" (ID 5)
     insTeam(sqlite, "sporting");
-    const { id: sportingId } = sqlite.prepare("SELECT id FROM teams WHERE canonical_key = 'sporting'").get() as { id: number };
+    const { id: sportingId } = sqlite
+      .prepare("SELECT id FROM teams WHERE canonical_key = 'sporting'")
+      .get() as { id: number };
     ins(sqlite, `joao silva|${sportingId}`, 100);
 
     // Now add alias "sporting cp" → "sporting" and rewrite lookups
     insTeam(sqlite, "sporting cp");
-    const { id: cpId } = sqlite.prepare("SELECT id FROM teams WHERE canonical_key = 'sporting cp'").get() as { id: number };
-    sqlite.prepare("UPDATE teams SET alias_keys = json_insert(alias_keys, '$[#]', 'sporting cp') WHERE canonical_key = 'sporting'").run();
+    const { id: cpId } = sqlite
+      .prepare("SELECT id FROM teams WHERE canonical_key = 'sporting cp'")
+      .get() as { id: number };
+    sqlite
+      .prepare(
+        "UPDATE teams SET alias_keys = json_insert(alias_keys, '$[#]', 'sporting cp') WHERE canonical_key = 'sporting'",
+      )
+      .run();
     rewriteLookupKeysForAlias(sqlite, cpId, sportingId);
 
     // Scrape 2: same athlete appears under "sporting cp" which now resolves to sportingId
     // The pipeline would look up `joao silva|${sportingId}` (because teamNormalKey("sporting cp") → "sporting")
-    const row = sqlite.prepare(`SELECT athlete_id FROM athlete_lookup WHERE key = ?`).get(`joao silva|${sportingId}`) as { athlete_id: number } | undefined;
+    const row = sqlite
+      .prepare(`SELECT athlete_id FROM athlete_lookup WHERE key = ?`)
+      .get(`joao silva|${sportingId}`) as { athlete_id: number } | undefined;
     expect(row?.athlete_id).toBe(100);
 
     sqlite.close();

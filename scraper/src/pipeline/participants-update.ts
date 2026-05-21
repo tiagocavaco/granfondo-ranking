@@ -7,7 +7,15 @@
 
 import fs from "fs";
 
-import { openSourceDb, closeSourceDb, writeParticipantsToDb, loadExistingEventIds, loadTeamAliases, loadTeamIdStore, loadIdStore } from "../db/db-loader.js";
+import {
+  openSourceDb,
+  closeSourceDb,
+  writeParticipantsToDb,
+  loadExistingEventIds,
+  loadTeamAliases,
+  loadTeamIdStore,
+  loadIdStore,
+} from "../db/db-loader.js";
 import { discoverGranfondos } from "../scrapers/stopandgo.js";
 import { MANUAL_UPCOMING_EVENTS } from "../external.js";
 import { LISTA_URLS } from "../config.js";
@@ -41,27 +49,46 @@ export async function scrapeParticipants() {
   const existingEventIds = loadExistingEventIds(sourceDb);
   const teamAliases = loadTeamAliases(sourceDb);
   const teamIdStore = loadTeamIdStore(sourceDb);
-  const nameToId = Object.fromEntries(loadIdStore(sourceDb)) as Record<string, number>;
+  const nameToId = Object.fromEntries(loadIdStore(sourceDb)) as Record<
+    string,
+    number
+  >;
   initTeamAliases(teamAliases);
 
   const events = await discoverGranfondos();
 
   // Load all team associations per athlete for pass-4 secondary-team matching
   const athleteAllTeamIds = new Map<number, number[]>();
-  for (const { athlete_id, team_id } of sourceDb.prepare("SELECT athlete_id, team_id FROM athlete_teams").all() as Array<{ athlete_id: number; team_id: number }>) {
-    if (!athleteAllTeamIds.has(athlete_id)) athleteAllTeamIds.set(athlete_id, []);
+  for (const { athlete_id, team_id } of sourceDb
+    .prepare("SELECT athlete_id, team_id FROM athlete_teams")
+    .all() as Array<{ athlete_id: number; team_id: number }>) {
+    if (!athleteAllTeamIds.has(athlete_id)) {
+      athleteAllTeamIds.set(athlete_id, []);
+    }
+
     athleteAllTeamIds.get(athlete_id)!.push(team_id);
   }
 
   // Load all known categories per athlete for pass-2 category-based disambiguation
   const athleteCategories = new Map<number, string[]>();
-  for (const { athlete_id, category } of sourceDb.prepare("SELECT athlete_id, category FROM athlete_categories").all() as Array<{ athlete_id: number; category: string }>) {
-    if (!athleteCategories.has(athlete_id)) athleteCategories.set(athlete_id, []);
+  for (const { athlete_id, category } of sourceDb
+    .prepare("SELECT athlete_id, category FROM athlete_categories")
+    .all() as Array<{ athlete_id: number; category: string }>) {
+    if (!athleteCategories.has(athlete_id)) {
+      athleteCategories.set(athlete_id, []);
+    }
+
     athleteCategories.get(athlete_id)!.push(category);
   }
 
-  const updatedParticipants = new Map<number, { event: StoredEvent; athletes: StoredParticipant[] }>();
-  const allParticipantsForResolution = new Map<number, Array<{ name: string; team: string; category: string }>>();
+  const updatedParticipants = new Map<
+    number,
+    { event: StoredEvent; athletes: StoredParticipant[] }
+  >();
+  const allParticipantsForResolution = new Map<
+    number,
+    Array<{ name: string; team: string; category: string }>
+  >();
 
   for (const event of events) {
     if (!isPast(event.date)) {
@@ -71,8 +98,17 @@ export async function scrapeParticipants() {
         event.distances = resolveDistances(athletes, event.id);
         event.participantCount = athletes.length;
         updatedParticipants.set(event.id, { event, athletes });
-        allParticipantsForResolution.set(event.id, athletes.map((a) => ({ name: a.name, team: a.team, category: a.category })));
-        console.log(`  ⏳ ${athletes.length} confirmed, ${event.distances.map((d) => d.name).join(" / ")}`);
+        allParticipantsForResolution.set(
+          event.id,
+          athletes.map((a) => ({
+            name: a.name,
+            team: a.team,
+            category: a.category,
+          })),
+        );
+        console.log(
+          `  ⏳ ${athletes.length} confirmed, ${event.distances.map((d) => d.name).join(" / ")}`,
+        );
       } catch (err) {
         console.error(`  ✗ ${err}`);
       }
@@ -87,7 +123,14 @@ export async function scrapeParticipants() {
         event.distances = resolveDistances(athletes, event.id);
         event.participantCount = athletes.length;
         updatedParticipants.set(event.id, { event, athletes });
-        allParticipantsForResolution.set(event.id, athletes.map((a) => ({ name: a.name, team: a.team, category: a.category })));
+        allParticipantsForResolution.set(
+          event.id,
+          athletes.map((a) => ({
+            name: a.name,
+            team: a.team,
+            category: a.category,
+          })),
+        );
         console.log(`  ⏳ ${athletes.length} confirmed`);
       } catch (err) {
         console.error(`  ✗ ${err}`);
@@ -96,8 +139,21 @@ export async function scrapeParticipants() {
   }
 
   // Resolve participant → athlete links using the existing athlete index
-  const { ids: resolvedIds, linked, passes } = resolveParticipantAthleteIds(nameToId, allParticipantsForResolution, teamIdStore, teamAliases, athleteAllTeamIds, athleteCategories);
-  console.log(`  [lookup] ${linked} participants resolved (p1:${passes[0]} exact, p2:${passes[1]} solo-unique, p3:${passes[2]} fuzzy-team, p4:${passes[3]} secondary-team, p5:${passes[4]} name-variant, p6:${passes[5]} unique-name)`);
+  const {
+    ids: resolvedIds,
+    linked,
+    passes,
+  } = resolveParticipantAthleteIds(
+    nameToId,
+    allParticipantsForResolution,
+    teamIdStore,
+    teamAliases,
+    athleteAllTeamIds,
+    athleteCategories,
+  );
+  console.log(
+    `  [lookup] ${linked} participants resolved (p1:${passes[0]} exact, p2:${passes[1]} solo-unique, p3:${passes[2]} fuzzy-team, p4:${passes[3]} secondary-team, p5:${passes[4]} name-variant, p6:${passes[5]} unique-name)`,
+  );
 
   // Apply resolved athlete IDs back into the participant objects before writing
   for (const [eventId, { athletes }] of updatedParticipants) {
@@ -113,7 +169,9 @@ export async function scrapeParticipants() {
   const encrypted = encryptBuffer(dbBuffer, keyHex);
   fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.writeFileSync(DB_ENC_PATH, encrypted);
-  console.log(`\n✓ data.db.enc — ${(encrypted.length / 1024 / 1024).toFixed(1)} MB`);
+  console.log(
+    `\n✓ data.db.enc — ${(encrypted.length / 1024 / 1024).toFixed(1)} MB`,
+  );
 
   closeSourceDb(sourceDb);
   console.log("\n✅ Done.");

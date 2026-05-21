@@ -21,9 +21,16 @@ import * as path from "path";
 import BetterSqlite3 from "better-sqlite3";
 import { decryptBuffer } from "../db/encrypt.js";
 
-const encPath = path.resolve(import.meta.dirname, "../../../frontend/public/data/data.db.enc");
-const outPath = path.resolve(import.meta.dirname, "../../split-candidates.json");
-const BASE_URL = process.env.RANKING_BASE_URL ?? "http://localhost:5174/granfondo-ranking";
+const encPath = path.resolve(
+  import.meta.dirname,
+  "../../../frontend/public/data/data.db.enc",
+);
+const outPath = path.resolve(
+  import.meta.dirname,
+  "../../split-candidates.json",
+);
+const BASE_URL =
+  process.env.RANKING_BASE_URL ?? "http://localhost:5174/granfondo-ranking";
 
 // --top N: filter to pairs where at least one athlete has a finish ≤ N
 const topArg = process.argv.indexOf("--top");
@@ -34,7 +41,10 @@ if (TOP_N !== null && (isNaN(TOP_N) || TOP_N < 1)) {
 }
 
 const keyHex = process.env.DATA_KEY;
-if (!keyHex) { console.error("DATA_KEY not set"); process.exit(1); }
+if (!keyHex) {
+  console.error("DATA_KEY not set");
+  process.exit(1);
+}
 
 const enc = fs.readFileSync(encPath);
 const plain = decryptBuffer(enc, keyHex);
@@ -46,12 +56,16 @@ const splitNameFilter = `
   SELECT name_lower FROM athletes GROUP BY name_lower HAVING COUNT(*) >= 2
 `;
 
-const athleteRows = db.prepare(`
+const athleteRows = db
+  .prepare(
+    `
   SELECT id, name, canonical_team
   FROM athletes
   WHERE name_lower IN (${splitNameFilter})
   ORDER BY id
-`).all() as { id: number; name: string; canonical_team: string | null }[];
+`,
+  )
+  .all() as { id: number; name: string; canonical_team: string | null }[];
 
 if (athleteRows.length === 0) {
   console.log("No same-name groups found.");
@@ -62,12 +76,16 @@ if (athleteRows.length === 0) {
 const athleteMap = new Map(athleteRows.map((a) => [a.id, a]));
 
 // Group athlete IDs by name_lower
-const nameGroupRows = db.prepare(`
+const nameGroupRows = db
+  .prepare(
+    `
   SELECT name_lower, GROUP_CONCAT(id ORDER BY id) as ids
   FROM athletes
   WHERE name_lower IN (${splitNameFilter})
   GROUP BY name_lower
-`).all() as { name_lower: string; ids: string }[];
+`,
+  )
+  .all() as { name_lower: string; ids: string }[];
 
 // ── Load results (batch query via subquery) ───────────────────────────────────
 
@@ -83,23 +101,32 @@ type ResultRow = {
   event_id: number;
 };
 
-const resultRows = db.prepare(`
+const resultRows = db
+  .prepare(
+    `
   SELECT ar.athlete_id, ar.event_year, ar.pos, ar.finisher_count,
          ar.category, ar.distance, ar.dnf, ar.dns, ar.event_id
   FROM athlete_results ar
   JOIN athletes a ON a.id = ar.athlete_id
   WHERE a.name_lower IN (${splitNameFilter})
-`).all() as ResultRow[];
+`,
+  )
+  .all() as ResultRow[];
 
 const resultsByAthlete = new Map<number, ResultRow[]>();
 for (const r of resultRows) {
-  if (!resultsByAthlete.has(r.athlete_id)) resultsByAthlete.set(r.athlete_id, []);
+  if (!resultsByAthlete.has(r.athlete_id)) {
+    resultsByAthlete.set(r.athlete_id, []);
+  }
+
   resultsByAthlete.get(r.athlete_id)!.push(r);
 }
 
 // ── Load licences (batch query via subquery) ──────────────────────────────────
 
-const licenceRows = db.prepare(`
+const licenceRows = db
+  .prepare(
+    `
   SELECT DISTINCT r.athlete_id, rl.licence
   FROM results r
   JOIN result_licences rl ON r.id = rl.result_id
@@ -110,11 +137,16 @@ const licenceRows = db.prepare(`
     AND rl.licence NOT LIKE '%E%'
     AND rl.licence NOT LIKE 'federa%'
     AND CAST(rl.licence AS INTEGER) >= 100
-`).all() as { athlete_id: number; licence: string }[];
+`,
+  )
+  .all() as { athlete_id: number; licence: string }[];
 
 const licencesByAthlete = new Map<number, Set<string>>();
 for (const r of licenceRows) {
-  if (!licencesByAthlete.has(r.athlete_id)) licencesByAthlete.set(r.athlete_id, new Set());
+  if (!licencesByAthlete.has(r.athlete_id)) {
+    licencesByAthlete.set(r.athlete_id, new Set());
+  }
+
   licencesByAthlete.get(r.athlete_id)!.add(r.licence);
 }
 
@@ -123,9 +155,16 @@ db.close();
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function medianPercentile(results: ResultRow[]): number | null {
-  const finished = results.filter((r) => !r.dnf && !r.dns && r.finisher_count > 0 && r.pos > 0);
-  if (finished.length === 0) return null;
-  const percentiles = finished.map((r) => r.pos / r.finisher_count).sort((a, b) => a - b);
+  const finished = results.filter(
+    (r) => !r.dnf && !r.dns && r.finisher_count > 0 && r.pos > 0,
+  );
+  if (finished.length === 0) {
+    return null;
+  }
+
+  const percentiles = finished
+    .map((r) => r.pos / r.finisher_count)
+    .sort((a, b) => a - b);
   const mid = Math.floor(percentiles.length / 2);
   return percentiles.length % 2 === 0
     ? (percentiles[mid - 1]! + percentiles[mid]!) / 2
@@ -135,14 +174,24 @@ function medianPercentile(results: ResultRow[]): number | null {
 function primaryCategory(results: ResultRow[]): string | null {
   const freq = new Map<string, number>();
   for (const r of results) {
-    if (r.category) freq.set(r.category, (freq.get(r.category) ?? 0) + 1);
+    if (r.category) {
+      freq.set(r.category, (freq.get(r.category) ?? 0) + 1);
+    }
   }
-  if (freq.size === 0) return null;
+
+  if (freq.size === 0) {
+    return null;
+  }
+
   let best = "";
   let bestCount = 0;
   for (const [cat, count] of freq) {
-    if (count > bestCount) { best = cat; bestCount = count; }
+    if (count > bestCount) {
+      best = cat;
+      bestCount = count;
+    }
   }
+
   return best || null;
 }
 
@@ -167,31 +216,58 @@ function normalizeCat(cat: string): string {
 }
 
 // Ordered master progression for adjacency check (uses normalised names)
-const MASTER_LADDER = ["elite", "master a", "master b", "master c", "master d", "master e", "master f"];
+const MASTER_LADDER = [
+  "elite",
+  "master a",
+  "master b",
+  "master c",
+  "master d",
+  "master e",
+  "master f",
+];
 
 function catLadderIndex(normalizedCat: string): number {
-  return MASTER_LADDER.findIndex((m) => normalizedCat === m || normalizedCat.startsWith(m + " "));
+  return MASTER_LADDER.findIndex(
+    (m) => normalizedCat === m || normalizedCat.startsWith(m + " "),
+  );
 }
 
-function categoryCompatibility(catA: string | null, catB: string | null): "same" | "adjacent" | "different" {
-  if (!catA || !catB) return "different";
+function categoryCompatibility(
+  catA: string | null,
+  catB: string | null,
+): "same" | "adjacent" | "different" {
+  if (!catA || !catB) {
+    return "different";
+  }
+
   const a = normalizeCat(catA);
   const b = normalizeCat(catB);
-  if (a === b) return "same";
+  if (a === b) {
+    return "same";
+  }
+
   const ia = catLadderIndex(a);
   const ib = catLadderIndex(b);
-  if (ia >= 0 && ib >= 0 && Math.abs(ia - ib) === 1) return "adjacent";
+  if (ia >= 0 && ib >= 0 && Math.abs(ia - ib) === 1) {
+    return "adjacent";
+  }
+
   return "different";
 }
 
 function yearRange(results: ResultRow[]): { min: number; max: number } | null {
   const years = results.map((r) => r.event_year).filter((y) => y > 0);
-  if (years.length === 0) return null;
+  if (years.length === 0) {
+    return null;
+  }
+
   return { min: Math.min(...years), max: Math.max(...years) };
 }
 
 function bestFinish(results: ResultRow[]): number {
-  const positions = results.filter((r) => !r.dnf && !r.dns && r.pos > 0).map((r) => r.pos);
+  const positions = results
+    .filter((r) => !r.dnf && !r.dns && r.pos > 0)
+    .map((r) => r.pos);
   return positions.length > 0 ? Math.min(...positions) : Infinity;
 }
 
@@ -203,8 +279,26 @@ interface CandidateEntry {
   bestPos: number;
   sharedLicence?: true;
   priority?: true;
-  keep: { id: number; name: string; team: string; licences: string[]; results: number; category: string | null; years: string; url: string };
-  absorb: { id: number; name: string; team: string; licences: string[]; results: number; category: string | null; years: string; url: string };
+  keep: {
+    id: number;
+    name: string;
+    team: string;
+    licences: string[];
+    results: number;
+    category: string | null;
+    years: string;
+    url: string;
+  };
+  absorb: {
+    id: number;
+    name: string;
+    team: string;
+    licences: string[];
+    results: number;
+    category: string | null;
+    years: string;
+    url: string;
+  };
   approved: boolean | null;
 }
 
@@ -224,12 +318,16 @@ for (const group of nameGroupRows) {
 
       // Hard exclude: appeared in the same race — definitely different athletes
       const eventsA = new Set(resultsA.map((r) => r.event_id));
-      if (resultsB.some((r) => eventsA.has(r.event_id))) continue;
+      if (resultsB.some((r) => eventsA.has(r.event_id))) {
+        continue;
+      }
 
       // Hard exclude: both have non-empty disjoint licence sets — different people
       if (licsA.size > 0 && licsB.size > 0) {
         const shared = [...licsA].some((l) => licsB.has(l));
-        if (!shared) continue;
+        if (!shared) {
+          continue;
+        }
         // Shared licence: should self-heal via Pass 1, but if they're split now they may need
         // a manual alias. Fall through to score normally — sharedLicence flag marks these.
       }
@@ -239,18 +337,32 @@ for (const group of nameGroupRows) {
       // same event-year (even across different events).
       {
         const yearsA = new Set(resultsA.map((r) => r.event_year));
-        const sharedYears = [...new Set(resultsB.map((r) => r.event_year))].filter((y) => yearsA.has(y));
+        const sharedYears = [
+          ...new Set(resultsB.map((r) => r.event_year)),
+        ].filter((y) => yearsA.has(y));
         let incompatCat = false;
         for (const yr of sharedYears) {
-          const catsA = resultsA.filter((r) => r.event_year === yr && r.category).map((r) => r.category);
-          const catsB = resultsB.filter((r) => r.event_year === yr && r.category).map((r) => r.category);
+          const catsA = resultsA
+            .filter((r) => r.event_year === yr && r.category)
+            .map((r) => r.category);
+          const catsB = resultsB
+            .filter((r) => r.event_year === yr && r.category)
+            .map((r) => r.category);
           if (catsA.length > 0 && catsB.length > 0) {
             // Same year → categories must be identical after normalisation; adjacent is not enough.
-            const anySame = catsA.some((ca) => catsB.some((cb) => categoryCompatibility(ca, cb) === "same"));
-            if (!anySame) { incompatCat = true; break; }
+            const anySame = catsA.some((ca) =>
+              catsB.some((cb) => categoryCompatibility(ca, cb) === "same"),
+            );
+            if (!anySame) {
+              incompatCat = true;
+              break;
+            }
           }
         }
-        if (incompatCat) continue;
+
+        if (incompatCat) {
+          continue;
+        }
       }
 
       // Hard exclude: adjacent categories moving in the wrong aging direction across non-overlapping years.
@@ -266,12 +378,15 @@ for (const group of nameGroupRows) {
           const rangeA = yearRange(resultsA);
           const rangeB = yearRange(resultsB);
           if (iaA >= 0 && iaB >= 0 && rangeA && rangeB) {
-            const overlaps = rangeA.min <= rangeB.max && rangeB.min <= rangeA.max;
+            const overlaps =
+              rangeA.min <= rangeB.max && rangeB.min <= rangeA.max;
             if (!overlaps) {
               const aIsEarlier = rangeA.max < rangeB.min;
-              const aIsOlder   = iaA > iaB;
+              const aIsOlder = iaA > iaB;
               // Wrong direction: earlier period has the more senior (higher) category
-              if (aIsEarlier === aIsOlder) continue;
+              if (aIsEarlier === aIsOlder) {
+                continue;
+              }
             }
           }
         }
@@ -282,25 +397,39 @@ for (const group of nameGroupRows) {
       {
         const pA = medianPercentile(resultsA);
         const pB = medianPercentile(resultsB);
-        if (pA !== null && pB !== null && Math.abs(pA - pB) > 0.10) continue;
+        if (pA !== null && pB !== null && Math.abs(pA - pB) > 0.1) {
+          continue;
+        }
       }
 
       const athleteA = athleteMap.get(idA)!;
       const athleteB = athleteMap.get(idB)!;
 
       // keep = more results, absorb = fewer
-      const [keepId, absorbId, keepRow, absorbRow, keepRes, absorbRes, keepLics, absorbLics] =
+      const [
+        keepId,
+        absorbId,
+        keepRow,
+        absorbRow,
+        keepRes,
+        absorbRes,
+        keepLics,
+        absorbLics,
+      ] =
         resultsA.length >= resultsB.length
           ? [idA, idB, athleteA, athleteB, resultsA, resultsB, licsA, licsB]
           : [idB, idA, athleteB, athleteA, resultsB, resultsA, licsB, licsA];
 
-      const hasSharedLicence = licsA.size > 0 && licsB.size > 0 && [...licsA].some((l) => licsB.has(l));
+      const hasSharedLicence =
+        licsA.size > 0 &&
+        licsB.size > 0 &&
+        [...licsA].some((l) => licsB.has(l));
       let score = 0;
       const reasons: string[] = [];
 
       // Shared licence — definitive identity signal
       if (hasSharedLicence) {
-        score += 0.60;
+        score += 0.6;
         const sharedLics = [...licsA].filter((l) => licsB.has(l));
         reasons.push(`shared licence (${sharedLics.join(", ")})`);
       }
@@ -314,7 +443,7 @@ for (const group of nameGroupRows) {
         score += 0.25;
         reasons.push(`fragment (${fragCount} results)`);
       } else if (fragCount <= 5) {
-        score += 0.10;
+        score += 0.1;
         reasons.push(`small profile (${fragCount} results)`);
       }
 
@@ -337,17 +466,25 @@ for (const group of nameGroupRows) {
       const pAbsorb = medianPercentile(absorbRes);
       if (pKeep !== null && pAbsorb !== null) {
         const diff = Math.abs(pKeep - pAbsorb);
-        if (diff <= 0.10) {
+        if (diff <= 0.1) {
           score += 0.15;
-          reasons.push(`similar percentile (${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%)`);
-        } else if (diff <= 0.20) {
+          reasons.push(
+            `similar percentile (${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%)`,
+          );
+        } else if (diff <= 0.2) {
           score += 0.07;
-          reasons.push(`close percentile (${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%)`);
+          reasons.push(
+            `close percentile (${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%)`,
+          );
         } else if (diff > 0.35) {
-          score -= 0.10;
-          reasons.push(`different percentile (${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%)`);
+          score -= 0.1;
+          reasons.push(
+            `different percentile (${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%)`,
+          );
         } else {
-          reasons.push(`percentile ${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%`);
+          reasons.push(
+            `percentile ${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%`,
+          );
         }
       }
 
@@ -355,20 +492,27 @@ for (const group of nameGroupRows) {
       const rangeKeep = yearRange(keepRes);
       const rangeAbsorb = yearRange(absorbRes);
       if (rangeKeep && rangeAbsorb) {
-        const overlaps = rangeKeep.min <= rangeAbsorb.max && rangeAbsorb.min <= rangeKeep.max;
+        const overlaps =
+          rangeKeep.min <= rangeAbsorb.max && rangeAbsorb.min <= rangeKeep.max;
         if (overlaps) {
           score -= 0.15;
-          reasons.push(`overlapping years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`);
+          reasons.push(
+            `overlapping years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`,
+          );
         } else if (!overlaps) {
           const gap = Math.min(
             Math.abs(rangeKeep.min - rangeAbsorb.max),
             Math.abs(rangeAbsorb.min - rangeKeep.max),
           );
           if (gap <= 1) {
-            score += 0.10;
-            reasons.push(`adjacent years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`);
+            score += 0.1;
+            reasons.push(
+              `adjacent years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`,
+            );
           } else {
-            reasons.push(`separate years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`);
+            reasons.push(
+              `separate years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`,
+            );
           }
         }
       }
@@ -377,8 +521,16 @@ for (const group of nameGroupRows) {
 
       const pairBestPos = Math.min(bestFinish(keepRes), bestFinish(absorbRes));
       const isHighPriority = pairBestPos <= 30;
-      const yKeep = rangeKeep ? (rangeKeep.min === rangeKeep.max ? `${rangeKeep.min}` : `${rangeKeep.min}–${rangeKeep.max}`) : "?";
-      const yAbsorb = rangeAbsorb ? (rangeAbsorb.min === rangeAbsorb.max ? `${rangeAbsorb.min}` : `${rangeAbsorb.min}–${rangeAbsorb.max}`) : "?";
+      const yKeep = rangeKeep
+        ? rangeKeep.min === rangeKeep.max
+          ? `${rangeKeep.min}`
+          : `${rangeKeep.min}–${rangeKeep.max}`
+        : "?";
+      const yAbsorb = rangeAbsorb
+        ? rangeAbsorb.min === rangeAbsorb.max
+          ? `${rangeAbsorb.min}`
+          : `${rangeAbsorb.min}–${rangeAbsorb.max}`
+        : "?";
 
       const entry: CandidateEntry = {
         confidence: Math.round(score * 100) / 100,
@@ -407,8 +559,13 @@ for (const group of nameGroupRows) {
         approved: null,
       };
 
-      if (hasSharedLicence) entry.sharedLicence = true;
-      if (isHighPriority) entry.priority = true;
+      if (hasSharedLicence) {
+        entry.sharedLicence = true;
+      }
+
+      if (isHighPriority) {
+        entry.priority = true;
+      }
 
       candidates.push(entry);
     }
@@ -417,31 +574,52 @@ for (const group of nameGroupRows) {
 
 // ── Load decided pairs (persistent skip-lists) ────────────────────────────────
 
-const rejPath     = path.resolve(import.meta.dirname, "../../split-candidates-rejected.json");
-const appliedPath = path.resolve(import.meta.dirname, "../../split-candidates-applied.json");
+const rejPath = path.resolve(
+  import.meta.dirname,
+  "../../split-candidates-rejected.json",
+);
+const appliedPath = path.resolve(
+  import.meta.dirname,
+  "../../split-candidates-applied.json",
+);
 
 // Pair identity: prefer stable name+team key (survives ID remapping); fall back to id:id.
 function pairNameKey(c: CandidateEntry): string {
-  const [a, b] = [c.keep, c.absorb].sort((x, y) => x.name.localeCompare(y.name) || x.team.localeCompare(y.team));
+  const [a, b] = [c.keep, c.absorb].sort(
+    (x, y) => x.name.localeCompare(y.name) || x.team.localeCompare(y.team),
+  );
   return `${a!.name}|${a!.team}||${b!.name}|${b!.team}`;
 }
-function pairIdKey(c: CandidateEntry): string { return `${c.keep.id}:${c.absorb.id}`; }
+
+function pairIdKey(c: CandidateEntry): string {
+  return `${c.keep.id}:${c.absorb.id}`;
+}
 
 let rejectedEntries: CandidateEntry[] = [];
 if (fs.existsSync(rejPath)) {
-  try { rejectedEntries = JSON.parse(fs.readFileSync(rejPath, "utf-8")); } catch {}
+  try {
+    rejectedEntries = JSON.parse(fs.readFileSync(rejPath, "utf-8"));
+  } catch {}
 }
-const rejectedIdKeys   = new Set(rejectedEntries.map(pairIdKey));
+
+const rejectedIdKeys = new Set(rejectedEntries.map(pairIdKey));
 const rejectedNameKeys = new Set(rejectedEntries.map(pairNameKey));
 
 let appliedEntries: CandidateEntry[] = [];
 if (fs.existsSync(appliedPath)) {
-  try { appliedEntries = JSON.parse(fs.readFileSync(appliedPath, "utf-8")); } catch {}
+  try {
+    appliedEntries = JSON.parse(fs.readFileSync(appliedPath, "utf-8"));
+  } catch {}
 }
-const appliedIdKeys   = new Set(appliedEntries.map(pairIdKey));
+
+const appliedIdKeys = new Set(appliedEntries.map(pairIdKey));
 const appliedNameKeys = new Set(appliedEntries.map(pairNameKey));
 
-function isDecided(c: CandidateEntry, idKeys: Set<string>, nameKeys: Set<string>): boolean {
+function isDecided(
+  c: CandidateEntry,
+  idKeys: Set<string>,
+  nameKeys: Set<string>,
+): boolean {
   return idKeys.has(pairIdKey(c)) || nameKeys.has(pairNameKey(c));
 }
 
@@ -449,15 +627,22 @@ function isDecided(c: CandidateEntry, idKeys: Set<string>, nameKeys: Set<string>
 
 let existing: CandidateEntry[] = [];
 if (fs.existsSync(outPath)) {
-  try { existing = JSON.parse(fs.readFileSync(outPath, "utf-8")); } catch {}
+  try {
+    existing = JSON.parse(fs.readFileSync(outPath, "utf-8"));
+  } catch {}
 }
 
 const newlyRejected = existing.filter(
-  (c) => c.approved === false && !isDecided(c, rejectedIdKeys, rejectedNameKeys),
+  (c) =>
+    c.approved === false && !isDecided(c, rejectedIdKeys, rejectedNameKeys),
 );
 if (newlyRejected.length > 0) {
   rejectedEntries.push(...newlyRejected);
-  for (const c of newlyRejected) { rejectedIdKeys.add(pairIdKey(c)); rejectedNameKeys.add(pairNameKey(c)); }
+  for (const c of newlyRejected) {
+    rejectedIdKeys.add(pairIdKey(c));
+    rejectedNameKeys.add(pairNameKey(c));
+  }
+
   fs.writeFileSync(rejPath, JSON.stringify(rejectedEntries, null, 2));
 }
 
@@ -466,13 +651,19 @@ const newlyApplied = existing.filter(
 );
 if (newlyApplied.length > 0) {
   appliedEntries.push(...newlyApplied);
-  for (const c of newlyApplied) { appliedIdKeys.add(pairIdKey(c)); appliedNameKeys.add(pairNameKey(c)); }
+  for (const c of newlyApplied) {
+    appliedIdKeys.add(pairIdKey(c));
+    appliedNameKeys.add(pairNameKey(c));
+  }
+
   fs.writeFileSync(appliedPath, JSON.stringify(appliedEntries, null, 2));
 }
 
 // Remove all decided pairs — main file only ever contains pending (null) entries
 const pending = candidates.filter(
-  (c) => !isDecided(c, rejectedIdKeys, rejectedNameKeys) && !isDecided(c, appliedIdKeys, appliedNameKeys),
+  (c) =>
+    !isDecided(c, rejectedIdKeys, rejectedNameKeys) &&
+    !isDecided(c, appliedIdKeys, appliedNameKeys),
 );
 
 // ── Filter by --top N if specified ───────────────────────────────────────────
@@ -482,9 +673,12 @@ const pending = candidates.filter(
 // this removes the remaining marginal cases where signals are too weak to trust.
 const MIN_CONF_TOP_N = 0.25;
 
-const output = TOP_N !== null
-  ? pending.filter((c) => c.bestPos <= TOP_N && c.confidence >= MIN_CONF_TOP_N)
-  : pending;
+const output =
+  TOP_N !== null
+    ? pending.filter(
+        (c) => c.bestPos <= TOP_N && c.confidence >= MIN_CONF_TOP_N,
+      )
+    : pending;
 
 // ── Sort ──────────────────────────────────────────────────────────────────────
 // --top mode: best finish position, then confidence
@@ -492,24 +686,43 @@ const output = TOP_N !== null
 
 output.sort((a, b) => {
   if (TOP_N !== null) {
-    if (a.bestPos !== b.bestPos) return a.bestPos - b.bestPos;
+    if (a.bestPos !== b.bestPos) {
+      return a.bestPos - b.bestPos;
+    }
   }
+
   return b.confidence - a.confidence;
 });
 
 fs.writeFileSync(outPath, JSON.stringify(output, null, 2));
 
-const pendingCount    = output.length;
-const highPriority    = output.filter((c) => c.priority).length;
-const sharedLicCount  = output.filter((c) => c.sharedLicence).length;
+const pendingCount = output.length;
+const highPriority = output.filter((c) => c.priority).length;
+const sharedLicCount = output.filter((c) => c.sharedLicence).length;
 const modeTag = TOP_N !== null ? ` [--top ${TOP_N}]` : "";
-console.log(`✓ ${pendingCount} pending pair(s)${modeTag} → scraper/split-candidates.json`);
-if (pendingCount > 0)
-  console.log(`  ${highPriority} high-priority / top-30${sharedLicCount > 0 ? `, ${sharedLicCount} shared-licence` : ""}`);
-if (newlyRejected.length > 0)
-  console.log(`  ${newlyRejected.length} false decision(s) migrated → scraper/split-candidates-rejected.json`);
-if (newlyApplied.length > 0)
-  console.log(`  ${newlyApplied.length} approved decision(s) migrated → scraper/split-candidates-applied.json`);
-console.log(`  Skip-lists: ${rejectedEntries.length} rejected, ${appliedEntries.length} applied`);
+console.log(
+  `✓ ${pendingCount} pending pair(s)${modeTag} → scraper/split-candidates.json`,
+);
+if (pendingCount > 0) {
+  console.log(
+    `  ${highPriority} high-priority / top-30${sharedLicCount > 0 ? `, ${sharedLicCount} shared-licence` : ""}`,
+  );
+}
+
+if (newlyRejected.length > 0) {
+  console.log(
+    `  ${newlyRejected.length} false decision(s) migrated → scraper/split-candidates-rejected.json`,
+  );
+}
+
+if (newlyApplied.length > 0) {
+  console.log(
+    `  ${newlyApplied.length} approved decision(s) migrated → scraper/split-candidates-applied.json`,
+  );
+}
+
+console.log(
+  `  Skip-lists: ${rejectedEntries.length} rejected, ${appliedEntries.length} applied`,
+);
 console.log(`  Set "approved": true to merge, false to skip`);
 console.log(`  Then run: npm run db:apply-splits`);

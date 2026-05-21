@@ -1,6 +1,15 @@
-import { msToHHMMSS, fetchWithRetry, makeResult, toTitleCase } from "./shared.js";
+import {
+  msToHHMMSS,
+  fetchWithRetry,
+  makeResult,
+  toTitleCase,
+} from "./shared.js";
 import { normalizeCountry } from "../normalize.js";
-import type { StoredEventResults, StoredDistanceResults, StoredResult } from "@granfondo/database/types";
+import type {
+  StoredEventResults,
+  StoredDistanceResults,
+  StoredResult,
+} from "@granfondo/database/types";
 
 interface Lap2GoRow {
   Posicao: number;
@@ -13,7 +22,11 @@ interface Lap2GoRow {
   TempoOficial: number; // ms
 }
 
-async function lap2goFetch(alias: string, nomeProva: string, numPassagem: number): Promise<Lap2GoRow[]> {
+async function lap2goFetch(
+  alias: string,
+  nomeProva: string,
+  numPassagem: number,
+): Promise<Lap2GoRow[]> {
   const res = await fetchWithRetry("https://api.lap2go.com/Evento-Resultados", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -25,7 +38,10 @@ async function lap2goFetch(alias: string, nomeProva: string, numPassagem: number
       numPassagem,
     }),
   });
-  if (!res.ok) throw new Error(`lap2go HTTP ${res.status} for ${nomeProva}`);
+  if (!res.ok) {
+    throw new Error(`lap2go HTTP ${res.status} for ${nomeProva}`);
+  }
+
   const data = (await res.json()) as { Resultados?: Lap2GoRow[] };
   return data.Resultados ?? [];
 }
@@ -54,8 +70,23 @@ export async function scrapeFigueiraChampionsDay(): Promise<StoredEventResults> 
   mfResults.sort((a, b) => a.pos - b.pos);
 
   const distances: StoredDistanceResults[] = [];
-  if (gfResults.length) distances.push({ id: "1", name: "Granfondo", finisherCount: gfResults.length, results: gfResults });
-  if (mfResults.length) distances.push({ id: "2", name: "Mediofondo", finisherCount: mfResults.length, results: mfResults });
+  if (gfResults.length) {
+    distances.push({
+      id: "1",
+      name: "Granfondo",
+      finisherCount: gfResults.length,
+      results: gfResults,
+    });
+  }
+
+  if (mfResults.length) {
+    distances.push({
+      id: "2",
+      name: "Mediofondo",
+      finisherCount: mfResults.length,
+      results: mfResults,
+    });
+  }
 
   return {
     eventId: 90001,

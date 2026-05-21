@@ -14,12 +14,18 @@ export type { DrizzleDb } from "@granfondo/database/db-client";
 const { getDb } = createDbClient({
   fetchWasm: async () => {
     const r = await fetch(sqlWasmUrl);
-    if (!r.ok) throw new Error(`Failed to fetch WASM: ${r.status}`);
+    if (!r.ok) {
+      throw new Error(`Failed to fetch WASM: ${r.status}`);
+    }
+
     return r.arrayBuffer();
   },
   fetchEncryptedDb: async () => {
     const r = await fetch(`${import.meta.env.BASE_URL}data/data.db.enc`);
-    if (!r.ok) throw new Error(`Failed to fetch data.db.enc: ${r.status}`);
+    if (!r.ok) {
+      throw new Error(`Failed to fetch data.db.enc: ${r.status}`);
+    }
+
     return r.arrayBuffer();
   },
   decryptDb: decryptDatabase,

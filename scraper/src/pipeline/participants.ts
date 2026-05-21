@@ -1,71 +1,119 @@
-import { normalizeName, teamNormalKey, isSoloTeam, teamKeySimilarity, categoryTier, athleteEffectiveTier } from "../normalize.js";
+import {
+  normalizeName,
+  teamNormalKey,
+  isSoloTeam,
+  teamKeySimilarity,
+  categoryTier,
+  athleteEffectiveTier,
+} from "../normalize.js";
 
 export function resolveParticipantAthleteIds(
   nameToId: Record<string, number>,
-  allParticipants: Map<number, Array<{ name: string; team: string; category?: string }>>,
+  allParticipants: Map<
+    number,
+    Array<{ name: string; team: string; category?: string }>
+  >,
   teamIdStore: Map<string, number>,
   teamAliases: Record<string, string> = {},
   /** athleteId → all team IDs (primary + secondary) from athlete_teams */
   athleteAllTeamIds: Map<number, number[]> = new Map(),
   /** athleteId → all known categories across years (for category-based disambiguation) */
   athleteCategories: Map<number, string[]> = new Map(),
-): { ids: Map<string, number>; linked: number; passes: [number, number, number, number, number, number] } {
+): {
+  ids: Map<string, number>;
+  linked: number;
+  passes: [number, number, number, number, number, number];
+} {
   const ids = new Map<string, number>();
   let linked = 0;
-  const passes: [number, number, number, number, number, number] = [0, 0, 0, 0, 0, 0];
+  const passes: [number, number, number, number, number, number] = [
+    0, 0, 0, 0, 0, 0,
+  ];
 
   // Combine canonical and alias keys: knownKey → teamId (for pass-2/3/4 reverse lookup)
   const allTeamKeys = new Map<string, number>(teamIdStore);
   for (const [aliasKey, canonKey] of Object.entries(teamAliases)) {
     const id = teamIdStore.get(canonKey);
-    if (id != null && !allTeamKeys.has(aliasKey)) allTeamKeys.set(aliasKey, id);
+    if (id != null && !allTeamKeys.has(aliasKey)) {
+      allTeamKeys.set(aliasKey, id);
+    }
   }
 
   // Reverse map: teamId → all known keys (canonical + aliases)
   const teamIdToKeys = new Map<number, string[]>();
   for (const [k, id] of allTeamKeys) {
-    if (!teamIdToKeys.has(id)) teamIdToKeys.set(id, []);
+    if (!teamIdToKeys.has(id)) {
+      teamIdToKeys.set(id, []);
+    }
+
     teamIdToKeys.get(id)!.push(k);
   }
 
   // Name lookup: nameLower → [{ teamId, athleteId }] — mirrors pipeline's buildNameLookup
-  const nameLookup = new Map<string, Array<{ teamId: number; athleteId: number }>>();
+  const nameLookup = new Map<
+    string,
+    Array<{ teamId: number; athleteId: number }>
+  >();
   // Short-name lookup: abbreviated "first last" → athletes whose stored name is longer.
   // Used in pass 4 for athlete-long / participant-short cases.
-  const shortNameLookup = new Map<string, Array<{ teamId: number; athleteId: number }>>();
+  const shortNameLookup = new Map<
+    string,
+    Array<{ teamId: number; athleteId: number }>
+  >();
 
   for (const [key, athleteId] of Object.entries(nameToId)) {
     const pipeIdx = key.lastIndexOf("|");
     const namePart = key.slice(0, pipeIdx);
     const teamPart = key.slice(pipeIdx + 1);
     const teamId = Number(teamPart) || 0;
-    if (!nameLookup.has(namePart)) nameLookup.set(namePart, []);
+    if (!nameLookup.has(namePart)) {
+      nameLookup.set(namePart, []);
+    }
+
     nameLookup.get(namePart)!.push({ teamId, athleteId });
 
     // Index long-name athletes under their abbreviated form(s) for pass 4
     const tokens = namePart.split(" ").filter(Boolean);
     if (tokens.length >= 3) {
       const shortKey = `${tokens[0]} ${tokens[tokens.length - 1]}`;
-      if (!shortNameLookup.has(shortKey)) shortNameLookup.set(shortKey, []);
+      if (!shortNameLookup.has(shortKey)) {
+        shortNameLookup.set(shortKey, []);
+      }
+
       shortNameLookup.get(shortKey)!.push({ teamId, athleteId });
       // Spanish convention: first + second token (3-token names only)
       if (tokens.length === 3) {
         const spanishKey = `${tokens[0]} ${tokens[1]}`;
-        if (!shortNameLookup.has(spanishKey)) shortNameLookup.set(spanishKey, []);
+        if (!shortNameLookup.has(spanishKey)) {
+          shortNameLookup.set(spanishKey, []);
+        }
+
         shortNameLookup.get(spanishKey)!.push({ teamId, athleteId });
       }
     }
   }
 
   /** True if candidate's team matches the participant's team via any strategy. */
-  function teamMatches(cTeamId: number, athleteId: number, pTeamId: number, pTeamKey: string): boolean {
+  function teamMatches(
+    cTeamId: number,
+    athleteId: number,
+    pTeamId: number,
+    pTeamKey: string,
+  ): boolean {
     if (pTeamId > 0) {
-      const allTeams = athleteAllTeamIds.get(athleteId) ?? (cTeamId > 0 ? [cTeamId] : []);
-      if (allTeams.includes(pTeamId)) return true;
+      const allTeams =
+        athleteAllTeamIds.get(athleteId) ?? (cTeamId > 0 ? [cTeamId] : []);
+      if (allTeams.includes(pTeamId)) {
+        return true;
+      }
+
       const knownKeys = allTeams.flatMap((tid) => teamIdToKeys.get(tid) ?? []);
       return knownKeys.some((k) => teamKeySimilarity(pTeamKey, k) >= 0.9);
     } else {
-      if (cTeamId === 0) return false;
+      if (cTeamId === 0) {
+        return false;
+      }
+
       const knownKeys = teamIdToKeys.get(cTeamId) ?? [];
       return knownKeys.some((k) => teamKeySimilarity(pTeamKey, k) >= 0.9);
     }
@@ -85,7 +133,8 @@ export function resolveParticipantAthleteIds(
       const exactKey = `${nameLower}|${teamId === 0 ? "" : teamId}`;
       if (exactKey in nameToId) {
         ids.set(pKey, nameToId[exactKey]!);
-        linked++; passes[0]++;
+        linked++;
+        passes[0]++;
         continue;
       }
 
@@ -103,17 +152,23 @@ export function resolveParticipantAthleteIds(
             uniqueIds = new Set(
               [...uniqueIds].filter((id) => {
                 const knownCats = athleteCategories.get(id) ?? [];
-                if (knownCats.length === 0) return true;
+                if (knownCats.length === 0) {
+                  return true;
+                }
+
                 const effTier = athleteEffectiveTier(knownCats);
                 return effTier === "unknown" || effTier === pTier;
-              })
+              }),
             );
           }
         }
+
         if (uniqueIds.size === 1) {
           ids.set(pKey, [...uniqueIds][0]!);
-          linked++; passes[1]++;
+          linked++;
+          passes[1]++;
         }
+
         continue;
       }
 
@@ -126,15 +181,20 @@ export function resolveParticipantAthleteIds(
       if (teamId === 0) {
         const matchedIds = new Set<number>();
         for (const { teamId: cTeamId, athleteId } of exactCandidates) {
-          if (cTeamId === 0) continue;
+          if (cTeamId === 0) {
+            continue;
+          }
+
           const knownKeys = teamIdToKeys.get(cTeamId) ?? [];
           if (knownKeys.some((k) => teamKeySimilarity(teamKey, k) >= 0.9)) {
             matchedIds.add(athleteId);
           }
         }
+
         if (matchedIds.size === 1) {
           ids.set(pKey, [...matchedIds][0]!);
-          linked++; passes[2]++;
+          linked++;
+          passes[2]++;
           continue;
         }
       }
@@ -145,11 +205,15 @@ export function resolveParticipantAthleteIds(
       if (teamId > 0) {
         const matchedIds = new Set<number>();
         for (const { teamId: cTeamId, athleteId } of exactCandidates) {
-          if (teamMatches(cTeamId, athleteId, teamId, teamKey)) matchedIds.add(athleteId);
+          if (teamMatches(cTeamId, athleteId, teamId, teamKey)) {
+            matchedIds.add(athleteId);
+          }
         }
+
         if (matchedIds.size === 1) {
           ids.set(pKey, [...matchedIds][0]!);
-          linked++; passes[3]++;
+          linked++;
+          passes[3]++;
           continue;
         }
       }
@@ -161,18 +225,27 @@ export function resolveParticipantAthleteIds(
         const pTokens = nameLower.split(" ").filter(Boolean);
         const matchedIds = new Set<number>();
 
-        const tryVariantCandidates = (cands: Array<{ teamId: number; athleteId: number }>) => {
+        const tryVariantCandidates = (
+          cands: Array<{ teamId: number; athleteId: number }>,
+        ) => {
           for (const { teamId: cTeamId, athleteId } of cands) {
-            if (teamMatches(cTeamId, athleteId, teamId, teamKey)) matchedIds.add(athleteId);
+            if (teamMatches(cTeamId, athleteId, teamId, teamKey)) {
+              matchedIds.add(athleteId);
+            }
           }
         };
 
         // Participant long name → athlete stored as short name (first+last)
         if (pTokens.length >= 3) {
-          tryVariantCandidates(nameLookup.get(`${pTokens[0]} ${pTokens[pTokens.length - 1]}`) ?? []);
+          tryVariantCandidates(
+            nameLookup.get(`${pTokens[0]} ${pTokens[pTokens.length - 1]}`) ??
+              [],
+          );
           // Spanish: participant has exactly 3 tokens, try first+second as athlete key
           if (pTokens.length === 3) {
-            tryVariantCandidates(nameLookup.get(`${pTokens[0]} ${pTokens[1]}`) ?? []);
+            tryVariantCandidates(
+              nameLookup.get(`${pTokens[0]} ${pTokens[1]}`) ?? [],
+            );
           }
         }
 
@@ -181,7 +254,8 @@ export function resolveParticipantAthleteIds(
 
         if (matchedIds.size === 1) {
           ids.set(pKey, [...matchedIds][0]!);
-          linked++; passes[4]++;
+          linked++;
+          passes[4]++;
           continue;
         }
       }
@@ -202,20 +276,27 @@ export function resolveParticipantAthleteIds(
             uniqueIds = new Set(
               [...uniqueIds].filter((id) => {
                 const knownCats = athleteCategories.get(id) ?? [];
-                if (knownCats.length === 0) return true;
+                if (knownCats.length === 0) {
+                  return true;
+                }
+
                 const effTier = athleteEffectiveTier(knownCats);
                 // Pass 6 needs positive confirmation: unknown effective tier means
                 // we can't confirm the match, so exclude.
                 return effTier !== "unknown" && effTier === pTier;
-              })
+              }),
             );
           }
         }
+
         if (uniqueIds.size === 1) {
           const matchedId = [...uniqueIds][0]!;
-          console.log(`  [p6] ev=${eventId} "${p.name}" (${p.team}) → athlete ${matchedId}`);
+          console.log(
+            `  [p6] ev=${eventId} "${p.name}" (${p.team}) → athlete ${matchedId}`,
+          );
           ids.set(pKey, matchedId);
-          linked++; passes[5]++;
+          linked++;
+          passes[5]++;
           continue;
         }
       }
