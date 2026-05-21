@@ -4,20 +4,35 @@ import { api } from "../api";
 import { resolveTeamId } from "../utils/lookups";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
-import { countryFlag, SOLO_TEAM_KEYS, normalizeTeam } from "@granfondo/database/normalize";
+import {
+  countryFlag,
+  SOLO_TEAM_KEYS,
+  normalizeTeam,
+} from "@granfondo/database/normalize";
 import PerformanceChart from "./PerformanceChart";
 import CareerHighlights from "./CareerHighlights";
 import { distBadgeClass } from "../utils/distance";
 import { mostRecentCountry } from "../utils/athlete";
 
 function posStyle(pos: number) {
-  if (pos === 1) return "bg-gradient-to-br from-yellow-400 to-amber-500 text-white shadow-sm";
-  if (pos === 2) return "bg-gradient-to-br from-slate-300 to-slate-400 text-white shadow-sm";
-  if (pos === 3) return "bg-gradient-to-br from-orange-400 to-orange-500 text-white shadow-sm";
-  if (pos <= 10) return "bg-blue-50 text-blue-700 font-semibold";
+  if (pos === 1) {
+    return "bg-gradient-to-br from-yellow-400 to-amber-500 text-white shadow-sm";
+  }
+
+  if (pos === 2) {
+    return "bg-gradient-to-br from-slate-300 to-slate-400 text-white shadow-sm";
+  }
+
+  if (pos === 3) {
+    return "bg-gradient-to-br from-orange-400 to-orange-500 text-white shadow-sm";
+  }
+
+  if (pos <= 10) {
+    return "bg-blue-50 text-blue-700 font-semibold";
+  }
+
   return "bg-slate-100 text-slate-500";
 }
-
 
 export default function AthleteProfile() {
   const { id } = useParams<{ id: string }>();
@@ -28,7 +43,10 @@ export default function AthleteProfile() {
 
   useEffect(() => {
     const numId = Number(id);
-    if (!id || !numId) return;
+    if (!id || !numId) {
+      return;
+    }
+
     setLoading(true);
     setData(null);
     setError(null);
@@ -39,28 +57,41 @@ export default function AthleteProfile() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <Spinner />;
+  if (loading) {
+    return <Spinner />;
+  }
 
-  if (error || !data)
+  if (error || !data) {
     return (
       <div className="text-center py-16 text-slate-400">
         <p className="text-5xl mb-3">👤</p>
-        <p className="font-semibold text-slate-600 text-lg">Athlete not found</p>
-        <button onClick={() => navigate(-1)} className="mt-4 text-sm text-blue-600 hover:underline">
+        <p className="font-semibold text-slate-600 text-lg">
+          Athlete not found
+        </p>
+        <button
+          onClick={() => navigate(-1)}
+          className="mt-4 text-sm text-blue-600 hover:underline"
+        >
           ← Go back
         </button>
       </div>
     );
+  }
 
   const athlete = data;
 
   const finished = athlete.results.filter((r) => !r.dnf && !r.dns);
-  const podiums = finished.filter((r) => r.genderPos > 0 && r.genderPos <= 3).length;
-  const bestPos = finished.length > 0 ? Math.min(...finished.map((r) => r.pos)) : null;
+  const podiums = finished.filter(
+    (r) => r.genderPos > 0 && r.genderPos <= 3,
+  ).length;
+  const bestPos =
+    finished.length > 0 ? Math.min(...finished.map((r) => r.pos)) : null;
   const recentTeam = athlete.canonicalTeam ?? athlete.results[0]?.team ?? "";
   const gender = athlete.results[0]?.gender ?? "";
   const country = mostRecentCountry(athlete.results);
-  const sorted = [...athlete.results].sort((a, b) => a.eventDate.localeCompare(b.eventDate));
+  const sorted = [...athlete.results].sort((a, b) =>
+    a.eventDate.localeCompare(b.eventDate),
+  );
 
   // Group by year for the breakdown
   const byYear = sorted.reduce<Record<number, AthleteResultRef[]>>((acc, r) => {
@@ -83,11 +114,15 @@ export default function AthleteProfile() {
         {/* Top row: badges + compare */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <span className={`text-xs font-semibold px-2 py-0.5 rounded ${gender === "F" ? "bg-pink-500/30 text-pink-200" : "bg-blue-500/30 text-blue-200"}`}>
+            <span
+              className={`text-xs font-semibold px-2 py-0.5 rounded ${gender === "F" ? "bg-pink-500/30 text-pink-200" : "bg-blue-500/30 text-blue-200"}`}
+            >
               {gender === "F" ? "Women" : "Men"}
             </span>
             {country && (
-              <span className="text-sm" title={country}>{countryFlag(country)}</span>
+              <span className="text-sm" title={country}>
+                {countryFlag(country)}
+              </span>
             )}
           </div>
           <button
@@ -101,20 +136,30 @@ export default function AthleteProfile() {
         {/* Name/team + stats */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight mb-1">{athlete.name}</h1>
-            {recentTeam && !SOLO_TEAM_KEYS.has(normalizeTeam(recentTeam)) && resolveTeamId(recentTeam) !== undefined && (
-              <Link
-                to={`/team/${resolveTeamId(recentTeam)}`}
-                className="text-blue-300 hover:text-white text-sm block transition-colors"
-              >
-                {recentTeam}
-              </Link>
-            )}
+            <h1 className="text-3xl font-extrabold tracking-tight mb-1">
+              {athlete.name}
+            </h1>
+            {recentTeam &&
+              !SOLO_TEAM_KEYS.has(normalizeTeam(recentTeam)) &&
+              resolveTeamId(recentTeam) !== undefined && (
+                <Link
+                  to={`/team/${resolveTeamId(recentTeam)}`}
+                  className="text-blue-300 hover:text-white text-sm block transition-colors"
+                >
+                  {recentTeam}
+                </Link>
+              )}
           </div>
           <div className="flex gap-3 sm:shrink-0">
             <Stat label="Races" value={athlete.results.length} />
             <Stat label="Podiums" value={podiums} highlight={podiums > 0} />
-            {bestPos && <Stat label="Best Pos" value={`#${bestPos}`} highlight={bestPos <= 3} />}
+            {bestPos && (
+              <Stat
+                label="Best Pos"
+                value={`#${bestPos}`}
+                highlight={bestPos <= 3}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -124,98 +169,138 @@ export default function AthleteProfile() {
       <PerformanceChart results={athlete.results} />
 
       {/* Results by year */}
-      {Object.keys(byYear).sort().reverse().map((year) => {
-        const yearResults = byYear[Number(year)]!;
-        const yearTeam = yearResults[yearResults.length - 1]?.team ?? "";
-        return (
-        <div key={year} className="mb-8">
-          <h2 className="text-lg font-bold text-slate-800 mb-3 flex items-baseline gap-2">
-            {year}
-            {yearTeam && !SOLO_TEAM_KEYS.has(normalizeTeam(yearTeam)) && resolveTeamId(yearTeam) !== undefined && (
-              <Link
-                to={`/team/${resolveTeamId(yearTeam)}`}
-                className="text-sm font-normal text-slate-400 hover:text-blue-600 transition-colors"
-              >
-                {yearTeam}
-              </Link>
-            )}
-          </h2>
-          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
-            <table className="w-full text-sm table-fixed">
-              <colgroup>
-                <col />
-                <col className="hidden sm:table-column w-32" />
-                <col className="hidden md:table-column w-32" />
-                <col className="w-12 sm:w-16" />
-                <col className="w-28" />
-                <col className="hidden sm:table-column w-28" />
-              </colgroup>
-              <thead>
-                <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                  <th className="px-4 py-3 text-left">Event</th>
-                  <th className="px-4 py-3 text-left hidden sm:table-cell">Distance</th>
-                  <th className="px-4 py-3 text-left hidden md:table-cell">Category</th>
-                  <th className="px-4 py-3 text-center">Pos</th>
-                  <th className="px-4 py-3 text-right">Time</th>
-                  <th className="px-4 py-3 text-right hidden sm:table-cell">Gap</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {byYear[Number(year)]!.map((r) => (
-                  <tr key={`${r.eventId}-${r.distance}`} className={`hover:bg-slate-50/60 transition-colors ${r.dnf || r.dns ? "opacity-40" : ""}`}>
-                    <td className="px-4 py-3">
-                      <Link
-                        to={`/event/${r.eventId}`}
-                        className="font-semibold text-slate-900 hover:text-blue-600 transition-colors"
+      {Object.keys(byYear)
+        .sort()
+        .reverse()
+        .map((year) => {
+          const yearResults = byYear[Number(year)]!;
+          const yearTeam = yearResults[yearResults.length - 1]?.team ?? "";
+          return (
+            <div key={year} className="mb-8">
+              <h2 className="text-lg font-bold text-slate-800 mb-3 flex items-baseline gap-2">
+                {year}
+                {yearTeam &&
+                  !SOLO_TEAM_KEYS.has(normalizeTeam(yearTeam)) &&
+                  resolveTeamId(yearTeam) !== undefined && (
+                    <Link
+                      to={`/team/${resolveTeamId(yearTeam)}`}
+                      className="text-sm font-normal text-slate-400 hover:text-blue-600 transition-colors"
+                    >
+                      {yearTeam}
+                    </Link>
+                  )}
+              </h2>
+              <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
+                <table className="w-full text-sm table-fixed">
+                  <colgroup>
+                    <col />
+                    <col className="hidden sm:table-column w-32" />
+                    <col className="hidden md:table-column w-32" />
+                    <col className="w-12 sm:w-16" />
+                    <col className="w-28" />
+                    <col className="hidden sm:table-column w-28" />
+                  </colgroup>
+                  <thead>
+                    <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                      <th className="px-4 py-3 text-left">Event</th>
+                      <th className="px-4 py-3 text-left hidden sm:table-cell">
+                        Distance
+                      </th>
+                      <th className="px-4 py-3 text-left hidden md:table-cell">
+                        Category
+                      </th>
+                      <th className="px-4 py-3 text-center">Pos</th>
+                      <th className="px-4 py-3 text-right">Time</th>
+                      <th className="px-4 py-3 text-right hidden sm:table-cell">
+                        Gap
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {byYear[Number(year)]!.map((r) => (
+                      <tr
+                        key={`${r.eventId}-${r.distance}`}
+                        className={`hover:bg-slate-50/60 transition-colors ${r.dnf || r.dns ? "opacity-40" : ""}`}
                       >
-                        {r.eventName}
-                      </Link>
-                      <div className="text-xs text-slate-400 mt-0.5">{r.eventDate}</div>
-                    </td>
-                    <td className="px-4 py-3 hidden sm:table-cell">
-                      <span className={`text-[11px] px-2 py-0.5 rounded-full font-semibold ${distBadgeClass(r.distance)}`}>
-                        {r.distance}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-xs hidden md:table-cell">
-                      <span className="text-slate-400">{r.category}</span>
-                      {r.catPos > 0 && r.catPos <= 4 && (
-                        <span className="ml-1">
-                          {r.catPos === 1 ? "🥇" : r.catPos === 2 ? "🥈" : r.catPos === 3 ? "🥉" : "🍫"}
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3 text-center">
-                      {r.dnf || r.dns ? (
-                        <span className="text-xs text-slate-400 font-bold">{r.dnf ? "DNF" : "DNS"}</span>
-                      ) : (
-                        <span className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-xs font-bold ${posStyle(r.pos)}`}>
-                          {r.pos}
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3 text-right font-mono text-xs font-semibold text-slate-700">
-                      {r.raceTime}
-                    </td>
-                    <td className="px-4 py-3 text-right font-mono text-xs text-slate-400 hidden sm:table-cell">
-                      {r.gap}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        );
-      })}
+                        <td className="px-4 py-3">
+                          <Link
+                            to={`/event/${r.eventId}`}
+                            className="font-semibold text-slate-900 hover:text-blue-600 transition-colors"
+                          >
+                            {r.eventName}
+                          </Link>
+                          <div className="text-xs text-slate-400 mt-0.5">
+                            {r.eventDate}
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 hidden sm:table-cell">
+                          <span
+                            className={`text-[11px] px-2 py-0.5 rounded-full font-semibold ${distBadgeClass(r.distance)}`}
+                          >
+                            {r.distance}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-xs hidden md:table-cell">
+                          <span className="text-slate-400">{r.category}</span>
+                          {r.catPos > 0 && r.catPos <= 4 && (
+                            <span className="ml-1">
+                              {r.catPos === 1
+                                ? "🥇"
+                                : r.catPos === 2
+                                  ? "🥈"
+                                  : r.catPos === 3
+                                    ? "🥉"
+                                    : "🍫"}
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          {r.dnf || r.dns ? (
+                            <span className="text-xs text-slate-400 font-bold">
+                              {r.dnf ? "DNF" : "DNS"}
+                            </span>
+                          ) : (
+                            <span
+                              className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-xs font-bold ${posStyle(r.pos)}`}
+                            >
+                              {r.pos}
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-right font-mono text-xs font-semibold text-slate-700">
+                          {r.raceTime}
+                        </td>
+                        <td className="px-4 py-3 text-right font-mono text-xs text-slate-400 hidden sm:table-cell">
+                          {r.gap}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          );
+        })}
     </div>
   );
 }
 
-function Stat({ label, value, highlight }: { label: string; value: string | number; highlight?: boolean }) {
+function Stat({
+  label,
+  value,
+  highlight,
+}: {
+  label: string;
+  value: string | number;
+  highlight?: boolean;
+}) {
   return (
     <div className="flex-1 sm:flex-none text-center bg-white/10 rounded-xl px-4 py-2 border border-white/10">
-      <div className={`text-xl font-extrabold ${highlight ? "text-amber-400" : "text-white"}`}>{value}</div>
+      <div
+        className={`text-xl font-extrabold ${highlight ? "text-amber-400" : "text-white"}`}
+      >
+        {value}
+      </div>
       <div className="text-xs text-blue-300 font-medium mt-0.5">{label}</div>
     </div>
   );

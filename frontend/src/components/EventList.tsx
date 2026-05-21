@@ -12,7 +12,10 @@ export default function EventList() {
   const [error, setError] = useState<string | null>(null);
   const [season, setSeason] = useState<SeasonFilter>("all");
   const [status, setStatus] = useState<StatusFilter>("past");
-  const [stats, setStats] = useState<{ uniqueAthletes: number; uniqueByYear: Record<string, number> } | null>(null);
+  const [stats, setStats] = useState<{
+    uniqueAthletes: number;
+    uniqueByYear: Record<string, number>;
+  } | null>(null);
 
   useEffect(() => {
     api
@@ -20,40 +23,59 @@ export default function EventList() {
       .then(setAllEvents)
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
-    api.getStats().then(setStats).catch(() => {});
+    api
+      .getStats()
+      .then(setStats)
+      .catch(() => {});
   }, []);
 
   const seasons = useMemo(
-    () => ["all", ...Array.from(new Set(allEvents.map((e) => String(e.year)))).sort().reverse()],
-    [allEvents]
+    () => [
+      "all",
+      ...Array.from(new Set(allEvents.map((e) => String(e.year))))
+        .sort()
+        .reverse(),
+    ],
+    [allEvents],
   );
 
   const filtered = useMemo(() => {
-    return allEvents.filter((e) => {
-      const isPast = new Date(e.date + "T12:00:00") < new Date();
-      const matchSeason = season === "all" || String(e.year) === season;
-      const matchStatus =
-        status === "all" ||
-        (status === "past" && isPast) ||
-        (status === "upcoming" && !isPast);
-      return matchSeason && matchStatus;
-    }).sort((a, b) => {
-      const aDate = new Date(a.date).getTime();
-      const bDate = new Date(b.date).getTime();
-      const now = Date.now();
-      const aPast = aDate < now;
-      const bPast = bDate < now;
-      // Past events: newest first. Upcoming events: soonest first.
-      if (aPast && bPast) return bDate - aDate;
-      if (!aPast && !bPast) return aDate - bDate;
-      // Upcoming before past when showing "all"
-      return aPast ? 1 : -1;
-    });
+    return allEvents
+      .filter((e) => {
+        const isPast = new Date(e.date + "T12:00:00") < new Date();
+        const matchSeason = season === "all" || String(e.year) === season;
+        const matchStatus =
+          status === "all" ||
+          (status === "past" && isPast) ||
+          (status === "upcoming" && !isPast);
+        return matchSeason && matchStatus;
+      })
+      .sort((a, b) => {
+        const aDate = new Date(a.date).getTime();
+        const bDate = new Date(b.date).getTime();
+        const now = Date.now();
+        const aPast = aDate < now;
+        const bPast = bDate < now;
+        // Past events: newest first. Upcoming events: soonest first.
+        if (aPast && bPast) {
+          return bDate - aDate;
+        }
+
+        if (!aPast && !bPast) {
+          return aDate - bDate;
+        }
+
+        // Upcoming before past when showing "all"
+        return aPast ? 1 : -1;
+      });
   }, [allEvents, season, status]);
 
   const totalFinishers = useMemo(
-    () => filtered.filter((e) => e.hasResults).reduce((s, e) => s + e.finisherCount, 0),
-    [filtered]
+    () =>
+      filtered
+        .filter((e) => e.hasResults)
+        .reduce((s, e) => s + e.finisherCount, 0),
+    [filtered],
   );
 
   return (
@@ -74,43 +96,67 @@ export default function EventList() {
               icon: "🚴",
               sub: stats
                 ? (() => {
-                    const count = season !== "all" ? stats.uniqueByYear[season] : stats.uniqueAthletes;
-                    const label = season !== "all" ? "unique" : "unique all-time";
-                    return count !== undefined ? `${count.toLocaleString()} ${label}` : undefined;
+                    const count =
+                      season !== "all"
+                        ? stats.uniqueByYear[season]
+                        : stats.uniqueAthletes;
+                    const label =
+                      season !== "all" ? "unique" : "unique all-time";
+                    return count !== undefined
+                      ? `${count.toLocaleString()} ${label}`
+                      : undefined;
                   })()
                 : undefined,
             },
-          ].map(({ label, value, icon, sub }: { label: string; value: string | number; icon: string; sub?: string }) => (
-            <div
-              key={label}
-              className="bg-white rounded-2xl border border-slate-200 px-3 sm:px-5 py-3 sm:py-4 text-center"
-            >
-              <div className="text-xl sm:text-2xl mb-0.5 sm:mb-1">{icon}</div>
-              <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">
-                {value}
-                {sub && (
-                  <span className="hidden sm:inline text-sm font-medium text-slate-400 ml-1">
-                    ({sub})
-                  </span>
-                )}
+          ].map(
+            ({
+              label,
+              value,
+              icon,
+              sub,
+            }: {
+              label: string;
+              value: string | number;
+              icon: string;
+              sub?: string;
+            }) => (
+              <div
+                key={label}
+                className="bg-white rounded-2xl border border-slate-200 px-3 sm:px-5 py-3 sm:py-4 text-center"
+              >
+                <div className="text-xl sm:text-2xl mb-0.5 sm:mb-1">{icon}</div>
+                <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">
+                  {value}
+                  {sub && (
+                    <span className="hidden sm:inline text-sm font-medium text-slate-400 ml-1">
+                      ({sub})
+                    </span>
+                  )}
+                </div>
+                <div className="text-[10px] sm:text-xs text-slate-500 font-medium mt-0.5">
+                  {label}
+                </div>
               </div>
-              <div className="text-[10px] sm:text-xs text-slate-500 font-medium mt-0.5">{label}</div>
-            </div>
-          ))}
+            ),
+          )}
         </div>
       )}
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 mb-6">
         <div className="flex items-center gap-2.5">
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Season</span>
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
+            Season
+          </span>
           <select
             value={season}
             onChange={(e) => setSeason(e.target.value)}
             className="flex-1 sm:flex-none px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
           >
             {seasons.map((s) => (
-              <option key={s} value={s}>{s === "all" ? "All seasons" : s}</option>
+              <option key={s} value={s}>
+                {s === "all" ? "All seasons" : s}
+              </option>
             ))}
           </select>
         </div>
@@ -161,7 +207,9 @@ function FilterGroup({
 }) {
   return (
     <div className="flex items-center gap-2.5">
-      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">{label}</span>
+      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
+        {label}
+      </span>
       <div className="flex flex-1 sm:flex-none rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
         {options.map((o) => (
           <button

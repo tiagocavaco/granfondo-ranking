@@ -10,9 +10,14 @@
  */
 
 import initSqlJsDefault from "sql.js";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const initSqlJs: (config?: object) => Promise<any> =
-  (initSqlJsDefault as any).default ?? initSqlJsDefault;
+import type { SqlJsStatic } from "sql.js";
+
+type InitSqlJs = (config?: object) => Promise<SqlJsStatic>;
+// sql.js ships both CJS and ESM bundles; bundlers sometimes expose the init
+// function nested under .default — handle both.
+const initSqlJs: InitSqlJs =
+  (initSqlJsDefault as unknown as { default?: InitSqlJs }).default ??
+  initSqlJsDefault;
 
 import { drizzle } from "drizzle-orm/sql-js";
 import * as schema from "./schema.js";
@@ -28,13 +33,18 @@ export interface DbClientConfig {
   decryptDb: (enc: ArrayBuffer) => Promise<ArrayBuffer>;
 }
 
-export function createDbClient(config: DbClientConfig): { getDb: () => Promise<DrizzleDb> } {
+export function createDbClient(config: DbClientConfig): {
+  getDb: () => Promise<DrizzleDb>;
+} {
   let _db: DrizzleDb | null = null;
   let _promise: Promise<DrizzleDb> | null = null;
 
   return {
     getDb(): Promise<DrizzleDb> {
-      if (_db) return Promise.resolve(_db);
+      if (_db) {
+        return Promise.resolve(_db);
+      }
+
       if (!_promise) {
         _promise = (async (): Promise<DrizzleDb> => {
           const wasmBinary = await config.fetchWasm();
@@ -45,6 +55,7 @@ export function createDbClient(config: DbClientConfig): { getDb: () => Promise<D
           return _db;
         })();
       }
+
       return _promise;
     },
   };

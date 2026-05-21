@@ -15,9 +15,9 @@ export const YEARS = [2024, 2025, 2026]; // seasons to include in scrape and ran
  */
 export const CANONICAL_EVENT_NAMES: Record<number, string> = {
   // 2024 events
-  1216: "Monção e Melgaço Granfondo 2024",  // API name likely "MONÇÃO e MELGAÇO GF"
-  1349: "Granfondo Médio Tejo 2024",         // typo: "Grandfondo"
-  1457: "Granfondo Serra D'Ossa 2024",       // auto title-case lowercases 'O' in D'Ossa
+  1216: "Monção e Melgaço Granfondo 2024", // API name likely "MONÇÃO e MELGAÇO GF"
+  1349: "Granfondo Médio Tejo 2024", // typo: "Grandfondo"
+  1457: "Granfondo Serra D'Ossa 2024", // auto title-case lowercases 'O' in D'Ossa
   // 2025 events
   1390: "Viana Granfondo 2025",
   1505: "São Mamede Granfondo 2025",
@@ -25,37 +25,71 @@ export const CANONICAL_EVENT_NAMES: Record<number, string> = {
   1590: "Granfondo Coimbra Region 2025",
   1592: "Time Trial Granfondo Coimbra Region 2025",
   1612: "Tavira Granfondo 2025",
-  1681: "Granfondo Médio Tejo 2025",           // typo: "Grandfondo"
+  1681: "Granfondo Médio Tejo 2025", // typo: "Grandfondo"
   1692: "Granfondo Terras de Basto 2025",
   1720: "Viana Granfondo by KTM 2026",
   1780: "Granfondo Serra d'Ossa 2025",
   1798: "São Mamede Granfondo 2026",
-  1801: "Granfondo Portimão 2025",             // trailing space + remove "de"
-  1828: "Ourém-Fátima Granfondo 2026",         // missing accent + hyphen
+  1801: "Granfondo Portimão 2025", // trailing space + remove "de"
+  1828: "Ourém-Fátima Granfondo 2026", // missing accent + hyphen
   1942: "Tavira Granfondo 2026",
   1943: "Monção e Melgaço Granfondo 2026",
-  1977: "Granfondo Médio Tejo 2026",           // typo: "Grandfondo"
+  1977: "Granfondo Médio Tejo 2026", // typo: "Grandfondo"
 };
 
-const SMALL_WORDS = new Set(["de", "da", "do", "dos", "das", "e", "em", "no", "na", "nos", "nas", "por", "com", "para", "by", "the", "of"]);
+const SMALL_WORDS = new Set([
+  "de",
+  "da",
+  "do",
+  "dos",
+  "das",
+  "e",
+  "em",
+  "no",
+  "na",
+  "nos",
+  "nas",
+  "por",
+  "com",
+  "para",
+  "by",
+  "the",
+  "of",
+]);
 
 function titleCaseEvent(name: string): string {
-  return name.toLowerCase().split(" ").map((word, i) =>
-    (i > 0 && SMALL_WORDS.has(word)) ? word : word.charAt(0).toUpperCase() + word.slice(1)
-  ).join(" ");
+  return name
+    .toLowerCase()
+    .split(" ")
+    .map((word, i) =>
+      i > 0 && SMALL_WORDS.has(word)
+        ? word
+        : word.charAt(0).toUpperCase() + word.slice(1),
+    )
+    .join(" ");
 }
 
 /** Normalise an event name: canonical map first, then trim + title-case (all-caps only) + GF→Granfondo. */
 export function normalizeEventName(id: number, name: string): string {
-  if (id in CANONICAL_EVENT_NAMES) return CANONICAL_EVENT_NAMES[id]!;
+  if (id in CANONICAL_EVENT_NAMES) {
+    return CANONICAL_EVENT_NAMES[id]!;
+  }
+
   name = name.trim();
-  if (name === name.toUpperCase()) name = titleCaseEvent(name);
+  if (name === name.toUpperCase()) {
+    name = titleCaseEvent(name);
+  }
+
   return name.replace(/\bGF\b/gi, "Granfondo");
 }
 
 /** Normalized names used as placeholders by race organizers — never create athlete profiles for these. */
-export const PLACEHOLDER_NAMES = new Set(["novo dorsal", "novo inscrito", "atleta teste"]);
-export const DELAY_MS = 400;       // polite delay between API requests (ms)
+export const PLACEHOLDER_NAMES = new Set([
+  "novo dorsal",
+  "novo inscrito",
+  "atleta teste",
+]);
+export const DELAY_MS = 400; // polite delay between API requests (ms)
 
 /**
  * Supplemental event IDs that are Portuguese granfondo-series events but don't
@@ -153,26 +187,83 @@ export const OFFICIAL_EVENT_URLS: Record<number, string> = {
  * Default distances for upcoming events where StopAndGo returns no participants yet.
  * Format: { id: string (1-based), name: string }
  */
-export const DEFAULT_DISTANCES: Record<number, Array<{ id: string; name: string }>> = {
+export const DEFAULT_DISTANCES: Record<
+  number,
+  Array<{ id: string; name: string }>
+> = {
   // BikeService events (GF + MF + Mini)
-  1741: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
-  1766: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
-  1806: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
-  1883: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
-  1943: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
-  1828: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1741: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
+  1766: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
+  1806: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
+  1883: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
+  1943: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
+  1828: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
   // Cabreira Solutions events (GF + MF + Mini)
-  1751: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
-  1977: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
-  1956: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1751: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
+  1977: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
+  1956: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
   // Figueira Champions Classic (BIG DAY = GF, HALF DAY = MF)
-  1880: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }],
+  1880: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+  ],
   // Aveiro Spring Classic (GF + MF)
-  1944: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }],
+  1944: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+  ],
   // São Mamede, Tavira, Serra da Estrela (GF + MF + Mini)
-  1798: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
-  1942: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
-  1700: [{ id: "1", name: "Granfondo" }, { id: "2", name: "Mediofondo" }, { id: "3", name: "Minifondo" }],
+  1798: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
+  1942: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
+  1700: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+    { id: "3", name: "Minifondo" },
+  ],
 };
 
 /**
@@ -192,10 +283,14 @@ export const LISTA_URLS: Record<number, string> = {
   // inscricoes.cabreirasolutions.com/listas/ — same HTML table format
   1751: "https://inscricoes.cabreirasolutions.com/listas/gf-torres-vedras-2026",
   1977: "https://inscricoes.cabreirasolutions.com/listas/grandfondo-m-dio-tejo-2026",
-  90011: "https://inscricoes.cabreirasolutions.com/listas/granfondo-terras-de-basto-2026",
-  90013: "https://inscricoes.cabreirasolutions.com/listas/granfondo-paredes-2026",
-  90015: "https://inscricoes.cabreirasolutions.com/listas/granfondo-serra-d-ossa-2026",
-  90016: "https://inscricoes.cabreirasolutions.com/listas/grandfondo-portim-o-2026",
+  90011:
+    "https://inscricoes.cabreirasolutions.com/listas/granfondo-terras-de-basto-2026",
+  90013:
+    "https://inscricoes.cabreirasolutions.com/listas/granfondo-paredes-2026",
+  90015:
+    "https://inscricoes.cabreirasolutions.com/listas/granfondo-serra-d-ossa-2026",
+  90016:
+    "https://inscricoes.cabreirasolutions.com/listas/grandfondo-portim-o-2026",
 };
 
 /** Events whose participant list is hosted on apedalar.pt/eventos/{id}/info */

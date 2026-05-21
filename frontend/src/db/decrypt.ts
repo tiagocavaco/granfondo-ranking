@@ -13,12 +13,15 @@ function hexToBytes(hex: string): Uint8Array {
   for (let i = 0; i < hex.length; i += 2) {
     bytes[i / 2] = parseInt(hex.slice(i, i + 2), 16);
   }
+
   return bytes;
 }
 
 export async function decryptDatabase(enc: ArrayBuffer): Promise<ArrayBuffer> {
   const keyHex = import.meta.env.VITE_DATA_KEY as string | undefined;
-  if (!keyHex) throw new Error("VITE_DATA_KEY is not set");
+  if (!keyHex) {
+    throw new Error("VITE_DATA_KEY is not set");
+  }
 
   const iv = enc.slice(0, 12);
   const tag = enc.slice(12, 28);
@@ -34,12 +37,12 @@ export async function decryptDatabase(enc: ArrayBuffer): Promise<ArrayBuffer> {
     hexToBytes(keyHex).buffer as ArrayBuffer,
     { name: "AES-GCM" },
     false,
-    ["decrypt"]
+    ["decrypt"],
   );
 
   return crypto.subtle.decrypt(
     { name: "AES-GCM", iv, tagLength: 128 },
     key,
-    ctWithTag
+    ctWithTag,
   );
 }

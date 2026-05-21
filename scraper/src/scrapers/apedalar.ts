@@ -1,6 +1,17 @@
-import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult, decodeHtmlEntities } from "./shared.js";
+import {
+  BROWSER_UA,
+  fetchWithRetry,
+  cleanTime,
+  makeResult,
+  decodeHtmlEntities,
+} from "./shared.js";
 import { timeToSeconds, formatGapSecs } from "../normalize.js";
-import type { StoredEventResults, StoredDistanceResults, StoredResult, StoredParticipant } from "@granfondo/database/types";
+import type {
+  StoredEventResults,
+  StoredDistanceResults,
+  StoredResult,
+  StoredParticipant,
+} from "@granfondo/database/types";
 
 /** Decode HTML attribute entities (for wire:snapshot attribute values) */
 function htmlAttrDecode(s: string): string {
@@ -18,7 +29,7 @@ interface ApedalarRow {
   name: string;
   team: string;
   time: string; // "H:MM:SS.mmm"
-  gap: string;  // "H:MM:SS.mmm" or "-:--:--.---" for winner
+  gap: string; // "H:MM:SS.mmm" or "-:--:--.---" for winner
   gender: "M" | "F";
   category: string;
 }
@@ -27,33 +38,51 @@ interface ApedalarRow {
  * Extract escalao (category) options from the initial page HTML or snapshot.
  * Returns an empty array if none found.
  */
-export function extractEscalaoOptions(html: string, snapshot: string): string[] {
+export function extractEscalaoOptions(
+  html: string,
+  snapshot: string,
+): string[] {
   const selectMatch = html.match(
-    /<select[^>]+wire:model(?:\.\w+)?=['"]escalao['"][^>]*>([\s\S]*?)<\/select>/
+    /<select[^>]+wire:model(?:\.\w+)?=['"]escalao['"][^>]*>([\s\S]*?)<\/select>/,
   );
   if (selectMatch) {
-    const opts = [...selectMatch[1]!.matchAll(/<option[^>]+value=['"]([^'"]+)['"]/g)]
+    const opts = [
+      ...selectMatch[1]!.matchAll(/<option[^>]+value=['"]([^'"]+)['"]/g),
+    ]
       .map((m) => m[1]!.trim())
       .filter(Boolean);
-    if (opts.length > 0) return opts;
+    if (opts.length > 0) {
+      return opts;
+    }
   }
+
   try {
     const snap = JSON.parse(snapshot) as { data?: { escaloes?: unknown } };
     const escaloes = snap.data?.escaloes;
     if (Array.isArray(escaloes)) {
-      const vals = (escaloes as unknown[]).filter((e) => typeof e === "string" && e) as string[];
-      if (vals.length > 0) return vals;
+      const vals = (escaloes as unknown[]).filter(
+        (e) => typeof e === "string" && e,
+      ) as string[];
+      if (vals.length > 0) {
+        return vals;
+      }
     }
   } catch (err) {
-    console.warn(`apedalar: failed to parse escalao options from snapshot: ${err}`);
+    console.warn(
+      `apedalar: failed to parse escalao options from snapshot: ${err}`,
+    );
   }
+
   return [];
 }
 
 /** Derive gender from escalao name: FEM/F suffix → F, else M */
 export function escalaoToGender(escalao: string): "M" | "F" {
   const u = escalao.toUpperCase();
-  if (u.endsWith(" F") || u.includes("FEM") || u.endsWith(" FEMI")) return "F";
+  if (u.endsWith(" F") || u.includes("FEM") || u.endsWith(" FEMI")) {
+    return "F";
+  }
+
   return "M";
 }
 
@@ -62,34 +91,49 @@ function parseApedalarRows(html: string, gender: "M" | "F"): ApedalarRow[] {
   const trMatches = html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g);
   for (const m of trMatches) {
     const row = m[1]!;
-    if (!row.includes("<td")) continue;
+    if (!row.includes("<td")) {
+      continue;
+    }
 
     const posMatch = row.match(
-      /hidden sm:table-cell py-3 text-center font-semibold"[^>]*>(\d+)</
+      /hidden sm:table-cell py-3 text-center font-semibold"[^>]*>(\d+)</,
     );
-    if (!posMatch) continue;
+    if (!posMatch) {
+      continue;
+    }
 
     const monoValues = [
-      ...row.matchAll(/hidden sm:table-cell px-4 py-3 font-mono"[^>]*>([^<]+)</g),
+      ...row.matchAll(
+        /hidden sm:table-cell px-4 py-3 font-mono"[^>]*>([^<]+)</g,
+      ),
     ].map((x) => x[1]!.trim());
 
-    const nameMatch = row.match(/hidden sm:table-cell px-4 py-3"[^>]*>([^<]+)</);
-    const teamMatch = row.match(/hidden lg:table-cell px-4 py-3"[^>]*>([^<]+)</);
-    const gapMatch  = row.match(/hidden xl:table-cell px-4 py-3 font-mono"[^>]*>([^<]+)</);
+    const nameMatch = row.match(
+      /hidden sm:table-cell px-4 py-3"[^>]*>([^<]+)</,
+    );
+    const teamMatch = row.match(
+      /hidden lg:table-cell px-4 py-3"[^>]*>([^<]+)</,
+    );
+    const gapMatch = row.match(
+      /hidden xl:table-cell px-4 py-3 font-mono"[^>]*>([^<]+)</,
+    );
 
-    if (!nameMatch) continue;
+    if (!nameMatch) {
+      continue;
+    }
 
     rows.push({
-      pos:      parseInt(posMatch[1]!, 10),
-      bib:      monoValues[0] ?? "",
-      name:     nameMatch[1]!.trim(),
-      team:     teamMatch?.[1]?.trim() ?? "",
-      time:     monoValues[1] ?? "",
-      gap:      gapMatch?.[1]?.trim() ?? "",
+      pos: parseInt(posMatch[1]!, 10),
+      bib: monoValues[0] ?? "",
+      name: nameMatch[1]!.trim(),
+      team: teamMatch?.[1]?.trim() ?? "",
+      time: monoValues[1] ?? "",
+      gap: gapMatch?.[1]?.trim() ?? "",
       gender,
       category: "",
     });
   }
+
   return rows;
 }
 
@@ -97,21 +141,24 @@ function parseApedalarRows(html: string, gender: "M" | "F"): ApedalarRow[] {
 function combineAndRankByTime(rows: ApedalarRow[]): StoredResult[] {
   rows.sort((a, b) => {
     const dt = timeToSeconds(a.time) - timeToSeconds(b.time);
-    if (dt !== 0) return dt;
+    if (dt !== 0) {
+      return dt;
+    }
+
     return a.pos - b.pos;
   });
   return rows.map((r, i) => {
-    const gapSecs = (r.gap && r.gap !== "-:--:--.---") ? timeToSeconds(r.gap) : 0;
+    const gapSecs = r.gap && r.gap !== "-:--:--.---" ? timeToSeconds(r.gap) : 0;
     return makeResult({
-      pos:      i + 1,
-      bib:      r.bib,
-      name:     r.name,
-      gender:   r.gender,
-      team:     r.team,
+      pos: i + 1,
+      bib: r.bib,
+      name: r.name,
+      gender: r.gender,
+      team: r.team,
       category: r.category,
-      country:  "",
+      country: "",
       raceTime: cleanTime(r.time),
-      gap:      formatGapSecs(gapSecs),
+      gap: formatGapSecs(gapSecs),
       gapSecs,
     });
   });
@@ -122,15 +169,19 @@ async function apedalarLivewireFetch(
   snapshot: string,
   updates: Record<string, string>,
   cookieStr: string,
-  csrf: string
+  csrf: string,
 ): Promise<{ snapshot: string; html: string }> {
   const payload = {
     _token: csrf,
-    components: [{
-      snapshot,
-      updates,
-      calls: [{ method: "$commit", params: [], metadata: { type: "model.live" } }],
-    }],
+    components: [
+      {
+        snapshot,
+        updates,
+        calls: [
+          { method: "$commit", params: [], metadata: { type: "model.live" } },
+        ],
+      },
+    ],
   };
 
   const res = await fetchWithRetry(livewireUri, {
@@ -150,7 +201,10 @@ async function apedalarLivewireFetch(
     body: JSON.stringify(payload),
   });
 
-  if (!res.ok) throw new Error(`apedalar Livewire HTTP ${res.status}`);
+  if (!res.ok) {
+    throw new Error(`apedalar Livewire HTTP ${res.status}`);
+  }
+
   const data = (await res.json()) as {
     components: Array<{ snapshot: string; effects?: { html?: string } }>;
   };
@@ -169,79 +223,137 @@ async function apedalarLivewireFetch(
  * Gender is derived from the category prefix: "F" → female, else male.
  * Status: td[6] text contains "PAGO" for confirmed inscriptions.
  */
-export async function scrapeApedalarParticipants(url: string): Promise<StoredParticipant[]> {
+export async function scrapeApedalarParticipants(
+  url: string,
+): Promise<StoredParticipant[]> {
   const baseUrl = url.replace(/[?&]page=\d+(&|$)/, "$1").replace(/\?$/, "");
   const all: StoredParticipant[] = [];
 
   for (let page = 1; page <= 100; page++) {
     const pageUrl = page === 1 ? baseUrl : `${baseUrl}?page=${page}`;
-    const res = await fetchWithRetry(pageUrl, { headers: { "User-Agent": BROWSER_UA } });
+    const res = await fetchWithRetry(pageUrl, {
+      headers: { "User-Agent": BROWSER_UA },
+    });
     if (!res.ok) {
-      if (page === 1) throw new Error(`apedalar participants HTTP ${res.status}: ${pageUrl}`);
+      if (page === 1) {
+        throw new Error(`apedalar participants HTTP ${res.status}: ${pageUrl}`);
+      }
+
       break;
     }
+
     const html = await res.text();
 
-    const rowPattern = /<tr[^>]*wire:key="table-row-\d+"[^>]*>([\s\S]*?)<\/tr>/g;
+    const rowPattern =
+      /<tr[^>]*wire:key="table-row-\d+"[^>]*>([\s\S]*?)<\/tr>/g;
     let rowCount = 0;
     for (const trMatch of html.matchAll(rowPattern)) {
       rowCount++;
       const row = trMatch[1]!;
-      const tds = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((m) => m[1]!);
-      if (tds.length < 6) continue;
+      const tds = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map(
+        (m) => m[1]!,
+      );
+      if (tds.length < 6) {
+        continue;
+      }
 
       // td[1] = name: strip mobile-only divs (md:hidden), then all tags, then collapse whitespace
-      const nameTd = decodeHtmlEntities((tds[1] ?? "")
-        .replace(/<div[^>]*md:hidden[^>]*>[\s\S]*?<\/div>/g, "")
-        .replace(/<[^>]+>/g, "")
-        .replace(/\s+/g, " ")
-        .trim());
-      if (!nameTd) continue;
+      const nameTd = decodeHtmlEntities(
+        (tds[1] ?? "")
+          .replace(/<div[^>]*md:hidden[^>]*>[\s\S]*?<\/div>/g, "")
+          .replace(/<[^>]+>/g, "")
+          .replace(/\s+/g, " ")
+          .trim(),
+      );
+      if (!nameTd) {
+        continue;
+      }
 
-      const team     = decodeHtmlEntities((tds[2] ?? "").replace(/<[^>]+>/g, "").trim());
-      const bib      = (tds[3] ?? "").replace(/<[^>]+>/g, "").trim();
+      const team = decodeHtmlEntities(
+        (tds[2] ?? "").replace(/<[^>]+>/g, "").trim(),
+      );
+      const bib = (tds[3] ?? "").replace(/<[^>]+>/g, "").trim();
       const distance = (tds[4] ?? "").replace(/<[^>]+>/g, "").trim();
       const category = (tds[5] ?? "").replace(/<[^>]+>/g, "").trim();
-      const statusRaw = (tds[6] ?? "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().toUpperCase();
-      if (!statusRaw.includes("PAGO")) continue;
+      const statusRaw = (tds[6] ?? "")
+        .replace(/<[^>]+>/g, "")
+        .replace(/\s+/g, " ")
+        .trim()
+        .toUpperCase();
+      if (!statusRaw.includes("PAGO")) {
+        continue;
+      }
 
-      const gender: "M" | "F" = category.toUpperCase().startsWith("F") ? "F" : "M";
+      const gender: "M" | "F" = category.toUpperCase().startsWith("F")
+        ? "F"
+        : "M";
       const distLower = distance.toLowerCase();
       const distanceId =
-        distLower.includes("granfondo") || distLower.includes("grandfondo") ? "1"
-        : distLower.includes("mediofondo") ? "2"
-        : distLower.includes("minifondo") ? "3"
-        : "1";
+        distLower.includes("granfondo") || distLower.includes("grandfondo")
+          ? "1"
+          : distLower.includes("mediofondo")
+            ? "2"
+            : distLower.includes("minifondo")
+              ? "3"
+              : "1";
 
-      all.push({ bib, name: nameTd, fullName: nameTd, gender, team, category, distance, distanceId, athleteId: 0 });
+      all.push({
+        bib,
+        name: nameTd,
+        fullName: nameTd,
+        gender,
+        team,
+        category,
+        distance,
+        distanceId,
+        athleteId: 0,
+      });
     }
 
-    if (rowCount === 0) break;
+    if (rowCount === 0) {
+      break;
+    }
   }
 
   return all;
 }
 
 export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
-  const pageRes = await fetchWithRetry("https://apedalar.pt/eventos/3818/resultados", {
-    headers: { "User-Agent": BROWSER_UA },
-  });
-  if (!pageRes.ok) throw new Error(`apedalar page HTTP ${pageRes.status}`);
+  const pageRes = await fetchWithRetry(
+    "https://apedalar.pt/eventos/3818/resultados",
+    {
+      headers: { "User-Agent": BROWSER_UA },
+    },
+  );
+  if (!pageRes.ok) {
+    throw new Error(`apedalar page HTTP ${pageRes.status}`);
+  }
 
+  // Node 18+ Headers exposes getSetCookie() but it's absent from the lib DOM types
+  const h = pageRes.headers as Headers & { getSetCookie?: () => string[] };
   const rawSetCookie =
-    typeof (pageRes.headers as any).getSetCookie === "function"
-      ? ((pageRes.headers as any).getSetCookie() as string[])
+    typeof h.getSetCookie === "function"
+      ? h.getSetCookie()
       : [pageRes.headers.get("set-cookie") ?? ""];
-  const cookieStr = rawSetCookie.filter(Boolean).map((h) => h.split(";")[0]!).join("; ");
+  const cookieStr = rawSetCookie
+    .filter(Boolean)
+    .map((h) => h.split(";")[0]!)
+    .join("; ");
 
   const pageHtml = await pageRes.text();
 
   const csrfMatch = pageHtml.match(/"csrf":"([^"]+)"/);
-  if (!csrfMatch) throw new Error("apedalar: CSRF token not found");
+  if (!csrfMatch) {
+    throw new Error("apedalar: CSRF token not found");
+  }
+
   const csrf = csrfMatch[1]!;
 
   const uriMatch = pageHtml.match(/"uri":"(https:[^"]+)"/);
-  if (!uriMatch) throw new Error("apedalar: Livewire URI not found");
+  if (!uriMatch) {
+    throw new Error("apedalar: Livewire URI not found");
+  }
+
   const livewireUri = uriMatch[1]!.replace(/\\\//g, "/");
 
   let initialSnapshot = "";
@@ -249,10 +361,18 @@ export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
     const decoded = htmlAttrDecode(m[1]!);
     try {
       const snap = JSON.parse(decoded) as { memo?: { name?: string } };
-      if (snap.memo?.name === "frontend.tempos.tempos-table") { initialSnapshot = decoded; break; }
-    } catch { continue; }
+      if (snap.memo?.name === "frontend.tempos.tempos-table") {
+        initialSnapshot = decoded;
+        break;
+      }
+    } catch {
+      continue;
+    }
   }
-  if (!initialSnapshot) throw new Error("apedalar: component snapshot not found");
+
+  if (!initialSnapshot) {
+    throw new Error("apedalar: component snapshot not found");
+  }
 
   const escalaoOptions = extractEscalaoOptions(pageHtml, initialSnapshot);
   const distances: StoredDistanceResults[] = [];
@@ -260,54 +380,166 @@ export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
   if (escalaoOptions.length > 0) {
     // Two-phase approach: Phase 1 = base HTML (correct server pos), Phase 2 = per-escalao (category lookup).
     // IMPORTANT: Livewire ignores escalao when multiple properties are updated at once — single-property only.
-    const gfFBase = await apedalarLivewireFetch(livewireUri, initialSnapshot, { sexo: "F" }, cookieStr, csrf);
-    const mfMBase = await apedalarLivewireFetch(livewireUri, initialSnapshot, { percurso: "Mediofondo 86km" }, cookieStr, csrf);
-    const mfFBase = await apedalarLivewireFetch(livewireUri, mfMBase.snapshot, { sexo: "F" }, cookieStr, csrf);
+    const gfFBase = await apedalarLivewireFetch(
+      livewireUri,
+      initialSnapshot,
+      { sexo: "F" },
+      cookieStr,
+      csrf,
+    );
+    const mfMBase = await apedalarLivewireFetch(
+      livewireUri,
+      initialSnapshot,
+      { percurso: "Mediofondo 86km" },
+      cookieStr,
+      csrf,
+    );
+    const mfFBase = await apedalarLivewireFetch(
+      livewireUri,
+      mfMBase.snapshot,
+      { sexo: "F" },
+      cookieStr,
+      csrf,
+    );
 
     const distConfigs = [
-      { distId: "1", distName: "Granfondo",   mSnapshot: initialSnapshot, mBaseHtml: pageHtml,     fBase: gfFBase },
-      { distId: "2", distName: "Mediofondo",  mSnapshot: mfMBase.snapshot, mBaseHtml: mfMBase.html, fBase: mfFBase },
+      {
+        distId: "1",
+        distName: "Granfondo",
+        mSnapshot: initialSnapshot,
+        mBaseHtml: pageHtml,
+        fBase: gfFBase,
+      },
+      {
+        distId: "2",
+        distName: "Mediofondo",
+        mSnapshot: mfMBase.snapshot,
+        mBaseHtml: mfMBase.html,
+        fBase: mfFBase,
+      },
     ] as const;
 
-    for (const { distId, distName, mSnapshot, mBaseHtml, fBase } of distConfigs) {
+    for (const {
+      distId,
+      distName,
+      mSnapshot,
+      mBaseHtml,
+      fBase,
+    } of distConfigs) {
       const mBaseRows = parseApedalarRows(mBaseHtml, "M");
       const fBaseRows = parseApedalarRows(fBase.html, "F");
 
       const bibCategory = new Map<string, string>();
       for (const escalao of escalaoOptions) {
         try {
-          const resp = await apedalarLivewireFetch(livewireUri, mSnapshot, { escalao }, cookieStr, csrf);
-          for (const r of parseApedalarRows(resp.html, "M")) { if (r.bib) bibCategory.set(r.bib, escalao); }
-        } catch (err) { console.warn(`apedalar: failed to fetch ${distName}/${escalao}: ${err}`); }
+          const resp = await apedalarLivewireFetch(
+            livewireUri,
+            mSnapshot,
+            { escalao },
+            cookieStr,
+            csrf,
+          );
+          for (const r of parseApedalarRows(resp.html, "M")) {
+            if (r.bib) {
+              bibCategory.set(r.bib, escalao);
+            }
+          }
+        } catch (err) {
+          console.warn(
+            `apedalar: failed to fetch ${distName}/${escalao}: ${err}`,
+          );
+        }
       }
 
       const fEscalaoOptions = extractEscalaoOptions(fBase.html, fBase.snapshot);
       for (const escalao of fEscalaoOptions) {
         try {
-          const resp = await apedalarLivewireFetch(livewireUri, fBase.snapshot, { escalao }, cookieStr, csrf);
-          for (const r of parseApedalarRows(resp.html, "F")) { if (r.bib) bibCategory.set(r.bib, escalao); }
-        } catch (err) { console.warn(`apedalar: failed to fetch ${distName}/${escalao}: ${err}`); }
+          const resp = await apedalarLivewireFetch(
+            livewireUri,
+            fBase.snapshot,
+            { escalao },
+            cookieStr,
+            csrf,
+          );
+          for (const r of parseApedalarRows(resp.html, "F")) {
+            if (r.bib) {
+              bibCategory.set(r.bib, escalao);
+            }
+          }
+        } catch (err) {
+          console.warn(
+            `apedalar: failed to fetch ${distName}/${escalao}: ${err}`,
+          );
+        }
       }
 
       const allRows = [...mBaseRows, ...fBaseRows];
-      for (const r of allRows) r.category = bibCategory.get(r.bib) ?? "";
+      for (const r of allRows) {
+        r.category = bibCategory.get(r.bib) ?? "";
+      }
 
       if (allRows.length > 0) {
         const results = combineAndRankByTime(allRows);
-        distances.push({ id: distId, name: distName, finisherCount: results.length, results });
+        distances.push({
+          id: distId,
+          name: distName,
+          finisherCount: results.length,
+          results,
+        });
       }
     }
   } else {
-    console.warn("apedalar: no escalao options found, fetching without category data");
+    console.warn(
+      "apedalar: no escalao options found, fetching without category data",
+    );
     const gfMRows = parseApedalarRows(pageHtml, "M");
-    const gfFResp = await apedalarLivewireFetch(livewireUri, initialSnapshot, { sexo: "F" }, cookieStr, csrf);
-    const mfMResp = await apedalarLivewireFetch(livewireUri, initialSnapshot, { percurso: "Mediofondo 86km" }, cookieStr, csrf);
-    const mfFResp = await apedalarLivewireFetch(livewireUri, mfMResp.snapshot, { sexo: "F" }, cookieStr, csrf);
+    const gfFResp = await apedalarLivewireFetch(
+      livewireUri,
+      initialSnapshot,
+      { sexo: "F" },
+      cookieStr,
+      csrf,
+    );
+    const mfMResp = await apedalarLivewireFetch(
+      livewireUri,
+      initialSnapshot,
+      { percurso: "Mediofondo 86km" },
+      cookieStr,
+      csrf,
+    );
+    const mfFResp = await apedalarLivewireFetch(
+      livewireUri,
+      mfMResp.snapshot,
+      { sexo: "F" },
+      cookieStr,
+      csrf,
+    );
 
-    const gfResults = combineAndRankByTime([...gfMRows, ...parseApedalarRows(gfFResp.html, "F")]);
-    const mfResults = combineAndRankByTime([...parseApedalarRows(mfMResp.html, "M"), ...parseApedalarRows(mfFResp.html, "F")]);
-    if (gfResults.length) distances.push({ id: "1", name: "Granfondo", finisherCount: gfResults.length, results: gfResults });
-    if (mfResults.length) distances.push({ id: "2", name: "Mediofondo", finisherCount: mfResults.length, results: mfResults });
+    const gfResults = combineAndRankByTime([
+      ...gfMRows,
+      ...parseApedalarRows(gfFResp.html, "F"),
+    ]);
+    const mfResults = combineAndRankByTime([
+      ...parseApedalarRows(mfMResp.html, "M"),
+      ...parseApedalarRows(mfFResp.html, "F"),
+    ]);
+    if (gfResults.length) {
+      distances.push({
+        id: "1",
+        name: "Granfondo",
+        finisherCount: gfResults.length,
+        results: gfResults,
+      });
+    }
+
+    if (mfResults.length) {
+      distances.push({
+        id: "2",
+        name: "Mediofondo",
+        finisherCount: mfResults.length,
+        results: mfResults,
+      });
+    }
   }
 
   return {

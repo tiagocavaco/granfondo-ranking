@@ -26,7 +26,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const result = await scrapeListaParticipants("https://example.com/lista/test/");
+    const result = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(result).toHaveLength(1);
     expect(result[0]!.name).toBe("João Silva");
     expect(result[0]!.bib).toBe("10");
@@ -41,7 +43,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const result = await scrapeListaParticipants("https://example.com/lista/test/");
+    const result = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(result).toHaveLength(0);
   });
 
@@ -54,7 +58,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const result = await scrapeListaParticipants("https://example.com/lista/test/");
+    const result = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(result).toHaveLength(0);
   });
 
@@ -67,7 +73,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const [p] = await scrapeListaParticipants("https://example.com/lista/test/");
+    const [p] = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(p!.gender).toBe("F");
   });
 
@@ -80,7 +88,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const [p] = await scrapeListaParticipants("https://example.com/lista/test/");
+    const [p] = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(p!.gender).toBe("M");
   });
 
@@ -93,7 +103,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const [p] = await scrapeListaParticipants("https://example.com/lista/test/");
+    const [p] = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(p!.distanceId).toBe("1");
   });
 
@@ -106,7 +118,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const [p] = await scrapeListaParticipants("https://example.com/lista/test/");
+    const [p] = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(p!.distanceId).toBe("1");
   });
 
@@ -119,7 +133,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const [p] = await scrapeListaParticipants("https://example.com/lista/test/");
+    const [p] = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(p!.distanceId).toBe("2");
   });
 
@@ -132,7 +148,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const [p] = await scrapeListaParticipants("https://example.com/lista/test/");
+    const [p] = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(p!.distanceId).toBe("3");
   });
 
@@ -145,7 +163,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const [p] = await scrapeListaParticipants("https://example.com/lista/test/");
+    const [p] = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(p!.distanceId).toBe("1");
   });
 
@@ -154,7 +174,9 @@ describe("scrapeListaParticipants", () => {
       <tr><td>1</td><td>Short Row</td><td>Granfondo</td></tr>
     </tbody></table>`;
     mockFetch(html);
-    const result = await scrapeListaParticipants("https://example.com/lista/test/");
+    const result = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(result).toHaveLength(0);
   });
 
@@ -167,15 +189,17 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const result = await scrapeListaParticipants("https://example.com/lista/test/");
+    const result = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(result).toHaveLength(0);
   });
 
   it("throws on non-OK HTTP response", async () => {
     mockFetch("", false);
-    await expect(scrapeListaParticipants("https://example.com/lista/test/")).rejects.toThrow(
-      "lista HTTP 404",
-    );
+    await expect(
+      scrapeListaParticipants("https://example.com/lista/test/"),
+    ).rejects.toThrow("lista HTTP 404");
   });
 
   it("returns multiple confirmed participants from mixed-status rows", async () => {
@@ -197,7 +221,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const result = await scrapeListaParticipants("https://example.com/lista/test/");
+    const result = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(result).toHaveLength(2);
     expect(result.map((p) => p.name)).toEqual(["Alice", "Carlos"]);
   });
@@ -211,7 +237,9 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const [p] = await scrapeListaParticipants("https://example.com/lista/test/");
+    const [p] = await scrapeListaParticipants(
+      "https://example.com/lista/test/",
+    );
     expect(p!.bib).toBe("99");
     expect(p!.name).toBe("Rui Teixeira");
     expect(p!.team).toBe("Team X");

@@ -23,34 +23,52 @@ function makeRow(fields: {
   pos?: string;
   time?: string;
 }): string {
-  return [
-    fields.bib ?? "1",
-    fields.name ?? "Test Athlete",
-    fields.gender ?? "male",
-    fields.club ?? "Team A",
-    fields.category ?? "ELITES M",
-    fields.nationality ?? "Portugal",
-    fields.status ?? "Finished",
-    fields.pos ?? "1",
-    fields.time ?? "03:25:10.000",
-  ].join(",") + "\n";
+  return (
+    [
+      fields.bib ?? "1",
+      fields.name ?? "Test Athlete",
+      fields.gender ?? "male",
+      fields.club ?? "Team A",
+      fields.category ?? "ELITES M",
+      fields.nationality ?? "Portugal",
+      fields.status ?? "Finished",
+      fields.pos ?? "1",
+      fields.time ?? "03:25:10.000",
+    ].join(",") + "\n"
+  );
 }
 
-function mockFetchCsv(gfCsv: string, mfCsv = CSV_HEADERS, miniCsv = CSV_HEADERS) {
+function mockFetchCsv(
+  gfCsv: string,
+  mfCsv = CSV_HEADERS,
+  miniCsv = CSV_HEADERS,
+) {
   let callCount = 0;
   const csvFiles = [gfCsv, mfCsv, miniCsv];
   vi.stubGlobal(
     "fetch",
     vi.fn().mockImplementation(() => {
       const csv = csvFiles[callCount++ % 3]!;
-      return Promise.resolve({ ok: true, status: 200, text: () => Promise.resolve(csv) });
+      return Promise.resolve({
+        ok: true,
+        status: 200,
+        text: () => Promise.resolve(csv),
+      });
     }),
   );
 }
 
 describe("scrapeAgitagueda — CSV parsing and row processing", () => {
   it("returns a finished result with correct fields", async () => {
-    const csv = CSV_HEADERS + makeRow({ bib: "42", name: "David Silva", gender: "male", pos: "1", time: "03:25:10.000" });
+    const csv =
+      CSV_HEADERS +
+      makeRow({
+        bib: "42",
+        name: "David Silva",
+        gender: "male",
+        pos: "1",
+        time: "03:25:10.000",
+      });
     mockFetchCsv(csv);
     const res = await scrapeAgitagueda();
     const gf = res.distances.find((d) => d.name === "Granfondo")!;
@@ -116,9 +134,9 @@ describe("scrapeAgitagueda — CSV parsing and row processing", () => {
   it("sorts finishers before DNF before DNS", async () => {
     const csv =
       CSV_HEADERS +
-      makeRow({ bib: "3", name: "DNS Guy",      status: "DNS",      pos: "0" }) +
-      makeRow({ bib: "1", name: "Winner",        status: "Finished", pos: "1" }) +
-      makeRow({ bib: "2", name: "DNF Guy",       status: "DNF",      pos: "0" });
+      makeRow({ bib: "3", name: "DNS Guy", status: "DNS", pos: "0" }) +
+      makeRow({ bib: "1", name: "Winner", status: "Finished", pos: "1" }) +
+      makeRow({ bib: "2", name: "DNF Guy", status: "DNF", pos: "0" });
     mockFetchCsv(csv);
     const res = await scrapeAgitagueda();
     const names = res.distances[0]!.results.map((r) => r.name);
@@ -148,7 +166,11 @@ describe("scrapeAgitagueda — CSV parsing and row processing", () => {
   it("returns empty distances array when all CSVs are empty", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn().mockResolvedValue({ ok: true, status: 200, text: () => Promise.resolve(CSV_HEADERS) }),
+      vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        text: () => Promise.resolve(CSV_HEADERS),
+      }),
     );
     const res = await scrapeAgitagueda();
     expect(res.distances).toHaveLength(0);
@@ -168,7 +190,7 @@ describe("scrapeAgitagueda — CSV parsing and row processing", () => {
       CSV_HEADERS +
       makeRow({ bib: "1", status: "Finished", pos: "1" }) +
       makeRow({ bib: "2", status: "Finished", pos: "2" }) +
-      makeRow({ bib: "3", status: "DNF",      pos: "0" });
+      makeRow({ bib: "3", status: "DNF", pos: "0" });
     mockFetchCsv(csv);
     const res = await scrapeAgitagueda();
     expect(res.distances[0]!.finisherCount).toBe(2);

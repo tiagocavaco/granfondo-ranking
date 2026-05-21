@@ -1,5 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { BrowserRouter, Routes, Route, NavLink, useNavigate, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  NavLink,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import EventList from "./components/EventList";
 import EventDetail from "./components/EventDetail";
 import AggregateRankingPage from "./components/AggregateRankingPage";
@@ -16,7 +23,9 @@ import { formatAge } from "./utils/date";
 
 const navLink = (isActive: boolean) =>
   `px-2.5 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all whitespace-nowrap ${
-    isActive ? "bg-white/15 text-white backdrop-blur-sm" : "text-blue-200 hover:text-white hover:bg-white/8"
+    isActive
+      ? "bg-white/15 text-white backdrop-blur-sm"
+      : "text-blue-200 hover:text-white hover:bg-white/8"
   }`;
 
 function AppShell() {
@@ -26,26 +35,43 @@ function AppShell() {
   const navigate = useNavigate();
   const location = useLocation();
   const headerRef = useRef<HTMLElement>(null);
-  const isRankingsActive = location.pathname === "/ranking" || location.pathname === "/teams";
+  const isRankingsActive =
+    location.pathname === "/ranking" || location.pathname === "/teams";
 
   useEffect(() => {
-    api.initLookups()
-      .then(({ teamsLoaded }) => { if (!teamsLoaded) setTeamsUnavailable(true); })
+    api
+      .initLookups()
+      .then(({ teamsLoaded }) => {
+        if (!teamsLoaded) {
+          setTeamsUnavailable(true);
+        }
+      })
       .catch(() => setLookupsFailed(true));
   }, []);
-  useEffect(() => { setRankingsOpen(false); }, [location.pathname]);
+  useEffect(() => {
+    setRankingsOpen(false);
+  }, [location.pathname]);
   useEffect(() => {
     function handler(e: MouseEvent) {
-      if (rankingsOpen && headerRef.current && !headerRef.current.contains(e.target as Node))
+      if (
+        rankingsOpen &&
+        headerRef.current &&
+        !headerRef.current.contains(e.target as Node)
+      ) {
         setRankingsOpen(false);
+      }
     }
+
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [rankingsOpen]);
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <header ref={headerRef} className="bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 shadow-xl sticky top-0 z-50">
+      <header
+        ref={headerRef}
+        className="bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 shadow-xl sticky top-0 z-50"
+      >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4 flex items-center gap-2 sm:gap-6">
           {/* Logo */}
           <div className="flex items-center gap-3 shrink-0">
@@ -53,26 +79,55 @@ function AppShell() {
               🚴
             </div>
             <div className="hidden sm:block">
-              <div className="text-white font-extrabold text-lg leading-tight tracking-tight">Granfondo Portugal</div>
-              <div className="text-blue-300 text-[11px] font-medium tracking-widest uppercase">Race Results · Rankings</div>
+              <div className="text-white font-extrabold text-lg leading-tight tracking-tight">
+                Granfondo Portugal
+              </div>
+              <div className="text-blue-300 text-[11px] font-medium tracking-widest uppercase">
+                Race Results · Rankings
+              </div>
             </div>
           </div>
 
           {/* Nav */}
           <nav className="flex flex-1 justify-evenly sm:justify-start gap-0.5 sm:gap-1 min-w-0">
-            <NavLink to="/" end className={({ isActive }) => navLink(isActive)}>Events</NavLink>
-            <NavLink to="/athletes" className={({ isActive }) => navLink(isActive)}>Athletes</NavLink>
+            <NavLink to="/" end className={({ isActive }) => navLink(isActive)}>
+              Events
+            </NavLink>
+            <NavLink
+              to="/athletes"
+              className={({ isActive }) => navLink(isActive)}
+            >
+              Athletes
+            </NavLink>
             {/* Mobile: dropdown trigger */}
             <button
               onClick={() => setRankingsOpen((v) => !v)}
               className={`sm:hidden ${navLink(isRankingsActive)} flex items-center gap-1`}
             >
               Rankings
-              <span className={`text-[10px] transition-transform ${rankingsOpen ? "rotate-180" : ""}`}>▾</span>
+              <span
+                className={`text-[10px] transition-transform ${rankingsOpen ? "rotate-180" : ""}`}
+              >
+                ▾
+              </span>
             </button>
             {/* Desktop: direct links */}
-            <NavLink to="/ranking" className={({ isActive }) => `hidden sm:block ${navLink(isActive)}`}>🏆 Athlete Ranking</NavLink>
-            <NavLink to="/teams" className={({ isActive }) => `hidden sm:block ${navLink(isActive)}`}>🏅 Team Ranking</NavLink>
+            <NavLink
+              to="/ranking"
+              className={({ isActive }) =>
+                `hidden sm:block ${navLink(isActive)}`
+              }
+            >
+              🏆 Athlete Ranking
+            </NavLink>
+            <NavLink
+              to="/teams"
+              className={({ isActive }) =>
+                `hidden sm:block ${navLink(isActive)}`
+              }
+            >
+              🏅 Team Ranking
+            </NavLink>
           </nav>
         </div>
 
@@ -82,7 +137,9 @@ function AppShell() {
             <button
               onClick={() => navigate("/ranking")}
               className={`flex-1 py-3 text-sm font-semibold transition-colors ${
-                location.pathname === "/ranking" ? "text-white bg-white/15" : "text-blue-200 hover:text-white hover:bg-white/8"
+                location.pathname === "/ranking"
+                  ? "text-white bg-white/15"
+                  : "text-blue-200 hover:text-white hover:bg-white/8"
               }`}
             >
               🏆 Athletes
@@ -90,7 +147,9 @@ function AppShell() {
             <button
               onClick={() => navigate("/teams")}
               className={`flex-1 py-3 text-sm font-semibold border-l border-white/10 transition-colors ${
-                location.pathname === "/teams" ? "text-white bg-white/15" : "text-blue-200 hover:text-white hover:bg-white/8"
+                location.pathname === "/teams"
+                  ? "text-white bg-white/15"
+                  : "text-blue-200 hover:text-white hover:bg-white/8"
               }`}
             >
               🏅 Teams
@@ -101,12 +160,14 @@ function AppShell() {
 
       {lookupsFailed && (
         <div className="bg-amber-50 border-b border-amber-200 text-amber-800 text-sm px-4 py-2 text-center">
-          Athlete profile links are unavailable — data may be loading or out of date.
+          Athlete profile links are unavailable — data may be loading or out of
+          date.
         </div>
       )}
       {teamsUnavailable && (
         <div className="bg-amber-50 border-b border-amber-200 text-amber-800 text-sm px-4 py-2 text-center">
-          Team profile links are unavailable — a re-scrape is needed to enable them.
+          Team profile links are unavailable — a re-scrape is needed to enable
+          them.
         </div>
       )}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-8">
@@ -120,7 +181,10 @@ function AppShell() {
           <Route path="/teams" element={<TeamRankingPage />} />
           <Route path="/team/:teamId" element={<TeamProfile />} />
           <Route path="/compare" element={<ComparisonPage />} />
-          <Route path="/ranking-info" element={<RankingInfoPage mode="athlete" />} />
+          <Route
+            path="/ranking-info"
+            element={<RankingInfoPage mode="athlete" />}
+          />
           <Route path="/teams-info" element={<RankingInfoPage mode="team" />} />
           <Route path="/predictions-info" element={<PredictionsInfoPage />} />
         </Routes>
@@ -132,7 +196,12 @@ function AppShell() {
 
 function Footer() {
   const [scrapedAt, setScrapedAt] = useState<string>("");
-  useEffect(() => { api.getStats().then((s) => setScrapedAt(s.scrapedAt)).catch(() => {}); }, []);
+  useEffect(() => {
+    api
+      .getStats()
+      .then((s) => setScrapedAt(s.scrapedAt))
+      .catch(() => {});
+  }, []);
   return (
     <footer className="border-t border-slate-200 mt-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between text-xs text-slate-400">
@@ -145,7 +214,10 @@ function Footer() {
 
 export default function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <BrowserRouter
+      basename={import.meta.env.BASE_URL}
+      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+    >
       <AppShell />
     </BrowserRouter>
   );

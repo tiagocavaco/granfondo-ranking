@@ -20,13 +20,32 @@ import { buildAthletesIndex } from "./pipeline/results.js";
 import { injectAthleteIds } from "./pipeline/inject.js";
 import { resolveParticipantAthleteIds } from "./pipeline/participants.js";
 import { buildAggregateRanking, buildTeamRanking } from "./pipeline/ranking.js";
-import { YEARS, LISTA_URLS, REGISTRATIONS_URLS, APEDALAR_PARTICIPANT_URLS, normalizeEventName } from "./config.js";
+import {
+  YEARS,
+  LISTA_URLS,
+  REGISTRATIONS_URLS,
+  APEDALAR_PARTICIPANT_URLS,
+  normalizeEventName,
+} from "./config.js";
 import { DATA_DIR } from "./paths.js";
 import { normalizeName, teamNormalKey, isSoloTeam } from "./normalize.js";
-import { openSourceDb, closeSourceDb, loadResultsFromDb, loadIdStore, loadTeamAliases, loadAthleteAliases, loadResultAssignments, loadTeamIdStore } from "./db/db-loader.js";
+import {
+  openSourceDb,
+  closeSourceDb,
+  loadResultsFromDb,
+  loadIdStore,
+  loadTeamAliases,
+  loadAthleteAliases,
+  loadResultAssignments,
+  loadTeamIdStore,
+} from "./db/db-loader.js";
 import { discoverGranfondos } from "./scrapers/stopandgo.js";
 import { loadScrapedEvents, writeEncryptedDatabase } from "./db/write-db.js";
-import { fetchEventParticipants, resolveDistances, scrapeEvent } from "./pipeline/event-pipeline.js";
+import {
+  fetchEventParticipants,
+  resolveDistances,
+  scrapeEvent,
+} from "./pipeline/event-pipeline.js";
 import { scrapeParticipants } from "./pipeline/participants-update.js";
 import { initTeamAliases } from "./normalize.js";
 import type {
@@ -44,7 +63,9 @@ import type {
   if (fs.existsSync(envFile)) {
     for (const line of fs.readFileSync(envFile, "utf-8").split("\n")) {
       const m = line.match(/^([A-Z_][A-Z0-9_]*)=(.+)$/);
-      if (m) process.env[m[1]] ??= m[2].trim();
+      if (m) {
+        process.env[m[1]] ??= m[2].trim();
+      }
     }
   }
 }
@@ -57,7 +78,11 @@ const PARTICIPANTS_ONLY = process.argv.includes("--participants");
 /** Used only for flag JSON files. */
 function writeJson(filename: string, data: unknown) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
-  fs.writeFileSync(path.join(DATA_DIR, filename), JSON.stringify(data, null, 2), "utf-8");
+  fs.writeFileSync(
+    path.join(DATA_DIR, filename),
+    JSON.stringify(data, null, 2),
+    "utf-8",
+  );
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
@@ -86,32 +111,46 @@ async function main() {
     console.log(`${past ? "✅" : "⏳"} [${event.id}] ${event.name}`);
     const result = await scrapeEvent(event, scrapedEvents, sourceDb, FORCE);
     scraped.push(result.event);
-    if (result.results) allResults.set(result.event.id, result.results);
-    if (result.participants) allParticipants.set(result.event.id, result.participants);
+    if (result.results) {
+      allResults.set(result.event.id, result.results);
+    }
+
+    if (result.participants) {
+      allParticipants.set(result.event.id, result.participants);
+    }
   }
 
   // 3. Scrape external platform events
   console.log("\n🌐 Scraping external platform events…");
-  const externalScraperFns = new Map<number, () => Promise<StoredEventResults>>([
-    [90001, scrapeFigueiraChampionsDay],
-    [90002, scrapeAgitagueda],
-    [90003, scrapeApedalar5Quinas],
-    [90004, scrapePortoGaiaGranfondo2024],
-  ]);
+  const externalScraperFns = new Map<number, () => Promise<StoredEventResults>>(
+    [
+      [90001, scrapeFigueiraChampionsDay],
+      [90002, scrapeAgitagueda],
+      [90003, scrapeApedalar5Quinas],
+      [90004, scrapePortoGaiaGranfondo2024],
+    ],
+  );
   const externalScrapers = EXTERNAL_EVENTS.map((event) => ({
     event,
     fn: externalScraperFns.get(event.id),
-  })).filter((e): e is { event: StoredEvent; fn: () => Promise<StoredEventResults> } => !!e.fn);
+  })).filter(
+    (e): e is { event: StoredEvent; fn: () => Promise<StoredEventResults> } =>
+      !!e.fn,
+  );
 
   for (const { event, fn } of externalScrapers) {
     console.log(`✅ [${event.id}] ${event.name}`);
-    const isStable = !FORCE && (String(event.id) in scrapedEvents) && sourceDb !== null;
+    const isStable =
+      !FORCE && String(event.id) in scrapedEvents && sourceDb !== null;
 
     if (isStable) {
       const cached = loadResultsFromDb(sourceDb, event);
       if (cached) {
         event.hasResults = true;
-        event.finisherCount = cached.distances.reduce((s, d) => s + d.finisherCount, 0);
+        event.finisherCount = cached.distances.reduce(
+          (s, d) => s + d.finisherCount,
+          0,
+        );
         event.scrapedAt = cached.scrapedAt;
         allResults.set(event.id, cached);
         console.log(`  · cached — ${event.finisherCount} finishers`);
@@ -125,16 +164,26 @@ async function main() {
       assignGenderPositions(results.distances);
       assignCategoryPositions(results.distances);
       event.hasResults = true;
-      event.finisherCount = results.distances.reduce((s, d) => s + d.finisherCount, 0);
+      event.finisherCount = results.distances.reduce(
+        (s, d) => s + d.finisherCount,
+        0,
+      );
       event.scrapedAt = results.scrapedAt;
       allResults.set(event.id, results);
       console.log(
-        `  ✓ ${results.distances.map((d) => `${d.name}: ${d.finisherCount}`).join(", ")}`
+        `  ✓ ${results.distances.map((d) => `${d.name}: ${d.finisherCount}`).join(", ")}`,
       );
       if (sourceDb) {
-        const prev = (sourceDb.prepare("SELECT finisher_count FROM events WHERE id = ?").get(event.id) as { finisher_count: number } | undefined)?.finisher_count ?? 0;
+        const prev =
+          (
+            sourceDb
+              .prepare("SELECT finisher_count FROM events WHERE id = ?")
+              .get(event.id) as { finisher_count: number } | undefined
+          )?.finisher_count ?? 0;
         if (prev > 0 && event.finisherCount < prev * 0.5) {
-          console.warn(`⚠️  Regression: ${event.name} finishers dropped ${prev} → ${event.finisherCount} (>${Math.round((1 - event.finisherCount / prev) * 100)}% drop)`);
+          console.warn(
+            `⚠️  Regression: ${event.name} finishers dropped ${prev} → ${event.finisherCount} (>${Math.round((1 - event.finisherCount / prev) * 100)}% drop)`,
+          );
         }
       }
     } catch (err) {
@@ -147,7 +196,11 @@ async function main() {
   // 3b. Add manual upcoming events (no StopAndGo ID yet) + fetch their participants
   for (const event of MANUAL_UPCOMING_EVENTS) {
     console.log(`⏳ [${event.id}] ${event.name}`);
-    if (LISTA_URLS[event.id] || REGISTRATIONS_URLS[event.id] || APEDALAR_PARTICIPANT_URLS[event.id]) {
+    if (
+      LISTA_URLS[event.id] ||
+      REGISTRATIONS_URLS[event.id] ||
+      APEDALAR_PARTICIPANT_URLS[event.id]
+    ) {
       try {
         const athletes = await fetchEventParticipants(event.id);
         event.distances = resolveDistances(athletes, event.id);
@@ -158,13 +211,14 @@ async function main() {
         console.error(`  ✗ ${err}`);
       }
     }
+
     scraped.push(event);
   }
 
   // Load everything needed from source DB before closing it
-  const idStore     = loadIdStore(sourceDb);
+  const idStore = loadIdStore(sourceDb);
   const teamAliases = loadTeamAliases(sourceDb);
-  const aliasRules  = loadAthleteAliases(sourceDb);
+  const aliasRules = loadAthleteAliases(sourceDb);
   const assignments = loadResultAssignments(sourceDb);
   const teamIdStore = loadTeamIdStore(sourceDb);
 
@@ -176,7 +230,10 @@ async function main() {
 
   // Normalise event names and fill missing gaps — applied to all events including
   // cached ones so the DB is consistent regardless of which events were re-scraped.
-  for (const event of scraped) event.name = normalizeEventName(event.id, event.name);
+  for (const event of scraped) {
+    event.name = normalizeEventName(event.id, event.name);
+  }
+
   for (const [eventId, evResults] of allResults) {
     evResults.eventName = normalizeEventName(eventId, evResults.eventName);
     computeGaps(evResults.distances);
@@ -207,32 +264,53 @@ async function main() {
     }
   }
 
-  const { index: athletesIndex, updatedIdStore, soloFlags, crossPassFlags } = buildAthletesIndex(
-    scraped, loader, aliasRules, assignments, idStore, extendedTeamIdStore
+  const {
+    index: athletesIndex,
+    updatedIdStore,
+    soloFlags,
+    crossPassFlags,
+  } = buildAthletesIndex(
+    scraped,
+    loader,
+    aliasRules,
+    assignments,
+    idStore,
+    extendedTeamIdStore,
   );
 
-  const manualSoloFlags = soloFlags.filter((f) => f.resolution === "flagged_manual");
+  const manualSoloFlags = soloFlags.filter(
+    (f) => f.resolution === "flagged_manual",
+  );
   writeJson("solo-flags.json", manualSoloFlags);
   if (manualSoloFlags.length > 0) {
-    console.warn(`⚠️  ${manualSoloFlags.length} solo collision(s) require manual review — see frontend/public/data/solo-flags.json`);
+    console.warn(
+      `⚠️  ${manualSoloFlags.length} solo collision(s) require manual review — see frontend/public/data/solo-flags.json`,
+    );
   } else {
     console.log(`✓ solo-flags.json — no unresolved collisions`);
   }
 
   writeJson("cross-pass-flags.json", crossPassFlags);
   if (crossPassFlags.length > 0) {
-    console.warn(`⚠️  ${crossPassFlags.length} cross-pass merge(s) require manual review — see frontend/public/data/cross-pass-flags.json`);
+    console.warn(
+      `⚠️  ${crossPassFlags.length} cross-pass merge(s) require manual review — see frontend/public/data/cross-pass-flags.json`,
+    );
   } else {
     console.log(`✓ cross-pass-flags.json — no ambiguous merges`);
   }
 
   // Build alias → canonical key map
   const idToCanonicalKey = new Map<number, string>();
-  for (const [key, entry] of athletesIndex) idToCanonicalKey.set(entry.id, key);
+  for (const [key, entry] of athletesIndex) {
+    idToCanonicalKey.set(entry.id, key);
+  }
+
   const keyToCanonical = new Map<string, string>();
   for (const [key, id] of updatedIdStore) {
     const canon = idToCanonicalKey.get(id);
-    if (canon && canon !== key) keyToCanonical.set(key, canon);
+    if (canon && canon !== key) {
+      keyToCanonical.set(key, canon);
+    }
   }
 
   // 5. Inject athlete IDs into in-memory results
@@ -242,19 +320,31 @@ async function main() {
 
   // Build name-to-id lookup
   const nameToId: Record<string, number> = {};
-  for (const [key, id] of updatedIdStore) nameToId[key] = id;
-  for (const [key, entry] of athletesIndex) nameToId[key] = entry.id;
+  for (const [key, id] of updatedIdStore) {
+    nameToId[key] = id;
+  }
+
+  for (const [key, entry] of athletesIndex) {
+    nameToId[key] = entry.id;
+  }
 
   // Add alias keys so participant registrations under alias names resolve to the canonical athlete
   for (const rule of aliasRules) {
-    const canonTeamId = extendedTeamIdStore.get(teamNormalKey(rule.canonicalTeam)) ?? 0;
+    const canonTeamId =
+      extendedTeamIdStore.get(teamNormalKey(rule.canonicalTeam)) ?? 0;
     const canonKey = `${normalizeName(rule.name)}|${canonTeamId}`;
     const canonId = nameToId[canonKey];
-    if (canonId == null) continue;
+    if (canonId == null) {
+      continue;
+    }
+
     for (const alias of rule.aliases) {
-      const aliasTeamId = extendedTeamIdStore.get(teamNormalKey(alias.team)) ?? 0;
+      const aliasTeamId =
+        extendedTeamIdStore.get(teamNormalKey(alias.team)) ?? 0;
       const aliasKey = `${normalizeName(alias.name)}|${aliasTeamId}`;
-      if (!(aliasKey in nameToId)) nameToId[aliasKey] = canonId;
+      if (!(aliasKey in nameToId)) {
+        nameToId[aliasKey] = canonId;
+      }
     }
   }
 
@@ -264,53 +354,90 @@ async function main() {
     const teamIds = entry.teams
       .map((tk) => extendedTeamIdStore.get(tk) ?? 0)
       .filter((id) => id > 0);
-    if (teamIds.length > 0) athleteAllTeamIds.set(entry.id, teamIds);
+    if (teamIds.length > 0) {
+      athleteAllTeamIds.set(entry.id, teamIds);
+    }
   }
 
   // Build athleteId → all known categories for pass-2 category-based disambiguation
   const athleteCategories = new Map<number, string[]>();
   for (const [, entry] of athletesIndex) {
     const cats = Object.values(entry.categories ?? {}).flat();
-    if (cats.length > 0) athleteCategories.set(entry.id, cats);
+    if (cats.length > 0) {
+      athleteCategories.set(entry.id, cats);
+    }
   }
 
-  const { ids: participantAthleteIds, linked: participantLinked, passes: participantPasses } =
-    resolveParticipantAthleteIds(nameToId, allParticipants, extendedTeamIdStore, teamAliases, athleteAllTeamIds, athleteCategories);
-  console.log(`  [lookup] ${participantLinked} participants resolved (p1:${participantPasses[0]} exact, p2:${participantPasses[1]} solo-unique, p3:${participantPasses[2]} fuzzy-team, p4:${participantPasses[3]} secondary-team, p5:${participantPasses[4]} name-variant, p6:${participantPasses[5]} unique-name)`);
+  const {
+    ids: participantAthleteIds,
+    linked: participantLinked,
+    passes: participantPasses,
+  } = resolveParticipantAthleteIds(
+    nameToId,
+    allParticipants,
+    extendedTeamIdStore,
+    teamAliases,
+    athleteAllTeamIds,
+    athleteCategories,
+  );
+  console.log(
+    `  [lookup] ${participantLinked} participants resolved (p1:${participantPasses[0]} exact, p2:${participantPasses[1]} solo-unique, p3:${participantPasses[2]} fuzzy-team, p4:${participantPasses[3]} secondary-team, p5:${participantPasses[4]} name-variant, p6:${participantPasses[5]} unique-name)`,
+  );
 
   const athletesArray = Array.from(athletesIndex.values()).sort((a, b) =>
-    a.nameLower.localeCompare(b.nameLower)
+    a.nameLower.localeCompare(b.nameLower),
   );
   console.log(`✓ ${athletesArray.length} athletes indexed`);
 
   const uniqueByYear: Record<string, number> = {};
   for (const year of YEARS) {
-    uniqueByYear[String(year)] = athletesArray.filter(
-      (a) => a.results.some((r) => r.eventYear === year)
+    uniqueByYear[String(year)] = athletesArray.filter((a) =>
+      a.results.some((r) => r.eventYear === year),
     ).length;
   }
-  const stats = { uniqueAthletes: athletesArray.filter((a) => a.results.length > 0).length, uniqueByYear, scrapedAt: new Date().toISOString() };
+
+  const stats = {
+    uniqueAthletes: athletesArray.filter((a) => a.results.length > 0).length,
+    uniqueByYear,
+    scrapedAt: new Date().toISOString(),
+  };
 
   // 6. Build aggregate ranking
   console.log("🏆 Building aggregate ranking…");
-  const aggregateRanking = buildAggregateRanking(scraped, loader, athletesIndex, keyToCanonical, extendedTeamIdStore);
+  const aggregateRanking = buildAggregateRanking(
+    scraped,
+    loader,
+    athletesIndex,
+    keyToCanonical,
+    extendedTeamIdStore,
+  );
   for (const [year, distances] of Object.entries(aggregateRanking)) {
     for (const [dist, genders] of Object.entries(distances)) {
       for (const [gender, athletes] of Object.entries(genders)) {
-        console.log(`   ${year} ${dist} ${gender}: ${athletes.length} athletes scored`);
+        console.log(
+          `   ${year} ${dist} ${gender}: ${athletes.length} athletes scored`,
+        );
       }
     }
   }
+
   console.log(`✓ aggregate ranking built`);
 
   // 7. Build team ranking
   console.log("🏅 Building team ranking…");
-  const teamRanking = buildTeamRanking(scraped, loader, athletesIndex, keyToCanonical, extendedTeamIdStore);
+  const teamRanking = buildTeamRanking(
+    scraped,
+    loader,
+    athletesIndex,
+    keyToCanonical,
+    extendedTeamIdStore,
+  );
   for (const [year, distances] of Object.entries(teamRanking)) {
     for (const [dist, teams] of Object.entries(distances)) {
       console.log(`   ${year} ${dist}: ${teams.length} teams scored`);
     }
   }
+
   console.log(`✓ team ranking built`);
 
   // 8. Build encrypted SQLite database

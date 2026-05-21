@@ -6,7 +6,10 @@ import * as path from "path";
 import * as schema from "@granfondo/database/schema";
 import { loadIdStore } from "./db-loader.js";
 
-const migrationsPath = path.resolve(import.meta.dirname, "../../../database/migrations");
+const migrationsPath = path.resolve(
+  import.meta.dirname,
+  "../../../database/migrations",
+);
 
 function makeDb(): BetterSqlite3.Database {
   const sqlite = new BetterSqlite3(":memory:");
@@ -22,10 +25,12 @@ describe("loadIdStore", () => {
   it("loads keys normally when no duplicates", () => {
     const sqlite = makeDb();
     const db = drizzle(sqlite, { schema });
-    db.insert(schema.athleteLookup).values([
-      { key: "joao silva|sporting", athleteId: 1 },
-      { key: "maria costa|benfica",  athleteId: 2 },
-    ]).run();
+    db.insert(schema.athleteLookup)
+      .values([
+        { key: "joao silva|sporting", athleteId: 1 },
+        { key: "maria costa|benfica", athleteId: 2 },
+      ])
+      .run();
 
     const store = loadIdStore(sqlite);
     expect(store.get("joao silva|sporting")).toBe(1);
@@ -38,11 +43,13 @@ describe("loadIdStore", () => {
     const db = drizzle(sqlite, { schema });
     // Multiple lookup keys for the same athlete (team variant + solo expansion key).
     // All must be seeded so the pipeline can match any appearance.
-    db.insert(schema.athleteLookup).values([
-      { key: "pedro gomes|rota dossa",                     athleteId: 137 },
-      { key: "pedro gomes|rota d ossa",                    athleteId: 137 },
-      { key: "pedro gomes|solo:Masters B Male:2025",        athleteId: 137 },
-    ]).run();
+    db.insert(schema.athleteLookup)
+      .values([
+        { key: "pedro gomes|rota dossa", athleteId: 137 },
+        { key: "pedro gomes|rota d ossa", athleteId: 137 },
+        { key: "pedro gomes|solo:Masters B Male:2025", athleteId: 137 },
+      ])
+      .run();
 
     const store = loadIdStore(sqlite);
 
@@ -56,11 +63,13 @@ describe("loadIdStore", () => {
   it("loads multiple athletes with multiple keys each", () => {
     const sqlite = makeDb();
     const db = drizzle(sqlite, { schema });
-    db.insert(schema.athleteLookup).values([
-      { key: "ana lima|ccbtt elvas",  athleteId: 42 },
-      { key: "ana lima|ccbttelvas",   athleteId: 42 },
-      { key: "rui costa|",            athleteId: 99 },
-    ]).run();
+    db.insert(schema.athleteLookup)
+      .values([
+        { key: "ana lima|ccbtt elvas", athleteId: 42 },
+        { key: "ana lima|ccbttelvas", athleteId: 42 },
+        { key: "rui costa|", athleteId: 99 },
+      ])
+      .run();
 
     const store = loadIdStore(sqlite);
     expect(store.size).toBe(3);

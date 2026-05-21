@@ -16,16 +16,19 @@ export default function EventCard({ event }: Props) {
   });
 
   return (
-    <Link
-      to={`/event/${event.id}`}
-      className="bg-white rounded-2xl border border-slate-200 p-5 card-hover group overflow-hidden relative block"
-    >
+    <div className="bg-white rounded-2xl border border-slate-200 p-5 card-hover group overflow-hidden relative">
       {/* Accent bar */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl" />
 
       <div className="flex items-start justify-between gap-2 mb-4">
+        {/* Stretched link — ::after covers the whole card */}
         <h2 className="font-bold text-slate-900 text-sm leading-snug line-clamp-2 group-hover:text-blue-700 transition-colors">
-          {event.name}
+          <Link
+            to={`/event/${event.id}`}
+            className="after:absolute after:inset-0 after:content-[''] after:z-[1]"
+          >
+            {event.name}
+          </Link>
         </h2>
         <span
           className={`shrink-0 text-[11px] px-2.5 py-0.5 rounded-full font-semibold tracking-wide ${
@@ -50,13 +53,23 @@ export default function EventCard({ event }: Props) {
         {event.hasResults && event.finisherCount > 0 && (
           <div className="flex items-center gap-1.5">
             <span className="text-slate-400">🏁</span>
-            <span><span className="font-semibold text-slate-700">{event.finisherCount.toLocaleString()}</span> finishers</span>
+            <span>
+              <span className="font-semibold text-slate-700">
+                {event.finisherCount.toLocaleString()}
+              </span>{" "}
+              finishers
+            </span>
           </div>
         )}
         {!isPast && event.participantCount > 0 && (
           <div className="flex items-center gap-1.5">
             <span className="text-slate-400">📋</span>
-            <span><span className="font-semibold text-slate-700">{event.participantCount.toLocaleString()}</span> participants</span>
+            <span>
+              <span className="font-semibold text-slate-700">
+                {event.participantCount.toLocaleString()}
+              </span>{" "}
+              participants
+            </span>
           </div>
         )}
       </div>
@@ -66,9 +79,9 @@ export default function EventCard({ event }: Props) {
           {event.distances.map((d) => (
             <span
               key={d.id}
-              className={`shrink-0 text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${
-                distBadgeClass(d.name)
-              }`}
+              className={`shrink-0 text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${distBadgeClass(
+                d.name,
+              )}`}
             >
               {d.name}
             </span>
@@ -79,8 +92,7 @@ export default function EventCard({ event }: Props) {
             href={event.officialUrl ?? event.resultsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="hidden sm:block shrink-0 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
+            className="relative z-[2] hidden sm:block shrink-0 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
           >
             Official Page ↗
           </a>
@@ -90,13 +102,12 @@ export default function EventCard({ event }: Props) {
             href={event.resultsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="hidden sm:block shrink-0 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
+            className="relative z-[2] hidden sm:block shrink-0 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline"
           >
             Official Results ↗
           </a>
         )}
       </div>
-    </Link>
+    </div>
   );
 }

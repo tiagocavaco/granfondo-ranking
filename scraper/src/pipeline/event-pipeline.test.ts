@@ -6,13 +6,13 @@ import type { ApiAthlete } from "../types.js";
 
 describe("apiAthleteToParticipant", () => {
   const base: ApiAthlete = {
-    dorsal:       "42",
-    nome:         "João Silva",
+    dorsal: "42",
+    nome: "João Silva",
     nomecompleto: "João Manuel Silva",
-    sexo:         "M",
-    equipa:       "Team Alpha",
-    escalao:      "ELITES M",
-    percurso:     "Granfondo",
+    sexo: "M",
+    equipa: "Team Alpha",
+    escalao: "ELITES M",
+    percurso: "Granfondo",
     id_percursos: "1",
   };
 
@@ -38,7 +38,10 @@ describe("apiAthleteToParticipant", () => {
   });
 
   it("applies fixRawTeamName for all circumflex vowel variants", () => {
-    const p = apiAthleteToParticipant({ ...base, equipa: "Clube a^guas e^o^ u^" });
+    const p = apiAthleteToParticipant({
+      ...base,
+      equipa: "Clube a^guas e^o^ u^",
+    });
     expect(p.team).toBe("Clube âguas êô û");
   });
 
@@ -73,9 +76,39 @@ describe("apiAthleteToParticipant", () => {
 describe("resolveDistances", () => {
   it("returns extracted distances when athletes carry distance info", () => {
     const athletes = [
-      { bib: "1", name: "A", fullName: "A", gender: "M", team: "", category: "", distance: "Granfondo", distanceId: "1", athleteId: 0 },
-      { bib: "2", name: "B", fullName: "B", gender: "F", team: "", category: "", distance: "Mediofondo", distanceId: "2", athleteId: 0 },
-      { bib: "3", name: "C", fullName: "C", gender: "M", team: "", category: "", distance: "Granfondo", distanceId: "1", athleteId: 0 },
+      {
+        bib: "1",
+        name: "A",
+        fullName: "A",
+        gender: "M",
+        team: "",
+        category: "",
+        distance: "Granfondo",
+        distanceId: "1",
+        athleteId: 0,
+      },
+      {
+        bib: "2",
+        name: "B",
+        fullName: "B",
+        gender: "F",
+        team: "",
+        category: "",
+        distance: "Mediofondo",
+        distanceId: "2",
+        athleteId: 0,
+      },
+      {
+        bib: "3",
+        name: "C",
+        fullName: "C",
+        gender: "M",
+        team: "",
+        category: "",
+        distance: "Granfondo",
+        distanceId: "1",
+        athleteId: 0,
+      },
     ];
     const result = resolveDistances(athletes, 99999);
     expect(result).toEqual([
@@ -87,7 +120,17 @@ describe("resolveDistances", () => {
   it("falls back to DEFAULT_DISTANCES[eventId] when extraction returns empty", () => {
     // Event 1741 has a known DEFAULT_DISTANCES entry: GF + MF + Mini
     const athletes = [
-      { bib: "1", name: "A", fullName: "A", gender: "M", team: "", category: "", distance: "", distanceId: "", athleteId: 0 },
+      {
+        bib: "1",
+        name: "A",
+        fullName: "A",
+        gender: "M",
+        team: "",
+        category: "",
+        distance: "",
+        distanceId: "",
+        athleteId: 0,
+      },
     ];
     const result = resolveDistances(athletes, 1741);
     expect(result).toEqual([
@@ -105,7 +148,17 @@ describe("resolveDistances", () => {
   it("prefers extracted distances over DEFAULT_DISTANCES when athletes have distance info", () => {
     // Event 1741 has DEFAULT_DISTANCES, but we override with a single distance from participants
     const athletes = [
-      { bib: "1", name: "A", fullName: "A", gender: "M", team: "", category: "", distance: "CustomDist", distanceId: "5", athleteId: 0 },
+      {
+        bib: "1",
+        name: "A",
+        fullName: "A",
+        gender: "M",
+        team: "",
+        category: "",
+        distance: "CustomDist",
+        distanceId: "5",
+        athleteId: 0,
+      },
     ];
     const result = resolveDistances(athletes, 1741);
     expect(result).toEqual([{ id: "5", name: "CustomDist" }]);

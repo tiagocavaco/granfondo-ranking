@@ -9,7 +9,9 @@ describe("resolveTeamKey", () => {
   });
 
   it("strips punctuation and lowercases", () => {
-    expect(resolveTeamKey("Sport Lisboa e Benfica")).toBe("sport lisboa e benfica");
+    expect(resolveTeamKey("Sport Lisboa e Benfica")).toBe(
+      "sport lisboa e benfica",
+    );
   });
 
   it("returns empty string for empty input", () => {

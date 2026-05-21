@@ -23,12 +23,15 @@ import {
 
 beforeAll(() => {
   initTeamAliases({
-    "casa benfica almodovar":                     "cb almodovar banco primus swick",
-    "casa benfica almodovar banco primus swick":  "cb almodovar banco primus swick",
-    "penacova firstbike reconco":                 "penacova ceg reconco",
+    "casa benfica almodovar": "cb almodovar banco primus swick",
+    "casa benfica almodovar banco primus swick":
+      "cb almodovar banco primus swick",
+    "penacova firstbike reconco": "penacova ceg reconco",
     // Chain: A → B → C (three hops)
-    "escola ciclismo de oeiras parracho mr print":         "escola ciclismo de oeiras parracho mr print reconco",
-    "escola ciclismo de oeiras parracho mr print reconco": "escola ciclismo oeiras parracho mr print reconco",
+    "escola ciclismo de oeiras parracho mr print":
+      "escola ciclismo de oeiras parracho mr print reconco",
+    "escola ciclismo de oeiras parracho mr print reconco":
+      "escola ciclismo oeiras parracho mr print reconco",
     // Circular: X → Y → X
     "clube circular a": "clube circular b",
     "clube circular b": "clube circular a",
@@ -91,7 +94,9 @@ describe("teamKeySimilarity", () => {
   });
 
   it("unrelated teams score near 0", () => {
-    expect(teamKeySimilarity("dbl bike", "jbracing voicevelo em3")).toBeLessThan(0.3);
+    expect(
+      teamKeySimilarity("dbl bike", "jbracing voicevelo em3"),
+    ).toBeLessThan(0.3);
   });
 
   it("returns 0 when one side has no significant tokens (all < 3 chars)", () => {
@@ -110,12 +115,18 @@ describe("teamKeySimilarity", () => {
 
 describe("teamNormalKey", () => {
   it("resolves Casa Benfica alias", () => {
-    expect(teamNormalKey("Casa Benfica Almodovar")).toBe("cb almodovar banco primus swick");
+    expect(teamNormalKey("Casa Benfica Almodovar")).toBe(
+      "cb almodovar banco primus swick",
+    );
   });
 
   it("resolves Penacova Firstbike alias to Penacova Ceg", () => {
-    expect(teamNormalKey("Penacova Firstbike Reconco")).toBe("penacova ceg reconco");
-    expect(teamNormalKey("Penacova  Firstbike  Reconco")).toBe("penacova ceg reconco");
+    expect(teamNormalKey("Penacova Firstbike Reconco")).toBe(
+      "penacova ceg reconco",
+    );
+    expect(teamNormalKey("Penacova  Firstbike  Reconco")).toBe(
+      "penacova ceg reconco",
+    );
   });
 
   it("passthrough for unknown teams", () => {
@@ -124,8 +135,9 @@ describe("teamNormalKey", () => {
 
   it("follows two-hop chain to final canonical", () => {
     // A → B → C: old single-hop code returned B, new code returns C
-    expect(teamNormalKey("Escola Ciclismo de Oeiras Parracho Mr Print"))
-      .toBe("escola ciclismo oeiras parracho mr print reconco");
+    expect(teamNormalKey("Escola Ciclismo de Oeiras Parracho Mr Print")).toBe(
+      "escola ciclismo oeiras parracho mr print reconco",
+    );
   });
 
   it("does not infinite-loop on circular aliases", () => {
@@ -136,8 +148,12 @@ describe("teamNormalKey", () => {
 
   it("circular aliases from either direction reach the same canonical", () => {
     // Both sides of a circular must resolve to the same key (whichever wins)
-    expect(teamNormalKey("Clube Circular A")).toBe(teamNormalKey("Clube Circular A"));
-    expect(teamNormalKey("Clube Circular B")).toBe(teamNormalKey("Clube Circular B"));
+    expect(teamNormalKey("Clube Circular A")).toBe(
+      teamNormalKey("Clube Circular A"),
+    );
+    expect(teamNormalKey("Clube Circular B")).toBe(
+      teamNormalKey("Clube Circular B"),
+    );
   });
 });
 
@@ -219,7 +235,6 @@ describe("categoryTier", () => {
     expect(categoryTier("Something Else")).toBe("unknown");
   });
 });
-
 
 // ── normalizeCategory ─────────────────────────────────────────────────────────
 
@@ -466,12 +481,18 @@ describe("fixRawTeamName", () => {
 
 describe("canonicalTeam", () => {
   it("picks the most frequent name", () => {
-    const occ = new Map([["Team A", 3], ["Team B", 1]]);
+    const occ = new Map([
+      ["Team A", 3],
+      ["Team B", 1],
+    ]);
     expect(canonicalTeam(occ)).toBe("Team A");
   });
 
   it("tie-breaks by longest name", () => {
-    const occ = new Map([["Team", 2], ["Team Alpha", 2]]);
+    const occ = new Map([
+      ["Team", 2],
+      ["Team Alpha", 2],
+    ]);
     expect(canonicalTeam(occ)).toBe("Team Alpha");
   });
 
@@ -572,7 +593,9 @@ describe("levenshteinDistance", () => {
   it("single substitution", () => {
     expect(levenshteinDistance("abc", "xbc")).toBe(1);
     expect(levenshteinDistance("antonio pereira", "antsnio pereira")).toBe(1);
-    expect(levenshteinDistance("antonio henriques", "antsnio henriques")).toBe(1);
+    expect(levenshteinDistance("antonio henriques", "antsnio henriques")).toBe(
+      1,
+    );
     expect(levenshteinDistance("line ostergaard", "line stergaard")).toBe(1);
   });
 
@@ -591,8 +614,12 @@ describe("levenshteinDistance", () => {
   });
 
   it("clearly different names have distance > 2", () => {
-    expect(levenshteinDistance("manuel salvado", "luis madureira")).toBeGreaterThan(2);
-    expect(levenshteinDistance("pedro marques", "pedro purito")).toBeGreaterThan(2);
+    expect(
+      levenshteinDistance("manuel salvado", "luis madureira"),
+    ).toBeGreaterThan(2);
+    expect(
+      levenshteinDistance("pedro marques", "pedro purito"),
+    ).toBeGreaterThan(2);
     expect(levenshteinDistance("jose faria", "ze luis")).toBeGreaterThan(2);
   });
 });
@@ -601,9 +628,15 @@ describe("levenshteinDistance", () => {
 
 describe("distancePriority", () => {
   it("canonical names return correct priority order", () => {
-    expect(distancePriority("Granfondo")).toBeLessThan(distancePriority("Mediofondo"));
-    expect(distancePriority("Mediofondo")).toBeLessThan(distancePriority("Minifondo"));
-    expect(distancePriority("Minifondo")).toBeLessThan(distancePriority("Time Trial"));
+    expect(distancePriority("Granfondo")).toBeLessThan(
+      distancePriority("Mediofondo"),
+    );
+    expect(distancePriority("Mediofondo")).toBeLessThan(
+      distancePriority("Minifondo"),
+    );
+    expect(distancePriority("Minifondo")).toBeLessThan(
+      distancePriority("Time Trial"),
+    );
   });
 
   it("aliases resolve to canonical priority", () => {
@@ -625,7 +658,9 @@ describe("distancePriority", () => {
 
   it("sorting by priority yields GF → MF → Mini order", () => {
     const names = ["Minifondo", "Granfondo", "Mediofondo"];
-    const sorted = [...names].sort((a, b) => distancePriority(a) - distancePriority(b));
+    const sorted = [...names].sort(
+      (a, b) => distancePriority(a) - distancePriority(b),
+    );
     expect(sorted).toEqual(["Granfondo", "Mediofondo", "Minifondo"]);
   });
 });

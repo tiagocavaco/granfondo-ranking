@@ -1,5 +1,8 @@
 import { normalizeName, normalizeDistance } from "../normalize.js";
-import type { AthleteEntry, StoredEventResults } from "@granfondo/database/types";
+import type {
+  AthleteEntry,
+  StoredEventResults,
+} from "@granfondo/database/types";
 
 /**
  * Injects athlete IDs into raw result rows in-place.
@@ -41,14 +44,24 @@ export function injectAthleteIds(
           if (existing !== 0) {
             // Retroactively register name fallback for the first athlete.
             const first = posKeyFirst.get(posKey)!;
-            resultLookup.set(`${ref.eventId}|${ref.distance}|${first.nameLower}`, first.id);
+            resultLookup.set(
+              `${ref.eventId}|${ref.distance}|${first.nameLower}`,
+              first.id,
+            );
             resultLookup.set(posKey, 0); // mark pos key as ambiguous
           }
+
           // Register name fallback for this (second or Nth) tied athlete.
-          resultLookup.set(`${ref.eventId}|${ref.distance}|${entry.nameLower}`, entry.id);
+          resultLookup.set(
+            `${ref.eventId}|${ref.distance}|${entry.nameLower}`,
+            entry.id,
+          );
         }
       } else {
-        resultLookup.set(`${ref.eventId}|${ref.distance}|${entry.nameLower}|${ref.team}`, entry.id);
+        resultLookup.set(
+          `${ref.eventId}|${ref.distance}|${entry.nameLower}|${ref.team}`,
+          entry.id,
+        );
       }
     }
   }
@@ -61,16 +74,33 @@ export function injectAthleteIds(
       for (const r of dist.results) {
         let id: number;
         if (r.pos > 0) {
-          const posId = resultLookup.get(`${eventId}|${distNorm}|${r.pos}`) ?? 0;
+          const posId =
+            resultLookup.get(`${eventId}|${distNorm}|${r.pos}`) ?? 0;
           // Fall back to name when pos key is ambiguous (tied positions)
-          id = posId > 0 ? posId : (resultLookup.get(`${eventId}|${distNorm}|${normalizeName(r.name)}`) ?? 0);
+          id =
+            posId > 0
+              ? posId
+              : (resultLookup.get(
+                  `${eventId}|${distNorm}|${normalizeName(r.name)}`,
+                ) ?? 0);
         } else {
-          id = resultLookup.get(`${eventId}|${distNorm}|${normalizeName(r.name)}|${r.team}`) ?? 0;
+          id =
+            resultLookup.get(
+              `${eventId}|${distNorm}|${normalizeName(r.name)}|${r.team}`,
+            ) ?? 0;
         }
-        if (r.athleteId !== id) { r.athleteId = id; changed = true; }
+
+        if (r.athleteId !== id) {
+          r.athleteId = id;
+          changed = true;
+        }
       }
     }
-    if (changed) injectedEvents++;
+
+    if (changed) {
+      injectedEvents++;
+    }
   }
+
   return injectedEvents;
 }

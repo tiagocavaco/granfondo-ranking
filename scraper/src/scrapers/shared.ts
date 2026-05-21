@@ -1,4 +1,8 @@
-import { timeToSeconds, normalizeCountry, fixRawTeamName } from "../normalize.js";
+import {
+  timeToSeconds,
+  normalizeCountry,
+  fixRawTeamName,
+} from "../normalize.js";
 import type { StoredResult } from "@granfondo/database/types";
 
 export const BROWSER_UA =
@@ -15,21 +19,26 @@ export async function fetchWithRetry(
   let lastErr: unknown;
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     if (attempt > 0) {
-      const delay = (2 ** (attempt - 1)) * 1000 + Math.random() * 500;
-      console.warn(`  ↻ retry ${attempt}/${maxRetries} in ${Math.round(delay)}ms — ${url}`);
+      const delay = 2 ** (attempt - 1) * 1000 + Math.random() * 500;
+      console.warn(
+        `  ↻ retry ${attempt}/${maxRetries} in ${Math.round(delay)}ms — ${url}`,
+      );
       await new Promise((r) => setTimeout(r, delay));
     }
+
     try {
       const res = await fetch(url, init);
       if (!res.ok && RETRYABLE.has(res.status)) {
         lastErr = new Error(`HTTP ${res.status}: ${url}`);
         continue;
       }
+
       return res;
     } catch (err) {
       lastErr = err;
     }
   }
+
   throw lastErr;
 }
 
@@ -45,7 +54,10 @@ export function msToHHMMSS(ms: number): string {
 /** Pad single-digit hours: "3:29:24" → "03:29:24", "03:29:24" unchanged */
 function padHHMMSS(t: string): string {
   const parts = t.split(":");
-  if (parts.length !== 3) return t;
+  if (parts.length !== 3) {
+    return t;
+  }
+
   return [parseInt(parts[0]!), parts[1], parts[2]]
     .map((v, i) => (i === 0 ? String(v).padStart(2, "0") : v))
     .join(":");
@@ -112,5 +124,7 @@ export function decodeHtmlEntities(s: string): string {
     .replace(/&#39;/g, "'")
     .replace(/&nbsp;/g, " ")
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
-    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)));
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) =>
+      String.fromCharCode(parseInt(h, 16)),
+    );
 }

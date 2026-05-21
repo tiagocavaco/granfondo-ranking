@@ -15,21 +15,32 @@ export default function EventDetail() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) {
+      return;
+    }
+
     setLoading(true);
     api
       .getEvents()
       .then((events) => {
         const found = events.find((e) => e.id === Number(id));
-        if (!found) throw new Error("Event not found");
+        if (!found) {
+          throw new Error("Event not found");
+        }
+
         setEvent(found);
       })
       .catch((e: unknown) => setError(String(e)))
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <Spinner />;
-  if (error || !event) return <ErrorBanner>{error ?? "Event not found"}</ErrorBanner>;
+  if (loading) {
+    return <Spinner />;
+  }
+
+  if (error || !event) {
+    return <ErrorBanner>{error ?? "Event not found"}</ErrorBanner>;
+  }
 
   const isPast = new Date(event.date + "T12:00:00") < new Date();
   const date = new Date(event.date + "T00:00:00").toLocaleDateString("en-GB", {
@@ -67,26 +78,40 @@ export default function EventDetail() {
             <span className="text-blue-300 text-xs font-medium">📅 {date}</span>
             <div className="hidden sm:flex gap-2 ml-auto">
               {!isPast && event.participantCount > 0 && (
-                <Link to={`/event/${event.id}/predictions`}
-                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/30 hover:bg-amber-400/30 transition-colors">
+                <Link
+                  to={`/event/${event.id}/predictions`}
+                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/30 hover:bg-amber-400/30 transition-colors"
+                >
                   Predictions ✦
                 </Link>
               )}
               {!isPast && (event.officialUrl ?? event.resultsUrl) && (
-                <a href={event.officialUrl ?? event.resultsUrl} target="_blank" rel="noopener noreferrer"
-                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors">
+                <a
+                  href={event.officialUrl ?? event.resultsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
+                >
                   Official Page ↗
                 </a>
               )}
               {isPast && event.officialUrl && (
-                <a href={event.officialUrl} target="_blank" rel="noopener noreferrer"
-                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors">
+                <a
+                  href={event.officialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
+                >
                   Official Page ↗
                 </a>
               )}
               {isPast && event.resultsUrl && (
-                <a href={event.resultsUrl} target="_blank" rel="noopener noreferrer"
-                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors">
+                <a
+                  href={event.resultsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
+                >
                   Official Results ↗
                 </a>
               )}
@@ -106,13 +131,23 @@ export default function EventDetail() {
             {event.hasResults && event.finisherCount > 0 && (
               <span className="flex items-center gap-1.5">
                 <span>🏁</span>
-                <span><strong className="text-white">{event.finisherCount.toLocaleString()}</strong> finishers</span>
+                <span>
+                  <strong className="text-white">
+                    {event.finisherCount.toLocaleString()}
+                  </strong>{" "}
+                  finishers
+                </span>
               </span>
             )}
             {!event.hasResults && event.participantCount > 0 && (
               <span className="flex items-center gap-1.5">
                 <span>📋</span>
-                <span><strong className="text-white">{event.participantCount.toLocaleString()}</strong> participants</span>
+                <span>
+                  <strong className="text-white">
+                    {event.participantCount.toLocaleString()}
+                  </strong>{" "}
+                  participants
+                </span>
               </span>
             )}
           </div>
@@ -123,9 +158,9 @@ export default function EventDetail() {
               {event.distances.map((d) => (
                 <span
                   key={d.id}
-                  className={`shrink-0 text-xs px-3 py-1 rounded-full font-semibold ${
-                    distBadgeClassBordered(d.name)
-                  }`}
+                  className={`shrink-0 text-xs px-3 py-1 rounded-full font-semibold ${distBadgeClassBordered(
+                    d.name,
+                  )}`}
                 >
                   {d.name}
                 </span>
@@ -139,64 +174,80 @@ export default function EventDetail() {
               {event.hasResults && event.finisherCount > 0 && (
                 <span className="flex items-center gap-1.5">
                   <span>🏁</span>
-                  <span><strong className="text-white">{event.finisherCount.toLocaleString()}</strong> finishers</span>
+                  <span>
+                    <strong className="text-white">
+                      {event.finisherCount.toLocaleString()}
+                    </strong>{" "}
+                    finishers
+                  </span>
                 </span>
               )}
               {!event.hasResults && event.participantCount > 0 && (
                 <span className="flex items-center gap-1.5">
                   <span>📋</span>
-                  <span><strong className="text-white">{event.participantCount.toLocaleString()}</strong> participants</span>
+                  <span>
+                    <strong className="text-white">
+                      {event.participantCount.toLocaleString()}
+                    </strong>{" "}
+                    participants
+                  </span>
                 </span>
               )}
             </div>
           </div>
 
           <div className="flex sm:hidden gap-2 mt-1">
-              {!isPast && event.participantCount > 0 && (
-                <Link
-                  to={`/event/${event.id}/predictions`}
-                  className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/30 hover:bg-amber-400/30 transition-colors"
-                >
-                  Predictions ✦
-                </Link>
-              )}
-              {!isPast && (event.officialUrl ?? event.resultsUrl) && (
-                <a
-                  href={event.officialUrl ?? event.resultsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
-                >
-                  Official Page ↗
-                </a>
-              )}
-              {isPast && event.officialUrl && (
-                <a
-                  href={event.officialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
-                >
-                  Official Page ↗
-                </a>
-              )}
-              {isPast && event.resultsUrl && (
-                <a
-                  href={event.resultsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
-                >
-                  Official Results ↗
-                </a>
-              )}
-            </div>
+            {!isPast && event.participantCount > 0 && (
+              <Link
+                to={`/event/${event.id}/predictions`}
+                className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/30 hover:bg-amber-400/30 transition-colors"
+              >
+                Predictions ✦
+              </Link>
+            )}
+            {!isPast && (event.officialUrl ?? event.resultsUrl) && (
+              <a
+                href={event.officialUrl ?? event.resultsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
+              >
+                Official Page ↗
+              </a>
+            )}
+            {isPast && event.officialUrl && (
+              <a
+                href={event.officialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
+              >
+                Official Page ↗
+              </a>
+            )}
+            {isPast && event.resultsUrl && (
+              <a
+                href={event.resultsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
+              >
+                Official Results ↗
+              </a>
+            )}
+          </div>
         </div>
       </div>
 
-      {isPast && event.hasResults
-        ? <ResultsTab eventId={event.id} distances={event.distances} resultsUrl={event.resultsUrl} />
-        : <ParticipantsTab eventId={event.id} />}
+      {isPast && event.hasResults ? (
+        <ResultsTab
+          eventId={event.id}
+          distances={event.distances}
+          resultsUrl={event.resultsUrl}
+        />
+      ) : (
+        <ParticipantsTab eventId={event.id} />
+      )}
     </div>
   );
 }
