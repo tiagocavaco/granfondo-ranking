@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { countryFlag } from "@granfondo/database/normalize";
 
 type Member = {
@@ -84,16 +84,20 @@ export function TeamMemberList({ members }: { members: Member[] }) {
                   onClick={() => navigate(`/athlete/${m.id}`)}
                   className="hover:bg-slate-50/60 cursor-pointer transition-colors"
                 >
-                  <td className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors">
+                  <td className="px-4 py-3">
                     <div className="min-w-0">
-                      <div className="flex items-center gap-1.5">
+                      <Link
+                        to={`/athlete/${m.id}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex items-center gap-1.5 font-semibold text-slate-900 hover:text-blue-600 transition-colors"
+                      >
                         {m.country && (
                           <span className="shrink-0" title={m.country}>
                             {countryFlag(m.country)}
                           </span>
                         )}
                         <span className="truncate">{m.name}</span>
-                      </div>
+                      </Link>
                       {m.category && (
                         <div className="sm:hidden text-xs font-normal text-slate-400 mt-0.5">
                           {m.category}
