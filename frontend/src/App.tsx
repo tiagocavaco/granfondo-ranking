@@ -15,7 +15,7 @@ import AthleteProfile from "./components/athletes/AthleteProfile";
 import AthletesPage from "./components/athletes/AthletesPage";
 import TeamProfile from "./components/team-ranking/TeamProfile";
 import ComparisonPage from "./components/comparison/ComparisonPage";
-import RankingInfoPage from "./components/shared/RankingInfoPage";
+import RankingInfoPage from "./components/athlete-ranking/RankingInfoPage";
 import PredictionsPage from "./components/predictions/PredictionsPage";
 import PredictionsInfoPage from "./components/predictions/PredictionsInfoPage";
 import { api, setGetDb } from "@granfondo/api";
