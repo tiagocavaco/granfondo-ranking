@@ -57,8 +57,8 @@ Components live under `src/components/` grouped by route:
 ```
 events/           EventList, EventCard, EventDetail, ResultsTab, ParticipantsTab
 athletes/         AthletesPage, AthleteProfile, CareerHighlights, PerformanceChart
-athlete-ranking/  AggregateRankingPage, AggregateRankingPodium, AggregateRankingTable, RankingInfoPage
-team-ranking/     TeamRankingPage, TeamProfile, TeamMemberList
+athlete-ranking/  AggregateRankingPage, AggregateRankingPodium, AggregateRankingTable, AthleteRankingInfoPage
+team-ranking/     TeamRankingPage, TeamProfile, TeamMemberList, TeamRankingInfoPage
 comparison/       ComparisonPage, ComparisonHeroCard, HeadToHeadChart, SharedEventsTable
 predictions/      PredictionsPage, PredictionsInfoPage
 shared/           Spinner, ErrorBanner, TeamLink, RankBadge, SegmentedControl,
@@ -86,7 +86,8 @@ shared/           Spinner, ErrorBanner, TeamLink, RankBadge, SegmentedControl,
 | `HeadToHeadChart` | — | Recharts scatter plot inside ComparisonPage |
 | `SharedEventsTable` | — | Shared events table inside ComparisonPage |
 | `PredictionsPage` | `/event/:id/predictions` | Start-list predictions for upcoming event |
-| `RankingInfoPage` | `/ranking-info`, `/teams-info` | Rules explanation (mode prop switches content) |
+| `AthleteRankingInfoPage` | `/ranking-info` | Athlete ranking rules — points table, coefficient, scoring rules |
+| `TeamRankingInfoPage` | `/teams-info` | Team ranking rules — points table, coefficient, scoring rules |
 
 ## TeamProfile member list
 
