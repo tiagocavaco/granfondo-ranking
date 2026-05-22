@@ -399,24 +399,26 @@ export default function TeamProfile() {
                         <div className="flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-1.5">
                           {r.athletes
                             .filter((a) => a.scoring)
-                            .map((a, i) => (
-                              <button
-                                key={i}
-                                onClick={() => {
-                                  if (a.id) {
-                                    navigate(`/athlete/${a.id}`);
-                                  }
-                                }}
-                                className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium transition-colors ${
-                                  a.id
-                                    ? "cursor-pointer hover:bg-blue-50 hover:text-blue-700"
-                                    : "cursor-default"
-                                } ${i === 0 ? "bg-amber-50 text-amber-700" : i === 1 ? "bg-slate-100 text-slate-600" : "bg-orange-50 text-orange-600"}`}
-                              >
-                                <span className="opacity-60">#{a.pos}</span>{" "}
-                                {a.name}
-                              </button>
-                            ))}
+                            .map((a, i) =>
+                              a.id ? (
+                                <Link
+                                  key={i}
+                                  to={`/athlete/${a.id}`}
+                                  className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium transition-colors hover:bg-blue-50 hover:text-blue-700 ${i === 0 ? "bg-amber-50 text-amber-700" : i === 1 ? "bg-slate-100 text-slate-600" : "bg-orange-50 text-orange-600"}`}
+                                >
+                                  <span className="opacity-60">#{a.pos}</span>{" "}
+                                  {a.name}
+                                </Link>
+                              ) : (
+                                <span
+                                  key={i}
+                                  className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium ${i === 0 ? "bg-amber-50 text-amber-700" : i === 1 ? "bg-slate-100 text-slate-600" : "bg-orange-50 text-orange-600"}`}
+                                >
+                                  <span className="opacity-60">#{a.pos}</span>{" "}
+                                  {a.name}
+                                </span>
+                              )
+                            )}
                         </div>
                       </div>
                     ))}

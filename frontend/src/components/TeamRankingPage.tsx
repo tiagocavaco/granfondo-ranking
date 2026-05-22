@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
@@ -10,7 +10,6 @@ import { rankLabel } from "../utils/rankLabel";
 
 
 export default function TeamRankingPage() {
-  const navigate = useNavigate();
   const [data, setData] = useState<TeamRanking | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -182,12 +181,12 @@ export default function TeamRankingPage() {
                     <div className="text-2xl sm:text-4xl mb-1 sm:mb-2">
                       {t.rank === 1 ? "🥇" : t.rank === 2 ? "🥈" : "🥉"}
                     </div>
-                    <div
-                      className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-2 sm:mb-3 line-clamp-2 hover:text-blue-700 transition-colors cursor-pointer"
-                      onClick={() => navigate(`/team/${t.teamId}`)}
+                    <Link
+                      to={`/team/${t.teamId}`}
+                      className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-2 sm:mb-3 line-clamp-2 hover:text-blue-700 transition-colors block"
                     >
                       {t.team}
-                    </div>
+                    </Link>
                     <div
                       className={`text-lg sm:text-2xl font-black ${isFirst ? "text-amber-600" : "text-slate-700"}`}
                     >
@@ -250,15 +249,13 @@ export default function TeamRankingPage() {
                         <RankBadge rank={t.rank} />
                       </td>
                       <td className="px-4 py-3">
-                        <span
-                          className="font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(`/team/${t.teamId}`);
-                          }}
+                        <Link
+                          to={`/team/${t.teamId}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="font-semibold text-slate-900 hover:text-blue-600 transition-colors"
                         >
                           {t.team}
-                        </span>
+                        </Link>
                       </td>
                       <td className="px-4 py-3 text-center text-slate-600 font-medium hidden sm:table-cell">
                         {t.eventsScored}
@@ -344,16 +341,18 @@ export default function TeamRankingPage() {
                                         >
                                           {i + 1}
                                         </span>
-                                        <span
-                                          className="font-medium text-slate-700 hover:text-blue-600 transition-colors cursor-pointer"
-                                          onClick={() => {
-                                            if (a.id) {
-                                              navigate(`/athlete/${a.id}`);
-                                            }
-                                          }}
-                                        >
-                                          {a.name}
-                                        </span>
+                                        {a.id ? (
+                                          <Link
+                                            to={`/athlete/${a.id}`}
+                                            className="font-medium text-slate-700 hover:text-blue-600 transition-colors"
+                                          >
+                                            {a.name}
+                                          </Link>
+                                        ) : (
+                                          <span className="font-medium text-slate-700">
+                                            {a.name}
+                                          </span>
+                                        )}
                                         <span className="text-slate-400 ml-auto">
                                           pos #{a.pos}
                                         </span>

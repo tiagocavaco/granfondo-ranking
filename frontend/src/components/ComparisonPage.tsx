@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import {
   ResponsiveContainer,
   LineChart,
@@ -374,12 +374,12 @@ export default function ComparisonPage() {
                     <span className="text-sm">
                       {countryFlag(data.results[0]?.country ?? "")}
                     </span>
-                    <span
-                      className="font-extrabold text-slate-900 hover:underline cursor-pointer text-sm sm:text-base"
-                      onClick={() => navigate(`/athlete/${data.id}`)}
+                    <Link
+                      to={`/athlete/${data.id}`}
+                      className="font-extrabold text-slate-900 hover:underline text-sm sm:text-base"
                     >
                       {data.name}
-                    </span>
+                    </Link>
                   </div>
                   {data.canonicalTeam && (
                     <p className="text-xs text-slate-400 mb-3 truncate">
@@ -568,14 +568,12 @@ export default function ComparisonPage() {
                                 className="hover:bg-slate-50/60 transition-colors"
                               >
                                 <td className="px-4 py-3">
-                                  <span
-                                    className="font-semibold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
-                                    onClick={() =>
-                                      navigate(`/event/${p.a.eventId}`)
-                                    }
+                                  <Link
+                                    to={`/event/${p.a.eventId}`}
+                                    className="font-semibold text-slate-900 hover:text-blue-600 transition-colors"
                                   >
                                     {p.a.eventName}
-                                  </span>
+                                  </Link>
                                   <div className="text-xs text-slate-400">
                                     {p.a.eventDate}
                                   </div>

@@ -387,12 +387,12 @@ export default function PredictionsPage() {
 
   return (
     <div>
-      <button
-        onClick={() => navigate(`/event/${id}`)}
+      <Link
+        to={`/event/${id}`}
         className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
       >
         ← Back to event
-      </button>
+      </Link>
 
       {/* Hero */}
       <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-900 rounded-2xl px-5 py-5 mb-6 text-white">
