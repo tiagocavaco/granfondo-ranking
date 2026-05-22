@@ -1,8 +1,8 @@
 import { eq, inArray, sql } from "drizzle-orm";
 import * as schema from "@granfondo/database/schema";
-import { getDb } from "../db/db-client";
+import { getDb } from "./db.js";
 import { normalizeTeam } from "@granfondo/database/normalize";
-import { buildCountryMap } from "../utils/athlete";
+import { buildCountryMap } from "./athlete.js";
 
 function safeJsonArray<T>(json: string): T[] {
   try {
@@ -39,17 +39,13 @@ export async function getTeamById(id: number): Promise<TeamDetail | null> {
     .from(schema.teams)
     .where(eq(schema.teams.id, id))
     .get();
-  if (!teamRow) {
-    return null;
-  }
-
+  if (!teamRow) return null;
   return getTeamByKey(teamRow.canonicalKey);
 }
 
 export async function getTeamByKey(teamKey: string): Promise<TeamDetail | null> {
   const db = await getDb();
 
-  // Resolve alias and collect all keys for this team (canonical + aliases) in one row
   const teamRow = db
     .select()
     .from(schema.teams)
@@ -74,9 +70,7 @@ export async function getTeamByKey(teamKey: string): Promise<TeamDetail | null> 
     .where(teamRow ? eq(schema.athleteTeams.teamId, teamRow.id) : sql`0`)
     .all();
 
-  if (memberRows.length === 0) {
-    return null;
-  }
+  if (memberRows.length === 0) return null;
 
   const ownKeys = new Set(allTeamKeys);
   const displayName =
@@ -114,21 +108,16 @@ export async function getTeamByKey(teamKey: string): Promise<TeamDetail | null> 
     allTeamKeySet.has(normalizeTeam(r.team)),
   );
 
-  // Per-athlete most-frequent category across their 3 most recent races for this team
   const countryMap = buildCountryMap(teamResults);
   const recentByAthlete = new Map<
     number,
     { date: string; category: string }[]
   >();
   for (const r of teamResults) {
-    if (!r.category) {
-      continue;
-    }
-
+    if (!r.category) continue;
     if (!recentByAthlete.has(r.athleteId)) {
       recentByAthlete.set(r.athleteId, []);
     }
-
     recentByAthlete
       .get(r.athleteId)!
       .push({ date: r.eventDate, category: r.category });
@@ -143,7 +132,6 @@ export async function getTeamByKey(teamKey: string): Promise<TeamDetail | null> 
       for (const { category } of recent) {
         freq.set(category, (freq.get(category) ?? 0) + 1);
       }
-
       return [id, [...freq.entries()].sort((a, b) => b[1] - a[1])[0]![0]];
     }),
   );
@@ -163,7 +151,6 @@ export async function getTeamByKey(teamKey: string): Promise<TeamDetail | null> 
         athletes: [],
       });
     }
-
     eventMap.get(key)!.athletes.push({
       id: r.athleteId,
       name: nameById.get(r.athleteId) ?? "",

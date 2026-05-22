@@ -1,7 +1,7 @@
 import { asc } from "drizzle-orm";
 import * as schema from "@granfondo/database/schema";
-import { getDb } from "../db/db-client";
-import { buildMostFrequentCountryMap } from "../utils/athlete";
+import { getDb } from "./db.js";
+import { buildMostFrequentCountryMap } from "./athlete.js";
 import type {
   AggregateRanking,
   AggregateAthlete,
@@ -31,7 +31,6 @@ export async function getAggregateRanking(): Promise<AggregateRanking> {
     if (!resultsByAthlete.has(ar.aggregateAthleteId)) {
       resultsByAthlete.set(ar.aggregateAthleteId, []);
     }
-
     resultsByAthlete.get(ar.aggregateAthleteId)!.push({
       eventId: ar.eventId,
       eventName: ar.eventName,
@@ -44,15 +43,8 @@ export async function getAggregateRanking(): Promise<AggregateRanking> {
     });
   }
 
-  // Use canonical name and all-time most-frequent country from the athletes table
-  // and athlete_results. The stored values in aggregate_athletes come from whichever
-  // raw result was processed first (name) or only from scoring results in that year
-  // (country), both of which can be wrong.
   const athleteRows = db
-    .select({
-      id: schema.athletes.id,
-      name: schema.athletes.name,
-    })
+    .select({ id: schema.athletes.id, name: schema.athletes.name })
     .from(schema.athletes)
     .all();
   const athleteNameMap = new Map<number, string>(
@@ -71,14 +63,8 @@ export async function getAggregateRanking(): Promise<AggregateRanking> {
   const ranking: AggregateRanking = {};
   for (const row of rows) {
     const y = String(row.year);
-    if (!ranking[y]) {
-      ranking[y] = {};
-    }
-
-    if (!ranking[y][row.distance]) {
-      ranking[y][row.distance] = {};
-    }
-
+    if (!ranking[y]) ranking[y] = {};
+    if (!ranking[y][row.distance]) ranking[y][row.distance] = {};
     if (!ranking[y][row.distance][row.gender]) {
       ranking[y][row.distance][row.gender] = [];
     }
@@ -121,7 +107,6 @@ export async function getTeamRanking(): Promise<TeamRanking> {
     if (!athletesByResult.has(tra.teamRaceResultId)) {
       athletesByResult.set(tra.teamRaceResultId, []);
     }
-
     athletesByResult.get(tra.teamRaceResultId)!.push({
       id: tra.athleteId,
       name: tra.name,
@@ -137,7 +122,6 @@ export async function getTeamRanking(): Promise<TeamRanking> {
     if (!resultsByRanking.has(trr.teamRankingId)) {
       resultsByRanking.set(trr.teamRankingId, []);
     }
-
     resultsByRanking.get(trr.teamRankingId)!.push({
       eventId: trr.eventId,
       eventName: trr.eventName,
@@ -156,13 +140,8 @@ export async function getTeamRanking(): Promise<TeamRanking> {
   const ranking: TeamRanking = {};
   for (const row of rows) {
     const y = String(row.year);
-    if (!ranking[y]) {
-      ranking[y] = {};
-    }
-
-    if (!ranking[y][row.distance]) {
-      ranking[y][row.distance] = [];
-    }
+    if (!ranking[y]) ranking[y] = {};
+    if (!ranking[y][row.distance]) ranking[y][row.distance] = [];
 
     const entry: TeamEntry = {
       rank: row.rank,

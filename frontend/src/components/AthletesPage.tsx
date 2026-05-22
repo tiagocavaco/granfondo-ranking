@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { api } from "../api";
+import { api } from "@granfondo/api";
 import { Spinner } from "./EventList";
 import { countryFlag } from "@granfondo/database/normalize";
 

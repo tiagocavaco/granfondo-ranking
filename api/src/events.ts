@@ -1,6 +1,6 @@
 import { eq, desc, sql } from "drizzle-orm";
 import * as schema from "@granfondo/database/schema";
-import { getDb } from "../db/db-client";
+import { getDb } from "./db.js";
 import type { StoredEvent } from "@granfondo/database/types";
 
 export async function getEvents(): Promise<StoredEvent[]> {
@@ -23,7 +23,6 @@ export async function getEvents(): Promise<StoredEvent[]> {
     if (!distByEvent.has(d.eventId)) {
       distByEvent.set(d.eventId, []);
     }
-
     distByEvent.get(d.eventId)!.push({ id: d.id, name: d.name });
   }
 
@@ -57,7 +56,6 @@ export async function getStats(): Promise<{
   if (!row) {
     return { uniqueAthletes: 0, uniqueByYear: {}, scrapedAt: "" };
   }
-
   return JSON.parse(row.value) as {
     uniqueAthletes: number;
     uniqueByYear: Record<string, number>;

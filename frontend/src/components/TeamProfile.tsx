@@ -1,27 +1,14 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { api } from "../api";
+import { api } from "@granfondo/api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
-import { countryFlag } from "@granfondo/database/normalize";
 import { distBadgeClass } from "../utils/distance";
 import { DISTANCES } from "@granfondo/utils/distance";
+import { TeamMemberList } from "./shared/TeamMemberList";
+import { Stat } from "./shared/Stat";
+import { rankLabel } from "../utils/rankLabel";
 
-function rankBadge(rank: number) {
-  if (rank === 1) {
-    return "🥇";
-  }
-
-  if (rank === 2) {
-    return "🥈";
-  }
-
-  if (rank === 3) {
-    return "🥉";
-  }
-
-  return `#${rank}`;
-}
 
 export default function TeamProfile() {
   const { teamId: teamIdParam } = useParams<{ teamId: string }>();
@@ -112,8 +99,6 @@ export default function TeamProfile() {
   }, [seasons, detailSeasons]);
 
   const [selectedSeason, setSelectedSeason] = useState<string>("");
-  const [membersSearch, setMembersSearch] = useState("");
-  const [membersExpanded, setMembersExpanded] = useState(false);
   const effectiveSeason = selectedSeason || allSeasons[0] || "";
 
   // All athletes who raced for this team in the selected season.
@@ -346,124 +331,9 @@ export default function TeamProfile() {
       )}
 
       {/* Members */}
-      {effectiveMembers.length > 0 &&
-        (() => {
-          const searchTerm = membersSearch.trim().toLowerCase();
-          const filtered = searchTerm
-            ? effectiveMembers.filter(
-                (m) =>
-                  m.name.toLowerCase().includes(searchTerm) ||
-                  m.category.toLowerCase().includes(searchTerm),
-              )
-            : effectiveMembers;
-          const LIMIT = 10;
-          const showExpand =
-            !membersExpanded && !searchTerm && filtered.length > LIMIT;
-          const visible = showExpand ? filtered.slice(0, LIMIT) : filtered;
-          return (
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-3">
-                <h2 className="text-lg font-bold text-slate-800">
-                  Members{" "}
-                  <span className="text-slate-400 font-normal text-sm">
-                    ({effectiveMembers.length})
-                  </span>
-                </h2>
-                <input
-                  type="search"
-                  value={membersSearch}
-                  onChange={(e) => {
-                    setMembersSearch(e.target.value);
-                    setMembersExpanded(false);
-                  }}
-                  placeholder="Search name or category…"
-                  className="w-48 sm:w-56 px-3 py-1.5 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600 placeholder-slate-400"
-                />
-              </div>
-              <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
-                <table className="w-full text-sm table-fixed">
-                  <colgroup>
-                    <col />
-                    <col className="hidden sm:table-column w-28" />
-                    <col className="w-12 sm:w-20" />
-                    <col className="w-20 sm:w-28" />
-                  </colgroup>
-                  <thead>
-                    <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                      <th className="px-4 py-3 text-left">Athlete</th>
-                      <th className="px-4 py-3 text-left hidden sm:table-cell">
-                        Category
-                      </th>
-                      <th className="px-2 sm:px-4 py-3 text-center">Races</th>
-                      <th className="px-2 sm:px-4 py-3 text-center">Podiums</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {visible.length === 0 ? (
-                      <tr>
-                        <td
-                          colSpan={4}
-                          className="px-4 py-6 text-center text-sm text-slate-400"
-                        >
-                          No members match
-                        </td>
-                      </tr>
-                    ) : (
-                      visible.map((m) => (
-                        <tr
-                          key={m.id}
-                          onClick={() => navigate(`/athlete/${m.id}`)}
-                          className="hover:bg-slate-50/60 cursor-pointer transition-colors"
-                        >
-                          <td className="px-4 py-3 font-semibold text-slate-900 hover:text-blue-600 transition-colors">
-                            <div className="min-w-0">
-                              <div className="flex items-center gap-1.5">
-                                {m.country && (
-                                  <span className="shrink-0" title={m.country}>
-                                    {countryFlag(m.country)}
-                                  </span>
-                                )}
-                                <span className="truncate">{m.name}</span>
-                              </div>
-                              {m.category && (
-                                <div className="sm:hidden text-xs font-normal text-slate-400 mt-0.5">
-                                  {m.category}
-                                </div>
-                              )}
-                            </div>
-                          </td>
-                          <td className="px-4 py-3 text-xs text-slate-400 hidden sm:table-cell">
-                            {m.category}
-                          </td>
-                          <td className="px-2 sm:px-4 py-3 text-center text-slate-600 font-medium">
-                            {m.races}
-                          </td>
-                          <td className="px-2 sm:px-4 py-3 text-center">
-                            {m.podiums > 0 ? (
-                              <span className="font-semibold text-amber-600">
-                                {m.podiums}
-                              </span>
-                            ) : (
-                              <span className="text-slate-300">—</span>
-                            )}
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-                {showExpand && (
-                  <button
-                    onClick={() => setMembersExpanded(true)}
-                    className="w-full py-3 text-sm text-blue-600 hover:text-blue-800 font-medium border-t border-slate-100 hover:bg-slate-50 transition-colors"
-                  >
-                    Show all {filtered.length} members ↓
-                  </button>
-                )}
-              </div>
-            </div>
-          );
-        })()}
+      {effectiveMembers.length > 0 && (
+        <TeamMemberList members={effectiveMembers} />
+      )}
 
       {/* Results for selected season */}
       {(seasonEntries.length > 0 || nonQualifyingEvents.length > 0) && (
@@ -487,7 +357,7 @@ export default function TeamProfile() {
                     <span>
                       Best rank{" "}
                       <strong className="text-slate-700">
-                        {rankBadge(entry.bestRank)}
+                        {rankLabel(entry.bestRank)}
                       </strong>
                     </span>
                     <span>{entry.eventsScored} events</span>
@@ -516,7 +386,7 @@ export default function TeamProfile() {
                           </div>
                           <div className="flex items-center gap-2 shrink-0 text-xs">
                             <span className="font-semibold text-slate-700">
-                              {rankBadge(r.teamRank)}
+                              {rankLabel(r.teamRank)}
                             </span>
                             <span className="text-slate-400">
                               {r.basePoints}×{r.coefficient}
@@ -631,23 +501,3 @@ export default function TeamProfile() {
   );
 }
 
-function Stat({
-  label,
-  value,
-  highlight,
-}: {
-  label: string;
-  value: string | number;
-  highlight?: boolean;
-}) {
-  return (
-    <div className="flex-1 sm:flex-none text-center bg-white/10 rounded-xl px-4 py-2 border border-white/10">
-      <div
-        className={`text-xl font-extrabold ${highlight ? "text-amber-400" : "text-white"}`}
-      >
-        {value}
-      </div>
-      <div className="text-xs text-blue-300 font-medium mt-0.5">{label}</div>
-    </div>
-  );
-}

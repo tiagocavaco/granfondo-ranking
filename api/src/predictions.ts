@@ -1,8 +1,8 @@
 import { eq, and, inArray, asc, sql } from "drizzle-orm";
 import * as schema from "@granfondo/database/schema";
-import { getDb } from "../db/db-client";
+import { getDb } from "./db.js";
 import { isFemaleCategory } from "@granfondo/utils/category";
-import { buildCountryMap } from "../utils/athlete";
+import { buildCountryMap } from "./athlete.js";
 import {
   predictionDistCoeff,
   predictionYearCoeff,
@@ -41,10 +41,7 @@ function computeWeightedScore(
   entries: DistYearEntry[] | undefined,
   currentYear: number,
 ): number {
-  if (!entries) {
-    return 0;
-  }
-
+  if (!entries) return 0;
   let total = 0;
   for (const { distance, year, pts } of entries) {
     total +=
@@ -52,7 +49,6 @@ function computeWeightedScore(
       predictionDistCoeff(registeredDist, distance) *
       predictionYearCoeff(year, currentYear);
   }
-
   return total;
 }
 
@@ -62,7 +58,6 @@ export async function getPredictions(
   const db = await getDb();
   const currentYear = new Date().getFullYear();
 
-  // Linked participants — no scoring join needed here; scores computed separately
   const linkedRows = db
     .select({
       athleteId: schema.participants.athleteId,
@@ -80,7 +75,6 @@ export async function getPredictions(
     )
     .all();
 
-  // Newcomer counts per (distance, category) — unlinked registrations
   const newcomerRows = db
     .select({
       distance: schema.participants.distance,
@@ -97,10 +91,8 @@ export async function getPredictions(
     .groupBy(schema.participants.distance, schema.participants.category)
     .all();
 
-  // Main distance per linked athlete (highest-scoring distance historically)
   const linkedIds = [...new Set(linkedRows.map((r) => r.athleteId))];
 
-  // Race count per athlete (actual individual races, not ranking buckets)
   const raceCountMap = new Map<number, number>();
   if (linkedIds.length > 0) {
     const raceCountRows = db
@@ -117,7 +109,6 @@ export async function getPredictions(
     }
   }
 
-  // Points per (athleteId, distance, year) — used for weighted score + main-distance badge
   const ptsByAthlete = new Map<number, DistYearEntry[]>();
   const mainDistPts = new Map<number, { dist: string; pts: number }>();
   if (linkedIds.length > 0) {
@@ -137,13 +128,9 @@ export async function getPredictions(
       )
       .all();
 
-    // Accumulate total pts per distance across all years for main-distance badge
     const mainDistAccum = new Map<number, Map<string, number>>();
     for (const r of ptsByDistRows) {
-      if (!ptsByAthlete.has(r.athleteId)) {
-        ptsByAthlete.set(r.athleteId, []);
-      }
-
+      if (!ptsByAthlete.has(r.athleteId)) ptsByAthlete.set(r.athleteId, []);
       ptsByAthlete
         .get(r.athleteId)!
         .push({ distance: r.distance, year: r.year, pts: r.pts });
@@ -151,7 +138,6 @@ export async function getPredictions(
       if (!mainDistAccum.has(r.athleteId)) {
         mainDistAccum.set(r.athleteId, new Map());
       }
-
       const dm = mainDistAccum.get(r.athleteId)!;
       dm.set(r.distance, (dm.get(r.distance) ?? 0) + r.pts);
     }
@@ -159,18 +145,12 @@ export async function getPredictions(
     for (const [athleteId, dm] of mainDistAccum) {
       let best: { dist: string; pts: number } | null = null;
       for (const [dist, pts] of dm) {
-        if (!best || pts > best.pts) {
-          best = { dist, pts };
-        }
+        if (!best || pts > best.pts) best = { dist, pts };
       }
-
-      if (best) {
-        mainDistPts.set(athleteId, best);
-      }
+      if (best) mainDistPts.set(athleteId, best);
     }
   }
 
-  // Country per athlete — most recent from athlete_results (ascending date = last wins)
   const countryMap = new Map<number, string>();
   if (linkedIds.length > 0) {
     const countryRows = db
@@ -218,29 +198,15 @@ export async function getPredictions(
     };
 
     if (!result[distance]) {
-      result[distance] = {
-        overallMale: null,
-        overallFemale: null,
-        categories: {},
-      };
+      result[distance] = { overallMale: null, overallFemale: null, categories: {} };
     }
-
     const distPreds = result[distance]!;
 
     if (weightedScore > 0) {
-      if (
-        gender === "M" &&
-        (!distPreds.overallMale ||
-          weightedScore > distPreds.overallMale.weightedScore)
-      ) {
+      if (gender === "M" && (!distPreds.overallMale || weightedScore > distPreds.overallMale.weightedScore)) {
         distPreds.overallMale = pred;
       }
-
-      if (
-        gender === "F" &&
-        (!distPreds.overallFemale ||
-          weightedScore > distPreds.overallFemale.weightedScore)
-      ) {
+      if (gender === "F" && (!distPreds.overallFemale || weightedScore > distPreds.overallFemale.weightedScore)) {
         distPreds.overallFemale = pred;
       }
     }
@@ -251,7 +217,6 @@ export async function getPredictions(
         newcomers: newcomerMap.get(`${distance}|${category}`) ?? 0,
       };
     }
-
     if (weightedScore > 0) {
       distPreds.categories[category]!.ranked.push(pred);
     } else {
@@ -259,28 +224,18 @@ export async function getPredictions(
     }
   }
 
-  // Sort each category by weighted score descending
   for (const distPreds of Object.values(result)) {
     for (const catPreds of Object.values(distPreds.categories)) {
       catPreds.ranked.sort((a, b) => b.weightedScore - a.weightedScore);
     }
   }
 
-  // Ensure categories that have only newcomers (zero linked) still appear
   for (const r of newcomerRows) {
     if (!result[r.distance]) {
-      result[r.distance] = {
-        overallMale: null,
-        overallFemale: null,
-        categories: {},
-      };
+      result[r.distance] = { overallMale: null, overallFemale: null, categories: {} };
     }
-
     if (!result[r.distance]!.categories[r.category]) {
-      result[r.distance]!.categories[r.category] = {
-        ranked: [],
-        newcomers: r.cnt,
-      };
+      result[r.distance]!.categories[r.category] = { ranked: [], newcomers: r.cnt };
     }
   }
 

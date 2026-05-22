@@ -1,61 +1,13 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { api } from "../api";
+import { api } from "@granfondo/api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
+import { RankBadge } from "./shared/RankBadge";
+import { SegmentedControl } from "./shared/SegmentedControl";
+import { rankLabel } from "../utils/rankLabel";
 
-function RankBadge({ rank }: { rank: number }) {
-  if (rank === 1) {
-    return (
-      <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 text-white font-black text-base shadow-md">
-        🥇
-      </span>
-    );
-  }
-
-  if (rank === 2) {
-    return (
-      <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-slate-300 to-slate-400 text-white font-black text-base shadow-sm">
-        🥈
-      </span>
-    );
-  }
-
-  if (rank === 3) {
-    return (
-      <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-orange-400 to-orange-500 text-white font-black text-base shadow-sm">
-        🥉
-      </span>
-    );
-  }
-
-  return (
-    <span
-      className={`inline-flex items-center justify-center w-9 h-9 rounded-xl text-xs font-bold ${
-        rank <= 10 ? "bg-blue-50 text-blue-700" : "bg-slate-100 text-slate-500"
-      }`}
-    >
-      {rank}
-    </span>
-  );
-}
-
-function teamRankBadge(rank: number) {
-  if (rank === 1) {
-    return "🥇";
-  }
-
-  if (rank === 2) {
-    return "🥈";
-  }
-
-  if (rank === 3) {
-    return "🥉";
-  }
-
-  return `#${rank}`;
-}
 
 export default function TeamRankingPage() {
   const navigate = useNavigate();
@@ -245,7 +197,7 @@ export default function TeamRankingPage() {
                       pts
                     </div>
                     <div className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 hidden sm:block">
-                      {t.eventsScored} events · best {teamRankBadge(t.bestRank)}
+                      {t.eventsScored} events · best {rankLabel(t.bestRank)}
                     </div>
                   </div>
                 );
@@ -313,7 +265,7 @@ export default function TeamRankingPage() {
                       </td>
                       <td className="px-4 py-3 text-center hidden md:table-cell">
                         <span className="font-semibold text-slate-800">
-                          {teamRankBadge(t.bestRank)}
+                          {rankLabel(t.bestRank)}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right">
@@ -359,7 +311,7 @@ export default function TeamRankingPage() {
                                   </div>
                                   <div className="flex items-center gap-1.5 shrink-0 text-xs">
                                     <span className="font-semibold text-slate-700">
-                                      {teamRankBadge(r.teamRank)}
+                                      {rankLabel(r.teamRank)}
                                     </span>
                                     <span className="text-slate-400">
                                       {r.basePoints}×{r.coefficient}
@@ -446,51 +398,3 @@ export default function TeamRankingPage() {
   );
 }
 
-function SegmentedControl({
-  label,
-  options,
-  value,
-  onChange,
-  colorMap,
-  shortLabelMap,
-}: {
-  label: string;
-  options: string[];
-  value: string;
-  onChange: (v: string) => void;
-  colorMap?: Record<string, { active: string }>;
-  shortLabelMap?: Record<string, string>;
-}) {
-  return (
-    <div className="flex items-center gap-2.5">
-      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
-        {label}
-      </span>
-      <div className="flex flex-1 sm:flex-none rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
-        {options.map((o) => {
-          const shortLabel = shortLabelMap?.[o];
-          return (
-            <button
-              key={o}
-              onClick={() => onChange(o)}
-              className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
-                value === o
-                  ? (colorMap?.[o]?.active ?? "bg-blue-600 text-white")
-                  : "text-slate-600 hover:bg-slate-50"
-              }`}
-            >
-              {shortLabel ? (
-                <>
-                  <span className="sm:hidden">{shortLabel}</span>
-                  <span className="hidden sm:inline">{o}</span>
-                </>
-              ) : (
-                o
-              )}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}

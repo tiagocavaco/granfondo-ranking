@@ -1,15 +1,14 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api } from "../api";
-import { resolveTeamId } from "../utils/lookups";
+import { api } from "@granfondo/api";
 import type { AggregateRanking } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "./EventList";
-import {
-  countryFlag,
-  SOLO_TEAM_KEYS,
-  normalizeTeam,
-} from "@granfondo/database/normalize";
+import { countryFlag } from "@granfondo/database/normalize";
+import { RankBadge } from "./shared/RankBadge";
+import { SegmentedControl } from "./shared/SegmentedControl";
+import { GenderToggle } from "./shared/GenderToggle";
+import { TeamLink } from "./shared/TeamLink";
 
 function pointsBarColor(pts: number, max: number) {
   const pct = pts / max;
@@ -22,42 +21,6 @@ function pointsBarColor(pts: number, max: number) {
   }
 
   return "from-slate-300 to-slate-400";
-}
-
-function RankBadge({ rank }: { rank: number }) {
-  if (rank === 1) {
-    return (
-      <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 text-white font-black text-base shadow-md">
-        🥇
-      </span>
-    );
-  }
-
-  if (rank === 2) {
-    return (
-      <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-slate-300 to-slate-400 text-white font-black text-base shadow-sm">
-        🥈
-      </span>
-    );
-  }
-
-  if (rank === 3) {
-    return (
-      <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-orange-400 to-orange-500 text-white font-black text-base shadow-sm">
-        🥉
-      </span>
-    );
-  }
-
-  return (
-    <span
-      className={`inline-flex items-center justify-center w-9 h-9 rounded-xl text-xs font-bold ${
-        rank <= 10 ? "bg-blue-50 text-blue-700" : "bg-slate-100 text-slate-500"
-      }`}
-    >
-      {rank}
-    </span>
-  );
 }
 
 export default function AggregateRankingPage() {
@@ -268,10 +231,6 @@ export default function AggregateRankingPage() {
               {[topThree[1], topThree[0], topThree[2]].map((a, podiumIdx) => {
                 const realRank = a.rank;
                 const isFirst = realRank === 1;
-                const podiumTeamId =
-                  a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team))
-                    ? resolveTeamId(a.team)
-                    : undefined;
                 return (
                   <div
                     key={a.id}
@@ -298,18 +257,10 @@ export default function AggregateRankingPage() {
                         </span>
                         {a.name}
                       </div>
-                      {podiumTeamId !== undefined ? (
-                        <Link
-                          to={`/team/${podiumTeamId}`}
-                          className="text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block hover:text-blue-600 transition-colors"
-                        >
-                          {a.team}
-                        </Link>
-                      ) : (
-                        <div className="text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block">
-                          {a.team}
-                        </div>
-                      )}
+                      <TeamLink
+                        team={a.team ?? ""}
+                        className="text-[10px] sm:text-xs text-slate-500 mb-2 sm:mb-3 truncate hidden sm:block hover:text-blue-600 transition-colors"
+                      />
                       <div
                         className={`text-lg sm:text-2xl font-black ${
                           isFirst ? "text-amber-600" : "text-slate-700"
@@ -398,46 +349,20 @@ export default function AggregateRankingPage() {
                           </span>
                           {a.name}
                         </Link>
-                        {(() => {
-                          const teamId =
-                            a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team))
-                              ? resolveTeamId(a.team)
-                              : undefined;
-                          return (
-                            <div className="text-xs text-slate-400 lg:hidden mt-0.5 truncate">
-                              {teamId !== undefined ? (
-                                <Link
-                                  to={`/team/${teamId}`}
-                                  onClick={(e) => e.stopPropagation()}
-                                  className="hover:text-blue-600 transition-colors"
-                                >
-                                  {a.team}
-                                </Link>
-                              ) : (
-                                <span>{a.team}</span>
-                              )}
-                            </div>
-                          );
-                        })()}
+                        <div className="text-xs text-slate-400 lg:hidden mt-0.5 truncate">
+                          <TeamLink
+                            team={a.team ?? ""}
+                            onClick={(e) => e.stopPropagation()}
+                            className="hover:text-blue-600 transition-colors"
+                          />
+                        </div>
                       </td>
                       <td className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell whitespace-nowrap">
-                        {(() => {
-                          const teamId =
-                            a.team && !SOLO_TEAM_KEYS.has(normalizeTeam(a.team))
-                              ? resolveTeamId(a.team)
-                              : undefined;
-                          return teamId !== undefined ? (
-                            <Link
-                              to={`/team/${teamId}`}
-                              onClick={(e) => e.stopPropagation()}
-                              className="hover:text-blue-600 transition-colors"
-                            >
-                              {a.team}
-                            </Link>
-                          ) : (
-                            <span>{a.team}</span>
-                          );
-                        })()}
+                        <TeamLink
+                          team={a.team ?? ""}
+                          onClick={(e) => e.stopPropagation()}
+                          className="hover:text-blue-600 transition-colors"
+                        />
                       </td>
                       <td className="px-4 py-3 text-center text-slate-600 font-medium hidden sm:table-cell">
                         {a.eventsScored}
@@ -539,87 +464,3 @@ export default function AggregateRankingPage() {
   );
 }
 
-function GenderToggle({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-}) {
-  return (
-    <div className="flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm shrink-0">
-      {[
-        { v: "M", label: "Men" },
-        { v: "F", label: "Women" },
-      ].map(({ v, label }) => (
-        <button
-          key={v}
-          onClick={() => onChange(v)}
-          className={`px-3 py-1.5 text-sm font-semibold transition-all ${
-            value === v
-              ? v === "M"
-                ? "bg-blue-600 text-white"
-                : "bg-pink-500 text-white"
-              : "text-slate-600 hover:bg-slate-50"
-          }`}
-        >
-          <span className="sm:hidden">{v}</span>
-          <span className="hidden sm:inline">{label}</span>
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function SegmentedControl({
-  label,
-  options,
-  value,
-  onChange,
-  colorMap,
-  labelMap,
-  shortLabelMap,
-}: {
-  label: string;
-  options: string[];
-  value: string;
-  onChange: (v: string) => void;
-  colorMap?: Record<string, { active: string; base: string }>;
-  labelMap?: Record<string, string>;
-  shortLabelMap?: Record<string, string>;
-}) {
-  return (
-    <div className="flex items-center gap-2.5">
-      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
-        {label}
-      </span>
-      <div className="flex flex-1 sm:flex-none rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
-        {options.map((o) => {
-          const colors = colorMap?.[o];
-          const fullLabel = labelMap?.[o] ?? o;
-          const shortLabel = shortLabelMap?.[o];
-          return (
-            <button
-              key={o}
-              onClick={() => onChange(o)}
-              className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
-                value === o
-                  ? (colors?.active ?? "bg-blue-600 text-white")
-                  : `text-slate-600 hover:bg-slate-50 ${colors ? "border-r last:border-r-0 " + colors.base : ""}`
-              }`}
-            >
-              {shortLabel ? (
-                <>
-                  <span className="sm:hidden">{shortLabel}</span>
-                  <span className="hidden sm:inline">{fullLabel}</span>
-                </>
-              ) : (
-                fullLabel
-              )}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}

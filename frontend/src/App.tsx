@@ -18,8 +18,11 @@ import ComparisonPage from "./components/ComparisonPage";
 import RankingInfoPage from "./components/RankingInfoPage";
 import PredictionsPage from "./components/PredictionsPage";
 import PredictionsInfoPage from "./components/PredictionsInfoPage";
-import { api } from "./api";
+import { api, setGetDb } from "@granfondo/api";
+import { getDb } from "./db/db-client";
 import { formatAge } from "./utils/date";
+
+setGetDb(getDb);
 
 const navLink = (isActive: boolean) =>
   `px-2.5 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all whitespace-nowrap ${

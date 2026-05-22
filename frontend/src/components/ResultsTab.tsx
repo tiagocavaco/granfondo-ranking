@@ -1,8 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api } from "../api";
-import { resolveTeamId } from "../utils/lookups";
+import { api } from "@granfondo/api";
 import type {
   StoredEventResults,
   StoredResult,
@@ -12,11 +11,11 @@ import type {
 import {
   countryFlag,
   normalizeCountry as toISO2,
-  SOLO_TEAM_KEYS,
-  normalizeTeam,
   normalizeName,
 } from "@granfondo/database/normalize";
 import { Spinner } from "./EventList";
+import { posStyle } from "../utils/posStyle";
+import { TeamLink } from "./shared/TeamLink";
 
 interface Props {
   eventId: number;
@@ -63,26 +62,6 @@ export default function ResultsTab({ eventId, resultsUrl }: Props) {
       )}
     </div>
   );
-}
-
-function posStyle(pos: number) {
-  if (pos === 1) {
-    return "bg-gradient-to-br from-yellow-400 to-amber-500 text-white shadow-sm";
-  }
-
-  if (pos === 2) {
-    return "bg-gradient-to-br from-slate-300 to-slate-400 text-white shadow-sm";
-  }
-
-  if (pos === 3) {
-    return "bg-gradient-to-br from-orange-400 to-orange-500 text-white shadow-sm";
-  }
-
-  if (pos <= 10) {
-    return "bg-blue-50 text-blue-700 font-semibold";
-  }
-
-  return "bg-slate-100 text-slate-500";
 }
 
 function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
@@ -335,42 +314,20 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                       {r.name}
                     </div>
                   )}
-                  {r.team &&
-                    (() => {
-                      const teamId = !SOLO_TEAM_KEYS.has(normalizeTeam(r.team))
-                        ? resolveTeamId(r.team)
-                        : undefined;
-                      return teamId !== undefined ? (
-                        <Link
-                          to={`/team/${teamId}`}
-                          className="block text-xs text-slate-400 truncate mt-0.5 md:hidden hover:text-blue-600 transition-colors"
-                        >
-                          {r.team}
-                        </Link>
-                      ) : (
-                        <div className="text-xs text-slate-400 truncate mt-0.5 md:hidden">
-                          {r.team}
-                        </div>
-                      );
-                    })()}
+                  {r.team && (
+                    <TeamLink
+                      team={r.team}
+                      className="block text-xs text-slate-400 truncate mt-0.5 md:hidden hover:text-blue-600 transition-colors"
+                    />
+                  )}
                 </td>
                 <td className="px-4 py-3 text-xs hidden md:table-cell whitespace-nowrap">
-                  {r.team &&
-                    (() => {
-                      const teamId = !SOLO_TEAM_KEYS.has(normalizeTeam(r.team))
-                        ? resolveTeamId(r.team)
-                        : undefined;
-                      return teamId !== undefined ? (
-                        <Link
-                          to={`/team/${teamId}`}
-                          className="text-slate-500 hover:text-blue-600 transition-colors"
-                        >
-                          {r.team}
-                        </Link>
-                      ) : (
-                        <span className="text-slate-500">{r.team}</span>
-                      );
-                    })()}
+                  {r.team && (
+                    <TeamLink
+                      team={r.team}
+                      className="text-slate-500 hover:text-blue-600 transition-colors"
+                    />
+                  )}
                 </td>
                 <td className="px-4 py-3 text-xs hidden sm:table-cell">
                   {(() => {

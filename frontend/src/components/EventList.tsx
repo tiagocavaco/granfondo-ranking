@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { api } from "../api";
+import { api } from "@granfondo/api";
 import type { StoredEvent } from "@granfondo/database/types";
 import EventCard from "./EventCard";
 

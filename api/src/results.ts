@@ -1,6 +1,6 @@
 import { eq, and, inArray, asc, max, sql } from "drizzle-orm";
 import * as schema from "@granfondo/database/schema";
-import { getDb } from "../db/db-client";
+import { getDb } from "./db.js";
 import type {
   StoredEventResults,
   StoredDistanceResults,
@@ -20,7 +20,6 @@ export async function getResults(id: number): Promise<StoredEventResults> {
     throw new Error(`Event ${id} not found`);
   }
 
-  // Distinct distances ordered numerically
   const distRows = db
     .select({
       distanceId: schema.results.distanceId,
@@ -66,7 +65,6 @@ export async function getResults(id: number): Promise<StoredEventResults> {
       if (!licencesByResultId.has(lr.resultId)) {
         licencesByResultId.set(lr.resultId, []);
       }
-
       licencesByResultId.get(lr.resultId)!.push(lr.licence);
     }
 

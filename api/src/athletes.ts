@@ -1,8 +1,8 @@
 import { eq, desc, asc, inArray, sql } from "drizzle-orm";
 import * as schema from "@granfondo/database/schema";
-import { getDb } from "../db/db-client";
-import { initLookups as _initLookups } from "../utils/lookups.js";
-import { buildCountryMap } from "../utils/athlete";
+import { getDb } from "./db.js";
+import { initLookups as _initLookups } from "./lookups.js";
+import { buildCountryMap } from "./athlete.js";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 
 export async function getAthlete(id: number): Promise<AthleteEntry> {
@@ -40,10 +40,7 @@ export async function getAthlete(id: number): Promise<AthleteEntry> {
   const categories: Record<string, string[]> = {};
   for (const cr of categoryRows) {
     const y = String(cr.year);
-    if (!categories[y]) {
-      categories[y] = [];
-    }
-
+    if (!categories[y]) categories[y] = [];
     categories[y].push(cr.category);
   }
 
@@ -96,7 +93,6 @@ export async function getTopAthletes(limit = 30): Promise<
 > {
   const db = await getDb();
 
-  // Count results per athlete (ascending date so last write = most recent country)
   const resultRows = db
     .select({
       athleteId: schema.athleteResults.athleteId,
@@ -118,9 +114,7 @@ export async function getTopAthletes(limit = 30): Promise<
     .slice(0, limit)
     .map(([id]) => id);
 
-  if (topIds.length === 0) {
-    return [];
-  }
+  if (topIds.length === 0) return [];
 
   const athleteRows = db
     .select()
@@ -154,11 +148,8 @@ export async function searchAthletes(search: string): Promise<
 > {
   const db = await getDb();
   const term = search.trim();
-  if (term.length < 2) {
-    return [];
-  }
+  if (term.length < 2) return [];
 
-  // sql.js WASM does not include FTS5 — use LIKE on name_lower / canonical_team (fast enough at 14k rows)
   const pattern = `%${term.toLowerCase().replace(/[%_]/g, "\\$&")}%`;
   const rows = db
     .select()
@@ -170,11 +161,8 @@ export async function searchAthletes(search: string): Promise<
     .all();
 
   const ids = rows.map((r) => r.id);
-  if (ids.length === 0) {
-    return [];
-  }
+  if (ids.length === 0) return [];
 
-  // Count via full select + JS aggregation (ascending date so last write = most recent country)
   const resultRows = db
     .select()
     .from(schema.athleteResults)
@@ -199,4 +187,3 @@ export async function searchAthletes(search: string): Promise<
     }))
     .sort((a, b) => b.resultCount - a.resultCount);
 }
-

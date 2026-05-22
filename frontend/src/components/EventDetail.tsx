@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { api } from "../api";
+import { api } from "@granfondo/api";
 import type { StoredEvent } from "@granfondo/database/types";
 import ResultsTab from "./ResultsTab";
 import ParticipantsTab from "./ParticipantsTab";

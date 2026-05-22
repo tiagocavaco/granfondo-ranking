@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { api } from "../api";
-import { resolveTeamId } from "../utils/lookups";
+import { api } from "@granfondo/api";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 import {
@@ -12,27 +11,9 @@ import {
 import PerformanceChart from "./PerformanceChart";
 import CareerHighlights from "./CareerHighlights";
 import { distBadgeClass } from "../utils/distance";
-import { mostRecentCountry } from "../utils/athlete";
-
-function posStyle(pos: number) {
-  if (pos === 1) {
-    return "bg-gradient-to-br from-yellow-400 to-amber-500 text-white shadow-sm";
-  }
-
-  if (pos === 2) {
-    return "bg-gradient-to-br from-slate-300 to-slate-400 text-white shadow-sm";
-  }
-
-  if (pos === 3) {
-    return "bg-gradient-to-br from-orange-400 to-orange-500 text-white shadow-sm";
-  }
-
-  if (pos <= 10) {
-    return "bg-blue-50 text-blue-700 font-semibold";
-  }
-
-  return "bg-slate-100 text-slate-500";
-}
+import { resolveTeamId, mostRecentCountry } from "@granfondo/api";
+import { posStyle } from "../utils/posStyle";
+import { Stat } from "./shared/Stat";
 
 export default function AthleteProfile() {
   const { id } = useParams<{ id: string }>();
@@ -285,23 +266,3 @@ export default function AthleteProfile() {
   );
 }
 
-function Stat({
-  label,
-  value,
-  highlight,
-}: {
-  label: string;
-  value: string | number;
-  highlight?: boolean;
-}) {
-  return (
-    <div className="flex-1 sm:flex-none text-center bg-white/10 rounded-xl px-4 py-2 border border-white/10">
-      <div
-        className={`text-xl font-extrabold ${highlight ? "text-amber-400" : "text-white"}`}
-      >
-        {value}
-      </div>
-      <div className="text-xs text-blue-300 font-medium mt-0.5">{label}</div>
-    </div>
-  );
-}

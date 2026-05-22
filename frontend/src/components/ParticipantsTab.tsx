@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { api } from "../api";
+import { api } from "@granfondo/api";
 import type { StoredParticipant } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
 import { normalizeName, normalizeDistance } from "@granfondo/database/normalize";

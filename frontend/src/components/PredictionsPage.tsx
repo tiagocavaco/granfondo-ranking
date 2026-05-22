@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { api } from "../api";
-import type { DistancePredictions, FavoritePrediction } from "../api";
+import { api } from "@granfondo/api";
+import type { DistancePredictions, FavoritePrediction } from "@granfondo/api";
 import { DISTANCES } from "@granfondo/utils/distance";
 import { Spinner } from "./EventList";
 import { distBadgeClass } from "../utils/distance";

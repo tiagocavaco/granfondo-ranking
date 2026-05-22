@@ -1,15 +1,7 @@
-/**
- * lookups.ts
- *
- * In-memory lookup caches and helpers for resolving athlete IDs by name/team.
- * Populated at startup via initLookups().
- */
-
 import { normalizeTeam } from "@granfondo/database/normalize";
 import * as schema from "@granfondo/database/schema";
-import { getDb } from "../db/db-client";
+import { getDb } from "./db.js";
 
-// In-memory caches populated by initLookups()
 let teamAliasesCache = new Map<string, string>();
 let teamKeyToIdCache = new Map<string, number>();
 
@@ -29,7 +21,6 @@ export function resolveTeamId(name: string): number | undefined {
 export async function initLookups(): Promise<{ teamsLoaded: boolean }> {
   try {
     const db = await getDb();
-
     try {
       const teamRows = db.select().from(schema.teams).all();
       const newAliasCache = new Map<string, string>();
@@ -41,7 +32,6 @@ export async function initLookups(): Promise<{ teamsLoaded: boolean }> {
           newIdCache.set(alias, t.id);
         }
       }
-
       teamAliasesCache = newAliasCache;
       teamKeyToIdCache = newIdCache;
       return { teamsLoaded: true };
