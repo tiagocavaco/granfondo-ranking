@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import type { StoredEvent } from "@granfondo/database/types";
-import { distBadgeClass } from "../utils/distance";
+import { distBadgeClass } from "../../utils/distance";
 
 interface Props {
   event: StoredEvent;

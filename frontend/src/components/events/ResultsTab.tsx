@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import { api } from "@granfondo/api";
 import type {
   StoredEventResults,
@@ -13,9 +13,9 @@ import {
   normalizeCountry as toISO2,
   normalizeName,
 } from "@granfondo/database/normalize";
-import { Spinner } from "./EventList";
-import { posStyle } from "../utils/posStyle";
-import { TeamLink } from "./shared/TeamLink";
+import { Spinner } from "../shared/Spinner";
+import { posStyle } from "../../utils/posStyle";
+import { TeamLink } from "../shared/TeamLink";
 
 interface Props {
   eventId: number;

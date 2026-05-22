@@ -7,17 +7,17 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import EventList from "./components/EventList";
-import EventDetail from "./components/EventDetail";
-import AggregateRankingPage from "./components/AggregateRankingPage";
-import TeamRankingPage from "./components/TeamRankingPage";
-import AthleteProfile from "./components/AthleteProfile";
-import AthletesPage from "./components/AthletesPage";
-import TeamProfile from "./components/TeamProfile";
-import ComparisonPage from "./components/ComparisonPage";
-import RankingInfoPage from "./components/RankingInfoPage";
-import PredictionsPage from "./components/PredictionsPage";
-import PredictionsInfoPage from "./components/PredictionsInfoPage";
+import EventList from "./components/events/EventList";
+import EventDetail from "./components/events/EventDetail";
+import AggregateRankingPage from "./components/athlete-ranking/AggregateRankingPage";
+import TeamRankingPage from "./components/team-ranking/TeamRankingPage";
+import AthleteProfile from "./components/athletes/AthleteProfile";
+import AthletesPage from "./components/athletes/AthletesPage";
+import TeamProfile from "./components/team-ranking/TeamProfile";
+import ComparisonPage from "./components/comparison/ComparisonPage";
+import RankingInfoPage from "./components/shared/RankingInfoPage";
+import PredictionsPage from "./components/predictions/PredictionsPage";
+import PredictionsInfoPage from "./components/predictions/PredictionsInfoPage";
 import { api, setGetDb } from "@granfondo/api";
 import { getDb } from "./db/db-client";
 import { formatAge } from "./utils/date";

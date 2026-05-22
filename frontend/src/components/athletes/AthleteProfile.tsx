@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
-import { Spinner } from "./EventList";
+import { Spinner } from "../shared/Spinner";
 import {
   countryFlag,
   SOLO_TEAM_KEYS,
@@ -10,10 +10,10 @@ import {
 } from "@granfondo/database/normalize";
 import PerformanceChart from "./PerformanceChart";
 import CareerHighlights from "./CareerHighlights";
-import { distBadgeClass } from "../utils/distance";
+import { distBadgeClass } from "../../utils/distance";
 import { resolveTeamId, mostRecentCountry } from "@granfondo/api";
-import { posStyle } from "../utils/posStyle";
-import { Stat } from "./shared/Stat";
+import { posStyle } from "../../utils/posStyle";
+import { Stat } from "../shared/Stat";
 
 export default function AthleteProfile() {
   const { id } = useParams<{ id: string }>();

@@ -4,8 +4,8 @@ import { api } from "@granfondo/api";
 import type { StoredEvent } from "@granfondo/database/types";
 import ResultsTab from "./ResultsTab";
 import ParticipantsTab from "./ParticipantsTab";
-import { Spinner, ErrorBanner } from "./EventList";
-import { distBadgeClassBordered } from "../utils/distance";
+import { Spinner, ErrorBanner } from "../shared/Spinner";
+import { distBadgeClassBordered } from "../../utils/distance";
 
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>();

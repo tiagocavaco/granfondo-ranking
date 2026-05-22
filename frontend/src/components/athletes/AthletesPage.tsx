@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { api } from "@granfondo/api";
-import { Spinner } from "./EventList";
+import { Spinner } from "../shared/Spinner";
 import { countryFlag } from "@granfondo/database/normalize";
 
 type AthleteRow = {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
-import { Spinner } from "./EventList";
+import { Spinner } from "../shared/Spinner";
 import { ComparisonHeroCard } from "./ComparisonHeroCard";
 import { HeadToHeadChart } from "./HeadToHeadChart";
 import { SharedEventsTable } from "./SharedEventsTable";

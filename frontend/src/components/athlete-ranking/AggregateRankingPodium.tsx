@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import type { AggregateAthlete } from "@granfondo/database/types";
 import { countryFlag } from "@granfondo/database/normalize";
-import { TeamLink } from "./shared/TeamLink";
+import { TeamLink } from "../shared/TeamLink";
 
 type RankedAthlete = AggregateAthlete & { rank: number };
 

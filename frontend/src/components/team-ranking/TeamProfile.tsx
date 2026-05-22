@@ -2,12 +2,12 @@ import { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
-import { Spinner } from "./EventList";
-import { distBadgeClass } from "../utils/distance";
+import { Spinner } from "../shared/Spinner";
+import { distBadgeClass } from "../../utils/distance";
 import { DISTANCES } from "@granfondo/utils/distance";
-import { TeamMemberList } from "./shared/TeamMemberList";
-import { Stat } from "./shared/Stat";
-import { rankLabel } from "../utils/rankLabel";
+import { TeamMemberList } from "../shared/TeamMemberList";
+import { Stat } from "../shared/Stat";
+import { rankLabel } from "../../utils/rankLabel";
 
 
 export default function TeamProfile() {

@@ -2,11 +2,11 @@ import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
-import { Spinner, ErrorBanner } from "./EventList";
-import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { RankBadge } from "./shared/RankBadge";
-import { SegmentedControl } from "./shared/SegmentedControl";
-import { rankLabel } from "../utils/rankLabel";
+import { Spinner, ErrorBanner } from "../shared/Spinner";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import { RankBadge } from "../shared/RankBadge";
+import { SegmentedControl } from "../shared/SegmentedControl";
+import { rankLabel } from "../../utils/rankLabel";
 
 
 export default function TeamRankingPage() {

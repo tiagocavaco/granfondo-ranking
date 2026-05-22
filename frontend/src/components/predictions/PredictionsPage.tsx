@@ -3,8 +3,8 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { DistancePredictions, FavoritePrediction } from "@granfondo/api";
 import { DISTANCES } from "@granfondo/utils/distance";
-import { Spinner } from "./EventList";
-import { distBadgeClass } from "../utils/distance";
+import { Spinner } from "../shared/Spinner";
+import { distBadgeClass } from "../../utils/distance";
 import { countryFlag } from "@granfondo/database/normalize";
 import { isFemaleCategory, categorySortKey } from "@granfondo/utils/category";
 

@@ -1,5 +1,5 @@
 import type { AthleteResultRef } from "@granfondo/database/types";
-import { distBadgeClass } from "../utils/distance";
+import { distBadgeClass } from "../../utils/distance";
 import { DISTANCES } from "@granfondo/utils/distance";
 
 function buildStats(results: AthleteResultRef[]) {

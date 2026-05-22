@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from "recharts";
 import type { AthleteResultRef } from "@granfondo/database/types";
-import { distDotColor } from "../utils/distance";
+import { distDotColor } from "../../utils/distance";
 
 type FlatPoint = {
   dateMs: number;

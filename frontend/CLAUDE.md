@@ -52,6 +52,19 @@ For the alias resolver details see `api/CLAUDE.md`.
 
 ## Component map
 
+Components live under `src/components/` grouped by route:
+
+```
+events/           EventList, EventCard, EventDetail, ResultsTab, ParticipantsTab
+athletes/         AthletesPage, AthleteProfile, CareerHighlights, PerformanceChart
+athlete-ranking/  AggregateRankingPage, AggregateRankingPodium, AggregateRankingTable
+team-ranking/     TeamRankingPage, TeamProfile
+comparison/       ComparisonPage, ComparisonHeroCard, HeadToHeadChart, SharedEventsTable
+predictions/      PredictionsPage, PredictionsInfoPage
+shared/           Spinner, ErrorBanner, TeamLink, RankBadge, SegmentedControl,
+                  GenderToggle, Stat, TeamMemberList, RankingInfoPage
+```
+
 | Component | Route | Purpose |
 |-----------|-------|---------|
 | `EventList` | `/` | List of all events with cards |
@@ -62,12 +75,18 @@ For the alias resolver details see `api/CLAUDE.md`.
 | `AthleteProfile` | `/athlete/:id` | Athlete career page with chart and highlights |
 | `CareerHighlights` | — | Highlights bar inside AthleteProfile |
 | `PerformanceChart` | — | Points-over-time chart inside AthleteProfile |
-| `TeamProfile` | `/team/:teamId` | Team season view — members, ranking entries, non-ranked events |
-| `AggregateRankingPage` | `/ranking` | Season athlete ranking with infinite scroll |
-| `TeamRankingPage` | `/team-ranking` | Season team ranking |
 | `AthletesPage` | `/athletes` | Athlete search |
+| `AggregateRankingPage` | `/ranking` | Season athlete ranking with infinite scroll |
+| `AggregateRankingPodium` | — | Top-3 podium cards inside AggregateRankingPage |
+| `AggregateRankingTable` | — | Infinite-scroll table inside AggregateRankingPage |
+| `TeamRankingPage` | `/teams` | Season team ranking |
+| `TeamProfile` | `/team/:teamId` | Team season view — members, ranking entries, non-ranked events |
 | `ComparisonPage` | `/compare` | Side-by-side athlete comparison |
-| `RankingInfoPage` | `/ranking-info` | Rules explanation |
+| `ComparisonHeroCard` | — | Athlete hero card inside ComparisonPage |
+| `HeadToHeadChart` | — | Recharts scatter plot inside ComparisonPage |
+| `SharedEventsTable` | — | Shared events table inside ComparisonPage |
+| `PredictionsPage` | `/event/:id/predictions` | Start-list predictions for upcoming event |
+| `RankingInfoPage` | `/ranking-info`, `/teams-info` | Rules explanation (mode prop switches content) |
 
 ## TeamProfile member list
 

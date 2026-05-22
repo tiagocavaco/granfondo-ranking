@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import type { AggregateAthlete, AggregateResult } from "@granfondo/database/types";
 import { countryFlag } from "@granfondo/database/normalize";
-import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import { RankBadge } from "./shared/RankBadge";
-import { TeamLink } from "./shared/TeamLink";
-import { pointsBarColor } from "../utils/pointsBarColor";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import { RankBadge } from "../shared/RankBadge";
+import { TeamLink } from "../shared/TeamLink";
+import { pointsBarColor } from "../../utils/pointsBarColor";
 
 type RankedAthlete = AggregateAthlete & { rank: number };
 

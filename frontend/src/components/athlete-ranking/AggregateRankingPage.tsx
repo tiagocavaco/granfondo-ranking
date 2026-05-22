@@ -2,9 +2,9 @@ import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { AggregateRanking } from "@granfondo/database/types";
-import { Spinner, ErrorBanner } from "./EventList";
-import { SegmentedControl } from "./shared/SegmentedControl";
-import { GenderToggle } from "./shared/GenderToggle";
+import { Spinner, ErrorBanner } from "../shared/Spinner";
+import { SegmentedControl } from "../shared/SegmentedControl";
+import { GenderToggle } from "../shared/GenderToggle";
 import { AggregateRankingPodium } from "./AggregateRankingPodium";
 import { AggregateRankingTable } from "./AggregateRankingTable";
 

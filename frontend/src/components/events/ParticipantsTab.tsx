@@ -1,11 +1,11 @@
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import { api } from "@granfondo/api";
 import type { StoredParticipant } from "@granfondo/database/types";
-import { Spinner } from "./EventList";
+import { Spinner } from "../shared/Spinner";
 import { normalizeName, normalizeDistance } from "@granfondo/database/normalize";
-import { distBadgeClass } from "../utils/distance";
+import { distBadgeClass } from "../../utils/distance";
 
 interface Props {
   eventId: number;
