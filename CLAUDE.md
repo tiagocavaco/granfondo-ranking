@@ -6,6 +6,7 @@ Monorepo tracking the Portuguese granfondo cycling series. Four npm workspaces:
 |---------|---------|
 | `database` | Shared schema, types, normalisation, DB builder/client |
 | `utils` | Scoring formulas (athlete points, team points, coefficients) |
+| `api` | All query logic — environment-agnostic, injectable getDb |
 | `scraper` | Node.js scraper — fetches results, builds encrypted SQLite DB |
 | `frontend` | React + Vite SPA — decrypts DB in-browser, queries via sql.js |
 
@@ -74,5 +75,5 @@ git rebase --continue
 | How rankings are computed | `scraper/src/pipeline/ranking.ts` |
 | How participant lists are refreshed | `scraper/src/pipeline/participants/participants-refresh.ts` |
 | How the DB is built and encrypted | `scraper/src/db/write-db.ts` |
-| How the frontend queries data | `frontend/src/api.ts` |
+| How the frontend queries data | `api/src/` (shared package) |
 | Manual DB overrides (aliases, assignments) | `scraper/src/db/manage-db.ts` |
