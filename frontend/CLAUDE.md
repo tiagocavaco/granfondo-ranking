@@ -17,7 +17,15 @@ npm run test
 frontend/public/data/data.db.enc   Encrypted SQLite (committed to git)
 src/db/decrypt.ts                  Web Crypto AES-256-GCM decrypt
 src/db/db-client.ts                Lazy sql.js singleton (getDb())
-src/api.ts                         All data-access functions (SQL queries)
+src/api.ts                         Re-export facade — components always import from here
+src/api/
+  index.ts                         Assembles the api object from domain files
+  events.ts                        getEvents, getStats
+  results.ts                       getResults, getParticipants
+  athletes.ts                      getAthlete, initLookups, getTopAthletes, searchAthletes
+  teams.ts                         getTeamById, getTeamByKey
+  rankings.ts                      getAggregateRanking, getTeamRanking
+  predictions.ts                   getPredictions, prediction types, computeWeightedScore
 src/utils/lookups.ts               In-memory caches: team aliases, athlete name→ID
 src/utils/athlete.ts               mostRecentCountry(), buildCountryMap() helpers
 src/utils/date.ts                  formatAge() — formats a birth date as an age string
@@ -25,7 +33,7 @@ src/utils/distance.ts              distBadgeClass(), distance colour constants
 src/hooks/useInfiniteScroll.ts     Infinite scroll hook used by AggregateRankingPage
 ```
 
-`api.ts` exposes typed async functions (`getEvents`, `getResults`, `getTeamByKey`, `getAggregateRanking`, etc.). Components import only from `api.ts` and never touch sql.js directly.
+`src/api.ts` is a thin re-export facade — components always import from it and never from `src/api/*` directly. The implementation is split by domain under `src/api/`. All functions are typed async queries against the sql.js DB (`getDb()` from `db-client.ts`).
 
 `initLookups()` must be called once at startup (done in `App.tsx`) to populate the in-memory team alias and athlete lookup caches used by `resolveTeamKey` and `lookupAthleteId`.
 

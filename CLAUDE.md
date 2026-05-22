@@ -62,5 +62,17 @@ git rebase --continue
 ## CI
 
 - `.github/workflows/scrape-results.yml` — scheduled scrape, commits updated `data.db.enc` + `scraped-events.json`
-- `.github/workflows/scrape-participants.yml` — scrapes upcoming event participant lists
+- `.github/workflows/scrape-participants.yml` — runs `npm run scrape:participants` to refresh participant lists for upcoming events
 - `.github/workflows/deploy.yml` — builds and deploys frontend to GitHub Pages (injects `VITE_DATA_KEY` at build time)
+
+## Where to look for things
+
+| Question | Start here |
+|----------|-----------|
+| How events are scraped | `scraper/src/pipeline/events.ts` |
+| How athlete identity is resolved | `scraper/src/pipeline/results/results.ts` (orchestrator) + `passes/` |
+| How rankings are computed | `scraper/src/pipeline/ranking.ts` |
+| How participant lists are refreshed | `scraper/src/pipeline/participants/participants-refresh.ts` |
+| How the DB is built and encrypted | `scraper/src/db/write-db.ts` |
+| How the frontend queries data | `frontend/src/api.ts` |
+| Manual DB overrides (aliases, assignments) | `scraper/src/db/manage-db.ts` |
