@@ -15,7 +15,8 @@ import AthleteProfile from "./components/athletes/AthleteProfile";
 import AthletesPage from "./components/athletes/AthletesPage";
 import TeamProfile from "./components/team-ranking/TeamProfile";
 import ComparisonPage from "./components/comparison/ComparisonPage";
-import RankingInfoPage from "./components/athlete-ranking/RankingInfoPage";
+import AthleteRankingInfoPage from "./components/athlete-ranking/AthleteRankingInfoPage";
+import TeamRankingInfoPage from "./components/team-ranking/TeamRankingInfoPage";
 import PredictionsPage from "./components/predictions/PredictionsPage";
 import PredictionsInfoPage from "./components/predictions/PredictionsInfoPage";
 import { api, setGetDb } from "@granfondo/api";
@@ -184,11 +185,8 @@ function AppShell() {
           <Route path="/teams" element={<TeamRankingPage />} />
           <Route path="/team/:teamId" element={<TeamProfile />} />
           <Route path="/compare" element={<ComparisonPage />} />
-          <Route
-            path="/ranking-info"
-            element={<RankingInfoPage mode="athlete" />}
-          />
-          <Route path="/teams-info" element={<RankingInfoPage mode="team" />} />
+          <Route path="/ranking-info" element={<AthleteRankingInfoPage />} />
+          <Route path="/teams-info" element={<TeamRankingInfoPage />} />
           <Route path="/predictions-info" element={<PredictionsInfoPage />} />
         </Routes>
       </main>
