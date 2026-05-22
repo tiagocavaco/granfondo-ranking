@@ -31,10 +31,10 @@ export function enrichLicenceProfiles(ctx: PipelineCtx): void {
       count++;
     } else if (candidates.length > 1) {
       console.warn(
-        `  [pass2] ambiguous: "${r.name}" / "${r.team}" @ event ${event.id} — ${candidates.length} matches — left for pass3`,
+        `  [enrich-licences] ambiguous — multiple matches, left for remaining-team-profiles`,
       );
     }
   }
 
-  console.log(`  [pass2] ${count} unlicensed results matched by name+team`);
+  console.log(`  [enrich-licences] ${count} unlicensed results matched by name+team`);
 }

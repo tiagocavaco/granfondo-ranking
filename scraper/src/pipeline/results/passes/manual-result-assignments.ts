@@ -20,7 +20,7 @@ export function applyManualResultAssignments(ctx: PipelineCtx): void {
     );
     if (!target) {
       console.error(
-        `  [pass9] ERROR: athleteId ${assignment.athleteId} not found — skipping`,
+        `  [manual-assignments] ERROR: athleteId ${assignment.athleteId} not found — skipping`,
       );
       continue;
     }
@@ -43,7 +43,7 @@ export function applyManualResultAssignments(ctx: PipelineCtx): void {
 
     if (!bibNameLower) {
       console.warn(
-        `  [pass9] eventId=${assignment.eventId} bib=${assignment.bib} not found in raw results`,
+        `  [manual-assignments] eventId=${assignment.eventId} bib=${assignment.bib} not found in raw results`,
       );
       continue;
     }
@@ -123,11 +123,11 @@ export function applyManualResultAssignments(ctx: PipelineCtx): void {
             evictedEntry = newEntry(freshId, evictedName, evictedNameLower);
             index.set(evictedKey, evictedEntry);
             console.log(
-              `  [pass9] evicted ${evictedName} (${evicted.category}) ev=${evicted.eventId} → new athlete id=${freshId}`,
+              `  [manual-assignments] evicted ${evictedName} (${evicted.category}) ev=${evicted.eventId} → new athlete id=${freshId}`,
             );
           } else {
             console.log(
-              `  [pass9] evicted ${evictedName} (${evicted.category}) ev=${evicted.eventId} → merged into existing id=${evictedEntry.id}`,
+              `  [manual-assignments] evicted ${evictedName} (${evicted.category}) ev=${evicted.eventId} → merged into existing id=${evictedEntry.id}`,
             );
           }
 
@@ -152,7 +152,7 @@ export function applyManualResultAssignments(ctx: PipelineCtx): void {
 
     if (!moved) {
       console.warn(
-        `  [pass9] eventId=${assignment.eventId} bib=${assignment.bib} (${bibNameLower}) not found in index`,
+        `  [manual-assignments] eventId=${assignment.eventId} bib=${assignment.bib} (${bibNameLower}) not found in index`,
       );
     }
   }
@@ -165,6 +165,6 @@ export function applyManualResultAssignments(ctx: PipelineCtx): void {
       );
     }
 
-    console.log(`  [pass9] ${count} manual result(s) applied`);
+    console.log(`  [manual-assignments] ${count} manual result(s) applied`);
   }
 }

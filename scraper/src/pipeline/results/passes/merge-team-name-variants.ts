@@ -101,13 +101,13 @@ export function mergeLegalNameVariants(ctx: PipelineCtx): void {
       deriveCanonicalTeam(short.entry);
       count++;
       console.log(
-        `  [pass3b] "${long.entry.nameLower}" → "${short.entry.nameLower}" (team ${short.key.slice(short.key.lastIndexOf("|") + 1)})`,
+        `  [legal-name-variants] "${long.entry.nameLower}" → "${short.entry.nameLower}" (team ${short.key.slice(short.key.lastIndexOf("|") + 1)})`,
       );
     }
   }
 
   if (count > 0) {
-    console.log(`  [pass3b] ${count} full-name profile(s) merged into short-name entries`);
+    console.log(`  [legal-name-variants] ${count} full-name profile(s) merged into short-name entries`);
   }
 }
 
@@ -152,7 +152,7 @@ export function mergeMissingSpaceVariants(ctx: PipelineCtx): void {
 
       if (members.length > 2) {
         console.warn(
-          `  [pass3c] ${members.length}-way no-space collision on "${members[0]!.noSpace}" — skipped`,
+          `  [missing-space] ${members.length}-way no-space collision on "${members[0]!.noSpace}" — skipped`,
         );
         continue;
       }
@@ -186,12 +186,12 @@ export function mergeMissingSpaceVariants(ctx: PipelineCtx): void {
       deriveCanonicalTeam(surviving.entry);
       count++;
       console.log(
-        `  [pass3c] "${absorbed.entry.nameLower}" → "${surviving.entry.nameLower}" (team ${surviving.key.slice(surviving.key.lastIndexOf("|") + 1)})`,
+        `  [missing-space] "${absorbed.entry.nameLower}" → "${surviving.entry.nameLower}" (team ${surviving.key.slice(surviving.key.lastIndexOf("|") + 1)})`,
       );
     }
   }
 
   if (count > 0) {
-    console.log(`  [pass3c] ${count} missing-space name pair(s) merged`);
+    console.log(`  [missing-space] ${count} missing-space name pair(s) merged`);
   }
 }

@@ -157,13 +157,13 @@ export function mergeTeamSoloProfiles(ctx: PipelineCtx): void {
 
   if (count > 0) {
     console.log(
-      `  [pass8] ${count} solo profile(s) merged into team profile(s)`,
+      `  [team-solo-merge] ${count} solo profile(s) merged into team profile(s)`,
     );
   }
 
   if (crossPassFlags.length > 0) {
     console.log(
-      `  [pass8] ${crossPassFlags.length} ambiguous cross-pass merge(s) flagged`,
+      `  [team-solo-merge] ${crossPassFlags.length} ambiguous cross-pass merge(s) flagged`,
     );
   }
 }

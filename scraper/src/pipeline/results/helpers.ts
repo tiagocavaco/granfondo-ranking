@@ -140,13 +140,13 @@ export function categoriesCompatible(a: string, b: string): boolean {
  * Elite, Open 19-34, and Masters A are distinct same-year populations at events
  * that carry all three categories, so no normalization is applied here.
  * Cross-year compatibility between Open 19-34 and Elite/Masters A is handled
- * in Pass 5d via categoriesCompatible().
+ * in groupSoloIntraYear via categoriesCompatible().
  */
 export function soloGroupCat(canonCat: string): string {
   return canonCat;
 }
 
-/** Validate a single year-to-year category transition (same logic as Pass 5d). */
+/** Validate a single year-to-year category transition (same logic as groupSoloIntraYear). */
 export function isValidCatTransition(
   prevCat: string,
   currCat: string,

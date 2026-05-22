@@ -72,7 +72,7 @@ export function buildLicenceProfiles(ctx: PipelineCtx): void {
       if (allClose) {
         licenceToCanonicalName.set(lic, canonical);
         console.log(
-          `  [pass1] licence ${lic}: merged name variants: ${arr.join(", ")} → "${canonical}"`,
+          `  [licence-profiles] licence ${lic}: merged name variants: ${arr.join(", ")} → "${canonical}"`,
         );
       } else {
         // Majority-vote: if one name has ≥3 results AND ≥3× all others combined,
@@ -99,11 +99,11 @@ export function buildLicenceProfiles(ctx: PipelineCtx): void {
             .map(([n, c]) => `${n}(${c})`)
             .join(", ");
           console.log(
-            `  [pass1] licence ${lic}: dominant name "${topName}" (${topCount}/${topCount + otherCount}), outlier(s) excluded: ${outliers}`,
+            `  [licence-profiles] licence ${lic}: dominant name "${topName}" (${topCount}/${topCount + otherCount}), outlier(s) excluded: ${outliers}`,
           );
         } else {
           console.warn(
-            `  [pass1] licence ${lic}: SKIPPED — distinct names: ${arr.join(", ")}`,
+            `  [licence-profiles] licence ${lic}: SKIPPED — distinct names: ${arr.join(", ")}`,
           );
         }
       }
@@ -136,7 +136,7 @@ export function buildLicenceProfiles(ctx: PipelineCtx): void {
     for (const k of soloKeyCollisions) {
       const lics = soloKeyLicences.get(k)!;
       console.warn(
-        `  [pass1] solo key collision on "${k}" — licences: ${lics.join(", ")} — keeping separate`,
+        `  [licence-profiles] solo key collision on "${k}" — licences: ${lics.join(", ")} — keeping separate`,
       );
     }
   }
@@ -268,6 +268,6 @@ export function buildLicenceProfiles(ctx: PipelineCtx): void {
   }
 
   console.log(
-    `  [pass1] ${index.size} licence-verified athletes built${mergedCount > 0 ? ` (${mergedCount} same-name multi-licence merge(s))` : ""}`,
+    `  [licence-profiles] ${index.size} licence-verified athletes built${mergedCount > 0 ? ` (${mergedCount} same-name multi-licence merge(s))` : ""}`,
   );
 }

@@ -1,5 +1,5 @@
 /**
- * pipeline/results.ts
+ * pipeline/results/results.ts
  *
  * Multi-pass athlete index builder — orchestrator.
  * Each pass lives in its own file under passes/.

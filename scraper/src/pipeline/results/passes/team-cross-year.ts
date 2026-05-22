@@ -115,7 +115,7 @@ export function mergeTeamCrossYear(ctx: PipelineCtx): void {
               ...(ctx.entryLicences.get(canon.key) ?? new Set()),
             ].filter((l) => ctx.entryLicences.get(later.key)?.has(l));
             console.warn(
-              `  [pass7] WARNING: shared licence (${sharedLics.join(", ")}) but incompatible categories "${canonCatSL}" → "${laterCatSL}" for "${canon.entry.name}" — merging anyway, but likely a scraped licence error`,
+              `  [team-cross-year] WARNING: shared licence (${sharedLics.join(", ")}) but incompatible categories "${canonCatSL}" → "${laterCatSL}" for "${canon.entry.name}" — merging anyway, but likely a scraped licence error`,
             );
           }
         } else {
@@ -192,6 +192,6 @@ export function mergeTeamCrossYear(ctx: PipelineCtx): void {
   }
 
   if (count > 0) {
-    console.log(`  [pass7] ${count} cross-year team profile(s) merged`);
+    console.log(`  [team-cross-year] ${count} cross-year team profile(s) merged`);
   }
 }

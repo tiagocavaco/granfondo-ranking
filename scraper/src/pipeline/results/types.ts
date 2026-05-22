@@ -68,7 +68,7 @@ export interface PipelineCtx {
   deletedKeys: Set<string>;
   manualAssignments: Set<string>;
   soloGroupKeys: Set<string>;
-  // Licence tracking: index key → set of licence numbers from Pass 1.
+  // Licence tracking: index key → set of licence numbers from buildLicenceProfiles.
   // Used by later passes to prevent merging athletes with conflicting licences.
   entryLicences: Map<string, Set<string>>;
 }

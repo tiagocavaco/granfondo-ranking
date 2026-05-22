@@ -96,6 +96,6 @@ export function mergeSoloCrossYear(ctx: PipelineCtx): void {
   }
 
   if (count > 0) {
-    console.log(`  [pass6] ${count} cross-year solo profile(s) merged`);
+    console.log(`  [solo-cross-year] ${count} cross-year solo profile(s) merged`);
   }
 }
