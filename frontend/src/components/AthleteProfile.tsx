@@ -106,12 +106,12 @@ export default function AthleteProfile() {
               </span>
             )}
           </div>
-          <button
-            onClick={() => navigate(`/compare?a=${athlete.id}`)}
+          <Link
+            to={`/compare?a=${athlete.id}`}
             className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-blue-200 hover:text-white border border-white/10 transition-colors"
           >
             Compare ↗
-          </button>
+          </Link>
         </div>
 
         {/* Name/team + stats */}
