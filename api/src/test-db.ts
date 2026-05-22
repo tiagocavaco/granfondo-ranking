@@ -4,7 +4,7 @@ import { buildDatabase, type AllScrapedData } from "@granfondo/database/db-write
 import * as schema from "@granfondo/database/schema";
 import type { DrizzleDb } from "@granfondo/database/db-client";
 import { setGetDb } from "./db.js";
-import type { AthleteResultRef } from "@granfondo/database/types";
+import type { AthleteResultRef, StoredResult, StoredParticipant } from "@granfondo/database/types";
 
 export function minimalData(overrides: Partial<AllScrapedData> = {}): AllScrapedData {
   return {
@@ -17,7 +17,7 @@ export function minimalData(overrides: Partial<AllScrapedData> = {}): AllScraped
     teamIdStore: new Map(),
     aggregateRanking: {},
     teamRanking: {},
-    stats: { uniqueAthletes: 0, uniqueByYear: {} },
+    stats: { uniqueAthletes: 0, uniqueByYear: {}, scrapedAt: "" },
     aliasRules: [],
     assignments: [],
     ...overrides,
@@ -81,6 +81,45 @@ export function mkAthleteResult(
     gapSecs: 0,
     dnf: false,
     dns: false,
+    ...overrides,
+  };
+}
+
+export function mkStoredResult(overrides: Partial<StoredResult> = {}): StoredResult {
+  return {
+    pos: 1,
+    genderPos: 1,
+    catPos: 1,
+    athleteId: 0,
+    bib: "",
+    name: "Test Athlete",
+    gender: "M",
+    team: "",
+    category: "Masters A Male",
+    country: "PRT",
+    raceTime: "3:00:00",
+    raceTimeSecs: 10800,
+    gap: "",
+    gapSecs: 0,
+    points: 50,
+    licences: [],
+    dnf: false,
+    dns: false,
+    ...overrides,
+  };
+}
+
+export function mkParticipant(overrides: Partial<StoredParticipant> = {}): StoredParticipant {
+  return {
+    athleteId: 0,
+    bib: "1",
+    name: "Test Participant",
+    fullName: "Test Participant",
+    gender: "M",
+    team: "",
+    category: "Masters A Male",
+    distance: "Granfondo",
+    distanceId: "1",
     ...overrides,
   };
 }
