@@ -5,7 +5,7 @@ import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner } from "../shared/Spinner";
 import { distBadgeClass } from "../../utils/distance";
 import { DISTANCES } from "@granfondo/utils/distance";
-import { TeamMemberList } from "../shared/TeamMemberList";
+import { TeamMemberList } from "./TeamMemberList";
 import { Stat } from "../shared/Stat";
 import { rankLabel } from "../../utils/rankLabel";
 

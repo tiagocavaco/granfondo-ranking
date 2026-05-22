@@ -58,11 +58,11 @@ Components live under `src/components/` grouped by route:
 events/           EventList, EventCard, EventDetail, ResultsTab, ParticipantsTab
 athletes/         AthletesPage, AthleteProfile, CareerHighlights, PerformanceChart
 athlete-ranking/  AggregateRankingPage, AggregateRankingPodium, AggregateRankingTable, RankingInfoPage
-team-ranking/     TeamRankingPage, TeamProfile
+team-ranking/     TeamRankingPage, TeamProfile, TeamMemberList
 comparison/       ComparisonPage, ComparisonHeroCard, HeadToHeadChart, SharedEventsTable
 predictions/      PredictionsPage, PredictionsInfoPage
 shared/           Spinner, ErrorBanner, TeamLink, RankBadge, SegmentedControl,
-                  GenderToggle, Stat, TeamMemberList
+                  GenderToggle, Stat
 ```
 
 | Component | Route | Purpose |
