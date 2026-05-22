@@ -16,9 +16,9 @@ import {
   assignCategoryPositions,
   computeGaps,
 } from "./transform.js";
-import { buildAthletesIndex } from "./pipeline/results.js";
-import { injectAthleteIds } from "./pipeline/inject.js";
-import { resolveParticipantAthleteIds } from "./pipeline/participants.js";
+import { buildAthletesIndex } from "./pipeline/results/results.js";
+import { injectAthleteIds } from "./inject.js";
+import { resolveParticipantAthleteIds } from "./pipeline/participants/participants.js";
 import { buildAggregateRanking, buildTeamRanking } from "./pipeline/ranking.js";
 import {
   YEARS,
@@ -45,8 +45,8 @@ import {
   fetchEventParticipants,
   resolveDistances,
   scrapeEvent,
-} from "./pipeline/event-pipeline.js";
-import { scrapeParticipants } from "./pipeline/participants-update.js";
+} from "./pipeline/events.js";
+import { scrapeParticipants } from "./pipeline/participants/participants-refresh.js";
 import { initTeamAliases } from "./normalize.js";
 import type {
   StoredEvent,

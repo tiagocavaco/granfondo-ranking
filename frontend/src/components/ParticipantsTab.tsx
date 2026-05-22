@@ -4,25 +4,12 @@ import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { api } from "../api";
 import type { StoredParticipant } from "@granfondo/database/types";
 import { Spinner } from "./EventList";
-import { normalizeName } from "@granfondo/database/normalize";
+import { normalizeName, normalizeDistance } from "@granfondo/database/normalize";
+import { distBadgeClass } from "../utils/distance";
 
 interface Props {
   eventId: number;
 }
-
-const DIST_PILL: Record<string, string> = {
-  Granfondo: "bg-blue-50 text-blue-700",
-  GranFondo: "bg-blue-50 text-blue-700",
-  "BIG DAY": "bg-blue-50 text-blue-700",
-  Clássica: "bg-blue-50 text-blue-700",
-  Classica: "bg-blue-50 text-blue-700",
-  Mediofondo: "bg-violet-50 text-violet-700",
-  "HALF DAY": "bg-violet-50 text-violet-700",
-  Etapa: "bg-violet-50 text-violet-700",
-  Minifondo: "bg-emerald-50 text-emerald-700",
-  "Time Trial": "bg-amber-50 text-amber-700",
-  "TIME TRIAL": "bg-amber-50 text-amber-700",
-};
 
 export default function ParticipantsTab({ eventId }: Props) {
   const [participants, setParticipants] = useState<StoredParticipant[]>([]);
@@ -259,7 +246,7 @@ export default function ParticipantsTab({ eventId }: Props) {
                   <div className="flex flex-col items-center gap-0.5">
                     <span
                       className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold whitespace-nowrap ${
-                        DIST_PILL[p.distance] ?? "bg-slate-100 text-slate-600"
+                        distBadgeClass(normalizeDistance(p.distance))
                       }`}
                     >
                       {p.distance}

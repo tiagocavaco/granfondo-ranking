@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { apiAthleteToParticipant, resolveDistances } from "./event-pipeline.js";
+import { apiAthleteToParticipant, resolveDistances } from "./events.js";
 import type { ApiAthlete } from "../types.js";
 
 // ── apiAthleteToParticipant ───────────────────────────────────────────────────

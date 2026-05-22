@@ -15,7 +15,7 @@ import {
   isPortugueseNameAbbrev,
   isSpanishNameAbbrev,
   nameIsShortFormOf,
-} from "../normalize.js";
+} from "../../normalize.js";
 import type {
   StoredEvent,
   StoredEventResults,

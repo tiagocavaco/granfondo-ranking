@@ -12,7 +12,7 @@ import {
   rankToTeamBasePoints,
   teamCoefficient,
 } from "@granfondo/utils/scoring";
-import type { ResultsLoader } from "./results.js";
+import type { ResultsLoader } from "./results/results.js";
 import type {
   StoredEvent,
   StoredResult,

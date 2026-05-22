@@ -14,7 +14,7 @@ import * as schema from "@granfondo/database/schema";
 
 import { decryptBuffer } from "./encrypt.js";
 import { DB_ENC_PATH, TMP_DB_PATH } from "../paths.js";
-import type { AthleteIdStore } from "../pipeline/results.js";
+import type { AthleteIdStore } from "../pipeline/results/results.js";
 import type {
   StoredEvent,
   StoredEventResults,

@@ -1,4 +1,4 @@
-import { normalizeName, normalizeDistance } from "../normalize.js";
+import { normalizeName, normalizeDistance } from "./normalize.js";
 import type {
   AthleteEntry,
   StoredEventResults,

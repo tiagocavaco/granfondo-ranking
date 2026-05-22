@@ -5,7 +5,7 @@ import {
   teamKeySimilarity,
   categoryTier,
   athleteEffectiveTier,
-} from "../normalize.js";
+} from "../../normalize.js";
 
 export function resolveParticipantAthleteIds(
   nameToId: Record<string, number>,

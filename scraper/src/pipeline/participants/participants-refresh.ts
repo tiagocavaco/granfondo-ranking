@@ -1,5 +1,5 @@
 /**
- * participants-update.ts
+ * participants-refresh.ts
  *
  * Lightweight scrape that refreshes participant lists for upcoming events in
  * the existing encrypted DB without running the full athlete pipeline.
@@ -15,15 +15,15 @@ import {
   loadTeamAliases,
   loadTeamIdStore,
   loadIdStore,
-} from "../db/db-loader.js";
-import { discoverGranfondos } from "../scrapers/stopandgo.js";
-import { MANUAL_UPCOMING_EVENTS } from "../external.js";
-import { LISTA_URLS } from "../config.js";
-import { isPast, initTeamAliases } from "../normalize.js";
-import { fetchEventParticipants, resolveDistances } from "./event-pipeline.js";
+} from "../../db/db-loader.js";
+import { discoverGranfondos } from "../../scrapers/stopandgo.js";
+import { MANUAL_UPCOMING_EVENTS } from "../../external.js";
+import { LISTA_URLS } from "../../config.js";
+import { isPast, initTeamAliases } from "../../normalize.js";
+import { fetchEventParticipants, resolveDistances } from "../events.js";
 import { resolveParticipantAthleteIds } from "./participants.js";
-import { encryptBuffer } from "../db/encrypt.js";
-import { DB_ENC_PATH, DATA_DIR } from "../paths.js";
+import { encryptBuffer } from "../../db/encrypt.js";
+import { DB_ENC_PATH, DATA_DIR } from "../../paths.js";
 import type { StoredEvent, StoredParticipant } from "@granfondo/database/types";
 
 /**
