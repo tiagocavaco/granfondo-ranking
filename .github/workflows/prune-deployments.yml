@@ -16,25 +16,47 @@ jobs:
       REPO: ${{ github.repository }}
       KEEP: 5
     steps:
-      - name: Prune old github-pages deployments
+      - name: Prune github-pages deployments
         run: |
           set -euo pipefail
 
-          # Fetch all deployments, sort by created_at desc, pick IDs past the keep window.
+          # Fetch all deployments, sort newest first.
           ALL=$(gh api --paginate "repos/$REPO/deployments?per_page=100" \
             --jq '.[] | {id, created_at}' \
             | jq -s 'sort_by(.created_at) | reverse')
           TOTAL=$(echo "$ALL" | jq 'length')
-          echo "Total deployments: $TOTAL  (keep latest $KEEP)"
+          echo "Total deployments: $TOTAL"
 
-          if [ "$TOTAL" -le "$KEEP" ]; then
+          # Annotate each with its latest status state. One extra API call per
+          # deployment — cheap at this scale.
+          ANNOTATED="["
+          FIRST=1
+          for ROW in $(echo "$ALL" | jq -c '.[]'); do
+            ID=$(echo "$ROW" | jq -r '.id')
+            STATE=$(gh api "repos/$REPO/deployments/$ID/statuses?per_page=1" \
+              --jq '.[0].state // "unknown"' 2>/dev/null || echo "unknown")
+            [ $FIRST -eq 0 ] && ANNOTATED="$ANNOTATED,"
+            ANNOTATED="$ANNOTATED$(echo "$ROW" | jq -c ". + {state: \"$STATE\"}")"
+            FIRST=0
+          done
+          ANNOTATED="$ANNOTATED]"
+
+          # Keep set: latest $KEEP successful deployments (the "live" + recent rollback targets).
+          # Prune set: everything else — older successes AND any non-success regardless of age.
+          KEEP_IDS=$(echo "$ANNOTATED" | jq -r ".[] | select(.state == \"success\") | .id" | head -n "$KEEP")
+          KEEP_SET=$(echo "$KEEP_IDS" | jq -R . | jq -s .)
+
+          TO_DELETE=$(echo "$ANNOTATED" | jq -r --argjson keep "$KEEP_SET" \
+            '.[] | select((.id | tostring) as $i | $keep | index($i) | not) | .id')
+
+          COUNT=$(echo "$TO_DELETE" | grep -c . || true)
+          KEEPING=$(echo "$KEEP_IDS" | grep -c . || true)
+          echo "Keeping $KEEPING successful deployment(s); pruning $COUNT."
+
+          if [ "$COUNT" -eq 0 ]; then
             echo "Nothing to prune."
             exit 0
           fi
-
-          TO_DELETE=$(echo "$ALL" | jq -r ".[$KEEP:] | .[] | .id")
-          COUNT=$(echo "$TO_DELETE" | wc -l)
-          echo "Pruning $COUNT deployment(s)…"
 
           DELETED=0
           FAILED=0
