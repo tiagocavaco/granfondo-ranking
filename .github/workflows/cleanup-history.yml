@@ -53,8 +53,12 @@ jobs:
           BEFORE_KB=$(du -sk .git | awk '{print $1}')
           echo "::notice::.git size before: $((BEFORE_KB / 1024)) MB"
 
-      - name: Snapshot current data.db.enc
-        run: cp frontend/public/data/data.db.enc /tmp/db.enc.snapshot
+      - name: Snapshot current data.db.enc + record SHA-256
+        run: |
+          cp frontend/public/data/data.db.enc /tmp/db.enc.snapshot
+          ORIGINAL_HASH=$(sha256sum /tmp/db.enc.snapshot | awk '{print $1}')
+          echo "$ORIGINAL_HASH" > /tmp/db.enc.snapshot.sha256
+          echo "::notice::Original SHA-256: $ORIGINAL_HASH"
 
       - name: Rewrite history to drop every past data.db.enc blob
         run: |
@@ -68,6 +72,27 @@ jobs:
           cp /tmp/db.enc.snapshot frontend/public/data/data.db.enc
           git add frontend/public/data/data.db.enc
           git commit -m "chore: data.db.enc (history cleaned)"
+
+      - name: Verify SHA-256 round-trip (fail before push if content drifted)
+        run: |
+          NEW_HASH=$(sha256sum frontend/public/data/data.db.enc | awk '{print $1}')
+          ORIGINAL_HASH=$(cat /tmp/db.enc.snapshot.sha256)
+          echo "::notice::Post-rewrite SHA-256: $NEW_HASH"
+          if [ "$NEW_HASH" != "$ORIGINAL_HASH" ]; then
+            echo "::error::SHA-256 mismatch — refusing to push. Original was $ORIGINAL_HASH, got $NEW_HASH."
+            exit 1
+          fi
+
+          # Also verify the file content stored in the new commit matches.
+          # Catches the edge case where the working tree got mutated after `git add` but before commit.
+          COMMIT_BLOB_HASH=$(git ls-tree HEAD -- frontend/public/data/data.db.enc | awk '{print $3}' \
+            | xargs -I {} git cat-file blob {} | sha256sum | awk '{print $1}')
+          if [ "$COMMIT_BLOB_HASH" != "$ORIGINAL_HASH" ]; then
+            echo "::error::Commit blob SHA-256 mismatch — refusing to push. Original was $ORIGINAL_HASH, commit has $COMMIT_BLOB_HASH."
+            exit 1
+          fi
+
+          echo "::notice::Verified — content preserved bit-exact."
 
       - name: Report .git size AFTER
         run: |
