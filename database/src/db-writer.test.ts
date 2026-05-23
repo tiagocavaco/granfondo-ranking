@@ -15,7 +15,7 @@ function minimalData(overrides: Partial<AllScrapedData> = {}): AllScrapedData {
     teamIdStore: new Map(),
     aggregateRanking: {},
     teamRanking: {},
-    stats: { uniqueAthletes: 0, uniqueByYear: {} },
+    stats: { uniqueAthletes: 0, uniqueByYear: {}, scrapedAt: "" },
     aliasRules: [],
     assignments: [],
     ...overrides,
@@ -50,6 +50,7 @@ function mkParticipant(
   ? T
   : never {
   return {
+    athleteId: 0,
     bib: "1",
     name,
     fullName: name,
@@ -65,6 +66,8 @@ function mkAthlete(
   id: number,
   name: string,
 ): AllScrapedData["athletesIndex"] extends Map<string, infer T> ? T : never {
+  // Athletes without any athlete_results rows are pruned by pruneGhostAthletes,
+  // so every test athlete needs at least one result to survive buildDatabase.
   return {
     id,
     name,
@@ -72,7 +75,30 @@ function mkAthlete(
     canonicalTeam: undefined,
     teams: [],
     categories: {},
-    results: [],
+    results: [
+      {
+        eventId: 1,
+        eventName: "Event 1",
+        eventDate: "2025-04-01",
+        eventYear: 2025,
+        distance: "Granfondo",
+        pos: 1,
+        genderPos: 1,
+        catPos: 1,
+        finisherCount: 1,
+        category: "Masters A Male",
+        gender: "M",
+        team: "",
+        country: "PRT",
+        raceTime: "3:00:00",
+        raceTimeSecs: 10800,
+        gap: "",
+        gapSecs: 0,
+        dnf: false,
+        dns: false,
+        bib: "",
+      },
+    ],
   };
 }
 
@@ -100,6 +126,7 @@ describe("insertParticipants", () => {
         events: [mkEvent(1)],
         allParticipants: new Map([[1, [participant]]]),
         participantAthleteIds: new Map([[pKey, 42]]),
+        athletesIndex: new Map([["joao silva|sporting", mkAthlete(42, "João Silva")]]),
       }),
     );
     const [row] = openDb(buf).select().from(schema.participants).all();
@@ -116,6 +143,7 @@ describe("insertParticipants", () => {
         participantAthleteIds: new Map([
           [`1:${linked.name}:${linked.team}`, 10],
         ]),
+        athletesIndex: new Map([["joao silva|sporting", mkAthlete(10, "João Silva")]]),
       }),
     );
     const rows = openDb(buf).select().from(schema.participants).all();
@@ -147,7 +175,9 @@ describe("insertAthletes", () => {
       minimalData({
         athletesIndex: new Map([
           ["pedro gomes|rota dossa", athlete],
-          ["pedro gomes|rota d ossa", { ...athlete }], // same id, different key
+          // Same id, different key — empty results so the per-result UNIQUE
+          // constraint isn't tripped on the second pass.
+          ["pedro gomes|rota d ossa", { ...athlete, results: [] }],
         ]),
       }),
     );

@@ -9,7 +9,7 @@ beforeAll(() => {
         mkEvent(1, { name: "Granfondo Algarve", date: "2025-04-01", hasResults: true }),
         mkEvent(2, { name: "Granfondo Porto", date: "2025-05-10", hasResults: false }),
       ],
-      stats: { uniqueAthletes: 42, uniqueByYear: { "2025": 42 } },
+      stats: { uniqueAthletes: 42, uniqueByYear: { "2025": 42 }, scrapedAt: "" },
     }),
   );
 });

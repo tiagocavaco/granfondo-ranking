@@ -81,6 +81,7 @@ export function mkAthleteResult(
     gapSecs: 0,
     dnf: false,
     dns: false,
+    bib: "",
     ...overrides,
   };
 }

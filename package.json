@@ -14,6 +14,8 @@
     "scrape:force": "npm run scrape:force --workspace=scraper",
     "dev": "npm run dev --workspace=frontend",
     "build": "npm run build --workspace=frontend",
+    "test": "npm test --workspaces --if-present",
+    "typecheck": "tsc --noEmit -p scraper && tsc --noEmit -p api && tsc --noEmit -p frontend && tsc --noEmit -p database && tsc --noEmit -p utils",
     "lint": "eslint \"**/*.{ts,tsx}\"",
     "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
