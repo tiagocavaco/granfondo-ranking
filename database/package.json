@@ -4,10 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "generate-schema": "drizzle-kit generate"
+    "generate-schema": "drizzle-kit generate",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.30.4"
+    "drizzle-kit": "^0.30.4",
+    "vitest": "^4.1.4"
   },
   "exports": {
     "./schema": {
