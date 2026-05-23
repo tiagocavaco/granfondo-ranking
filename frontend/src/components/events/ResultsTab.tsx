@@ -199,12 +199,12 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
         <select
           value={genderFilter}
           onChange={(e) => {
-            const g = e.target.value;
-            setGenderFilter(g);
+            const nextGender = e.target.value;
+            setGenderFilter(nextGender);
             if (categoryFilter !== "all") {
               const available = new Set(
                 results
-                  .filter((r) => g === "all" || r.gender === g)
+                  .filter((r) => nextGender === "all" || r.gender === nextGender)
                   .map((r) => r.category),
               );
               if (!available.has(categoryFilter)) {
@@ -331,13 +331,13 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                 </td>
                 <td className="px-4 py-3 text-xs hidden sm:table-cell">
                   {(() => {
-                    const cp = catPosMap.get(r);
+                    const catPos = catPosMap.get(r);
                     return (
                       <div className="flex items-center gap-1 whitespace-nowrap">
                         <span className="text-slate-400">{r.category}</span>
-                        {cp !== undefined && cp <= 3 && (
+                        {catPos !== undefined && catPos <= 3 && (
                           <span>
-                            {cp === 1 ? "🥇" : cp === 2 ? "🥈" : "🥉"}
+                            {catPos === 1 ? "🥇" : catPos === 2 ? "🥈" : "🥉"}
                           </span>
                         )}
                       </div>

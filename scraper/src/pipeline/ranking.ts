@@ -169,27 +169,29 @@ export function buildAggregateRanking(
       ranking[year][dist] = {};
       for (const [gender, distMap] of Object.entries(genders)) {
         const sorted = Array.from(distMap.values()).sort(
-          (a, b) => b.totalPoints - a.totalPoints || a.bestPos - b.bestPos,
+          (entryA, entryB) =>
+            entryB.totalPoints - entryA.totalPoints ||
+            entryA.bestPos - entryB.bestPos,
         );
-        ranking[year][dist][gender] = sorted.map((e, i) => {
+        ranking[year][dist][gender] = sorted.map((entry, index) => {
           const country =
-            [...e.countryCounts.entries()].sort(
-              (a, b) => b[1] - a[1],
+            [...entry.countryCounts.entries()].sort(
+              ([, countA], [, countB]) => countB - countA,
             )[0]?.[0] ?? "PT";
           return {
-            rank: i + 1,
-            id: e.id,
-            name: e.name,
-            gender: e.gender,
-            team: e.team,
+            rank: index + 1,
+            id: entry.id,
+            name: entry.name,
+            gender: entry.gender,
+            team: entry.team,
             country,
-            totalPoints: e.totalPoints,
-            eventsScored: e.eventsScored,
-            bestPos: e.bestPos,
-            results: e.results.sort(
-              (a, b) =>
-                new Date(b.eventDate).getTime() -
-                new Date(a.eventDate).getTime(),
+            totalPoints: entry.totalPoints,
+            eventsScored: entry.eventsScored,
+            bestPos: entry.bestPos,
+            results: entry.results.sort(
+              (resultA, resultB) =>
+                new Date(resultB.eventDate).getTime() -
+                new Date(resultA.eventDate).getTime(),
             ),
           };
         });
@@ -252,33 +254,33 @@ export function buildTeamRanking(
           category: string;
         }>
       >();
-      for (const r of dist.results) {
-        if (r.dnf || r.dns || r.pos < 1 || !r.team) {
+      for (const result of dist.results) {
+        if (result.dnf || result.dns || result.pos < 1 || !result.team) {
           continue;
         }
 
-        const tk = teamNormalKey(r.team);
-        if (INDIVIDUAL_TEAM_KEYS.has(tk)) {
+        const teamKey = teamNormalKey(result.team);
+        if (INDIVIDUAL_TEAM_KEYS.has(teamKey)) {
           continue;
         }
 
-        if (!teamAthletes.has(tk)) {
-          teamAthletes.set(tk, []);
+        if (!teamAthletes.has(teamKey)) {
+          teamAthletes.set(teamKey, []);
         }
 
-        teamAthletes.get(tk)!.push({
-          name: r.name,
-          pos: r.pos,
-          rawTeam: fixRawTeamName(r.team),
-          athleteId: r.athleteId ?? 0,
-          country: r.country ?? "",
-          category: r.category ?? "",
+        teamAthletes.get(teamKey)!.push({
+          name: result.name,
+          pos: result.pos,
+          rawTeam: fixRawTeamName(result.team),
+          athleteId: result.athleteId ?? 0,
+          country: result.country ?? "",
+          category: result.category ?? "",
         });
       }
 
       const totalTeams = teamAthletes.size;
       type EligibleTeam = {
-        tk: string;
+        teamKey: string;
         rawTeam: string;
         combinedScore: number;
         bestPos: number;
@@ -301,17 +303,22 @@ export function buildTeamRanking(
       };
       const eligible: EligibleTeam[] = [];
 
-      for (const [tk, athletes] of teamAthletes) {
+      for (const [teamKey, athletes] of teamAthletes) {
         if (athletes.length < 3) {
           continue;
         }
 
-        const sorted = [...athletes].sort((a, b) => a.pos - b.pos);
+        const sorted = [...athletes].sort(
+          (athleteA, athleteB) => athleteA.pos - athleteB.pos,
+        );
         const top3 = sorted.slice(0, 3);
         eligible.push({
-          tk,
+          teamKey,
           rawTeam: sorted[0]!.rawTeam,
-          combinedScore: top3.reduce((s, a) => s + a.pos, 0),
+          combinedScore: top3.reduce(
+            (sum, athlete) => sum + athlete.pos,
+            0,
+          ),
           bestPos: top3[0]!.pos,
           top3,
           all: sorted,
@@ -319,19 +326,21 @@ export function buildTeamRanking(
       }
 
       eligible.sort(
-        (a, b) => a.combinedScore - b.combinedScore || a.bestPos - b.bestPos,
+        (teamA, teamB) =>
+          teamA.combinedScore - teamB.combinedScore ||
+          teamA.bestPos - teamB.bestPos,
       );
       const eligibleTeams = eligible.length;
       const coeff = teamCoefficient(eligibleTeams);
 
-      eligible.slice(0, 10).forEach((et, i) => {
-        const teamRank = i + 1;
+      eligible.slice(0, 10).forEach((eligibleTeam, index) => {
+        const teamRank = index + 1;
         const basePoints = rankToTeamBasePoints(teamRank);
-        const pts = Math.round(basePoints * coeff * 10) / 10;
+        const points = Math.round(basePoints * coeff * 10) / 10;
 
-        if (!distMap.has(et.tk)) {
-          distMap.set(et.tk, {
-            teamKey: et.tk,
+        if (!distMap.has(eligibleTeam.teamKey)) {
+          distMap.set(eligibleTeam.teamKey, {
+            teamKey: eligibleTeam.teamKey,
             nameOcc: new Map(),
             totalPoints: 0,
             eventsScored: 0,
@@ -340,14 +349,18 @@ export function buildTeamRanking(
           });
         }
 
-        const entry = distMap.get(et.tk)!;
-        entry.totalPoints = Math.round((entry.totalPoints + pts) * 10) / 10;
+        const entry = distMap.get(eligibleTeam.teamKey)!;
+        entry.totalPoints =
+          Math.round((entry.totalPoints + points) * 10) / 10;
         entry.eventsScored += 1;
         if (teamRank < entry.bestRank) {
           entry.bestRank = teamRank;
         }
 
-        entry.nameOcc.set(et.rawTeam, (entry.nameOcc.get(et.rawTeam) ?? 0) + 1);
+        entry.nameOcc.set(
+          eligibleTeam.rawTeam,
+          (entry.nameOcc.get(eligibleTeam.rawTeam) ?? 0) + 1,
+        );
         entry.results.push({
           eventId: event.id,
           eventName: event.name,
@@ -357,31 +370,33 @@ export function buildTeamRanking(
           coefficient: coeff,
           teamRank,
           basePoints,
-          points: pts,
-          combinedScore: et.combinedScore,
-          athletes: et.all.map((a) => {
-            const id =
-              a.athleteId > 0
-                ? a.athleteId
+          points,
+          combinedScore: eligibleTeam.combinedScore,
+          athletes: eligibleTeam.all.map((athlete) => {
+            const resolvedId =
+              athlete.athleteId > 0
+                ? athlete.athleteId
                 : (() => {
-                    const tid = isSoloTeam(a.rawTeam)
+                    const teamId = isSoloTeam(athlete.rawTeam)
                       ? 0
-                      : (teamIdStore.get(teamNormalKey(a.rawTeam)) ?? 0);
-                    const rk = `${normalizeName(a.name)}|${tid === 0 ? "" : tid}`;
+                      : (teamIdStore.get(teamNormalKey(athlete.rawTeam)) ?? 0);
+                    const rehomeKey = `${normalizeName(athlete.name)}|${teamId === 0 ? "" : teamId}`;
                     return (
-                      athleteIndex.get(keyToCanonical.get(rk) ?? rk)?.id ?? 0
+                      athleteIndex.get(keyToCanonical.get(rehomeKey) ?? rehomeKey)
+                        ?.id ?? 0
                     );
                   })();
-            const scoring = et.top3.some(
-              (t) => t.name === a.name && t.pos === a.pos,
+            const scoring = eligibleTeam.top3.some(
+              (member) =>
+                member.name === athlete.name && member.pos === athlete.pos,
             );
             return {
-              id,
-              name: a.name,
-              pos: a.pos,
+              id: resolvedId,
+              name: athlete.name,
+              pos: athlete.pos,
               scoring,
-              country: a.country,
-              category: a.category,
+              country: athlete.country,
+              category: athlete.category,
             };
           }),
         });
@@ -394,10 +409,12 @@ export function buildTeamRanking(
     ranking[year] = {};
     for (const [dist, distMap] of Object.entries(distances)) {
       const sorted = Array.from(distMap.values()).sort(
-        (a, b) => b.totalPoints - a.totalPoints || a.bestRank - b.bestRank,
+        (entryA, entryB) =>
+          entryB.totalPoints - entryA.totalPoints ||
+          entryA.bestRank - entryB.bestRank,
       );
-      ranking[year][dist] = sorted.map((entry, i) => ({
-        rank: i + 1,
+      ranking[year][dist] = sorted.map((entry, index) => ({
+        rank: index + 1,
         team: canonicalTeam(entry.nameOcc),
         teamKey: entry.teamKey,
         teamId: 0,
@@ -405,8 +422,9 @@ export function buildTeamRanking(
         eventsScored: entry.eventsScored,
         bestRank: entry.bestRank,
         results: entry.results.sort(
-          (a, b) =>
-            new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime(),
+          (resultA, resultB) =>
+            new Date(resultB.eventDate).getTime() -
+            new Date(resultA.eventDate).getTime(),
         ),
       }));
     }

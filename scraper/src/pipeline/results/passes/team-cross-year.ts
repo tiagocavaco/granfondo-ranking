@@ -79,7 +79,7 @@ export function mergeTeamCrossYear(ctx: PipelineCtx): void {
         const shareLicence = !!(
           canonLics?.size &&
           laterLics?.size &&
-          [...canonLics].some((l) => laterLics!.has(l))
+          [...canonLics].some((licence) => laterLics!.has(licence))
         );
 
         if (shareLicence) {
@@ -113,7 +113,7 @@ export function mergeTeamCrossYear(ctx: PipelineCtx): void {
           ) {
             const sharedLics = [
               ...(ctx.entryLicences.get(canon.key) ?? new Set()),
-            ].filter((l) => ctx.entryLicences.get(later.key)?.has(l));
+            ].filter((licence) => ctx.entryLicences.get(later.key)?.has(licence));
             console.warn(
               `  [team-cross-year] WARNING: shared licence (${sharedLics.join(", ")}) but incompatible categories "${canonCatSL}" → "${laterCatSL}" for "${canon.entry.name}" — merging anyway, but likely a scraped licence error`,
             );
@@ -160,15 +160,19 @@ export function mergeTeamCrossYear(ctx: PipelineCtx): void {
             continue;
           }
 
-          const mA = profileMedianPercentile(canon.entry.results);
-          const mB = profileMedianPercentile(later.entry.results);
-          if (mA !== null && mB !== null && Math.abs(mA - mB) > 0.25) {
+          const medianA = profileMedianPercentile(canon.entry.results);
+          const medianB = profileMedianPercentile(later.entry.results);
+          if (
+            medianA !== null &&
+            medianB !== null &&
+            Math.abs(medianA - medianB) > 0.25
+          ) {
             continue;
           }
 
-          const cA = profileCountry(canon.entry.results);
-          const cB = profileCountry(later.entry.results);
-          if (cA !== null && cB !== null && cA !== cB) {
+          const countryA = profileCountry(canon.entry.results);
+          const countryB = profileCountry(later.entry.results);
+          if (countryA !== null && countryB !== null && countryA !== countryB) {
             continue;
           }
         }

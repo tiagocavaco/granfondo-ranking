@@ -77,8 +77,8 @@ export function mergeTeamSoloProfiles(ctx: PipelineCtx): void {
     const soloCountry = profileCountry(soloEntry.results);
     if (soloCountry !== null) {
       candidates = candidates.filter((c) => {
-        const cc = profileCountry(c.entry.results);
-        return cc === null || cc === soloCountry;
+        const candidateCountry = profileCountry(c.entry.results);
+        return candidateCountry === null || candidateCountry === soloCountry;
       });
       if (candidates.length === 0) {
         continue;
@@ -87,20 +87,20 @@ export function mergeTeamSoloProfiles(ctx: PipelineCtx): void {
 
     // Category compatibility check
     const soloYearCats = Object.entries(soloEntry.categories)
-      .map(([yr, raws]) => ({
-        year: Number(yr),
+      .map(([year, raws]) => ({
+        year: Number(year),
         canon: canonicalizeCategory(raws[0] ?? ""),
       }))
-      .filter((x) => x.canon);
+      .filter((entry) => entry.canon);
     candidates = candidates.filter((c) => {
       const combined = [
         ...soloYearCats,
         ...Object.entries(c.entry.categories)
-          .map(([yr]) => ({
-            year: Number(yr),
-            canon: entryCanonCatForYear(c.entry, Number(yr)) ?? "",
+          .map(([year]) => ({
+            year: Number(year),
+            canon: entryCanonCatForYear(c.entry, Number(year)) ?? "",
           }))
-          .filter((x) => x.canon),
+          .filter((entry) => entry.canon),
       ].sort((a, b) => a.year - b.year);
       for (let i = 1; i < combined.length; i++) {
         const prev = combined[i - 1]!,

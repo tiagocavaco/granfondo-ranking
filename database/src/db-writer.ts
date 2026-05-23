@@ -274,9 +274,9 @@ function buildTeamIds(data: AllScrapedData): Map<string, number> {
   const canonicalKeys = new Set<string>();
 
   for (const entry of data.athletesIndex.values()) {
-    for (const tk of entry.teams) {
-      if (tk && !SOLO_TEAM_KEYS.has(tk)) {
-        canonicalKeys.add(tk);
+    for (const teamKey of entry.teams) {
+      if (teamKey && !SOLO_TEAM_KEYS.has(teamKey)) {
+        canonicalKeys.add(teamKey);
       }
     }
   }

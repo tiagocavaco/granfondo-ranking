@@ -80,12 +80,12 @@ export function loadResultsFromDb(
     .all();
 
   const licencesByResultId = new Map<number, string[]>();
-  for (const lr of licenceRows) {
-    if (!licencesByResultId.has(lr.resultId)) {
-      licencesByResultId.set(lr.resultId, []);
+  for (const row of licenceRows) {
+    if (!licencesByResultId.has(row.resultId)) {
+      licencesByResultId.set(row.resultId, []);
     }
 
-    licencesByResultId.get(lr.resultId)!.push(lr.licence);
+    licencesByResultId.get(row.resultId)!.push(row.licence);
   }
 
   const eventRow = db

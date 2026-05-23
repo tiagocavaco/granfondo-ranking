@@ -40,9 +40,11 @@ export default function AggregateRankingPage() {
     const list = data[year]?.[distance]?.[gender] ?? [];
     const withRank = list.map((a, i) => ({ ...a, rank: i + 1 }));
     if (!search) return withRank;
-    const q = search.toLowerCase();
+    const query = search.toLowerCase();
     return withRank.filter(
-      (a) => a.name.toLowerCase().includes(q) || (a.team ?? "").toLowerCase().includes(q),
+      (athlete) =>
+        athlete.name.toLowerCase().includes(query) ||
+        (athlete.team ?? "").toLowerCase().includes(query),
     );
   }, [data, year, distance, gender, search]);
 
@@ -65,7 +67,7 @@ export default function AggregateRankingPage() {
       <div className="flex items-start justify-between gap-4 mb-8">
         <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Athlete Ranking</h2>
         <div className="sm:hidden">
-          <GenderToggle value={gender} onChange={(g) => { setGender(g as "M" | "F"); setSearch(""); }} />
+          <GenderToggle value={gender} onChange={(next) => { setGender(next as "M" | "F"); setSearch(""); }} />
         </div>
       </div>
 
@@ -107,7 +109,7 @@ export default function AggregateRankingPage() {
         </div>
         <div className="hidden sm:flex items-center gap-2.5">
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Gender</span>
-          <GenderToggle value={gender} onChange={(g) => { setGender(g as "M" | "F"); setSearch(""); }} />
+          <GenderToggle value={gender} onChange={(next) => { setGender(next as "M" | "F"); setSearch(""); }} />
         </div>
         <input
           type="text"

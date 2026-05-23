@@ -61,49 +61,57 @@ export function buildLicenceProfiles(ctx: PipelineCtx): void {
   const licenceToFilteredResults = new Map<string, RawResultEntry[]>();
 
   for (const [lic, names] of licenceToNames) {
-    const arr = [...names].sort((a, b) => b.length - a.length);
-    if (arr.length === 1) {
-      licenceToCanonicalName.set(lic, arr[0]!);
+    const namesByLength = [...names].sort(
+      (nameA, nameB) => nameB.length - nameA.length,
+    );
+    if (namesByLength.length === 1) {
+      licenceToCanonicalName.set(lic, namesByLength[0]!);
     } else {
-      const canonical = arr[0]!;
-      const allClose = arr
+      const canonical = namesByLength[0]!;
+      const allClose = namesByLength
         .slice(1)
-        .every((n) => levenshteinDistance(canonical, n) <= 2);
+        .every((name) => levenshteinDistance(canonical, name) <= 2);
       if (allClose) {
         licenceToCanonicalName.set(lic, canonical);
         console.log(
-          `  [licence-profiles] licence ${lic}: merged name variants: ${arr.join(", ")} → "${canonical}"`,
+          `  [licence-profiles] licence ${lic}: merged name variants: ${namesByLength.join(", ")} → "${canonical}"`,
         );
       } else {
         // Majority-vote: if one name has ≥3 results AND ≥3× all others combined,
         // it's a data-entry outlier — proceed with the dominant name only.
         const allRes = licenceToResults.get(lic)!;
         const nameCounts = new Map<string, number>();
-        for (const { r } of allRes) {
-          const nl = normalizeName(r.name);
-          nameCounts.set(nl, (nameCounts.get(nl) ?? 0) + 1);
+        for (const { r: result } of allRes) {
+          const nameLower = normalizeName(result.name);
+          nameCounts.set(nameLower, (nameCounts.get(nameLower) ?? 0) + 1);
         }
 
-        const sorted = [...nameCounts.entries()].sort((a, b) => b[1] - a[1]);
+        const sorted = [...nameCounts.entries()].sort(
+          ([, countA], [, countB]) => countB - countA,
+        );
         const topName = sorted[0]![0];
         const topCount = sorted[0]![1];
-        const otherCount = sorted.slice(1).reduce((s, [, c]) => s + c, 0);
+        const otherCount = sorted
+          .slice(1)
+          .reduce((sum, [, count]) => sum + count, 0);
         if (topCount >= 3 && topCount >= 3 * otherCount) {
           licenceToCanonicalName.set(lic, topName);
           licenceToFilteredResults.set(
             lic,
-            allRes.filter(({ r }) => normalizeName(r.name) === topName),
+            allRes.filter(
+              ({ r: result }) => normalizeName(result.name) === topName,
+            ),
           );
           const outliers = sorted
             .slice(1)
-            .map(([n, c]) => `${n}(${c})`)
+            .map(([name, count]) => `${name}(${count})`)
             .join(", ");
           console.log(
             `  [licence-profiles] licence ${lic}: dominant name "${topName}" (${topCount}/${topCount + otherCount}), outlier(s) excluded: ${outliers}`,
           );
         } else {
           console.warn(
-            `  [licence-profiles] licence ${lic}: SKIPPED — distinct names: ${arr.join(", ")}`,
+            `  [licence-profiles] licence ${lic}: SKIPPED — distinct names: ${namesByLength.join(", ")}`,
           );
         }
       }
@@ -145,10 +153,11 @@ export function buildLicenceProfiles(ctx: PipelineCtx): void {
     const results =
       licenceToFilteredResults.get(lic) ?? licenceToResults.get(lic)!;
     const teamResult = results
-      .filter((x) => !isSoloTeam(x.r.team))
+      .filter((entry) => !isSoloTeam(entry.r.team))
       .sort(
-        (a, b) =>
-          new Date(b.event.date).getTime() - new Date(a.event.date).getTime(),
+        (entryA, entryB) =>
+          new Date(entryB.event.date).getTime() -
+          new Date(entryA.event.date).getTime(),
       )[0];
     const teamId = teamResult
       ? resolveTeamId(teamResult.r.team, ctx.teamIdStore)
@@ -174,14 +183,14 @@ export function buildLicenceProfiles(ctx: PipelineCtx): void {
 
     ctx.entryLicences.get(key)!.add(lic);
 
-    for (const { event, dist, r } of results) {
-      const rk = resultDedupeKey(event.id, dist.name, r.bib);
-      if (assigned.has(rk)) {
+    for (const { event, dist, r: result } of results) {
+      const dedupeKey = resultDedupeKey(event.id, dist.name, result.bib);
+      if (assigned.has(dedupeKey)) {
         continue;
       }
 
-      assigned.add(rk);
-      addResult(entry, toRef(r, event, dist), true);
+      assigned.add(dedupeKey);
+      addResult(entry, toRef(result, event, dist), true);
     }
   }
 
@@ -205,11 +214,11 @@ export function buildLicenceProfiles(ctx: PipelineCtx): void {
       continue;
     }
 
-    // Canonicalise to the entry with the most results so the surviving key is stable
+    // Canonicalise to the entry with the most results so the surviving key is stable.
     keys.sort(
-      (a, b) =>
-        (index.get(b)?.results.length ?? 0) -
-        (index.get(a)?.results.length ?? 0),
+      (keyA, keyB) =>
+        (index.get(keyB)?.results.length ?? 0) -
+        (index.get(keyA)?.results.length ?? 0),
     );
     for (let i = 0; i < keys.length; i++) {
       const canonKey = keys[i]!;
@@ -218,9 +227,12 @@ export function buildLicenceProfiles(ctx: PipelineCtx): void {
         continue;
       }
 
-      // Map event+distance → bib so we can distinguish co-occurrence from collision
+      // Map event+distance → bib so we can distinguish co-occurrence from collision.
       const canonBibBySlot = new Map(
-        canon.results.map((r) => [`${r.eventId}|${r.distance}`, r.bib]),
+        canon.results.map((result) => [
+          `${result.eventId}|${result.distance}`,
+          result.bib,
+        ]),
       );
       for (let j = i + 1; j < keys.length; j++) {
         const laterKey = keys[j]!;
@@ -234,18 +246,20 @@ export function buildLicenceProfiles(ctx: PipelineCtx): void {
         // is not sufficient — two different licenced athletes with the same name would merge.
         const canonLics = ctx.entryLicences.get(canonKey) ?? new Set<string>();
         const laterLics = ctx.entryLicences.get(laterKey) ?? new Set<string>();
-        const hasCooc = [...canonLics].some((cl) =>
-          [...laterLics].some((ll) => licenceCooc.get(cl)?.has(ll)),
+        const hasCooc = [...canonLics].some((canonLicence) =>
+          [...laterLics].some((laterLicence) =>
+            licenceCooc.get(canonLicence)?.has(laterLicence),
+          ),
         );
         if (!hasCooc) {
           continue;
         }
 
-        // Different bib at the same slot → two people competing simultaneously → different athletes
-        const hasCollision = later.results.some((r) => {
-          const slot = `${r.eventId}|${r.distance}`;
+        // Different bib at the same slot → two people competing simultaneously → different athletes.
+        const hasCollision = later.results.some((result) => {
+          const slot = `${result.eventId}|${result.distance}`;
           const canonBib = canonBibBySlot.get(slot);
-          return canonBib !== undefined && canonBib !== r.bib;
+          return canonBib !== undefined && canonBib !== result.bib;
         });
         if (hasCollision) {
           continue;

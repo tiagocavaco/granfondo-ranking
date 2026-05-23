@@ -22,7 +22,7 @@ export function enrichLicenceProfiles(ctx: PipelineCtx): void {
 
     const nameLower = normalizeName(r.name);
     const candidates = (nameLookup.get(nameLower) ?? []).filter((key) =>
-      index.get(key)!.teams.some((tk) => sameTeam(tk, r.team)),
+      index.get(key)!.teams.some((teamKey) => sameTeam(teamKey, r.team)),
     );
 
     if (candidates.length === 1) {

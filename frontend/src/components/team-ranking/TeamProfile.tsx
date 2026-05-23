@@ -445,10 +445,10 @@ export default function TeamProfile() {
                   { eventName: string; eventDate: string; distances: string[] }
                 >();
                 for (const ev of nonQualifyingEvents) {
-                  const g = grouped.get(ev.eventId);
-                  if (g) {
-                    if (!g.distances.includes(ev.distance)) {
-                      g.distances.push(ev.distance);
+                  const existing = grouped.get(ev.eventId);
+                  if (existing) {
+                    if (!existing.distances.includes(ev.distance)) {
+                      existing.distances.push(ev.distance);
                     }
                   } else {
                     grouped.set(ev.eventId, {
@@ -459,8 +459,8 @@ export default function TeamProfile() {
                   }
                 }
 
-                return [...grouped.entries()].map(([eventId, g]) => {
-                  g.distances.sort(
+                return [...grouped.entries()].map(([eventId, group]) => {
+                  group.distances.sort(
                     (a, b) =>
                       (DISTANCES.indexOf(a) + 1 || 99) -
                       (DISTANCES.indexOf(b) + 1 || 99),
@@ -475,14 +475,14 @@ export default function TeamProfile() {
                           to={`/event/${eventId}`}
                           className="font-semibold text-slate-900 hover:text-blue-600 transition-colors text-sm"
                         >
-                          {g.eventName}
+                          {group.eventName}
                         </Link>
                         <div className="text-xs text-slate-400 mt-0.5">
-                          {g.eventDate}
+                          {group.eventDate}
                         </div>
                       </div>
                       <div className="flex flex-wrap gap-1 sm:shrink-0">
-                        {g.distances.map((d) => (
+                        {group.distances.map((d) => (
                           <span
                             key={d}
                             className={`text-xs font-semibold px-2.5 py-1 rounded-full ${distBadgeClass(d)}`}

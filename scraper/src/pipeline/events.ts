@@ -52,20 +52,22 @@ export type ScrapeResult = {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-async function sleep(ms: number) {
-  return new Promise((r) => setTimeout(r, ms));
+async function sleep(milliseconds: number) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
-export function apiAthleteToParticipant(a: ApiAthlete): StoredParticipant {
+export function apiAthleteToParticipant(
+  athlete: ApiAthlete,
+): StoredParticipant {
   return {
-    bib: a.dorsal ?? "",
-    name: a.nome ?? "",
-    fullName: a.nomecompleto ?? "",
-    gender: a.sexo ?? "",
-    team: fixRawTeamName(a.equipa ?? ""),
-    category: a.escalao ?? "",
-    distance: a.percurso ?? "",
-    distanceId: a.id_percursos ?? "",
+    bib: athlete.dorsal ?? "",
+    name: athlete.nome ?? "",
+    fullName: athlete.nomecompleto ?? "",
+    gender: athlete.sexo ?? "",
+    team: fixRawTeamName(athlete.equipa ?? ""),
+    category: athlete.escalao ?? "",
+    distance: athlete.percurso ?? "",
+    distanceId: athlete.id_percursos ?? "",
     athleteId: 0,
   };
 }
@@ -122,7 +124,7 @@ export async function scrapeEvent(
 
   if (!isPast(event.date)) {
     console.log(
-      `  ⏳ upcoming — ${athletes.length} registered, ${event.distances.map((d) => d.name).join(" / ")}`,
+      `  ⏳ upcoming — ${athletes.length} registered, ${event.distances.map((distance) => distance.name).join(" / ")}`,
     );
     return { event, participants: athletes };
   }
@@ -136,7 +138,7 @@ export async function scrapeEvent(
     if (cached) {
       event.hasResults = true;
       event.finisherCount = cached.distances.reduce(
-        (s, d) => s + d.finisherCount,
+        (sum, distance) => sum + distance.finisherCount,
         0,
       );
       event.scrapedAt = cached.scrapedAt;
@@ -160,13 +162,13 @@ export async function scrapeEvent(
         continue;
       }
 
-      const results = rows.map(transformResult).filter((r) => r.pos > 0);
-      results.sort((a, b) => a.pos - b.pos);
+      const results = rows.map(transformResult).filter((row) => row.pos > 0);
+      results.sort((rowA, rowB) => rowA.pos - rowB.pos);
 
       distanceResults.push({
         id: dist.id,
         name: dist.name,
-        finisherCount: results.filter((r) => !r.dnf && !r.dns).length,
+        finisherCount: results.filter((row) => !row.dnf && !row.dns).length,
         results,
       });
     } catch (err) {
@@ -194,33 +196,39 @@ export async function scrapeEvent(
   // names so a 2-distance Clássica event becomes GF + MF rather than GF + Mini.
   if (distanceResults.length > 1) {
     const expectedNames = event.distances
-      .filter((d) => distanceResults.some((dr) => dr.id === d.id))
-      .map((d) => d.name)
-      .sort((a, b) => distancePriority(a) - distancePriority(b));
-    distanceResults.sort((a, b) => {
-      const winA = a.results.find((r) => r.pos === 1)?.raceTimeSecs ?? 0;
-      const winB = b.results.find((r) => r.pos === 1)?.raceTimeSecs ?? 0;
+      .filter((distance) =>
+        distanceResults.some((result) => result.id === distance.id),
+      )
+      .map((distance) => distance.name)
+      .sort(
+        (nameA, nameB) => distancePriority(nameA) - distancePriority(nameB),
+      );
+    distanceResults.sort((distanceA, distanceB) => {
+      const winA = distanceA.results.find((row) => row.pos === 1)?.raceTimeSecs ?? 0;
+      const winB = distanceB.results.find((row) => row.pos === 1)?.raceTimeSecs ?? 0;
       return winB - winA; // descending: longest course first
     });
     const CANONICAL_ORDER = ["Granfondo", "Mediofondo", "Minifondo"];
-    const canonicals = expectedNames.map((n) => normalizeDistance(n));
+    const canonicals = expectedNames.map((name) => normalizeDistance(name));
     // Gap: a known canonical appears at the wrong position (e.g. Mini at index 1 instead of MF)
-    const hasGap = canonicals.some((c, i) => {
-      const expected = CANONICAL_ORDER[i];
+    const hasGap = canonicals.some((canonical, index) => {
+      const expected = CANONICAL_ORDER[index];
       return (
-        expected !== undefined && CANONICAL_ORDER.includes(c) && c !== expected
+        expected !== undefined &&
+        CANONICAL_ORDER.includes(canonical) &&
+        canonical !== expected
       );
     });
-    distanceResults.forEach((dr, i) => {
-      dr.name = hasGap
-        ? (CANONICAL_ORDER[i] ?? dr.name)
-        : (expectedNames[i] ?? dr.name);
-      dr.id = String(i + 1);
+    distanceResults.forEach((distance, index) => {
+      distance.name = hasGap
+        ? (CANONICAL_ORDER[index] ?? distance.name)
+        : (expectedNames[index] ?? distance.name);
+      distance.id = String(index + 1);
     });
   }
 
-  for (const dr of distanceResults) {
-    console.log(`  ✓ ${dr.name} — ${dr.results.length} rows`);
+  for (const distance of distanceResults) {
+    console.log(`  ✓ ${distance.name} — ${distance.results.length} rows`);
   }
 
   assignGenderPositions(distanceResults);
@@ -237,7 +245,7 @@ export async function scrapeEvent(
 
   event.hasResults = true;
   event.finisherCount = distanceResults.reduce(
-    (s, d) => s + d.finisherCount,
+    (sum, distance) => sum + distance.finisherCount,
     0,
   );
   event.scrapedAt = stored.scrapedAt;

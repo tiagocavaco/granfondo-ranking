@@ -253,10 +253,10 @@ function DistancePanel({ data }: { data: DistancePredictions }) {
         (c.ranked.length > 0 || c.newcomers > 0) &&
         isFemaleCategory(cat) === (gender === "F"),
     )
-    .sort(([a], [b]) => {
-      const [ai, aa] = categorySortKey(a);
-      const [bi, ba] = categorySortKey(b);
-      return ai !== bi ? ai - bi : aa - ba;
+    .sort(([catA], [catB]) => {
+      const [groupA, subA] = categorySortKey(catA);
+      const [groupB, subB] = categorySortKey(catB);
+      return groupA !== groupB ? groupA - groupB : subA - subB;
     });
 
   return (

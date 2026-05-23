@@ -27,9 +27,9 @@ export function sweepCategoryEviction(ctx: PipelineCtx): void {
     // was polluted by wrong-athlete merges — override it with the next year's canon.
     const yearCatMap = new Map<number, string>();
     for (const year of yearSet) {
-      const cc = entryCanonCatForYear(entry, year);
-      if (cc) {
-        yearCatMap.set(year, cc);
+      const canonCat = entryCanonCatForYear(entry, year);
+      if (canonCat) {
+        yearCatMap.set(year, canonCat);
       }
     }
 
@@ -73,28 +73,30 @@ export function sweepCategoryEviction(ctx: PipelineCtx): void {
     // isValidCatTransition(A, C, 2) is false).
     for (let i = 0; i < sortedYears.length; i++) {
       for (let j = i + 2; j < sortedYears.length; j++) {
-        const y1 = sortedYears[i]!;
-        const y2 = sortedYears[j]!;
-        const cat1 = yearCatMap.get(y1)!;
-        const cat2 = yearCatMap.get(y2)!;
-        const rank1 = SOLO_CAT_RANK[cat1] ?? -1;
-        const rank2 = SOLO_CAT_RANK[cat2] ?? -1;
-        if (rank1 >= rank2 || rank1 < 0) {
+        const earlierYear = sortedYears[i]!;
+        const laterYear = sortedYears[j]!;
+        const earlierCat = yearCatMap.get(earlierYear)!;
+        const laterCat = yearCatMap.get(laterYear)!;
+        const earlierRank = SOLO_CAT_RANK[earlierCat] ?? -1;
+        const laterRank = SOLO_CAT_RANK[laterCat] ?? -1;
+        if (earlierRank >= laterRank || earlierRank < 0) {
           continue;
         }
 
-        if (isValidCatTransition(cat1, cat2, y2 - y1)) {
+        if (isValidCatTransition(earlierCat, laterCat, laterYear - earlierYear)) {
           continue;
         }
 
-        const suffix = cat1.endsWith(" Female") ? " Female" : " Male";
-        const clamped = RANK_TO_CAT.get(clampRank(rank1, y2 - y1));
+        const suffix = earlierCat.endsWith(" Female") ? " Female" : " Male";
+        const clamped = RANK_TO_CAT.get(
+          clampRank(earlierRank, laterYear - earlierYear),
+        );
         if (clamped) {
           yearCatMap.set(
-            y2,
+            laterYear,
             suffix === " Female" ? clamped.female : clamped.male,
           );
-          overriddenYears.add(y2);
+          overriddenYears.add(laterYear);
         }
       }
     }
@@ -166,12 +168,12 @@ export function sweepCategoryEviction(ctx: PipelineCtx): void {
       let rehomeName = entry.name;
       let rehomeNameLower = entry.nameLower;
       if (eventData) {
-        outer: for (const d of eventData.distances) {
-          if (normalizeDistance(d.name) !== r.distance) {
+        outer: for (const distance of eventData.distances) {
+          if (normalizeDistance(distance.name) !== r.distance) {
             continue;
           }
 
-          for (const raw of d.results) {
+          for (const raw of distance.results) {
             if (
               raw.pos === r.pos &&
               raw.team === r.team &&

@@ -352,7 +352,7 @@ async function main() {
   const athleteAllTeamIds = new Map<number, number[]>();
   for (const [, entry] of athletesIndex) {
     const teamIds = entry.teams
-      .map((tk) => extendedTeamIdStore.get(tk) ?? 0)
+      .map((teamKey) => extendedTeamIdStore.get(teamKey) ?? 0)
       .filter((id) => id > 0);
     if (teamIds.length > 0) {
       athleteAllTeamIds.set(entry.id, teamIds);

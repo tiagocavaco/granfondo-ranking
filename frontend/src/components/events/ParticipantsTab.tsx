@@ -28,21 +28,21 @@ export default function ParticipantsTab({ eventId }: Props) {
       .then((data) => {
         // Sort by bib: unassigned (blank) first, then numeric ascending
         const sorted = [...data].sort((a, b) => {
-          const na = parseInt(a.bib, 10);
-          const nb = parseInt(b.bib, 10);
-          if (isNaN(na) && isNaN(nb)) {
+          const bibA = parseInt(a.bib, 10);
+          const bibB = parseInt(b.bib, 10);
+          if (isNaN(bibA) && isNaN(bibB)) {
             return 0;
           }
 
-          if (isNaN(na)) {
+          if (isNaN(bibA)) {
             return -1;
           }
 
-          if (isNaN(nb)) {
+          if (isNaN(bibB)) {
             return 1;
           }
 
-          return na - nb;
+          return bibA - bibB;
         });
         setParticipants(sorted);
       })

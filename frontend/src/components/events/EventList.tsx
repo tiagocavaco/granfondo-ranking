@@ -212,17 +212,17 @@ function FilterGroup({
         {label}
       </span>
       <div className="flex flex-1 sm:flex-none rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
-        {options.map((o) => (
+        {options.map((option) => (
           <button
-            key={o}
-            onClick={() => onChange(o)}
+            key={option}
+            onClick={() => onChange(option)}
             className={`flex-1 sm:flex-none px-3.5 py-1.5 text-sm font-semibold transition-all ${
-              value === o
+              value === option
                 ? "bg-blue-600 text-white shadow-sm"
                 : "text-slate-600 hover:bg-slate-50"
             }`}
           >
-            {format(o)}
+            {format(option)}
           </button>
         ))}
       </div>

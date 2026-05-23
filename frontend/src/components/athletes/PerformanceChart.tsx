@@ -84,21 +84,21 @@ export default function PerformanceChart({ results }: Props) {
       return null;
     }
 
-    const pt: FlatPoint = payload[0]?.payload;
-    if (!pt) {
+    const point: FlatPoint = payload[0]?.payload;
+    if (!point) {
       return null;
     }
 
     return (
       <div className="bg-white border border-slate-200 rounded-xl shadow-lg px-3 py-2 text-xs">
-        <p className="font-semibold text-slate-700 mb-1">{pt.eventName}</p>
+        <p className="font-semibold text-slate-700 mb-1">{point.eventName}</p>
         <div className="flex items-center gap-2">
-          <span style={{ color: distDotColor(pt.dist) }} className="font-bold">
+          <span style={{ color: distDotColor(point.dist) }} className="font-bold">
             ●
           </span>
-          <span className="text-slate-600">{pt.dist}:</span>
-          <span className="font-semibold text-slate-800">#{pt.pos}</span>
-          <span className="text-slate-400">/ {pt.finisherCount}</span>
+          <span className="text-slate-600">{point.dist}:</span>
+          <span className="font-semibold text-slate-800">#{point.pos}</span>
+          <span className="text-slate-400">/ {point.finisherCount}</span>
         </div>
       </div>
     );

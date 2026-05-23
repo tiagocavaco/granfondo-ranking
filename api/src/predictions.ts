@@ -159,13 +159,13 @@ function loadAthleteContext(db: Db, linkedIds: number[]): AthleteContext {
       .push({ distance: r.distance, year: r.year, pts: r.pts });
 
     if (!mainDistAccum.has(r.athleteId)) mainDistAccum.set(r.athleteId, new Map());
-    const dm = mainDistAccum.get(r.athleteId)!;
-    dm.set(r.distance, (dm.get(r.distance) ?? 0) + r.pts);
+    const distanceMap = mainDistAccum.get(r.athleteId)!;
+    distanceMap.set(r.distance, (distanceMap.get(r.distance) ?? 0) + r.pts);
   }
-  for (const [athleteId, dm] of mainDistAccum) {
+  for (const [athleteId, distanceMap] of mainDistAccum) {
     let bestDist: string | null = null;
     let bestPts = -Infinity;
-    for (const [dist, pts] of dm) {
+    for (const [dist, pts] of distanceMap) {
       if (pts > bestPts) {
         bestDist = dist;
         bestPts = pts;

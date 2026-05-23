@@ -25,21 +25,21 @@ export async function getAggregateRanking(): Promise<AggregateRanking> {
     )
     .all();
 
-  const arRows = db.select().from(schema.aggregateResults).all();
+  const aggregateResultRows = db.select().from(schema.aggregateResults).all();
   const resultsByAthlete = new Map<number, AggregateResult[]>();
-  for (const ar of arRows) {
-    if (!resultsByAthlete.has(ar.aggregateAthleteId)) {
-      resultsByAthlete.set(ar.aggregateAthleteId, []);
+  for (const row of aggregateResultRows) {
+    if (!resultsByAthlete.has(row.aggregateAthleteId)) {
+      resultsByAthlete.set(row.aggregateAthleteId, []);
     }
-    resultsByAthlete.get(ar.aggregateAthleteId)!.push({
-      eventId: ar.eventId,
-      eventName: ar.eventName,
-      eventDate: ar.eventDate,
-      distanceFinishers: ar.distanceFinishers,
-      coefficient: ar.coefficient,
-      pos: ar.pos,
-      basePoints: ar.basePoints,
-      points: ar.points,
+    resultsByAthlete.get(row.aggregateAthleteId)!.push({
+      eventId: row.eventId,
+      eventName: row.eventName,
+      eventDate: row.eventDate,
+      distanceFinishers: row.distanceFinishers,
+      coefficient: row.coefficient,
+      pos: row.pos,
+      basePoints: row.basePoints,
+      points: row.points,
     });
   }
 

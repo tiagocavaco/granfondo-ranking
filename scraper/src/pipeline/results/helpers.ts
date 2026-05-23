@@ -47,20 +47,20 @@ export const SOLO_CAT_RANK: Record<string, number> = {
 // Inverse of SOLO_CAT_RANK: rank → canonical name per gender suffix.
 // Derived at module load so SOLO_CAT_RANK stays the single source of truth.
 export const RANK_TO_CAT = (() => {
-  const m = new Map<number, { male: string; female: string }>();
+  const byRank = new Map<number, { male: string; female: string }>();
   for (const [name, rank] of Object.entries(SOLO_CAT_RANK)) {
     const isFemale = name.endsWith(" Female");
-    const entry = m.get(rank) ?? { male: "", female: "" };
+    const entry = byRank.get(rank) ?? { male: "", female: "" };
     if (isFemale) {
       entry.female = name;
     } else {
       entry.male = name;
     }
 
-    m.set(rank, entry);
+    byRank.set(rank, entry);
   }
 
-  return m;
+  return byRank;
 })();
 
 /** Maximum rank an athlete in baseCat can legitimately reach after yearDiff seasons.
@@ -101,34 +101,35 @@ export function athleteKey(
  * Open 19-34 is ambiguous between Elite and Masters A — compatible with both,
  * incompatible with Masters B and above.
  */
-export function categoriesCompatible(a: string, b: string): boolean {
-  if (a === b) {
+export function categoriesCompatible(catA: string, catB: string): boolean {
+  if (catA === catB) {
     return true;
   }
 
   const OPEN_M = "Open 19-34 Male";
   const OPEN_F = "Open 19-34 Female";
-  if (a === OPEN_M) {
-    return b === "Elite Male" || b === "Masters A Male" || b === OPEN_M;
+  if (catA === OPEN_M) {
+    return catB === "Elite Male" || catB === "Masters A Male" || catB === OPEN_M;
   }
 
-  if (b === OPEN_M) {
-    return a === "Elite Male" || a === "Masters A Male" || a === OPEN_M;
+  if (catB === OPEN_M) {
+    return catA === "Elite Male" || catA === "Masters A Male" || catA === OPEN_M;
   }
 
-  if (a === OPEN_F) {
-    return b === "Elite Female" || b === "Masters A Female" || b === OPEN_F;
+  if (catA === OPEN_F) {
+    return catB === "Elite Female" || catB === "Masters A Female" || catB === OPEN_F;
   }
 
-  if (b === OPEN_F) {
-    return a === "Elite Female" || a === "Masters A Female" || a === OPEN_F;
+  if (catB === OPEN_F) {
+    return catA === "Elite Female" || catA === "Masters A Female" || catA === OPEN_F;
   }
 
   // Gender-agnostic forms (e.g. "Masters A" from normalizeCategory fallback on unknown
   // category strings) are compatible with their gendered variants. This prevents the
   // post-pass from incorrectly removing results from events that omit the gender suffix.
-  const stripGender = (s: string) => s.replace(/ (?:Male|Female|F)$/, "");
-  if (stripGender(a) === stripGender(b)) {
+  const stripGender = (category: string) =>
+    category.replace(/ (?:Male|Female|F)$/, "");
+  if (stripGender(catA) === stripGender(catB)) {
     return true;
   }
 
@@ -188,25 +189,27 @@ export function entryCanonCatForYear(
   entry: AthleteEntry,
   year: number,
 ): string | null {
-  const counts = new Map<string, number>();
-  for (const r of entry.results) {
-    if (r.eventYear !== year) {
+  const categoryCounts = new Map<string, number>();
+  for (const result of entry.results) {
+    if (result.eventYear !== year) {
       continue;
     }
 
-    const c = canonicalizeCategory(r.category);
-    if (c === "Unknown") {
+    const canonical = canonicalizeCategory(result.category);
+    if (canonical === "Unknown") {
       continue;
     }
 
-    counts.set(c, (counts.get(c) ?? 0) + 1);
+    categoryCounts.set(canonical, (categoryCounts.get(canonical) ?? 0) + 1);
   }
 
-  if (!counts.size) {
+  if (!categoryCounts.size) {
     return null;
   }
 
-  return [...counts.entries()].sort((a, b) => b[1] - a[1])[0]![0];
+  return [...categoryCounts.entries()].sort(
+    ([, countA], [, countB]) => countB - countA,
+  )[0]![0];
 }
 
 // ── Profile-level helpers (reused across passes 5c, 5e, 5f) ──────────────────
@@ -218,44 +221,55 @@ export function entryCanonCatForYear(
  * Display names in stored results are kept as-is.
  */
 export function profileDistanceSet(results: AthleteResultRef[]): Set<string> {
-  return new Set(results.map((r) => normalizeDistance(r.distance)));
+  return new Set(results.map((result) => normalizeDistance(result.distance)));
 }
 
 /** Median genderPos/finisherCount for valid results. Returns null if < 2 valid results. */
-export function profileMedianPercentile(results: AthleteResultRef[]): number | null {
-  const valid = results.filter(
-    (r) => !r.dnf && !r.dns && r.genderPos > 0 && r.finisherCount > 0,
+export function profileMedianPercentile(
+  results: AthleteResultRef[],
+): number | null {
+  const validResults = results.filter(
+    (result) =>
+      !result.dnf &&
+      !result.dns &&
+      result.genderPos > 0 &&
+      result.finisherCount > 0,
   );
-  if (valid.length < 1) {
+  if (validResults.length < 1) {
     return null;
   }
 
-  const sorted = valid
-    .map((r) => r.genderPos / r.finisherCount)
-    .sort((a, b) => a - b);
-  return sorted[Math.floor(sorted.length / 2)]!;
+  const sortedPercentiles = validResults
+    .map((result) => result.genderPos / result.finisherCount)
+    .sort((percentileA, percentileB) => percentileA - percentileB);
+  return sortedPercentiles[Math.floor(sortedPercentiles.length / 2)]!;
 }
 
 /** Most frequent non-empty country across results, or null. */
 export function profileCountry(results: AthleteResultRef[]): string | null {
-  const counts = new Map<string, number>();
-  for (const r of results) {
-    if (r.country) {
-      counts.set(r.country, (counts.get(r.country) ?? 0) + 1);
+  const countryCounts = new Map<string, number>();
+  for (const result of results) {
+    if (result.country) {
+      countryCounts.set(
+        result.country,
+        (countryCounts.get(result.country) ?? 0) + 1,
+      );
     }
   }
 
-  if (!counts.size) {
+  if (!countryCounts.size) {
     return null;
   }
 
-  return [...counts.entries()].sort((a, b) => b[1] - a[1])[0]![0];
+  return [...countryCounts.entries()].sort(
+    ([, countA], [, countB]) => countB - countA,
+  )[0]![0];
 }
 
 /** Returns true if the two distance sets share at least one element. */
-export function setsIntersect<T>(a: Set<T>, b: Set<T>): boolean {
-  for (const v of a) {
-    if (b.has(v)) {
+export function setsIntersect<T>(setA: Set<T>, setB: Set<T>): boolean {
+  for (const value of setA) {
+    if (setB.has(value)) {
       return true;
     }
   }
@@ -281,20 +295,20 @@ export function addToTeamsAndCategories(
   entry: AthleteEntry,
   result: AthleteResultRef,
 ): void {
-  const tk = teamNormalKey(result.team);
-  if (tk && !isSoloTeam(result.team) && !entry.teams.includes(tk)) {
-    entry.teams.push(tk);
+  const teamKey = teamNormalKey(result.team);
+  if (teamKey && !isSoloTeam(result.team) && !entry.teams.includes(teamKey)) {
+    entry.teams.push(teamKey);
   }
 
-  // Store original raw category string — canonical map is used only for dedup internally
-  const rawCat = result.category;
+  // Store original raw category string — canonical map is used only for dedup internally.
+  const rawCategory = result.category;
   const year = String(result.eventYear);
   if (!entry.categories[year]) {
     entry.categories[year] = [];
   }
 
-  if (rawCat && !entry.categories[year]!.includes(rawCat)) {
-    entry.categories[year]!.push(rawCat);
+  if (rawCategory && !entry.categories[year]!.includes(rawCategory)) {
+    entry.categories[year]!.push(rawCategory);
   }
 }
 
@@ -303,7 +317,9 @@ export function addResult(
   result: AthleteResultRef,
   hasLicence: boolean,
 ): void {
-  const existing = entry.results.find((r) => r.eventId === result.eventId);
+  const existing = entry.results.find(
+    (existingResult) => existingResult.eventId === result.eventId,
+  );
   if (!existing) {
     entry.results.push(result);
     addToTeamsAndCategories(entry, result);
@@ -313,7 +329,7 @@ export function addResult(
   const existingCat = canonicalizeCategory(existing.category);
   const incomingCat = canonicalizeCategory(result.category);
 
-  // Same or compatible canonical category — treat as duplicate, keep licenced result
+  // Same or compatible canonical category — treat as duplicate, keep licenced result.
   if (categoriesCompatible(existingCat, incomingCat)) {
     if (hasLicence) {
       entry.results.splice(entry.results.indexOf(existing), 1, result);
@@ -322,14 +338,14 @@ export function addResult(
     return;
   }
 
-  // Different categories — use athlete's known categories for this year to decide
+  // Different categories — use athlete's known categories for this year to decide.
   const year = String(result.eventYear);
   const knownCanon = (entry.categories[year] ?? []).map(canonicalizeCategory);
-  const existingMatches = knownCanon.some((c) =>
-    categoriesCompatible(c, existingCat),
+  const existingMatches = knownCanon.some((knownCat) =>
+    categoriesCompatible(knownCat, existingCat),
   );
-  const incomingMatches = knownCanon.some((c) =>
-    categoriesCompatible(c, incomingCat),
+  const incomingMatches = knownCanon.some((knownCat) =>
+    categoriesCompatible(knownCat, incomingCat),
   );
 
   if (existingMatches && !incomingMatches) {
@@ -348,10 +364,11 @@ export function addResult(
 export function deriveCanonicalTeam(entry: AthleteEntry): void {
   const mostRecent = [...entry.results]
     .sort(
-      (a, b) =>
-        new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime(),
+      (resultA, resultB) =>
+        new Date(resultB.eventDate).getTime() -
+        new Date(resultA.eventDate).getTime(),
     )
-    .find((r) => !isSoloTeam(r.team));
+    .find((result) => !isSoloTeam(result.team));
   if (mostRecent) {
     entry.canonicalTeam = mostRecent.team;
   }
@@ -437,14 +454,14 @@ export function licencesConflict(
   keyB: string,
   entryLicences: Map<string, Set<string>>,
 ): boolean {
-  const la = entryLicences.get(keyA);
-  const lb = entryLicences.get(keyB);
-  if (!la?.size || !lb?.size) {
+  const licencesA = entryLicences.get(keyA);
+  const licencesB = entryLicences.get(keyB);
+  if (!licencesA?.size || !licencesB?.size) {
     return false;
   }
 
-  for (const l of la) {
-    if (lb.has(l)) {
+  for (const licence of licencesA) {
+    if (licencesB.has(licence)) {
       return false;
     }
   }
@@ -458,17 +475,17 @@ export function mergeLicenceSets(
   absorbedKey: string,
   entryLicences: Map<string, Set<string>>,
 ): void {
-  const lb = entryLicences.get(absorbedKey);
-  if (!lb?.size) {
+  const absorbedLicences = entryLicences.get(absorbedKey);
+  if (!absorbedLicences?.size) {
     return;
   }
 
-  const la = entryLicences.get(survivingKey);
-  if (!la) {
-    entryLicences.set(survivingKey, new Set(lb));
+  const survivingLicences = entryLicences.get(survivingKey);
+  if (!survivingLicences) {
+    entryLicences.set(survivingKey, new Set(absorbedLicences));
   } else {
-    for (const l of lb) {
-      la.add(l);
+    for (const licence of absorbedLicences) {
+      survivingLicences.add(licence);
     }
   }
 

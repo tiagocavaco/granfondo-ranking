@@ -310,8 +310,9 @@ export function categorySortKey(raw: string): [number, number] {
   const idx = CANON_ORDER.indexOf(canon as (typeof CANON_ORDER)[number]);
   let sub = 0;
   if (canon === "Elite") {
-    const u = raw.toUpperCase();
-    sub = /JUN|JUNIOR|CADETE/.test(u) ? 0 : /SUB/.test(u) ? 1 : 2;
+    const upper = raw.toUpperCase();
+    sub =
+      /JUN|JUNIOR|CADETE/.test(upper) ? 0 : /SUB/.test(upper) ? 1 : 2;
   } else {
     sub = parseInt(raw.match(/\d+/)?.[0] ?? "0", 10);
   }

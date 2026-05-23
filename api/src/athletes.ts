@@ -38,10 +38,10 @@ export async function getAthlete(id: number): Promise<AthleteEntry> {
     .all();
 
   const categories: Record<string, string[]> = {};
-  for (const cr of categoryRows) {
-    const y = String(cr.year);
-    if (!categories[y]) categories[y] = [];
-    categories[y].push(cr.category);
+  for (const row of categoryRows) {
+    const year = String(row.year);
+    if (!categories[year]) categories[year] = [];
+    categories[year].push(row.category);
   }
 
   const results: AthleteResultRef[] = resultRows.map((r) => ({

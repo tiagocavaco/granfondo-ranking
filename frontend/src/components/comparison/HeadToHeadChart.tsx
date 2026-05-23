@@ -128,7 +128,7 @@ export function HeadToHeadChart({ shared, aName, bName }: Props) {
             iconType="circle"
             iconSize={8}
             wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
-            formatter={(_, __, i) => (i === 0 ? aName : bName)}
+            formatter={(_value, _entry, index) => (index === 0 ? aName : bName)}
           />
           <Line type="monotone" dataKey="a" name="a" stroke={COLORS[0]} strokeWidth={2}
             dot={{ r: 4, fill: COLORS[0], strokeWidth: 0 }} activeDot={{ r: 6 }} connectNulls={false} />

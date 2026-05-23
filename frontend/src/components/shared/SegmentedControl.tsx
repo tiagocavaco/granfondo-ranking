@@ -21,19 +21,19 @@ export function SegmentedControl({
         {label}
       </span>
       <div className="flex flex-1 sm:flex-none rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
-        {options.map((o) => {
-          const colors = colorMap?.[o];
-          const fullLabel = labelMap?.[o] ?? o;
-          const shortLabel = shortLabelMap?.[o];
+        {options.map((option) => {
+          const colors = colorMap?.[option];
+          const fullLabel = labelMap?.[option] ?? option;
+          const shortLabel = shortLabelMap?.[option];
           const inactiveClass = colors?.base
             ? `text-slate-600 hover:bg-slate-50 border-r last:border-r-0 ${colors.base}`
             : "text-slate-600 hover:bg-slate-50";
           return (
             <button
-              key={o}
-              onClick={() => onChange(o)}
+              key={option}
+              onClick={() => onChange(option)}
               className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
-                value === o
+                value === option
                   ? (colors?.active ?? "bg-blue-600 text-white")
                   : inactiveClass
               }`}

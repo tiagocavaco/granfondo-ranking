@@ -102,10 +102,10 @@ export function computeGaps(distances: StoredDistanceResults[]): void {
       }
 
       r.gapSecs = gapSecs;
-      const h = Math.floor(gapSecs / 3600);
-      const m = Math.floor((gapSecs % 3600) / 60);
-      const s = Math.floor(gapSecs % 60);
-      r.gap = `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+      const hours = Math.floor(gapSecs / 3600);
+      const minutes = Math.floor((gapSecs % 3600) / 60);
+      const seconds = Math.floor(gapSecs % 60);
+      r.gap = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
     }
   }
 }
@@ -176,7 +176,7 @@ export function transformResult(r: ApiResult): StoredResult {
     gapSecs,
     points: Number(r.pontos) || 0,
     licences: [r.licenca1, r.licenca2]
-      .map((l) => (l ? normalizeLicence(l.trim()) : ""))
+      .map((licence) => (licence ? normalizeLicence(licence.trim()) : ""))
       .filter(Boolean),
     dnf,
     dns,
