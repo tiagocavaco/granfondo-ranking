@@ -18,6 +18,8 @@ export const DATA_DIR = path.join(
   "public",
   "data",
 );
+/** Pipeline diagnostic JSONs (solo-flags, cross-pass-flags) live here. */
+export const FLAGS_DIR = path.join(__dirname, "..");
 export const SCRAPED_EVENTS_PATH = path.join(
   __dirname,
   "..",
