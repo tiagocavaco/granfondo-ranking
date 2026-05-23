@@ -1,0 +1,83 @@
+name: Prune Old Deployments
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"   # every Monday at 03:00 UTC
+  workflow_dispatch:        # allow manual trigger from GitHub UI
+
+permissions:
+  deployments: write
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      KEEP: 5
+    steps:
+      - name: Prune github-pages deployments
+        run: |
+          set -euo pipefail
+
+          # Fetch all deployments, sort newest first.
+          ALL=$(gh api --paginate "repos/$REPO/deployments?per_page=100" \
+            --jq '.[] | {id, created_at}' \
+            | jq -s 'sort_by(.created_at) | reverse')
+          TOTAL=$(echo "$ALL" | jq 'length')
+          echo "Total deployments: $TOTAL"
+
+          # Annotate each with its latest status state. One extra API call per
+          # deployment — cheap at this scale.
+          ANNOTATED="["
+          FIRST=1
+          for ROW in $(echo "$ALL" | jq -c '.[]'); do
+            ID=$(echo "$ROW" | jq -r '.id')
+            STATE=$(gh api "repos/$REPO/deployments/$ID/statuses?per_page=1" \
+              --jq '.[0].state // "unknown"' 2>/dev/null || echo "unknown")
+            [ $FIRST -eq 0 ] && ANNOTATED="$ANNOTATED,"
+            ANNOTATED="$ANNOTATED$(echo "$ROW" | jq -c ". + {state: \"$STATE\"}")"
+            FIRST=0
+          done
+          ANNOTATED="$ANNOTATED]"
+
+          # Keep set: latest $KEEP successful deployments (the "live" + recent rollback targets).
+          # Prune set: everything else — older successes AND any non-success regardless of age.
+          KEEP_IDS=$(echo "$ANNOTATED" | jq -r ".[] | select(.state == \"success\") | .id" | head -n "$KEEP")
+          KEEP_SET=$(echo "$KEEP_IDS" | jq -R . | jq -s .)
+
+          TO_DELETE=$(echo "$ANNOTATED" | jq -r --argjson keep "$KEEP_SET" \
+            '.[] | select((.id | tostring) as $i | $keep | index($i) | not) | .id')
+
+          COUNT=$(echo "$TO_DELETE" | grep -c . || true)
+          KEEPING=$(echo "$KEEP_IDS" | grep -c . || true)
+          echo "Keeping $KEEPING successful deployment(s); pruning $COUNT."
+
+          if [ "$COUNT" -eq 0 ]; then
+            echo "Nothing to prune."
+            exit 0
+          fi
+
+          DELETED=0
+          FAILED=0
+          for ID in $TO_DELETE; do
+            # A deployment must have all statuses inactive before it can be deleted.
+            if ! gh api -X POST "repos/$REPO/deployments/$ID/statuses" \
+                 -H "Accept: application/vnd.github+json" \
+                 -f state=inactive >/dev/null 2>&1; then
+              echo "  ✗ $ID — status update failed"
+              FAILED=$((FAILED + 1))
+              continue
+            fi
+
+            if gh api -X DELETE "repos/$REPO/deployments/$ID" >/dev/null 2>&1; then
+              DELETED=$((DELETED + 1))
+            else
+              echo "  ✗ $ID — delete failed"
+              FAILED=$((FAILED + 1))
+            fi
+          done
+
+          echo "Done. Deleted: $DELETED  Failed: $FAILED"
+          # Fail the job if any delete errored so we notice in the Actions tab.
+          [ "$FAILED" -eq 0 ]
