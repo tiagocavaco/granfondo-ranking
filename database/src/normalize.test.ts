@@ -132,7 +132,12 @@ describe("normalizeDistance", () => {
 
   it("DISTANCE_ALIASES is non-empty and all values are canonical tiers", () => {
     // Guards against accidentally pointing an alias at a non-canonical name.
-    const canonical = new Set(["Granfondo", "Mediofondo", "Minifondo", "Time Trial"]);
+    const canonical = new Set([
+      "Granfondo",
+      "Mediofondo",
+      "Minifondo",
+      "Time Trial",
+    ]);
     for (const value of Object.values(DISTANCE_ALIASES)) {
       expect(canonical.has(value)).toBe(true);
     }

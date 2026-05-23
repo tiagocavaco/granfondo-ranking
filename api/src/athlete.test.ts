@@ -19,9 +19,9 @@ describe("mostRecentCountry", () => {
   });
 
   it("treats null/undefined country as empty", () => {
-    expect(
-      mostRecentCountry([{ country: null }, { country: "FRA" }]),
-    ).toBe("FRA");
+    expect(mostRecentCountry([{ country: null }, { country: "FRA" }])).toBe(
+      "FRA",
+    );
     expect(
       mostRecentCountry([{ country: undefined }, { country: "FRA" }]),
     ).toBe("FRA");
@@ -77,9 +77,7 @@ describe("buildMostFrequentCountryMap", () => {
   });
 
   it("omits athletes with no populated rows", () => {
-    const map = buildMostFrequentCountryMap([
-      { athleteId: 1, country: "" },
-    ]);
+    const map = buildMostFrequentCountryMap([{ athleteId: 1, country: "" }]);
     expect(map.has(1)).toBe(false);
   });
 

@@ -13,11 +13,7 @@ export default defineConfig({
       },
       // db-client.ts is sql.js-only (browser path) and not exercised by tests.
       // schema.ts is type definitions, not runtime code worth covering.
-      exclude: [
-        "**/*.test.ts",
-        "src/db-client.ts",
-        "src/schema.ts",
-      ],
+      exclude: ["**/*.test.ts", "src/db-client.ts", "src/schema.ts"],
     },
   },
 });

@@ -1,6 +1,12 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import { getAggregateRanking, getTeamRanking } from "./rankings.js";
-import { setupTestDb, minimalData, mkEvent, mkAthlete, mkAthleteResult } from "./test-db.js";
+import {
+  setupTestDb,
+  minimalData,
+  mkEvent,
+  mkAthlete,
+  mkAthleteResult,
+} from "./test-db.js";
 
 beforeAll(() => {
   setupTestDb(
@@ -11,7 +17,13 @@ beforeAll(() => {
           "joao silva|sporting",
           {
             ...mkAthlete(1, "João Silva", [
-              mkAthleteResult({ eventId: 10, eventDate: "2025-04-01", team: "Sporting", country: "PRT", gender: "M" }),
+              mkAthleteResult({
+                eventId: 10,
+                eventDate: "2025-04-01",
+                team: "Sporting",
+                country: "PRT",
+                gender: "M",
+              }),
             ]),
             canonicalTeam: "Sporting",
             teams: ["sporting"],
@@ -74,9 +86,30 @@ beforeAll(() => {
                   points: 35.25,
                   combinedScore: 6,
                   athletes: [
-                    { id: 1, name: "João Silva", pos: 1, scoring: true, country: "PRT", category: "Masters A Male" },
-                    { id: 0, name: "Pedro Alves", pos: 2, scoring: true, country: "PRT", category: "Masters A Male" },
-                    { id: 0, name: "Rui Costa", pos: 3, scoring: true, country: "PRT", category: "Masters A Male" },
+                    {
+                      id: 1,
+                      name: "João Silva",
+                      pos: 1,
+                      scoring: true,
+                      country: "PRT",
+                      category: "Masters A Male",
+                    },
+                    {
+                      id: 0,
+                      name: "Pedro Alves",
+                      pos: 2,
+                      scoring: true,
+                      country: "PRT",
+                      category: "Masters A Male",
+                    },
+                    {
+                      id: 0,
+                      name: "Rui Costa",
+                      pos: 3,
+                      scoring: true,
+                      country: "PRT",
+                      category: "Masters A Male",
+                    },
                   ],
                 },
               ],

@@ -8,7 +8,6 @@ import { RankBadge } from "../shared/RankBadge";
 import { SegmentedControl } from "../shared/SegmentedControl";
 import { rankLabel } from "../../utils/rankLabel";
 
-
 export default function TeamRankingPage() {
   const [data, setData] = useState<TeamRanking | null>(null);
   const [loading, setLoading] = useState(true);
@@ -396,4 +395,3 @@ export default function TeamRankingPage() {
     </div>
   );
 }
-

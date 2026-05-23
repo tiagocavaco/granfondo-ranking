@@ -75,7 +75,10 @@ function computeWeightedScore(
   return total;
 }
 
-function loadParticipantRows(db: Db, eventId: number): {
+function loadParticipantRows(
+  db: Db,
+  eventId: number,
+): {
   linkedRows: LinkedRow[];
   newcomerRows: NewcomerRow[];
 } {
@@ -153,12 +156,14 @@ function loadAthleteContext(db: Db, linkedIds: number[]): AthleteContext {
 
   const mainDistAccum = new Map<number, Map<string, number>>();
   for (const r of ptsByDistRows) {
-    if (!ctx.ptsByAthlete.has(r.athleteId)) ctx.ptsByAthlete.set(r.athleteId, []);
+    if (!ctx.ptsByAthlete.has(r.athleteId))
+      ctx.ptsByAthlete.set(r.athleteId, []);
     ctx.ptsByAthlete
       .get(r.athleteId)!
       .push({ distance: r.distance, year: r.year, pts: r.pts });
 
-    if (!mainDistAccum.has(r.athleteId)) mainDistAccum.set(r.athleteId, new Map());
+    if (!mainDistAccum.has(r.athleteId))
+      mainDistAccum.set(r.athleteId, new Map());
     const distanceMap = mainDistAccum.get(r.athleteId)!;
     distanceMap.set(r.distance, (distanceMap.get(r.distance) ?? 0) + r.pts);
   }
@@ -224,7 +229,11 @@ function groupPredictions(
   const result: Record<string, DistancePredictions> = {};
   const ensureDist = (distance: string): DistancePredictions => {
     if (!result[distance]) {
-      result[distance] = { overallMale: null, overallFemale: null, categories: {} };
+      result[distance] = {
+        overallMale: null,
+        overallFemale: null,
+        categories: {},
+      };
     }
     return result[distance]!;
   };
@@ -235,13 +244,15 @@ function groupPredictions(
     if (pred.weightedScore > 0) {
       if (
         pred.gender === "M" &&
-        (!distPreds.overallMale || pred.weightedScore > distPreds.overallMale.weightedScore)
+        (!distPreds.overallMale ||
+          pred.weightedScore > distPreds.overallMale.weightedScore)
       ) {
         distPreds.overallMale = pred;
       }
       if (
         pred.gender === "F" &&
-        (!distPreds.overallFemale || pred.weightedScore > distPreds.overallFemale.weightedScore)
+        (!distPreds.overallFemale ||
+          pred.weightedScore > distPreds.overallFemale.weightedScore)
       ) {
         distPreds.overallFemale = pred;
       }

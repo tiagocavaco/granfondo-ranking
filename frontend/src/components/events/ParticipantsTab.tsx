@@ -4,7 +4,10 @@ import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import { api } from "@granfondo/api";
 import type { StoredParticipant } from "@granfondo/database/types";
 import { Spinner } from "../shared/Spinner";
-import { normalizeName, normalizeDistance } from "@granfondo/database/normalize";
+import {
+  normalizeName,
+  normalizeDistance,
+} from "@granfondo/database/normalize";
 import { distBadgeClass } from "../../utils/distance";
 
 interface Props {
@@ -245,9 +248,9 @@ export default function ParticipantsTab({ eventId }: Props) {
                 <td className="px-4 py-3">
                   <div className="flex flex-col items-center gap-0.5">
                     <span
-                      className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold whitespace-nowrap ${
-                        distBadgeClass(normalizeDistance(p.distance))
-                      }`}
+                      className={`text-[11px] px-2.5 py-0.5 rounded-full font-semibold whitespace-nowrap ${distBadgeClass(
+                        normalizeDistance(p.distance),
+                      )}`}
                     >
                       {p.distance}
                     </span>

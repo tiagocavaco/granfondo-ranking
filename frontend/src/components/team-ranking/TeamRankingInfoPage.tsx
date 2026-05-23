@@ -17,9 +17,10 @@ const POINTS = TEAM_POINTS_TABLE.map(({ maxRank, points }) => ({
   pts: points,
 }));
 
-const COEFF_SAMPLES = [5, 10, TEAM_COEFFICIENT_REFERENCE, 50, 100].map(
-  (t) => ({ teams: t, coeff: teamCoefficient(t).toFixed(2) }),
-);
+const COEFF_SAMPLES = [5, 10, TEAM_COEFFICIENT_REFERENCE, 50, 100].map((t) => ({
+  teams: t,
+  coeff: teamCoefficient(t).toFixed(2),
+}));
 
 export default function TeamRankingInfoPage() {
   const navigate = useNavigate();
@@ -108,7 +109,9 @@ export default function TeamRankingInfoPage() {
                   return (
                     <tr
                       key={row.teams}
-                      className={isRef ? "bg-blue-50/60" : "hover:bg-slate-50/60"}
+                      className={
+                        isRef ? "bg-blue-50/60" : "hover:bg-slate-50/60"
+                      }
                     >
                       <td
                         className={`px-4 py-2 font-medium ${isRef ? "text-blue-700" : "text-slate-700"}`}

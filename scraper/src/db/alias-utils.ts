@@ -108,7 +108,9 @@ export function validateAndFlattenAlias(
   const canonicalKey = resolveAlias(toKey, aliases);
 
   if (canonicalKey === fromKey) {
-    throw new Error(`Cycle: "${fromKey}" is already the canonical for "${toKey}"`);
+    throw new Error(
+      `Cycle: "${fromKey}" is already the canonical for "${toKey}"`,
+    );
   }
 
   // Simulate the addition and check if canonical eventually leads back to fromKey.

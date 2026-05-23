@@ -22,8 +22,25 @@ describe("enrichLicenceProfiles", () => {
     const ctx = mkPipelineCtx({
       teamIdStore,
       allResults: [
-        mkRaw(event1, dist, mkStoredResult({ name: "João Silva", team: "Sporting", licences: ["L1"] })),
-        mkRaw(event2, dist, mkStoredResult({ name: "João Silva", team: "Sporting", licences: [], bib: "200" })),
+        mkRaw(
+          event1,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            licences: ["L1"],
+          }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            licences: [],
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -44,8 +61,25 @@ describe("enrichLicenceProfiles", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event1, dist, mkStoredResult({ name: "João Silva", team: "Sporting", licences: ["L1"] })),
-        mkRaw(event2, dist, mkStoredResult({ name: "João Silva", team: "Individual", licences: [], bib: "200" })),
+        mkRaw(
+          event1,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            licences: ["L1"],
+          }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Individual",
+            licences: [],
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -66,7 +100,15 @@ describe("enrichLicenceProfiles", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "Sporting", licences: ["L1"] })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            licences: ["L1"],
+          }),
+        ),
       ],
     });
 
@@ -91,8 +133,25 @@ describe("enrichLicenceProfiles", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "Sporting", licences: ["L1"] })),
-        mkRaw(event2, dist, mkStoredResult({ name: "João Silva", team: "Sporting", licences: [], bib: "200" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            licences: ["L1"],
+          }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            licences: [],
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -110,10 +169,30 @@ describe("enrichLicenceProfiles", () => {
     const event2 = mkEvent({ id: 2 });
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "Sporting", licences: ["L1"] })),
-        mkRaw(event2, dist, mkStoredResult({ name: "João Silva", team: "Benfica", licences: [], bib: "200" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            licences: ["L1"],
+          }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Benfica",
+            licences: [],
+            bib: "200",
+          }),
+        ),
       ],
     });
 

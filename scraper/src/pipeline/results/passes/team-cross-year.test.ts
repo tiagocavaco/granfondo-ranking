@@ -17,16 +17,34 @@ describe("mergeTeamCrossYear", () => {
     const event2025 = mkEvent({ id: 2, year: 2025, date: "2025-04-01" });
     const dist = mkDistance({ finisherCount: 100 });
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
       allResults: [
-        mkRaw(event2024, dist, mkStoredResult({
-          name: "João Silva", team: "Sporting", category: "Masters A Male",
-          genderPos: 10, country: "PRT",
-        })),
-        mkRaw(event2025, dist, mkStoredResult({
-          name: "João Silva", team: "Benfica", category: "Masters A Male",
-          genderPos: 12, country: "PRT", bib: "200",
-        })),
+        mkRaw(
+          event2024,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            category: "Masters A Male",
+            genderPos: 10,
+            country: "PRT",
+          }),
+        ),
+        mkRaw(
+          event2025,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Benfica",
+            category: "Masters A Male",
+            genderPos: 12,
+            country: "PRT",
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -46,10 +64,21 @@ describe("mergeTeamCrossYear", () => {
     const event2 = mkEvent({ id: 2, year: 2025, date: "2025-05-01" });
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "Sporting", bib: "100" })),
-        mkRaw(event2, dist, mkStoredResult({ name: "João Silva", team: "Benfica", bib: "200" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Sporting", bib: "100" }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Benfica", bib: "200" }),
+        ),
       ],
     });
 
@@ -67,10 +96,30 @@ describe("mergeTeamCrossYear", () => {
     const granfondo = mkDistance({ id: "1", name: "Granfondo" });
     const minifondo = mkDistance({ id: "2", name: "Minifondo" });
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
       allResults: [
-        mkRaw(event2024, granfondo, mkStoredResult({ name: "João Silva", team: "Sporting", category: "Masters A Male" })),
-        mkRaw(event2025, minifondo, mkStoredResult({ name: "João Silva", team: "Benfica", category: "Masters A Male", bib: "200" })),
+        mkRaw(
+          event2024,
+          granfondo,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            category: "Masters A Male",
+          }),
+        ),
+        mkRaw(
+          event2025,
+          minifondo,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Benfica",
+            category: "Masters A Male",
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -88,10 +137,30 @@ describe("mergeTeamCrossYear", () => {
     const granfondo = mkDistance({ id: "1", name: "Granfondo" });
     const minifondo = mkDistance({ id: "2", name: "Minifondo" });
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
       allResults: [
-        mkRaw(event2024, granfondo, mkStoredResult({ name: "João Silva", team: "Sporting", category: "Masters A Male" })),
-        mkRaw(event2025, minifondo, mkStoredResult({ name: "João Silva", team: "Benfica", category: "Masters A Male", bib: "200" })),
+        mkRaw(
+          event2024,
+          granfondo,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            category: "Masters A Male",
+          }),
+        ),
+        mkRaw(
+          event2025,
+          minifondo,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Benfica",
+            category: "Masters A Male",
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -112,10 +181,30 @@ describe("mergeTeamCrossYear", () => {
     const event2025 = mkEvent({ id: 2, year: 2025 });
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
       allResults: [
-        mkRaw(event2024, dist, mkStoredResult({ name: "João Silva", team: "Sporting", category: "Masters A Male" })),
-        mkRaw(event2025, dist, mkStoredResult({ name: "João Silva", team: "Benfica", category: "Masters A Male", bib: "200" })),
+        mkRaw(
+          event2024,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            category: "Masters A Male",
+          }),
+        ),
+        mkRaw(
+          event2025,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Benfica",
+            category: "Masters A Male",
+            bib: "200",
+          }),
+        ),
       ],
     });
 

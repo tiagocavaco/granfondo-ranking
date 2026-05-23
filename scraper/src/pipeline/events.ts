@@ -204,8 +204,10 @@ export async function scrapeEvent(
         (nameA, nameB) => distancePriority(nameA) - distancePriority(nameB),
       );
     distanceResults.sort((distanceA, distanceB) => {
-      const winA = distanceA.results.find((row) => row.pos === 1)?.raceTimeSecs ?? 0;
-      const winB = distanceB.results.find((row) => row.pos === 1)?.raceTimeSecs ?? 0;
+      const winA =
+        distanceA.results.find((row) => row.pos === 1)?.raceTimeSecs ?? 0;
+      const winB =
+        distanceB.results.find((row) => row.pos === 1)?.raceTimeSecs ?? 0;
       return winB - winA; // descending: longest course first
     });
     const CANONICAL_ORDER = ["Granfondo", "Mediofondo", "Minifondo"];

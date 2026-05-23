@@ -16,7 +16,11 @@ describe("buildRemainingTeamProfiles", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "Pedro Alves", team: "Sporting" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "Pedro Alves", team: "Sporting" }),
+        ),
       ],
     });
 
@@ -35,8 +39,16 @@ describe("buildRemainingTeamProfiles", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event1, dist, mkStoredResult({ name: "Pedro Alves", team: "Sporting" })),
-        mkRaw(event2, dist, mkStoredResult({ name: "Pedro Alves", team: "Sporting", bib: "200" })),
+        mkRaw(
+          event1,
+          dist,
+          mkStoredResult({ name: "Pedro Alves", team: "Sporting" }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({ name: "Pedro Alves", team: "Sporting", bib: "200" }),
+        ),
       ],
     });
 
@@ -71,7 +83,11 @@ describe("buildRemainingTeamProfiles", () => {
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "Pedro", team: "Individual" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "Pedro", team: "Individual" }),
+        ),
       ],
     });
 
@@ -87,10 +103,21 @@ describe("buildRemainingTeamProfiles", () => {
     const event = mkEvent({ id: 1 });
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "Sporting", bib: "100" })),
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "Benfica", bib: "101" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Sporting", bib: "100" }),
+        ),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Benfica", bib: "101" }),
+        ),
       ],
     });
 

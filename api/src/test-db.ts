@@ -1,12 +1,21 @@
 import BetterSqlite3 from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
-import { buildDatabase, type AllScrapedData } from "@granfondo/database/db-writer";
+import {
+  buildDatabase,
+  type AllScrapedData,
+} from "@granfondo/database/db-writer";
 import * as schema from "@granfondo/database/schema";
 import type { DrizzleDb } from "@granfondo/database/db-client";
 import { setGetDb } from "./db.js";
-import type { AthleteResultRef, StoredResult, StoredParticipant } from "@granfondo/database/types";
+import type {
+  AthleteResultRef,
+  StoredResult,
+  StoredParticipant,
+} from "@granfondo/database/types";
 
-export function minimalData(overrides: Partial<AllScrapedData> = {}): AllScrapedData {
+export function minimalData(
+  overrides: Partial<AllScrapedData> = {},
+): AllScrapedData {
   return {
     events: [],
     allResults: new Map(),
@@ -24,7 +33,10 @@ export function minimalData(overrides: Partial<AllScrapedData> = {}): AllScraped
   };
 }
 
-export function mkEvent(id: number, overrides: Partial<AllScrapedData["events"][0]> = {}): AllScrapedData["events"][0] {
+export function mkEvent(
+  id: number,
+  overrides: Partial<AllScrapedData["events"][0]> = {},
+): AllScrapedData["events"][0] {
   return {
     id,
     name: `Event ${id}`,
@@ -86,7 +98,9 @@ export function mkAthleteResult(
   };
 }
 
-export function mkStoredResult(overrides: Partial<StoredResult> = {}): StoredResult {
+export function mkStoredResult(
+  overrides: Partial<StoredResult> = {},
+): StoredResult {
   return {
     pos: 1,
     genderPos: 1,
@@ -110,7 +124,9 @@ export function mkStoredResult(overrides: Partial<StoredResult> = {}): StoredRes
   };
 }
 
-export function mkParticipant(overrides: Partial<StoredParticipant> = {}): StoredParticipant {
+export function mkParticipant(
+  overrides: Partial<StoredParticipant> = {},
+): StoredParticipant {
   return {
     athleteId: 0,
     bib: "1",

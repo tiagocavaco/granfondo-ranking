@@ -41,7 +41,10 @@ export function levenshteinDistance(left: string, right: string): number {
     return left.length;
   }
 
-  const row: number[] = Array.from({ length: right.length + 1 }, (_, idx) => idx);
+  const row: number[] = Array.from(
+    { length: right.length + 1 },
+    (_, idx) => idx,
+  );
   for (let i = 1; i <= left.length; i++) {
     let prev = row[0]!; // d[i-1][0] = i-1
     row[0] = i; // d[i][0] = i
@@ -168,11 +171,17 @@ function compactPrefixCovers(shorter: string, longer: string): boolean {
   );
 }
 
-function smallerThenLarger<T extends { length: number }>(left: T, right: T): [T, T] {
+function smallerThenLarger<T extends { length: number }>(
+  left: T,
+  right: T,
+): [T, T] {
   return left.length <= right.length ? [left, right] : [right, left];
 }
 
-function smallerThenLargerSet<T>(left: Set<T>, right: Set<T>): [Set<T>, Set<T>] {
+function smallerThenLargerSet<T>(
+  left: Set<T>,
+  right: Set<T>,
+): [Set<T>, Set<T>] {
   return left.size <= right.size ? [left, right] : [right, left];
 }
 
@@ -415,12 +424,20 @@ export function categoryTier(cat: string): CategoryTier {
     return "elite";
   }
 
-  if (/^[mf]?jun$/.test(compact) || /^mjun/.test(compact) || /^fjun/.test(compact)) {
+  if (
+    /^[mf]?jun$/.test(compact) ||
+    /^mjun/.test(compact) ||
+    /^fjun/.test(compact)
+  ) {
     return "elite";
   }
 
   // "M 19-34" / "F 19-34" — spans Elite + Masters A
-  if (/^[mf]19\d\d/.test(compact) || compact === "m1934" || compact === "f1934") {
+  if (
+    /^[mf]19\d\d/.test(compact) ||
+    compact === "m1934" ||
+    compact === "f1934"
+  ) {
     return "open_1934";
   }
 
@@ -504,7 +521,11 @@ export function normalizeCategory(cat: string): string {
     return `Elite${suffix}`;
   }
 
-  if (compact === "m1934" || compact === "f1934" || /^[mf]19\d\d/.test(compact)) {
+  if (
+    compact === "m1934" ||
+    compact === "f1934" ||
+    /^[mf]19\d\d/.test(compact)
+  ) {
     return `Open 19-34${suffix}`;
   }
 
@@ -552,7 +573,11 @@ export function normalizeCategory(cat: string): string {
     return `Masters E${suffix}`;
   }
 
-  if (/masters?f/.test(compact) || /master8/.test(compact) || /^[mf]8/.test(compact)) {
+  if (
+    /masters?f/.test(compact) ||
+    /master8/.test(compact) ||
+    /^[mf]8/.test(compact)
+  ) {
     return `Masters F${suffix}`;
   }
 

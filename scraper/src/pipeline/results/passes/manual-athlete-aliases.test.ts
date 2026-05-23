@@ -20,8 +20,16 @@ describe("applyManualAthleteAliases", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event1, dist, mkStoredResult({ name: "João Silva", team: "Sporting", bib: "100" })),
-        mkRaw(event2, dist, mkStoredResult({ name: "Joao S", team: "Sporting", bib: "101" })),
+        mkRaw(
+          event1,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Sporting", bib: "100" }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({ name: "Joao S", team: "Sporting", bib: "101" }),
+        ),
       ],
       aliasRules: [
         {
@@ -50,7 +58,11 @@ describe("applyManualAthleteAliases", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "Joao S", team: "Sporting" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "Joao S", team: "Sporting" }),
+        ),
       ],
       aliasRules: [
         {
@@ -77,8 +89,16 @@ describe("applyManualAthleteAliases", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event1, dist, mkStoredResult({ name: "João Silva", team: "Sporting" })),
-        mkRaw(event2, dist, mkStoredResult({ name: "Joao S", team: "Sporting" })),
+        mkRaw(
+          event1,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Sporting" }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({ name: "Joao S", team: "Sporting" }),
+        ),
       ],
       aliasRules: [
         {
@@ -105,8 +125,16 @@ describe("applyManualAthleteAliases", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event1, dist, mkStoredResult({ name: "João Silva", team: "Sporting" })),
-        mkRaw(event2, dist, mkStoredResult({ name: "Joao S", team: "Sporting" })),
+        mkRaw(
+          event1,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Sporting" }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({ name: "Joao S", team: "Sporting" }),
+        ),
       ],
       aliasRules: [
         {
@@ -135,7 +163,11 @@ describe("applyManualAthleteAliases", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "Sporting", bib: "100" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Sporting", bib: "100" }),
+        ),
       ],
       aliasRules: [
         {

@@ -1,7 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { sweepCategoryEviction } from "./category-sweep-eviction.js";
 import { mkPipelineCtx } from "../test-fixture.js";
-import type { AthleteEntry, StoredEventResults } from "@granfondo/database/types";
+import type {
+  AthleteEntry,
+  StoredEventResults,
+} from "@granfondo/database/types";
 
 function mkEntry(over: Partial<AthleteEntry> = {}): AthleteEntry {
   return {
@@ -17,11 +20,26 @@ function mkEntry(over: Partial<AthleteEntry> = {}): AthleteEntry {
 
 function mkRef(over: Partial<AthleteEntry["results"][0]> = {}) {
   return {
-    eventId: 1, eventName: "Test", eventDate: "2025-04-01", eventYear: 2025,
-    distance: "Granfondo", pos: 1, genderPos: 1, catPos: 1, finisherCount: 100,
-    category: "Masters A Male", gender: "M", team: "Sporting", country: "PRT",
-    raceTime: "3:00:00", raceTimeSecs: 10800, gap: "", gapSecs: 0,
-    dnf: false, dns: false, bib: "100",
+    eventId: 1,
+    eventName: "Test",
+    eventDate: "2025-04-01",
+    eventYear: 2025,
+    distance: "Granfondo",
+    pos: 1,
+    genderPos: 1,
+    catPos: 1,
+    finisherCount: 100,
+    category: "Masters A Male",
+    gender: "M",
+    team: "Sporting",
+    country: "PRT",
+    raceTime: "3:00:00",
+    raceTimeSecs: 10800,
+    gap: "",
+    gapSecs: 0,
+    dnf: false,
+    dns: false,
+    bib: "100",
     ...over,
   };
 }
@@ -58,31 +76,58 @@ describe("sweepCategoryEviction", () => {
       ],
     });
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
     });
     ctx.index.set("test athlete|1", entry);
     ctx.loader = (id): StoredEventResults | null => {
       if (id !== 4) return null;
       return {
-        eventId: 4, eventName: "Test", eventDate: "2025-04-01", eventYear: 2025,
+        eventId: 4,
+        eventName: "Test",
+        eventDate: "2025-04-01",
+        eventYear: 2025,
         scrapedAt: "",
-        distances: [{
-          id: "1", name: "Granfondo", finisherCount: 100,
-          results: [{
-            pos: 1, genderPos: 1, catPos: 1, athleteId: 0, bib: "100",
-            name: "Test Athlete", gender: "M", team: "Benfica",
-            category: "Masters C Male", country: "PRT",
-            raceTime: "3:00:00", raceTimeSecs: 10800, gap: "", gapSecs: 0,
-            points: 50, licences: [], dnf: false, dns: false,
-          }],
-        }],
+        distances: [
+          {
+            id: "1",
+            name: "Granfondo",
+            finisherCount: 100,
+            results: [
+              {
+                pos: 1,
+                genderPos: 1,
+                catPos: 1,
+                athleteId: 0,
+                bib: "100",
+                name: "Test Athlete",
+                gender: "M",
+                team: "Benfica",
+                category: "Masters C Male",
+                country: "PRT",
+                raceTime: "3:00:00",
+                raceTimeSecs: 10800,
+                gap: "",
+                gapSecs: 0,
+                points: 50,
+                licences: [],
+                dnf: false,
+                dns: false,
+              },
+            ],
+          },
+        ],
       };
     };
 
     sweepCategoryEviction(ctx);
 
     expect(entry.results).toHaveLength(3);
-    expect(entry.results.every((r) => r.category === "Masters A Male")).toBe(true);
+    expect(entry.results.every((r) => r.category === "Masters A Male")).toBe(
+      true,
+    );
     // Evicted result must have been re-homed to another entry (Benfica key).
     expect(ctx.index.size).toBeGreaterThan(1);
   });
@@ -137,35 +182,77 @@ describe("sweepCategoryEviction", () => {
     // doesn't short-circuit.
     const entry = mkEntry({
       results: [
-        mkRef({ eventId: 1, eventYear: 2024, category: "Masters C Male", team: "Benfica" }),
-        mkRef({ eventId: 2, eventYear: 2025, category: "Masters A Male", team: "Sporting" }),
-        mkRef({ eventId: 3, eventYear: 2025, category: "Masters A Male", team: "Sporting" }),
+        mkRef({
+          eventId: 1,
+          eventYear: 2024,
+          category: "Masters C Male",
+          team: "Benfica",
+        }),
+        mkRef({
+          eventId: 2,
+          eventYear: 2025,
+          category: "Masters A Male",
+          team: "Sporting",
+        }),
+        mkRef({
+          eventId: 3,
+          eventYear: 2025,
+          category: "Masters A Male",
+          team: "Sporting",
+        }),
       ],
     });
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
     });
     ctx.index.set("test athlete|1", entry);
     ctx.loader = (id): StoredEventResults | null => {
       if (id !== 1) return null;
       return {
-        eventId: 1, eventName: "Test", eventDate: "2024-04-01", eventYear: 2024,
+        eventId: 1,
+        eventName: "Test",
+        eventDate: "2024-04-01",
+        eventYear: 2024,
         scrapedAt: "",
-        distances: [{
-          id: "1", name: "Granfondo", finisherCount: 100,
-          results: [{
-            pos: 1, genderPos: 1, catPos: 1, athleteId: 0, bib: "100",
-            name: "Test Athlete", gender: "M", team: "Benfica",
-            category: "Masters C Male", country: "PRT",
-            raceTime: "3:00:00", raceTimeSecs: 10800, gap: "", gapSecs: 0,
-            points: 50, licences: [], dnf: false, dns: false,
-          }],
-        }],
+        distances: [
+          {
+            id: "1",
+            name: "Granfondo",
+            finisherCount: 100,
+            results: [
+              {
+                pos: 1,
+                genderPos: 1,
+                catPos: 1,
+                athleteId: 0,
+                bib: "100",
+                name: "Test Athlete",
+                gender: "M",
+                team: "Benfica",
+                category: "Masters C Male",
+                country: "PRT",
+                raceTime: "3:00:00",
+                raceTimeSecs: 10800,
+                gap: "",
+                gapSecs: 0,
+                points: 50,
+                licences: [],
+                dnf: false,
+                dns: false,
+              },
+            ],
+          },
+        ],
       };
     };
 
     sweepCategoryEviction(ctx);
 
-    expect(entry.results.some((r) => r.category === "Masters C Male")).toBe(false);
+    expect(entry.results.some((r) => r.category === "Masters C Male")).toBe(
+      false,
+    );
   });
 });

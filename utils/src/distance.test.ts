@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { predictionDistCoeff, predictionYearCoeff, distancePriority } from "./distance.js";
+import {
+  predictionDistCoeff,
+  predictionYearCoeff,
+  distancePriority,
+} from "./distance.js";
 
 describe("predictionDistCoeff", () => {
   it("returns 1.0 for same distance", () => {
@@ -70,9 +74,15 @@ describe("predictionYearCoeff", () => {
 
 describe("distancePriority", () => {
   it("Granfondo sorts before Mediofondo before Minifondo before Time Trial", () => {
-    expect(distancePriority("Granfondo")).toBeLessThan(distancePriority("Mediofondo"));
-    expect(distancePriority("Mediofondo")).toBeLessThan(distancePriority("Minifondo"));
-    expect(distancePriority("Minifondo")).toBeLessThan(distancePriority("Time Trial"));
+    expect(distancePriority("Granfondo")).toBeLessThan(
+      distancePriority("Mediofondo"),
+    );
+    expect(distancePriority("Mediofondo")).toBeLessThan(
+      distancePriority("Minifondo"),
+    );
+    expect(distancePriority("Minifondo")).toBeLessThan(
+      distancePriority("Time Trial"),
+    );
   });
 
   it("returns 9 for unknown distances", () => {

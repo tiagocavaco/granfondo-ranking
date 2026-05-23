@@ -5,15 +5,8 @@ import {
   canonicalizeCategory,
   isSoloTeam,
 } from "../../normalize.js";
-import type {
-  AthleteEntry,
-  AthleteResultRef,
-} from "@granfondo/database/types";
-import type {
-  RawResult,
-  AthleteIdStore,
-  IdManager,
-} from "./types.js";
+import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
+import type { RawResult, AthleteIdStore, IdManager } from "./types.js";
 
 // ── Solo collision percentile thresholds ─────────────────────────────────────
 // Two-result baseline (≥2 clean non-collision results): looser window since the
@@ -71,7 +64,10 @@ export function clampRank(baseRank: number, yearDiff: number): number {
 }
 
 /** Returns the team ID for a team name, or 0 for solo/unknown teams. */
-export function resolveTeamId(team: string, store: Map<string, number>): number {
+export function resolveTeamId(
+  team: string,
+  store: Map<string, number>,
+): number {
   if (isSoloTeam(team)) {
     return 0;
   }
@@ -109,19 +105,27 @@ export function categoriesCompatible(catA: string, catB: string): boolean {
   const OPEN_M = "Open 19-34 Male";
   const OPEN_F = "Open 19-34 Female";
   if (catA === OPEN_M) {
-    return catB === "Elite Male" || catB === "Masters A Male" || catB === OPEN_M;
+    return (
+      catB === "Elite Male" || catB === "Masters A Male" || catB === OPEN_M
+    );
   }
 
   if (catB === OPEN_M) {
-    return catA === "Elite Male" || catA === "Masters A Male" || catA === OPEN_M;
+    return (
+      catA === "Elite Male" || catA === "Masters A Male" || catA === OPEN_M
+    );
   }
 
   if (catA === OPEN_F) {
-    return catB === "Elite Female" || catB === "Masters A Female" || catB === OPEN_F;
+    return (
+      catB === "Elite Female" || catB === "Masters A Female" || catB === OPEN_F
+    );
   }
 
   if (catB === OPEN_F) {
-    return catA === "Elite Female" || catA === "Masters A Female" || catA === OPEN_F;
+    return (
+      catA === "Elite Female" || catA === "Masters A Female" || catA === OPEN_F
+    );
   }
 
   // Gender-agnostic forms (e.g. "Masters A" from normalizeCategory fallback on unknown
@@ -287,7 +291,11 @@ export function resultDedupeKey(
   return `${eventId}|${distName}|${bib}`;
 }
 
-export function newEntry(id: number, name: string, nameLower: string): AthleteEntry {
+export function newEntry(
+  id: number,
+  name: string,
+  nameLower: string,
+): AthleteEntry {
   return { id, name, nameLower, teams: [], categories: {}, results: [] };
 }
 

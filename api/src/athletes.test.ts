@@ -1,21 +1,56 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import { getAthlete, searchAthletes } from "./athletes.js";
-import { setupTestDb, minimalData, mkAthlete, mkAthleteResult } from "./test-db.js";
+import {
+  setupTestDb,
+  minimalData,
+  mkAthlete,
+  mkAthleteResult,
+} from "./test-db.js";
 
 beforeAll(() => {
   setupTestDb(
     minimalData({
       athletesIndex: new Map([
-        ["joao silva|sporting", mkAthlete(1, "João Silva", [
-          mkAthleteResult({ eventId: 10, eventName: "Granfondo Algarve", pos: 3, genderPos: 3 }),
-          mkAthleteResult({ eventId: 11, eventName: "Granfondo Porto", pos: 1, genderPos: 1 }),
-        ])],
-        ["maria costa|benfica", mkAthlete(2, "Maria Costa", [
-          mkAthleteResult({ eventId: 10, eventName: "Granfondo Algarve", gender: "F", pos: 1, genderPos: 1 }),
-        ])],
-        ["pedro alves|independente", mkAthlete(3, "Pedro Alves", [
-          mkAthleteResult({ eventId: 10, eventName: "Granfondo Algarve", pos: 5, genderPos: 5 }),
-        ])],
+        [
+          "joao silva|sporting",
+          mkAthlete(1, "João Silva", [
+            mkAthleteResult({
+              eventId: 10,
+              eventName: "Granfondo Algarve",
+              pos: 3,
+              genderPos: 3,
+            }),
+            mkAthleteResult({
+              eventId: 11,
+              eventName: "Granfondo Porto",
+              pos: 1,
+              genderPos: 1,
+            }),
+          ]),
+        ],
+        [
+          "maria costa|benfica",
+          mkAthlete(2, "Maria Costa", [
+            mkAthleteResult({
+              eventId: 10,
+              eventName: "Granfondo Algarve",
+              gender: "F",
+              pos: 1,
+              genderPos: 1,
+            }),
+          ]),
+        ],
+        [
+          "pedro alves|independente",
+          mkAthlete(3, "Pedro Alves", [
+            mkAthleteResult({
+              eventId: 10,
+              eventName: "Granfondo Algarve",
+              pos: 5,
+              genderPos: 5,
+            }),
+          ]),
+        ],
       ]),
     }),
   );
