@@ -4,24 +4,6 @@ Backlog of proposed features and refactors.
 
 ---
 
-## Code modularity and deduplication
-
-Several patterns are repeated across files that should be extracted into shared utilities.
-
-### Known duplication
-
-- **`decryptBuffer`** — the AES-256-GCM decrypt helper is copy-pasted into multiple debug/check scripts. It already lives in `scraper/src/db/encrypt.ts`; all scripts should import from there.
-- **`buildCountryMap` / `buildMostFrequentCountryMap`** — currently in `frontend/src/utils/athlete.ts`. The scraper's `ranking.ts` does the same country-frequency logic inline. Consider moving the canonical version to `@granfondo/utils` so both sides share it.
-- **Category sort key** — `categorySortKey` was recently moved to `@granfondo/utils/category`. Audit remaining files that still do ad-hoc category string comparisons and replace them.
-- **Distance badge colours** — `distBadgeClass` is in `frontend/src/utils/distance.ts` but `ParticipantsTab` has its own inline `DIST_PILL` map with overlapping entries. Consolidate.
-
-### Structural improvements
-
-- **`results.ts` is ~1,500 lines** — each pass (`runPass1`…`runPass9`) could live in its own file under `pipeline/passes/`. The main `results.ts` would just orchestrate them.
-- **`api.ts` is growing** — group functions by domain (`events`, `athletes`, `rankings`, `predictions`) into separate files under `src/api/`, re-exported from a single `src/api/index.ts`.
-
----
-
 ## Normalize category display in the frontend
 
 The frontend displays raw category strings as stored in the DB (e.g. "MasterDM", "MasterA Masc", "MASTER 50"), which vary by event source. The pipeline already maps these to canonical forms via `canonicalizeCategory` in `@granfondo/utils/category` — apply it in the frontend so athlete profiles and results pages always show consistent labels like "Masters D Male" regardless of what the source data provided.

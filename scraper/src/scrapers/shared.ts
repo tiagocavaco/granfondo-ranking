@@ -44,11 +44,13 @@ export async function fetchWithRetry(
 
 /** Convert milliseconds to "HH:MM:SS" */
 export function msToHHMMSS(ms: number): string {
-  const s = Math.round(ms / 1000);
-  const h = Math.floor(s / 3600);
-  const m = Math.floor((s % 3600) / 60);
-  const sec = s % 60;
-  return [h, m, sec].map((v) => String(v).padStart(2, "0")).join(":");
+  const total = Math.round(ms / 1000);
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const seconds = total % 60;
+  return [hours, minutes, seconds]
+    .map((part) => String(part).padStart(2, "0"))
+    .join(":");
 }
 
 /** Pad single-digit hours: "3:29:24" → "03:29:24", "03:29:24" unchanged */
@@ -123,8 +125,8 @@ export function decodeHtmlEntities(s: string): string {
     .replace(/&apos;/g, "'")
     .replace(/&#39;/g, "'")
     .replace(/&nbsp;/g, " ")
-    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
-    .replace(/&#x([0-9a-f]+);/gi, (_, h) =>
-      String.fromCharCode(parseInt(h, 16)),
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) =>
+      String.fromCharCode(parseInt(hex, 16)),
     );
 }

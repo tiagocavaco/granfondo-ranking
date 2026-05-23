@@ -78,8 +78,12 @@ export function extractEscalaoOptions(
 
 /** Derive gender from escalao name: FEM/F suffix → F, else M */
 export function escalaoToGender(escalao: string): "M" | "F" {
-  const u = escalao.toUpperCase();
-  if (u.endsWith(" F") || u.includes("FEM") || u.endsWith(" FEMI")) {
+  const upper = escalao.toUpperCase();
+  if (
+    upper.endsWith(" F") ||
+    upper.includes("FEM") ||
+    upper.endsWith(" FEMI")
+  ) {
     return "F";
   }
 
@@ -140,9 +144,9 @@ function parseApedalarRows(html: string, gender: "M" | "F"): ApedalarRow[] {
 /** Sort rows by time (tiebreak: server-assigned pos), assign overall positions, produce StoredResult[] */
 function combineAndRankByTime(rows: ApedalarRow[]): StoredResult[] {
   rows.sort((a, b) => {
-    const dt = timeToSeconds(a.time) - timeToSeconds(b.time);
-    if (dt !== 0) {
-      return dt;
+    const timeDiff = timeToSeconds(a.time) - timeToSeconds(b.time);
+    if (timeDiff !== 0) {
+      return timeDiff;
     }
 
     return a.pos - b.pos;
@@ -329,15 +333,17 @@ export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
     throw new Error(`apedalar page HTTP ${pageRes.status}`);
   }
 
-  // Node 18+ Headers exposes getSetCookie() but it's absent from the lib DOM types
-  const h = pageRes.headers as Headers & { getSetCookie?: () => string[] };
+  // Node 18+ Headers exposes getSetCookie() but it's absent from the lib DOM types.
+  const headers = pageRes.headers as Headers & {
+    getSetCookie?: () => string[];
+  };
   const rawSetCookie =
-    typeof h.getSetCookie === "function"
-      ? h.getSetCookie()
+    typeof headers.getSetCookie === "function"
+      ? headers.getSetCookie()
       : [pageRes.headers.get("set-cookie") ?? ""];
   const cookieStr = rawSetCookie
     .filter(Boolean)
-    .map((h) => h.split(";")[0]!)
+    .map((header) => header.split(";")[0]!)
     .join("; ");
 
   const pageHtml = await pageRes.text();

@@ -15,20 +15,13 @@ export function normalizeName(name: string): string {
 }
 
 export function fixRawTeamName(name: string): string {
-  return name.replace(/([aeiouAEIOU])\^/g, (_, v: string) => {
-    const map: Record<string, string> = {
-      a: "â",
-      e: "ê",
-      i: "î",
-      o: "ô",
-      u: "û",
-      A: "Â",
-      E: "Ê",
-      I: "Î",
-      O: "Ô",
-      U: "Û",
-    };
-    return map[v] ?? v + "^";
+  // Parallel strings: index i in PLAIN_VOWELS maps to index i in ACCENTED_VOWELS.
+  // e.g. "Joa^o" → "Joâo".
+  const PLAIN_VOWELS = "aeiouAEIOU";
+  const ACCENTED_VOWELS = "âêîôûÂÊÎÔÛ";
+  return name.replace(/([aeiouAEIOU])\^/g, (_, vowel: string) => {
+    const index = PLAIN_VOWELS.indexOf(vowel);
+    return index >= 0 ? ACCENTED_VOWELS[index]! : vowel + "^";
   });
 }
 

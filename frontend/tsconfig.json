@@ -1,25 +1,15 @@
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "skipLibCheck": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "strict": true,
-    "types": ["vite/client"],
-    "paths": {
-      "@granfondo/utils/scoring": ["../utils/src/scoring.ts"],
-      "@granfondo/database/schema": ["../database/src/schema.ts"],
-      "@granfondo/database/types": ["../database/src/types.ts"],
-      "@granfondo/database/db-writer": ["../database/src/db-writer.ts"],
-      "@granfondo/database/db-client": ["../database/src/db-client.ts"]
-    }
+    "types": ["vite/client"]
   },
   "include": ["src"]
 }

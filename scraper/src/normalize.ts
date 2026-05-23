@@ -28,34 +28,34 @@ export function distancePriority(name: string): number {
  * Levenshtein edit distance between two strings.
  * Used for fuzzy name matching in licence conflict resolution.
  */
-export function levenshteinDistance(a: string, b: string): number {
-  if (a === b) {
+export function levenshteinDistance(left: string, right: string): number {
+  if (left === right) {
     return 0;
   }
 
-  if (a.length === 0) {
-    return b.length;
+  if (left.length === 0) {
+    return right.length;
   }
 
-  if (b.length === 0) {
-    return a.length;
+  if (right.length === 0) {
+    return left.length;
   }
 
-  const dp: number[] = Array.from({ length: b.length + 1 }, (_, i) => i);
-  for (let i = 1; i <= a.length; i++) {
-    let prev = dp[0]!; // d[i-1][0] = i-1
-    dp[0] = i; // d[i][0] = i
-    for (let j = 1; j <= b.length; j++) {
-      const temp = dp[j]!; // save d[i-1][j] before overwrite
-      dp[j] =
-        a[i - 1] === b[j - 1]
+  const row: number[] = Array.from({ length: right.length + 1 }, (_, idx) => idx);
+  for (let i = 1; i <= left.length; i++) {
+    let prev = row[0]!; // d[i-1][0] = i-1
+    row[0] = i; // d[i][0] = i
+    for (let j = 1; j <= right.length; j++) {
+      const temp = row[j]!; // save d[i-1][j] before overwrite
+      row[j] =
+        left[i - 1] === right[j - 1]
           ? prev // d[i-1][j-1] (diagonal, no cost)
-          : 1 + Math.min(prev, dp[j - 1]!, dp[j]!); // min(sub, ins, del)
+          : 1 + Math.min(prev, row[j - 1]!, row[j]!); // min(sub, ins, del)
       prev = temp; // prev = d[i-1][j] for next j
     }
   }
 
-  return dp[b.length]!;
+  return row[right.length]!;
 }
 
 /**
@@ -113,8 +113,8 @@ export function isValidLicence(lic: string): boolean {
 const TEAM_ALIASES: Record<string, string> = {};
 
 export function initTeamAliases(aliases: Record<string, string>): void {
-  for (const [k, v] of Object.entries(aliases)) {
-    TEAM_ALIASES[normalizeTeam(k)] = normalizeTeam(v);
+  for (const [aliasKey, canonicalKey] of Object.entries(aliases)) {
+    TEAM_ALIASES[normalizeTeam(aliasKey)] = normalizeTeam(canonicalKey);
   }
 }
 
@@ -146,46 +146,76 @@ export function teamNormalKey(name: string): string {
  *   "anna cycling" vs "anna cycling team"            → 1.0 (containment)
  *   "dbl bike" vs "jbracingcoach voicevelo em3"      → 0.0 (no shared tokens)
  */
-export function teamKeySimilarity(a: string, b: string): number {
-  if (a === b) {
+const SIGNIFICANT_TOKEN_MIN_LENGTH = 3;
+const COMPACT_PREFIX_MIN_LENGTH = 4;
+const COMPACT_PREFIX_MIN_COVERAGE = 0.6;
+
+function stripSpaces(value: string): string {
+  return value.replace(/\s+/g, "");
+}
+
+function significantTokens(value: string): string[] {
+  return value
+    .split(" ")
+    .filter((token) => token.length >= SIGNIFICANT_TOKEN_MIN_LENGTH);
+}
+
+function compactPrefixCovers(shorter: string, longer: string): boolean {
+  return (
+    shorter.length >= COMPACT_PREFIX_MIN_LENGTH &&
+    longer.startsWith(shorter) &&
+    shorter.length / longer.length >= COMPACT_PREFIX_MIN_COVERAGE
+  );
+}
+
+function smallerThenLarger<T extends { length: number }>(left: T, right: T): [T, T] {
+  return left.length <= right.length ? [left, right] : [right, left];
+}
+
+function smallerThenLargerSet<T>(left: Set<T>, right: Set<T>): [Set<T>, Set<T>] {
+  return left.size <= right.size ? [left, right] : [right, left];
+}
+
+export function teamKeySimilarity(keyA: string, keyB: string): number {
+  if (keyA === keyB) {
     return 1;
   }
 
-  const ca = a.replace(/\s+/g, "");
-  const cb = b.replace(/\s+/g, "");
-  // Compact equality: "dbl bike" vs "dblbike" — same chars, just spaced differently
-  if (ca === cb && ca.length >= 4) {
+  const compactA = stripSpaces(keyA);
+  const compactB = stripSpaces(keyB);
+  // Compact equality: "dbl bike" vs "dblbike" — same chars, just spaced differently.
+  if (compactA === compactB && compactA.length >= COMPACT_PREFIX_MIN_LENGTH) {
     return 1;
   }
 
   // Compact prefix: one compacted form is a prefix of the other with ≥60% coverage.
   // Handles "zossvog" (compact "zossvog") vs "zoss vog cacb" (compact "zossvogcacb"):
-  // "zossvog" is a 7/11 = 64% prefix of "zossvogcacb" → same team, just partial name.
-  const [sc, lc] = ca.length <= cb.length ? [ca, cb] : [cb, ca];
-  if (sc.length >= 4 && lc.startsWith(sc) && sc.length / lc.length >= 0.6) {
+  // "zossvog" is a 7/11 = 64% prefix of "zossvogcacb" → same team, partial name.
+  const [shorterCompact, longerCompact] = smallerThenLarger(compactA, compactB);
+  if (compactPrefixCovers(shorterCompact, longerCompact)) {
     return 1;
   }
 
-  const sigTok = (s: string) => s.split(" ").filter((t) => t.length >= 3);
-  const tokA = sigTok(a);
-  const tokB = sigTok(b);
-  if (tokA.length === 0 || tokB.length === 0) {
+  const tokensA = significantTokens(keyA);
+  const tokensB = significantTokens(keyB);
+  if (tokensA.length === 0 || tokensB.length === 0) {
     return 0;
   }
 
-  const setA = new Set(tokA);
-  const setB = new Set(tokB);
-  // Containment: all tokens of the shorter set appear in the longer set
-  const [shorter, longer] =
-    setA.size <= setB.size ? [setA, setB] : [setB, setA];
-  if ([...shorter].every((t) => longer.has(t))) {
+  const tokenSetA = new Set(tokensA);
+  const tokenSetB = new Set(tokensB);
+  // Containment: all tokens of the shorter set appear in the longer set.
+  const [smallerSet, largerSet] = smallerThenLargerSet(tokenSetA, tokenSetB);
+  if ([...smallerSet].every((token) => largerSet.has(token))) {
     return 1;
   }
 
-  // Jaccard
-  const intersection = [...setA].filter((t) => setB.has(t)).length;
-  const union = new Set([...setA, ...setB]).size;
-  return intersection / union;
+  // Jaccard similarity = |intersection| / |union|.
+  const intersectionSize = [...tokenSetA].filter((token) =>
+    tokenSetB.has(token),
+  ).length;
+  const unionSize = new Set([...tokenSetA, ...tokenSetB]).size;
+  return intersectionSize / unionSize;
 }
 
 /**
@@ -228,19 +258,21 @@ export function timeToSeconds(time: string): number {
     return 0;
   }
 
-  const [h, m, s] = parts;
-  return Number(h) * 3600 + Number(m) * 60 + parseFloat(s ?? "0");
+  const [hours, minutes, seconds] = parts;
+  return (
+    Number(hours) * 3600 + Number(minutes) * 60 + parseFloat(seconds ?? "0")
+  );
 }
 
 /**
  * Format seconds → "HH:MM:SS" (used for gap display; rounds to whole seconds).
  */
 export function formatGapSecs(secs: number): string {
-  const s = Math.round(secs);
-  const h = Math.floor(s / 3600);
-  const m = Math.floor((s % 3600) / 60);
-  const sec = s % 60;
-  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+  const total = Math.round(secs);
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const seconds = total % 60;
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
 /**
@@ -298,97 +330,97 @@ export type CategoryTier =
   | "unknown";
 
 export function categoryTier(cat: string): CategoryTier {
-  const s = cat.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const compact = cat.toLowerCase().replace(/[^a-z0-9]/g, "");
 
   // Masters F+ (80+)
-  if (/masters?f/.test(s)) {
+  if (/masters?f/.test(compact)) {
     return "masters_f_plus";
   }
 
-  if (/master[89]/.test(s)) {
+  if (/master[89]/.test(compact)) {
     return "masters_f_plus";
   }
 
-  if (/^[mf][89]\d/.test(s)) {
+  if (/^[mf][89]\d/.test(compact)) {
     return "masters_f_plus";
   }
 
   // Masters E (70–79)
-  if (/masters?e/.test(s)) {
+  if (/masters?e/.test(compact)) {
     return "masters_e";
   }
 
-  if (/master7/.test(s)) {
+  if (/master7/.test(compact)) {
     return "masters_e";
   }
 
-  if (/^[mf]7\d/.test(s)) {
+  if (/^[mf]7\d/.test(compact)) {
     return "masters_e";
   }
 
   // Masters D (60–69)
-  if (/masters?d/.test(s)) {
+  if (/masters?d/.test(compact)) {
     return "masters_d";
   }
 
-  if (/master6/.test(s)) {
+  if (/master6/.test(compact)) {
     return "masters_d";
   }
 
-  if (/^[mf]6\d/.test(s)) {
+  if (/^[mf]6\d/.test(compact)) {
     return "masters_d";
   }
 
   // Masters C (50–59)
-  if (/masters?c/.test(s)) {
+  if (/masters?c/.test(compact)) {
     return "masters_c";
   }
 
-  if (/master5/.test(s)) {
+  if (/master5/.test(compact)) {
     return "masters_c";
   }
 
-  if (/^[mf]5\d/.test(s)) {
+  if (/^[mf]5\d/.test(compact)) {
     return "masters_c";
   }
 
   // Masters B (40–49)
-  if (/masters?b/.test(s)) {
+  if (/masters?b/.test(compact)) {
     return "masters_b";
   }
 
-  if (/master4/.test(s)) {
+  if (/master4/.test(compact)) {
     return "masters_b";
   }
 
-  if (/^[mf]4\d/.test(s)) {
+  if (/^[mf]4\d/.test(compact)) {
     return "masters_b";
   }
 
   // Masters A (30–39)
-  if (/masters?a/.test(s) || /master[23]/.test(s)) {
+  if (/masters?a/.test(compact) || /master[23]/.test(compact)) {
     return "masters_a";
   }
 
-  if (/^[mf]35/.test(s) || /^[mf]3[6-9]/.test(s)) {
+  if (/^[mf]35/.test(compact) || /^[mf]3[6-9]/.test(compact)) {
     return "masters_a";
   }
 
   // Elite / open adult
-  if (/elite/.test(s)) {
+  if (/elite/.test(compact)) {
     return "elite";
   }
 
-  if (/sub23|junior|juniore|cadete/.test(s)) {
+  if (/sub23|junior|juniore|cadete/.test(compact)) {
     return "elite";
   }
 
-  if (/^[mf]?jun$/.test(s) || /^mjun/.test(s) || /^fjun/.test(s)) {
+  if (/^[mf]?jun$/.test(compact) || /^mjun/.test(compact) || /^fjun/.test(compact)) {
     return "elite";
   }
 
   // "M 19-34" / "F 19-34" — spans Elite + Masters A
-  if (/^[mf]19\d\d/.test(s) || s === "m1934" || s === "f1934") {
+  if (/^[mf]19\d\d/.test(compact) || compact === "m1934" || compact === "f1934") {
     return "open_1934";
   }
 
@@ -403,7 +435,9 @@ export function categoryTier(cat: string): CategoryTier {
  */
 export function athleteEffectiveTier(cats: string[]): CategoryTier {
   const tiers = new Set(
-    cats.map(categoryTier).filter((t): t is CategoryTier => t !== "unknown"),
+    cats
+      .map(categoryTier)
+      .filter((tier): tier is CategoryTier => tier !== "unknown"),
   );
   if (tiers.size === 0) {
     return "unknown";
@@ -445,84 +479,88 @@ export function athleteEffectiveTier(cats: string[]): CategoryTier {
 // normalizeCategory is kept here for pipeline internal use (athleteKey slug generation).
 
 export function normalizeCategory(cat: string): string {
-  const s = cat
+  const compact = cat
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "")
     .replace("mastres", "masters");
 
   // Masters F (80+) — must precede isFemale: the trailing 'F' is the age grade, not gender
-  if (/^masters?f$/.test(s)) {
+  if (/^masters?f$/.test(compact)) {
     return "Masters F";
   }
 
   const isFemale = /\bf\b|fem|fem$|^f/.test(cat.toLowerCase());
   const suffix = isFemale ? " F" : "";
 
-  if (/sub23/.test(s)) {
+  if (/sub23/.test(compact)) {
     return `Sub 23${suffix}`;
   }
 
-  if (/junior|juniore|cadete|juv/.test(s) || /^[mf]?jun$/.test(s)) {
+  if (/junior|juniore|cadete|juv/.test(compact) || /^[mf]?jun$/.test(compact)) {
     return `Elite${suffix}`;
   }
 
-  if (/elite/.test(s)) {
+  if (/elite/.test(compact)) {
     return `Elite${suffix}`;
   }
 
-  if (s === "m1934" || s === "f1934" || /^[mf]19\d\d/.test(s)) {
+  if (compact === "m1934" || compact === "f1934" || /^[mf]19\d\d/.test(compact)) {
     return `Open 19-34${suffix}`;
   }
 
   if (
-    /masters?a/.test(s) ||
-    /master[23]/.test(s) ||
-    /masters[23]\d/.test(s) ||
-    /^[mf]3[0-9]/.test(s)
+    /masters?a/.test(compact) ||
+    /master[23]/.test(compact) ||
+    /masters[23]\d/.test(compact) ||
+    /^[mf]3[0-9]/.test(compact)
   ) {
     return `Masters A${suffix}`;
   }
 
   if (
-    /masters?b/.test(s) ||
-    /master4/.test(s) ||
-    /masters4\d/.test(s) ||
-    /^[mf]4/.test(s)
+    /masters?b/.test(compact) ||
+    /master4/.test(compact) ||
+    /masters4\d/.test(compact) ||
+    /^[mf]4/.test(compact)
   ) {
     return `Masters B${suffix}`;
   }
 
   if (
-    /masters?c/.test(s) ||
-    /master5/.test(s) ||
-    /masters5\d/.test(s) ||
-    /^[mf]5/.test(s)
+    /masters?c/.test(compact) ||
+    /master5/.test(compact) ||
+    /masters5\d/.test(compact) ||
+    /^[mf]5/.test(compact)
   ) {
     return `Masters C${suffix}`;
   }
 
   if (
-    /masters?d/.test(s) ||
-    /master6/.test(s) ||
-    /masters6\d/.test(s) ||
-    /^[mf]6/.test(s)
+    /masters?d/.test(compact) ||
+    /master6/.test(compact) ||
+    /masters6\d/.test(compact) ||
+    /^[mf]6/.test(compact)
   ) {
     return `Masters D${suffix}`;
   }
 
-  if (/masters?e/.test(s) || /master[67]/.test(s) || /^[mf]7/.test(s)) {
+  if (
+    /masters?e/.test(compact) ||
+    /master[67]/.test(compact) ||
+    /^[mf]7/.test(compact)
+  ) {
     return `Masters E${suffix}`;
   }
 
-  if (/masters?f/.test(s) || /master8/.test(s) || /^[mf]8/.test(s)) {
+  if (/masters?f/.test(compact) || /master8/.test(compact) || /^[mf]8/.test(compact)) {
     return `Masters F${suffix}`;
   }
 
-  if (/ebike|e.?bike|electrica/.test(s)) {
+  if (/ebike|e.?bike|electrica/.test(compact)) {
     return "E-Bike";
   }
 
-  if (/para/.test(s)) {
+  if (/para/.test(compact)) {
     return "Paracycling";
   }
 
@@ -537,10 +575,10 @@ export function isSoloTeam(team: string): boolean {
 }
 
 /** True if two team names refer to the same club (exact or fuzzy key match). */
-export function sameTeam(a: string, b: string): boolean {
-  const ka = teamNormalKey(a);
-  const kb = teamNormalKey(b);
-  return ka === kb || teamKeySimilarity(ka, kb) === 1;
+export function sameTeam(teamA: string, teamB: string): boolean {
+  const keyA = teamNormalKey(teamA);
+  const keyB = teamNormalKey(teamB);
+  return keyA === keyB || teamKeySimilarity(keyA, keyB) === 1;
 }
 
 /**

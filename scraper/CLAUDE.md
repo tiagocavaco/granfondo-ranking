@@ -33,28 +33,55 @@ npm run test:watch
 ```
 src/
   index.ts              Entry point — orchestrates scrape + pipeline + DB write
-  config.ts             Static event config: seasons, supplemental IDs, URLs
-  normalize.ts          teamNormalKey (with alias resolution), normalizeName, etc.
+  config.ts             Static event config: seasons, supplemental IDs, participant URLs
+  external.ts           External (non-StopAndGo) event definitions and upcoming overrides
+  paths.ts              Filesystem path constants (DB_ENC_PATH, DATA_DIR, etc.)
+  types.ts              Scraper-specific types (ApiAthlete, etc.)
+  normalize.ts          normalizeName, teamNormalKey (with alias resolution), isSoloTeam, etc.
   transform.ts          Converts raw scraped rows into StoredResult format
+  inject.ts             Injects resolved athlete IDs into result rows in-place
+
   db/
-    write-db.ts         Encrypts and writes data.db.enc
+    write-db.ts         Builds and encrypts the SQLite DB from all pipeline output
     db-loader.ts        Reads/decrypts the existing DB for incremental scrapes
-    manage-db.ts        CLI for manual DB overrides
-    decrypt-db.ts       Utility to dump the decrypted DB for debugging
+    manage-db.ts        CLI for manual DB overrides (aliases, assignments, team aliases)
+    decrypt-db.ts       Debug utility — dumps the decrypted DB to a temp file
     encrypt.ts          AES-256-GCM encrypt/decrypt (Node.js crypto)
+    alias-utils.ts      Alias chain flattening and lookup-key rewriting
+
   pipeline/
-    pipeline.ts         Multi-pass athlete identity resolution (9 passes)
-    ranking.ts          Athlete and team ranking computation
-    event-pipeline.ts   Per-event result processing
-    participants.ts     Participant list processing
-    inject.ts           Injects athlete IDs into results
+    events.ts           Per-event scraping: participant fetch, distance resolution, result scraping
+    ranking.ts          Aggregate athlete ranking and team ranking computation
+    participants/
+      participants.ts         Resolves participant names → athlete IDs using multi-pass matching
+      participants-refresh.ts Lightweight scrape that refreshes participant lists without the full pipeline
+
+    results/            Athlete identity pipeline — builds the master athlete index
+      results.ts        Orchestrator — runs all passes in order, owns PipelineCtx
+      helpers.ts        Shared utilities: makeIdManager, addResult, deriveCanonicalTeam, etc.
+      types.ts          PipelineCtx interface, IdManager, SoloCollisionFlag, CrossPassFlag, etc.
+      passes/
+        build-licence-profiles.ts     Licence holders matched by name + licence; authoritative
+        enrich-licence-profiles.ts    Unlicensed team results matched to existing profiles by name + team
+        remaining-team-profiles.ts    Remaining team results become new profiles
+        merge-team-name-variants.ts   Full legal name → short name; missing-space variants (within team)
+        manual-athlete-aliases.ts     Alias rules from DB merge duplicate identities early
+        solo-intra-year.ts            Solo results grouped by (name, category, year); collision resolution
+        solo-cross-year.ts            Cross-year solo profile merge
+        team-cross-year.ts            Cross-year team-change merge
+        team-solo-merge.ts            Team ↔ solo cross-pass merge
+        manual-result-assignments.ts  Manual result assignments from DB (runs last)
+        category-sweep-eviction.ts    Post-pass category-consistency eviction
+
   scrapers/
     stopandgo.ts        StopAndGo API (primary source for most events)
     apedalar.ts         apedalar.pt (Livewire-based, event 90003)
     classificacoes.ts   classificacoes.pt
     lap2go.ts           lap2go.pt
     waitastart.ts       waitastart.com
-    shared.ts           fetchWithRetry, cleanTime, makeResult
+    timerspeed.ts       timerspeed.pt
+    shared.ts           fetchWithRetry, cleanTime, makeResult — shared scraper utilities
+
   scripts/
     find-split-candidates.ts        Scans for same-name athlete pairs that may be fragmented profiles
     apply-split-reviews.ts          Applies reviewed split decisions from the rejected/applied JSON files
@@ -67,37 +94,74 @@ src/
     check-participant-links.ts      Checks participant→athlete link quality
 ```
 
-## Incremental scrape
+## Overall scrape pipeline (index.ts)
 
-`scraped-events.json` (committed, no PII) maps `eventId → scrapedAt`. Events present here are loaded from the existing `data.db.enc` instead of hitting the API. Remove an entry to force a re-scrape of that event.
+1. Load `scraped-events.json` + decrypt existing DB → seed team aliases and athlete IDs.
+2. Discover StopAndGo events via API (`discoverGranfondos()`).
+3. For each StopAndGo event: load results from cache or fetch from API (`events.ts`).
+4. Scrape external events (lap2go, waitastart, apedalar, classificacoes) defined in `external.ts`.
+5. Run athlete identity pipeline (`buildAthletesIndex()` in `pipeline/results/results.ts`) across all results.
+6. Inject resolved athlete IDs back into result rows (`inject.ts`).
+7. Resolve participant → athlete links for upcoming events (`participants/participants.ts`).
+8. Build aggregate ranking and team ranking (`ranking.ts`).
+9. Write encrypted DB (`write-db.ts`), update `scraped-events.json`.
+
+`--participants` mode runs `scrapeParticipants()` in `participants/participants-refresh.ts` — refreshes participant lists for upcoming events without running the full athlete pipeline or rebuilding the DB from scratch.
 
 ## Athlete identity pipeline
 
-Nine passes in `pipeline.ts`, roughly:
-1. Exact name + team match
-2. Name + fuzzy team match
-3. Name-only match (within team group)
-4. Cross-team name match with licence/result overlap
-5–9. Progressive relaxation and ID assignment for new athletes
+The pipeline lives in `pipeline/results/`. `results.ts` is the orchestrator; each pass is a focused file in `passes/`. Passes run in this order:
 
-Athlete IDs are seeded from the existing DB so they remain stable across scrapes.
+| Pass | File | What it does |
+|------|------|-------------|
+| 1 | `build-licence-profiles.ts` | Creates profiles for licensed athletes matched by name + licence. Authoritative — results here are never moved by later passes. |
+| 2 | `enrich-licence-profiles.ts` | Matches unlicensed team results to existing licence profiles by name + team. |
+| 3 | `remaining-team-profiles.ts` | Remaining team results that didn't match any existing profile become new profiles. |
+| 4 | `merge-team-name-variants.ts` | Within the same team: folds full legal names into short names (Portuguese/Spanish convention); merges missing-space variants (e.g. `"PedroGalante"` → `"Pedro Galante"`). |
+| 5 | `manual-athlete-aliases.ts` | Applies alias rules from the DB to merge duplicate identities. Runs early so passes 6–10 see already-merged profiles. |
+| 6 | `solo-intra-year.ts` | Groups solo (unaffiliated) results by (name, category, year); resolves intra-event collisions. |
+| 7 | `solo-cross-year.ts` | Merges solo profiles across years for the same athlete. |
+| 8 | `team-cross-year.ts` | Merges team profiles where the athlete changed club between years. |
+| 9 | `team-solo-merge.ts` | Merges team and solo profiles that belong to the same athlete. Depends on passes 6–7 having already built solo profiles. |
+| 10 | `manual-result-assignments.ts` | Applies manual result assignments from the DB. Runs last so it can override any pipeline decision. |
+| post | `category-sweep-eviction.ts` | Evicts results that are category outliers on a profile, guarding against misidentification. |
+
+Shared infrastructure (`helpers.ts`, `types.ts`) lives alongside `results.ts`, one level above the pass files.
+
+Athlete IDs are seeded from the existing DB at startup so they remain stable across scrapes.
+
+### Ordering rationale
+
+- **Pass 5 (manual aliases) runs before solo passes** so that passes 6–9 see merged profiles and don't create duplicate solo entries for already-aliased athletes.
+- **Passes 8–9 (team/solo merge) run after pass 6–7** because pass 9 (`team-solo-merge`) has a hard dependency on solo profiles existing.
+- **Pass 10 (manual assignments) runs last** so it can override any pipeline-matched result without interference.
+- **Post-pass eviction runs after manual assignments** so manually pinned results are protected from eviction via `manualAssignments`.
+
+### Manual assignment invariants — do not regress
+
+`applyManualResultAssignments` in `manual-result-assignments.ts` has two non-obvious invariants:
+
+1. **Already-on-target path must call `manualAssignments.add(...)`** — even when the assigned result is already on the correct athlete. Without this, the post-pass category-consistency sweep can evict it as an outlier.
+2. **Evict before push** — when moving a result to the target athlete, first remove any existing result on that athlete for the same `(eventId, distance)`. Without this, both the pipeline-matched result and the manually assigned result land on the same athlete, causing `UNIQUE constraint failed` in the DB writer.
+
+**Never add `onConflictDoNothing`** to the `athlete_results` insert in `write-db.ts` to silence that error — it masks pipeline bugs. The uniqueness invariant must hold before the DB write.
 
 ### Athlete ID stability and alias changes
 
-The athlete lookup key is `normalizeName(name)|teamId` where `teamId` is the numeric ID from the `teams` table (0 for solo/unaffiliated athletes). This replaced an older string-based `name|canonicalTeamKey` format — if you encounter entries in that old format, run `npm run db:manage -- migrate-lookup-keys` once to convert them.
+The athlete lookup key is `normalizeName(name)|teamId` where `teamId` is the numeric ID from the `teams` table (0 for solo/unaffiliated athletes).
 
-Adding a team alias now also rewrites `athlete_lookup` keys automatically (via `rewriteLookupKeysForAlias` in `alias-utils.ts`), so ID seeds remain stable across alias changes.
+Adding a team alias rewrites `athlete_lookup` keys automatically (via `rewriteLookupKeysForAlias` in `alias-utils.ts`), so ID seeds remain stable across alias changes.
 
-**Removing or changing a team alias still changes which `teamId` maps to which athletes**, which can cause profile splits for athletes who raced under both the alias and canonical team. This means:
+**Removing or changing a team alias changes which `teamId` maps to which athletes**, which can cause profile splits for athletes who raced under both the alias and canonical team name:
 
 - Old `/athlete/:id` URLs break for affected athletes after the next scrape.
-- Athletes who raced under both the alias and canonical team names may be split into two entries.
+- Athletes who raced under both names may split into two entries.
 
-This is expected behaviour — it is the cost of correcting wrong alias merges. After fixing aliases, run a full scrape and update any known bookmarked URLs.
+This is expected behaviour — it is the cost of correcting a wrong alias merge. After fixing aliases, run a full scrape and update any known bookmarked URLs.
 
 ### ID compaction after profile splits
 
-Any pipeline change that causes profile splits (e.g. adding a `SOLO_TEAM_KEYS` entry, correcting a team alias, running a split review) will leave gaps in `athletes.id`. Run:
+Any change that causes profile splits (adding a `SOLO_TEAM_KEYS` entry, correcting a team alias, running a split review) leaves gaps in `athletes.id`. Run:
 
 ```bash
 npm run db:compact-ids   # close gaps: remaps all FK references, verifies correctness
@@ -109,11 +173,11 @@ Two compact+scrape cycles are sometimes needed if the first scrape itself introd
 
 ### SOLO_TEAM_KEYS — "no team" values
 
-`SOLO_TEAM_KEYS` in `database/src/normalize.ts` controls which team strings are treated as unaffiliated (no team profile, no team ranking contribution). The set includes `"n team"` which covers the Scandinavian placeholder `"Nøteam"` — the ø is stripped to a space by the `[^a-z0-9 ]` replacement in `normalizeTeam`, producing `"n team"`.
+`SOLO_TEAM_KEYS` in `database/src/normalize.ts` controls which team strings are treated as unaffiliated (no team profile, no team ranking contribution). The set includes `"n team"` which covers the Scandinavian placeholder `"Nøteam"` — the ø is stripped to a space by `normalizeTeam`, producing `"n team"`.
 
 ### Split candidate workflow
 
-Fragmented athlete profiles (same person appearing as two separate entries) are managed via two committed JSON files:
+Fragmented athlete profiles (same person as two separate entries) are managed via two committed JSON files:
 
 - `split-candidates-rejected.json` — pairs confirmed to be genuinely different athletes
 - `split-candidates-applied.json` — pairs already merged via athlete aliases
@@ -125,29 +189,43 @@ npm run db:apply-splits  # reads split-candidates-reviewed.json, updates rejecte
 
 The skip-lists match on **stable `name|team||name|team` keys** (not IDs) so decisions survive ID compaction.
 
-## Scraper-specific quirks
+## Incremental scrape
 
-### apedalar.pt (event 90003 and similar)
+`scraped-events.json` (committed, no PII) maps `eventId → scrapedAt`. Events present here are loaded from the existing `data.db.enc` instead of hitting the API. Remove an entry to force a re-scrape of that event.
 
-The results page uses Laravel Livewire. Key gotchas:
-- **Gap times** are in a `hidden xl:table-cell` column, not `sm:table-cell` — use a separate regex for `xl:table-cell px-4 py-3 font-mono` to extract the gap.
-- The winner's gap is `"-:--:--.---"` — treat this as 0 seconds.
-- Category (escalao) requires separate Livewire requests per escalao option — only one property can be updated per request (Livewire ignores the second property if two are sent together).
-- Fetching by gender (`sexo`) and by distance (`percurso`) are separate requests; combine male/female base HTML then overlay categories from per-escalao requests.
+## DB is rebuilt from scratch on every scrape
 
-## Overall scrape pipeline (index.ts)
+The scraper does not patch the existing DB — it builds a new in-memory SQLite from all results (cached or freshly fetched), runs the full pipeline, then encrypts and overwrites `data.db.enc`. The only state carried over from run to run is:
+1. Athlete IDs (seeded from the previous DB's `athletes` table).
+2. Manual overrides (read from the previous DB's override tables and re-applied).
+3. `scraped-events.json` (controls which events are loaded from cache vs re-fetched).
 
-1. Load `scraped-events.json` + decrypt existing DB → seed team aliases and athlete IDs.
-2. Discover StopAndGo events via API (`discoverGranfondos()`).
-3. For each StopAndGo event: load from cache or fetch from API (`event-pipeline.ts`).
-4. Scrape external events (lap2go, waitastart, apedalar, classificacoes) defined in `external.ts`.
-5. Run athlete identity pipeline (`buildAthletesIndex()` in `pipeline.ts`) across all results.
-6. Resolve participant → athlete links for upcoming events.
-7. Build aggregate ranking (`buildAggregateRanking()`).
-8. Build team ranking (`buildTeamRanking()`).
-9. Write encrypted DB (`writeEncryptedDatabase()`), update `scraped-events.json`.
+## Manual overrides — only safe via `manage-db.ts`
 
-`--participants` mode skips to a separate code path (`scrapeParticipants()` in `participants-update.ts`) that only refreshes participant lists for upcoming events — it does not run the full pipeline or rebuild the DB.
+`manage-db.ts` is the **only safe way** to make persistent manual changes to the DB. It reads `data.db.enc`, applies the change, and re-encrypts in place.
+
+**Any other direct edits to `data.db.enc` will be overwritten on the next scrape** — the scraper always rebuilds the DB from scratch and re-applies the manual override tables stored inside the DB itself.
+
+The three override types:
+- **Athlete alias** — merges two name/team combinations into one athlete ID (e.g. athlete who raced under a different name at one event).
+- **Result assignment** — forces a specific bib at a specific event to be linked to a specific athlete ID (e.g. category error where the event used the wrong category label).
+- **Team alias** — merges team name variants into a canonical name.
+
+## Team aliases
+
+Team aliases merge different spellings of the same club. An alias maps `aliasKey → canonicalKey` (both are `normalizeTeam()` outputs). Chains are **flattened on write** — both `manage-db.ts` and `apply-team-aliases.ts` call `validateAndFlattenAlias()` which rewrites any intermediate hops so every alias points directly to the canonical.
+
+`teamNormalKey(name)` in `normalize.ts` follows alias chains transitively (loop with cycle detection) as a safety net, but in practice all chains are already flat after being written.
+
+### Team alias workflow
+
+1. `npm run db:find-team-aliases` — generates `scraper/team-alias-candidates.json` (gitignored) with fuzzy-matched suggestions.
+2. Review the file manually — remove false positives (clubs that look similar but are different).
+3. `npm run db:apply-team-aliases` — writes the reviewed candidates into `data.db.enc`.
+4. Commit `data.db.enc`.
+5. Run `npm run scrape` — aliases are applied during the pipeline and the DB is rebuilt with merged teams.
+
+For one-off aliases use `npm run db:manage -- add team-alias --from F --to T` directly.
 
 ## Adding a new event
 
@@ -163,47 +241,14 @@ These events use IDs in the 90000+ range and are defined in `external.ts`, not d
 
 1. Add a `StoredEvent` entry to `EXTERNAL_EVENTS` (past events) or `MANUAL_UPCOMING_EVENTS` (upcoming) in `external.ts` with a manually assigned ID (90001, 90002, …).
 2. Wire up the matching scraper function from `scrapers/` — import it in `external.ts` and call it in `index.ts` in the external events scrape block.
-3. If the event has a participant list, add the appropriate URL to `config.ts` (`APEDALAR_PARTICIPANT_URLS` or equivalent).
+3. If the event has a participant list, add the appropriate URL to `config.ts`.
 
-## Team aliases
+## Scraper-specific quirks
 
-Team aliases merge different spellings of the same club. An alias maps `aliasKey → canonicalKey` (both are `normalizeTeam()` outputs). Chains are **flattened on write** — both `manage-db.ts` and `apply-team-aliases.ts` call `validateAndFlattenAlias()` which rewrites any intermediate hops so every alias points directly to the canonical. Use `npm run db:manage -- add team-alias` to add, and `find-team-alias-candidates.ts` to discover candidates.
+### apedalar.pt (event 90003 and similar)
 
-`teamNormalKey(name)` in `normalize.ts` follows alias chains transitively (loop with cycle detection) as a safety net, but in practice all chains are already flat after being written.
-
-### Team alias workflow
-
-1. `npm run db:find-team-aliases` — generates `scraper/team-alias-candidates.json` (gitignored) with fuzzy-matched alias suggestions.
-2. Review the file manually — remove false positives (clubs that look similar but are different).
-3. `npm run db:apply-team-aliases` — writes the reviewed candidates into `data.db.enc` as team aliases.
-4. Commit `data.db.enc`.
-5. Run `npm run scrape` — aliases are applied during the pipeline and the DB is rebuilt with merged teams.
-
-For one-off aliases use `npm run db:manage -- add team-alias --from F --to T` directly (skips the candidate file).
-
-## Manual overrides — only safe via `manage-db.ts`
-
-`manage-db.ts` is the **only safe way** to make persistent manual changes to the DB (athlete aliases, result assignments, team aliases). It reads `data.db.enc`, applies the change, and re-encrypts in place.
-
-**Any other direct edits to `data.db.enc` will be overwritten on the next scrape** — the scraper always rebuilds the DB from scratch from the scraped results plus the manual override tables stored inside the DB itself.
-
-The three override types:
-- **Athlete alias** — merges two name/team combinations into one athlete ID (e.g. athlete who raced under a different name at one event).
-- **Result assignment** — forces a specific bib at a specific event to be linked to a specific athlete ID (e.g. category error where the event used the wrong category label).
-- **Team alias** — merges team name variants into a canonical name.
-
-### Pass 9 invariants — do not regress
-
-Pass 9 (`runPass9` in `pipeline.ts`) applies manual result assignments. Two non-obvious invariants:
-
-1. **Already-on-target path must call `manualAssignments.add(...)`** — even when the assigned result is already on the correct athlete. Without this, the post-pass category-consistency sweep can evict the result as an outlier.
-2. **Evict before push** — when moving a result to the target athlete, first remove any existing result on that athlete for the same `(eventId, distance)`. Without this, both the pipeline-matched result and the manually assigned result land on the same athlete, causing `UNIQUE constraint failed: athlete_results.athlete_id, athlete_results.event_id, athlete_results.distance` in the db-writer.
-
-**Never add `onConflictDoNothing`** to the `athlete_results` insert in `db-writer.ts` to silence that error — it masks pipeline bugs. The uniqueness invariant must hold before the DB write.
-
-## DB is rebuilt from scratch on every scrape
-
-The scraper does not patch the existing DB — it builds a new in-memory SQLite from all results (cached or freshly fetched), runs the full pipeline, then encrypts and overwrites `data.db.enc`. The only state carried over from run to run is:
-1. Athlete IDs (seeded from the previous DB's `athletes` table).
-2. Manual overrides (read from the previous DB's override tables and re-applied).
-3. `scraped-events.json` (controls which events are loaded from cache vs re-fetched).
+The results page uses Laravel Livewire. Key gotchas:
+- **Gap times** are in a `hidden xl:table-cell` column, not `sm:table-cell` — use a separate regex for `xl:table-cell px-4 py-3 font-mono` to extract the gap.
+- The winner's gap is `"-:--:--.---"` — treat this as 0 seconds.
+- Category (escalao) requires separate Livewire requests per escalao option — only one property can be updated per request (Livewire ignores the second property if two are sent together).
+- Fetching by gender (`sexo`) and by distance (`percurso`) are separate requests; combine male/female base HTML then overlay categories from per-escalao requests.

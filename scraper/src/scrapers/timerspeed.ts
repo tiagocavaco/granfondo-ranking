@@ -27,10 +27,10 @@ const CAT: Record<string, string> = {
 
 function attribs(tag: string): Record<string, string> {
   const out: Record<string, string> = {};
-  const re = /(\w+)="([^"]*)"/g;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(tag)) !== null) {
-    out[m[1]!] = m[2]!;
+  const attrRegex = /(\w+)="([^"]*)"/g;
+  let match: RegExpExecArray | null;
+  while ((match = attrRegex.exec(tag)) !== null) {
+    out[match[1]!] = match[2]!;
   }
 
   return out;
