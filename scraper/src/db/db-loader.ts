@@ -14,7 +14,7 @@ import * as schema from "@granfondo/database/schema";
 
 import { decryptBuffer } from "./encrypt.js";
 import { DB_ENC_PATH, TMP_DB_PATH } from "../paths.js";
-import type { AthleteIdStore } from "../pipeline/results.js";
+import type { AthleteIdStore } from "../pipeline/results/results.js";
 import type {
   StoredEvent,
   StoredEventResults,
@@ -80,12 +80,12 @@ export function loadResultsFromDb(
     .all();
 
   const licencesByResultId = new Map<number, string[]>();
-  for (const lr of licenceRows) {
-    if (!licencesByResultId.has(lr.resultId)) {
-      licencesByResultId.set(lr.resultId, []);
+  for (const row of licenceRows) {
+    if (!licencesByResultId.has(row.resultId)) {
+      licencesByResultId.set(row.resultId, []);
     }
 
-    licencesByResultId.get(lr.resultId)!.push(lr.licence);
+    licencesByResultId.get(row.resultId)!.push(row.licence);
   }
 
   const eventRow = db

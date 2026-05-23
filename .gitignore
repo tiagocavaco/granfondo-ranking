@@ -1,13 +1,14 @@
 node_modules/
 dist/
 scraper/dist/
+coverage/
 *.js.map
 .env
 .env.*
 
 # Generated flag files — contain athlete names (PII), not for version control
-frontend/public/data/solo-flags.json
-frontend/public/data/cross-pass-flags.json
+scraper/solo-flags.json
+scraper/cross-pass-flags.json
 
 # Local working files for manual review — not for version control
 scraper/team-alias-candidates.json

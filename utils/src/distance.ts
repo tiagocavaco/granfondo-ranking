@@ -41,13 +41,13 @@ export function predictionDistCoeff(
     return registered === historical ? 1.0 : 0;
   }
 
-  const r = DIST_RANK[registered];
-  const h = DIST_RANK[historical];
-  if (r === undefined || h === undefined) {
+  const registeredRank = DIST_RANK[registered];
+  const historicalRank = DIST_RANK[historical];
+  if (registeredRank === undefined || historicalRank === undefined) {
     return registered === historical ? 1.0 : 0;
   }
 
-  return 1.0 + (r - h) * PRED_DIST_STEP;
+  return 1.0 + (registeredRank - historicalRank) * PRED_DIST_STEP;
 }
 
 /**

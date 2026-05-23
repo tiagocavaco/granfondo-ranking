@@ -7,19 +7,23 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import EventList from "./components/EventList";
-import EventDetail from "./components/EventDetail";
-import AggregateRankingPage from "./components/AggregateRankingPage";
-import TeamRankingPage from "./components/TeamRankingPage";
-import AthleteProfile from "./components/AthleteProfile";
-import AthletesPage from "./components/AthletesPage";
-import TeamProfile from "./components/TeamProfile";
-import ComparisonPage from "./components/ComparisonPage";
-import RankingInfoPage from "./components/RankingInfoPage";
-import PredictionsPage from "./components/PredictionsPage";
-import PredictionsInfoPage from "./components/PredictionsInfoPage";
-import { api } from "./api";
+import EventList from "./components/events/EventList";
+import EventDetail from "./components/events/EventDetail";
+import AggregateRankingPage from "./components/athlete-ranking/AggregateRankingPage";
+import TeamRankingPage from "./components/team-ranking/TeamRankingPage";
+import AthleteProfile from "./components/athletes/AthleteProfile";
+import AthletesPage from "./components/athletes/AthletesPage";
+import TeamProfile from "./components/team-ranking/TeamProfile";
+import ComparisonPage from "./components/comparison/ComparisonPage";
+import AthleteRankingInfoPage from "./components/athlete-ranking/AthleteRankingInfoPage";
+import TeamRankingInfoPage from "./components/team-ranking/TeamRankingInfoPage";
+import PredictionsPage from "./components/predictions/PredictionsPage";
+import PredictionsInfoPage from "./components/predictions/PredictionsInfoPage";
+import { api, setGetDb } from "@granfondo/api";
+import { getDb } from "./db/db-client";
 import { formatAge } from "./utils/date";
+
+setGetDb(getDb);
 
 const navLink = (isActive: boolean) =>
   `px-2.5 sm:px-4 py-2 text-sm font-semibold rounded-lg transition-all whitespace-nowrap ${
@@ -181,11 +185,8 @@ function AppShell() {
           <Route path="/teams" element={<TeamRankingPage />} />
           <Route path="/team/:teamId" element={<TeamProfile />} />
           <Route path="/compare" element={<ComparisonPage />} />
-          <Route
-            path="/ranking-info"
-            element={<RankingInfoPage mode="athlete" />}
-          />
-          <Route path="/teams-info" element={<RankingInfoPage mode="team" />} />
+          <Route path="/ranking-info" element={<AthleteRankingInfoPage />} />
+          <Route path="/teams-info" element={<TeamRankingInfoPage />} />
           <Route path="/predictions-info" element={<PredictionsInfoPage />} />
         </Routes>
       </main>

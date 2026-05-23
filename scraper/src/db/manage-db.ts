@@ -194,8 +194,8 @@ function cmdAdd(args: Record<string, string>): void {
       `✓ Added assignment: event ${eventId} bib ${bib} → athlete ${athleteId}`,
     );
   } else if (target === "team-alias") {
-    const { from, to } = args;
-    if (!from || !to) {
+    const { from: fromKey, to: toKey } = args;
+    if (!fromKey || !toKey) {
       console.error("Usage: add team-alias --from F --to T");
       process.exit(1);
     }
@@ -204,8 +204,8 @@ function cmdAdd(args: Record<string, string>): void {
     let aliasKey: string, canonicalKey: string;
     try {
       ({ aliasKey, canonicalKey } = validateAndFlattenAlias(
-        normalizeTeam(from),
-        normalizeTeam(to),
+        normalizeTeam(fromKey),
+        normalizeTeam(toKey),
         aliasMap,
       ));
     } catch (e) {

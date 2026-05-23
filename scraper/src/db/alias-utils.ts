@@ -101,25 +101,25 @@ export function resolveAlias(
  * Returns `{ aliasKey, canonicalKey }` ready to write.
  */
 export function validateAndFlattenAlias(
-  from: string,
-  to: string,
+  fromKey: string,
+  toKey: string,
   aliases: Map<string, string>,
 ): { aliasKey: string; canonicalKey: string } {
-  const canonicalKey = resolveAlias(to, aliases);
+  const canonicalKey = resolveAlias(toKey, aliases);
 
-  if (canonicalKey === from) {
-    throw new Error(`Cycle: "${from}" is already the canonical for "${to}"`);
+  if (canonicalKey === fromKey) {
+    throw new Error(`Cycle: "${fromKey}" is already the canonical for "${toKey}"`);
   }
 
-  // Simulate the addition and check if canonical eventually leads back to from
+  // Simulate the addition and check if canonical eventually leads back to fromKey.
   const simulated = new Map(aliases);
-  simulated.set(from, canonicalKey);
+  simulated.set(fromKey, canonicalKey);
   const resolved = resolveAlias(canonicalKey, simulated);
-  if (resolved === from || simulated.get(resolved) === from) {
+  if (resolved === fromKey || simulated.get(resolved) === fromKey) {
     throw new Error(
-      `Adding "${from}" → "${canonicalKey}" would create a cycle`,
+      `Adding "${fromKey}" → "${canonicalKey}" would create a cycle`,
     );
   }
 
-  return { aliasKey: from, canonicalKey };
+  return { aliasKey: fromKey, canonicalKey };
 }

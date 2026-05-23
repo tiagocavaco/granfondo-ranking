@@ -16,9 +16,9 @@ import {
   assignCategoryPositions,
   computeGaps,
 } from "./transform.js";
-import { buildAthletesIndex } from "./pipeline/results.js";
-import { injectAthleteIds } from "./pipeline/inject.js";
-import { resolveParticipantAthleteIds } from "./pipeline/participants.js";
+import { buildAthletesIndex } from "./pipeline/results/results.js";
+import { injectAthleteIds } from "./inject.js";
+import { resolveParticipantAthleteIds } from "./pipeline/participants/participants.js";
 import { buildAggregateRanking, buildTeamRanking } from "./pipeline/ranking.js";
 import {
   YEARS,
@@ -27,7 +27,7 @@ import {
   APEDALAR_PARTICIPANT_URLS,
   normalizeEventName,
 } from "./config.js";
-import { DATA_DIR } from "./paths.js";
+import { DATA_DIR, FLAGS_DIR } from "./paths.js";
 import { normalizeName, teamNormalKey, isSoloTeam } from "./normalize.js";
 import {
   openSourceDb,
@@ -45,8 +45,8 @@ import {
   fetchEventParticipants,
   resolveDistances,
   scrapeEvent,
-} from "./pipeline/event-pipeline.js";
-import { scrapeParticipants } from "./pipeline/participants-update.js";
+} from "./pipeline/events.js";
+import { scrapeParticipants } from "./pipeline/participants/participants-refresh.js";
 import { initTeamAliases } from "./normalize.js";
 import type {
   StoredEvent,
@@ -77,9 +77,9 @@ const PARTICIPANTS_ONLY = process.argv.includes("--participants");
 
 /** Used only for flag JSON files. */
 function writeJson(filename: string, data: unknown) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.mkdirSync(FLAGS_DIR, { recursive: true });
   fs.writeFileSync(
-    path.join(DATA_DIR, filename),
+    path.join(FLAGS_DIR, filename),
     JSON.stringify(data, null, 2),
     "utf-8",
   );
@@ -284,7 +284,7 @@ async function main() {
   writeJson("solo-flags.json", manualSoloFlags);
   if (manualSoloFlags.length > 0) {
     console.warn(
-      `⚠️  ${manualSoloFlags.length} solo collision(s) require manual review — see frontend/public/data/solo-flags.json`,
+      `⚠️  ${manualSoloFlags.length} solo collision(s) require manual review — see scraper/solo-flags.json`,
     );
   } else {
     console.log(`✓ solo-flags.json — no unresolved collisions`);
@@ -293,7 +293,7 @@ async function main() {
   writeJson("cross-pass-flags.json", crossPassFlags);
   if (crossPassFlags.length > 0) {
     console.warn(
-      `⚠️  ${crossPassFlags.length} cross-pass merge(s) require manual review — see frontend/public/data/cross-pass-flags.json`,
+      `⚠️  ${crossPassFlags.length} cross-pass merge(s) require manual review — see scraper/cross-pass-flags.json`,
     );
   } else {
     console.log(`✓ cross-pass-flags.json — no ambiguous merges`);
@@ -352,7 +352,7 @@ async function main() {
   const athleteAllTeamIds = new Map<number, number[]>();
   for (const [, entry] of athletesIndex) {
     const teamIds = entry.teams
-      .map((tk) => extendedTeamIdStore.get(tk) ?? 0)
+      .map((teamKey) => extendedTeamIdStore.get(teamKey) ?? 0)
       .filter((id) => id > 0);
     if (teamIds.length > 0) {
       athleteAllTeamIds.set(entry.id, teamIds);

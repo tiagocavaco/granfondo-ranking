@@ -11,7 +11,7 @@ function parseCsv(text: string): Record<string, string>[] {
   const lines = text
     .replace(/\r/g, "")
     .split("\n")
-    .filter((l) => l.trim());
+    .filter((line) => line.trim());
   if (lines.length < 2) {
     return [];
   }
@@ -21,23 +21,23 @@ function parseCsv(text: string): Record<string, string>[] {
     let field = "";
     let inQuote = false;
     for (let i = 0; i < line.length; i++) {
-      const ch = line[i]!;
+      const char = line[i]!;
       if (inQuote) {
-        if (ch === '"' && line[i + 1] === '"') {
+        if (char === '"' && line[i + 1] === '"') {
           field += '"';
           i++;
-        } else if (ch === '"') {
+        } else if (char === '"') {
           inQuote = false;
         } else {
-          field += ch;
+          field += char;
         }
-      } else if (ch === '"') {
+      } else if (char === '"') {
         inQuote = true;
-      } else if (ch === ",") {
+      } else if (char === ",") {
         fields.push(field);
         field = "";
       } else {
-        field += ch;
+        field += char;
       }
     }
 
@@ -50,9 +50,9 @@ function parseCsv(text: string): Record<string, string>[] {
   for (let i = 1; i < lines.length; i++) {
     const values = parseLine(lines[i]!);
     const row: Record<string, string> = {};
-    headers.forEach((h, idx) => {
-      if (h) {
-        row[h] = values[idx] ?? "";
+    headers.forEach((header, idx) => {
+      if (header) {
+        row[header] = values[idx] ?? "";
       }
     });
     rows.push(row);

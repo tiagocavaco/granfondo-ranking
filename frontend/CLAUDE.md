@@ -15,31 +15,34 @@ npm run test
 
 ```
 frontend/public/data/data.db.enc   Encrypted SQLite (committed to git)
-src/db/decrypt.ts                  Web Crypto AES-256-GCM decrypt
-src/db/db-client.ts                Lazy sql.js singleton (getDb())
-src/api.ts                         All data-access functions (SQL queries)
-src/utils/lookups.ts               In-memory caches: team aliases, athlete name→ID
-src/utils/athlete.ts               mostRecentCountry(), buildCountryMap() helpers
-src/utils/date.ts                  formatAge() — formats a birth date as an age string
+src/db/decrypt.ts                  Web Crypto AES-256-GCM decrypt (reads VITE_DATA_KEY)
+src/db/db-client.ts                Vite-specific wiring: WASM URL + fetchEncryptedDb + getDb()
+src/utils/date.ts                  formatAge() — formats a scraped-at timestamp as a human age
 src/utils/distance.ts              distBadgeClass(), distance colour constants
-src/hooks/useInfiniteScroll.ts     Infinite scroll hook used by AggregateRankingPage
+src/utils/posStyle.ts              Tailwind class string for position badge colours
+src/utils/rankLabel.ts             Pure string: 🥇 / 🥈 / 🥉 / #N
+src/hooks/useInfiniteScroll.ts     Infinite scroll hook used by ranking pages
 ```
 
-`api.ts` exposes typed async functions (`getEvents`, `getResults`, `getTeamByKey`, `getAggregateRanking`, etc.). Components import only from `api.ts` and never touch sql.js directly.
+All query logic lives in `@granfondo/api`. Components import directly from there. `App.tsx` wires the DB once at module scope:
+
+```typescript
+import { api, setGetDb } from "@granfondo/api";
+import { getDb } from "./db/db-client";
+setGetDb(getDb);
+```
+
+`src/db/` contains the two Vite-specific files that can't live in the shared package — they use `import.meta.env` and the `?url` asset import transform.
 
 `initLookups()` must be called once at startup (done in `App.tsx`) to populate the in-memory team alias and athlete lookup caches used by `resolveTeamKey` and `lookupAthleteId`.
 
 ## Key rules for team links
 
-Always check `SOLO_TEAM_KEYS.has(normalizeTeam(team))` before rendering a team as a clickable link. Solo keys (`individual`, `independente`, `no team`, `n team`, `sem equipa`, `""`) must never link to a team page. (`"n team"` covers the Scandinavian placeholder "Nøteam" — ø normalises to a space.) This check is required in every component that renders a team name — currently `ResultsTab`, `AthleteProfile`, and `AggregateRankingPage`.
+Use `<TeamLink team={r.team} />` (`src/components/shared/TeamLink.tsx`) wherever a team name should conditionally link to its profile page. It handles the `SOLO_TEAM_KEYS` check internally — solo placeholders (`individual`, `independente`, `no team`, `sem equipa`, `""`, etc.) render as plain text, real teams render as `<Link>`.
 
-### Two alias resolvers — intentionally different
+Do not inline the `SOLO_TEAM_KEYS.has(normalizeTeam(team))` check in individual components — use `TeamLink` instead.
 
-`resolveTeamKey(name)` in `src/utils/lookups.ts` uses the flat in-memory cache populated by `initLookups()`. It is **one hop only** — alias → canonical. This is used when building navigation URLs from displayed team names (e.g. the team link on an athlete profile).
-
-`getTeamByKey(teamKey)` in `api.ts` resolves the **full alias chain** by looping SQL lookups (up to 10 hops). This handles auto-generated alias chains where A→B→C→canonical. The URL a user arrives at may be any key in the chain; `getTeamByKey` always resolves to the canonical and finds all members.
-
-The discrepancy is intentional: `resolveTeamKey` is synchronous and used for navigation, while `getTeamByKey` is async and does the authoritative lookup.
+For the alias resolver details see `api/CLAUDE.md`.
 
 ### TeamProfile loading
 
@@ -48,6 +51,19 @@ The discrepancy is intentional: `resolveTeamKey` is synchronous and used for nav
 `effectiveSeason` is a derived value (`selectedSeason || allSeasons[0] || ""`), not state. This avoids an extra render pass that previously caused the member list to re-sort after initial load. Do not convert it back to a `useEffect`-driven state update.
 
 ## Component map
+
+Components live under `src/components/` grouped by route:
+
+```
+events/           EventList, EventCard, EventDetail, ResultsTab, ParticipantsTab
+athletes/         AthletesPage, AthleteProfile, CareerHighlights, PerformanceChart
+athlete-ranking/  AggregateRankingPage, AggregateRankingPodium, AggregateRankingTable, AthleteRankingInfoPage
+team-ranking/     TeamRankingPage, TeamProfile, TeamMemberList, TeamRankingInfoPage
+comparison/       ComparisonPage, ComparisonHeroCard, HeadToHeadChart, SharedEventsTable
+predictions/      PredictionsPage, PredictionsInfoPage
+shared/           Spinner, ErrorBanner, TeamLink, RankBadge, SegmentedControl,
+                  GenderToggle, Stat
+```
 
 | Component | Route | Purpose |
 |-----------|-------|---------|
@@ -59,12 +75,19 @@ The discrepancy is intentional: `resolveTeamKey` is synchronous and used for nav
 | `AthleteProfile` | `/athlete/:id` | Athlete career page with chart and highlights |
 | `CareerHighlights` | — | Highlights bar inside AthleteProfile |
 | `PerformanceChart` | — | Points-over-time chart inside AthleteProfile |
-| `TeamProfile` | `/team/:teamId` | Team season view — members, ranking entries, non-ranked events |
-| `AggregateRankingPage` | `/ranking` | Season athlete ranking with infinite scroll |
-| `TeamRankingPage` | `/team-ranking` | Season team ranking |
 | `AthletesPage` | `/athletes` | Athlete search |
+| `AggregateRankingPage` | `/ranking` | Season athlete ranking with infinite scroll |
+| `AggregateRankingPodium` | — | Top-3 podium cards inside AggregateRankingPage |
+| `AggregateRankingTable` | — | Infinite-scroll table inside AggregateRankingPage |
+| `TeamRankingPage` | `/teams` | Season team ranking |
+| `TeamProfile` | `/team/:teamId` | Team season view — members, ranking entries, non-ranked events |
 | `ComparisonPage` | `/compare` | Side-by-side athlete comparison |
-| `RankingInfoPage` | `/ranking-info` | Rules explanation |
+| `ComparisonHeroCard` | — | Athlete hero card inside ComparisonPage |
+| `HeadToHeadChart` | — | Recharts scatter plot inside ComparisonPage |
+| `SharedEventsTable` | — | Shared events table inside ComparisonPage |
+| `PredictionsPage` | `/event/:id/predictions` | Start-list predictions for upcoming event |
+| `AthleteRankingInfoPage` | `/ranking-info` | Athlete ranking rules — points table, coefficient, scoring rules |
+| `TeamRankingInfoPage` | `/teams-info` | Team ranking rules — points table, coefficient, scoring rules |
 
 ## TeamProfile member list
 
