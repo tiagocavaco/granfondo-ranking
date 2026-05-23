@@ -1,0 +1,85 @@
+name: Cleanup Git History
+
+# DESTRUCTIVE — rewrites main and force-pushes. Read carefully:
+#
+# Drops all past blobs of data.db.enc from history (keeps the current content
+# as a fresh single commit). Every commit SHA in history changes. Anyone with
+# a local clone needs to re-clone afterwards.
+#
+# Prerequisites before running:
+#   1. Go to Settings → Branches → main → Edit → uncheck "Do not allow force pushes"
+#      (or set allow_force_pushes: true via the API). The default GITHUB_TOKEN
+#      cannot toggle this on its own.
+#   2. Make sure no PRs are open against main — they'll need rebasing afterwards.
+#   3. Trigger this workflow with the confirmation phrase below.
+#   4. Re-enable force-push protection when done.
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type exactly: REWRITE MAIN"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate confirmation phrase
+        run: |
+          if [ "${{ inputs.confirm }}" != "REWRITE MAIN" ]; then
+            echo "::error::Must type exactly 'REWRITE MAIN'. Got: '${{ inputs.confirm }}'"
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history required for rewrite
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install git-filter-repo
+        run: pip install git-filter-repo
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Report .git size BEFORE
+        run: |
+          BEFORE_KB=$(du -sk .git | awk '{print $1}')
+          echo "::notice::.git size before: $((BEFORE_KB / 1024)) MB"
+
+      - name: Snapshot current data.db.enc
+        run: cp frontend/public/data/data.db.enc /tmp/db.enc.snapshot
+
+      - name: Rewrite history to drop every past data.db.enc blob
+        run: |
+          git filter-repo --force \
+            --invert-paths \
+            --path frontend/public/data/data.db.enc
+
+      - name: Re-add the snapshot as a fresh commit
+        run: |
+          mkdir -p frontend/public/data
+          cp /tmp/db.enc.snapshot frontend/public/data/data.db.enc
+          git add frontend/public/data/data.db.enc
+          git commit -m "chore: data.db.enc (history cleaned)"
+
+      - name: Report .git size AFTER
+        run: |
+          git gc --aggressive --prune=now
+          AFTER_KB=$(du -sk .git | awk '{print $1}')
+          echo "::notice::.git size after: $((AFTER_KB / 1024)) MB"
+
+      - name: Re-add remote and force-push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # filter-repo strips the origin remote as a safety feature; we add it back.
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          # --force-with-lease can't help us here (we rewrote everything); --force is the correct intent.
+          git push --force origin HEAD:main

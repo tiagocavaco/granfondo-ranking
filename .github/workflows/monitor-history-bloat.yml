@@ -1,0 +1,55 @@
+name: Monitor History Bloat
+
+on:
+  schedule:
+    - cron: "0 4 * * 1"   # every Monday at 04:00 UTC (right after deployment prune)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # data.db.enc is committed on every scrape (~33 MB each). Once accumulated
+  # history crosses this threshold, the job fails to nudge you to run the
+  # "Cleanup Git History" workflow. Adjust as you grow comfortable with the cost.
+  THRESHOLD_MB: 200
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history needed to walk past blobs
+
+      - name: Measure data.db.enc history footprint
+        run: |
+          set -euo pipefail
+
+          # Distinct blobs referenced by any past version of data.db.enc.
+          BLOBS=$(git log --format='%H' -- frontend/public/data/data.db.enc \
+            | while read -r SHA; do
+                git ls-tree -r "$SHA" -- frontend/public/data/data.db.enc 2>/dev/null \
+                  | awk '{print $3}'
+              done | sort -u)
+
+          if [ -z "$BLOBS" ]; then
+            echo "No data.db.enc found in history."
+            exit 0
+          fi
+
+          BLOB_COUNT=$(echo "$BLOBS" | wc -l)
+          TOTAL_BYTES=$(echo "$BLOBS" | while read -r BLOB; do
+            git cat-file -s "$BLOB"
+          done | awk '{sum+=$1} END {print sum+0}')
+          TOTAL_MB=$(awk -v b="$TOTAL_BYTES" 'BEGIN {printf "%.0f", b/1024/1024}')
+
+          echo "data.db.enc footprint: ${TOTAL_MB} MB across ${BLOB_COUNT} distinct blob(s)"
+          echo "Threshold: ${THRESHOLD_MB} MB"
+
+          if [ "$TOTAL_MB" -gt "$THRESHOLD_MB" ]; then
+            echo "::warning::Bloat exceeds threshold. Run the 'Cleanup Git History' workflow to reclaim space."
+            exit 1
+          fi
+
+          echo "::notice::Within threshold — no action needed."
