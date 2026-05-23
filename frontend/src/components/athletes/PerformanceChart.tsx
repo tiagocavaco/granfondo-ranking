@@ -93,7 +93,10 @@ export default function PerformanceChart({ results }: Props) {
       <div className="bg-white border border-slate-200 rounded-xl shadow-lg px-3 py-2 text-xs">
         <p className="font-semibold text-slate-700 mb-1">{point.eventName}</p>
         <div className="flex items-center gap-2">
-          <span style={{ color: distDotColor(point.dist) }} className="font-bold">
+          <span
+            style={{ color: distDotColor(point.dist) }}
+            className="font-bold"
+          >
             ●
           </span>
           <span className="text-slate-600">{point.dist}:</span>

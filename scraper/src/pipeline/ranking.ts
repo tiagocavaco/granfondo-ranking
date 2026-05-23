@@ -315,10 +315,7 @@ export function buildTeamRanking(
         eligible.push({
           teamKey,
           rawTeam: sorted[0]!.rawTeam,
-          combinedScore: top3.reduce(
-            (sum, athlete) => sum + athlete.pos,
-            0,
-          ),
+          combinedScore: top3.reduce((sum, athlete) => sum + athlete.pos, 0),
           bestPos: top3[0]!.pos,
           top3,
           all: sorted,
@@ -350,8 +347,7 @@ export function buildTeamRanking(
         }
 
         const entry = distMap.get(eligibleTeam.teamKey)!;
-        entry.totalPoints =
-          Math.round((entry.totalPoints + points) * 10) / 10;
+        entry.totalPoints = Math.round((entry.totalPoints + points) * 10) / 10;
         entry.eventsScored += 1;
         if (teamRank < entry.bestRank) {
           entry.bestRank = teamRank;
@@ -382,8 +378,9 @@ export function buildTeamRanking(
                       : (teamIdStore.get(teamNormalKey(athlete.rawTeam)) ?? 0);
                     const rehomeKey = `${normalizeName(athlete.name)}|${teamId === 0 ? "" : teamId}`;
                     return (
-                      athleteIndex.get(keyToCanonical.get(rehomeKey) ?? rehomeKey)
-                        ?.id ?? 0
+                      athleteIndex.get(
+                        keyToCanonical.get(rehomeKey) ?? rehomeKey,
+                      )?.id ?? 0
                     );
                   })();
             const scoring = eligibleTeam.top3.some(

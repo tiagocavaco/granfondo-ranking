@@ -57,7 +57,9 @@ export function mergeLegalNameVariants(ctx: PipelineCtx): void {
       return [];
     }
 
-    return secondTokenMatches.length > 0 ? secondTokenMatches : lastTokenMatches;
+    return secondTokenMatches.length > 0
+      ? secondTokenMatches
+      : lastTokenMatches;
   }
 
   let count = 0;
@@ -107,7 +109,9 @@ export function mergeLegalNameVariants(ctx: PipelineCtx): void {
   }
 
   if (count > 0) {
-    console.log(`  [legal-name-variants] ${count} full-name profile(s) merged into short-name entries`);
+    console.log(
+      `  [legal-name-variants] ${count} full-name profile(s) merged into short-name entries`,
+    );
   }
 }
 

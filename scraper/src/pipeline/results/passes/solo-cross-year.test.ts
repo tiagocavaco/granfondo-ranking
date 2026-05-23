@@ -18,8 +18,25 @@ describe("mergeSoloCrossYear", () => {
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
       allResults: [
-        mkRaw(event2024, dist, mkStoredResult({ name: "João Silva", team: "", category: "Masters A Male" })),
-        mkRaw(event2025, dist, mkStoredResult({ name: "João Silva", team: "", category: "Masters A Male", bib: "200" })),
+        mkRaw(
+          event2024,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "",
+            category: "Masters A Male",
+          }),
+        ),
+        mkRaw(
+          event2025,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "",
+            category: "Masters A Male",
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -39,8 +56,25 @@ describe("mergeSoloCrossYear", () => {
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
       allResults: [
-        mkRaw(event2024, dist, mkStoredResult({ name: "João Silva", team: "", category: "Masters A Male" })),
-        mkRaw(event2025, dist, mkStoredResult({ name: "João Silva", team: "", category: "Masters B Male", bib: "200" })),
+        mkRaw(
+          event2024,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "",
+            category: "Masters A Male",
+          }),
+        ),
+        mkRaw(
+          event2025,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "",
+            category: "Masters B Male",
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -58,8 +92,25 @@ describe("mergeSoloCrossYear", () => {
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
       allResults: [
-        mkRaw(event2024, dist, mkStoredResult({ name: "João Silva", team: "", category: "Elite Male" })),
-        mkRaw(event2025, dist, mkStoredResult({ name: "João Silva", team: "", category: "Masters B Male", bib: "200" })),
+        mkRaw(
+          event2024,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "",
+            category: "Elite Male",
+          }),
+        ),
+        mkRaw(
+          event2025,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "",
+            category: "Masters B Male",
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -77,8 +128,25 @@ describe("mergeSoloCrossYear", () => {
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
       allResults: [
-        mkRaw(event2024, dist, mkStoredResult({ name: "João Silva", team: "", category: "Masters A Male" })),
-        mkRaw(event2025, dist, mkStoredResult({ name: "João Silva", team: "", category: "Masters A Male", bib: "200" })),
+        mkRaw(
+          event2024,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "",
+            category: "Masters A Male",
+          }),
+        ),
+        mkRaw(
+          event2025,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "",
+            category: "Masters A Male",
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -98,7 +166,15 @@ describe("mergeSoloCrossYear", () => {
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "", category: "Masters A Male" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "",
+            category: "Masters A Male",
+          }),
+        ),
       ],
     });
 

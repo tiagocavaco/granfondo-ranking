@@ -81,14 +81,19 @@ async function fetchNetEvents(
 export async function fetchUpcomingEvents(
   year: number,
 ): Promise<ApiNetEvent[]> {
-  const [granfondoResults, grandfondoResults, gfSearchResults] = await Promise.all([
-    fetchNetEvents("granfondo", year),
-    fetchNetEvents("grandfondo", year),
-    fetchNetEvents("GF", year),
-  ]);
+  const [granfondoResults, grandfondoResults, gfSearchResults] =
+    await Promise.all([
+      fetchNetEvents("granfondo", year),
+      fetchNetEvents("grandfondo", year),
+      fetchNetEvents("GF", year),
+    ]);
   const seen = new Set<number>();
   const all: ApiNetEvent[] = [];
-  for (const event of [...granfondoResults, ...grandfondoResults, ...gfSearchResults]) {
+  for (const event of [
+    ...granfondoResults,
+    ...grandfondoResults,
+    ...gfSearchResults,
+  ]) {
     if (!seen.has(event.id)) {
       seen.add(event.id);
       all.push(event);

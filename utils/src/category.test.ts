@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { canonicalizeCategory, isFemaleCategory, categorySortKey } from "./category.js";
+import {
+  canonicalizeCategory,
+  isFemaleCategory,
+  categorySortKey,
+} from "./category.js";
 
 describe("canonicalizeCategory", () => {
   it("maps known Elite Male strings", () => {
@@ -74,22 +78,36 @@ describe("categorySortKey", () => {
   }
 
   it("Elite sorts before Masters A", () => {
-    expect(lt(categorySortKey("Elite Male"), categorySortKey("Masters A Male"))).toBe(true);
+    expect(
+      lt(categorySortKey("Elite Male"), categorySortKey("Masters A Male")),
+    ).toBe(true);
   });
 
   it("Masters A sorts before Masters B before Masters C", () => {
-    expect(lt(categorySortKey("Masters A Male"), categorySortKey("Masters B Male"))).toBe(true);
-    expect(lt(categorySortKey("Masters B Male"), categorySortKey("Masters C Male"))).toBe(true);
+    expect(
+      lt(categorySortKey("Masters A Male"), categorySortKey("Masters B Male")),
+    ).toBe(true);
+    expect(
+      lt(categorySortKey("Masters B Male"), categorySortKey("Masters C Male")),
+    ).toBe(true);
   });
 
   it("Masters D < Masters E < Masters F", () => {
-    expect(lt(categorySortKey("Masters D Male"), categorySortKey("Masters E Male"))).toBe(true);
-    expect(lt(categorySortKey("Masters E Male"), categorySortKey("Masters F Male"))).toBe(true);
+    expect(
+      lt(categorySortKey("Masters D Male"), categorySortKey("Masters E Male")),
+    ).toBe(true);
+    expect(
+      lt(categorySortKey("Masters E Male"), categorySortKey("Masters F Male")),
+    ).toBe(true);
   });
 
   it("E-Bike and Paracycling sort after Masters categories", () => {
-    expect(lt(categorySortKey("Masters F Male"), categorySortKey("E-Bike"))).toBe(true);
-    expect(lt(categorySortKey("E-Bike"), categorySortKey("Paracycling"))).toBe(true);
+    expect(
+      lt(categorySortKey("Masters F Male"), categorySortKey("E-Bike")),
+    ).toBe(true);
+    expect(lt(categorySortKey("E-Bike"), categorySortKey("Paracycling"))).toBe(
+      true,
+    );
   });
 
   it("returns a tuple of two numbers", () => {

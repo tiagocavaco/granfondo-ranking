@@ -204,7 +204,9 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
             if (categoryFilter !== "all") {
               const available = new Set(
                 results
-                  .filter((r) => nextGender === "all" || r.gender === nextGender)
+                  .filter(
+                    (r) => nextGender === "all" || r.gender === nextGender,
+                  )
                   .map((r) => r.category),
               );
               if (!available.has(categoryFilter)) {

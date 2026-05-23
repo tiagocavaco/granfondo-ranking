@@ -15,9 +15,21 @@ beforeAll(() => {
   setupTestDb(
     minimalData({
       events: [
-        mkEvent(10, { name: "Granfondo Algarve", date: "2025-04-01", hasResults: true }),
-        mkEvent(20, { name: "Upcoming Race", date: "2026-09-01", hasResults: false }),
-        mkEvent(30, { name: "Empty Event", date: "2026-10-01", hasResults: false }),
+        mkEvent(10, {
+          name: "Granfondo Algarve",
+          date: "2025-04-01",
+          hasResults: true,
+        }),
+        mkEvent(20, {
+          name: "Upcoming Race",
+          date: "2026-09-01",
+          hasResults: false,
+        }),
+        mkEvent(30, {
+          name: "Empty Event",
+          date: "2026-10-01",
+          hasResults: false,
+        }),
       ],
       athletesIndex: new Map([
         [
@@ -99,13 +111,37 @@ beforeAll(() => {
           20,
           [
             // Linked: athlete 1, will get weighted score
-            mkParticipant({ name: "João Silva", team: "Sporting", category: "Masters A Male", distance: "Granfondo", distanceId: "1" }),
+            mkParticipant({
+              name: "João Silva",
+              team: "Sporting",
+              category: "Masters A Male",
+              distance: "Granfondo",
+              distanceId: "1",
+            }),
             // Linked: athlete 2 (female)
-            mkParticipant({ name: "Maria Costa", team: "Benfica", category: "Elite Female", distance: "Granfondo", distanceId: "1" }),
+            mkParticipant({
+              name: "Maria Costa",
+              team: "Benfica",
+              category: "Elite Female",
+              distance: "Granfondo",
+              distanceId: "1",
+            }),
             // Unlinked newcomer (Male)
-            mkParticipant({ name: "Unknown Rider", team: "", category: "Masters B Male", distance: "Granfondo", distanceId: "1" }),
+            mkParticipant({
+              name: "Unknown Rider",
+              team: "",
+              category: "Masters B Male",
+              distance: "Granfondo",
+              distanceId: "1",
+            }),
             // Unlinked newcomer (Female)
-            mkParticipant({ name: "Unknown Female", team: "", category: "Masters A Female", distance: "Granfondo", distanceId: "1" }),
+            mkParticipant({
+              name: "Unknown Female",
+              team: "",
+              category: "Masters A Female",
+              distance: "Granfondo",
+              distanceId: "1",
+            }),
           ],
         ],
       ]),
@@ -161,7 +197,9 @@ describe("getPredictions", () => {
     const preds = await getPredictions(20);
     const ranked = preds["Granfondo"]!.categories["Masters A Male"]!.ranked;
     for (let i = 1; i < ranked.length; i++) {
-      expect(ranked[i - 1]!.weightedScore).toBeGreaterThanOrEqual(ranked[i]!.weightedScore);
+      expect(ranked[i - 1]!.weightedScore).toBeGreaterThanOrEqual(
+        ranked[i]!.weightedScore,
+      );
     }
   });
 

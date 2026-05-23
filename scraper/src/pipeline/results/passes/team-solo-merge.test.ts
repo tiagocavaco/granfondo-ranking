@@ -20,14 +20,29 @@ describe("mergeTeamSoloProfiles", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(teamEvent, dist, mkStoredResult({
-          name: "João Silva", team: "Sporting", category: "Masters A Male",
-          genderPos: 10, country: "PRT",
-        })),
-        mkRaw(soloEvent, dist, mkStoredResult({
-          name: "João Silva", team: "Individual", category: "Masters A Male",
-          genderPos: 12, country: "PRT", bib: "200",
-        })),
+        mkRaw(
+          teamEvent,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            category: "Masters A Male",
+            genderPos: 10,
+            country: "PRT",
+          }),
+        ),
+        mkRaw(
+          soloEvent,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Individual",
+            category: "Masters A Male",
+            genderPos: 12,
+            country: "PRT",
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -50,8 +65,20 @@ describe("mergeTeamSoloProfiles", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "Sporting", bib: "100" })),
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "Individual", bib: "200" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Sporting", bib: "100" }),
+        ),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Individual",
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -73,8 +100,25 @@ describe("mergeTeamSoloProfiles", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(teamEvent, granfondo, mkStoredResult({ name: "João Silva", team: "Sporting", category: "Masters A Male" })),
-        mkRaw(soloEvent, minifondo, mkStoredResult({ name: "João Silva", team: "Individual", category: "Masters A Male", bib: "200" })),
+        mkRaw(
+          teamEvent,
+          granfondo,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            category: "Masters A Male",
+          }),
+        ),
+        mkRaw(
+          soloEvent,
+          minifondo,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Individual",
+            category: "Masters A Male",
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -94,20 +138,46 @@ describe("mergeTeamSoloProfiles", () => {
     const soloEvent = mkEvent({ id: 3, year: 2025 });
     const dist = mkDistance({ finisherCount: 100 });
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
       allResults: [
-        mkRaw(teamEvent2024, dist, mkStoredResult({
-          name: "João Silva", team: "Sporting", category: "Masters A Male",
-          genderPos: 10, country: "PRT",
-        })),
-        mkRaw(teamEvent2024b, dist, mkStoredResult({
-          name: "João Silva", team: "Benfica", category: "Masters A Male",
-          genderPos: 11, country: "PRT", bib: "200",
-        })),
-        mkRaw(soloEvent, dist, mkStoredResult({
-          name: "João Silva", team: "Individual", category: "Masters A Male",
-          genderPos: 12, country: "PRT", bib: "300",
-        })),
+        mkRaw(
+          teamEvent2024,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            category: "Masters A Male",
+            genderPos: 10,
+            country: "PRT",
+          }),
+        ),
+        mkRaw(
+          teamEvent2024b,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Benfica",
+            category: "Masters A Male",
+            genderPos: 11,
+            country: "PRT",
+            bib: "200",
+          }),
+        ),
+        mkRaw(
+          soloEvent,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Individual",
+            category: "Masters A Male",
+            genderPos: 12,
+            country: "PRT",
+            bib: "300",
+          }),
+        ),
       ],
     });
 
@@ -126,14 +196,29 @@ describe("mergeTeamSoloProfiles", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(teamEvent, dist, mkStoredResult({
-          name: "João Silva", team: "Sporting", category: "Masters A Male",
-          genderPos: 10, country: "PRT",
-        })),
-        mkRaw(soloEvent, dist, mkStoredResult({
-          name: "João Silva", team: "Individual", category: "Masters A Male",
-          genderPos: 12, country: "PRT", bib: "200",
-        })),
+        mkRaw(
+          teamEvent,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Sporting",
+            category: "Masters A Male",
+            genderPos: 10,
+            country: "PRT",
+          }),
+        ),
+        mkRaw(
+          soloEvent,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Individual",
+            category: "Masters A Male",
+            genderPos: 12,
+            country: "PRT",
+            bib: "200",
+          }),
+        ),
       ],
     });
 

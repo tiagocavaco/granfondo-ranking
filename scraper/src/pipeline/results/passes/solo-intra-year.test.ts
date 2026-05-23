@@ -16,7 +16,11 @@ describe("groupSoloIntraYear", () => {
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "Individual" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Individual" }),
+        ),
       ],
     });
 
@@ -36,8 +40,20 @@ describe("groupSoloIntraYear", () => {
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
       allResults: [
-        mkRaw(event1, dist, mkStoredResult({ name: "João Silva", team: "Individual" })),
-        mkRaw(event2, dist, mkStoredResult({ name: "João Silva", team: "Individual", bib: "200" })),
+        mkRaw(
+          event1,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Individual" }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({
+            name: "João Silva",
+            team: "Individual",
+            bib: "200",
+          }),
+        ),
       ],
     });
 
@@ -55,9 +71,21 @@ describe("groupSoloIntraYear", () => {
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "", bib: "100" })),
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "", bib: "200" })),
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "", bib: "300" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "", bib: "100" }),
+        ),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "", bib: "200" }),
+        ),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "", bib: "300" }),
+        ),
       ],
     });
 
@@ -80,9 +108,21 @@ describe("groupSoloIntraYear", () => {
     const ctx = mkPipelineCtx({
       allResults: [
         // Baseline result in Granfondo — establishes the athlete's "home" distance
-        mkRaw(event, granfondo, mkStoredResult({ name: "João Silva", team: "", bib: "100" })),
-        mkRaw(event, mediofondo, mkStoredResult({ name: "João Silva", team: "", bib: "101" })),
-        mkRaw(baselineEvent, granfondo, mkStoredResult({ name: "João Silva", team: "", bib: "300" })),
+        mkRaw(
+          event,
+          granfondo,
+          mkStoredResult({ name: "João Silva", team: "", bib: "100" }),
+        ),
+        mkRaw(
+          event,
+          mediofondo,
+          mkStoredResult({ name: "João Silva", team: "", bib: "101" }),
+        ),
+        mkRaw(
+          baselineEvent,
+          granfondo,
+          mkStoredResult({ name: "João Silva", team: "", bib: "300" }),
+        ),
       ],
     });
 
@@ -98,7 +138,11 @@ describe("groupSoloIntraYear", () => {
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "", bib: "100" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "", bib: "100" }),
+        ),
       ],
     });
     ctx.assigned.add(`${event.id}|${dist.name}|100`);

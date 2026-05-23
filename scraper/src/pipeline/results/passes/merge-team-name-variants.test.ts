@@ -23,8 +23,19 @@ describe("mergeLegalNameVariants", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event1, dist, mkStoredResult({ name: "Elio Fernando Oliveira Silva", team: "Sporting" })),
-        mkRaw(event2, dist, mkStoredResult({ name: "Elio Silva", team: "Sporting" })),
+        mkRaw(
+          event1,
+          dist,
+          mkStoredResult({
+            name: "Elio Fernando Oliveira Silva",
+            team: "Sporting",
+          }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({ name: "Elio Silva", team: "Sporting" }),
+        ),
       ],
     });
 
@@ -45,10 +56,25 @@ describe("mergeLegalNameVariants", () => {
     const event = mkEvent({ id: 1 });
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "Elio Fernando Oliveira Silva", team: "Sporting", bib: "100" })),
-        mkRaw(event, dist, mkStoredResult({ name: "Elio Silva", team: "Benfica", bib: "101" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "Elio Fernando Oliveira Silva",
+            team: "Sporting",
+            bib: "100",
+          }),
+        ),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "Elio Silva", team: "Benfica", bib: "101" }),
+        ),
       ],
     });
 
@@ -65,8 +91,24 @@ describe("mergeLegalNameVariants", () => {
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "Elio Fernando Silva", team: "Individual", bib: "100" })),
-        mkRaw(event, dist, mkStoredResult({ name: "Elio Silva", team: "Individual", bib: "101" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "Elio Fernando Silva",
+            team: "Individual",
+            bib: "100",
+          }),
+        ),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "Elio Silva",
+            team: "Individual",
+            bib: "101",
+          }),
+        ),
       ],
     });
 
@@ -94,9 +136,21 @@ describe("mergeMissingSpaceVariants", () => {
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
         // Spaced form has 2 results — must win as the surviving profile.
-        mkRaw(event1, dist, mkStoredResult({ name: "Pedro Galante", team: "Sporting" })),
-        mkRaw(event2, dist, mkStoredResult({ name: "Pedro Galante", team: "Sporting" })),
-        mkRaw(event3, dist, mkStoredResult({ name: "PedroGalante", team: "Sporting" })),
+        mkRaw(
+          event1,
+          dist,
+          mkStoredResult({ name: "Pedro Galante", team: "Sporting" }),
+        ),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({ name: "Pedro Galante", team: "Sporting" }),
+        ),
+        mkRaw(
+          event3,
+          dist,
+          mkStoredResult({ name: "PedroGalante", team: "Sporting" }),
+        ),
       ],
     });
 
@@ -118,8 +172,24 @@ describe("mergeMissingSpaceVariants", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "Pedro Galante", team: "Sporting", bib: "100" })),
-        mkRaw(event, dist, mkStoredResult({ name: "Pedro Galante Junior", team: "Sporting", bib: "101" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "Pedro Galante",
+            team: "Sporting",
+            bib: "100",
+          }),
+        ),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "Pedro Galante Junior",
+            team: "Sporting",
+            bib: "101",
+          }),
+        ),
       ],
     });
 
@@ -138,8 +208,24 @@ describe("mergeMissingSpaceVariants", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [
-        mkRaw(event, dist, mkStoredResult({ name: "PedroGalante", team: "Sporting", bib: "100" })),
-        mkRaw(event, dist, mkStoredResult({ name: "Pedro Galante", team: "Sporting", bib: "101" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "PedroGalante",
+            team: "Sporting",
+            bib: "100",
+          }),
+        ),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({
+            name: "Pedro Galante",
+            team: "Sporting",
+            bib: "101",
+          }),
+        ),
       ],
     });
 

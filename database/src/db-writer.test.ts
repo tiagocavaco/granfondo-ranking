@@ -126,7 +126,9 @@ describe("insertParticipants", () => {
         events: [mkEvent(1)],
         allParticipants: new Map([[1, [participant]]]),
         participantAthleteIds: new Map([[pKey, 42]]),
-        athletesIndex: new Map([["joao silva|sporting", mkAthlete(42, "João Silva")]]),
+        athletesIndex: new Map([
+          ["joao silva|sporting", mkAthlete(42, "João Silva")],
+        ]),
       }),
     );
     const [row] = openDb(buf).select().from(schema.participants).all();
@@ -143,7 +145,9 @@ describe("insertParticipants", () => {
         participantAthleteIds: new Map([
           [`1:${linked.name}:${linked.team}`, 10],
         ]),
-        athletesIndex: new Map([["joao silva|sporting", mkAthlete(10, "João Silva")]]),
+        athletesIndex: new Map([
+          ["joao silva|sporting", mkAthlete(10, "João Silva")],
+        ]),
       }),
     );
     const rows = openDb(buf).select().from(schema.participants).all();

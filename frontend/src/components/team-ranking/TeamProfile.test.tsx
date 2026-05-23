@@ -85,7 +85,9 @@ describe("TeamProfile", () => {
     mockGetTeamById.mockResolvedValue(mkDetail());
 
     renderAt("/team/1");
-    expect(await screen.findByRole("heading", { name: "Sporting" })).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { name: "Sporting" }),
+    ).toBeInTheDocument();
   });
 
   it("shows the 'Team not found' state when the detail lookup returns null", async () => {

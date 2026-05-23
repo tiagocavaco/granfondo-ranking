@@ -32,8 +32,14 @@ export default function AggregateRankingPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const years = useMemo(() => (data ? Object.keys(data).sort().reverse() : []), [data]);
-  const distances = useMemo(() => (data && year ? Object.keys(data[year] ?? {}) : []), [data, year]);
+  const years = useMemo(
+    () => (data ? Object.keys(data).sort().reverse() : []),
+    [data],
+  );
+  const distances = useMemo(
+    () => (data && year ? Object.keys(data[year] ?? {}) : []),
+    [data, year],
+  );
 
   const ranked = useMemo(() => {
     if (!data || !year || !distance) return [];
@@ -65,31 +71,54 @@ export default function AggregateRankingPage() {
   return (
     <div>
       <div className="flex items-start justify-between gap-4 mb-8">
-        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Athlete Ranking</h2>
+        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+          Athlete Ranking
+        </h2>
         <div className="sm:hidden">
-          <GenderToggle value={gender} onChange={(next) => { setGender(next as "M" | "F"); setSearch(""); }} />
+          <GenderToggle
+            value={gender}
+            onChange={(next) => {
+              setGender(next as "M" | "F");
+              setSearch("");
+            }}
+          />
         </div>
       </div>
 
       <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 mb-8 sm:items-center">
         <div className="flex items-center gap-2.5">
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Season</span>
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
+            Season
+          </span>
           <select
             value={year}
             onChange={(e) => handleYearChange(e.target.value)}
             className="flex-1 sm:flex-none px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
           >
-            {years.map((y) => <option key={y} value={y}>{y}</option>)}
+            {years.map((y) => (
+              <option key={y} value={y}>
+                {y}
+              </option>
+            ))}
           </select>
         </div>
         <div className="flex sm:hidden items-center gap-2.5">
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Distance</span>
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
+            Distance
+          </span>
           <select
             value={distance}
-            onChange={(e) => { setDistance(e.target.value); setSearch(""); }}
+            onChange={(e) => {
+              setDistance(e.target.value);
+              setSearch("");
+            }}
             className="flex-1 px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
           >
-            {distances.map((d) => <option key={d} value={d}>{d}</option>)}
+            {distances.map((d) => (
+              <option key={d} value={d}>
+                {d}
+              </option>
+            ))}
           </select>
         </div>
         <div className="hidden sm:block">
@@ -97,19 +126,47 @@ export default function AggregateRankingPage() {
             label="Distance"
             options={distances}
             value={distance}
-            onChange={(d) => { setDistance(d); setSearch(""); }}
-            colorMap={{
-              Granfondo: { active: "bg-blue-600 text-white", base: "text-blue-700 border-blue-200" },
-              Mediofondo: { active: "bg-violet-600 text-white", base: "text-violet-700 border-violet-200" },
-              Minifondo: { active: "bg-emerald-600 text-white", base: "text-emerald-700 border-emerald-200" },
-              "Time Trial": { active: "bg-amber-500 text-white", base: "text-amber-700 border-amber-200" },
+            onChange={(d) => {
+              setDistance(d);
+              setSearch("");
             }}
-            shortLabelMap={{ Granfondo: "GF", Mediofondo: "MF", Minifondo: "Mini", "Time Trial": "TT" }}
+            colorMap={{
+              Granfondo: {
+                active: "bg-blue-600 text-white",
+                base: "text-blue-700 border-blue-200",
+              },
+              Mediofondo: {
+                active: "bg-violet-600 text-white",
+                base: "text-violet-700 border-violet-200",
+              },
+              Minifondo: {
+                active: "bg-emerald-600 text-white",
+                base: "text-emerald-700 border-emerald-200",
+              },
+              "Time Trial": {
+                active: "bg-amber-500 text-white",
+                base: "text-amber-700 border-amber-200",
+              },
+            }}
+            shortLabelMap={{
+              Granfondo: "GF",
+              Mediofondo: "MF",
+              Minifondo: "Mini",
+              "Time Trial": "TT",
+            }}
           />
         </div>
         <div className="hidden sm:flex items-center gap-2.5">
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Gender</span>
-          <GenderToggle value={gender} onChange={(next) => { setGender(next as "M" | "F"); setSearch(""); }} />
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
+            Gender
+          </span>
+          <GenderToggle
+            value={gender}
+            onChange={(next) => {
+              setGender(next as "M" | "F");
+              setSearch("");
+            }}
+          />
         </div>
         <input
           type="text"
@@ -125,25 +182,39 @@ export default function AggregateRankingPage() {
 
       {!loading && !error && ranked.length > 0 && (
         <>
-          {topThree.length >= 3 && !search && <AggregateRankingPodium topThree={topThree} />}
+          {topThree.length >= 3 && !search && (
+            <AggregateRankingPodium topThree={topThree} />
+          )}
 
           <div className="mb-4 flex items-center justify-between">
             <p className="text-sm text-slate-500">
-              <span className="font-semibold text-slate-700">{ranked.length}</span> athletes scored
+              <span className="font-semibold text-slate-700">
+                {ranked.length}
+              </span>{" "}
+              athletes scored
             </p>
-            <Link to="/ranking-info" className="text-xs text-blue-600 hover:text-blue-800 hover:underline transition-colors">
+            <Link
+              to="/ranking-info"
+              className="text-xs text-blue-600 hover:text-blue-800 hover:underline transition-colors"
+            >
               How scoring works →
             </Link>
           </div>
 
-          <AggregateRankingTable ranked={ranked} maxPoints={maxPoints} resetKey={resetKey} />
+          <AggregateRankingTable
+            ranked={ranked}
+            maxPoints={maxPoints}
+            resetKey={resetKey}
+          />
         </>
       )}
 
       {!loading && !error && ranked.length === 0 && year && distance && (
         <div className="text-center py-16 text-slate-400">
           <p className="text-5xl mb-3">🏆</p>
-          <p className="font-semibold text-slate-600 text-lg">No ranking data available</p>
+          <p className="font-semibold text-slate-600 text-lg">
+            No ranking data available
+          </p>
         </div>
       )}
     </div>

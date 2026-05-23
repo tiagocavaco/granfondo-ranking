@@ -1,5 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import PredictionsPage from "./PredictionsPage";
 import type { DistancePredictions, FavoritePrediction } from "@granfondo/api";
@@ -16,9 +20,10 @@ vi.mock("@granfondo/api", () => ({
 }));
 
 vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual<typeof import("react-router-dom")>(
-    "react-router-dom",
-  );
+  const actual =
+    await vi.importActual<typeof import("react-router-dom")>(
+      "react-router-dom",
+    );
   return {
     ...actual,
     useNavigate: () => mockNavigate,
@@ -35,7 +40,9 @@ function renderAt(path: string) {
   );
 }
 
-function mkPrediction(over: Partial<FavoritePrediction> = {}): FavoritePrediction {
+function mkPrediction(
+  over: Partial<FavoritePrediction> = {},
+): FavoritePrediction {
   return {
     athleteId: 1,
     name: "João Silva",
@@ -84,9 +91,12 @@ describe("PredictionsPage", () => {
     mockGetPredictions.mockResolvedValue({});
 
     renderAt("/event/5/predictions");
-    await waitForElementToBeRemoved(() => screen.queryByRole("status", { hidden: true }), {
-      timeout: 2000,
-    }).catch(() => {});
+    await waitForElementToBeRemoved(
+      () => screen.queryByRole("status", { hidden: true }),
+      {
+        timeout: 2000,
+      },
+    ).catch(() => {});
     // Navigation happens after the events resolve.
     await vi.waitFor(() =>
       expect(mockNavigate).toHaveBeenCalledWith("/event/5", { replace: true }),
@@ -100,7 +110,9 @@ describe("PredictionsPage", () => {
     mockGetPredictions.mockResolvedValue({});
 
     renderAt("/event/5/predictions");
-    expect(await screen.findByText(/No predictions available yet/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/No predictions available yet/i),
+    ).toBeInTheDocument();
   });
 
   it("surfaces errors when the API call fails", async () => {
@@ -108,7 +120,9 @@ describe("PredictionsPage", () => {
     mockGetPredictions.mockResolvedValue({});
 
     renderAt("/event/5/predictions");
-    expect(await screen.findByText(/Predictions unavailable/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Predictions unavailable/i),
+    ).toBeInTheDocument();
   });
 
   it("annotates ranked categories with the unranked newcomer count", async () => {

@@ -1,4 +1,8 @@
-import { normalizeName, isValidLicence, isSoloTeam } from "../../../normalize.js";
+import {
+  normalizeName,
+  isValidLicence,
+  isSoloTeam,
+} from "../../../normalize.js";
 import { levenshteinDistance } from "../../../normalize.js";
 import type { PipelineCtx, RawResult } from "../types.js";
 import {
