@@ -19,7 +19,8 @@
     "scrape:force": "tsx src/index.ts --force",
     "scrape:participants": "tsx src/index.ts --participants",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",

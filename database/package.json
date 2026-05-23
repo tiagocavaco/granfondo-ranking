@@ -6,7 +6,8 @@
   "scripts": {
     "generate-schema": "drizzle-kit generate",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "drizzle-kit": "^0.30.4",
