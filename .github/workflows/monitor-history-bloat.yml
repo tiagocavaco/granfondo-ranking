@@ -11,8 +11,8 @@ permissions:
 env:
   # data.db.enc is committed on every scrape (~33 MB each). Once accumulated
   # history crosses this threshold, the job fails to nudge you to run the
-  # "Cleanup Git History" workflow. Adjust as you grow comfortable with the cost.
-  THRESHOLD_MB: 200
+  # "Cleanup Git History" workflow. 1 GB ≈ 30 weekly scrapes worth.
+  THRESHOLD_MB: 1024
 
 jobs:
   check:
