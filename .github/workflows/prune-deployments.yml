@@ -1,0 +1,61 @@
+name: Prune Old Deployments
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"   # every Monday at 03:00 UTC
+  workflow_dispatch:        # allow manual trigger from GitHub UI
+
+permissions:
+  deployments: write
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      KEEP: 5
+    steps:
+      - name: Prune old github-pages deployments
+        run: |
+          set -euo pipefail
+
+          # Fetch all deployments, sort by created_at desc, pick IDs past the keep window.
+          ALL=$(gh api --paginate "repos/$REPO/deployments?per_page=100" \
+            --jq '.[] | {id, created_at}' \
+            | jq -s 'sort_by(.created_at) | reverse')
+          TOTAL=$(echo "$ALL" | jq 'length')
+          echo "Total deployments: $TOTAL  (keep latest $KEEP)"
+
+          if [ "$TOTAL" -le "$KEEP" ]; then
+            echo "Nothing to prune."
+            exit 0
+          fi
+
+          TO_DELETE=$(echo "$ALL" | jq -r ".[$KEEP:] | .[] | .id")
+          COUNT=$(echo "$TO_DELETE" | wc -l)
+          echo "Pruning $COUNT deployment(s)…"
+
+          DELETED=0
+          FAILED=0
+          for ID in $TO_DELETE; do
+            # A deployment must have all statuses inactive before it can be deleted.
+            if ! gh api -X POST "repos/$REPO/deployments/$ID/statuses" \
+                 -H "Accept: application/vnd.github+json" \
+                 -f state=inactive >/dev/null 2>&1; then
+              echo "  ✗ $ID — status update failed"
+              FAILED=$((FAILED + 1))
+              continue
+            fi
+
+            if gh api -X DELETE "repos/$REPO/deployments/$ID" >/dev/null 2>&1; then
+              DELETED=$((DELETED + 1))
+            else
+              echo "  ✗ $ID — delete failed"
+              FAILED=$((FAILED + 1))
+            fi
+          done
+
+          echo "Done. Deleted: $DELETED  Failed: $FAILED"
+          # Fail the job if any delete errored so we notice in the Actions tab.
+          [ "$FAILED" -eq 0 ]
