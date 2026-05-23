@@ -3,17 +3,20 @@ import tsparser from "@typescript-eslint/parser";
 import prettier from "eslint-config-prettier";
 
 export default [
+  // Global ignores (must be a standalone config object with only `ignores`).
+  // One-shot maintenance scripts are kept out of the readability sweep —
+  // they're long-form imperative pipelines and not part of the runtime.
   {
-    files: ["**/*.ts", "**/*.tsx"],
     ignores: [
       "**/node_modules/**",
       "**/dist/**",
       "**/.vite/**",
       "**/coverage/**",
-      // One-shot maintenance scripts are kept out of the readability sweep;
-      // they're long-form imperative pipelines and not part of the runtime.
       "scraper/src/scripts/**",
     ],
+  },
+  {
+    files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
       parser: tsparser,
     },
