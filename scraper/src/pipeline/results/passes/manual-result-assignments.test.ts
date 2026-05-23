@@ -21,7 +21,9 @@ function mkEventResults(
     eventDate: "2025-04-01",
     eventYear: 2025,
     scrapedAt: "",
-    distances: [{ id: "1", name: distName, finisherCount: results.length, results }],
+    distances: [
+      { id: "1", name: distName, finisherCount: results.length, results },
+    ],
   };
 }
 
@@ -32,18 +34,31 @@ describe("applyManualResultAssignments", () => {
     const event = mkEvent({ id: 1 });
     const event2 = mkEvent({ id: 2 });
     const dist = mkDistance();
-    const wrongResult = mkStoredResult({ name: "João Silva", team: "Sporting", bib: "200" });
+    const wrongResult = mkStoredResult({
+      name: "João Silva",
+      team: "Sporting",
+      bib: "200",
+    });
 
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
       allResults: [
-        mkRaw(event2, dist, mkStoredResult({ name: "João Silva", team: "Sporting" })),
+        mkRaw(
+          event2,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Sporting" }),
+        ),
         // Pipeline-assigned bib 200 to wrong athlete's profile (Benfica)
-        mkRaw(event, dist, mkStoredResult({ name: "João Silva", team: "Benfica", bib: "200" })),
+        mkRaw(
+          event,
+          dist,
+          mkStoredResult({ name: "João Silva", team: "Benfica", bib: "200" }),
+        ),
       ],
-      assignments: [
-        { eventId: 1, bib: "200", athleteId: 1, note: undefined },
-      ],
+      assignments: [{ eventId: 1, bib: "200", athleteId: 1, note: undefined }],
     });
     ctx.loader = (id) => (id === 1 ? mkEventResults(1, [wrongResult]) : null);
 
@@ -59,9 +74,7 @@ describe("applyManualResultAssignments", () => {
 
     // The bib-200 result must now live on the Sporting profile.
     expect(sportingProfile.results.some((r) => r.eventId === 1)).toBe(true);
-    expect(
-      ctx.manualAssignments.has(`1:1`),
-    ).toBe(true);
+    expect(ctx.manualAssignments.has(`1:1`)).toBe(true);
   });
 
   it("marks already-on-target results as manual (protect from post-pass eviction)", () => {
@@ -75,9 +88,7 @@ describe("applyManualResultAssignments", () => {
     const ctx = mkPipelineCtx({
       teamIdStore: new Map([["sporting", 1]]),
       allResults: [mkRaw(event, dist, rawResult)],
-      assignments: [
-        { eventId: 1, bib: "100", athleteId: 1, note: undefined },
-      ],
+      assignments: [{ eventId: 1, bib: "100", athleteId: 1, note: undefined }],
     });
     ctx.loader = (id) => (id === 1 ? mkEventResults(1, [rawResult]) : null);
 
@@ -97,20 +108,33 @@ describe("applyManualResultAssignments", () => {
     const event = mkEvent({ id: 1 });
     const event2 = mkEvent({ id: 2 });
     const dist = mkDistance();
-    const targetRaw = mkStoredResult({ name: "João Silva", team: "Sporting", bib: "100" });
-    const evictRaw = mkStoredResult({ name: "Other Name", team: "Sporting", bib: "999" });
-    const moveRaw = mkStoredResult({ name: "João Silva", team: "Benfica", bib: "200" });
+    const targetRaw = mkStoredResult({
+      name: "João Silva",
+      team: "Sporting",
+      bib: "100",
+    });
+    const evictRaw = mkStoredResult({
+      name: "Other Name",
+      team: "Sporting",
+      bib: "999",
+    });
+    const moveRaw = mkStoredResult({
+      name: "João Silva",
+      team: "Benfica",
+      bib: "200",
+    });
 
     const ctx = mkPipelineCtx({
-      teamIdStore: new Map([["sporting", 1], ["benfica", 2]]),
+      teamIdStore: new Map([
+        ["sporting", 1],
+        ["benfica", 2],
+      ]),
       allResults: [
         mkRaw(event2, dist, targetRaw),
         mkRaw(event, dist, evictRaw),
         mkRaw(event, dist, moveRaw),
       ],
-      assignments: [
-        { eventId: 1, bib: "200", athleteId: 1, note: undefined },
-      ],
+      assignments: [{ eventId: 1, bib: "200", athleteId: 1, note: undefined }],
     });
     ctx.loader = (id) =>
       id === 1 ? mkEventResults(1, [evictRaw, moveRaw]) : null;
@@ -124,11 +148,26 @@ describe("applyManualResultAssignments", () => {
     // Simulate that pipeline gave target the wrong event-1 result (the one
     // that should be evicted).
     target.results.push({
-      eventId: 1, eventName: "Test", eventDate: "2025-04-01", eventYear: 2025,
-      distance: "Granfondo", pos: 1, genderPos: 1, catPos: 1, finisherCount: 1,
-      category: "Masters A Male", gender: "M", team: "Sporting", country: "PRT",
-      raceTime: "3:00:00", raceTimeSecs: 10800, gap: "", gapSecs: 0,
-      dnf: false, dns: false, bib: "999",
+      eventId: 1,
+      eventName: "Test",
+      eventDate: "2025-04-01",
+      eventYear: 2025,
+      distance: "Granfondo",
+      pos: 1,
+      genderPos: 1,
+      catPos: 1,
+      finisherCount: 1,
+      category: "Masters A Male",
+      gender: "M",
+      team: "Sporting",
+      country: "PRT",
+      raceTime: "3:00:00",
+      raceTimeSecs: 10800,
+      gap: "",
+      gapSecs: 0,
+      dnf: false,
+      dns: false,
+      bib: "999",
     });
 
     const sizeBefore = ctx.index.size;
@@ -143,7 +182,9 @@ describe("applyManualResultAssignments", () => {
     const event = mkEvent({ id: 1 });
     const dist = mkDistance();
     const ctx = mkPipelineCtx({
-      assignments: [{ eventId: 1, bib: "100", athleteId: 999, note: undefined }],
+      assignments: [
+        { eventId: 1, bib: "100", athleteId: 999, note: undefined },
+      ],
     });
     ctx.loader = () => null;
 

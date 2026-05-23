@@ -113,7 +113,9 @@ export function mergeTeamCrossYear(ctx: PipelineCtx): void {
           ) {
             const sharedLics = [
               ...(ctx.entryLicences.get(canon.key) ?? new Set()),
-            ].filter((licence) => ctx.entryLicences.get(later.key)?.has(licence));
+            ].filter((licence) =>
+              ctx.entryLicences.get(later.key)?.has(licence),
+            );
             console.warn(
               `  [team-cross-year] WARNING: shared licence (${sharedLics.join(", ")}) but incompatible categories "${canonCatSL}" → "${laterCatSL}" for "${canon.entry.name}" — merging anyway, but likely a scraped licence error`,
             );
@@ -196,6 +198,8 @@ export function mergeTeamCrossYear(ctx: PipelineCtx): void {
   }
 
   if (count > 0) {
-    console.log(`  [team-cross-year] ${count} cross-year team profile(s) merged`);
+    console.log(
+      `  [team-cross-year] ${count} cross-year team profile(s) merged`,
+    );
   }
 }

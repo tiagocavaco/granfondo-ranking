@@ -1,6 +1,12 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import { getTeamByKey, getTeamById } from "./teams.js";
-import { setupTestDb, minimalData, mkEvent, mkAthlete, mkAthleteResult } from "./test-db.js";
+import {
+  setupTestDb,
+  minimalData,
+  mkEvent,
+  mkAthlete,
+  mkAthleteResult,
+} from "./test-db.js";
 
 beforeAll(() => {
   setupTestDb(

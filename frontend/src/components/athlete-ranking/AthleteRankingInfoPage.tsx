@@ -112,7 +112,9 @@ export default function AthleteRankingInfoPage() {
                   return (
                     <tr
                       key={row.finishers}
-                      className={isRef ? "bg-blue-50/60" : "hover:bg-slate-50/60"}
+                      className={
+                        isRef ? "bg-blue-50/60" : "hover:bg-slate-50/60"
+                      }
                     >
                       <td
                         className={`px-4 py-2 font-medium ${isRef ? "text-blue-700" : "text-slate-700"}`}

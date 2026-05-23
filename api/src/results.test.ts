@@ -12,8 +12,16 @@ beforeAll(() => {
   setupTestDb(
     minimalData({
       events: [
-        mkEvent(10, { name: "Granfondo Algarve", date: "2025-04-01", hasResults: true }),
-        mkEvent(20, { name: "Upcoming Race", date: "2026-06-01", hasResults: false }),
+        mkEvent(10, {
+          name: "Granfondo Algarve",
+          date: "2025-04-01",
+          hasResults: true,
+        }),
+        mkEvent(20, {
+          name: "Upcoming Race",
+          date: "2026-06-01",
+          hasResults: false,
+        }),
       ],
       allResults: new Map([
         [
@@ -30,9 +38,19 @@ beforeAll(() => {
                 name: "Granfondo",
                 finisherCount: 3,
                 results: [
-                  mkStoredResult({ pos: 1, name: "João Silva", gender: "M", licences: ["LIC001", "LIC002"] }),
+                  mkStoredResult({
+                    pos: 1,
+                    name: "João Silva",
+                    gender: "M",
+                    licences: ["LIC001", "LIC002"],
+                  }),
                   mkStoredResult({ pos: 2, name: "Pedro Alves", gender: "M" }),
-                  mkStoredResult({ pos: 1, name: "Maria Costa", gender: "F", dnf: true }),
+                  mkStoredResult({
+                    pos: 1,
+                    name: "Maria Costa",
+                    gender: "F",
+                    dnf: true,
+                  }),
                 ],
               },
               {
@@ -51,9 +69,21 @@ beforeAll(() => {
         [
           20,
           [
-            mkParticipant({ bib: "10", name: "David Sousa", distance: "Granfondo" }),
-            mkParticipant({ bib: "2", name: "Ana Silva", distance: "Mediofondo" }),
-            mkParticipant({ bib: "", name: "Unknown Rider", distance: "Granfondo" }),
+            mkParticipant({
+              bib: "10",
+              name: "David Sousa",
+              distance: "Granfondo",
+            }),
+            mkParticipant({
+              bib: "2",
+              name: "Ana Silva",
+              distance: "Mediofondo",
+            }),
+            mkParticipant({
+              bib: "",
+              name: "Unknown Rider",
+              distance: "Granfondo",
+            }),
           ],
         ],
       ]),
@@ -93,7 +123,9 @@ describe("getResults", () => {
 
   it("joins multiple licences per result", async () => {
     const r = await getResults(10);
-    const joao = r.distances[0]!.results.find((res) => res.name === "João Silva")!;
+    const joao = r.distances[0]!.results.find(
+      (res) => res.name === "João Silva",
+    )!;
     expect(joao.licences).toHaveLength(2);
     expect(joao.licences).toContain("LIC001");
     expect(joao.licences).toContain("LIC002");
@@ -101,7 +133,9 @@ describe("getResults", () => {
 
   it("result with no licences has empty array", async () => {
     const r = await getResults(10);
-    const pedro = r.distances[0]!.results.find((res) => res.name === "Pedro Alves")!;
+    const pedro = r.distances[0]!.results.find(
+      (res) => res.name === "Pedro Alves",
+    )!;
     expect(pedro.licences).toEqual([]);
   });
 

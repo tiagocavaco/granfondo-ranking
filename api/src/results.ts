@@ -107,7 +107,9 @@ export async function getResults(id: number): Promise<StoredEventResults> {
   };
 }
 
-export async function getParticipants(id: number): Promise<StoredParticipant[]> {
+export async function getParticipants(
+  id: number,
+): Promise<StoredParticipant[]> {
   const db = await getDb();
   const rows = db
     .select()

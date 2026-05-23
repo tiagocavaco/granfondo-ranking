@@ -87,12 +87,18 @@ describe("solo collision percentile thresholds", () => {
 
 describe("SOLO_CAT_RANK / RANK_TO_CAT", () => {
   it("Elite ranks before Masters A", () => {
-    expect(SOLO_CAT_RANK["Elite Male"]).toBeLessThan(SOLO_CAT_RANK["Masters A Male"]!);
+    expect(SOLO_CAT_RANK["Elite Male"]).toBeLessThan(
+      SOLO_CAT_RANK["Masters A Male"]!,
+    );
   });
 
   it("each Masters band increments rank by one", () => {
-    expect(SOLO_CAT_RANK["Masters B Male"]! - SOLO_CAT_RANK["Masters A Male"]!).toBe(1);
-    expect(SOLO_CAT_RANK["Masters F Male"]! - SOLO_CAT_RANK["Masters E Male"]!).toBe(1);
+    expect(
+      SOLO_CAT_RANK["Masters B Male"]! - SOLO_CAT_RANK["Masters A Male"]!,
+    ).toBe(1);
+    expect(
+      SOLO_CAT_RANK["Masters F Male"]! - SOLO_CAT_RANK["Masters E Male"]!,
+    ).toBe(1);
   });
 
   it("RANK_TO_CAT is the inverse of SOLO_CAT_RANK", () => {
@@ -178,13 +184,21 @@ describe("categoriesCompatible", () => {
     // Open 19-34 spans both Elite and Masters A age brackets — must merge
     // with either, but never with Masters B (different age tier).
     expect(categoriesCompatible("Open 19-34 Male", "Elite Male")).toBe(true);
-    expect(categoriesCompatible("Open 19-34 Male", "Masters A Male")).toBe(true);
-    expect(categoriesCompatible("Open 19-34 Male", "Masters B Male")).toBe(false);
+    expect(categoriesCompatible("Open 19-34 Male", "Masters A Male")).toBe(
+      true,
+    );
+    expect(categoriesCompatible("Open 19-34 Male", "Masters B Male")).toBe(
+      false,
+    );
   });
 
   it("Open 19-34 Female compatibility mirrors the male side", () => {
-    expect(categoriesCompatible("Open 19-34 Female", "Elite Female")).toBe(true);
-    expect(categoriesCompatible("Open 19-34 Female", "Masters B Female")).toBe(false);
+    expect(categoriesCompatible("Open 19-34 Female", "Elite Female")).toBe(
+      true,
+    );
+    expect(categoriesCompatible("Open 19-34 Female", "Masters B Female")).toBe(
+      false,
+    );
   });
 
   it("gendered and gender-neutral variants of the same band are compatible", () => {
@@ -195,8 +209,12 @@ describe("categoriesCompatible", () => {
   });
 
   it("different bands without a known relationship are incompatible", () => {
-    expect(categoriesCompatible("Masters A Male", "Masters C Male")).toBe(false);
-    expect(categoriesCompatible("Masters A Male", "Masters A Female")).toBe(true);
+    expect(categoriesCompatible("Masters A Male", "Masters C Male")).toBe(
+      false,
+    );
+    expect(categoriesCompatible("Masters A Male", "Masters A Female")).toBe(
+      true,
+    );
     // Gender-suffix stripping makes "Elite Male" and "Elite Female" share a
     // canonical form. Gender disambiguation happens outside this function
     // (athletes are partitioned by gender before category logic runs).
@@ -215,24 +233,34 @@ describe("soloGroupCat", () => {
 
 describe("isValidCatTransition", () => {
   it("same category is always valid", () => {
-    expect(isValidCatTransition("Masters A Male", "Masters A Male", 1)).toBe(true);
-    expect(isValidCatTransition("Masters A Male", "Masters A Male", 50)).toBe(true);
+    expect(isValidCatTransition("Masters A Male", "Masters A Male", 1)).toBe(
+      true,
+    );
+    expect(isValidCatTransition("Masters A Male", "Masters A Male", 50)).toBe(
+      true,
+    );
   });
 
   it("Open 19-34 transitions defer to categoriesCompatible", () => {
     // Open 19-34 ↔ Elite/Masters A is valid regardless of yearDiff.
     expect(isValidCatTransition("Open 19-34 Male", "Elite Male", 1)).toBe(true);
-    expect(isValidCatTransition("Open 19-34 Male", "Masters B Male", 1)).toBe(false);
+    expect(isValidCatTransition("Open 19-34 Male", "Masters B Male", 1)).toBe(
+      false,
+    );
   });
 
   it("athletes cannot move backwards through categories", () => {
     // A Masters C athlete becoming Masters A next year is impossible.
-    expect(isValidCatTransition("Masters C Male", "Masters A Male", 5)).toBe(false);
+    expect(isValidCatTransition("Masters C Male", "Masters A Male", 5)).toBe(
+      false,
+    );
   });
 
   it("adjacent forward transitions are allowed within 1 year", () => {
     // Masters A → Masters B in 1 year is realistic (athlete aging over the boundary).
-    expect(isValidCatTransition("Masters A Male", "Masters B Male", 1)).toBe(true);
+    expect(isValidCatTransition("Masters A Male", "Masters B Male", 1)).toBe(
+      true,
+    );
   });
 
   it("skipping bands requires ~10 years per skipped band", () => {
@@ -400,7 +428,10 @@ describe("addToTeamsAndCategories", () => {
 
   it("records raw category strings per year", () => {
     const entry = mkEntry();
-    addToTeamsAndCategories(entry, mkResult({ category: "Masters A Male", eventYear: 2024 }));
+    addToTeamsAndCategories(
+      entry,
+      mkResult({ category: "Masters A Male", eventYear: 2024 }),
+    );
     addToTeamsAndCategories(
       entry,
       mkResult({ category: "Masters B Male", eventYear: 2025, eventId: 2 }),
@@ -422,8 +453,16 @@ describe("addResult", () => {
     // Licenced results are authoritative — they must replace any earlier
     // unlicenced entry for the same event.
     const entry = mkEntry();
-    addResult(entry, mkResult({ eventId: 1, category: "Masters A Male", team: "Old" }), false);
-    addResult(entry, mkResult({ eventId: 1, category: "Masters A Male", team: "New" }), true);
+    addResult(
+      entry,
+      mkResult({ eventId: 1, category: "Masters A Male", team: "Old" }),
+      false,
+    );
+    addResult(
+      entry,
+      mkResult({ eventId: 1, category: "Masters A Male", team: "New" }),
+      true,
+    );
     expect(entry.results).toHaveLength(1);
     expect(entry.results[0]!.team).toBe("New");
   });
@@ -432,8 +471,16 @@ describe("addResult", () => {
     // Same athlete cannot race the same event twice in two different categories.
     // When neither is known for the year, keep the first one.
     const entry = mkEntry();
-    addResult(entry, mkResult({ eventId: 1, category: "Masters A Male" }), false);
-    addResult(entry, mkResult({ eventId: 1, category: "Masters C Male" }), false);
+    addResult(
+      entry,
+      mkResult({ eventId: 1, category: "Masters A Male" }),
+      false,
+    );
+    addResult(
+      entry,
+      mkResult({ eventId: 1, category: "Masters C Male" }),
+      false,
+    );
     expect(entry.results).toHaveLength(1);
     expect(entry.results[0]!.category).toBe("Masters A Male");
   });
@@ -472,7 +519,12 @@ describe("makeIdManager", () => {
   });
 
   it("mints fresh IDs starting one past the max existing", () => {
-    const ids = makeIdManager(new Map([["a|1", 10], ["b|1", 20]]));
+    const ids = makeIdManager(
+      new Map([
+        ["a|1", 10],
+        ["b|1", 20],
+      ]),
+    );
     expect(ids.get("new|1")).toBe(21);
   });
 

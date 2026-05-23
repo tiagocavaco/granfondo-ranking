@@ -1,4 +1,9 @@
-import { normalizeName, isValidLicence, isSoloTeam, sameTeam } from "../../../normalize.js";
+import {
+  normalizeName,
+  isValidLicence,
+  isSoloTeam,
+  sameTeam,
+} from "../../../normalize.js";
 import type { PipelineCtx } from "../types.js";
 import { addResult, toRef, buildNameLookup } from "../helpers.js";
 
@@ -36,5 +41,7 @@ export function enrichLicenceProfiles(ctx: PipelineCtx): void {
     }
   }
 
-  console.log(`  [enrich-licences] ${count} unlicensed results matched by name+team`);
+  console.log(
+    `  [enrich-licences] ${count} unlicensed results matched by name+team`,
+  );
 }

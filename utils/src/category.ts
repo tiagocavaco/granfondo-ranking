@@ -311,8 +311,7 @@ export function categorySortKey(raw: string): [number, number] {
   let sub = 0;
   if (canon === "Elite") {
     const upper = raw.toUpperCase();
-    sub =
-      /JUN|JUNIOR|CADETE/.test(upper) ? 0 : /SUB/.test(upper) ? 1 : 2;
+    sub = /JUN|JUNIOR|CADETE/.test(upper) ? 0 : /SUB/.test(upper) ? 1 : 2;
   } else {
     sub = parseInt(raw.match(/\d+/)?.[0] ?? "0", 10);
   }

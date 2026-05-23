@@ -43,7 +43,9 @@ export async function getTeamById(id: number): Promise<TeamDetail | null> {
   return getTeamByKey(teamRow.canonicalKey);
 }
 
-export async function getTeamByKey(teamKey: string): Promise<TeamDetail | null> {
+export async function getTeamByKey(
+  teamKey: string,
+): Promise<TeamDetail | null> {
   const db = await getDb();
 
   const teamRow = db

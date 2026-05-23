@@ -9,7 +9,6 @@ import { TeamMemberList } from "./TeamMemberList";
 import { Stat } from "../shared/Stat";
 import { rankLabel } from "../../utils/rankLabel";
 
-
 export default function TeamProfile() {
   const { teamId: teamIdParam } = useParams<{ teamId: string }>();
   const navigate = useNavigate();
@@ -417,7 +416,7 @@ export default function TeamProfile() {
                                   <span className="opacity-60">#{a.pos}</span>{" "}
                                   {a.name}
                                 </span>
-                              )
+                              ),
                             )}
                         </div>
                       </div>
@@ -502,4 +501,3 @@ export default function TeamProfile() {
     </div>
   );
 }
-

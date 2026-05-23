@@ -1,4 +1,8 @@
-import { normalizeName, normalizeDistance, canonicalizeCategory } from "../../../normalize.js";
+import {
+  normalizeName,
+  normalizeDistance,
+  canonicalizeCategory,
+} from "../../../normalize.js";
 import type { PipelineCtx } from "../types.js";
 import {
   athleteKey,
@@ -83,7 +87,9 @@ export function sweepCategoryEviction(ctx: PipelineCtx): void {
           continue;
         }
 
-        if (isValidCatTransition(earlierCat, laterCat, laterYear - earlierYear)) {
+        if (
+          isValidCatTransition(earlierCat, laterCat, laterYear - earlierYear)
+        ) {
           continue;
         }
 

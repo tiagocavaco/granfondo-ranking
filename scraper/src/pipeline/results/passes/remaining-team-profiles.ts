@@ -2,7 +2,9 @@ import { normalizeName, isSoloTeam } from "../../../normalize.js";
 import type { PipelineCtx } from "../types.js";
 import { resolveTeamId, newEntry, addResult, toRef } from "../helpers.js";
 
-export function buildRemainingTeamProfiles(ctx: PipelineCtx): { teamCount: number } {
+export function buildRemainingTeamProfiles(ctx: PipelineCtx): {
+  teamCount: number;
+} {
   const { allResults, index, assigned, ids } = ctx;
   let teamCount = 0;
 

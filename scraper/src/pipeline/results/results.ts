@@ -21,11 +21,18 @@
 import { normalizeName } from "../../normalize.js";
 import type { StoredEvent } from "@granfondo/database/types";
 import { PLACEHOLDER_NAMES } from "../../config.js";
-import { makeIdManager, deriveCanonicalTeam, resultDedupeKey } from "./helpers.js";
+import {
+  makeIdManager,
+  deriveCanonicalTeam,
+  resultDedupeKey,
+} from "./helpers.js";
 import { buildLicenceProfiles } from "./passes/build-licence-profiles.js";
 import { enrichLicenceProfiles } from "./passes/enrich-licence-profiles.js";
 import { buildRemainingTeamProfiles } from "./passes/remaining-team-profiles.js";
-import { mergeLegalNameVariants, mergeMissingSpaceVariants } from "./passes/merge-team-name-variants.js";
+import {
+  mergeLegalNameVariants,
+  mergeMissingSpaceVariants,
+} from "./passes/merge-team-name-variants.js";
 import { applyManualAthleteAliases } from "./passes/manual-athlete-aliases.js";
 import { groupSoloIntraYear } from "./passes/solo-intra-year.js";
 import { mergeSoloCrossYear } from "./passes/solo-cross-year.js";
@@ -36,7 +43,11 @@ import { sweepCategoryEviction } from "./passes/category-sweep-eviction.js";
 
 // ── Public type re-exports ────────────────────────────────────────────────────
 
-export type { AthleteEntry, AthleteAliasRule, ResultAssignment } from "./types.js";
+export type {
+  AthleteEntry,
+  AthleteAliasRule,
+  ResultAssignment,
+} from "./types.js";
 export type { ResultsLoader, AthleteIdStore } from "./types.js";
 export type { SoloCollisionFlag, CrossPassFlag } from "./types.js";
 
@@ -77,7 +88,11 @@ export function buildUpdatedIdStore(
 
 // ── Main builder ──────────────────────────────────────────────────────────────
 
-import type { ResultsLoader, SoloCollisionFlag, CrossPassFlag } from "./types.js";
+import type {
+  ResultsLoader,
+  SoloCollisionFlag,
+  CrossPassFlag,
+} from "./types.js";
 import type { AthleteAliasRule, ResultAssignment } from "./types.js";
 
 export function buildAthletesIndex(
