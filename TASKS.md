@@ -4,6 +4,74 @@ Backlog of proposed features and refactors.
 
 ---
 
+## Backoffice dashboard for manual DB overrides
+
+Today, manual DB overrides (athlete aliases, result assignments, team aliases)
+are managed via `npm run db:manage` shell commands in `scraper/src/db/manage-db.ts`.
+The biggest pain is **lack of visibility**: there's no way to see what's
+already in the override tables without decrypting the DB and querying it
+directly. Adding a new alias means manually inspecting raw athlete rows
+to find which name/team variants exist, then composing the right CLI
+arguments. Easy to make typos and create duplicate or conflicting overrides.
+
+A small backoffice UI would let us:
+
+### Read surface (Phase 1 — solves the visibility pain alone)
+
+- **List all athlete aliases** with canonical name/team and each alias name/team.
+- **List all manual result assignments** (event, bib, target athlete ID,
+  optional note).
+- **List all team aliases** (alias key → canonical key).
+- **Raw athlete page** — show the underlying rows from `athletes`,
+  `athlete_teams`, `athlete_categories`, `athlete_results` for a given ID
+  (not the "polished" public profile).
+- **Raw team page** — same for `teams`, plus all `athlete_teams` rows
+  pointing at it.
+- **Search across raw names** — find variants of a name across all results
+  to identify aliasing candidates.
+
+### Write surface (Phase 2 — optional)
+
+- Form to create an athlete alias (name + team for canonical + each alias).
+- Form to create a result assignment (event + bib + athlete ID).
+- Form to create a team alias (from-key + to-key).
+- Validation feedback before submit (does the canonical exist? does the
+  alias resolve to something different?).
+- Each form produces a change-set that gets applied to `data.db.enc`.
+
+### Architecture: local-dev-only tool
+
+The dashboard runs only via `vite dev` on the operator's machine. It is
+never deployed publicly — both the read and write surfaces stay behind
+the local dev server. No auth needed (it's bound to localhost), no
+backend infrastructure, no remote write path.
+
+**Write mechanism:** a small Vite middleware (or dev-mode-only Express
+route) exposes a `POST /admin/api/...` endpoint that calls the existing
+`manage-db.ts` functions directly. Modifications land in `data.db.enc`
+the same way the CLI does today; the operator commits the result by
+hand.
+
+**Read mechanism:** ordinary React routes under `/admin/*`, only rendered
+when `import.meta.env.DEV === true` (or guarded by a `?admin=1` query
+param + dev-mode check). Read straight from the loaded sql.js DB.
+
+**Tradeoffs accepted:**
+- The dashboard is unusable from a phone, tablet, or someone else's
+  laptop. That's fine for now — the override workflow is already
+  single-operator.
+- Production builds strip the admin code (no extra bundle weight, no
+  hidden routes shipping to the public site).
+
+### Suggested first cut
+
+Phase 1 only. One route group at `/admin/*`, dev-only guard, four read
+views (aliases / assignments / raw athlete / raw team). Ship that and
+use it for a few weeks before deciding whether Phase 2's write
+convenience is worth building.
+
+---
+
 ## Normalize category display in the frontend
 
 The frontend displays raw category strings as stored in the DB (e.g. "MasterDM", "MasterA Masc", "MASTER 50"), which vary by event source. The pipeline already maps these to canonical forms via `canonicalizeCategory` in `@granfondo/utils/category` — apply it in the frontend so athlete profiles and results pages always show consistent labels like "Masters D Male" regardless of what the source data provided.
