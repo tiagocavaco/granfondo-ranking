@@ -1,6 +1,7 @@
 node_modules/
 dist/
 scraper/dist/
+coverage/
 *.js.map
 .env
 .env.*
