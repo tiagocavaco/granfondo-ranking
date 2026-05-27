@@ -39,33 +39,43 @@ A small backoffice UI would let us:
   alias resolve to something different?).
 - Each form produces a change-set that gets applied to `data.db.enc`.
 
-### Architecture: local-dev-only tool
+### Architecture: separate `backoffice/` workspace, local-dev-only
 
-The dashboard runs only via `vite dev` on the operator's machine. It is
-never deployed publicly — both the read and write surfaces stay behind
-the local dev server. No auth needed (it's bound to localhost), no
-backend infrastructure, no remote write path.
+The backoffice lives as a sibling workspace next to `frontend/`,
+`scraper/`, etc. — its own `package.json`, Vite config, routes. It is
+**not** embedded in the public frontend, so multiple public frontends
+(future) can share the same operator tool without re-implementing it.
 
-**Write mechanism:** a small Vite middleware (or dev-mode-only Express
-route) exposes a `POST /admin/api/...` endpoint that calls the existing
-`manage-db.ts` functions directly. Modifications land in `data.db.enc`
-the same way the CLI does today; the operator commits the result by
-hand.
+It is **never deployed publicly** — runs only via
+`npm run dev --workspace=backoffice` on the operator's machine. No auth
+needed (bound to localhost), no backend infrastructure, no remote write
+path.
 
-**Read mechanism:** ordinary React routes under `/admin/*`, only rendered
-when `import.meta.env.DEV === true` (or guarded by a `?admin=1` query
-param + dev-mode check). Read straight from the loaded sql.js DB.
+**Reuse:** consumes the existing shared packages — `@granfondo/api`
+(query functions), `@granfondo/database` (schema + sql.js client),
+`@granfondo/utils`. Decryption + sql.js wiring is identical to what the
+public frontend already does. Read code is fully reused.
+
+**Write mechanism:** a Vite dev-mode middleware exposes
+`POST /api/admin/...` endpoints that call the existing `manage-db.ts`
+functions directly. Modifications land in `data.db.enc` the same way the
+CLI does today; the operator commits the result by hand. The middleware
+is only registered in dev mode so a `npm run build` (if we ever do one)
+produces a write-less static site.
+
+**Read mechanism:** ordinary React routes (no admin prefix needed —
+this *is* the admin app). Reads straight from the loaded sql.js DB.
 
 **Tradeoffs accepted:**
 - The dashboard is unusable from a phone, tablet, or someone else's
   laptop. That's fine for now — the override workflow is already
   single-operator.
-- Production builds strip the admin code (no extra bundle weight, no
-  hidden routes shipping to the public site).
+- Slight duplication of Vite config / Tailwind setup with the public
+  frontend. Cheaper than the embedding alternative.
 
 ### Suggested first cut
 
-Phase 1 only. One route group at `/admin/*`, dev-only guard, four read
+Phase 1 only. Stand up the `backoffice/` workspace skeleton, four read
 views (aliases / assignments / raw athlete / raw team). Ship that and
 use it for a few weeks before deciding whether Phase 2's write
 convenience is worth building.

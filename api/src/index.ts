@@ -9,6 +9,22 @@ import {
 import { getTeamById, getTeamByKey } from "./teams.js";
 import { getAggregateRanking, getTeamRanking } from "./rankings.js";
 import { getPredictions } from "./predictions.js";
+import {
+  getAthleteAliasRulesForAthlete,
+  getResultAssignmentsForAthlete,
+  getAthleteAliasRules,
+  getResultAssignments,
+  getTeamAliases,
+  getRawAthlete,
+  getRawTeam,
+  getRawEvent,
+  listRawAthletes,
+  listRawTeams,
+  listRawEvents,
+  searchRawNames,
+  searchTeams,
+  searchEvents,
+} from "./admin.js";
 
 export { setGetDb } from "./db.js";
 export { resolveTeamId, resolveTeamKey } from "./lookups.js";
@@ -19,6 +35,17 @@ export type {
   DistancePredictions,
 } from "./predictions.js";
 export { ROAD_DISTANCES, predictionDistCoeff } from "./predictions.js";
+export type {
+  AthleteAliasRule,
+  ResultAssignment,
+  TeamAliasEntry,
+  RawAthlete,
+  RawTeam,
+  RawTeamSummary,
+  RawEvent,
+  RawNameMatch,
+  EventMatch,
+} from "./admin.js";
 
 export const api = {
   getEvents,
@@ -34,4 +61,18 @@ export const api = {
   getAggregateRanking,
   getTeamRanking,
   getPredictions,
+  getAthleteAliasRulesForAthlete,
+  getResultAssignmentsForAthlete,
+  getAthleteAliasRules,
+  getResultAssignments,
+  getTeamAliases,
+  getRawAthlete,
+  getRawTeam,
+  getRawEvent,
+  listRawAthletes,
+  listRawTeams,
+  listRawEvents,
+  searchRawNames,
+  searchTeams,
+  searchEvents,
 };
