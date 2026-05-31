@@ -163,6 +163,20 @@ export async function scrapeParticipants() {
     }
   }
 
+  // Snapshot previous participant counts before overwriting
+  const previousCounts = new Map<number, { count: number; name: string }>();
+  for (const eventId of updatedParticipants.keys()) {
+    const row = sourceDb
+      .prepare("SELECT participant_count, name FROM events WHERE id = ?")
+      .get(eventId) as { participant_count: number; name: string } | undefined;
+    if (row) {
+      previousCounts.set(eventId, {
+        count: row.participant_count,
+        name: row.name,
+      });
+    }
+  }
+
   writeParticipantsToDb(sourceDb, updatedParticipants, existingEventIds);
 
   const dbBuffer = sourceDb.serialize() as Buffer;
@@ -174,5 +188,26 @@ export async function scrapeParticipants() {
   );
 
   closeSourceDb(sourceDb);
+
+  // Fail if any event dropped ≥10 participants AND ≥20% — prevents committing silently broken data
+  const regressions: string[] = [];
+  for (const [eventId, { event, athletes }] of updatedParticipants) {
+    const previous = previousCounts.get(eventId);
+    if (!previous || previous.count === 0) continue;
+    const drop = previous.count - athletes.length;
+    const dropPercent = drop / previous.count;
+    if (drop >= 10 && dropPercent >= 0.2) {
+      regressions.push(
+        `  [${eventId}] ${event.name}: ${previous.count} → ${athletes.length} (−${drop}, −${Math.round(dropPercent * 100)}%)`,
+      );
+    }
+  }
+
+  if (regressions.length > 0) {
+    console.error("\n❌ Participant count regressions detected:");
+    for (const line of regressions) console.error(line);
+    process.exit(1);
+  }
+
   console.log("\n✅ Done.");
 }
