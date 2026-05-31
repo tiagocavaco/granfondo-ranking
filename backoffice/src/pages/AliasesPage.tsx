@@ -37,7 +37,13 @@ function AthleteOption({ match }: { match: RawNameMatch }) {
   );
 }
 
-const emptyForm = { name: "", team: "", aliasName: "", aliasTeam: "", note: "" };
+const emptyForm = {
+  name: "",
+  team: "",
+  aliasName: "",
+  aliasTeam: "",
+  note: "",
+};
 
 function AddAliasForm() {
   const [form, setForm] = useState(emptyForm);
@@ -155,7 +161,6 @@ function AddAliasForm() {
   );
 }
 
-
 export default function AliasesPage() {
   const [rules, setRules] = useState<AthleteAliasRule[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -219,7 +224,11 @@ export default function AliasesPage() {
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-2">
                       <Link
-                        to={rule.athleteId ? `/athlete/${rule.athleteId}` : `/athlete?q=${encodeURIComponent(rule.name)}`}
+                        to={
+                          rule.athleteId
+                            ? `/athlete/${rule.athleteId}`
+                            : `/athlete?q=${encodeURIComponent(rule.name)}`
+                        }
                         className="font-medium text-blue-600 hover:underline"
                       >
                         {rule.name}

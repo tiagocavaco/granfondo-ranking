@@ -11,7 +11,10 @@ function EventSearch() {
   const [allEvents, setAllEvents] = useState<EventMatch[] | null>(null);
 
   useEffect(() => {
-    api.listRawEvents().then(setAllEvents).catch(() => setAllEvents([]));
+    api
+      .listRawEvents()
+      .then(setAllEvents)
+      .catch(() => setAllEvents([]));
   }, []);
 
   const lower = query.trim().toLowerCase();
@@ -110,23 +113,40 @@ function EventDetail({ event }: { event: RawEvent }) {
           <Field label="name" value={event.name} />
           <Field label="year" value={event.year} />
           <Field label="date" value={event.date} />
-          <Field label="location" value={event.location || <span className="text-gray-300">—</span>} />
+          <Field
+            label="location"
+            value={event.location || <span className="text-gray-300">—</span>}
+          />
           <Field
             label="has_results"
             value={
-              <span className={event.hasResults ? "text-green-600" : "text-gray-400"}>
+              <span
+                className={
+                  event.hasResults ? "text-green-600" : "text-gray-400"
+                }
+              >
                 {event.hasResults ? "1" : "0"}
               </span>
             }
           />
           <Field label="participant_count" value={event.participantCount} />
           <Field label="finisher_count" value={event.finisherCount} />
-          <Field label="scraped_at" value={event.scrapedAt ?? <span className="text-gray-300">null</span>} />
+          <Field
+            label="scraped_at"
+            value={
+              event.scrapedAt ?? <span className="text-gray-300">null</span>
+            }
+          />
           {event.officialUrl && (
             <Field
               label="official_url"
               value={
-                <a href={event.officialUrl} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">
+                <a
+                  href={event.officialUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
                   {event.officialUrl}
                 </a>
               }
@@ -136,7 +156,12 @@ function EventDetail({ event }: { event: RawEvent }) {
             <Field
               label="results_url"
               value={
-                <a href={event.resultsUrl} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">
+                <a
+                  href={event.resultsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
                   {event.resultsUrl}
                 </a>
               }
@@ -228,8 +253,20 @@ export default function RawEventPage() {
     );
   }
 
-  if (loading) return <div><PageHeader title={`Event #${numericId}`} /><LoadingState /></div>;
-  if (error) return <div><PageHeader title={`Event #${numericId}`} /><LoadingState error={error} /></div>;
+  if (loading)
+    return (
+      <div>
+        <PageHeader title={`Event #${numericId}`} />
+        <LoadingState />
+      </div>
+    );
+  if (error)
+    return (
+      <div>
+        <PageHeader title={`Event #${numericId}`} />
+        <LoadingState error={error} />
+      </div>
+    );
 
   if (notFound) {
     return (

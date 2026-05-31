@@ -94,7 +94,8 @@ function AthleteCard({
 }
 
 function StatusBadge({ status }: { status: SplitCandidate["status"] }) {
-  const color = status === "applied" ? "green" : status === "pending" ? "amber" : "gray";
+  const color =
+    status === "applied" ? "green" : status === "pending" ? "amber" : "gray";
   return <Badge color={color}>{status}</Badge>;
 }
 

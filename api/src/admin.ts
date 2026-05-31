@@ -95,7 +95,9 @@ export async function getAthleteAliasRulesForAthlete(
       canonicalTeam: schema.athleteAliasRules.canonicalTeam,
       note: schema.athleteAliasRules.note,
       aliasesJson: schema.athleteAliasRules.aliasesJson,
-      athleteId: sql<number | null>`(SELECT id FROM athletes WHERE name = athlete_alias_rules.name LIMIT 1)`,
+      athleteId: sql<
+        number | null
+      >`(SELECT id FROM athletes WHERE name = athlete_alias_rules.name LIMIT 1)`,
     })
     .from(schema.athleteAliasRules)
     .where(eq(schema.athleteAliasRules.name, name))
@@ -155,7 +157,9 @@ export async function getAthleteAliasRules(): Promise<AthleteAliasRule[]> {
       canonicalTeam: schema.athleteAliasRules.canonicalTeam,
       note: schema.athleteAliasRules.note,
       aliasesJson: schema.athleteAliasRules.aliasesJson,
-      athleteId: sql<number | null>`(SELECT id FROM athletes WHERE name = athlete_alias_rules.name LIMIT 1)`,
+      athleteId: sql<
+        number | null
+      >`(SELECT id FROM athletes WHERE name = athlete_alias_rules.name LIMIT 1)`,
     })
     .from(schema.athleteAliasRules)
     .orderBy(schema.athleteAliasRules.name)
@@ -260,7 +264,10 @@ export async function getRawAthlete(id: number): Promise<RawAthlete | null> {
   const licenceRows = db
     .selectDistinct({ licence: schema.resultLicences.licence })
     .from(schema.resultLicences)
-    .innerJoin(schema.results, eq(schema.results.id, schema.resultLicences.resultId))
+    .innerJoin(
+      schema.results,
+      eq(schema.results.id, schema.resultLicences.resultId),
+    )
     .where(eq(schema.results.athleteId, id))
     .all();
 
@@ -415,7 +422,11 @@ export async function listRawTeams(): Promise<RawTeamSummary[]> {
 export async function listRawEvents(): Promise<EventMatch[]> {
   const db = await getDb();
   return db
-    .select({ id: schema.events.id, name: schema.events.name, year: schema.events.year })
+    .select({
+      id: schema.events.id,
+      name: schema.events.name,
+      year: schema.events.year,
+    })
     .from(schema.events)
     .orderBy(schema.events.id)
     .all();
@@ -429,7 +440,11 @@ export async function searchEvents(query: string): Promise<EventMatch[]> {
   const byId = Number(term);
   if (!isNaN(byId)) {
     const rows = db
-      .select({ id: schema.events.id, name: schema.events.name, year: schema.events.year })
+      .select({
+        id: schema.events.id,
+        name: schema.events.name,
+        year: schema.events.year,
+      })
       .from(schema.events)
       .where(sql`CAST(${schema.events.id} AS TEXT) LIKE ${"%" + term + "%"}`)
       .limit(10)
@@ -439,7 +454,11 @@ export async function searchEvents(query: string): Promise<EventMatch[]> {
 
   const pattern = `%${term.toLowerCase().replace(/[%_]/g, "\\$&")}%`;
   const rows = db
-    .select({ id: schema.events.id, name: schema.events.name, year: schema.events.year })
+    .select({
+      id: schema.events.id,
+      name: schema.events.name,
+      year: schema.events.year,
+    })
     .from(schema.events)
     .where(sql`LOWER(${schema.events.name}) LIKE ${pattern}`)
     .orderBy(schema.events.year)

@@ -20,7 +20,6 @@ import { adminApi } from "../lib/admin-api";
 import PageHeader from "../components/PageHeader";
 import LoadingState from "../components/LoadingState";
 
-
 function AthleteSearch() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -28,7 +27,10 @@ function AthleteSearch() {
   const [allAthletes, setAllAthletes] = useState<RawNameMatch[] | null>(null);
 
   useEffect(() => {
-    api.listRawAthletes().then(setAllAthletes).catch(() => setAllAthletes([]));
+    api
+      .listRawAthletes()
+      .then(setAllAthletes)
+      .catch(() => setAllAthletes([]));
   }, []);
 
   const lower = query.trim().toLowerCase();
@@ -64,7 +66,9 @@ function AthleteSearch() {
         <p className="text-xs text-gray-400">Loading…</p>
       )}
       {allAthletes !== null && filtered.length === 0 && (
-        <p className="text-xs text-gray-500">No athletes found for "{query}".</p>
+        <p className="text-xs text-gray-500">
+          No athletes found for "{query}".
+        </p>
       )}
       {allAthletes !== null && filtered.length > 0 && (
         <>
@@ -179,7 +183,10 @@ function AthleteOverrides({ athlete }: { athlete: RawAthlete }) {
             </div>
             <DeleteButton
               onDelete={async () => {
-                await adminApi.removeAlias({ name: rule.name, team: rule.canonicalTeam });
+                await adminApi.removeAlias({
+                  name: rule.name,
+                  team: rule.canonicalTeam,
+                });
                 window.location.reload();
               }}
             />
@@ -225,7 +232,11 @@ function AthleteOverrides({ athlete }: { athlete: RawAthlete }) {
 }
 
 function AthleteDetail({ athlete }: { athlete: RawAthlete }) {
-  const { visible: visibleResults, sentinelRef, hasMore } = usePagedList(athlete.results);
+  const {
+    visible: visibleResults,
+    sentinelRef,
+    hasMore,
+  } = usePagedList(athlete.results);
 
   return (
     <div className="p-6 space-y-6">
@@ -249,13 +260,19 @@ function AthleteDetail({ athlete }: { athlete: RawAthlete }) {
           </div>
           <div>
             <span className="text-gray-400 mr-2">canonical_team</span>
-            <span>{athlete.canonicalTeam ?? <span className="text-gray-400">null</span>}</span>
+            <span>
+              {athlete.canonicalTeam ?? (
+                <span className="text-gray-400">null</span>
+              )}
+            </span>
           </div>
           <div>
             <span className="text-gray-400 mr-2">licences</span>
-            {athlete.licences.length === 0
-              ? <span className="text-gray-400">[]</span>
-              : <span>{athlete.licences.join(", ")}</span>}
+            {athlete.licences.length === 0 ? (
+              <span className="text-gray-400">[]</span>
+            ) : (
+              <span>{athlete.licences.join(", ")}</span>
+            )}
           </div>
         </div>
       </section>
@@ -269,7 +286,10 @@ function AthleteDetail({ athlete }: { athlete: RawAthlete }) {
         ) : (
           <div className="bg-white border border-gray-200 rounded-md p-4 space-y-1">
             {athlete.teams.map((team) => (
-              <div key={team.id} className="font-mono text-sm flex items-baseline gap-2">
+              <div
+                key={team.id}
+                className="font-mono text-sm flex items-baseline gap-2"
+              >
                 <span className="text-gray-400">team_id: {team.id}</span>
                 <Link
                   to={`/team/${encodeURIComponent(team.canonicalKey)}`}
@@ -308,68 +328,70 @@ function AthleteDetail({ athlete }: { athlete: RawAthlete }) {
           <p className="text-sm text-gray-500">No result rows.</p>
         ) : (
           <>
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-xs border border-gray-200 rounded-md overflow-hidden">
-              <thead className="bg-gray-50">
-                <tr>
-                  {[
-                    "Event",
-                    "Date",
-                    "Distance",
-                    "Pos",
-                    "GPos",
-                    "Cat",
-                    "Gender",
-                    "Team",
-                    "Time",
-                    "Flags",
-                  ].map((col) => (
-                    <th
-                      key={col}
-                      className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
-                    >
-                      {col}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 bg-white">
-                {visibleResults.map((result, idx) => (
-                  <tr key={idx} className="hover:bg-gray-50">
-                    <td className="px-3 py-2 whitespace-nowrap">
-                      <span className="font-mono text-gray-400 mr-1">
-                        {result.eventId}
-                      </span>
-                      {result.eventName}
-                    </td>
-                    <td className="px-3 py-2 whitespace-nowrap font-mono text-gray-600">
-                      {result.eventDate}
-                    </td>
-                    <td className="px-3 py-2 whitespace-nowrap">
-                      {result.distance}
-                    </td>
-                    <td className="px-3 py-2 font-mono">{result.pos}</td>
-                    <td className="px-3 py-2 font-mono">{result.genderPos}</td>
-                    <td className="px-3 py-2 whitespace-nowrap">
-                      {result.category}
-                    </td>
-                    <td className="px-3 py-2">{result.gender}</td>
-                    <td className="px-3 py-2 whitespace-nowrap">
-                      {result.team}
-                    </td>
-                    <td className="px-3 py-2 font-mono whitespace-nowrap">
-                      {result.raceTime}
-                    </td>
-                    <td className="px-3 py-2">
-                      {result.dnf === 1 && <Badge color="red">DNF</Badge>}
-                      {result.dns === 1 && <Badge color="gray">DNS</Badge>}
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-xs border border-gray-200 rounded-md overflow-hidden">
+                <thead className="bg-gray-50">
+                  <tr>
+                    {[
+                      "Event",
+                      "Date",
+                      "Distance",
+                      "Pos",
+                      "GPos",
+                      "Cat",
+                      "Gender",
+                      "Team",
+                      "Time",
+                      "Flags",
+                    ].map((col) => (
+                      <th
+                        key={col}
+                        className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+                      >
+                        {col}
+                      </th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {hasMore && <div ref={sentinelRef} className="h-4" />}
+                </thead>
+                <tbody className="divide-y divide-gray-100 bg-white">
+                  {visibleResults.map((result, idx) => (
+                    <tr key={idx} className="hover:bg-gray-50">
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        <span className="font-mono text-gray-400 mr-1">
+                          {result.eventId}
+                        </span>
+                        {result.eventName}
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap font-mono text-gray-600">
+                        {result.eventDate}
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        {result.distance}
+                      </td>
+                      <td className="px-3 py-2 font-mono">{result.pos}</td>
+                      <td className="px-3 py-2 font-mono">
+                        {result.genderPos}
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        {result.category}
+                      </td>
+                      <td className="px-3 py-2">{result.gender}</td>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        {result.team}
+                      </td>
+                      <td className="px-3 py-2 font-mono whitespace-nowrap">
+                        {result.raceTime}
+                      </td>
+                      <td className="px-3 py-2">
+                        {result.dnf === 1 && <Badge color="red">DNF</Badge>}
+                        {result.dns === 1 && <Badge color="gray">DNS</Badge>}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {hasMore && <div ref={sentinelRef} className="h-4" />}
           </>
         )}
       </section>

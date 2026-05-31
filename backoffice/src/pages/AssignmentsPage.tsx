@@ -18,7 +18,13 @@ function matchesSearch(assignment: ResultAssignment, term: string): boolean {
   return false;
 }
 
-const emptyForm = { eventId: "", eventQuery: "", bib: "", athleteId: "", note: "" };
+const emptyForm = {
+  eventId: "",
+  eventQuery: "",
+  bib: "",
+  athleteId: "",
+  note: "",
+};
 
 function AddAssignmentForm() {
   const [form, setForm] = useState(emptyForm);
@@ -131,7 +137,6 @@ function AddAssignmentForm() {
     </CollapsibleForm>
   );
 }
-
 
 export default function AssignmentsPage() {
   const [assignments, setAssignments] = useState<ResultAssignment[] | null>(

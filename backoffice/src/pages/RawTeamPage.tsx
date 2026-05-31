@@ -13,7 +13,10 @@ function TeamSearch() {
   const [allTeams, setAllTeams] = useState<RawTeamSummary[] | null>(null);
 
   useEffect(() => {
-    api.listRawTeams().then(setAllTeams).catch(() => setAllTeams([]));
+    api
+      .listRawTeams()
+      .then(setAllTeams)
+      .catch(() => setAllTeams([]));
   }, []);
 
   const lower = query.trim().toLowerCase();
@@ -67,7 +70,9 @@ function TeamSearch() {
                   <tr
                     key={team.id}
                     className="hover:bg-blue-50 cursor-pointer"
-                    onClick={() => navigate(`/team/${encodeURIComponent(team.canonicalKey)}`)}
+                    onClick={() =>
+                      navigate(`/team/${encodeURIComponent(team.canonicalKey)}`)
+                    }
                   >
                     <td className="px-3 py-2 font-mono text-gray-400 text-xs">
                       {team.id}
@@ -96,9 +101,11 @@ export default function RawTeamPage() {
 
   const decodedKey = teamKey ? decodeURIComponent(teamKey) : null;
 
-  const { visible: visibleAthletes, sentinelRef, hasMore } = usePagedList(
-    team?.athletes ?? [],
-  );
+  const {
+    visible: visibleAthletes,
+    sentinelRef,
+    hasMore,
+  } = usePagedList(team?.athletes ?? []);
 
   useEffect(() => {
     if (!decodedKey) return;

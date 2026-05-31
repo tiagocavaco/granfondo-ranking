@@ -102,7 +102,9 @@ export async function handleAdminRequest(
     ];
     if (note) args.push("--note", note);
     const result = runManageDb(args);
-    result.ok ? jsonOk(res, { message: result.output }) : jsonError(res, 500, result.output);
+    result.ok
+      ? jsonOk(res, { message: result.output })
+      : jsonError(res, 500, result.output);
     return true;
   }
 
@@ -113,7 +115,9 @@ export async function handleAdminRequest(
       return true;
     }
     const result = runManageDb(["remove", "alias", "--name", name]);
-    result.ok ? jsonOk(res, { message: result.output }) : jsonError(res, 500, result.output);
+    result.ok
+      ? jsonOk(res, { message: result.output })
+      : jsonError(res, 500, result.output);
     return true;
   }
 
@@ -138,7 +142,9 @@ export async function handleAdminRequest(
     ];
     if (note) args.push("--note", note);
     const result = runManageDb(args);
-    result.ok ? jsonOk(res, { message: result.output }) : jsonError(res, 500, result.output);
+    result.ok
+      ? jsonOk(res, { message: result.output })
+      : jsonError(res, 500, result.output);
     return true;
   }
 
@@ -157,7 +163,9 @@ export async function handleAdminRequest(
       "--bib",
       bib,
     ]);
-    result.ok ? jsonOk(res, { message: result.output }) : jsonError(res, 500, result.output);
+    result.ok
+      ? jsonOk(res, { message: result.output })
+      : jsonError(res, 500, result.output);
     return true;
   }
 
@@ -168,8 +176,17 @@ export async function handleAdminRequest(
       jsonError(res, 400, "Missing required fields: from, to");
       return true;
     }
-    const result = runManageDb(["add", "team-alias", "--from", from, "--to", to]);
-    result.ok ? jsonOk(res, { message: result.output }) : jsonError(res, 500, result.output);
+    const result = runManageDb([
+      "add",
+      "team-alias",
+      "--from",
+      from,
+      "--to",
+      to,
+    ]);
+    result.ok
+      ? jsonOk(res, { message: result.output })
+      : jsonError(res, 500, result.output);
     return true;
   }
 
@@ -180,7 +197,9 @@ export async function handleAdminRequest(
       return true;
     }
     const result = runManageDb(["remove", "team-alias", "--from", from]);
-    result.ok ? jsonOk(res, { message: result.output }) : jsonError(res, 500, result.output);
+    result.ok
+      ? jsonOk(res, { message: result.output })
+      : jsonError(res, 500, result.output);
     return true;
   }
 

@@ -82,7 +82,6 @@ function AddTeamAliasForm() {
   );
 }
 
-
 export default function TeamAliasesPage() {
   const [entries, setEntries] = useState<TeamAliasEntry[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -155,7 +154,9 @@ export default function TeamAliasesPage() {
               <div className="mt-1.5 space-y-0.5 pl-4 border-l-2 border-gray-200">
                 {entry.aliasKeys.map((key) => (
                   <div key={key} className="flex items-center justify-between">
-                    <span className="font-mono text-sm text-gray-600">{key}</span>
+                    <span className="font-mono text-sm text-gray-600">
+                      {key}
+                    </span>
                     <DeleteButton
                       onDelete={async () => {
                         await adminApi.removeTeamAlias({ from: key });

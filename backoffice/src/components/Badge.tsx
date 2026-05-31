@@ -16,7 +16,9 @@ export default function Badge({
   color?: BadgeColor;
 }) {
   return (
-    <span className={`inline-block text-xs px-1.5 py-0.5 rounded font-medium ${colors[color]}`}>
+    <span
+      className={`inline-block text-xs px-1.5 py-0.5 rounded font-medium ${colors[color]}`}
+    >
       {children}
     </span>
   );
