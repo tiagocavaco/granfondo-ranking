@@ -6,17 +6,19 @@
     "utils",
     "api",
     "scraper",
-    "frontend"
+    "frontend",
+    "backoffice"
   ],
   "scripts": {
     "generate-schema": "npm run generate-schema --workspace=@granfondo/database",
     "scrape": "npm run scrape --workspace=scraper",
     "scrape:force": "npm run scrape:force --workspace=scraper",
     "dev": "npm run dev --workspace=frontend",
+    "dev:backoffice": "npm run dev --workspace=backoffice",
     "build": "npm run build --workspace=frontend",
     "test": "npm test --workspaces --if-present",
     "test:coverage": "npm run test:coverage --workspaces --if-present",
-    "typecheck": "tsc --noEmit -p scraper && tsc --noEmit -p api && tsc --noEmit -p frontend && tsc --noEmit -p database && tsc --noEmit -p utils",
+    "typecheck": "tsc --noEmit -p scraper && tsc --noEmit -p api && tsc --noEmit -p frontend && tsc --noEmit -p database && tsc --noEmit -p utils && tsc --noEmit -p backoffice",
     "lint": "eslint \"**/*.{ts,tsx}\"",
     "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
     "format": "prettier --write \"**/*.{ts,tsx}\"",

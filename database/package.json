@@ -30,6 +30,10 @@
       "types": "./src/db-client.ts",
       "default": "./src/db-client.ts"
     },
+    "./decrypt": {
+      "types": "./src/decrypt.ts",
+      "default": "./src/decrypt.ts"
+    },
     "./normalize": {
       "types": "./src/normalize.ts",
       "default": "./src/normalize.ts"

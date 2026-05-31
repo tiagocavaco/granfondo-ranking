@@ -13,7 +13,8 @@
       "@granfondo/database/types": ["./database/src/types.ts"],
       "@granfondo/database/normalize": ["./database/src/normalize.ts"],
       "@granfondo/database/db-writer": ["./database/src/db-writer.ts"],
-      "@granfondo/database/db-client": ["./database/src/db-client.ts"]
+      "@granfondo/database/db-client": ["./database/src/db-client.ts"],
+      "@granfondo/database/decrypt": ["./database/src/decrypt.ts"]
     }
   }
 }
