@@ -357,23 +357,53 @@ function parseRegistrationsPage(html: string): {
     const tds = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((m) =>
       decodeHtmlEntities(m[1]!.replace(/<[^>]+>/g, "").trim()),
     );
-    if (tds.length < 8) {
+
+    // New layout (5 cols): bib | name+team+category | gender | distance | status
+    // Old layout (8 cols): bib | name | empty | gender | team | distance | category | status
+    const isNewLayout = tds.length === 5;
+    const isOldLayout = tds.length >= 8;
+    if (!isNewLayout && !isOldLayout) {
       continue;
     }
 
     rowCount++;
 
-    const status = tds[7] ?? "";
-    if (status !== "Confirmado") {
-      continue;
-    }
+    let bib: string,
+      name: string,
+      team: string,
+      category: string,
+      gender: string,
+      distance: string,
+      status: string;
 
-    const bib = tds[0] ?? "";
-    const name = tds[1] ?? "";
-    const gender = (tds[3] ?? "").toUpperCase() === "F" ? "F" : "M";
-    const team = fixRawTeamName(tds[4] ?? "");
-    const distance = tds[5] ?? "";
-    const category = tds[6] ?? "";
+    if (isNewLayout) {
+      status = tds[4] ?? "";
+      if (status !== "Confirmado") {
+        continue;
+      }
+      bib = tds[0] ?? "";
+      // td[1] contains name, team, category as separate text nodes separated by newlines
+      const nameParts = (tds[1] ?? "")
+        .split("\n")
+        .map((s) => s.trim())
+        .filter((s) => s && s !== "•");
+      name = nameParts[0] ?? "";
+      team = fixRawTeamName(nameParts[1] ?? "");
+      category = nameParts[2] ?? "";
+      gender = (tds[2] ?? "").toUpperCase() === "F" ? "F" : "M";
+      distance = tds[3] ?? "";
+    } else {
+      status = tds[7] ?? "";
+      if (status !== "Confirmado") {
+        continue;
+      }
+      bib = tds[0] ?? "";
+      name = tds[1] ?? "";
+      gender = (tds[3] ?? "").toUpperCase() === "F" ? "F" : "M";
+      team = fixRawTeamName(tds[4] ?? "");
+      distance = tds[5] ?? "";
+      category = tds[6] ?? "";
+    }
 
     if (!name) {
       continue;
