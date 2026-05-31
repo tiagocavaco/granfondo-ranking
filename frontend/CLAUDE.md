@@ -15,7 +15,6 @@ npm run test
 
 ```
 frontend/public/data/data.db.enc   Encrypted SQLite (committed to git)
-src/db/decrypt.ts                  Web Crypto AES-256-GCM decrypt (reads VITE_DATA_KEY)
 src/db/db-client.ts                Vite-specific wiring: WASM URL + fetchEncryptedDb + getDb()
 src/utils/date.ts                  formatAge() — formats a scraped-at timestamp as a human age
 src/utils/distance.ts              distBadgeClass(), distance colour constants
@@ -32,7 +31,7 @@ import { getDb } from "./db/db-client";
 setGetDb(getDb);
 ```
 
-`src/db/` contains the two Vite-specific files that can't live in the shared package — they use `import.meta.env` and the `?url` asset import transform.
+`src/db/db-client.ts` is the Vite-specific wiring file. It uses `import.meta.env` (to read `VITE_DATA_KEY`) and the `?url` asset import transform (for WASM). The AES-GCM decrypt logic itself lives in `@granfondo/database/decrypt` and is shared with the backoffice.
 
 `initLookups()` must be called once at startup (done in `App.tsx`) to populate the in-memory team alias and athlete lookup caches used by `resolveTeamKey` and `lookupAthleteId`.
 

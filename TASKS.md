@@ -4,6 +4,84 @@ Backlog of proposed features and refactors.
 
 ---
 
+## Backoffice dashboard for manual DB overrides
+
+Today, manual DB overrides (athlete aliases, result assignments, team aliases)
+are managed via `npm run db:manage` shell commands in `scraper/src/db/manage-db.ts`.
+The biggest pain is **lack of visibility**: there's no way to see what's
+already in the override tables without decrypting the DB and querying it
+directly. Adding a new alias means manually inspecting raw athlete rows
+to find which name/team variants exist, then composing the right CLI
+arguments. Easy to make typos and create duplicate or conflicting overrides.
+
+A small backoffice UI would let us:
+
+### Read surface (Phase 1 — solves the visibility pain alone)
+
+- **List all athlete aliases** with canonical name/team and each alias name/team.
+- **List all manual result assignments** (event, bib, target athlete ID,
+  optional note).
+- **List all team aliases** (alias key → canonical key).
+- **Raw athlete page** — show the underlying rows from `athletes`,
+  `athlete_teams`, `athlete_categories`, `athlete_results` for a given ID
+  (not the "polished" public profile).
+- **Raw team page** — same for `teams`, plus all `athlete_teams` rows
+  pointing at it.
+- **Search across raw names** — find variants of a name across all results
+  to identify aliasing candidates.
+
+### Write surface (Phase 2 — optional)
+
+- Form to create an athlete alias (name + team for canonical + each alias).
+- Form to create a result assignment (event + bib + athlete ID).
+- Form to create a team alias (from-key + to-key).
+- Validation feedback before submit (does the canonical exist? does the
+  alias resolve to something different?).
+- Each form produces a change-set that gets applied to `data.db.enc`.
+
+### Architecture: separate `backoffice/` workspace, local-dev-only
+
+The backoffice lives as a sibling workspace next to `frontend/`,
+`scraper/`, etc. — its own `package.json`, Vite config, routes. It is
+**not** embedded in the public frontend, so multiple public frontends
+(future) can share the same operator tool without re-implementing it.
+
+It is **never deployed publicly** — runs only via
+`npm run dev --workspace=backoffice` on the operator's machine. No auth
+needed (bound to localhost), no backend infrastructure, no remote write
+path.
+
+**Reuse:** consumes the existing shared packages — `@granfondo/api`
+(query functions), `@granfondo/database` (schema + sql.js client),
+`@granfondo/utils`. Decryption + sql.js wiring is identical to what the
+public frontend already does. Read code is fully reused.
+
+**Write mechanism:** a Vite dev-mode middleware exposes
+`POST /api/admin/...` endpoints that call the existing `manage-db.ts`
+functions directly. Modifications land in `data.db.enc` the same way the
+CLI does today; the operator commits the result by hand. The middleware
+is only registered in dev mode so a `npm run build` (if we ever do one)
+produces a write-less static site.
+
+**Read mechanism:** ordinary React routes (no admin prefix needed —
+this *is* the admin app). Reads straight from the loaded sql.js DB.
+
+**Tradeoffs accepted:**
+- The dashboard is unusable from a phone, tablet, or someone else's
+  laptop. That's fine for now — the override workflow is already
+  single-operator.
+- Slight duplication of Vite config / Tailwind setup with the public
+  frontend. Cheaper than the embedding alternative.
+
+### Suggested first cut
+
+Phase 1 only. Stand up the `backoffice/` workspace skeleton, four read
+views (aliases / assignments / raw athlete / raw team). Ship that and
+use it for a few weeks before deciding whether Phase 2's write
+convenience is worth building.
+
+---
+
 ## Normalize category display in the frontend
 
 The frontend displays raw category strings as stored in the DB (e.g. "MasterDM", "MasterA Masc", "MASTER 50"), which vary by event source. The pipeline already maps these to canonical forms via `canonicalizeCategory` in `@granfondo/utils/category` — apply it in the frontend so athlete profiles and results pages always show consistent labels like "Masters D Male" regardless of what the source data provided.

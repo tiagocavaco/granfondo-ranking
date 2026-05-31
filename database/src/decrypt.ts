@@ -1,6 +1,4 @@
 /**
- * decrypt.ts
- *
  * AES-256-GCM decryption for the SQLite database blob fetched from data.db.enc.
  * Binary layout (matches scraper's encryptBuffer): [iv:12][tag:16][ciphertext:N]
  *
@@ -10,19 +8,17 @@
 
 function hexToBytes(hex: string): Uint8Array {
   const bytes = new Uint8Array(hex.length / 2);
-  for (let i = 0; i < hex.length; i += 2) {
-    bytes[i / 2] = parseInt(hex.slice(i, i + 2), 16);
+  for (let idx = 0; idx < hex.length; idx += 2) {
+    bytes[idx / 2] = parseInt(hex.slice(idx, idx + 2), 16);
   }
 
   return bytes;
 }
 
-export async function decryptDatabase(enc: ArrayBuffer): Promise<ArrayBuffer> {
-  const keyHex = import.meta.env.VITE_DATA_KEY as string | undefined;
-  if (!keyHex) {
-    throw new Error("VITE_DATA_KEY is not set");
-  }
-
+export async function decryptDatabase(
+  enc: ArrayBuffer,
+  keyHex: string,
+): Promise<ArrayBuffer> {
   const iv = enc.slice(0, 12);
   const tag = enc.slice(12, 28);
   const ct = enc.slice(28);
