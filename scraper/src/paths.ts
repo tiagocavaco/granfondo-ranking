@@ -30,3 +30,8 @@ export const TMP_DB_PATH = path.join(
   os.tmpdir(),
   `granfondo-${process.pid}.db`,
 );
+export const EVENT_SCHEDULE_PATH = path.join(
+  __dirname,
+  "..",
+  "event-schedule.json",
+);
