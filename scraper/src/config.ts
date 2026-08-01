@@ -5,7 +5,7 @@
  * default distances, and participant list URLs. Update here when adding new events.
  */
 
-export const YEARS = [2024, 2025, 2026]; // seasons to include in scrape and rankings
+export const YEARS = [2023, 2024, 2025, 2026]; // seasons to include in scrape and rankings
 
 /**
  * Canonical display names for events whose names from the StopAndGo API are
@@ -14,6 +14,10 @@ export const YEARS = [2024, 2025, 2026]; // seasons to include in scrape and ran
  * Extend here when new events have bad names.
  */
 export const CANONICAL_EVENT_NAMES: Record<number, string> = {
+  // 2023 events
+  971: "Monção e Melgaço Granfondo 2023",
+  1033: "Granfondo Torres Vedras 2023",
+  1053: "Granfondo Médio Tejo 2023", // API has "Grandfondo" typo
   // 2024 events
   1216: "Monção e Melgaço Granfondo 2024", // API name likely "MONÇÃO e MELGAÇO GF"
   1349: "Granfondo Médio Tejo 2024", // typo: "Grandfondo"
@@ -96,7 +100,23 @@ export const DELAY_MS = 400; // polite delay between API requests (ms)
  * have "granfondo" in their StopAndGo name (different spelling, abbreviation, etc.).
  * Add entries here when the name-based filter misses an event.
  */
+/**
+ * Events explicitly excluded from scraping regardless of how they are discovered.
+ * Add an event ID here to permanently drop it from the dataset.
+ */
+export const EXCLUDED_EVENT_IDS = new Set<number>([
+  1018, // Azores Challenge 2023 — not in the official granfondo series (0 finishers)
+  2112, // Granfondo Leiria Region - Terras de Sicó 2026 — postponed to 2027
+]);
+
 export const SUPPLEMENTAL_EVENT_IDS: number[] = [
+  // 2023 events with non-standard names (no "granfondo" in StopAndGo title)
+  992, // Figueira Champions Classic 2023
+  1017, // Aveiro Spring Classic 2023
+  1033, // GF Torres Vedras Montejunto 2023
+  971, // MONÇÃO e MELGAÇO GF by TREK - 2023
+  1126, // Clássica Douro Internacional 2023
+  949, // L'Étape Portugal by Tour de France 2023
   // 2024 events with non-standard names (no "granfondo" in StopAndGo title)
   1238, // Figueira Champions Classic 2024
   1307, // Aveiro Spring Classic 2024
@@ -130,6 +150,28 @@ export const SUPPLEMENTAL_EVENT_IDS: number[] = [
  * https://stopandgo.net/events/{id} (which redirects to the slug-based page).
  */
 export const OFFICIAL_EVENT_URLS: Record<number, string> = {
+  // 2023 events
+  992: "https://www.figueirachampionsclassic.com/",
+  812: "https://bikeservice.pt/event/viana-granfondo/",
+  867: "https://bikeservice.pt/event/eurobec-granfondo/",
+  900: "https://bikeservice.pt/event/geres-granfondo/",
+  935: "https://bikeservice.pt/event/braganca-granfondo/",
+  941: "http://saomamedegranfondo.pt/",
+  949: "https://portugal.letapebytourdefrance.com/",
+  971: "https://www.moncaoemelgacogranfondo.com/",
+  1016: "https://granfondotavira.wordpress.com/",
+  1017: "https://cabreirasolutions.com/evento/aveiro-spring-classic/",
+  1033: "https://cabreirasolutions.com/evento/granfondo-torres-vedras/",
+  1053: "https://cabreirasolutions.com/evento/granfondo-medio-tejo/",
+  1069: "https://cabreirasolutions.com/evento/granfondo-terras-de-basto/",
+  1073: "https://www.granfondocoimbraregion.com/",
+  1074: "https://www.granfondocoimbraregion.com/",
+  801: "https://www.granfondoserradaestrela.com/",
+  852: "https://dourogranfondo.com/",
+  921: "https://www.algarvegranfondo.com/",
+  1126: "https://classicadourointernacional.com/",
+  1143: "https://cabreirasolutions.com/evento/granfondo-serra-dossa/",
+  90005: "https://portogaiagranfondo.com/",
   // 2024 events
   1059: "https://granfondoserradaestrela.com/",
   1067: "https://bikeservice.pt/event/eurobec-granfondo/",

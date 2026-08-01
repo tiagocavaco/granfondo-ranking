@@ -71,9 +71,10 @@ async function parseClax(
       continue;
     }
 
+    const catKey = (a["ca"] ?? "").toLowerCase();
     engages.set(a["d"], {
       name: toTitleCase(a["n"] ?? ""),
-      category: CAT[a["ca"] ?? ""] ?? a["ca"] ?? "",
+      category: CAT[catKey] ?? CAT[catKey.replace(/\s+/g, "")] ?? a["ca"] ?? "",
       team: a["c"] ?? "",
       gender: a["x"] === "F" ? "F" : "M",
       distance: a["p"] ?? "",
@@ -150,6 +151,24 @@ function buildDistances(
   }
 
   return distances;
+}
+
+export async function scrapePortoGaiaGranfondo2023(): Promise<StoredEventResults> {
+  const { engages, times } = await parseClax(
+    "https://timerspeed.com/live/events/2023/Porto_Gaia_Granfondo.clax",
+  );
+  return {
+    eventId: 90005,
+    eventName: "Porto Gaia Granfondo 2023",
+    eventDate: "2023-04-02",
+    eventYear: 2023,
+    scrapedAt: new Date().toISOString(),
+    distances: buildDistances(engages, times, 90005, [
+      { key: "Granfondo", id: "1", name: "Granfondo" },
+      { key: "Mediofondo", id: "2", name: "Mediofondo" },
+      { key: "Minifondo", id: "3", name: "Minifondo" },
+    ]),
+  };
 }
 
 export async function scrapePortoGaiaGranfondo2024(): Promise<StoredEventResults> {

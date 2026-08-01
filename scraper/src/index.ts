@@ -8,6 +8,8 @@ import {
   scrapeFigueiraChampionsDay,
   scrapeAgitagueda,
   scrapeApedalar5Quinas,
+  scrapeApedalar5Quinas2026,
+  scrapePortoGaiaGranfondo2023,
   scrapePortoGaiaGranfondo2024,
 } from "./external.js";
 import { isPast } from "./normalize.js";
@@ -25,6 +27,7 @@ import {
   LISTA_URLS,
   REGISTRATIONS_URLS,
   APEDALAR_PARTICIPANT_URLS,
+  EXCLUDED_EVENT_IDS,
   normalizeEventName,
 } from "./config.js";
 import { DATA_DIR, FLAGS_DIR } from "./paths.js";
@@ -106,7 +109,7 @@ async function main() {
   const allResults = new Map<number, StoredEventResults>();
   const allParticipants = new Map<number, StoredParticipant[]>();
 
-  for (const event of events) {
+  for (const event of events.filter((e) => !EXCLUDED_EVENT_IDS.has(e.id))) {
     const past = isPast(event.date);
     console.log(`${past ? "✅" : "⏳"} [${event.id}] ${event.name}`);
     const result = await scrapeEvent(event, scrapedEvents, sourceDb, FORCE);
@@ -127,6 +130,8 @@ async function main() {
       [90001, scrapeFigueiraChampionsDay],
       [90002, scrapeAgitagueda],
       [90003, scrapeApedalar5Quinas],
+      [90012, scrapeApedalar5Quinas2026],
+      [90005, scrapePortoGaiaGranfondo2023],
       [90004, scrapePortoGaiaGranfondo2024],
     ],
   );

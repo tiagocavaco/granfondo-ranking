@@ -79,7 +79,11 @@ export const DISTANCE_ALIASES: Record<string, string> = {
   "classica média": "Mediofondo",
   "clássica curta": "Minifondo",
   "classica curta": "Minifondo",
+  // Aveiro Spring Classic
+  longa: "Granfondo",
+  curta: "Mediofondo",
   // L'Étape Portugal by Tour de France
+  "l'étape 140": "Granfondo",
   "l'étape 125": "Granfondo",
   "l'étape 100": "Mediofondo",
   "l'étape 50": "Minifondo",
@@ -87,8 +91,16 @@ export const DISTANCE_ALIASES: Record<string, string> = {
 };
 
 export function normalizeDistance(name: string): string {
-  // Normalise curly apostrophes (U+2019) to straight (U+0027) before lookup
-  const lower = name.toLowerCase().replace(/’/g, "'");
+  // Normalise apostrophe variants to straight apostrophe (U+0027) before lookup.
+  // Covers: ` (backtick), ´ (U+00B4 acute), ʹ (U+02B9), ʼ (U+02BC), ‘ ‘ (U+2018/2019).
+  // Collapse multiple spaces and treat hyphens as spaces so "Half  Day-48 km"
+  // normalises to "half day 48 km" and prefix-matches "half day".
+  const lower = name
+    .toLowerCase()
+    .replace(/[`´ʹʼ‘’]/g, "'")
+    .replace(/\s*-\s*/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
   if (lower in DISTANCE_ALIASES) {
     return DISTANCE_ALIASES[lower]!;
   }
