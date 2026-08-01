@@ -201,6 +201,20 @@ export function sweepCategoryEviction(ctx: PipelineCtx): void {
         index.set(key, dest);
       }
 
+      // Guard: if the destination already has a result for this (eventId, distance),
+      // the slot is taken by the pipeline-matched result — drop the evicted one.
+      const slotTaken = dest.results.some(
+        (existing) =>
+          existing.eventId === r.eventId && existing.distance === r.distance,
+      );
+      if (slotTaken) {
+        drops++;
+        console.log(
+          `  [post] dropped ev=${r.eventId} "${rehomeName}" (${r.category}) from id=${entry.id} — destination id=${dest.id} already has this slot`,
+        );
+        continue;
+      }
+
       dest.results.push(r);
       addToTeamsAndCategories(dest, r);
       rehomed++;

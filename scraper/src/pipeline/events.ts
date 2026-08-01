@@ -33,7 +33,7 @@ import {
   REGISTRATIONS_URLS,
   APEDALAR_PARTICIPANT_URLS,
 } from "../config.js";
-import { loadResultsFromDb } from "../db/db-loader.js";
+import { loadResultsFromDb, loadParticipantsFromDb } from "../db/db-loader.js";
 import type {
   StoredEvent,
   StoredEventResults,
@@ -109,8 +109,40 @@ export async function scrapeEvent(
   force: boolean,
 ): Promise<ScrapeResult> {
   const label = `[${event.id}] ${event.name} (${event.date})`;
+  const isStable =
+    !force && String(event.id) in scrapedEvents && sourceDb !== null;
 
-  // Step 1: participants / distance discovery
+  // For stable past events: load everything from the previous DB — no API calls.
+  if (isPast(event.date) && isStable) {
+    const cached = loadResultsFromDb(sourceDb, event);
+    if (cached) {
+      const prevEvent = sourceDb
+        .prepare(
+          "SELECT participant_count, finisher_count FROM events WHERE id = ?",
+        )
+        .get(event.id) as
+        | { participant_count: number; finisher_count: number }
+        | undefined;
+      event.hasResults = true;
+      event.finisherCount = cached.distances.reduce(
+        (sum, distance) => sum + distance.finisherCount,
+        0,
+      );
+      event.participantCount = prevEvent?.participant_count ?? 0;
+      event.scrapedAt = cached.scrapedAt;
+      event.distances = cached.distances.map((distance) => ({
+        id: distance.id,
+        name: distance.name,
+      }));
+      const participants = loadParticipantsFromDb(sourceDb, event.id);
+      console.log(
+        `  · cached — ${event.finisherCount} finishers across ${cached.distances.length} distances`,
+      );
+      return { event, results: cached, participants };
+    }
+  }
+
+  // Live fetch — participants first (distance discovery), then results per distance
   let athletes: StoredParticipant[] = [];
   try {
     athletes = await fetchEventParticipants(event.id);
@@ -127,26 +159,6 @@ export async function scrapeEvent(
       `  ⏳ upcoming — ${athletes.length} registered, ${event.distances.map((distance) => distance.name).join(" / ")}`,
     );
     return { event, participants: athletes };
-  }
-
-  // Step 2: results per distance
-  const isStable =
-    !force && String(event.id) in scrapedEvents && sourceDb !== null;
-
-  if (isStable) {
-    const cached = loadResultsFromDb(sourceDb, event);
-    if (cached) {
-      event.hasResults = true;
-      event.finisherCount = cached.distances.reduce(
-        (sum, distance) => sum + distance.finisherCount,
-        0,
-      );
-      event.scrapedAt = cached.scrapedAt;
-      console.log(
-        `  · cached — ${event.finisherCount} finishers across ${cached.distances.length} distances`,
-      );
-      return { event, results: cached, participants: athletes };
-    }
   }
 
   const distanceResults: StoredDistanceResults[] = [];

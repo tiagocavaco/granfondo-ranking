@@ -30,7 +30,7 @@ const outPath = path.resolve(
   "../../split-candidates.json",
 );
 const BASE_URL =
-  process.env.RANKING_BASE_URL ?? "http://localhost:5174/granfondo-ranking";
+  process.env.RANKING_BASE_URL ?? "http://localhost:5173/granfondo-ranking";
 
 // --top N: filter to pairs where at least one athlete has a finish ≤ N
 const topArg = process.argv.indexOf("--top");

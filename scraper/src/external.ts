@@ -80,20 +80,16 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
     finisherCount: 0,
     scrapedAt: null,
   },
-];
-
-/** Upcoming events with no StopAndGo ID yet — shown in the events list but not scraped. */
-export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
   {
-    id: 90011,
-    name: "Granfondo Terras de Basto 2026",
-    year: 2026,
-    date: "2026-06-21",
-    location: "Mondim de Basto",
+    id: 90005,
+    name: "Porto Gaia Granfondo 2023",
+    year: 2023,
+    date: "2023-04-02",
+    location: "Porto",
     resultsUrl:
-      "https://cabreirasolutions.com/evento/granfondo-terras-de-basto/",
-    officialUrl: null,
-    hasResults: false,
+      "https://timerspeed.com/live/g-live.html?f=events/2023/Porto_Gaia_Granfondo.clax",
+    officialUrl: "https://portogaiagranfondo.com",
+    hasResults: true,
     distances: [
       { id: "1", name: "Granfondo" },
       { id: "2", name: "Mediofondo" },
@@ -109,7 +105,7 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
     year: 2026,
     date: "2026-07-05",
     location: "Sabugal",
-    resultsUrl: "https://apedalar.pt/eventos/4197/info",
+    resultsUrl: "https://apedalar.pt/eventos/4197/resultados",
     officialUrl: null,
     hasResults: false,
     distances: [
@@ -120,24 +116,10 @@ export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
     finisherCount: 0,
     scrapedAt: null,
   },
-  {
-    id: 90013,
-    name: "Granfondo Paredes 2026",
-    year: 2026,
-    date: "2026-07-26",
-    location: "Paredes",
-    resultsUrl: "https://cabreirasolutions.com/evento/granfondo-paredes/",
-    officialUrl: null,
-    hasResults: false,
-    distances: [
-      { id: "1", name: "Granfondo" },
-      { id: "2", name: "Mediofondo" },
-      { id: "3", name: "Minifondo" },
-    ],
-    participantCount: 0,
-    finisherCount: 0,
-    scrapedAt: null,
-  },
+];
+
+/** Upcoming events with no StopAndGo ID yet — shown in the events list but not scraped. */
+export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
   {
     id: 90015,
     name: "Granfondo Serra d'Ossa 2026",
@@ -180,9 +162,13 @@ export { scrapeFigueiraChampionsDay } from "./scrapers/lap2go.js";
 export { scrapeAgitagueda } from "./scrapers/waitastart.js";
 export {
   scrapeApedalar5Quinas,
+  scrapeApedalar5Quinas2026,
   scrapeApedalarParticipants,
   extractEscalaoOptions,
   escalaoToGender,
 } from "./scrapers/apedalar.js";
 export { scrapeListaParticipants } from "./scrapers/stopandgo.js";
-export { scrapePortoGaiaGranfondo2024 } from "./scrapers/timerspeed.js";
+export {
+  scrapePortoGaiaGranfondo2023,
+  scrapePortoGaiaGranfondo2024,
+} from "./scrapers/timerspeed.js";

@@ -174,6 +174,7 @@ async function apedalarLivewireFetch(
   updates: Record<string, string>,
   cookieStr: string,
   csrf: string,
+  referer: string,
 ): Promise<{ snapshot: string; html: string }> {
   const payload = {
     _token: csrf,
@@ -197,7 +198,7 @@ async function apedalarLivewireFetch(
       "User-Agent": BROWSER_UA,
       Cookie: cookieStr,
       Origin: "https://apedalar.pt",
-      Referer: "https://apedalar.pt/eventos/3818/resultados",
+      Referer: referer,
       "sec-fetch-dest": "empty",
       "sec-fetch-mode": "cors",
       "sec-fetch-site": "same-origin",
@@ -322,13 +323,31 @@ export async function scrapeApedalarParticipants(
   return all;
 }
 
-export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
-  const pageRes = await fetchWithRetry(
-    "https://apedalar.pt/eventos/3818/resultados",
-    {
-      headers: { "User-Agent": BROWSER_UA },
-    },
-  );
+export interface ApedalarEventConfig {
+  eventId: number;
+  eventName: string;
+  eventDate: string;
+  eventYear: number;
+  resultsUrl: string;
+}
+
+function extractPercursoNames(snapshot: string): string[] {
+  try {
+    const parsed = JSON.parse(snapshot) as {
+      data?: { percursos?: [string[], unknown] };
+    };
+    return parsed.data?.percursos?.[0] ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export async function scrapeApedalarEvent(
+  config: ApedalarEventConfig,
+): Promise<StoredEventResults> {
+  const pageRes = await fetchWithRetry(config.resultsUrl, {
+    headers: { "User-Agent": BROWSER_UA },
+  });
   if (!pageRes.ok) {
     throw new Error(`apedalar page HTTP ${pageRes.status}`);
   }
@@ -380,6 +399,9 @@ export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
     throw new Error("apedalar: component snapshot not found");
   }
 
+  const percursoNames = extractPercursoNames(initialSnapshot);
+  const mediofondoPercurso = percursoNames[1] ?? "Mediofondo";
+
   const escalaoOptions = extractEscalaoOptions(pageHtml, initialSnapshot);
   const distances: StoredDistanceResults[] = [];
 
@@ -392,13 +414,15 @@ export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
       { sexo: "F" },
       cookieStr,
       csrf,
+      config.resultsUrl,
     );
     const mfMBase = await apedalarLivewireFetch(
       livewireUri,
       initialSnapshot,
-      { percurso: "Mediofondo 86km" },
+      { percurso: mediofondoPercurso },
       cookieStr,
       csrf,
+      config.resultsUrl,
     );
     const mfFBase = await apedalarLivewireFetch(
       livewireUri,
@@ -406,6 +430,7 @@ export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
       { sexo: "F" },
       cookieStr,
       csrf,
+      config.resultsUrl,
     );
 
     const distConfigs = [
@@ -444,6 +469,7 @@ export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
             { escalao },
             cookieStr,
             csrf,
+            config.resultsUrl,
           );
           for (const r of parseApedalarRows(resp.html, "M")) {
             if (r.bib) {
@@ -466,6 +492,7 @@ export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
             { escalao },
             cookieStr,
             csrf,
+            config.resultsUrl,
           );
           for (const r of parseApedalarRows(resp.html, "F")) {
             if (r.bib) {
@@ -505,13 +532,15 @@ export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
       { sexo: "F" },
       cookieStr,
       csrf,
+      config.resultsUrl,
     );
     const mfMResp = await apedalarLivewireFetch(
       livewireUri,
       initialSnapshot,
-      { percurso: "Mediofondo 86km" },
+      { percurso: mediofondoPercurso },
       cookieStr,
       csrf,
+      config.resultsUrl,
     );
     const mfFResp = await apedalarLivewireFetch(
       livewireUri,
@@ -519,6 +548,7 @@ export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
       { sexo: "F" },
       cookieStr,
       csrf,
+      config.resultsUrl,
     );
 
     const gfResults = combineAndRankByTime([
@@ -549,11 +579,31 @@ export async function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
   }
 
   return {
+    eventId: config.eventId,
+    eventName: config.eventName,
+    eventDate: config.eventDate,
+    eventYear: config.eventYear,
+    scrapedAt: new Date().toISOString(),
+    distances,
+  };
+}
+
+export function scrapeApedalar5Quinas(): Promise<StoredEventResults> {
+  return scrapeApedalarEvent({
     eventId: 90003,
     eventName: "Granfondo 5 Quinas Sabugal 2025",
     eventDate: "2025-06-01",
     eventYear: 2025,
-    scrapedAt: new Date().toISOString(),
-    distances,
-  };
+    resultsUrl: "https://apedalar.pt/eventos/3818/resultados",
+  });
+}
+
+export function scrapeApedalar5Quinas2026(): Promise<StoredEventResults> {
+  return scrapeApedalarEvent({
+    eventId: 90012,
+    eventName: "Granfondo 5 Quinas Sabugal 2026",
+    eventDate: "2026-07-05",
+    eventYear: 2026,
+    resultsUrl: "https://apedalar.pt/eventos/4197/resultados",
+  });
 }

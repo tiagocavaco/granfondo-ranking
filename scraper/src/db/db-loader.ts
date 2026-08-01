@@ -169,6 +169,29 @@ export function loadExistingEventIds(
   return new Set(rows.map((r) => r.id));
 }
 
+export function loadParticipantsFromDb(
+  sourceDb: BetterSqlite3.Database,
+  eventId: number,
+): StoredParticipant[] {
+  const rows = drizzle(sourceDb, { schema })
+    .select()
+    .from(schema.participants)
+    .where(eq(schema.participants.eventId, eventId))
+    .all();
+
+  return rows.map((row) => ({
+    bib: row.bib,
+    name: row.name,
+    fullName: row.fullName,
+    gender: row.gender,
+    team: row.team,
+    category: row.category,
+    distance: row.distance,
+    distanceId: row.distanceId,
+    athleteId: row.athleteId ?? 0,
+  }));
+}
+
 export function writeParticipantsToDb(
   sourceDb: BetterSqlite3.Database,
   updates: Map<number, { event: StoredEvent; athletes: StoredParticipant[] }>,
