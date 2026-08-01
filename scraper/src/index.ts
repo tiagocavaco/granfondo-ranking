@@ -264,7 +264,11 @@ async function main() {
   const schedule = scraped
     .filter((event) => event.date >= cutoffDate)
     .map((event) => ({ id: event.id, name: event.name, date: event.date }));
-  fs.writeFileSync(EVENT_SCHEDULE_PATH, JSON.stringify(schedule, null, 2) + "\n", "utf-8");
+  fs.writeFileSync(
+    EVENT_SCHEDULE_PATH,
+    JSON.stringify(schedule, null, 2) + "\n",
+    "utf-8",
+  );
 
   // 4. Build athletes index
   console.log("🔨 Building athletes index…");
