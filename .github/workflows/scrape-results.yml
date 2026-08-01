@@ -2,8 +2,8 @@ name: Scrape
 
 on:
   schedule:
-    - cron: "0 20 * * 0"  # every Sunday at 20:00 UTC
-  workflow_dispatch:        # allow manual trigger from GitHub UI
+    - cron: "0 20 * * 0"  # every Sunday at 20:00 UTC — event-window check decides whether to run
+  workflow_dispatch:        # manual trigger bypasses the event-window check
     inputs:
       force:
         description: "Ignore cache — re-scrape every event"
@@ -22,23 +22,50 @@ jobs:
           fetch-depth: 1
           token: ${{ secrets.PAT }}
 
+      - name: Check event window
+        id: window
+        if: github.event_name == 'schedule'
+        run: |
+          python3 - <<'PYEOF'
+          import json, datetime, os, sys
+
+          events = json.load(open('scraper/event-schedule.json'))
+          today = datetime.date.today()
+
+          for event in events:
+              d = datetime.date.fromisoformat(event['date'])
+              # Run on the night of the event (diff=0) or next night as fallback (diff=1)
+              diff = (today - d).days
+              if 0 <= diff <= 1:
+                  print(f"Event match: {event['name']} on {event['date']}")
+                  open(os.environ['GITHUB_OUTPUT'], 'a').write('run=true\n')
+                  sys.exit(0)
+
+          print('No event in results window today — skipping scrape')
+          open(os.environ['GITHUB_OUTPUT'], 'a').write('run=false\n')
+          PYEOF
+
       - uses: actions/setup-node@v4
+        if: github.event_name != 'schedule' || steps.window.outputs.run == 'true'
         with:
           node-version: 24
           cache: npm
 
       - name: Install dependencies
+        if: github.event_name != 'schedule' || steps.window.outputs.run == 'true'
         run: npm install
 
       - name: Run scraper
+        if: github.event_name != 'schedule' || steps.window.outputs.run == 'true'
         run: npm run ${{ inputs.force && 'scrape:force' || 'scrape' }}
         env:
           DATA_KEY: ${{ secrets.DATA_KEY }}
 
       - name: Commit updated data files
+        if: github.event_name != 'schedule' || steps.window.outputs.run == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add frontend/public/data/ scraper/scraped-events.json
+          git add frontend/public/data/ scraper/scraped-events.json scraper/event-schedule.json
           git diff --staged --quiet || git commit -m "chore: update scraped results"
           git push

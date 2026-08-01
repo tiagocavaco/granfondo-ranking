@@ -39,6 +39,8 @@ export const CANONICAL_EVENT_NAMES: Record<number, string> = {
   1942: "Tavira Granfondo 2026",
   1943: "Monção e Melgaço Granfondo 2026",
   1977: "Granfondo Médio Tejo 2026", // typo: "Grandfondo"
+  2114: "Granfondo Portimão 2026", // typo: "Grandfondo"
+  2115: "Granfondo Serra d'Ossa 2026", // API uses all-caps
 };
 
 const SMALL_WORDS = new Set([
@@ -211,8 +213,8 @@ export const OFFICIAL_EVENT_URLS: Record<number, string> = {
   1956: "https://cabreirasolutions.com/evento/lousa-granfondo/",
   90011: "https://cabreirasolutions.com/evento/granfondo-terras-de-basto/",
   90013: "https://cabreirasolutions.com/evento/granfondo-paredes/",
-  90015: "https://cabreirasolutions.com/evento/granfondo-serra-dossa/",
-  90016: "https://cabreirasolutions.com/evento/granfondo-portimao/",
+  2115: "https://cabreirasolutions.com/evento/granfondo-serra-dossa/",
+  2114: "https://cabreirasolutions.com/evento/granfondo-portimao/",
   // Figueira Champions Classic
   1880: "https://www.figueirachampionsclassic.com/day/regulamento/",
   // Aveiro Spring Classic
@@ -329,10 +331,8 @@ export const LISTA_URLS: Record<number, string> = {
     "https://inscricoes.cabreirasolutions.com/listas/granfondo-terras-de-basto-2026",
   90013:
     "https://inscricoes.cabreirasolutions.com/listas/granfondo-paredes-2026",
-  90015:
-    "https://inscricoes.cabreirasolutions.com/listas/granfondo-serra-d-ossa-2026",
-  90016:
-    "https://inscricoes.cabreirasolutions.com/listas/grandfondo-portim-o-2026",
+  2115: "https://inscricoes.cabreirasolutions.com/listas/granfondo-serra-d-ossa-2026",
+  2114: "https://inscricoes.cabreirasolutions.com/listas/grandfondo-portim-o-2026",
 };
 
 /** Events whose participant list is hosted on apedalar.pt/eventos/{id}/info */

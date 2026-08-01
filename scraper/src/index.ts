@@ -30,7 +30,7 @@ import {
   EXCLUDED_EVENT_IDS,
   normalizeEventName,
 } from "./config.js";
-import { DATA_DIR, FLAGS_DIR } from "./paths.js";
+import { DATA_DIR, FLAGS_DIR, EVENT_SCHEDULE_PATH } from "./paths.js";
 import { normalizeName, teamNormalKey, isSoloTeam } from "./normalize.js";
 import {
   openSourceDb,
@@ -103,6 +103,17 @@ async function main() {
 
   // 1. Discover all granfondo events
   const events = await discoverGranfondos();
+
+  // Warn if any manual upcoming event is now covered by a discovered StopAndGo event
+  const discoveredDates = new Set(events.map((event) => event.date));
+  for (const manual of MANUAL_UPCOMING_EVENTS) {
+    if (discoveredDates.has(manual.date)) {
+      const match = events.find((event) => event.date === manual.date);
+      console.warn(
+        `⚠️  Manual upcoming event [${manual.id}] "${manual.name}" (${manual.date}) is now covered by StopAndGo [${match!.id}] "${match!.name}" — remove it from MANUAL_UPCOMING_EVENTS`,
+      );
+    }
+  }
 
   // 2. Scrape each StopAndGo event
   const scraped: StoredEvent[] = [];
@@ -243,6 +254,17 @@ async function main() {
     evResults.eventName = normalizeEventName(eventId, evResults.eventName);
     computeGaps(evResults.distances);
   }
+
+  // Write event schedule for CI window checks (plain JSON — no PII, just dates).
+  // Written after name normalization so names match what's stored in the DB.
+  // Only include events from yesterday onward — older ones never match any check window.
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const cutoffDate = yesterday.toISOString().slice(0, 10);
+  const schedule = scraped
+    .filter((event) => event.date >= cutoffDate)
+    .map((event) => ({ id: event.id, name: event.name, date: event.date }));
+  fs.writeFileSync(EVENT_SCHEDULE_PATH, JSON.stringify(schedule, null, 2) + "\n", "utf-8");
 
   // 4. Build athletes index
   console.log("🔨 Building athletes index…");

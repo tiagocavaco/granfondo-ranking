@@ -119,44 +119,7 @@ export const EXTERNAL_EVENTS: StoredEvent[] = [
 ];
 
 /** Upcoming events with no StopAndGo ID yet — shown in the events list but not scraped. */
-export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [
-  {
-    id: 90015,
-    name: "Granfondo Serra d'Ossa 2026",
-    year: 2026,
-    date: "2026-10-04",
-    location: "Estremoz",
-    resultsUrl: "https://cabreirasolutions.com/evento/granfondo-serra-dossa/",
-    officialUrl: null,
-    hasResults: false,
-    distances: [
-      { id: "1", name: "Granfondo" },
-      { id: "2", name: "Mediofondo" },
-      { id: "3", name: "Minifondo" },
-    ],
-    participantCount: 0,
-    finisherCount: 0,
-    scrapedAt: null,
-  },
-  {
-    id: 90016,
-    name: "Granfondo Portimão 2026",
-    year: 2026,
-    date: "2026-11-08",
-    location: "Portimão",
-    resultsUrl: "https://cabreirasolutions.com/evento/granfondo-portimao/",
-    officialUrl: null,
-    hasResults: false,
-    distances: [
-      { id: "1", name: "Granfondo" },
-      { id: "2", name: "Mediofondo" },
-      { id: "3", name: "Minifondo" },
-    ],
-    participantCount: 0,
-    finisherCount: 0,
-    scrapedAt: null,
-  },
-];
+export const MANUAL_UPCOMING_EVENTS: StoredEvent[] = [];
 
 export { scrapeFigueiraChampionsDay } from "./scrapers/lap2go.js";
 export { scrapeAgitagueda } from "./scrapers/waitastart.js";
