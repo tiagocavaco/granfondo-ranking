@@ -25,6 +25,7 @@ import type {
   TeamRanking,
   AthleteAliasRule,
   ResultAssignment,
+  BlockedResult,
 } from "./types.js";
 
 export interface AllScrapedData {
@@ -43,6 +44,7 @@ export interface AllScrapedData {
   };
   aliasRules: AthleteAliasRule[];
   assignments: ResultAssignment[];
+  blockedResults?: BlockedResult[];
   /** Pre-resolved participant → athlete ID map. Key: "eventId:name:team". 0 = unlinked. */
   participantAthleteIds?: Map<string, number>;
   /** Canonical team key → stable integer ID, seeded from previous DB. */
@@ -74,6 +76,7 @@ export function buildDatabase(data: AllScrapedData): Buffer {
     insertStats(db, data);
     insertAliasRules(db, data);
     insertResultAssignments(db, data);
+    insertBlockedResults(db, data);
     pruneGhostAthletes(sqlite);
   })();
 
@@ -488,6 +491,22 @@ function insertResultAssignments(
         bib: a.bib,
         athleteId: a.athleteId,
         note: a.note ?? null,
+      })
+      .run();
+  }
+}
+
+function insertBlockedResults(
+  db: ReturnType<typeof drizzle>,
+  data: AllScrapedData,
+): void {
+  for (const b of data.blockedResults ?? []) {
+    db.insert(schema.blockedResults)
+      .values({
+        eventId: b.eventId,
+        bib: b.bib,
+        blockedAthleteId: b.blockedAthleteId,
+        note: b.note ?? null,
       })
       .run();
   }

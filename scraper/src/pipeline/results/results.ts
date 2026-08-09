@@ -39,6 +39,7 @@ import { mergeSoloCrossYear } from "./passes/solo-cross-year.js";
 import { mergeTeamCrossYear } from "./passes/team-cross-year.js";
 import { mergeTeamSoloProfiles } from "./passes/team-solo-merge.js";
 import { applyManualResultAssignments } from "./passes/manual-result-assignments.js";
+import { evictBlockedResults } from "./passes/evict-blocked-results.js";
 import { sweepCategoryEviction } from "./passes/category-sweep-eviction.js";
 
 // ── Public type re-exports ────────────────────────────────────────────────────
@@ -94,6 +95,7 @@ import type {
   CrossPassFlag,
 } from "./types.js";
 import type { AthleteAliasRule, ResultAssignment } from "./types.js";
+import type { BlockedResult } from "@granfondo/database/types";
 
 export function buildAthletesIndex(
   events: StoredEvent[],
@@ -102,6 +104,7 @@ export function buildAthletesIndex(
   assignments: ResultAssignment[],
   idStore: AthleteIdStore = new Map(),
   teamIdStore: Map<string, number> = new Map(),
+  blockedResults: BlockedResult[] = [],
 ): {
   index: Map<string, AthleteEntry>;
   updatedIdStore: AthleteIdStore;
@@ -174,6 +177,7 @@ export function buildAthletesIndex(
     deriveCanonicalTeam(entry);
   }
 
+  evictBlockedResults(ctx, blockedResults);
   applyManualResultAssignments(ctx);
   sweepCategoryEviction(ctx);
 

@@ -321,3 +321,11 @@ export const resultAssignments = sqliteTable("result_assignments", {
   athleteId: integer("athlete_id").notNull(),
   note: text("note"),
 });
+
+export const blockedResults = sqliteTable("blocked_results", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  eventId: integer("event_id").notNull(),
+  bib: text("bib").notNull(),
+  blockedAthleteId: integer("blocked_athlete_id").notNull(),
+  note: text("note"),
+});

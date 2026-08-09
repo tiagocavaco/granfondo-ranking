@@ -33,6 +33,9 @@ export default function Layout() {
           >
             Result Assignments
           </NavLink>
+          <NavLink to="/blocks" className={({ isActive }) => navItem(isActive)}>
+            Blocked Results
+          </NavLink>
           <NavLink
             to="/team-aliases"
             className={({ isActive }) => navItem(isActive)}

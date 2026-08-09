@@ -1,10 +1,16 @@
 import { normalizeName, normalizeDistance } from "../../../normalize.js";
 import type { PipelineCtx } from "../types.js";
-import { athleteKey, newEntry, addToTeamsAndCategories } from "../helpers.js";
+import {
+  athleteKey,
+  newEntry,
+  addToTeamsAndCategories,
+  toRef,
+} from "../helpers.js";
 
 export function applyManualResultAssignments(ctx: PipelineCtx): void {
   const {
     index,
+    allResults,
     assignments,
     loader,
     deletedKeys,
@@ -151,9 +157,36 @@ export function applyManualResultAssignments(ctx: PipelineCtx): void {
     }
 
     if (!moved) {
-      console.warn(
-        `  [manual-assignments] eventId=${assignment.eventId} bib=${assignment.bib} (${bibNameLower}) not found in index`,
+      // Result is in raw data but no profile claimed it — this happens when
+      // the result was rejected by addResult during normal passes due to a
+      // same-event conflict that a preceding block eviction has since cleared.
+      // Add the result directly to the target athlete.
+      const rawResult = allResults.find(
+        (rr) =>
+          rr.event.id === assignment.eventId && rr.r.bib === assignment.bib,
       );
+      if (rawResult) {
+        const conflictIdx = target.results.findIndex(
+          (x) =>
+            x.eventId === assignment.eventId &&
+            x.distance === normalizeDistance(rawResult.dist.name),
+        );
+        if (conflictIdx >= 0) {
+          target.results.splice(conflictIdx, 1);
+        }
+        const ref = toRef(rawResult.r, rawResult.event, rawResult.dist);
+        target.results.push(ref);
+        addToTeamsAndCategories(target, ref);
+        manualAssignments.add(`${assignment.athleteId}:${assignment.eventId}`);
+        count++;
+        console.log(
+          `  [manual-assignments] ev=${assignment.eventId} bib=${assignment.bib} added directly to athlete ${assignment.athleteId} (was unprofiled)`,
+        );
+      } else {
+        console.warn(
+          `  [manual-assignments] eventId=${assignment.eventId} bib=${assignment.bib} (${bibNameLower}) not found in index or raw results`,
+        );
+      }
     }
   }
 

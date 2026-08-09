@@ -4,6 +4,7 @@ import {
   normalizeCategory,
   canonicalizeCategory,
   isSoloTeam,
+  fixRawTeamName,
 } from "../../normalize.js";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import type { RawResult, AthleteIdStore, IdManager } from "./types.js";
@@ -378,7 +379,7 @@ export function deriveCanonicalTeam(entry: AthleteEntry): void {
     )
     .find((result) => !isSoloTeam(result.team));
   if (mostRecent) {
-    entry.canonicalTeam = mostRecent.team;
+    entry.canonicalTeam = fixRawTeamName(mostRecent.team);
   }
 }
 
@@ -418,6 +419,13 @@ export function makeIdManager(idStore: AthleteIdStore): IdManager {
   return {
     get(key: string): number {
       if (idStore.has(key)) {
+        // Two seeded keys can legitimately share the same ID — they represent
+        // the same athlete under different team names (alias rule or cross-year
+        // team change). Returning the same seeded ID for both is correct; the
+        // pipeline will merge the resulting duplicate index entries via passes 5
+        // and 8. Stale same-ID collisions from removed alias rules can no longer
+        // occur because index.ts now writes only canonical + active-alias keys to
+        // athlete_lookup (seedNameToId), so any shared seeded ID is intentional.
         return idStore.get(key)!;
       }
 

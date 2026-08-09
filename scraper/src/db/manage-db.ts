@@ -140,6 +140,17 @@ function cmdList(): void {
     }
   }
 
+  const blocks = db.select().from(schema.blockedResults).all();
+  console.log(`\n── Blocked results (${blocks.length}) ──────────────────────`);
+  for (const r of blocks) {
+    console.log(
+      `  [${r.id}] event ${r.eventId} bib ${r.bib} blocked from athlete ${r.blockedAthleteId}`,
+    );
+    if (r.note) {
+      console.log(`       note: ${r.note}`);
+    }
+  }
+
   console.log(`\n── Team aliases (${totalAliases}) ──────────────────────`);
   for (const r of teamRows) {
     const aliases2 = JSON.parse(r.alias_keys) as string[];
@@ -219,25 +230,72 @@ function cmdAdd(args: Record<string, string>): void {
         "INSERT OR IGNORE INTO teams (id, canonical_key, alias_keys) VALUES (NULL, ?, '[]')",
       )
       .run(canonicalKey);
-    // Append aliasKey to the canonical's alias_keys array (if not already present)
-    const row = sqlite
+
+    const canonTeamRow = sqlite
+      .prepare("SELECT id FROM teams WHERE canonical_key = ?")
+      .get(canonicalKey) as { id: number } | undefined;
+
+    const getCanonAliases = () =>
+      JSON.parse(
+        (
+          sqlite
+            .prepare("SELECT alias_keys FROM teams WHERE canonical_key = ?")
+            .get(canonicalKey) as { alias_keys: string }
+        ).alias_keys,
+      ) as string[];
+
+    // If aliasKey was itself a canonical with sub-aliases, migrate them directly to
+    // canonicalKey so the DB stays flat (no two-hop chains).
+    const aliasAsCanonical = sqlite
       .prepare("SELECT alias_keys FROM teams WHERE canonical_key = ?")
-      .get(canonicalKey) as { alias_keys: string };
-    const existing = JSON.parse(row.alias_keys) as string[];
-    if (!existing.includes(aliasKey)) {
-      existing.push(aliasKey);
+      .get(aliasKey) as { alias_keys: string } | undefined;
+    const subAliasesToMigrate: string[] = aliasAsCanonical
+      ? (JSON.parse(aliasAsCanonical.alias_keys) as string[])
+      : [];
+
+    for (const subAlias of subAliasesToMigrate) {
+      const canonAliases = getCanonAliases();
+      if (!canonAliases.includes(subAlias)) {
+        canonAliases.push(subAlias);
+        sqlite
+          .prepare("UPDATE teams SET alias_keys = ? WHERE canonical_key = ?")
+          .run(JSON.stringify(canonAliases), canonicalKey);
+      }
+      const subTeamRow = sqlite
+        .prepare("SELECT id FROM teams WHERE canonical_key = ?")
+        .get(subAlias) as { id: number } | undefined;
+      if (subTeamRow && canonTeamRow) {
+        const changed = rewriteLookupKeysForAlias(
+          sqlite,
+          subTeamRow.id,
+          canonTeamRow.id,
+        );
+        if (changed > 0) {
+          console.log(
+            `  · rewrote ${changed} athlete_lookup key(s) for sub-alias "${subAlias}": team ID ${subTeamRow.id} → ${canonTeamRow.id}`,
+          );
+        }
+      }
+    }
+    if (subAliasesToMigrate.length > 0) {
+      sqlite
+        .prepare("UPDATE teams SET alias_keys = '[]' WHERE canonical_key = ?")
+        .run(aliasKey);
+    }
+
+    // Append aliasKey to the canonical's alias_keys array (if not already present)
+    const canonAliasesFinal = getCanonAliases();
+    if (!canonAliasesFinal.includes(aliasKey)) {
+      canonAliasesFinal.push(aliasKey);
       sqlite
         .prepare("UPDATE teams SET alias_keys = ? WHERE canonical_key = ?")
-        .run(JSON.stringify(existing), canonicalKey);
+        .run(JSON.stringify(canonAliasesFinal), canonicalKey);
     }
 
     // Rewrite athlete_lookup keys so the next scrape seed preserves athlete IDs
     const aliasTeamRow = sqlite
       .prepare("SELECT id FROM teams WHERE canonical_key = ?")
       .get(aliasKey) as { id: number } | undefined;
-    const canonTeamRow = sqlite
-      .prepare("SELECT id FROM teams WHERE canonical_key = ?")
-      .get(canonicalKey) as { id: number } | undefined;
     if (aliasTeamRow && canonTeamRow) {
       const changed = rewriteLookupKeysForAlias(
         sqlite,
@@ -252,8 +310,30 @@ function cmdAdd(args: Record<string, string>): void {
     }
 
     console.log(`✓ Added team alias: "${aliasKey}" → "${canonicalKey}"`);
+  } else if (target === "block") {
+    const { eventId, bib, athleteId, note } = args;
+    if (!eventId || !bib || !athleteId) {
+      console.error(
+        "Usage: add block --event-id E --bib B --athlete-id A [--note N]",
+      );
+      process.exit(1);
+    }
+
+    db.insert(schema.blockedResults)
+      .values({
+        eventId: Number(eventId),
+        bib,
+        blockedAthleteId: Number(athleteId),
+        note: note ?? null,
+      })
+      .run();
+    console.log(
+      `✓ Blocked event ${eventId} bib ${bib} from athlete ${athleteId}`,
+    );
   } else {
-    console.error("Unknown add target. Use: alias | assignment | team-alias");
+    console.error(
+      "Unknown add target. Use: alias | assignment | block | team-alias",
+    );
     process.exit(1);
   }
 
@@ -337,9 +417,30 @@ function cmdRemove(args: Record<string, string>): void {
         ? `✓ Removed team alias for "${from}"`
         : `⚠ No team alias found for "${from}"`,
     );
+  } else if (target === "block") {
+    const { eventId, bib } = args;
+    if (!eventId || !bib) {
+      console.error("Usage: remove block --event-id E --bib B");
+      process.exit(1);
+    }
+
+    const result = db
+      .delete(schema.blockedResults)
+      .where(
+        and(
+          eq(schema.blockedResults.eventId, Number(eventId)),
+          eq(schema.blockedResults.bib, bib),
+        ),
+      )
+      .run() as unknown as { changes: number };
+    console.log(
+      result.changes
+        ? `✓ Removed block: event ${eventId} bib ${bib}`
+        : `⚠ No block found`,
+    );
   } else {
     console.error(
-      "Unknown remove target. Use: alias | assignment | team-alias",
+      "Unknown remove target. Use: alias | assignment | block | team-alias",
     );
     process.exit(1);
   }
