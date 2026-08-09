@@ -91,24 +91,71 @@ for (const c of approved) {
       "INSERT OR IGNORE INTO teams (id, canonical_key, alias_keys) VALUES (NULL, ?, '[]')",
     )
     .run(canonicalKey);
-  const row = sqlite
+
+  const canonTeamRow = sqlite
+    .prepare("SELECT id FROM teams WHERE canonical_key = ?")
+    .get(canonicalKey) as { id: number } | undefined;
+
+  // If aliasKey was itself a canonical with sub-aliases, migrate them directly to
+  // canonicalKey so the DB stays flat (no two-hop chains). This handles the case
+  // where both ends of an approved pair are existing canonical teams.
+  const aliasAsCanonical = sqlite
     .prepare("SELECT alias_keys FROM teams WHERE canonical_key = ?")
-    .get(canonicalKey) as { alias_keys: string };
-  const existing = JSON.parse(row.alias_keys) as string[];
-  if (!existing.includes(aliasKey)) {
-    existing.push(aliasKey);
+    .get(aliasKey) as { alias_keys: string } | undefined;
+
+  const subAliasesToMigrate: string[] =
+    aliasAsCanonical ? (JSON.parse(aliasAsCanonical.alias_keys) as string[]) : [];
+
+  const getCanonAliases = () =>
+    JSON.parse(
+      (sqlite
+        .prepare("SELECT alias_keys FROM teams WHERE canonical_key = ?")
+        .get(canonicalKey) as { alias_keys: string }).alias_keys,
+    ) as string[];
+
+  // Migrate each sub-alias of aliasKey directly to canonicalKey
+  for (const subAlias of subAliasesToMigrate) {
+    const canonAliases = getCanonAliases();
+    if (!canonAliases.includes(subAlias)) {
+      canonAliases.push(subAlias);
+      sqlite
+        .prepare("UPDATE teams SET alias_keys = ? WHERE canonical_key = ?")
+        .run(JSON.stringify(canonAliases), canonicalKey);
+    }
+    const subTeamRow = sqlite
+      .prepare("SELECT id FROM teams WHERE canonical_key = ?")
+      .get(subAlias) as { id: number } | undefined;
+    if (subTeamRow && canonTeamRow) {
+      const changed = rewriteLookupKeysForAlias(sqlite, subTeamRow.id, canonTeamRow.id);
+      if (changed > 0) {
+        console.log(
+          `    · rewrote ${changed} athlete_lookup key(s) for sub-alias "${subAlias}": team ${subTeamRow.id} → ${canonTeamRow.id}`,
+        );
+      }
+    }
+    aliasMap.set(subAlias, canonicalKey);
+  }
+
+  // Clear aliasKey's own sub-alias list (it is now an alias itself, not a canonical)
+  if (subAliasesToMigrate.length > 0) {
+    sqlite
+      .prepare("UPDATE teams SET alias_keys = '[]' WHERE canonical_key = ?")
+      .run(aliasKey);
+  }
+
+  // Add aliasKey itself to canonicalKey's alias list
+  const canonAliasesFinal = getCanonAliases();
+  if (!canonAliasesFinal.includes(aliasKey)) {
+    canonAliasesFinal.push(aliasKey);
     sqlite
       .prepare("UPDATE teams SET alias_keys = ? WHERE canonical_key = ?")
-      .run(JSON.stringify(existing), canonicalKey);
+      .run(JSON.stringify(canonAliasesFinal), canonicalKey);
   }
 
   // Rewrite athlete_lookup keys so the next scrape seed preserves athlete IDs
   const aliasTeamRow = sqlite
     .prepare("SELECT id FROM teams WHERE canonical_key = ?")
     .get(aliasKey) as { id: number } | undefined;
-  const canonTeamRow = sqlite
-    .prepare("SELECT id FROM teams WHERE canonical_key = ?")
-    .get(canonicalKey) as { id: number } | undefined;
   if (aliasTeamRow && canonTeamRow) {
     const changed = rewriteLookupKeysForAlias(
       sqlite,

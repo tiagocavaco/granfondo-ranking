@@ -1,4 +1,4 @@
-import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult } from "./shared.js";
+import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult, toTitleCase } from "./shared.js";
 import { normalizeCountry } from "../normalize.js";
 import type {
   StoredEventResults,
@@ -91,7 +91,7 @@ async function waitastartFetch(rParam: string): Promise<StoredResult[]> {
       makeResult({
         pos: isFinished ? pos : 0,
         bib: r["Bib"] ?? "",
-        name: r["Name"] ?? "",
+        name: toTitleCase(r["Name"] ?? ""),
         gender,
         team: r["Club"] ?? "",
         category: r["Category"] ?? "",

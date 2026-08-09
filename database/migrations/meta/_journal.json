@@ -64,6 +64,13 @@
       "when": 1746748800000,
       "tag": "0008_unique_constraints",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1783200000000,
+      "tag": "0009_blocked_results",
+      "breakpoints": true
     }
   ]
 }

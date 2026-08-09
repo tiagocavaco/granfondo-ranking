@@ -20,6 +20,7 @@ import * as fs from "fs";
 import * as path from "path";
 import BetterSqlite3 from "better-sqlite3";
 import { decryptBuffer } from "../db/encrypt.js";
+import { normalizeName } from "../normalize.js";
 
 const encPath = path.resolve(
   import.meta.dirname,
@@ -150,6 +151,125 @@ for (const r of licenceRows) {
   licencesByAthlete.get(r.athlete_id)!.add(r.licence);
 }
 
+// ── Load all athletes for accent-normalization (P3) and same-team prefix (P4) passes ──
+
+type AthleteWithNameLower = {
+  id: number;
+  name: string;
+  name_lower: string;
+  canonical_team: string | null;
+};
+
+const allAthletes = db
+  .prepare(
+    `SELECT id, name, name_lower, canonical_team FROM athletes ORDER BY id`,
+  )
+  .all() as AthleteWithNameLower[];
+
+// Augment athleteMap so scorePairEntry can look up any athlete
+for (const athlete of allAthletes) {
+  if (!athleteMap.has(athlete.id)) {
+    athleteMap.set(athlete.id, athlete);
+  }
+}
+
+// P3 groups: athletes with the same normalizeName but different name_lower
+const byNormalizedName = new Map<string, AthleteWithNameLower[]>();
+for (const athlete of allAthletes) {
+  const normalizedName = normalizeName(athlete.name);
+  if (!byNormalizedName.has(normalizedName)) {
+    byNormalizedName.set(normalizedName, []);
+  }
+
+  byNormalizedName.get(normalizedName)!.push(athlete);
+}
+
+// P4 groups: athletes on the same team for prefix/truncation matching
+const byTeam = new Map<string, AthleteWithNameLower[]>();
+for (const athlete of allAthletes) {
+  if (!athlete.canonical_team) continue;
+  if (!byTeam.has(athlete.canonical_team)) {
+    byTeam.set(athlete.canonical_team, []);
+  }
+
+  byTeam.get(athlete.canonical_team)!.push(athlete);
+}
+
+// Determine which IDs need results/licences loaded for P3/P4 (not covered by same-name pass)
+const extraAthleteIds = new Set<number>();
+
+for (const [, group] of byNormalizedName) {
+  if (group.length < 2) continue;
+  const uniqueNameLowers = new Set(group.map((athlete) => athlete.name_lower));
+  if (uniqueNameLowers.size < 2) continue;
+  for (const athlete of group) extraAthleteIds.add(athlete.id);
+}
+
+for (const [, group] of byTeam) {
+  if (group.length < 2) continue;
+  for (let i = 0; i < group.length; i++) {
+    for (let j = i + 1; j < group.length; j++) {
+      const nameA = group[i]!.name_lower;
+      const nameB = group[j]!.name_lower;
+      if (nameA !== nameB && isPrefixOrTrailingTruncation(nameA, nameB)) {
+        extraAthleteIds.add(group[i]!.id);
+        extraAthleteIds.add(group[j]!.id);
+      }
+    }
+  }
+}
+
+const unloadedIds = [...extraAthleteIds].filter(
+  (athleteId) => !resultsByAthlete.has(athleteId),
+);
+
+if (unloadedIds.length > 0) {
+  const placeholders = unloadedIds.map(() => "?").join(",");
+
+  const extraResultRows = db
+    .prepare(
+      `
+    SELECT ar.athlete_id, ar.event_year, ar.pos, ar.finisher_count,
+           ar.category, ar.distance, ar.dnf, ar.dns, ar.event_id
+    FROM athlete_results ar
+    WHERE ar.athlete_id IN (${placeholders})
+  `,
+    )
+    .all(...unloadedIds) as ResultRow[];
+
+  for (const row of extraResultRows) {
+    if (!resultsByAthlete.has(row.athlete_id)) {
+      resultsByAthlete.set(row.athlete_id, []);
+    }
+
+    resultsByAthlete.get(row.athlete_id)!.push(row);
+  }
+
+  const extraLicenceRows = db
+    .prepare(
+      `
+    SELECT DISTINCT r.athlete_id, rl.licence
+    FROM results r
+    JOIN result_licences rl ON r.id = rl.result_id
+    WHERE r.athlete_id IN (${placeholders})
+      AND r.athlete_id != 0
+      AND rl.licence NOT LIKE '%e%'
+      AND rl.licence NOT LIKE '%E%'
+      AND rl.licence NOT LIKE 'federa%'
+      AND CAST(rl.licence AS INTEGER) >= 100
+  `,
+    )
+    .all(...unloadedIds) as { athlete_id: number; licence: string }[];
+
+  for (const row of extraLicenceRows) {
+    if (!licencesByAthlete.has(row.athlete_id)) {
+      licencesByAthlete.set(row.athlete_id, new Set());
+    }
+
+    licencesByAthlete.get(row.athlete_id)!.add(row.licence);
+  }
+}
+
 db.close();
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -271,6 +391,243 @@ function bestFinish(results: ResultRow[]): number {
   return positions.length > 0 ? Math.min(...positions) : Infinity;
 }
 
+// Same team, one name is a prefix of the other or they differ only in the last 1-2 chars.
+// Minimum length 8 to avoid spurious matches on short first names.
+function isPrefixOrTrailingTruncation(nameA: string, nameB: string): boolean {
+  if (nameA.length < 8 || nameB.length < 8) return false;
+  if (nameA.startsWith(nameB) || nameB.startsWith(nameA)) return true;
+  const minLen = Math.min(nameA.length, nameB.length);
+  const maxLen = Math.max(nameA.length, nameB.length);
+  return (
+    maxLen - minLen <= 2 && nameA.slice(0, minLen - 1) === nameB.slice(0, minLen - 1)
+  );
+}
+
+// Hard-exclude checks + scoring for a single athlete pair.
+// extraReasons are prepended to the reason string; baseScore is added before signal scoring.
+// Returns null if the pair is hard-excluded.
+function scorePairEntry(
+  idA: number,
+  idB: number,
+  extraReasons: string[],
+  baseScore: number,
+): CandidateEntry | null {
+  const resultsA = resultsByAthlete.get(idA) ?? [];
+  const resultsB = resultsByAthlete.get(idB) ?? [];
+  const licsA = licencesByAthlete.get(idA) ?? new Set<string>();
+  const licsB = licencesByAthlete.get(idB) ?? new Set<string>();
+
+  // Hard exclude: appeared in the same race — definitely different athletes
+  const eventsA = new Set(resultsA.map((result) => result.event_id));
+  if (resultsB.some((result) => eventsA.has(result.event_id))) return null;
+
+  // Hard exclude: both have non-empty disjoint licence sets — different people
+  if (licsA.size > 0 && licsB.size > 0) {
+    if (![...licsA].some((licence) => licsB.has(licence))) return null;
+  }
+
+  // Hard exclude: incompatible categories in any year both athletes raced
+  {
+    const yearsA = new Set(resultsA.map((result) => result.event_year));
+    const sharedYears = [...new Set(resultsB.map((result) => result.event_year))].filter(
+      (year) => yearsA.has(year),
+    );
+    for (const year of sharedYears) {
+      const catsA = resultsA
+        .filter((result) => result.event_year === year && result.category)
+        .map((result) => result.category);
+      const catsB = resultsB
+        .filter((result) => result.event_year === year && result.category)
+        .map((result) => result.category);
+      if (catsA.length > 0 && catsB.length > 0) {
+        const anySame = catsA.some((catA) =>
+          catsB.some((catB) => categoryCompatibility(catA, catB) === "same"),
+        );
+        if (!anySame) return null;
+      }
+    }
+  }
+
+  // Hard exclude: adjacent categories moving in the wrong aging direction
+  {
+    const catA = primaryCategory(resultsA);
+    const catB = primaryCategory(resultsB);
+    if (catA && catB && categoryCompatibility(catA, catB) === "adjacent") {
+      const ladderA = catLadderIndex(normalizeCat(catA));
+      const ladderB = catLadderIndex(normalizeCat(catB));
+      const rangeA = yearRange(resultsA);
+      const rangeB = yearRange(resultsB);
+      if (ladderA >= 0 && ladderB >= 0 && rangeA && rangeB) {
+        const overlaps = rangeA.min <= rangeB.max && rangeB.min <= rangeA.max;
+        if (!overlaps) {
+          const aIsEarlier = rangeA.max < rangeB.min;
+          const aIsOlder = ladderA > ladderB;
+          if (aIsEarlier === aIsOlder) return null;
+        }
+      }
+    }
+  }
+
+  // Hard exclude: percentile difference > 10%
+  {
+    const percentileA = medianPercentile(resultsA);
+    const percentileB = medianPercentile(resultsB);
+    if (
+      percentileA !== null &&
+      percentileB !== null &&
+      Math.abs(percentileA - percentileB) > 0.1
+    )
+      return null;
+  }
+
+  const athleteA = athleteMap.get(idA)!;
+  const athleteB = athleteMap.get(idB)!;
+
+  const [keepId, absorbId, keepRow, absorbRow, keepRes, absorbRes, keepLics, absorbLics] =
+    resultsA.length >= resultsB.length
+      ? [idA, idB, athleteA, athleteB, resultsA, resultsB, licsA, licsB]
+      : [idB, idA, athleteB, athleteA, resultsB, resultsA, licsB, licsA];
+
+  const hasSharedLicence =
+    licsA.size > 0 &&
+    licsB.size > 0 &&
+    [...licsA].some((licence) => licsB.has(licence));
+
+  let score = baseScore;
+  const reasons: string[] = [...extraReasons];
+
+  if (hasSharedLicence) {
+    score += 0.6;
+    const sharedLics = [...licsA].filter((licence) => licsB.has(licence));
+    reasons.push(`shared licence (${sharedLics.join(", ")})`);
+  }
+
+  const fragCount = absorbRes.length;
+  if (fragCount <= 1) {
+    score += 0.35;
+    reasons.push(`fragment (${fragCount} result)`);
+  } else if (fragCount <= 3) {
+    score += 0.25;
+    reasons.push(`fragment (${fragCount} results)`);
+  } else if (fragCount <= 5) {
+    score += 0.1;
+    reasons.push(`small profile (${fragCount} results)`);
+  }
+
+  const catKeep = primaryCategory(keepRes);
+  const catAbsorb = primaryCategory(absorbRes);
+  const catCompat = categoryCompatibility(catKeep, catAbsorb);
+  if (catCompat === "same") {
+    score += 0.15;
+    reasons.push(`same category (${catKeep})`);
+  } else if (catCompat === "adjacent") {
+    score += 0.07;
+    reasons.push(`adjacent categories (${catKeep} / ${catAbsorb})`);
+  } else if (catKeep && catAbsorb) {
+    score -= 0.05;
+  }
+
+  const percentileKeep = medianPercentile(keepRes);
+  const percentileAbsorb = medianPercentile(absorbRes);
+  if (percentileKeep !== null && percentileAbsorb !== null) {
+    const diff = Math.abs(percentileKeep - percentileAbsorb);
+    if (diff <= 0.1) {
+      score += 0.15;
+      reasons.push(
+        `similar percentile (${Math.round(percentileKeep * 100)}% vs ${Math.round(percentileAbsorb * 100)}%)`,
+      );
+    } else if (diff <= 0.2) {
+      score += 0.07;
+      reasons.push(
+        `close percentile (${Math.round(percentileKeep * 100)}% vs ${Math.round(percentileAbsorb * 100)}%)`,
+      );
+    } else if (diff > 0.35) {
+      score -= 0.1;
+      reasons.push(
+        `different percentile (${Math.round(percentileKeep * 100)}% vs ${Math.round(percentileAbsorb * 100)}%)`,
+      );
+    } else {
+      reasons.push(
+        `percentile ${Math.round(percentileKeep * 100)}% vs ${Math.round(percentileAbsorb * 100)}%`,
+      );
+    }
+  }
+
+  const rangeKeep = yearRange(keepRes);
+  const rangeAbsorb = yearRange(absorbRes);
+  if (rangeKeep && rangeAbsorb) {
+    const overlaps =
+      rangeKeep.min <= rangeAbsorb.max && rangeAbsorb.min <= rangeKeep.max;
+    if (overlaps) {
+      score -= 0.15;
+      reasons.push(
+        `overlapping years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`,
+      );
+    } else {
+      const gap = Math.min(
+        Math.abs(rangeKeep.min - rangeAbsorb.max),
+        Math.abs(rangeAbsorb.min - rangeKeep.max),
+      );
+      if (gap <= 1) {
+        score += 0.1;
+        reasons.push(
+          `adjacent years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`,
+        );
+      } else {
+        reasons.push(
+          `separate years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`,
+        );
+      }
+    }
+  }
+
+  score = Math.max(0, Math.min(0.99, score));
+
+  const pairBestPos = Math.min(bestFinish(keepRes), bestFinish(absorbRes));
+  const yKeep = rangeKeep
+    ? rangeKeep.min === rangeKeep.max
+      ? `${rangeKeep.min}`
+      : `${rangeKeep.min}–${rangeKeep.max}`
+    : "?";
+  const yAbsorb = rangeAbsorb
+    ? rangeAbsorb.min === rangeAbsorb.max
+      ? `${rangeAbsorb.min}`
+      : `${rangeAbsorb.min}–${rangeAbsorb.max}`
+    : "?";
+
+  const entry: CandidateEntry = {
+    confidence: Math.round(score * 100) / 100,
+    reason: reasons.join(", ") || "same name",
+    bestPos: pairBestPos === Infinity ? 9999 : pairBestPos,
+    keep: {
+      id: keepId,
+      name: keepRow.name,
+      team: keepRow.canonical_team ?? "",
+      licences: [...keepLics],
+      results: keepRes.length,
+      category: catKeep,
+      years: yKeep,
+      url: `${BASE_URL}/athlete/${keepId}`,
+    },
+    absorb: {
+      id: absorbId,
+      name: absorbRow.name,
+      team: absorbRow.canonical_team ?? "",
+      licences: [...absorbLics],
+      results: absorbRes.length,
+      category: catAbsorb,
+      years: yAbsorb,
+      url: `${BASE_URL}/athlete/${absorbId}`,
+    },
+    approved: null,
+  };
+
+  if (hasSharedLicence) entry.sharedLicence = true;
+  if (pairBestPos <= 30) entry.priority = true;
+
+  return entry;
+}
+
 // ── Score pairs ───────────────────────────────────────────────────────────────
 
 interface CandidateEntry {
@@ -304,270 +661,50 @@ interface CandidateEntry {
 
 const candidates: CandidateEntry[] = [];
 
+// ── Pass 1: same name_lower (exact name duplicates) ───────────────────────────
+
 for (const group of nameGroupRows) {
   const ids = group.ids.split(",").map(Number);
-
   for (let i = 0; i < ids.length; i++) {
     for (let j = i + 1; j < ids.length; j++) {
-      const idA = ids[i]!;
-      const idB = ids[j]!;
-      const resultsA = resultsByAthlete.get(idA) ?? [];
-      const resultsB = resultsByAthlete.get(idB) ?? [];
-      const licsA = licencesByAthlete.get(idA) ?? new Set<string>();
-      const licsB = licencesByAthlete.get(idB) ?? new Set<string>();
+      const entry = scorePairEntry(ids[i]!, ids[j]!, [], 0);
+      if (entry) candidates.push(entry);
+    }
+  }
+}
 
-      // Hard exclude: appeared in the same race — definitely different athletes
-      const eventsA = new Set(resultsA.map((r) => r.event_id));
-      if (resultsB.some((r) => eventsA.has(r.event_id))) {
-        continue;
-      }
+// ── Pass 3: accent-normalization pairs (João ↔ Joao) ─────────────────────────
 
-      // Hard exclude: both have non-empty disjoint licence sets — different people
-      if (licsA.size > 0 && licsB.size > 0) {
-        const shared = [...licsA].some((l) => licsB.has(l));
-        if (!shared) {
-          continue;
-        }
-        // Shared licence: should self-heal via Pass 1, but if they're split now they may need
-        // a manual alias. Fall through to score normally — sharedLicence flag marks these.
-      }
+for (const [, group] of byNormalizedName) {
+  if (group.length < 2) continue;
+  const uniqueNameLowers = new Set(group.map((athlete) => athlete.name_lower));
+  if (uniqueNameLowers.size < 2) continue;
+  for (let i = 0; i < group.length; i++) {
+    for (let j = i + 1; j < group.length; j++) {
+      const athleteA = group[i]!;
+      const athleteB = group[j]!;
+      // Same name_lower pairs are handled by Pass 1
+      if (athleteA.name_lower === athleteB.name_lower) continue;
+      const entry = scorePairEntry(athleteA.id, athleteB.id, ["accent variant"], 0.1);
+      if (entry) candidates.push(entry);
+    }
+  }
+}
 
-      // Hard exclude: incompatible categories in any year both athletes raced.
-      // Two athletes can't be the same person if they're in different master tiers at the
-      // same event-year (even across different events).
-      {
-        const yearsA = new Set(resultsA.map((r) => r.event_year));
-        const sharedYears = [
-          ...new Set(resultsB.map((r) => r.event_year)),
-        ].filter((y) => yearsA.has(y));
-        let incompatCat = false;
-        for (const yr of sharedYears) {
-          const catsA = resultsA
-            .filter((r) => r.event_year === yr && r.category)
-            .map((r) => r.category);
-          const catsB = resultsB
-            .filter((r) => r.event_year === yr && r.category)
-            .map((r) => r.category);
-          if (catsA.length > 0 && catsB.length > 0) {
-            // Same year → categories must be identical after normalisation; adjacent is not enough.
-            const anySame = catsA.some((ca) =>
-              catsB.some((cb) => categoryCompatibility(ca, cb) === "same"),
-            );
-            if (!anySame) {
-              incompatCat = true;
-              break;
-            }
-          }
-        }
+// ── Pass 4: same-team prefix/truncation pairs (Rafael Sanchez ↔ Rafael Sanche) ─
 
-        if (incompatCat) {
-          continue;
-        }
-      }
-
-      // Hard exclude: adjacent categories moving in the wrong aging direction across non-overlapping years.
-      // Valid:   Elite in 2024 → Master A in 2025 (ladder index increases over time — normal aging).
-      // Invalid: Master A in 2024 → Elite in 2026 (impossible regression to a younger category).
-      // Only fires when both categories are on the master ladder and year ranges don't overlap.
-      {
-        const catA = primaryCategory(resultsA);
-        const catB = primaryCategory(resultsB);
-        if (catA && catB && categoryCompatibility(catA, catB) === "adjacent") {
-          const iaA = catLadderIndex(normalizeCat(catA));
-          const iaB = catLadderIndex(normalizeCat(catB));
-          const rangeA = yearRange(resultsA);
-          const rangeB = yearRange(resultsB);
-          if (iaA >= 0 && iaB >= 0 && rangeA && rangeB) {
-            const overlaps =
-              rangeA.min <= rangeB.max && rangeB.min <= rangeA.max;
-            if (!overlaps) {
-              const aIsEarlier = rangeA.max < rangeB.min;
-              const aIsOlder = iaA > iaB;
-              // Wrong direction: earlier period has the more senior (higher) category
-              if (aIsEarlier === aIsOlder) {
-                continue;
-              }
-            }
-          }
-        }
-      }
-
-      // Hard exclude: percentile difference > 10%.
-      // A genuine split races at similar ability levels across all their appearances.
-      {
-        const pA = medianPercentile(resultsA);
-        const pB = medianPercentile(resultsB);
-        if (pA !== null && pB !== null && Math.abs(pA - pB) > 0.1) {
-          continue;
-        }
-      }
-
-      const athleteA = athleteMap.get(idA)!;
-      const athleteB = athleteMap.get(idB)!;
-
-      // keep = more results, absorb = fewer
-      const [
-        keepId,
-        absorbId,
-        keepRow,
-        absorbRow,
-        keepRes,
-        absorbRes,
-        keepLics,
-        absorbLics,
-      ] =
-        resultsA.length >= resultsB.length
-          ? [idA, idB, athleteA, athleteB, resultsA, resultsB, licsA, licsB]
-          : [idB, idA, athleteB, athleteA, resultsB, resultsA, licsB, licsA];
-
-      const hasSharedLicence =
-        licsA.size > 0 &&
-        licsB.size > 0 &&
-        [...licsA].some((l) => licsB.has(l));
-      let score = 0;
-      const reasons: string[] = [];
-
-      // Shared licence — definitive identity signal
-      if (hasSharedLicence) {
-        score += 0.6;
-        const sharedLics = [...licsA].filter((l) => licsB.has(l));
-        reasons.push(`shared licence (${sharedLics.join(", ")})`);
-      }
-
-      // Fragment signal
-      const fragCount = absorbRes.length;
-      if (fragCount <= 1) {
-        score += 0.35;
-        reasons.push(`fragment (${fragCount} result)`);
-      } else if (fragCount <= 3) {
-        score += 0.25;
-        reasons.push(`fragment (${fragCount} results)`);
-      } else if (fragCount <= 5) {
-        score += 0.1;
-        reasons.push(`small profile (${fragCount} results)`);
-      }
-
-      // Category compatibility
-      const catKeep = primaryCategory(keepRes);
-      const catAbsorb = primaryCategory(absorbRes);
-      const catCompat = categoryCompatibility(catKeep, catAbsorb);
-      if (catCompat === "same") {
-        score += 0.15;
-        reasons.push(`same category (${catKeep})`);
-      } else if (catCompat === "adjacent") {
-        score += 0.07;
-        reasons.push(`adjacent categories (${catKeep} / ${catAbsorb})`);
-      } else if (catKeep && catAbsorb) {
-        score -= 0.05;
-      }
-
-      // Percentile similarity
-      const pKeep = medianPercentile(keepRes);
-      const pAbsorb = medianPercentile(absorbRes);
-      if (pKeep !== null && pAbsorb !== null) {
-        const diff = Math.abs(pKeep - pAbsorb);
-        if (diff <= 0.1) {
-          score += 0.15;
-          reasons.push(
-            `similar percentile (${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%)`,
-          );
-        } else if (diff <= 0.2) {
-          score += 0.07;
-          reasons.push(
-            `close percentile (${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%)`,
-          );
-        } else if (diff > 0.35) {
-          score -= 0.1;
-          reasons.push(
-            `different percentile (${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%)`,
-          );
-        } else {
-          reasons.push(
-            `percentile ${Math.round(pKeep * 100)}% vs ${Math.round(pAbsorb * 100)}%`,
-          );
-        }
-      }
-
-      // Year relationship
-      const rangeKeep = yearRange(keepRes);
-      const rangeAbsorb = yearRange(absorbRes);
-      if (rangeKeep && rangeAbsorb) {
-        const overlaps =
-          rangeKeep.min <= rangeAbsorb.max && rangeAbsorb.min <= rangeKeep.max;
-        if (overlaps) {
-          score -= 0.15;
-          reasons.push(
-            `overlapping years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`,
-          );
-        } else if (!overlaps) {
-          const gap = Math.min(
-            Math.abs(rangeKeep.min - rangeAbsorb.max),
-            Math.abs(rangeAbsorb.min - rangeKeep.max),
-          );
-          if (gap <= 1) {
-            score += 0.1;
-            reasons.push(
-              `adjacent years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`,
-            );
-          } else {
-            reasons.push(
-              `separate years (${rangeKeep.min}–${rangeKeep.max} / ${rangeAbsorb.min}–${rangeAbsorb.max})`,
-            );
-          }
-        }
-      }
-
-      score = Math.max(0, Math.min(0.99, score));
-
-      const pairBestPos = Math.min(bestFinish(keepRes), bestFinish(absorbRes));
-      const isHighPriority = pairBestPos <= 30;
-      const yKeep = rangeKeep
-        ? rangeKeep.min === rangeKeep.max
-          ? `${rangeKeep.min}`
-          : `${rangeKeep.min}–${rangeKeep.max}`
-        : "?";
-      const yAbsorb = rangeAbsorb
-        ? rangeAbsorb.min === rangeAbsorb.max
-          ? `${rangeAbsorb.min}`
-          : `${rangeAbsorb.min}–${rangeAbsorb.max}`
-        : "?";
-
-      const entry: CandidateEntry = {
-        confidence: Math.round(score * 100) / 100,
-        reason: reasons.join(", ") || "same name",
-        bestPos: pairBestPos === Infinity ? 9999 : pairBestPos,
-        keep: {
-          id: keepId,
-          name: keepRow.name,
-          team: keepRow.canonical_team ?? "",
-          licences: [...keepLics],
-          results: keepRes.length,
-          category: catKeep,
-          years: yKeep,
-          url: `${BASE_URL}/athlete/${keepId}`,
-        },
-        absorb: {
-          id: absorbId,
-          name: absorbRow.name,
-          team: absorbRow.canonical_team ?? "",
-          licences: [...absorbLics],
-          results: absorbRes.length,
-          category: catAbsorb,
-          years: yAbsorb,
-          url: `${BASE_URL}/athlete/${absorbId}`,
-        },
-        approved: null,
-      };
-
-      if (hasSharedLicence) {
-        entry.sharedLicence = true;
-      }
-
-      if (isHighPriority) {
-        entry.priority = true;
-      }
-
-      candidates.push(entry);
+for (const [, group] of byTeam) {
+  if (group.length < 2) continue;
+  for (let i = 0; i < group.length; i++) {
+    for (let j = i + 1; j < group.length; j++) {
+      const athleteA = group[i]!;
+      const athleteB = group[j]!;
+      // Pass 1 handles same name_lower; Pass 3 handles accent variants
+      if (athleteA.name_lower === athleteB.name_lower) continue;
+      if (normalizeName(athleteA.name) === normalizeName(athleteB.name)) continue;
+      if (!isPrefixOrTrailingTruncation(athleteA.name_lower, athleteB.name_lower)) continue;
+      const entry = scorePairEntry(athleteA.id, athleteB.id, ["same-team prefix"], 0.15);
+      if (entry) candidates.push(entry);
     }
   }
 }
@@ -699,13 +836,20 @@ fs.writeFileSync(outPath, JSON.stringify(output, null, 2));
 const pendingCount = output.length;
 const highPriority = output.filter((c) => c.priority).length;
 const sharedLicCount = output.filter((c) => c.sharedLicence).length;
+const accentCount = output.filter((c) => c.reason.startsWith("accent variant")).length;
+const prefixCount = output.filter((c) => c.reason.startsWith("same-team prefix")).length;
 const modeTag = TOP_N !== null ? ` [--top ${TOP_N}]` : "";
 console.log(
   `✓ ${pendingCount} pending pair(s)${modeTag} → scraper/split-candidates.json`,
 );
 if (pendingCount > 0) {
+  const breakdownParts = [
+    `${pendingCount - accentCount - prefixCount} exact-name`,
+    ...(accentCount > 0 ? [`${accentCount} accent-variant`] : []),
+    ...(prefixCount > 0 ? [`${prefixCount} same-team-prefix`] : []),
+  ];
   console.log(
-    `  ${highPriority} high-priority / top-30${sharedLicCount > 0 ? `, ${sharedLicCount} shared-licence` : ""}`,
+    `  ${highPriority} high-priority / top-30${sharedLicCount > 0 ? `, ${sharedLicCount} shared-licence` : ""} (${breakdownParts.join(", ")})`,
   );
 }
 

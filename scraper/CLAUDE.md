@@ -13,11 +13,14 @@ npm run db:manage -- add team-alias --from F --to T
 npm run db:manage -- remove team-alias --from F
 npm run db:manage -- add alias --name X --team Y --alias-name A --alias-team B [--note N]
 npm run db:manage -- add assignment --event-id E --bib B --athlete-id A [--note N]
+npm run db:manage -- add block --event-id E --bib B --athlete-id A [--note N]
 npm run db:manage -- remove alias --name X
 npm run db:manage -- remove assignment --event-id E --bib B
+npm run db:manage -- remove block --event-id E --bib B
 npm run db:find-splits            # scan for same-name athlete pairs that may be fragmented profiles
 npm run db:apply-splits           # apply reviewed split decisions (rejected/applied lists)
 npm run db:compact-ids            # close ID gaps in athletes and teams tables (run after profile splits)
+npm run db:force-id -- "key|teamId" N  # force a lookup key to use athlete ID N; swaps IDs if N is already taken
 npm run db:check                  # validate DB integrity: no ID gaps, no stale FK references
 npm run db:check-team-orphans     # report team rows no longer referenced by any athlete
 npm run db:find-team-aliases      # generate fuzzy team alias suggestions
@@ -206,9 +209,10 @@ The scraper does not patch the existing DB — it builds a new in-memory SQLite 
 
 **Any other direct edits to `data.db.enc` will be overwritten on the next scrape** — the scraper always rebuilds the DB from scratch and re-applies the manual override tables stored inside the DB itself.
 
-The three override types:
+The four override types:
 - **Athlete alias** — merges two name/team combinations into one athlete ID (e.g. athlete who raced under a different name at one event).
 - **Result assignment** — forces a specific bib at a specific event to be linked to a specific athlete ID (e.g. category error where the event used the wrong category label).
+- **Block** — evicts a specific bib+event result from a named athlete's profile and gives it a new stable profile under a `BLOCK:eventId:bib` key. Used when two people race under the same name+team (e.g. father and son) and the pipeline incorrectly merges their results.
 - **Team alias** — merges team name variants into a canonical name.
 
 ## Team aliases

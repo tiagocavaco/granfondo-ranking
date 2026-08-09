@@ -38,6 +38,16 @@ export const adminApi = {
   removeAssignment: (params: { eventId: number; bib: string }) =>
     request("DELETE", "/assignments", params),
 
+  addBlock: (params: {
+    eventId: number;
+    bib: string;
+    athleteId: number;
+    note?: string;
+  }) => request("POST", "/blocks", params),
+
+  removeBlock: (params: { eventId: number; bib: string }) =>
+    request("DELETE", "/blocks", params),
+
   addTeamAlias: (params: { from: string; to: string }) =>
     request("POST", "/team-aliases", params),
 

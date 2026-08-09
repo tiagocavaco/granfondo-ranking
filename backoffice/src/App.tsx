@@ -9,6 +9,7 @@ import RawAthletePage from "./pages/RawAthletePage";
 import RawTeamPage from "./pages/RawTeamPage";
 import CandidatesPage from "./pages/CandidatesPage";
 import RawEventPage from "./pages/RawEventPage";
+import BlocksPage from "./pages/BlocksPage";
 
 setGetDb(getDb);
 
@@ -22,6 +23,7 @@ export default function App() {
           <Route index element={<Navigate to="/aliases" replace />} />
           <Route path="aliases" element={<AliasesPage />} />
           <Route path="assignments" element={<AssignmentsPage />} />
+          <Route path="blocks" element={<BlocksPage />} />
           <Route path="team-aliases" element={<TeamAliasesPage />} />
           <Route path="athlete" element={<RawAthletePage />} />
           <Route path="athlete/:athleteId" element={<RawAthletePage />} />

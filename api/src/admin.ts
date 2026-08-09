@@ -21,6 +21,16 @@ export type ResultAssignment = {
   note: string | null;
 };
 
+export type BlockedResultEntry = {
+  id: number;
+  eventId: number;
+  eventName: string | null;
+  bib: string;
+  blockedAthleteId: number;
+  blockedAthleteName: string | null;
+  note: string | null;
+};
+
 export type TeamAliasEntry = {
   id: number;
   canonicalKey: string;
@@ -517,6 +527,41 @@ export async function listRawAthletes(): Promise<RawNameMatch[]> {
     nameLower: row.nameLower,
     canonicalTeam: row.canonicalTeam,
     resultCount: resultCounts[row.id] ?? 0,
+  }));
+}
+
+export async function getBlockedResults(): Promise<BlockedResultEntry[]> {
+  const db = await getDb();
+  const rows = db
+    .select({
+      id: schema.blockedResults.id,
+      eventId: schema.blockedResults.eventId,
+      bib: schema.blockedResults.bib,
+      blockedAthleteId: schema.blockedResults.blockedAthleteId,
+      note: schema.blockedResults.note,
+      blockedAthleteName: schema.athletes.name,
+      eventName: schema.events.name,
+    })
+    .from(schema.blockedResults)
+    .leftJoin(
+      schema.athletes,
+      eq(schema.athletes.id, schema.blockedResults.blockedAthleteId),
+    )
+    .leftJoin(
+      schema.events,
+      eq(schema.events.id, schema.blockedResults.eventId),
+    )
+    .orderBy(schema.blockedResults.blockedAthleteId, schema.blockedResults.eventId)
+    .all();
+
+  return rows.map((row) => ({
+    id: row.id,
+    eventId: row.eventId,
+    eventName: row.eventName ?? null,
+    bib: row.bib,
+    blockedAthleteId: row.blockedAthleteId,
+    blockedAthleteName: row.blockedAthleteName ?? null,
+    note: row.note ?? null,
   }));
 }
 

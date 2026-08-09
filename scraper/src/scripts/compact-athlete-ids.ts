@@ -403,6 +403,10 @@ function verifySnapshot(
       "participants.athlete_id orphans",
     ],
     [
+      "SELECT COUNT(*) as c FROM blocked_results WHERE blocked_athlete_id NOT IN (SELECT id FROM athletes)",
+      "blocked_results.blocked_athlete_id orphans",
+    ],
+    [
       "SELECT COUNT(*) as c FROM athlete_teams WHERE team_id NOT IN (SELECT id FROM teams)",
       "athlete_teams.team_id orphans",
     ],
@@ -529,6 +533,7 @@ if (aGaps > 0) {
     { table: "aggregate_athletes", col: "athlete_id" },
     { table: "team_race_athletes", col: "athlete_id" },
     { table: "result_assignments", col: "athlete_id" },
+    { table: "blocked_results", col: "blocked_athlete_id" },
   ]);
   console.log(`  Remapped ${athleteMap.size.toLocaleString()} athlete IDs`);
 } else {
