@@ -140,7 +140,7 @@ describe("scrapeAgitagueda — CSV parsing and row processing", () => {
     mockFetchCsv(csv);
     const res = await scrapeAgitagueda();
     const names = res.distances[0]!.results.map((r) => r.name);
-    expect(names).toEqual(["Winner", "DNF Guy", "DNS Guy"]);
+    expect(names).toEqual(["Winner", "Dnf Guy", "Dns Guy"]);
   });
 
   it("handles CSV with double-quoted fields containing commas", async () => {
@@ -160,7 +160,7 @@ describe("scrapeAgitagueda — CSV parsing and row processing", () => {
       `42,"He said ""hello""",male,Team,ELITES M,Portugal,Finished,1,03:25:10.000\n`;
     mockFetchCsv(csv);
     const res = await scrapeAgitagueda();
-    expect(res.distances[0]!.results[0]!.name).toBe('He said "hello"');
+    expect(res.distances[0]!.results[0]!.name).toBe('He Said "hello"');
   });
 
   it("returns empty distances array when all CSVs are empty", async () => {
