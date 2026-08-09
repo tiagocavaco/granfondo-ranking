@@ -15,3 +15,5 @@ scraper/team-alias-candidates.json
 scraper/split-candidates.json
 scraper/split-candidates-applied.json
 scraper/split-candidates-rejected.json
+scraper/licence-split-candidates.json
+scraper/athlete-anchored-team-aliases.json
