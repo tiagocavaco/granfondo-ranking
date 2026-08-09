@@ -98,7 +98,10 @@ for (const row of validLicenceRows) {
 const splitLicences = new Map<string, number[]>();
 for (const [licence, athleteIds] of athletesByLicence) {
   if (athleteIds.size >= 2) {
-    splitLicences.set(licence, [...athleteIds].sort((a, b) => a - b));
+    splitLicences.set(
+      licence,
+      [...athleteIds].sort((a, b) => a - b),
+    );
   }
 }
 
@@ -211,8 +214,9 @@ function tokenSimilarity(nameA: string, nameB: string): number {
   const tokensA = new Set(nameA.toLowerCase().split(/\s+/).filter(Boolean));
   const tokensB = new Set(nameB.toLowerCase().split(/\s+/).filter(Boolean));
   if (tokensA.size === 0 || tokensB.size === 0) return 0;
-  const intersection = [...tokensA].filter((token) => tokensB.has(token))
-    .length;
+  const intersection = [...tokensA].filter((token) =>
+    tokensB.has(token),
+  ).length;
   const union = new Set([...tokensA, ...tokensB]).size;
   return intersection / union;
 }
@@ -288,8 +292,7 @@ const MASTER_LADDER = [
 
 function catLadderIndex(normalizedCat: string): number {
   return MASTER_LADDER.findIndex(
-    (tier) =>
-      normalizedCat === tier || normalizedCat.startsWith(tier + " "),
+    (tier) => normalizedCat === tier || normalizedCat.startsWith(tier + " "),
   );
 }
 
@@ -311,7 +314,9 @@ function categoryCompatibility(
 }
 
 function yearRange(results: ResultRow[]): { min: number; max: number } | null {
-  const years = results.map((result) => result.event_year).filter((year) => year > 0);
+  const years = results
+    .map((result) => result.event_year)
+    .filter((year) => year > 0);
   if (years.length === 0) return null;
   return { min: Math.min(...years), max: Math.max(...years) };
 }
@@ -602,9 +607,7 @@ if (fs.existsSync(outPath)) {
       fs.readFileSync(outPath, "utf-8"),
     ) as CandidateEntry[];
     previouslyRejected = new Set(
-      previous
-        .filter((entry) => entry.approved === false)
-        .map(pairKey),
+      previous.filter((entry) => entry.approved === false).map(pairKey),
     );
   } catch {}
 }

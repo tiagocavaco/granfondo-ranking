@@ -1,4 +1,10 @@
-import { BROWSER_UA, fetchWithRetry, cleanTime, makeResult, toTitleCase } from "./shared.js";
+import {
+  BROWSER_UA,
+  fetchWithRetry,
+  cleanTime,
+  makeResult,
+  toTitleCase,
+} from "./shared.js";
 import { normalizeCountry } from "../normalize.js";
 import type {
   StoredEventResults,

@@ -1,6 +1,11 @@
 import { normalizeName, normalizeDistance } from "../../../normalize.js";
 import type { PipelineCtx } from "../types.js";
-import { athleteKey, newEntry, addToTeamsAndCategories, toRef } from "../helpers.js";
+import {
+  athleteKey,
+  newEntry,
+  addToTeamsAndCategories,
+  toRef,
+} from "../helpers.js";
 
 export function applyManualResultAssignments(ctx: PipelineCtx): void {
   const {

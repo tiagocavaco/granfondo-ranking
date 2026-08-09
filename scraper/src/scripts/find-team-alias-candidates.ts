@@ -271,7 +271,7 @@ for (const [, group] of fourgramIndex) {
       const a = group[i]!;
       const b = group[j]!;
       const trgSim = trigramSimilarity(stripSeps(a), stripSeps(b));
-      if (trgSim >= 0.60) emitPair(a, b, trgSim);
+      if (trgSim >= 0.6) emitPair(a, b, trgSim);
     }
   }
 }

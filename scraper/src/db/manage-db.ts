@@ -237,9 +237,11 @@ function cmdAdd(args: Record<string, string>): void {
 
     const getCanonAliases = () =>
       JSON.parse(
-        (sqlite
-          .prepare("SELECT alias_keys FROM teams WHERE canonical_key = ?")
-          .get(canonicalKey) as { alias_keys: string }).alias_keys,
+        (
+          sqlite
+            .prepare("SELECT alias_keys FROM teams WHERE canonical_key = ?")
+            .get(canonicalKey) as { alias_keys: string }
+        ).alias_keys,
       ) as string[];
 
     // If aliasKey was itself a canonical with sub-aliases, migrate them directly to
@@ -247,8 +249,9 @@ function cmdAdd(args: Record<string, string>): void {
     const aliasAsCanonical = sqlite
       .prepare("SELECT alias_keys FROM teams WHERE canonical_key = ?")
       .get(aliasKey) as { alias_keys: string } | undefined;
-    const subAliasesToMigrate: string[] =
-      aliasAsCanonical ? (JSON.parse(aliasAsCanonical.alias_keys) as string[]) : [];
+    const subAliasesToMigrate: string[] = aliasAsCanonical
+      ? (JSON.parse(aliasAsCanonical.alias_keys) as string[])
+      : [];
 
     for (const subAlias of subAliasesToMigrate) {
       const canonAliases = getCanonAliases();
@@ -262,7 +265,11 @@ function cmdAdd(args: Record<string, string>): void {
         .prepare("SELECT id FROM teams WHERE canonical_key = ?")
         .get(subAlias) as { id: number } | undefined;
       if (subTeamRow && canonTeamRow) {
-        const changed = rewriteLookupKeysForAlias(sqlite, subTeamRow.id, canonTeamRow.id);
+        const changed = rewriteLookupKeysForAlias(
+          sqlite,
+          subTeamRow.id,
+          canonTeamRow.id,
+        );
         if (changed > 0) {
           console.log(
             `  · rewrote ${changed} athlete_lookup key(s) for sub-alias "${subAlias}": team ID ${subTeamRow.id} → ${canonTeamRow.id}`,

@@ -208,7 +208,9 @@ for (const [pairKey, sharedAthleteIds] of pairEvidence) {
       : [canonicalKeyB, canonicalKeyA];
 
   const athleteNames = sharedAthleteIds
-    .map((athleteId) => athleteNameById.get(athleteId) ?? `athlete#${athleteId}`)
+    .map(
+      (athleteId) => athleteNameById.get(athleteId) ?? `athlete#${athleteId}`,
+    )
     .sort();
 
   candidates.push({

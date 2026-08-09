@@ -551,7 +551,10 @@ export async function getBlockedResults(): Promise<BlockedResultEntry[]> {
       schema.events,
       eq(schema.events.id, schema.blockedResults.eventId),
     )
-    .orderBy(schema.blockedResults.blockedAthleteId, schema.blockedResults.eventId)
+    .orderBy(
+      schema.blockedResults.blockedAthleteId,
+      schema.blockedResults.eventId,
+    )
     .all();
 
   return rows.map((row) => ({

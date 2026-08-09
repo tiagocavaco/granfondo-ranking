@@ -239,7 +239,9 @@ export default function BlocksPage() {
                       className="text-blue-600 hover:underline"
                     >
                       {block.blockedAthleteName ?? (
-                        <span className="font-mono">{block.blockedAthleteId}</span>
+                        <span className="font-mono">
+                          {block.blockedAthleteId}
+                        </span>
                       )}
                     </a>
                     {block.blockedAthleteName && (

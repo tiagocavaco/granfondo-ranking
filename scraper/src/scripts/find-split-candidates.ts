@@ -399,7 +399,8 @@ function isPrefixOrTrailingTruncation(nameA: string, nameB: string): boolean {
   const minLen = Math.min(nameA.length, nameB.length);
   const maxLen = Math.max(nameA.length, nameB.length);
   return (
-    maxLen - minLen <= 2 && nameA.slice(0, minLen - 1) === nameB.slice(0, minLen - 1)
+    maxLen - minLen <= 2 &&
+    nameA.slice(0, minLen - 1) === nameB.slice(0, minLen - 1)
   );
 }
 
@@ -429,9 +430,9 @@ function scorePairEntry(
   // Hard exclude: incompatible categories in any year both athletes raced
   {
     const yearsA = new Set(resultsA.map((result) => result.event_year));
-    const sharedYears = [...new Set(resultsB.map((result) => result.event_year))].filter(
-      (year) => yearsA.has(year),
-    );
+    const sharedYears = [
+      ...new Set(resultsB.map((result) => result.event_year)),
+    ].filter((year) => yearsA.has(year));
     for (const year of sharedYears) {
       const catsA = resultsA
         .filter((result) => result.event_year === year && result.category)
@@ -483,7 +484,16 @@ function scorePairEntry(
   const athleteA = athleteMap.get(idA)!;
   const athleteB = athleteMap.get(idB)!;
 
-  const [keepId, absorbId, keepRow, absorbRow, keepRes, absorbRes, keepLics, absorbLics] =
+  const [
+    keepId,
+    absorbId,
+    keepRow,
+    absorbRow,
+    keepRes,
+    absorbRes,
+    keepLics,
+    absorbLics,
+  ] =
     resultsA.length >= resultsB.length
       ? [idA, idB, athleteA, athleteB, resultsA, resultsB, licsA, licsB]
       : [idB, idA, athleteB, athleteA, resultsB, resultsA, licsB, licsA];
@@ -685,7 +695,12 @@ for (const [, group] of byNormalizedName) {
       const athleteB = group[j]!;
       // Same name_lower pairs are handled by Pass 1
       if (athleteA.name_lower === athleteB.name_lower) continue;
-      const entry = scorePairEntry(athleteA.id, athleteB.id, ["accent variant"], 0.1);
+      const entry = scorePairEntry(
+        athleteA.id,
+        athleteB.id,
+        ["accent variant"],
+        0.1,
+      );
       if (entry) candidates.push(entry);
     }
   }
@@ -701,9 +716,18 @@ for (const [, group] of byTeam) {
       const athleteB = group[j]!;
       // Pass 1 handles same name_lower; Pass 3 handles accent variants
       if (athleteA.name_lower === athleteB.name_lower) continue;
-      if (normalizeName(athleteA.name) === normalizeName(athleteB.name)) continue;
-      if (!isPrefixOrTrailingTruncation(athleteA.name_lower, athleteB.name_lower)) continue;
-      const entry = scorePairEntry(athleteA.id, athleteB.id, ["same-team prefix"], 0.15);
+      if (normalizeName(athleteA.name) === normalizeName(athleteB.name))
+        continue;
+      if (
+        !isPrefixOrTrailingTruncation(athleteA.name_lower, athleteB.name_lower)
+      )
+        continue;
+      const entry = scorePairEntry(
+        athleteA.id,
+        athleteB.id,
+        ["same-team prefix"],
+        0.15,
+      );
       if (entry) candidates.push(entry);
     }
   }
@@ -836,8 +860,12 @@ fs.writeFileSync(outPath, JSON.stringify(output, null, 2));
 const pendingCount = output.length;
 const highPriority = output.filter((c) => c.priority).length;
 const sharedLicCount = output.filter((c) => c.sharedLicence).length;
-const accentCount = output.filter((c) => c.reason.startsWith("accent variant")).length;
-const prefixCount = output.filter((c) => c.reason.startsWith("same-team prefix")).length;
+const accentCount = output.filter((c) =>
+  c.reason.startsWith("accent variant"),
+).length;
+const prefixCount = output.filter((c) =>
+  c.reason.startsWith("same-team prefix"),
+).length;
 const modeTag = TOP_N !== null ? ` [--top ${TOP_N}]` : "";
 console.log(
   `✓ ${pendingCount} pending pair(s)${modeTag} → scraper/split-candidates.json`,
