@@ -4,8 +4,9 @@ import {
   cleanTime,
   makeResult,
   decodeHtmlEntities,
+  toTitleCase,
 } from "./shared.js";
-import { timeToSeconds, formatGapSecs } from "../normalize.js";
+import { timeToSeconds, formatGapSecs, fixRawTeamName } from "../normalize.js";
 import type {
   StoredEventResults,
   StoredDistanceResults,
@@ -156,7 +157,7 @@ function combineAndRankByTime(rows: ApedalarRow[]): StoredResult[] {
     return makeResult({
       pos: i + 1,
       bib: r.bib,
-      name: r.name,
+      name: toTitleCase(r.name),
       gender: r.gender,
       team: r.team,
       category: r.category,
@@ -274,7 +275,7 @@ export async function scrapeApedalarParticipants(
         continue;
       }
 
-      const team = decodeHtmlEntities(
+      const team = fixRawTeamName(
         (tds[2] ?? "").replace(/<[^>]+>/g, "").trim(),
       );
       const bib = (tds[3] ?? "").replace(/<[^>]+>/g, "").trim();
@@ -304,8 +305,8 @@ export async function scrapeApedalarParticipants(
 
       all.push({
         bib,
-        name: nameTd,
-        fullName: nameTd,
+        name: toTitleCase(nameTd),
+        fullName: toTitleCase(nameTd),
         gender,
         team,
         category,

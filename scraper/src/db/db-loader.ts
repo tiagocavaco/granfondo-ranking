@@ -22,6 +22,7 @@ import type {
   StoredParticipant,
   AthleteAliasRule,
   ResultAssignment,
+  BlockedResult,
 } from "@granfondo/database/types";
 
 export function openSourceDb(): BetterSqlite3.Database | null {
@@ -324,4 +325,28 @@ export function loadResultAssignments(
       athleteId: r.athleteId,
       note: r.note ?? undefined,
     }));
+}
+
+export function loadBlockedResults(
+  sourceDb: BetterSqlite3.Database | null,
+): BlockedResult[] {
+  if (!sourceDb) {
+    return [];
+  }
+
+  try {
+    return drizzle(sourceDb, { schema })
+      .select()
+      .from(schema.blockedResults)
+      .all()
+      .map((r) => ({
+        eventId: r.eventId,
+        bib: r.bib,
+        blockedAthleteId: r.blockedAthleteId,
+        note: r.note ?? undefined,
+      }));
+  } catch {
+    // Table may not exist on older DBs that haven't been migrated via manage-db.ts yet.
+    return [];
+  }
 }

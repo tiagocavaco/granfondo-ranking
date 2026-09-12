@@ -121,6 +121,54 @@ export async function handleAdminRequest(
     return true;
   }
 
+  if (route === "blocks" && method === "POST") {
+    const eventId = String(body["eventId"] ?? "");
+    const bib = str("bib");
+    const athleteId = String(body["athleteId"] ?? "");
+    const note = str("note");
+    if (!eventId || !bib || !athleteId) {
+      jsonError(res, 400, "Missing required fields: eventId, bib, athleteId");
+      return true;
+    }
+    const args = [
+      "add",
+      "block",
+      "--event-id",
+      eventId,
+      "--bib",
+      bib,
+      "--athlete-id",
+      athleteId,
+    ];
+    if (note) args.push("--note", note);
+    const result = runManageDb(args);
+    result.ok
+      ? jsonOk(res, { message: result.output })
+      : jsonError(res, 500, result.output);
+    return true;
+  }
+
+  if (route === "blocks" && method === "DELETE") {
+    const eventId = String(body["eventId"] ?? "");
+    const bib = str("bib");
+    if (!eventId || !bib) {
+      jsonError(res, 400, "Missing required fields: eventId, bib");
+      return true;
+    }
+    const result = runManageDb([
+      "remove",
+      "block",
+      "--event-id",
+      eventId,
+      "--bib",
+      bib,
+    ]);
+    result.ok
+      ? jsonOk(res, { message: result.output })
+      : jsonError(res, 500, result.output);
+    return true;
+  }
+
   if (route === "assignments" && method === "POST") {
     const eventId = String(body["eventId"] ?? "");
     const bib = str("bib");

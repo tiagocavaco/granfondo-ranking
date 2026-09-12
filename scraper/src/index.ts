@@ -37,6 +37,7 @@ import {
   closeSourceDb,
   loadResultsFromDb,
   loadIdStore,
+  loadBlockedResults,
   loadTeamAliases,
   loadAthleteAliases,
   loadResultAssignments,
@@ -236,6 +237,7 @@ async function main() {
   const teamAliases = loadTeamAliases(sourceDb);
   const aliasRules = loadAthleteAliases(sourceDb);
   const assignments = loadResultAssignments(sourceDb);
+  const blockedResults = loadBlockedResults(sourceDb);
   const teamIdStore = loadTeamIdStore(sourceDb);
 
   // Source DB no longer needed — close before building new one
@@ -307,6 +309,7 @@ async function main() {
     assignments,
     idStore,
     extendedTeamIdStore,
+    blockedResults,
   );
 
   const manualSoloFlags = soloFlags.filter(
@@ -349,17 +352,49 @@ async function main() {
   const injectedEvents = injectAthleteIds(athletesIndex, allResults);
   console.log(`✓ updated ${injectedEvents} event result(s)`);
 
-  // Build name-to-id lookup
+  // Build name-to-id lookup for participant resolution.
+  // Includes stale keys from the previous DB so participants whose team name
+  // changed mid-career can still be matched by their old lookup key.
   const nameToId: Record<string, number> = {};
   for (const [key, id] of updatedIdStore) {
     nameToId[key] = id;
   }
-
   for (const [key, entry] of athletesIndex) {
     nameToId[key] = entry.id;
   }
 
-  // Add alias keys so participant registrations under alias names resolve to the canonical athlete
+  // Build a seed-only lookup that excludes stale historical keys.
+  // This is what gets written to athlete_lookup so the next scrape seeds
+  // correctly without the same-seeded-ID conflict that stale keys cause in
+  // the ID manager (when an athlete's canonical team changed, the old key
+  // and the new key both point to the same ID, making the second claim
+  // mint a fresh ID instead of reusing the seeded one).
+  const seedNameToId: Record<string, number> = {};
+  for (const [key, entry] of athletesIndex) {
+    seedNameToId[key] = entry.id;
+  }
+
+  // Also seed every non-solo team key that appears in each athlete's entry.teams.
+  // An athlete's entry.teams already reflects all merges the pipeline performed
+  // (cross-year team changes, alias merges). Seeding all of them to the same ID
+  // ensures that next scrape, when the pipeline temporarily creates a separate
+  // profile for each team before the merge passes run, each profile gets the
+  // seeded ID instead of a fresh one — so compact stays stable after a single
+  // scrape.
+  for (const [, entry] of athletesIndex) {
+    for (const teamKey of entry.teams) {
+      if (!teamKey) continue;
+      const teamId = extendedTeamIdStore.get(teamKey) ?? 0;
+      if (teamId === 0) continue;
+      const allTeamsKey = `${entry.nameLower}|${teamId}`;
+      if (!(allTeamsKey in seedNameToId)) {
+        seedNameToId[allTeamsKey] = entry.id;
+      }
+    }
+  }
+
+  // Add alias keys to both maps so participant registrations and the seed
+  // both resolve alias-team names to the canonical athlete.
   for (const rule of aliasRules) {
     const canonTeamId =
       extendedTeamIdStore.get(teamNormalKey(rule.canonicalTeam)) ?? 0;
@@ -375,6 +410,9 @@ async function main() {
       const aliasKey = `${normalizeName(alias.name)}|${aliasTeamId}`;
       if (!(aliasKey in nameToId)) {
         nameToId[aliasKey] = canonId;
+      }
+      if (!(aliasKey in seedNameToId)) {
+        seedNameToId[aliasKey] = canonId;
       }
     }
   }
@@ -422,13 +460,17 @@ async function main() {
 
   const uniqueByYear: Record<string, number> = {};
   for (const year of YEARS) {
-    uniqueByYear[String(year)] = athletesArray.filter((a) =>
-      a.results.some((r) => r.eventYear === year),
-    ).length;
+    uniqueByYear[String(year)] = new Set(
+      athletesArray
+        .filter((a) => a.results.some((r) => r.eventYear === year))
+        .map((a) => a.id),
+    ).size;
   }
 
   const stats = {
-    uniqueAthletes: athletesArray.filter((a) => a.results.length > 0).length,
+    uniqueAthletes: new Set(
+      athletesArray.filter((a) => a.results.length > 0).map((a) => a.id),
+    ).size,
     uniqueByYear,
     scrapedAt: new Date().toISOString(),
   };
@@ -477,13 +519,14 @@ async function main() {
     allResults,
     allParticipants,
     athletesIndex,
-    nameToId,
+    nameToId: seedNameToId,
     teamAliases,
     aggregateRanking,
     teamRanking,
     stats,
     aliasRules,
     assignments,
+    blockedResults,
     participantAthleteIds,
     teamIdStore: extendedTeamIdStore,
   });

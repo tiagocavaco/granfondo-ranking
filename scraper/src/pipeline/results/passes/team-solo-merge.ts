@@ -19,6 +19,23 @@ export function mergeTeamSoloProfiles(ctx: PipelineCtx): void {
   const { index, crossPassFlags } = ctx;
   let count = 0;
 
+  // Maps each athlete ID to the union of event IDs across all team profiles sharing that ID.
+  // Used to detect when a candidate's ID-sibling already covers one of the solo's events —
+  // merging in that case would create two entries with the same (athlete_id, event_id, distance),
+  // which causes a UNIQUE constraint violation in the DB writer.
+  const idToEventIds = new Map<number, Set<number>>();
+  for (const [key, entry] of index) {
+    if (key.includes("|solo:") || entry.id === undefined) continue;
+    let eventSet = idToEventIds.get(entry.id);
+    if (!eventSet) {
+      eventSet = new Set();
+      idToEventIds.set(entry.id, eventSet);
+    }
+    for (const result of entry.results) {
+      eventSet.add(result.eventId);
+    }
+  }
+
   const soloKeys = [...index.keys()].filter((k) => k.includes("|solo:"));
 
   for (const soloKey of soloKeys) {
@@ -48,6 +65,20 @@ export function mergeTeamSoloProfiles(ctx: PipelineCtx): void {
     candidates = candidates.filter(
       (c) => !c.entry.results.some((r) => soloEventIds.has(r.eventId)),
     );
+    if (candidates.length === 0) {
+      continue;
+    }
+
+    // Enhanced golden rule — remove candidates whose ID-sibling profiles already cover
+    // any of the solo's events. Without this, the solo would be merged into a candidate
+    // that doesn't itself have the event, but another profile sharing the same athlete ID
+    // does, resulting in two entries with the same (athlete_id, event_id, distance).
+    candidates = candidates.filter((candidate) => {
+      if (candidate.entry.id === undefined) return true;
+      const siblingEventIds = idToEventIds.get(candidate.entry.id);
+      if (!siblingEventIds) return true;
+      return !setsIntersect(soloEventIds, siblingEventIds);
+    });
     if (candidates.length === 0) {
       continue;
     }
@@ -133,14 +164,24 @@ export function mergeTeamSoloProfiles(ctx: PipelineCtx): void {
     }
 
     if (candidates.length === 1) {
+      const mergeTarget = candidates[0]!;
       for (const result of soloEntry.results) {
-        addResult(candidates[0]!.entry, result, false);
+        addResult(mergeTarget.entry, result, false);
+        // Keep the sibling-events map current so later solos see the post-merge event set.
+        if (mergeTarget.entry.id !== undefined) {
+          let eventSet = idToEventIds.get(mergeTarget.entry.id);
+          if (!eventSet) {
+            eventSet = new Set();
+            idToEventIds.set(mergeTarget.entry.id, eventSet);
+          }
+          eventSet.add(result.eventId);
+        }
       }
 
-      mergeLicenceSets(candidates[0]!.key, soloKey, ctx.entryLicences);
+      mergeLicenceSets(mergeTarget.key, soloKey, ctx.entryLicences);
       ctx.deletedKeys.add(soloKey);
       index.delete(soloKey);
-      deriveCanonicalTeam(candidates[0]!.entry);
+      deriveCanonicalTeam(mergeTarget.entry);
       count++;
     } else {
       crossPassFlags.push({

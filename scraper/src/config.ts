@@ -20,6 +20,7 @@ export const CANONICAL_EVENT_NAMES: Record<number, string> = {
   1053: "Granfondo Médio Tejo 2023", // API has "Grandfondo" typo
   // 2024 events
   1216: "Monção e Melgaço Granfondo 2024", // API name likely "MONÇÃO e MELGAÇO GF"
+  1326: "Granfondo Torres Vedras 2024", // API name includes "by RUBiS Gás" sponsor suffix
   1349: "Granfondo Médio Tejo 2024", // typo: "Grandfondo"
   1457: "Granfondo Serra D'Ossa 2024", // auto title-case lowercases 'O' in D'Ossa
   // 2025 events
@@ -125,6 +126,7 @@ export const SUPPLEMENTAL_EVENT_IDS: number[] = [
   1447, // Clássica Douro Internacional 2024
   1137, // L'Étape Portugal by Tour de France 2024
   1216, // Monção e Melgaço Granfondo 2024 (API name uses "GF" abbreviation)
+  1326, // GF Torres Vedras by RUBiS Gás 2024 (API name uses "GF" abbreviation)
   // 2025 events with non-standard names
   1621, // Aveiro Spring Classic 2025
   1553, // MONÇÃO e MELGAÇO GF 2025
@@ -331,8 +333,8 @@ export const LISTA_URLS: Record<number, string> = {
     "https://inscricoes.cabreirasolutions.com/listas/granfondo-terras-de-basto-2026",
   90013:
     "https://inscricoes.cabreirasolutions.com/listas/granfondo-paredes-2026",
-  2115: "https://inscricoes.cabreirasolutions.com/listas/granfondo-serra-d-ossa-2026",
-  2114: "https://inscricoes.cabreirasolutions.com/listas/grandfondo-portim-o-2026",
+  // 2115 moved to REGISTRATIONS_URLS — participants are on stopandgo.net, not cabreirasolutions
+  // 2114 moved to REGISTRATIONS_URLS — participants are on stopandgo.net, not cabreirasolutions
 };
 
 /** Events whose participant list is hosted on apedalar.pt/eventos/{id}/info */
@@ -345,4 +347,6 @@ export const REGISTRATIONS_URLS: Record<number, string> = {
   1798: "https://stopandgo.net/events/sao-mamede-granfondo-2026/registrations",
   1700: "https://stopandgo.net/events/granfondo-serra-da-estrela-2026/registrations",
   1942: "https://stopandgo.net/events/tavira-granfondo-2026/registrations",
+  2114: "https://stopandgo.net/events/grandfondo-portim-o-2026/registrations",
+  2115: "https://stopandgo.net/events/granfondo-serra-d-ossa-2026/registrations",
 };

@@ -15,11 +15,30 @@ export function normalizeName(name: string): string {
 }
 
 export function fixRawTeamName(name: string): string {
+  // Dash-only placeholders (e.g. "------" from apedalar.pt) mean no team.
+  if (/^[-\s]+$/.test(name)) return "Individual";
+  // Decode HTML entities that the StopAndGo API embeds in JSON strings
+  // (e.g. "&amp;" → "&", double-encoded "&amp;amp;" → "&").
+  let s = name;
+  while (s.includes("&amp;")) {
+    s = s.replace(/&amp;/g, "&");
+  }
+  s = s
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) =>
+      String.fromCharCode(parseInt(hex, 16)),
+    );
   // Parallel strings: index i in PLAIN_VOWELS maps to index i in ACCENTED_VOWELS.
   // e.g. "Joa^o" → "Joâo".
   const PLAIN_VOWELS = "aeiouAEIOU";
   const ACCENTED_VOWELS = "âêîôûÂÊÎÔÛ";
-  return name.replace(/([aeiouAEIOU])\^/g, (_, vowel: string) => {
+  return s.replace(/([aeiouAEIOU])\^/g, (_, vowel: string) => {
     const index = PLAIN_VOWELS.indexOf(vowel);
     return index >= 0 ? ACCENTED_VOWELS[index]! : vowel + "^";
   });

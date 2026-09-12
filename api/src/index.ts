@@ -14,6 +14,7 @@ import {
   getResultAssignmentsForAthlete,
   getAthleteAliasRules,
   getResultAssignments,
+  getBlockedResults,
   getTeamAliases,
   getRawAthlete,
   getRawTeam,
@@ -38,6 +39,7 @@ export { ROAD_DISTANCES, predictionDistCoeff } from "./predictions.js";
 export type {
   AthleteAliasRule,
   ResultAssignment,
+  BlockedResultEntry,
   TeamAliasEntry,
   RawAthlete,
   RawTeam,
@@ -65,6 +67,7 @@ export const api = {
   getResultAssignmentsForAthlete,
   getAthleteAliasRules,
   getResultAssignments,
+  getBlockedResults,
   getTeamAliases,
   getRawAthlete,
   getRawTeam,

@@ -30,9 +30,21 @@ import type { StoredEvent, StoredParticipant } from "@granfondo/database/types";
  * Lightweight scrape that updates participant lists for upcoming events in the
  * existing encrypted DB without running the full athlete pipeline.
  */
+// --skip-event 1942,1943 — event IDs to exclude from this participants refresh
+const skipArg = process.argv.indexOf("--skip-event");
+const SKIP_EVENT_IDS = new Set(
+  skipArg !== -1
+    ? (process.argv[skipArg + 1] ?? "").split(",").map(Number).filter(Boolean)
+    : [],
+);
+
 export async function scrapeParticipants() {
   console.log(`🚴  Granfondo Portugal Scraper — participants mode`);
-  console.log(`    ${new Date().toISOString()}\n`);
+  console.log(`    ${new Date().toISOString()}`);
+  if (SKIP_EVENT_IDS.size > 0) {
+    console.log(`    Skipping events: ${[...SKIP_EVENT_IDS].join(", ")}`);
+  }
+  console.log();
 
   const keyHex = process.env.DATA_KEY;
   if (!keyHex) {
@@ -92,6 +104,10 @@ export async function scrapeParticipants() {
 
   for (const event of events) {
     if (!isPast(event.date)) {
+      if (SKIP_EVENT_IDS.has(event.id)) {
+        console.log(`⏭  [${event.id}] ${event.name} — skipped`);
+        continue;
+      }
       console.log(`⏳ [${event.id}] ${event.name}`);
       try {
         const athletes = await fetchEventParticipants(event.id);
@@ -117,6 +133,10 @@ export async function scrapeParticipants() {
 
   for (const event of MANUAL_UPCOMING_EVENTS) {
     if (LISTA_URLS[event.id]) {
+      if (SKIP_EVENT_IDS.has(event.id)) {
+        console.log(`⏭  [${event.id}] ${event.name} — skipped`);
+        continue;
+      }
       console.log(`⏳ [${event.id}] ${event.name}`);
       try {
         const athletes = await fetchEventParticipants(event.id);

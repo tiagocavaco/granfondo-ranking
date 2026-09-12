@@ -184,3 +184,10 @@ export interface ResultAssignment {
   athleteId: number;
   note?: string;
 }
+
+export interface BlockedResult {
+  eventId: number;
+  bib: string;
+  blockedAthleteId: number;
+  note?: string;
+}
