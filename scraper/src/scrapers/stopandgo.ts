@@ -437,33 +437,131 @@ function parseRegistrationsPage(html: string): {
 
 /**
  * Scrape all pages of confirmed participants from a stopandgo.net/events/{slug}/registrations page.
- * Stops when a page returns no data rows (past the last page).
+ * Pagination is handled via Livewire 3: the initial GET returns the first page and the Livewire
+ * component snapshot; subsequent pages are fetched by POSTing to the Livewire update endpoint.
  */
 export async function scrapeRegistrationsParticipants(
   url: string,
 ): Promise<StoredParticipant[]> {
-  const baseUrl = url.replace(/[?&]page=\d+(&|$)/, "$1").replace(/\?$/, "");
-  const all: StoredParticipant[] = [];
+  const browserHeaders = {
+    "User-Agent": BROWSER_UA,
+    Accept:
+      "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "pt-PT,pt;q=0.9,en;q=0.8",
+    "Accept-Encoding": "gzip, deflate, br",
+  };
 
-  for (let page = 1; page <= 100; page++) {
-    const pageUrl = page === 1 ? baseUrl : `${baseUrl}?page=${page}`;
-    const res = await fetchWithRetry(pageUrl, {
-      headers: { "User-Agent": BROWSER_UA },
-    });
-    if (!res.ok) {
-      if (page === 1) {
-        throw new Error(`registrations HTTP ${res.status}: ${pageUrl}`);
+  // Initial GET — establishes session, returns first page of data + Livewire component state
+  const initRes = await fetchWithRetry(url, { headers: browserHeaders });
+  if (!initRes.ok) {
+    throw new Error(`registrations HTTP ${initRes.status}: ${url}`);
+  }
+  const initHtml = await initRes.text();
+
+  // Session cookies must be replayed in Livewire POST requests — extract from each response
+  const cookieJar: Record<string, string> = {};
+  const collectCookies = (res: Response) => {
+    // getSetCookie() (Node 18+) returns each Set-Cookie header as a separate string
+    for (const header of (res.headers as any).getSetCookie?.() ?? []) {
+      const nameValue = header.split(";")[0] ?? "";
+      const eqIdx = nameValue.indexOf("=");
+      if (eqIdx > 0) {
+        cookieJar[nameValue.slice(0, eqIdx).trim()] = nameValue
+          .slice(eqIdx + 1)
+          .trim();
       }
-
-      break;
     }
+  };
+  collectCookies(initRes);
 
-    const html = await res.text();
+  const { athletes: firstAthletes, rowCount: firstRowCount } =
+    parseRegistrationsPage(initHtml);
+  const all: StoredParticipant[] = [...firstAthletes];
+  if (firstRowCount === 0) return all;
+
+  // The Livewire <script> tag carries data-csrf (CSRF token) and data-update-uri (update endpoint).
+  const csrfToken = initHtml.match(/data-csrf="([^"]+)"/)?.[1];
+  const rawSnapshot = initHtml.match(/wire:snapshot="([^"]+)"/)?.[1];
+  const livewireUpdateUrl =
+    initHtml.match(/data-update-uri="([^"]+)"/)?.[1] ??
+    "https://stopandgo.net/livewire/update";
+
+  // Fall back to ?page=N GETs if the page doesn't include Livewire wiring
+  if (!csrfToken || !rawSnapshot) {
+    const baseUrl = url.replace(/[?&]page=\d+(&|$)/, "$1").replace(/\?$/, "");
+    for (let page = 2; page <= 100; page++) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const res = await fetchWithRetry(`${baseUrl}?page=${page}`, {
+        headers: browserHeaders,
+      });
+      if (!res.ok) break;
+      const { athletes, rowCount } = parseRegistrationsPage(await res.text());
+      all.push(...athletes);
+      if (rowCount === 0) break;
+    }
+    return all;
+  }
+
+  const snapshot = rawSnapshot
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&amp;/g, "&");
+
+  let currentSnapshot = snapshot;
+
+  for (let page = 2; page <= 100; page++) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const cookieStr = Object.entries(cookieJar)
+      .map(([key, val]) => `${key}=${val}`)
+      .join("; ");
+    const xsrfToken = decodeURIComponent(cookieJar["XSRF-TOKEN"] ?? "");
+
+    const res = await fetchWithRetry(livewireUpdateUrl, {
+      method: "POST",
+      headers: {
+        ...browserHeaders,
+        Accept: "*/*",
+        "Content-Type": "application/json",
+        "X-Livewire": "1",
+        "X-XSRF-TOKEN": xsrfToken,
+        Origin: "https://stopandgo.net",
+        Referer: url,
+        Cookie: cookieStr,
+      },
+      body: JSON.stringify({
+        _token: csrfToken,
+        components: [
+          {
+            snapshot: currentSnapshot,
+            updates: {},
+            calls: [
+              { method: "gotoPage", params: [page, "page"], metadata: {} },
+            ],
+          },
+        ],
+      }),
+    });
+
+    if (!res.ok) break;
+    collectCookies(res);
+
+    const json = (await res.json()) as {
+      components: Array<{
+        snapshot: string;
+        effects: { html?: string };
+      }>;
+    };
+    const component = json.components?.[0];
+    if (!component) break;
+
+    currentSnapshot = component.snapshot;
+    const html = component.effects?.html ?? "";
+    if (!html) break;
+
     const { athletes, rowCount } = parseRegistrationsPage(html);
     all.push(...athletes);
-    if (rowCount === 0) {
-      break;
-    } // no more data rows — past the last page
+    if (rowCount === 0) break;
   }
 
   return all;
