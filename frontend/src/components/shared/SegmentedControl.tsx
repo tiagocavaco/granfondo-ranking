@@ -20,14 +20,14 @@ export function SegmentedControl({
       <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
         {label}
       </span>
-      <div className="flex flex-1 sm:flex-none rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
+      <div className="flex flex-1 sm:flex-none rounded-xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
         {options.map((option) => {
           const colors = colorMap?.[option];
           const fullLabel = labelMap?.[option] ?? option;
           const shortLabel = shortLabelMap?.[option];
           const inactiveClass = colors?.base
-            ? `text-slate-600 hover:bg-slate-50 border-r last:border-r-0 ${colors.base}`
-            : "text-slate-600 hover:bg-slate-50";
+            ? `text-slate-500 hover:bg-white/5 border-r last:border-r-0 border-white/[0.07]`
+            : "text-slate-500 hover:text-slate-200 hover:bg-white/5";
           return (
             <button
               key={option}

@@ -7,6 +7,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ReferenceLine,
 } from "recharts";
 import type { AthleteResultRef } from "@granfondo/database/types";
 import { distDotColor } from "../../utils/distance";
@@ -25,6 +26,8 @@ function tickDate(ms: number) {
     year: "2-digit",
   });
 }
+
+const PODIUM_COLORS: Record<number, string> = { 1: "#fbbf24", 2: "#cbd5e1", 3: "#fb923c" };
 
 interface Props {
   results: AthleteResultRef[];
@@ -80,39 +83,51 @@ export default function PerformanceChart({ results }: Props) {
     active?: boolean;
     payload?: Array<{ payload: FlatPoint }>;
   }) => {
-    if (!active || !payload?.length) {
-      return null;
-    }
-
+    if (!active || !payload?.length) return null;
     const point: FlatPoint = payload[0]?.payload;
-    if (!point) {
-      return null;
-    }
+    if (!point) return null;
+    const isPodium = point.pos <= 3;
 
     return (
-      <div className="bg-white border border-slate-200 rounded-xl shadow-lg px-3 py-2 text-xs">
-        <p className="font-semibold text-slate-700 mb-1">{point.eventName}</p>
-        <div className="flex items-center gap-2">
+      <div className="bg-[#0c1628] border border-white/[0.12] rounded-xl shadow-2xl px-4 py-3 text-xs backdrop-blur-sm">
+        <p className="font-bold text-slate-300 mb-2 text-[11px] uppercase tracking-wide">{point.eventName}</p>
+        <div className="flex items-center gap-2.5">
+          <div
+            className="w-2 h-2 rounded-full shrink-0"
+            style={{ background: distDotColor(point.dist), boxShadow: `0 0 6px ${distDotColor(point.dist)}` }}
+          />
+          <span className="text-slate-500">{point.dist}</span>
           <span
-            style={{ color: distDotColor(point.dist) }}
-            className="font-bold"
+            className={`font-black text-sm tabular-nums ml-1 ${isPodium ? "" : "text-slate-100"}`}
+            style={isPodium ? { color: PODIUM_COLORS[point.pos] } : undefined}
           >
-            ●
+            #{point.pos}
           </span>
-          <span className="text-slate-600">{point.dist}:</span>
-          <span className="font-semibold text-slate-800">#{point.pos}</span>
-          <span className="text-slate-400">/ {point.finisherCount}</span>
+          <span className="text-slate-600">/ {point.finisherCount}</span>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 mb-8">
-      <div className="flex items-center justify-between gap-3 mb-1">
-        <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wide">
-          Performance Trend
-        </h2>
+    <div className="animate-fade delay-200 bg-[#0c1628] rounded-2xl border border-white/[0.07] p-4 sm:p-5 mb-8">
+      <div className="flex items-center justify-between gap-3 mb-3">
+        <div className="flex items-center gap-3">
+          <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">
+            Performance Trend
+          </h2>
+          <div className="flex gap-3 flex-wrap">
+            {uniqueDists.map((d) => (
+              <span key={d} className="flex items-center gap-1 text-[10px] text-slate-600 font-semibold">
+                <span
+                  className="w-2 h-2 rounded-full inline-block shrink-0"
+                  style={{ background: distDotColor(d), boxShadow: `0 0 4px ${distDotColor(d)}60` }}
+                />
+                {d}
+              </span>
+            ))}
+          </div>
+        </div>
         <select
           value={selectedYear === "all" ? "all" : String(selectedYear)}
           onChange={(e) =>
@@ -120,7 +135,7 @@ export default function PerformanceChart({ results }: Props) {
               e.target.value === "all" ? "all" : Number(e.target.value),
             )
           }
-          className="px-2.5 py-1 text-xs font-semibold border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+          className="px-2.5 py-1 text-xs font-semibold rounded-lg input-dark focus:outline-none shrink-0"
         >
           <option value="all">All seasons</option>
           {years.map((y) => (
@@ -131,81 +146,84 @@ export default function PerformanceChart({ results }: Props) {
         </select>
       </div>
 
-      {/* Legend */}
-      <div className="flex gap-3 mb-3 flex-wrap">
-        {uniqueDists.map((d) => (
-          <span
-            key={d}
-            className="flex items-center gap-1 text-xs text-slate-500"
-          >
-            <span
-              className="w-2.5 h-2.5 rounded-full inline-block"
-              style={{ background: distDotColor(d) }}
-            />
-            {d}
-          </span>
-        ))}
-      </div>
-
-      <ResponsiveContainer width="100%" height={220}>
+      <ResponsiveContainer width="100%" height={230}>
         <LineChart
           data={flat}
-          margin={{ top: 20, right: 8, left: -20, bottom: 0 }}
+          margin={{ top: 24, right: 12, left: -20, bottom: 0 }}
         >
-          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+          <defs>
+            <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.6" />
+              <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.6" />
+            </linearGradient>
+          </defs>
+          <CartesianGrid
+            strokeDasharray="0"
+            stroke="rgba(255,255,255,0.03)"
+            horizontal={true}
+            vertical={false}
+          />
+          {/* Top 3 zone highlight */}
+          <ReferenceLine y={3} stroke="rgba(251,191,36,0.12)" strokeDasharray="4 4" strokeWidth={1} />
           <XAxis
             dataKey="dateMs"
             type="number"
             scale="time"
             domain={["dataMin", "dataMax"]}
             tickFormatter={tickDate}
-            tick={{ fontSize: 11, fill: "#94a3b8" }}
+            tick={{ fontSize: 10, fill: "#334155", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
             tickLine={false}
             axisLine={false}
           />
           <YAxis
             reversed
             domain={[maxPos + 2, 1]}
-            tick={{ fontSize: 11, fill: "#94a3b8" }}
+            tick={{ fontSize: 10, fill: "#334155", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
             tickLine={false}
             axisLine={false}
             allowDecimals={false}
             tickFormatter={(v) => `#${v}`}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip />} cursor={{ stroke: "rgba(255,255,255,0.06)", strokeWidth: 1 }} />
           <Line
             type="monotone"
             dataKey="pos"
-            stroke="#cbd5e1"
-            strokeWidth={1.5}
+            stroke="url(#lineGrad)"
+            strokeWidth={2}
             dot={(props) => {
               const { cx, cy } = props;
-              const payload = props.payload as FlatPoint | undefined;
-              const pos = payload?.pos;
+              const point = props.payload as FlatPoint | undefined;
+              const pos = point?.pos;
               if (!pos || cx == null || cy == null) {
                 return <g key={String(props.key ?? "")} />;
               }
 
-              const color = distDotColor(payload!.dist);
-              const label =
-                pos <= 3
-                  ? pos === 1
-                    ? "🥇"
-                    : pos === 2
-                      ? "🥈"
-                      : "🥉"
-                  : `#${pos}`;
-              const fontSize = pos <= 3 ? 13 : 9;
+              const dotColor = distDotColor(point!.dist);
+              const isPodium = pos <= 3;
+              const podiumColor = isPodium ? PODIUM_COLORS[pos]! : null;
+              const label = `#${pos}`;
+              const labelColor = isPodium ? podiumColor! : dotColor;
+
               return (
                 <g key={String(props.key ?? "")}>
-                  <circle cx={cx} cy={cy} r={4} fill={color} strokeWidth={0} />
+                  {/* Outer glow ring for podium */}
+                  {isPodium && (
+                    <circle cx={cx} cy={cy} r={8} fill={podiumColor!} fillOpacity="0.15" />
+                  )}
+                  <circle cx={cx} cy={cy} r={isPodium ? 5 : 3.5} fill={dotColor} />
+                  {isPodium && (
+                    <circle cx={cx} cy={cy} r={isPodium ? 5 : 3.5} fill="none" stroke={podiumColor!} strokeWidth="1.5" strokeOpacity="0.8" />
+                  )}
                   <text
                     x={cx}
-                    y={cy - 10}
+                    y={cy - (isPodium ? 13 : 11)}
                     textAnchor="middle"
-                    fontSize={fontSize}
-                    fontWeight={600}
-                    fill={pos <= 3 ? undefined : color}
+                    fontSize={isPodium ? 11 : 9}
+                    fontWeight={isPodium ? 800 : 600}
+                    fontFamily="Barlow Condensed, sans-serif"
+                    fill={labelColor}
+                    fillOpacity={isPodium ? 1 : 0.7}
                   >
                     {label}
                   </text>
@@ -213,17 +231,13 @@ export default function PerformanceChart({ results }: Props) {
               );
             }}
             activeDot={(props) => {
-              const payload = props.payload as FlatPoint | undefined;
-              const color = distDotColor(payload?.dist ?? "");
+              const point = props.payload as FlatPoint | undefined;
+              const dotColor = distDotColor(point?.dist ?? "");
               return (
-                <circle
-                  key={String(props.key ?? "")}
-                  cx={props.cx}
-                  cy={props.cy}
-                  r={6}
-                  fill={color}
-                  strokeWidth={0}
-                />
+                <g key={String(props.key ?? "")}>
+                  <circle cx={props.cx} cy={props.cy} r={10} fill={dotColor} fillOpacity="0.15" />
+                  <circle cx={props.cx} cy={props.cy} r={5} fill={dotColor} />
+                </g>
               );
             }}
             isAnimationActive={false}

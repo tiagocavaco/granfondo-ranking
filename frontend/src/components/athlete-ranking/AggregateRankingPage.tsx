@@ -71,9 +71,14 @@ export default function AggregateRankingPage() {
   return (
     <div>
       <div className="flex items-start justify-between gap-4 mb-8">
-        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-          Athlete Ranking
-        </h2>
+        <div>
+          <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
+            Portuguese Granfondo Series
+          </div>
+          <h2 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase">
+            Athlete Ranking
+          </h2>
+        </div>
         <div className="sm:hidden">
           <GenderToggle
             value={gender}
@@ -93,10 +98,10 @@ export default function AggregateRankingPage() {
           <select
             value={year}
             onChange={(e) => handleYearChange(e.target.value)}
-            className="flex-1 sm:flex-none px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+            className="flex-1 sm:flex-none px-3.5 py-1.5 text-sm font-semibold rounded-xl input-dark focus:outline-none"
           >
             {years.map((y) => (
-              <option key={y} value={y}>
+              <option key={y} value={y} className="bg-[#0c1628]">
                 {y}
               </option>
             ))}
@@ -112,10 +117,10 @@ export default function AggregateRankingPage() {
               setDistance(e.target.value);
               setSearch("");
             }}
-            className="flex-1 px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+            className="flex-1 px-3.5 py-1.5 text-sm font-semibold rounded-xl input-dark focus:outline-none"
           >
             {distances.map((d) => (
-              <option key={d} value={d}>
+              <option key={d} value={d} className="bg-[#0c1628]">
                 {d}
               </option>
             ))}
@@ -132,20 +137,16 @@ export default function AggregateRankingPage() {
             }}
             colorMap={{
               Granfondo: {
-                active: "bg-blue-600 text-white",
-                base: "text-blue-700 border-blue-200",
+                active: "bg-blue-500/30 text-blue-300 border-r border-blue-500/20",
               },
               Mediofondo: {
-                active: "bg-violet-600 text-white",
-                base: "text-violet-700 border-violet-200",
+                active: "bg-violet-500/30 text-violet-300 border-r border-violet-500/20",
               },
               Minifondo: {
-                active: "bg-emerald-600 text-white",
-                base: "text-emerald-700 border-emerald-200",
+                active: "bg-emerald-500/30 text-emerald-300 border-r border-emerald-500/20",
               },
               "Time Trial": {
-                active: "bg-amber-500 text-white",
-                base: "text-amber-700 border-amber-200",
+                active: "bg-amber-500/30 text-amber-300 border-r border-amber-500/20",
               },
             }}
             shortLabelMap={{
@@ -173,7 +174,7 @@ export default function AggregateRankingPage() {
           placeholder="Search athlete or team…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-52 sm:ml-auto px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full sm:w-52 sm:ml-auto px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
         />
       </div>
 
@@ -188,14 +189,14 @@ export default function AggregateRankingPage() {
 
           <div className="mb-4 flex items-center justify-between">
             <p className="text-sm text-slate-500">
-              <span className="font-semibold text-slate-700">
+              <span className="font-semibold text-slate-300">
                 {ranked.length}
               </span>{" "}
               athletes scored
             </p>
             <Link
               to="/ranking-info"
-              className="text-xs text-blue-600 hover:text-blue-800 hover:underline transition-colors"
+              className="text-xs text-blue-400 hover:text-blue-300 hover:underline transition-colors"
             >
               How scoring works →
             </Link>
@@ -211,7 +212,7 @@ export default function AggregateRankingPage() {
 
       {!loading && !error && ranked.length === 0 && year && distance && (
         <div className="text-center py-16 text-slate-400">
-          <p className="text-5xl mb-3">🏆</p>
+          <svg className="w-12 h-12 mx-auto mb-3 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
           <p className="font-semibold text-slate-600 text-lg">
             No ranking data available
           </p>

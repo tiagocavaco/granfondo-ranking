@@ -10,20 +10,25 @@ import { isFemaleCategory, categorySortKey } from "@granfondo/utils/category";
 
 const COLLAPSED_COUNT = 3;
 
-function rankBadge(rank: number) {
-  if (rank === 1) {
-    return "bg-amber-400 text-white";
-  }
+function rankBorderAccent(rank: number): string {
+  if (rank === 1) return "border-l-amber-400/80";
+  if (rank === 2) return "border-l-slate-400/60";
+  if (rank === 3) return "border-l-orange-500/60";
+  return "border-l-transparent";
+}
 
-  if (rank === 2) {
-    return "bg-slate-400 text-white";
-  }
+function rankRowBg(rank: number): string {
+  if (rank === 1) return "bg-amber-400/[0.04]";
+  if (rank === 2) return "bg-slate-400/[0.03]";
+  if (rank === 3) return "bg-orange-500/[0.03]";
+  return "";
+}
 
-  if (rank === 3) {
-    return "bg-amber-700/80 text-white";
-  }
-
-  return "bg-slate-100 text-slate-500";
+function rankBadgeStyle(rank: number): string {
+  if (rank === 1) return "bg-amber-400/20 text-amber-300 border border-amber-400/40";
+  if (rank === 2) return "bg-slate-400/15 text-slate-300 border border-slate-400/30";
+  if (rank === 3) return "bg-orange-500/15 text-orange-300 border border-orange-500/30";
+  return "bg-white/[0.07] text-slate-500";
 }
 
 function FavoriteCard({
@@ -40,10 +45,10 @@ function FavoriteCard({
   return (
     <Link
       to={`/athlete/${pred.athleteId}`}
-      className="flex items-center gap-3 py-3 px-4 border-b border-slate-100 last:border-0 hover:bg-blue-50/40 transition-colors group"
+      className={`flex items-center gap-3 py-3 px-4 border-b border-white/[0.05] last:border-0 hover:bg-white/[0.03] transition-colors group border-l-[3px] ${rankBorderAccent(rank)} ${rankRowBg(rank)}`}
     >
       <div
-        className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${rankBadge(rank)}`}
+        className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${rankBadgeStyle(rank)}`}
       >
         {rank}
       </div>
@@ -52,13 +57,13 @@ function FavoriteCard({
           {flag && (
             <span className="text-base leading-none shrink-0">{flag}</span>
           )}
-          <span className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
+          <span className="font-semibold text-slate-100 group-hover:text-blue-300 transition-colors truncate">
             {pred.name}
           </span>
         </div>
         <div className="flex items-center gap-1.5 mt-0.5 flex-wrap min-w-0">
           {pred.team && (
-            <span className="text-xs text-slate-400 truncate max-w-[160px] sm:max-w-xs">
+            <span className="text-xs text-slate-600 truncate max-w-[160px] sm:max-w-xs">
               {pred.team}
             </span>
           )}
@@ -73,12 +78,12 @@ function FavoriteCard({
       </div>
       <div className="shrink-0 text-right">
         {pred.weightedScore > 0 && (
-          <div className="text-xs font-semibold text-slate-600">
+          <div className="text-xs font-semibold text-slate-400">
             {Math.round(pred.weightedScore)} pts
           </div>
         )}
         {pred.raceCount > 0 && (
-          <div className="text-[10px] text-slate-400">
+          <div className="text-[10px] text-slate-600">
             {pred.raceCount} event{pred.raceCount !== 1 ? "s" : ""}
           </div>
         )}
@@ -90,49 +95,75 @@ function FavoriteCard({
 function OverallCard({
   pred,
   label,
-  icon,
 }: {
   pred: FavoritePrediction;
   label: string;
-  icon: string;
 }) {
   const crossDistance =
     pred.mainDistance && pred.mainDistance !== pred.distance;
   const flag = countryFlag(pred.country);
+  const isFemale = label === "Female";
 
   return (
     <Link
       to={`/athlete/${pred.athleteId}`}
-      className="flex-1 bg-gradient-to-br from-white to-slate-50 rounded-2xl border border-slate-200 shadow-sm p-4 hover:shadow-md hover:border-blue-200 transition-all group"
+      className="flex-1 relative bg-[#0c1628] rounded-2xl border border-white/[0.07] p-5 hover:border-white/[0.14] transition-all group overflow-hidden"
     >
-      <div className="flex items-center gap-2 mb-3">
-        <span className="text-xl">{icon}</span>
-        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-          {label} Favorite
-        </span>
+      {/* Gender-coded top accent */}
+      <div
+        className={`absolute inset-x-0 top-0 h-[2px] ${
+          isFemale
+            ? "bg-gradient-to-r from-pink-400/0 via-pink-400/70 to-pink-400/0"
+            : "bg-gradient-to-r from-blue-400/0 via-blue-400/50 to-blue-400/0"
+        }`}
+      />
+      {/* Ghost initial watermark */}
+      <div className="absolute right-0 top-0 bottom-0 flex items-center pr-3 select-none pointer-events-none opacity-[0.04]">
+        <div className="text-[100px] font-black text-white leading-none">
+          {pred.name.charAt(0)}
+        </div>
       </div>
-      <div className="flex items-center gap-2 mb-1">
-        {flag && <span className="text-lg leading-none shrink-0">{flag}</span>}
-        <span className="font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors text-base leading-tight truncate">
-          {pred.name}
-        </span>
-      </div>
-      {pred.team && (
-        <div className="text-xs text-slate-500 truncate mb-2">{pred.team}</div>
-      )}
-      <div className="flex items-center gap-1.5 flex-wrap">
-        {crossDistance && (
+
+      <div className="relative">
+        <div className="mb-2.5">
           <span
-            className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${distBadgeClass(pred.mainDistance!)}`}
+            className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-widest ${
+              isFemale
+                ? "bg-pink-500/15 text-pink-300 border border-pink-500/20"
+                : "bg-blue-500/15 text-blue-300 border border-blue-500/20"
+            }`}
           >
-            Mainly {pred.mainDistance}
+            {label} Favorite
           </span>
-        )}
-        {pred.weightedScore > 0 && (
-          <span className="text-[11px] text-slate-400 font-medium">
-            {Math.round(pred.weightedScore)} pts
+        </div>
+        <div className="flex items-center gap-2 mb-1">
+          {flag && <span className="text-lg leading-none shrink-0">{flag}</span>}
+          <span className="font-display font-black text-white group-hover:text-blue-300 transition-colors text-base sm:text-lg leading-tight truncate uppercase">
+            {pred.name}
           </span>
+        </div>
+        {pred.team && (
+          <div className="text-xs text-slate-600 truncate mb-2">{pred.team}</div>
         )}
+        <div className="flex items-center gap-2 flex-wrap mt-2 pt-2 border-t border-white/[0.06]">
+          {crossDistance && (
+            <span
+              className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${distBadgeClass(pred.mainDistance!)}`}
+            >
+              Mainly {pred.mainDistance}
+            </span>
+          )}
+          {pred.weightedScore > 0 && (
+            <span className="text-[11px] text-amber-500 font-bold">
+              {Math.round(pred.weightedScore)} pts
+            </span>
+          )}
+          {pred.raceCount > 0 && (
+            <span className="text-[10px] text-slate-600">
+              {pred.raceCount} events
+            </span>
+          )}
+        </div>
       </div>
     </Link>
   );
@@ -156,19 +187,19 @@ function CategorySection({
   const hiddenCount = preds.ranked.length - COLLAPSED_COUNT;
 
   return (
-    <div className="border-b border-slate-100 last:border-0">
-      <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 border-b border-slate-100">
-        <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">
+    <div className="border-b border-white/[0.05] last:border-0">
+      <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-[#060d1a] border-b border-white/[0.05]">
+        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
           {category}
         </span>
         {preds.newcomers > 0 && preds.ranked.length > 0 && (
-          <span className="shrink-0 text-[11px] text-slate-400">
+          <span className="shrink-0 text-[10px] text-slate-600 font-medium">
             +{preds.newcomers} unranked
           </span>
         )}
       </div>
       {preds.ranked.length === 0 ? (
-        <div className="px-4 py-3 text-xs text-slate-400 italic">
+        <div className="px-4 py-3 text-xs text-slate-600 italic">
           {preds.newcomers} unranked
         </div>
       ) : (
@@ -179,7 +210,7 @@ function CategorySection({
           {hiddenCount > 0 && (
             <button
               onClick={() => setExpanded((v) => !v)}
-              className="w-full px-4 py-2.5 text-xs font-semibold text-blue-600 hover:bg-blue-50 transition-colors text-center border-t border-slate-100"
+              className="w-full px-4 py-2.5 text-xs font-semibold text-blue-400 hover:bg-white/[0.03] transition-colors text-center border-t border-white/[0.05]"
             >
               {expanded ? "Show less ↑" : `Show ${hiddenCount} more ↓`}
             </button>
@@ -198,7 +229,7 @@ function GenderToggle({
   onChange: (v: "M" | "F") => void;
 }) {
   return (
-    <div className="flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm shrink-0">
+    <div className="flex rounded-xl border border-white/[0.07] overflow-hidden bg-[#0c1628] shrink-0">
       {(
         [
           { v: "M", label: "Men" },
@@ -213,13 +244,31 @@ function GenderToggle({
               ? v === "M"
                 ? "bg-blue-600 text-white"
                 : "bg-pink-500 text-white"
-              : "text-slate-600 hover:bg-slate-50"
+              : "text-slate-500 hover:text-slate-200 hover:bg-white/5"
           }`}
         >
           <span className="sm:hidden">{v}</span>
           <span className="hidden sm:inline">{label}</span>
         </button>
       ))}
+    </div>
+  );
+}
+
+function NoPredictionsState() {
+  return (
+    <div className="text-center py-16 text-slate-500">
+      <svg
+        className="w-10 h-10 mx-auto mb-3 text-slate-700"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z" />
+      </svg>
+      <p className="font-semibold text-slate-600">No predictions available yet</p>
+      <p className="text-sm mt-1 text-slate-700">
+        Predictions appear once participant data is linked to athlete profiles.
+      </p>
     </div>
   );
 }
@@ -233,18 +282,7 @@ function DistancePanel({ data }: { data: DistancePredictions }) {
     Object.values(data.categories).some((c) => c.ranked.length > 0);
 
   if (!hasAnyLinked) {
-    return (
-      <div className="text-center py-16 text-slate-400">
-        <p className="text-4xl mb-3">🔗</p>
-        <p className="font-semibold text-slate-600">
-          No predictions available yet
-        </p>
-        <p className="text-sm mt-1">
-          Predictions will appear once participant data is linked to athlete
-          profiles.
-        </p>
-      </div>
-    );
+    return <NoPredictionsState />;
   }
 
   const sortedCats = Object.entries(data.categories)
@@ -264,15 +302,18 @@ function DistancePanel({ data }: { data: DistancePredictions }) {
       {/* Overall section */}
       {(data.overallMale || data.overallFemale) && (
         <div>
-          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <span>🏆</span> Overall Favorites
-          </h3>
+          <div className="flex items-center gap-3 mb-3">
+            <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest shrink-0">
+              Overall Favorites
+            </span>
+            <div className="flex-1 h-[1px] bg-white/[0.06]" />
+          </div>
           <div className="flex flex-col sm:flex-row gap-3">
             {data.overallMale && (
-              <OverallCard pred={data.overallMale} label="Male" icon="♂" />
+              <OverallCard pred={data.overallMale} label="Male" />
             )}
             {data.overallFemale && (
-              <OverallCard pred={data.overallFemale} label="Female" icon="♀" />
+              <OverallCard pred={data.overallFemale} label="Female" />
             )}
           </div>
         </div>
@@ -283,20 +324,23 @@ function DistancePanel({ data }: { data: DistancePredictions }) {
         (c) => c.ranked.length > 0 || c.newcomers > 0,
       ) && (
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
-              <span>📋</span> By Category
-            </h3>
+          <div className="flex items-center justify-between mb-3 gap-3">
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest shrink-0">
+                By Category
+              </span>
+              <div className="flex-1 h-[1px] bg-white/[0.06]" />
+            </div>
             <GenderToggle value={gender} onChange={setGender} />
           </div>
           {sortedCats.length > 0 ? (
-            <div className="rounded-2xl border border-slate-200 shadow-sm bg-white overflow-hidden">
-              {sortedCats.map(([cat, preds]) => (
-                <CategorySection key={cat} category={cat} preds={preds} />
+            <div className="rounded-2xl border border-white/[0.07] bg-[#0c1628] overflow-hidden">
+              {sortedCats.map(([cat, catPreds]) => (
+                <CategorySection key={cat} category={cat} preds={catPreds} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-8 text-slate-400 text-sm">
+            <div className="text-center py-8 text-slate-600 text-sm">
               No {gender === "F" ? "female" : "male"} categories for this
               distance.
             </div>
@@ -354,8 +398,14 @@ export default function PredictionsPage() {
 
   if (error) {
     return (
-      <div className="text-center py-16 text-slate-400">
-        <p className="text-5xl mb-3">🚴</p>
+      <div className="text-center py-16 text-slate-500">
+        <svg
+          className="w-10 h-10 mx-auto mb-3 text-slate-700"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9 1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z" />
+        </svg>
         <p className="font-semibold text-slate-600">Predictions unavailable</p>
         <p className="text-sm mt-1">{error}</p>
       </div>
@@ -371,61 +421,54 @@ export default function PredictionsPage() {
   );
 
   if (tabs.length === 0) {
-    return (
-      <div className="text-center py-16 text-slate-400">
-        <p className="text-4xl mb-3">🔗</p>
-        <p className="font-semibold text-slate-600">
-          No predictions available yet
-        </p>
-        <p className="text-sm mt-1">
-          Predictions will appear once participant data is linked to athlete
-          profiles.
-        </p>
-      </div>
-    );
+    return <NoPredictionsState />;
   }
 
   return (
     <div>
       <Link
         to={`/event/${id}`}
-        className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
+        className="text-sm text-slate-500 hover:text-slate-300 transition-colors mb-4 inline-flex items-center gap-1"
       >
         ← Back to event
       </Link>
 
       {/* Hero */}
-      <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-900 rounded-2xl px-5 py-5 mb-6 text-white">
-        <div className="flex items-center justify-between gap-2 mb-1">
-          <div className="text-xs font-semibold text-blue-300 uppercase tracking-widest">
-            Predictions
-          </div>
+      <div className="relative bg-[#0c1628] rounded-2xl px-6 py-6 mb-6 text-white overflow-hidden border border-white/[0.07]">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-amber-400/0 via-amber-400/60 to-amber-400/0" />
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <span className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">
+            Portuguese Granfondo Series
+          </span>
           <Link
             to="/predictions-info"
-            className="text-xs text-blue-300/70 hover:text-blue-200 transition-colors"
+            className="text-xs text-slate-500 hover:text-slate-300 transition-colors shrink-0"
           >
             How it works ↗
           </Link>
         </div>
-        <h2 className="text-xl font-extrabold text-white leading-tight mb-1">
+        <div className="text-[10px] font-bold text-amber-400/80 uppercase tracking-widest mb-1">
+          Pre-Race Predictions
+        </div>
+        <h2 className="font-display font-bold text-2xl sm:text-4xl text-white leading-tight tracking-wide uppercase">
           {eventName}
         </h2>
-        <p className="text-sm text-blue-200/80">
+        <p className="text-sm text-slate-500 mt-2">
           Favorites based on distance-weighted career ranking points
         </p>
       </div>
 
       {/* Distance tabs */}
       {tabs.length > 1 && (
-        <div className="flex gap-1 mb-6 border-b border-slate-200 overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
+        <div className="flex gap-1 mb-6 border-b border-white/[0.06] overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
           {tabs.map((dist) => (
             <button
               key={dist}
               onClick={() => setActiveTab(dist)}
               className={`shrink-0 px-4 py-2 text-sm font-semibold rounded-t-lg transition-colors -mb-px whitespace-nowrap ${
                 activeTab === dist
-                  ? "bg-white border border-slate-200 border-b-white text-slate-900"
-                  : "text-slate-500 hover:text-slate-700"
+                  ? "bg-[#0c1628] border border-white/[0.1] border-b-[#060d1a] text-white"
+                  : "text-slate-600 hover:text-slate-300"
               }`}
             >
               {dist}

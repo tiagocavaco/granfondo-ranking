@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
+import { CatPosBadge } from "../shared/MedalBadge";
 import { Link } from "react-router-dom";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import { api } from "@granfondo/api";
@@ -14,7 +15,7 @@ import {
   normalizeName,
 } from "@granfondo/database/normalize";
 import { Spinner } from "../shared/Spinner";
-import { posStyle } from "../../utils/posStyle";
+import { posStyle, rankBorderAccent } from "../../utils/posStyle";
 import { TeamLink } from "../shared/TeamLink";
 
 interface Props {
@@ -43,7 +44,7 @@ export default function ResultsTab({ eventId, resultsUrl }: Props) {
       {loading && <Spinner />}
       {error && (
         <div className="text-center py-16 text-slate-400">
-          <p className="text-5xl mb-3">🏁</p>
+          <svg className="w-12 h-12 mx-auto mb-3 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
           <p className="font-semibold text-slate-600 text-lg mb-4">
             Results not available yet
           </p>
@@ -156,7 +157,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
           placeholder="Search name, team, bib…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-48 px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full sm:w-48 px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
         />
         {distances.length > 1 && (
           <>
@@ -169,7 +170,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                 setGenderFilter("all");
                 setSearch("");
               }}
-              className="w-full sm:hidden px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full sm:hidden px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
             >
               {distances.map((d) => (
                 <option key={d.id} value={d.id}>
@@ -186,7 +187,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                 setGenderFilter("all");
                 setSearch("");
               }}
-              className="hidden sm:block px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="hidden sm:block px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
             >
               {distances.map((d) => (
                 <option key={d.id} value={d.id}>
@@ -214,16 +215,16 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
               }
             }
           }}
-          className="flex-1 sm:flex-none px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 sm:flex-none px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
         >
-          <option value="all">All genders</option>
-          <option value="M">Men</option>
-          <option value="F">Women</option>
+          <option value="all" className="bg-[#0c1628]">All genders</option>
+          <option value="M" className="bg-[#0c1628]">Men</option>
+          <option value="F" className="bg-[#0c1628]">Women</option>
         </select>
         <select
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
-          className="flex-1 sm:flex-none px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 sm:flex-none px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
         >
           <option value="all">All categories</option>
           {categories.slice(1).map((c) => (
@@ -233,7 +234,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
           ))}
         </select>
         <span className="hidden sm:inline text-sm text-slate-500 sm:ml-auto">
-          <span className="font-semibold text-slate-700">
+          <span className="font-semibold text-slate-300">
             {filtered.length.toLocaleString()}
           </span>{" "}
           results
@@ -245,7 +246,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
           {nationalitySummary.map(([iso2, count]) => (
             <span
               key={iso2}
-              className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600 font-medium"
+              className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-white/[0.06] text-slate-400 font-medium"
             >
               {countryFlag(iso2)} {count.toLocaleString()}
             </span>
@@ -253,10 +254,10 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
         </div>
       )}
 
-      <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm bg-white">
+      <div className="overflow-x-auto rounded-2xl border border-white/[0.07] bg-[#0c1628]">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
+            <tr className="bg-[#060d1a] text-xs text-slate-500 uppercase tracking-wider border-b border-white/[0.06]">
               <th className="px-4 py-3 text-left w-14">Pos</th>
               <th className="px-4 py-3 text-left w-16 hidden sm:table-cell">
                 Bib
@@ -273,15 +274,15 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
               <th className="px-4 py-3 text-right hidden sm:table-cell">Gap</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-white/[0.04]">
             {filtered.slice(0, visibleCount).map((r, i) => (
               <tr
                 key={i}
-                className={`transition-colors hover:bg-slate-50/60 ${
+                className={`transition-colors hover:bg-white/[0.03] ${
                   r.dnf || r.dns ? "opacity-40" : ""
-                } ${r.pos <= 3 ? "bg-slate-50/30" : ""}`}
+                } ${r.pos <= 3 ? "bg-white/[0.02]" : ""}`}
               >
-                <td className="px-4 py-3">
+                <td className={`py-3 pl-2 pr-4 ${r.dnf || r.dns ? "border-l-[3px] border-transparent" : rankBorderAccent(r.pos)}`}>
                   {r.dnf || r.dns ? (
                     <span className="text-xs text-slate-400 font-bold">
                       {r.dnf ? "DNF" : "DNS"}
@@ -294,14 +295,14 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                     </span>
                   )}
                 </td>
-                <td className="px-4 py-3 font-mono text-xs text-slate-400 hidden sm:table-cell">
+                <td className="px-4 py-3 font-mono text-xs text-slate-600 hidden sm:table-cell">
                   {r.bib}
                 </td>
                 <td className="px-4 py-3 w-full max-w-0 overflow-hidden">
                   {r.athleteId ? (
                     <Link
                       to={`/athlete/${r.athleteId}`}
-                      className="block font-semibold text-slate-900 hover:text-blue-600 transition-colors truncate"
+                      className="block font-semibold text-slate-100 hover:text-blue-300 transition-colors truncate"
                     >
                       <span className="mr-1.5 text-base" title={r.country}>
                         {countryFlag(r.country)}
@@ -309,7 +310,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                       {r.name}
                     </Link>
                   ) : (
-                    <div className="font-semibold text-slate-900 truncate">
+                    <div className="font-semibold text-slate-100 truncate">
                       <span className="mr-1.5 text-base" title={r.country}>
                         {countryFlag(r.country)}
                       </span>
@@ -319,7 +320,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   {r.team && (
                     <TeamLink
                       team={r.team}
-                      className="block text-xs text-slate-400 truncate mt-0.5 md:hidden hover:text-blue-600 transition-colors"
+                      className="block text-xs text-slate-600 truncate mt-0.5 md:hidden hover:text-blue-400 transition-colors"
                     />
                   )}
                 </td>
@@ -327,7 +328,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   {r.team && (
                     <TeamLink
                       team={r.team}
-                      className="text-slate-500 hover:text-blue-600 transition-colors"
+                      className="text-slate-600 hover:text-blue-400 transition-colors"
                     />
                   )}
                 </td>
@@ -336,11 +337,9 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                     const catPos = catPosMap.get(r);
                     return (
                       <div className="flex items-center gap-1 whitespace-nowrap">
-                        <span className="text-slate-400">{r.category}</span>
-                        {catPos !== undefined && catPos <= 3 && (
-                          <span>
-                            {catPos === 1 ? "🥇" : catPos === 2 ? "🥈" : "🥉"}
-                          </span>
+                        <span className="text-slate-500">{r.category}</span>
+                        {catPos !== undefined && catPos <= 4 && (
+                          <CatPosBadge pos={catPos} />
                         )}
                       </div>
                     );
@@ -350,24 +349,24 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   <span
                     className={`text-xs font-semibold px-1.5 py-0.5 rounded ${
                       r.gender === "F"
-                        ? "bg-pink-50 text-pink-600"
-                        : "bg-blue-50 text-blue-600"
+                        ? "bg-pink-500/15 text-pink-300"
+                        : "bg-blue-500/15 text-blue-300"
                     }`}
                   >
                     {r.gender}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-right">
-                  <div className="font-mono text-xs font-semibold text-slate-700">
+                  <div className="font-mono text-xs font-semibold text-slate-300">
                     {r.raceTime}
                   </div>
                   {r.gap && (
-                    <div className="font-mono text-xs text-slate-400 mt-0.5 sm:hidden">
+                    <div className="font-mono text-xs text-slate-600 mt-0.5 sm:hidden">
                       {r.gap}
                     </div>
                   )}
                 </td>
-                <td className="px-4 py-3 text-right font-mono text-xs text-slate-400 hidden sm:table-cell">
+                <td className="px-4 py-3 text-right font-mono text-xs text-slate-600 hidden sm:table-cell">
                   {r.gap}
                 </td>
               </tr>
@@ -375,14 +374,14 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
           </tbody>
         </table>
         {filtered.length === 0 && (
-          <div className="px-4 py-10 text-center text-sm text-slate-400">
+          <div className="px-4 py-10 text-center text-sm text-slate-600">
             No results found
           </div>
         )}
         {visibleCount < filtered.length && (
           <div
             ref={sentinelRef}
-            className="px-4 py-3 text-xs text-slate-400 border-t border-slate-100 text-center"
+            className="px-4 py-3 text-xs text-slate-600 border-t border-white/[0.06] text-center"
           >
             Showing {visibleCount} of {filtered.length}…
           </div>

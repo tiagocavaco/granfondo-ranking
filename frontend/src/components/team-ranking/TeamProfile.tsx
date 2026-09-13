@@ -6,8 +6,6 @@ import { Spinner } from "../shared/Spinner";
 import { distBadgeClass } from "../../utils/distance";
 import { DISTANCES } from "@granfondo/utils/distance";
 import { TeamMemberList } from "./TeamMemberList";
-import { Stat } from "../shared/Stat";
-import { rankLabel } from "../../utils/rankLabel";
 
 export default function TeamProfile() {
   const { teamId: teamIdParam } = useParams<{ teamId: string }>();
@@ -98,6 +96,8 @@ export default function TeamProfile() {
   }, [seasons, detailSeasons]);
 
   const [selectedSeason, setSelectedSeason] = useState<string>("");
+  const [expandedDists, setExpandedDists] = useState<Set<string>>(new Set());
+  const RESULTS_PREVIEW = 5;
   const effectiveSeason = selectedSeason || allSeasons[0] || "";
 
   // All athletes who raced for this team in the selected season.
@@ -209,7 +209,7 @@ export default function TeamProfile() {
   if (error || !data) {
     return (
       <div className="text-center py-16 text-slate-400">
-        <p className="text-5xl mb-3">🏅</p>
+        <svg className="w-12 h-12 mx-auto mb-3 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
         <p className="font-semibold text-slate-600 text-lg">Team not found</p>
         <button
           onClick={() => navigate(-1)}
@@ -229,7 +229,7 @@ export default function TeamProfile() {
     if (teamDetail === null) {
       return (
         <div className="text-center py-16 text-slate-400">
-          <p className="text-5xl mb-3">🏅</p>
+          <svg className="w-12 h-12 mx-auto mb-3 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
           <p className="font-semibold text-slate-600 text-lg">Team not found</p>
           <button
             onClick={() => navigate(-1)}
@@ -261,32 +261,63 @@ export default function TeamProfile() {
     <div>
       <button
         onClick={() => navigate(-1)}
-        className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
+        className="text-sm text-slate-500 hover:text-slate-300 transition-colors mb-4 inline-flex items-center gap-1"
       >
         ← Back
       </button>
 
       {/* Hero */}
-      <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-6 mb-8 text-white">
-        <div className="mb-3">
-          <div className="text-blue-300 text-xs font-semibold uppercase tracking-widest">
-            Team
+      <div className="relative bg-[#0c1628] rounded-2xl p-6 sm:p-8 mb-8 text-white overflow-hidden border border-white/[0.07]">
+        {/* Top accent line */}
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-blue-400/0 via-blue-400/50 to-blue-400/0" />
+        {/* Ghost initial watermark */}
+        <div className="absolute right-0 top-0 bottom-0 flex items-center pr-4 select-none pointer-events-none opacity-[0.04]">
+          <div className="text-[180px] sm:text-[220px] font-black text-white leading-none">
+            {displayName.charAt(0)}
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-1 break-words">
-              {displayName}
-            </h1>
-            <p className="text-blue-300 text-sm">{allSeasons.join(" · ")}</p>
-          </div>
-          <div className="flex gap-3 sm:shrink-0">
-            <Stat label="Seasons" value={allSeasons.length} />
+
+        <div className="relative">
+          <h1 className="font-display font-bold text-3xl sm:text-4xl tracking-wide mb-1 leading-tight break-words uppercase">
+            {displayName}
+          </h1>
+          <p className="text-slate-600 text-sm mb-0">{allSeasons.join(" · ")}</p>
+
+          {/* Editorial stats strip */}
+          <div className="flex items-stretch mt-5 pt-5 border-t border-white/[0.06]">
+            <div className="flex flex-col items-center pr-4 sm:pr-6">
+              <span className="text-2xl sm:text-3xl font-black tabular-nums text-white leading-none">
+                {allSeasons.length}
+              </span>
+              <span className="text-[9px] sm:text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1">
+                Seasons
+              </span>
+            </div>
             {effectiveTotalMembers > 0 && (
-              <Stat label="Members" value={effectiveTotalMembers} />
+              <>
+                <div className="w-[1px] self-stretch bg-white/[0.08] shrink-0" />
+                <div className="flex flex-col items-center px-4 sm:px-6">
+                  <span className="text-2xl sm:text-3xl font-black tabular-nums text-white leading-none">
+                    {effectiveTotalMembers}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1">
+                    Members
+                  </span>
+                </div>
+              </>
             )}
             {effectiveTotalEvents > 0 && (
-              <Stat label="Events" value={effectiveTotalEvents} />
+              <>
+                <div className="w-[1px] self-stretch bg-white/[0.08] shrink-0" />
+                <div className="flex flex-col items-center pl-4 sm:pl-6">
+                  <span className="text-2xl sm:text-3xl font-black tabular-nums text-white leading-none">
+                    {effectiveTotalEvents}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1">
+                    Events
+                  </span>
+                </div>
+              </>
             )}
           </div>
         </div>
@@ -302,7 +333,7 @@ export default function TeamProfile() {
           <select
             value={selectedSeason}
             onChange={(e) => setSelectedSeason(e.target.value)}
-            className="sm:hidden flex-1 px-3 py-1.5 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600 font-semibold"
+            className="sm:hidden flex-1 px-3 py-1.5 text-sm rounded-xl input-dark focus:outline-none font-semibold"
           >
             {allSeasons.map((s) => (
               <option key={s} value={s}>
@@ -311,15 +342,15 @@ export default function TeamProfile() {
             ))}
           </select>
           {/* Desktop: segmented pill toggle */}
-          <div className="hidden sm:flex rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
+          <div className="hidden sm:flex rounded-xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
             {allSeasons.map((s) => (
               <button
                 key={s}
                 onClick={() => setSelectedSeason(s)}
                 className={`px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
                   effectiveSeason === s
-                    ? "bg-blue-600 text-white"
-                    : "text-slate-600 hover:bg-slate-50"
+                    ? "bg-blue-500/30 text-blue-300"
+                    : "text-slate-500 hover:text-slate-200 hover:bg-white/5"
                 }`}
               >
                 {s}
@@ -336,17 +367,26 @@ export default function TeamProfile() {
 
       {/* Results for selected season */}
       {(seasonEntries.length > 0 || nonQualifyingEvents.length > 0) && (
-        <h2 className="text-lg font-bold text-slate-800 mb-3">Results</h2>
+        <h2 className="text-lg font-bold text-slate-200 mb-3">Results</h2>
       )}
       {seasonEntries.length > 0 && (
         <div className="mb-8">
           <div className="space-y-4">
-            {seasonEntries.map(({ distance, entry }) => (
+            {seasonEntries.map(({ distance, entry }) => {
+              const distKey = `${effectiveSeason}|${distance}`;
+              const isExpanded = expandedDists.has(distKey);
+              const sorted = [...entry.results].sort(
+                (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime(),
+              );
+              const visible = isExpanded ? sorted : sorted.slice(0, RESULTS_PREVIEW);
+              const hasMore = sorted.length > RESULTS_PREVIEW;
+
+              return (
               <div
                 key={distance}
-                className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white"
+                className="rounded-2xl border border-white/[0.07] overflow-hidden overflow-x-auto bg-[#0c1628]"
               >
-                <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
+                <div className="flex items-center justify-between px-4 py-3 bg-[#060d1a] border-b border-white/[0.06]">
                   <span
                     className={`text-xs font-semibold px-2.5 py-1 rounded-full ${distBadgeClass(distance)}`}
                   >
@@ -355,42 +395,37 @@ export default function TeamProfile() {
                   <div className="text-xs text-slate-500 flex gap-3">
                     <span>
                       Best rank{" "}
-                      <strong className="text-slate-700">
-                        {rankLabel(entry.bestRank)}
+                      <strong className={entry.bestRank <= 3 ? "text-amber-400" : "text-slate-300"}>
+                        #{entry.bestRank}
                       </strong>
                     </span>
                     <span>{entry.eventsScored} events</span>
                   </div>
                 </div>
-                <div className="divide-y divide-slate-100">
-                  {entry.results
-                    .sort(
-                      (a, b) =>
-                        new Date(b.eventDate).getTime() -
-                        new Date(a.eventDate).getTime(),
-                    )
+                <div className="divide-y divide-white/[0.04]">
+                  {visible
                     .map((r) => (
                       <div key={r.eventId} className="px-4 py-3">
                         <div className="flex items-start justify-between gap-2 mb-2">
                           <div>
                             <Link
                               to={`/event/${r.eventId}`}
-                              className="font-semibold text-slate-900 hover:text-blue-600 transition-colors text-sm"
+                              className="font-semibold text-slate-100 hover:text-blue-300 transition-colors text-sm"
                             >
                               {r.eventName}
                             </Link>
-                            <div className="text-xs text-slate-400 mt-0.5">
+                            <div className="text-xs text-slate-600 mt-0.5">
                               {r.eventDate}
                             </div>
                           </div>
                           <div className="flex items-center gap-2 shrink-0 text-xs">
-                            <span className="font-semibold text-slate-700">
-                              {rankLabel(r.teamRank)}
+                            <span className={`font-semibold tabular-nums ${r.teamRank <= 3 ? "text-amber-400" : "text-slate-300"}`}>
+                              #{r.teamRank}
                             </span>
-                            <span className="text-slate-400">
+                            <span className="text-slate-600">
                               {r.basePoints}×{r.coefficient}
                             </span>
-                            <span className="font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">
+                            <span className="font-bold text-blue-300 bg-blue-500/15 px-2 py-0.5 rounded border border-blue-500/20">
                               +{r.points}
                             </span>
                           </div>
@@ -403,7 +438,7 @@ export default function TeamProfile() {
                                 <Link
                                   key={i}
                                   to={`/athlete/${a.id}`}
-                                  className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium transition-colors hover:bg-blue-50 hover:text-blue-700 ${i === 0 ? "bg-amber-50 text-amber-700" : i === 1 ? "bg-slate-100 text-slate-600" : "bg-orange-50 text-orange-600"}`}
+                                  className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium transition-colors hover:bg-white/10 ${i === 0 ? "bg-amber-500/15 text-amber-400" : i === 1 ? "bg-white/[0.06] text-slate-400" : "bg-orange-500/15 text-orange-400"}`}
                                 >
                                   <span className="opacity-60">#{a.pos}</span>{" "}
                                   {a.name}
@@ -411,7 +446,7 @@ export default function TeamProfile() {
                               ) : (
                                 <span
                                   key={i}
-                                  className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium ${i === 0 ? "bg-amber-50 text-amber-700" : i === 1 ? "bg-slate-100 text-slate-600" : "bg-orange-50 text-orange-600"}`}
+                                  className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium ${i === 0 ? "bg-amber-500/15 text-amber-400" : i === 1 ? "bg-white/[0.06] text-slate-400" : "bg-orange-500/15 text-orange-400"}`}
                                 >
                                   <span className="opacity-60">#{a.pos}</span>{" "}
                                   {a.name}
@@ -422,8 +457,21 @@ export default function TeamProfile() {
                       </div>
                     ))}
                 </div>
+                {hasMore && (
+                  <button
+                    onClick={() => setExpandedDists((prev) => {
+                      const next = new Set(prev);
+                      isExpanded ? next.delete(distKey) : next.add(distKey);
+                      return next;
+                    })}
+                    className="w-full px-4 py-2.5 text-xs font-semibold text-slate-500 hover:text-slate-300 border-t border-white/[0.06] transition-colors text-center"
+                  >
+                    {isExpanded ? `Show less` : `Show all ${sorted.length} events`}
+                  </button>
+                )}
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
@@ -431,13 +479,13 @@ export default function TeamProfile() {
       {/* Non-qualifying participations for selected season */}
       {nonQualifyingEvents.length > 0 && (
         <div className="mb-8">
-          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden bg-white">
-            <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
-              <span className="text-xs text-slate-400 font-medium">
+          <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
+            <div className="flex items-center justify-between px-4 py-3 bg-[#060d1a] border-b border-white/[0.06]">
+              <span className="text-xs text-slate-600 font-medium">
                 No team ranking — fewer than 3 members per event
               </span>
             </div>
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-white/[0.04]">
               {(() => {
                 const grouped = new Map<
                   number,
@@ -472,11 +520,11 @@ export default function TeamProfile() {
                       <div className="min-w-0">
                         <Link
                           to={`/event/${eventId}`}
-                          className="font-semibold text-slate-900 hover:text-blue-600 transition-colors text-sm"
+                          className="font-semibold text-slate-100 hover:text-blue-300 transition-colors text-sm"
                         >
                           {group.eventName}
                         </Link>
-                        <div className="text-xs text-slate-400 mt-0.5">
+                        <div className="text-xs text-slate-600 mt-0.5">
                           {group.eventDate}
                         </div>
                       </div>
