@@ -27,7 +27,11 @@ function tickDate(ms: number) {
   });
 }
 
-const PODIUM_COLORS: Record<number, string> = { 1: "#fbbf24", 2: "#cbd5e1", 3: "#fb923c" };
+const PODIUM_COLORS: Record<number, string> = {
+  1: "#fbbf24",
+  2: "#cbd5e1",
+  3: "#fb923c",
+};
 
 interface Props {
   results: AthleteResultRef[];
@@ -90,11 +94,16 @@ export default function PerformanceChart({ results }: Props) {
 
     return (
       <div className="bg-[#0c1628] border border-white/[0.12] rounded-xl shadow-2xl px-4 py-3 text-xs backdrop-blur-sm">
-        <p className="font-bold text-slate-300 mb-2 text-[11px] uppercase tracking-wide">{point.eventName}</p>
+        <p className="font-bold text-slate-300 mb-2 text-[11px] uppercase tracking-wide">
+          {point.eventName}
+        </p>
         <div className="flex items-center gap-2.5">
           <div
             className="w-2 h-2 rounded-full shrink-0"
-            style={{ background: distDotColor(point.dist), boxShadow: `0 0 6px ${distDotColor(point.dist)}` }}
+            style={{
+              background: distDotColor(point.dist),
+              boxShadow: `0 0 6px ${distDotColor(point.dist)}`,
+            }}
           />
           <span className="text-slate-500">{point.dist}</span>
           <span
@@ -118,10 +127,16 @@ export default function PerformanceChart({ results }: Props) {
           </h2>
           <div className="flex gap-3 flex-wrap">
             {uniqueDists.map((d) => (
-              <span key={d} className="flex items-center gap-1 text-[10px] text-slate-600 font-semibold">
+              <span
+                key={d}
+                className="flex items-center gap-1 text-[10px] text-slate-600 font-semibold"
+              >
                 <span
                   className="w-2 h-2 rounded-full inline-block shrink-0"
-                  style={{ background: distDotColor(d), boxShadow: `0 0 4px ${distDotColor(d)}60` }}
+                  style={{
+                    background: distDotColor(d),
+                    boxShadow: `0 0 4px ${distDotColor(d)}60`,
+                  }}
                 />
                 {d}
               </span>
@@ -165,27 +180,45 @@ export default function PerformanceChart({ results }: Props) {
             vertical={false}
           />
           {/* Top 3 zone highlight */}
-          <ReferenceLine y={3} stroke="rgba(251,191,36,0.12)" strokeDasharray="4 4" strokeWidth={1} />
+          <ReferenceLine
+            y={3}
+            stroke="rgba(251,191,36,0.12)"
+            strokeDasharray="4 4"
+            strokeWidth={1}
+          />
           <XAxis
             dataKey="dateMs"
             type="number"
             scale="time"
             domain={["dataMin", "dataMax"]}
             tickFormatter={tickDate}
-            tick={{ fontSize: 10, fill: "#334155", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
+            tick={{
+              fontSize: 10,
+              fill: "#334155",
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 600,
+            }}
             tickLine={false}
             axisLine={false}
           />
           <YAxis
             reversed
             domain={[maxPos + 2, 1]}
-            tick={{ fontSize: 10, fill: "#334155", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
+            tick={{
+              fontSize: 10,
+              fill: "#334155",
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 600,
+            }}
             tickLine={false}
             axisLine={false}
             allowDecimals={false}
             tickFormatter={(v) => `#${v}`}
           />
-          <Tooltip content={<CustomTooltip />} cursor={{ stroke: "rgba(255,255,255,0.06)", strokeWidth: 1 }} />
+          <Tooltip
+            content={<CustomTooltip />}
+            cursor={{ stroke: "rgba(255,255,255,0.06)", strokeWidth: 1 }}
+          />
           <Line
             type="monotone"
             dataKey="pos"
@@ -209,11 +242,30 @@ export default function PerformanceChart({ results }: Props) {
                 <g key={String(props.key ?? "")}>
                   {/* Outer glow ring for podium */}
                   {isPodium && (
-                    <circle cx={cx} cy={cy} r={8} fill={podiumColor!} fillOpacity="0.15" />
+                    <circle
+                      cx={cx}
+                      cy={cy}
+                      r={8}
+                      fill={podiumColor!}
+                      fillOpacity="0.15"
+                    />
                   )}
-                  <circle cx={cx} cy={cy} r={isPodium ? 5 : 3.5} fill={dotColor} />
+                  <circle
+                    cx={cx}
+                    cy={cy}
+                    r={isPodium ? 5 : 3.5}
+                    fill={dotColor}
+                  />
                   {isPodium && (
-                    <circle cx={cx} cy={cy} r={isPodium ? 5 : 3.5} fill="none" stroke={podiumColor!} strokeWidth="1.5" strokeOpacity="0.8" />
+                    <circle
+                      cx={cx}
+                      cy={cy}
+                      r={isPodium ? 5 : 3.5}
+                      fill="none"
+                      stroke={podiumColor!}
+                      strokeWidth="1.5"
+                      strokeOpacity="0.8"
+                    />
                   )}
                   <text
                     x={cx}
@@ -235,7 +287,13 @@ export default function PerformanceChart({ results }: Props) {
               const dotColor = distDotColor(point?.dist ?? "");
               return (
                 <g key={String(props.key ?? "")}>
-                  <circle cx={props.cx} cy={props.cy} r={10} fill={dotColor} fillOpacity="0.15" />
+                  <circle
+                    cx={props.cx}
+                    cy={props.cy}
+                    r={10}
+                    fill={dotColor}
+                    fillOpacity="0.15"
+                  />
                   <circle cx={props.cx} cy={props.cy} r={5} fill={dotColor} />
                 </g>
               );

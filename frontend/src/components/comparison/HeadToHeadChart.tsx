@@ -43,7 +43,9 @@ function ChartTooltip({
   const row = payload[0]?.payload;
   return (
     <div className="bg-[#0c1628] border border-white/[0.12] rounded-xl shadow-2xl px-4 py-3 text-xs backdrop-blur-sm">
-      <p className="font-bold text-slate-300 mb-2 text-[11px] uppercase tracking-wide">{row.eventName}</p>
+      <p className="font-bold text-slate-300 mb-2 text-[11px] uppercase tracking-wide">
+        {row.eventName}
+      </p>
       {payload.map((item, idx) => {
         const color = idx === 0 ? COLOR_A : COLOR_B;
         const name = idx === 0 ? aName : bName;
@@ -53,8 +55,12 @@ function ChartTooltip({
               className="w-2 h-2 rounded-full shrink-0"
               style={{ background: color, boxShadow: `0 0 6px ${color}` }}
             />
-            <span className="text-slate-500 truncate max-w-[100px]">{name}</span>
-            <span className="font-black text-slate-100 ml-auto tabular-nums">#{item.value}</span>
+            <span className="text-slate-500 truncate max-w-[100px]">
+              {name}
+            </span>
+            <span className="font-black text-slate-100 ml-auto tabular-nums">
+              #{item.value}
+            </span>
           </div>
         );
       })}
@@ -72,7 +78,9 @@ export function HeadToHeadChart({ shared, aName, bName }: Props) {
   const sharedYears = useMemo(
     () =>
       [
-        ...new Set(shared.map((pair) => new Date(pair.a.eventDate).getFullYear())),
+        ...new Set(
+          shared.map((pair) => new Date(pair.a.eventDate).getFullYear()),
+        ),
       ].sort((yearA, yearB) => yearB - yearA),
     [shared],
   );
@@ -125,14 +133,20 @@ export function HeadToHeadChart({ shared, aName, bName }: Props) {
             <span className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-500">
               <span
                 className="w-2 h-2 rounded-full shrink-0"
-                style={{ background: COLOR_A, boxShadow: `0 0 4px ${COLOR_A}60` }}
+                style={{
+                  background: COLOR_A,
+                  boxShadow: `0 0 4px ${COLOR_A}60`,
+                }}
               />
               {aName}
             </span>
             <span className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-500">
               <span
                 className="w-2 h-2 rounded-full shrink-0"
-                style={{ background: COLOR_B, boxShadow: `0 0 4px ${COLOR_B}60` }}
+                style={{
+                  background: COLOR_B,
+                  boxShadow: `0 0 4px ${COLOR_B}60`,
+                }}
               />
               {bName}
             </span>
@@ -185,14 +199,24 @@ export function HeadToHeadChart({ shared, aName, bName }: Props) {
             scale="time"
             domain={["dataMin", "dataMax"]}
             tickFormatter={tickDate}
-            tick={{ fontSize: 10, fill: "#334155", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
+            tick={{
+              fontSize: 10,
+              fill: "#334155",
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 600,
+            }}
             tickLine={false}
             axisLine={false}
           />
           <YAxis
             reversed
             domain={[maxPos + 2, 1]}
-            tick={{ fontSize: 10, fill: "#334155", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
+            tick={{
+              fontSize: 10,
+              fill: "#334155",
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 600,
+            }}
             tickLine={false}
             axisLine={false}
             allowDecimals={false}
@@ -210,17 +234,30 @@ export function HeadToHeadChart({ shared, aName, bName }: Props) {
             strokeWidth={2}
             dot={(props) => {
               const { cx, cy } = props;
-              if (cx == null || cy == null) return <g key={String(props.key ?? "")} />;
+              if (cx == null || cy == null)
+                return <g key={String(props.key ?? "")} />;
               return (
                 <g key={String(props.key ?? "")}>
-                  <circle cx={cx} cy={cy} r={6} fill={COLOR_A} fillOpacity="0.15" />
+                  <circle
+                    cx={cx}
+                    cy={cy}
+                    r={6}
+                    fill={COLOR_A}
+                    fillOpacity="0.15"
+                  />
                   <circle cx={cx} cy={cy} r={3.5} fill={COLOR_A} />
                 </g>
               );
             }}
             activeDot={(props) => (
               <g key={String(props.key ?? "")}>
-                <circle cx={props.cx} cy={props.cy} r={10} fill={COLOR_A} fillOpacity="0.2" />
+                <circle
+                  cx={props.cx}
+                  cy={props.cy}
+                  r={10}
+                  fill={COLOR_A}
+                  fillOpacity="0.2"
+                />
                 <circle cx={props.cx} cy={props.cy} r={5} fill={COLOR_A} />
               </g>
             )}
@@ -234,17 +271,30 @@ export function HeadToHeadChart({ shared, aName, bName }: Props) {
             strokeWidth={2}
             dot={(props) => {
               const { cx, cy } = props;
-              if (cx == null || cy == null) return <g key={String(props.key ?? "")} />;
+              if (cx == null || cy == null)
+                return <g key={String(props.key ?? "")} />;
               return (
                 <g key={String(props.key ?? "")}>
-                  <circle cx={cx} cy={cy} r={6} fill={COLOR_B} fillOpacity="0.15" />
+                  <circle
+                    cx={cx}
+                    cy={cy}
+                    r={6}
+                    fill={COLOR_B}
+                    fillOpacity="0.15"
+                  />
                   <circle cx={cx} cy={cy} r={3.5} fill={COLOR_B} />
                 </g>
               );
             }}
             activeDot={(props) => (
               <g key={String(props.key ?? "")}>
-                <circle cx={props.cx} cy={props.cy} r={10} fill={COLOR_B} fillOpacity="0.2" />
+                <circle
+                  cx={props.cx}
+                  cy={props.cy}
+                  r={10}
+                  fill={COLOR_B}
+                  fillOpacity="0.2"
+                />
                 <circle cx={props.cx} cy={props.cy} r={5} fill={COLOR_B} />
               </g>
             )}

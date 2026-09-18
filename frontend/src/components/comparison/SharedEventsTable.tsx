@@ -25,7 +25,9 @@ export function SharedEventsTable({ shared, aName, bName }: Props) {
     <>
       {years.map((year) => (
         <div key={year} className="mb-8">
-          <h2 className="text-sm font-black text-slate-500 uppercase tracking-widest mb-3">{year}</h2>
+          <h2 className="text-sm font-black text-slate-500 uppercase tracking-widest mb-3">
+            {year}
+          </h2>
           <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
             <table className="w-full text-sm">
               <thead>
@@ -96,11 +98,13 @@ export function SharedEventsTable({ shared, aName, bName }: Props) {
                         </div>
                       </td>
                       <td className="px-4 py-3 text-center hidden md:table-cell text-sm">
-                        {tie
-                          ? <span className="text-slate-600">—</span>
-                          : aWon
-                          ? <span className="inline-block w-2.5 h-2.5 rounded-full bg-blue-500" />
-                          : <span className="inline-block w-2.5 h-2.5 rounded-full bg-rose-500" />}
+                        {tie ? (
+                          <span className="text-slate-600">—</span>
+                        ) : aWon ? (
+                          <span className="inline-block w-2.5 h-2.5 rounded-full bg-blue-500" />
+                        ) : (
+                          <span className="inline-block w-2.5 h-2.5 rounded-full bg-rose-500" />
+                        )}
                       </td>
                     </tr>
                   );

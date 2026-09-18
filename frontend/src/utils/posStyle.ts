@@ -10,7 +10,10 @@ export function posStyle(pos: number): string {
 }
 
 /** Gold / silver / bronze text color for a rank. Pass a fallback for ranks 4+. */
-export function rankTextColor(rank: number, fallback = "text-slate-200"): string {
+export function rankTextColor(
+  rank: number,
+  fallback = "text-slate-200",
+): string {
   if (rank === 1) return "text-amber-400";
   if (rank === 2) return "text-slate-300";
   if (rank === 3) return "text-orange-400";
@@ -36,8 +39,11 @@ export function rankRowBg(rank: number): string {
 
 /** Glass-style rank circle badge for top-3 (used in predictions list). */
 export function rankBadgeStyle(rank: number): string {
-  if (rank === 1) return "bg-amber-400/20 text-amber-300 border border-amber-400/40";
-  if (rank === 2) return "bg-slate-400/15 text-slate-300 border border-slate-400/30";
-  if (rank === 3) return "bg-orange-500/15 text-orange-300 border border-orange-500/30";
+  if (rank === 1)
+    return "bg-amber-400/20 text-amber-300 border border-amber-400/40";
+  if (rank === 2)
+    return "bg-slate-400/15 text-slate-300 border border-slate-400/30";
+  if (rank === 3)
+    return "bg-orange-500/15 text-orange-300 border border-orange-500/30";
   return "bg-white/[0.07] text-slate-500";
 }

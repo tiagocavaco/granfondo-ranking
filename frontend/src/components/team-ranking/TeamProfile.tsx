@@ -12,9 +12,18 @@ import { TeamMemberList } from "./TeamMemberList";
 function TeamNotFound({ navigate }: { navigate: (delta: number) => void }) {
   return (
     <div className="text-center py-16 text-slate-400">
-      <svg className="w-12 h-12 mx-auto mb-3 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <svg
+        className="w-12 h-12 mx-auto mb-3 text-slate-700"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+      </svg>
       <p className="font-semibold text-slate-600 text-lg">Team not found</p>
-      <button onClick={() => navigate(-1)} className="mt-4 text-sm text-blue-600 hover:underline">
+      <button
+        onClick={() => navigate(-1)}
+        className="mt-4 text-sm text-blue-600 hover:underline"
+      >
         ← Go back
       </button>
     </div>
@@ -268,7 +277,9 @@ export default function TeamProfile() {
           <h1 className="font-display font-bold text-3xl sm:text-4xl tracking-wide mb-1 leading-tight break-words uppercase">
             {displayName}
           </h1>
-          <p className="text-slate-600 text-sm mb-0">{allSeasons.join(" · ")}</p>
+          <p className="text-slate-600 text-sm mb-0">
+            {allSeasons.join(" · ")}
+          </p>
 
           {/* Editorial stats strip */}
           <div className="flex items-stretch mt-5 pt-5 border-t border-white/[0.06]">
@@ -363,35 +374,44 @@ export default function TeamProfile() {
               const distKey = `${effectiveSeason}|${distance}`;
               const isExpanded = expandedDists.has(distKey);
               const sorted = [...entry.results].sort(
-                (a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime(),
+                (a, b) =>
+                  new Date(b.eventDate).getTime() -
+                  new Date(a.eventDate).getTime(),
               );
-              const visible = isExpanded ? sorted : sorted.slice(0, RESULTS_PREVIEW);
+              const visible = isExpanded
+                ? sorted
+                : sorted.slice(0, RESULTS_PREVIEW);
               const hasMore = sorted.length > RESULTS_PREVIEW;
 
               return (
-              <div
-                key={distance}
-                className="rounded-2xl border border-white/[0.07] overflow-hidden overflow-x-auto bg-[#0c1628]"
-              >
-                <div className="flex items-center justify-between px-4 py-3 bg-[#060d1a] border-b border-white/[0.06]">
-                  <span
-                    className={`text-xs font-semibold px-2.5 py-1 rounded-full ${distBadgeClass(distance)}`}
-                  >
-                    {distance}
-                  </span>
-                  <div className="text-xs text-slate-500 flex gap-3">
-                    <span>
-                      Best rank{" "}
-                      <strong className={entry.bestRank <= 3 ? "text-amber-400" : "text-slate-300"}>
-                        #{entry.bestRank}
-                      </strong>
+                <div
+                  key={distance}
+                  className="rounded-2xl border border-white/[0.07] overflow-hidden overflow-x-auto bg-[#0c1628]"
+                >
+                  <div className="flex items-center justify-between px-4 py-3 bg-[#060d1a] border-b border-white/[0.06]">
+                    <span
+                      className={`text-xs font-semibold px-2.5 py-1 rounded-full ${distBadgeClass(distance)}`}
+                    >
+                      {distance}
                     </span>
-                    <span>{entry.eventsScored} events</span>
+                    <div className="text-xs text-slate-500 flex gap-3">
+                      <span>
+                        Best rank{" "}
+                        <strong
+                          className={
+                            entry.bestRank <= 3
+                              ? "text-amber-400"
+                              : "text-slate-300"
+                          }
+                        >
+                          #{entry.bestRank}
+                        </strong>
+                      </span>
+                      <span>{entry.eventsScored} events</span>
+                    </div>
                   </div>
-                </div>
-                <div className="divide-y divide-white/[0.04]">
-                  {visible
-                    .map((r) => (
+                  <div className="divide-y divide-white/[0.04]">
+                    {visible.map((r) => (
                       <div key={r.eventId} className="px-4 py-3">
                         <div className="flex items-start justify-between gap-2 mb-2">
                           <div>
@@ -406,7 +426,9 @@ export default function TeamProfile() {
                             </div>
                           </div>
                           <div className="flex items-center gap-2 shrink-0 text-xs">
-                            <span className={`font-semibold tabular-nums ${r.teamRank <= 3 ? "text-amber-400" : "text-slate-300"}`}>
+                            <span
+                              className={`font-semibold tabular-nums ${r.teamRank <= 3 ? "text-amber-400" : "text-slate-300"}`}
+                            >
                               #{r.teamRank}
                             </span>
                             <span className="text-slate-600">
@@ -441,20 +463,24 @@ export default function TeamProfile() {
                         </div>
                       </div>
                     ))}
+                  </div>
+                  {hasMore && (
+                    <button
+                      onClick={() =>
+                        setExpandedDists((prev) => {
+                          const next = new Set(prev);
+                          isExpanded ? next.delete(distKey) : next.add(distKey);
+                          return next;
+                        })
+                      }
+                      className="w-full px-4 py-2.5 text-xs font-semibold text-slate-500 hover:text-slate-300 border-t border-white/[0.06] transition-colors text-center"
+                    >
+                      {isExpanded
+                        ? `Show less`
+                        : `Show all ${sorted.length} events`}
+                    </button>
+                  )}
                 </div>
-                {hasMore && (
-                  <button
-                    onClick={() => setExpandedDists((prev) => {
-                      const next = new Set(prev);
-                      isExpanded ? next.delete(distKey) : next.add(distKey);
-                      return next;
-                    })}
-                    className="w-full px-4 py-2.5 text-xs font-semibold text-slate-500 hover:text-slate-300 border-t border-white/[0.06] transition-colors text-center"
-                  >
-                    {isExpanded ? `Show less` : `Show all ${sorted.length} events`}
-                  </button>
-                )}
-              </div>
               );
             })}
           </div>

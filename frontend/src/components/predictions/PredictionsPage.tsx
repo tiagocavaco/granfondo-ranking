@@ -7,7 +7,11 @@ import { DISTANCES } from "@granfondo/utils/distance";
 import { Spinner } from "../shared/Spinner";
 import { GenderToggle } from "../shared/GenderToggle";
 import { distBadgeClass } from "../../utils/distance";
-import { rankBorderAccent, rankRowBg, rankBadgeStyle } from "../../utils/posStyle";
+import {
+  rankBorderAccent,
+  rankRowBg,
+  rankBadgeStyle,
+} from "../../utils/posStyle";
 import { countryFlag } from "@granfondo/database/normalize";
 import { isFemaleCategory, categorySortKey } from "@granfondo/utils/category";
 import { ShieldCheckIcon } from "../shared/ShieldCheckIcon";
@@ -120,13 +124,17 @@ function OverallCard({
           </span>
         </div>
         <div className="flex items-center gap-2 mb-1">
-          {flag && <span className="text-lg leading-none shrink-0">{flag}</span>}
+          {flag && (
+            <span className="text-lg leading-none shrink-0">{flag}</span>
+          )}
           <span className="font-display font-black text-white group-hover:text-blue-300 transition-colors text-base sm:text-lg leading-tight truncate uppercase">
             {pred.name}
           </span>
         </div>
         {pred.team && (
-          <div className="text-xs text-slate-600 truncate mb-2">{pred.team}</div>
+          <div className="text-xs text-slate-600 truncate mb-2">
+            {pred.team}
+          </div>
         )}
         <div className="flex items-center gap-2 flex-wrap mt-2 pt-2 border-t border-white/[0.06]">
           {crossDistance && (
@@ -214,7 +222,9 @@ function NoPredictionsState() {
       >
         <path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z" />
       </svg>
-      <p className="font-semibold text-slate-600">No predictions available yet</p>
+      <p className="font-semibold text-slate-600">
+        No predictions available yet
+      </p>
       <p className="text-sm mt-1 text-slate-700">
         Predictions appear once participant data is linked to athlete profiles.
       </p>
@@ -280,7 +290,10 @@ function DistancePanel({ data }: { data: DistancePredictions }) {
               </span>
               <div className="flex-1 h-[1px] bg-white/[0.06]" />
             </div>
-            <GenderToggle value={gender} onChange={(v) => setGender(v as "M" | "F")} />
+            <GenderToggle
+              value={gender}
+              onChange={(v) => setGender(v as "M" | "F")}
+            />
           </div>
           {sortedCats.length > 0 ? (
             <div className="rounded-2xl border border-white/[0.07] bg-[#0c1628] overflow-hidden">

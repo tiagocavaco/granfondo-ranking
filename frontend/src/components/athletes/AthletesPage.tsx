@@ -83,8 +83,17 @@ export default function AthletesPage() {
 
       <div className="relative mb-6">
         <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
-          <svg className="w-4 h-4 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          <svg
+            className="w-4 h-4 text-slate-600"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
           </svg>
         </span>
         <input
@@ -148,8 +157,12 @@ export default function AthletesPage() {
                         )}
                       </div>
                       <div className="shrink-0 ml-2 text-xs tabular-nums">
-                        <span className="font-bold text-slate-500">{a.resultCount}</span>
-                        <span className="text-slate-700 ml-1">{a.resultCount === 1 ? "race" : "races"}</span>
+                        <span className="font-bold text-slate-500">
+                          {a.resultCount}
+                        </span>
+                        <span className="text-slate-700 ml-1">
+                          {a.resultCount === 1 ? "race" : "races"}
+                        </span>
                       </div>
                     </Link>
                   </li>

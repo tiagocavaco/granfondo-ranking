@@ -47,7 +47,13 @@ export default function AthleteProfile() {
   if (error || !data) {
     return (
       <div className="text-center py-16 text-slate-400">
-        <svg className="w-12 h-12 mx-auto mb-3 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <svg
+          className="w-12 h-12 mx-auto mb-3 text-slate-700"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+        </svg>
         <p className="font-semibold text-slate-600 text-lg">
           Athlete not found
         </p>
@@ -64,8 +70,12 @@ export default function AthleteProfile() {
   const athlete = data;
 
   const finished = athlete.results.filter((r) => !r.dnf && !r.dns);
-  const overallPodiums = finished.filter((r) => r.genderPos > 0 && r.genderPos <= 3).length;
-  const catPodiums = finished.filter((r) => r.catPos > 0 && r.catPos <= 3).length;
+  const overallPodiums = finished.filter(
+    (r) => r.genderPos > 0 && r.genderPos <= 3,
+  ).length;
+  const catPodiums = finished.filter(
+    (r) => r.catPos > 0 && r.catPos <= 3,
+  ).length;
   const bestPos =
     finished.length > 0 ? Math.min(...finished.map((r) => r.pos)) : null;
   const recentTeam = athlete.canonicalTeam ?? athlete.results[0]?.team ?? "";
@@ -150,7 +160,9 @@ export default function AthleteProfile() {
             </div>
             <div className="w-[1px] self-stretch bg-white/[0.08] shrink-0" />
             <div className="flex flex-col items-center px-3 sm:px-5">
-              <span className={`text-2xl sm:text-3xl font-black tabular-nums leading-none ${overallPodiums > 0 ? "text-amber-400" : "text-slate-500"}`}>
+              <span
+                className={`text-2xl sm:text-3xl font-black tabular-nums leading-none ${overallPodiums > 0 ? "text-amber-400" : "text-slate-500"}`}
+              >
                 {overallPodiums}
               </span>
               <span className="text-[9px] sm:text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1 whitespace-nowrap">
@@ -159,7 +171,9 @@ export default function AthleteProfile() {
             </div>
             <div className="w-[1px] self-stretch bg-white/[0.08] shrink-0" />
             <div className="flex flex-col items-center px-3 sm:px-5">
-              <span className={`text-2xl sm:text-3xl font-black tabular-nums leading-none ${catPodiums > 0 ? "text-amber-400" : "text-slate-500"}`}>
+              <span
+                className={`text-2xl sm:text-3xl font-black tabular-nums leading-none ${catPodiums > 0 ? "text-amber-400" : "text-slate-500"}`}
+              >
                 {catPodiums}
               </span>
               <span className="text-[9px] sm:text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1 whitespace-nowrap">
@@ -170,7 +184,9 @@ export default function AthleteProfile() {
               <>
                 <div className="w-[1px] self-stretch bg-white/[0.08] shrink-0" />
                 <div className="flex flex-col items-center pl-3 sm:pl-5">
-                  <span className={`text-2xl sm:text-3xl font-black tabular-nums leading-none ${rankTextColor(bestPos, "text-white")}`}>
+                  <span
+                    className={`text-2xl sm:text-3xl font-black tabular-nums leading-none ${rankTextColor(bestPos, "text-white")}`}
+                  >
                     #{bestPos}
                   </span>
                   <span className="text-[9px] sm:text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1 whitespace-nowrap">

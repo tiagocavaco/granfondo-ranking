@@ -62,13 +62,18 @@ export default function AthleteRankingInfoPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-[#060d1a] text-[10px] text-slate-600 uppercase tracking-widest border-b border-white/[0.05]">
-                  <th className="px-4 py-2.5 text-left font-bold">Gender position</th>
+                  <th className="px-4 py-2.5 text-left font-bold">
+                    Gender position
+                  </th>
                   <th className="px-4 py-2.5 text-right font-bold">Base pts</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.04]">
                 {POINTS.map((row) => (
-                  <tr key={row.pos} className="hover:bg-white/[0.03] transition-colors">
+                  <tr
+                    key={row.pos}
+                    className="hover:bg-white/[0.03] transition-colors"
+                  >
                     <td className="px-4 py-2 text-slate-300 font-medium">
                       {row.pos}
                     </td>
@@ -79,7 +84,9 @@ export default function AthleteRankingInfoPage() {
                 ))}
                 <tr className="bg-white/[0.02]">
                   <td className="px-4 py-2 text-slate-600 text-xs">51st+</td>
-                  <td className="px-4 py-2 text-right text-slate-600 text-xs">0</td>
+                  <td className="px-4 py-2 text-right text-slate-600 text-xs">
+                    0
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -93,7 +100,9 @@ export default function AthleteRankingInfoPage() {
               <thead>
                 <tr className="bg-[#060d1a] text-[10px] text-slate-600 uppercase tracking-widest border-b border-white/[0.05]">
                   <th className="px-4 py-2.5 text-left font-bold">Finishers</th>
-                  <th className="px-4 py-2.5 text-right font-bold">Coefficient</th>
+                  <th className="px-4 py-2.5 text-right font-bold">
+                    Coefficient
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.04]">
@@ -102,9 +111,15 @@ export default function AthleteRankingInfoPage() {
                   return (
                     <tr
                       key={row.finishers}
-                      className={isRef ? "bg-blue-500/10" : "hover:bg-white/[0.03] transition-colors"}
+                      className={
+                        isRef
+                          ? "bg-blue-500/10"
+                          : "hover:bg-white/[0.03] transition-colors"
+                      }
                     >
-                      <td className={`px-4 py-2 font-medium ${isRef ? "text-blue-300" : "text-slate-300"}`}>
+                      <td
+                        className={`px-4 py-2 font-medium ${isRef ? "text-blue-300" : "text-slate-300"}`}
+                      >
                         {row.finishers}
                         {isRef && (
                           <span className="ml-2 text-xs font-normal text-blue-500">
@@ -112,7 +127,9 @@ export default function AthleteRankingInfoPage() {
                           </span>
                         )}
                       </td>
-                      <td className={`px-4 py-2 text-right font-black tabular-nums ${isRef ? "text-blue-300" : "text-slate-300"}`}>
+                      <td
+                        className={`px-4 py-2 text-right font-black tabular-nums ${isRef ? "text-blue-300" : "text-slate-300"}`}
+                      >
                         {row.coeff}
                       </td>
                     </tr>
@@ -129,11 +146,13 @@ export default function AthleteRankingInfoPage() {
 
         <div>
           <SectionLabel className="mb-3">Rules</SectionLabel>
-          <RulesList items={[
-            "Points are awarded per gender.",
-            "Only the top 50 finishers score points.",
-            "Rankings are per distance.",
-          ]} />
+          <RulesList
+            items={[
+              "Points are awarded per gender.",
+              "Only the top 50 finishers score points.",
+              "Rankings are per distance.",
+            ]}
+          />
         </div>
       </div>
     </div>

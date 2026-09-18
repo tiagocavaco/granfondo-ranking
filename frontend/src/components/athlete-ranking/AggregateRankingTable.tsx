@@ -93,7 +93,9 @@ export function AggregateRankingTable({ ranked, maxPoints, resetKey }: Props) {
                   expanded === String(a.id) ? "bg-blue-500/[0.06]" : ""
                 } ${a.rank <= 3 ? "bg-white/[0.02]" : ""}`}
               >
-                <td className={`py-3 pl-2 pr-2 sm:pr-4 ${rankBorderAccent(a.rank)}`}>
+                <td
+                  className={`py-3 pl-2 pr-2 sm:pr-4 ${rankBorderAccent(a.rank)}`}
+                >
                   <RankBadge rank={a.rank} />
                 </td>
                 <td className="px-2 sm:px-4 py-3 w-full max-w-0 overflow-hidden">
@@ -126,7 +128,9 @@ export function AggregateRankingTable({ ranked, maxPoints, resetKey }: Props) {
                   {a.eventsScored}
                 </td>
                 <td className="px-4 py-3 text-center text-slate-500 hidden md:table-cell">
-                  <span className={`font-semibold tabular-nums ${rankTextColor(a.bestPos, "text-slate-400")}`}>
+                  <span
+                    className={`font-semibold tabular-nums ${rankTextColor(a.bestPos, "text-slate-400")}`}
+                  >
                     #{a.bestPos}
                   </span>
                 </td>
@@ -140,7 +144,9 @@ export function AggregateRankingTable({ ranked, maxPoints, resetKey }: Props) {
                         }}
                       />
                     </div>
-                    <span className={`font-extrabold tabular-nums inline-block w-14 text-right ${rankTextColor(a.rank, "text-blue-400")}`}>
+                    <span
+                      className={`font-extrabold tabular-nums inline-block w-14 text-right ${rankTextColor(a.rank, "text-blue-400")}`}
+                    >
                       {a.totalPoints.toFixed(1)}
                     </span>
                   </div>
@@ -161,7 +167,11 @@ export function AggregateRankingTable({ ranked, maxPoints, resetKey }: Props) {
           ))}
         </tbody>
       </table>
-      <ScrollSentinel sentinelRef={sentinelRef} visible={visibleCount} total={ranked.length} />
+      <ScrollSentinel
+        sentinelRef={sentinelRef}
+        visible={visibleCount}
+        total={ranked.length}
+      />
     </div>
   );
 }

@@ -22,7 +22,9 @@ export function GenderBadge({
   return (
     <span
       className={`text-xs font-semibold px-1.5 py-0.5 rounded ${
-        isFemale ? "bg-pink-500/15 text-pink-300" : "bg-blue-500/15 text-blue-300"
+        isFemale
+          ? "bg-pink-500/15 text-pink-300"
+          : "bg-blue-500/15 text-blue-300"
       }`}
     >
       {gender}

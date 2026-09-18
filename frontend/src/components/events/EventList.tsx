@@ -45,12 +45,13 @@ export default function EventList() {
 
   const nextUpcoming = useMemo(() => {
     const now = Date.now();
-    return allEvents
-      .filter((e) => new Date(e.date + "T12:00:00").getTime() >= now)
-      .sort(
-        (a, b) =>
-          new Date(a.date).getTime() - new Date(b.date).getTime(),
-      )[0] ?? null;
+    return (
+      allEvents
+        .filter((e) => new Date(e.date + "T12:00:00").getTime() >= now)
+        .sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+        )[0] ?? null
+    );
   }, [allEvents]);
 
   const filtered = useMemo(() => {
@@ -90,9 +91,7 @@ export default function EventList() {
   );
 
   const uniqueAthleteCount =
-    season !== "all"
-      ? stats?.uniqueByYear[season]
-      : stats?.uniqueAthletes;
+    season !== "all" ? stats?.uniqueByYear[season] : stats?.uniqueAthletes;
 
   return (
     <div>
@@ -109,22 +108,21 @@ export default function EventList() {
       )}
 
       {/* Next upcoming event hero */}
-      {!loading && !error && nextUpcoming && (
-        <EventHero event={nextUpcoming} />
-      )}
+      {!loading && !error && nextUpcoming && <EventHero event={nextUpcoming} />}
 
       {/* Stats strip */}
       {!loading && !error && allEvents.length > 0 && (
         <div className="flex items-center gap-3 sm:gap-6 mb-8 px-1 border-t border-white/[0.06] pt-6">
-          <StatPill
-            value={filtered.length}
-            label="events"
-            color="text-white"
-          />
+          <StatPill value={filtered.length} label="events" color="text-white" />
           <div className="w-[1px] h-6 bg-white/[0.07]" />
           <StatPill
             value={filtered.filter((e) => e.hasResults).length}
-            label={<><span className="sm:hidden">w/ results</span><span className="hidden sm:inline">with results</span></>}
+            label={
+              <>
+                <span className="sm:hidden">w/ results</span>
+                <span className="hidden sm:inline">with results</span>
+              </>
+            }
             color="text-amber-400"
           />
           <div className="w-[1px] h-6 bg-white/[0.07]" />
@@ -188,7 +186,13 @@ export default function EventList() {
         <>
           {filtered.length === 0 ? (
             <div className="text-center py-20 text-slate-600">
-              <svg className="w-10 h-10 mx-auto mb-3 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+              <svg
+                className="w-10 h-10 mx-auto mb-3 text-slate-700"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+              </svg>
               <p className="font-semibold text-slate-500">No events found</p>
             </div>
           ) : (
@@ -205,7 +209,9 @@ function EventHero({ event }: { event: StoredEvent }) {
   const navigate = useNavigate();
   const date = new Date(event.date + "T12:00:00");
   const day = date.toLocaleDateString("en-GB", { day: "numeric" });
-  const month = date.toLocaleDateString("en-GB", { month: "short" }).toUpperCase();
+  const month = date
+    .toLocaleDateString("en-GB", { month: "short" })
+    .toUpperCase();
   const year = date.getFullYear();
   const fullDate = date.toLocaleDateString("en-GB", {
     weekday: "long",
@@ -270,96 +276,110 @@ function EventHero({ event }: { event: StoredEvent }) {
           </div>
 
           <div className="flex flex-col md:flex-row md:items-center gap-6">
-          <div className="flex-1 min-w-0">
-            {/* Event name */}
-            <div className="flex items-start justify-between gap-3 mb-4">
-              <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight tracking-wide uppercase group-hover:text-amber-100 transition-colors">
-                {event.name}
-              </h2>
-              <div className="md:hidden shrink-0 text-right select-none pt-1 opacity-20">
-                <div className="text-[38px] font-black text-white leading-none tabular-nums">{day}</div>
-                <div className="text-[11px] font-black text-amber-400 tracking-widest mt-0.5">{month}</div>
-                <div className="text-[9px] font-bold text-slate-400 mt-0.5">{year}</div>
+            <div className="flex-1 min-w-0">
+              {/* Event name */}
+              <div className="flex items-start justify-between gap-3 mb-4">
+                <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight tracking-wide uppercase group-hover:text-amber-100 transition-colors">
+                  {event.name}
+                </h2>
+                <div className="md:hidden shrink-0 text-right select-none pt-1 opacity-20">
+                  <div className="text-[38px] font-black text-white leading-none tabular-nums">
+                    {day}
+                  </div>
+                  <div className="text-[11px] font-black text-amber-400 tracking-widest mt-0.5">
+                    {month}
+                  </div>
+                  <div className="text-[9px] font-bold text-slate-400 mt-0.5">
+                    {year}
+                  </div>
+                </div>
               </div>
-            </div>
 
-            {/* Date row — visible and bold on mobile */}
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-4">
-              <span className="text-sm font-bold text-slate-200 flex items-center gap-1.5">
-                <svg className="w-3.5 h-3.5 text-slate-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/>
-                </svg>
-                {fullDate}
-              </span>
-              <span className="text-slate-600 hidden sm:inline">·</span>
-              <span className="text-sm text-slate-400 flex items-center gap-1">
-                <svg className="w-3.5 h-3.5 text-slate-600 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
-                {event.location}
-              </span>
-            </div>
-
-            {/* Participants */}
-            {event.participantCount > 0 && (
-              <p className="text-sm text-slate-500 mb-4">
-                <span className="font-bold text-amber-400">
-                  {event.participantCount.toLocaleString()}
-                </span>{" "}
-                registered athletes
-              </p>
-            )}
-
-            {/* Distance badges */}
-            <div className="flex flex-wrap gap-2">
-              {event.distances.map((d) => (
-                <span
-                  key={d.id}
-                  className={`text-xs px-3 py-1 rounded-full font-semibold ${distBadgeClass(d.name)}`}
-                >
-                  {d.name}
+              {/* Date row — visible and bold on mobile */}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-4">
+                <span className="text-sm font-bold text-slate-200 flex items-center gap-1.5">
+                  <svg
+                    className="w-3.5 h-3.5 text-slate-500 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z" />
+                  </svg>
+                  {fullDate}
                 </span>
-              ))}
-            </div>
-
-            {/* Mobile links — desktop versions are in the label row */}
-            {(event.participantCount > 0 || event.officialUrl) && (
-              <div className="flex sm:hidden flex-wrap gap-2 mt-4 pt-4 border-t border-white/[0.06]">
-                {event.participantCount > 0 && (
-                  <Link
-                    to={`/event/${event.id}/predictions`}
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-400/10 text-amber-300 border border-amber-400/20 hover:bg-amber-400/20 transition-colors"
+                <span className="text-slate-600 hidden sm:inline">·</span>
+                <span className="text-sm text-slate-400 flex items-center gap-1">
+                  <svg
+                    className="w-3.5 h-3.5 text-slate-600 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
                   >
-                    Predictions ✦
-                  </Link>
-                )}
-                {event.officialUrl && (
-                  <a
-                    href={event.officialUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 border border-white/[0.1] hover:text-white hover:border-white/25 transition-colors"
-                  >
-                    <ShieldCheckIcon />
-                    Page ↗
-                  </a>
-                )}
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                  </svg>
+                  {event.location}
+                </span>
               </div>
-            )}
-          </div>
 
-          {/* Large date on desktop */}
-          <div className="hidden md:block text-right shrink-0 select-none opacity-40 group-hover:opacity-60 transition-opacity">
-            <div className="text-[100px] lg:text-[130px] font-black text-white leading-none tabular-nums">
-              {day}
+              {/* Participants */}
+              {event.participantCount > 0 && (
+                <p className="text-sm text-slate-500 mb-4">
+                  <span className="font-bold text-amber-400">
+                    {event.participantCount.toLocaleString()}
+                  </span>{" "}
+                  registered athletes
+                </p>
+              )}
+
+              {/* Distance badges */}
+              <div className="flex flex-wrap gap-2">
+                {event.distances.map((d) => (
+                  <span
+                    key={d.id}
+                    className={`text-xs px-3 py-1 rounded-full font-semibold ${distBadgeClass(d.name)}`}
+                  >
+                    {d.name}
+                  </span>
+                ))}
+              </div>
+
+              {/* Mobile links — desktop versions are in the label row */}
+              {(event.participantCount > 0 || event.officialUrl) && (
+                <div className="flex sm:hidden flex-wrap gap-2 mt-4 pt-4 border-t border-white/[0.06]">
+                  {event.participantCount > 0 && (
+                    <Link
+                      to={`/event/${event.id}/predictions`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-400/10 text-amber-300 border border-amber-400/20 hover:bg-amber-400/20 transition-colors"
+                    >
+                      Predictions ✦
+                    </Link>
+                  )}
+                  {event.officialUrl && (
+                    <a
+                      href={event.officialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 border border-white/[0.1] hover:text-white hover:border-white/25 transition-colors"
+                    >
+                      <ShieldCheckIcon />
+                      Page ↗
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
-            <div className="text-3xl lg:text-4xl font-black text-amber-400 tracking-widest -mt-2">
-              {month}
+
+            {/* Large date on desktop */}
+            <div className="hidden md:block text-right shrink-0 select-none opacity-40 group-hover:opacity-60 transition-opacity">
+              <div className="text-[100px] lg:text-[130px] font-black text-white leading-none tabular-nums">
+                {day}
+              </div>
+              <div className="text-3xl lg:text-4xl font-black text-amber-400 tracking-widest -mt-2">
+                {month}
+              </div>
+              <div className="text-lg text-slate-500 font-bold">{year}</div>
             </div>
-            <div className="text-lg text-slate-500 font-bold">{year}</div>
-          </div>
           </div>
         </div>
       </div>
@@ -399,7 +419,12 @@ function EventListByYear({ events }: { events: StoredEvent[] }) {
           {/* Events in this year */}
           <div>
             {yearEvents.map((event, idx) => (
-              <EventRow key={event.id} event={event} isFirst={idx === 0} animIndex={idx} />
+              <EventRow
+                key={event.id}
+                event={event}
+                isFirst={idx === 0}
+                animIndex={idx}
+              />
             ))}
           </div>
         </div>
@@ -408,11 +433,21 @@ function EventListByYear({ events }: { events: StoredEvent[] }) {
   );
 }
 
-function EventRow({ event, isFirst, animIndex = 0 }: { event: StoredEvent; isFirst: boolean; animIndex?: number }) {
+function EventRow({
+  event,
+  isFirst,
+  animIndex = 0,
+}: {
+  event: StoredEvent;
+  isFirst: boolean;
+  animIndex?: number;
+}) {
   const isPast = new Date(event.date + "T12:00:00") < new Date();
   const date = new Date(event.date + "T12:00:00");
   const day = date.toLocaleDateString("en-GB", { day: "numeric" });
-  const month = date.toLocaleDateString("en-GB", { month: "short" }).toUpperCase();
+  const month = date
+    .toLocaleDateString("en-GB", { month: "short" })
+    .toUpperCase();
   const year = date.getFullYear();
   const delay = Math.min(animIndex * 55, 400);
 
@@ -425,20 +460,28 @@ function EventRow({ event, isFirst, animIndex = 0 }: { event: StoredEvent; isFir
       }`}
     >
       {/* Left accent — faint at rest, bright on hover */}
-      <div className={`absolute left-0 inset-y-3 w-[2px] rounded-full transition-all duration-300 opacity-20 group-hover:opacity-100 ${!isPast ? "bg-amber-400/80" : event.hasResults ? "bg-emerald-500/70" : "bg-orange-400/70"}`} />
+      <div
+        className={`absolute left-0 inset-y-3 w-[2px] rounded-full transition-all duration-300 opacity-20 group-hover:opacity-100 ${!isPast ? "bg-amber-400/80" : event.hasResults ? "bg-emerald-500/70" : "bg-orange-400/70"}`}
+      />
       {/* Date column */}
       <div className="w-12 sm:w-14 shrink-0 text-center">
-        <div className={`text-xl sm:text-2xl font-black leading-none ${isPast ? "text-slate-400" : "text-amber-300"}`}>
+        <div
+          className={`text-xl sm:text-2xl font-black leading-none ${isPast ? "text-slate-400" : "text-amber-300"}`}
+        >
           {day}
         </div>
-        <div className={`text-[9px] sm:text-[10px] font-bold tracking-widest mt-0.5 ${isPast ? "text-slate-600" : "text-amber-500"}`}>
+        <div
+          className={`text-[9px] sm:text-[10px] font-bold tracking-widest mt-0.5 ${isPast ? "text-slate-600" : "text-amber-500"}`}
+        >
           {month}
         </div>
         <div className="text-[9px] text-slate-700 mt-0.5">{year}</div>
       </div>
 
       {/* Vertical divider */}
-      <div className={`w-[1px] self-stretch shrink-0 ${isPast ? "bg-white/[0.05]" : "bg-amber-500/20"}`} />
+      <div
+        className={`w-[1px] self-stretch shrink-0 ${isPast ? "bg-white/[0.05]" : "bg-amber-500/20"}`}
+      />
 
       {/* Event info */}
       <div className="flex-1 min-w-0">
@@ -447,8 +490,12 @@ function EventRow({ event, isFirst, animIndex = 0 }: { event: StoredEvent; isFir
         </div>
         <div className="flex items-center gap-2 mt-1 text-xs text-slate-600 flex-wrap">
           <span className="flex items-center gap-1">
-            <svg className="w-3 h-3 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            <svg
+              className="w-3 h-3 text-slate-700 shrink-0"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
             </svg>
             {event.location}
           </span>
@@ -507,7 +554,6 @@ function EventRow({ event, isFirst, animIndex = 0 }: { event: StoredEvent; isFir
   );
 }
 
-
 function StatPill({
   value,
   label,
@@ -533,7 +579,9 @@ function StatPill({
 
 function DistanceBadge({ name }: { name: string }) {
   return (
-    <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${distBadgeClass(name)}`}>
+    <span
+      className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${distBadgeClass(name)}`}
+    >
       {name}
     </span>
   );

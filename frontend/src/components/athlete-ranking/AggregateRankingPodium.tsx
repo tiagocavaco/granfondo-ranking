@@ -18,15 +18,24 @@ function PodiumCard({
   const isFirst = athlete.rank === 1;
   const isSecond = athlete.rank === 2;
 
-  const cardBase = "rounded-2xl relative overflow-hidden border transition-all duration-300 cursor-pointer";
+  const cardBase =
+    "rounded-2xl relative overflow-hidden border transition-all duration-300 cursor-pointer";
   const cardStyle = isFirst
     ? `${cardBase} bg-gradient-to-b from-amber-500/10 to-[#0c1628] border-amber-500/25 glow-gold hover:border-amber-400/40`
     : isSecond
       ? `${cardBase} bg-gradient-to-b from-slate-400/10 to-[#0c1628] border-slate-400/20 glow-silver hover:border-slate-400/35`
       : `${cardBase} bg-gradient-to-b from-orange-500/15 to-[#0c1628] border-orange-500/30 glow-bronze hover:border-orange-400/45`;
 
-  const ptsColor = isFirst ? "text-amber-400" : isSecond ? "text-slate-300" : "text-orange-400";
-  const subColor = isFirst ? "text-amber-500" : isSecond ? "text-slate-600" : "text-orange-600";
+  const ptsColor = isFirst
+    ? "text-amber-400"
+    : isSecond
+      ? "text-slate-300"
+      : "text-orange-400";
+  const subColor = isFirst
+    ? "text-amber-500"
+    : isSecond
+      ? "text-slate-600"
+      : "text-orange-600";
 
   const padding = isMobileFirst
     ? "px-4 pt-5 pb-4 sm:px-3 sm:pt-5 sm:pb-4"
@@ -52,7 +61,9 @@ function PodiumCard({
             size={isMobileFirst ? "lg" : "sm"}
           />
         </div>
-        <div className={`leading-tight mb-1 line-clamp-2 ${isMobileFirst ? "font-black text-amber-100 text-sm sm:text-base" : "font-bold text-slate-200 text-xs"}`}>
+        <div
+          className={`leading-tight mb-1 line-clamp-2 ${isMobileFirst ? "font-black text-amber-100 text-sm sm:text-base" : "font-bold text-slate-200 text-xs"}`}
+        >
           <span className="mr-0.5" title={athlete.country}>
             {countryFlag(athlete.country)}
           </span>
@@ -62,7 +73,9 @@ function PodiumCard({
           team={athlete.team ?? ""}
           className={`text-[10px] transition-colors truncate block mb-1.5 ${isMobileFirst ? "text-amber-500 hover:text-amber-300" : "text-slate-600 hover:text-blue-400"}`}
         />
-        <div className={`font-black tabular-nums ${isMobileFirst ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"} ${ptsColor}`}>
+        <div
+          className={`font-black tabular-nums ${isMobileFirst ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"} ${ptsColor}`}
+        >
           {athlete.totalPoints}
         </div>
         <div className={`text-[10px] font-medium ${subColor}`}>pts</div>
@@ -95,9 +108,13 @@ export function AggregateRankingPodium({
       </div>
       {/* Desktop: [2nd] [1st] [3rd] */}
       <div className="hidden sm:grid sm:grid-cols-3 sm:gap-3 sm:items-end">
-        <div className="mt-4"><PodiumCard athlete={second} animDelay={150} /></div>
+        <div className="mt-4">
+          <PodiumCard athlete={second} animDelay={150} />
+        </div>
         <PodiumCard athlete={first} animDelay={0} isMobileFirst />
-        <div className="mt-4"><PodiumCard athlete={third} animDelay={300} /></div>
+        <div className="mt-4">
+          <PodiumCard athlete={third} animDelay={300} />
+        </div>
       </div>
     </div>
   );

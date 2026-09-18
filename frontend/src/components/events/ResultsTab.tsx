@@ -46,7 +46,13 @@ export default function ResultsTab({ eventId, resultsUrl }: Props) {
       {loading && <Spinner />}
       {error && (
         <div className="text-center py-16 text-slate-400">
-          <svg className="w-12 h-12 mx-auto mb-3 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
+          <svg
+            className="w-12 h-12 mx-auto mb-3 text-slate-700"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z" />
+          </svg>
           <p className="font-semibold text-slate-600 text-lg mb-4">
             Results not available yet
           </p>
@@ -219,9 +225,15 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
           }}
           className="flex-1 sm:flex-none px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
         >
-          <option value="all" className="bg-[#0c1628]">All genders</option>
-          <option value="M" className="bg-[#0c1628]">Men</option>
-          <option value="F" className="bg-[#0c1628]">Women</option>
+          <option value="all" className="bg-[#0c1628]">
+            All genders
+          </option>
+          <option value="M" className="bg-[#0c1628]">
+            Men
+          </option>
+          <option value="F" className="bg-[#0c1628]">
+            Women
+          </option>
         </select>
         <select
           value={categoryFilter}
@@ -284,7 +296,9 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   r.dnf || r.dns ? "opacity-40" : ""
                 } ${r.pos <= 3 ? "bg-white/[0.02]" : ""}`}
               >
-                <td className={`py-3 pl-2 pr-4 ${r.dnf || r.dns ? "border-l-[3px] border-transparent" : rankBorderAccent(r.pos)}`}>
+                <td
+                  className={`py-3 pl-2 pr-4 ${r.dnf || r.dns ? "border-l-[3px] border-transparent" : rankBorderAccent(r.pos)}`}
+                >
                   {r.dnf || r.dns ? (
                     <span className="text-xs text-slate-400 font-bold">
                       {r.dnf ? "DNF" : "DNS"}
@@ -372,7 +386,11 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
             No results found
           </div>
         )}
-        <ScrollSentinel sentinelRef={sentinelRef} visible={visibleCount} total={filtered.length} />
+        <ScrollSentinel
+          sentinelRef={sentinelRef}
+          visible={visibleCount}
+          total={filtered.length}
+        />
       </div>
     </div>
   );

@@ -65,7 +65,10 @@ export default function TeamRankingInfoPage() {
               </thead>
               <tbody className="divide-y divide-white/[0.04]">
                 {POINTS.map((row) => (
-                  <tr key={row.rank} className="hover:bg-white/[0.03] transition-colors">
+                  <tr
+                    key={row.rank}
+                    className="hover:bg-white/[0.03] transition-colors"
+                  >
                     <td className="px-4 py-2 text-slate-300 font-medium">
                       {row.rank}
                     </td>
@@ -76,7 +79,9 @@ export default function TeamRankingInfoPage() {
                 ))}
                 <tr className="bg-white/[0.02]">
                   <td className="px-4 py-2 text-slate-600 text-xs">11th+</td>
-                  <td className="px-4 py-2 text-right text-slate-600 text-xs">0</td>
+                  <td className="px-4 py-2 text-right text-slate-600 text-xs">
+                    0
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -90,7 +95,9 @@ export default function TeamRankingInfoPage() {
               <thead>
                 <tr className="bg-[#060d1a] text-[10px] text-slate-600 uppercase tracking-widest border-b border-white/[0.05]">
                   <th className="px-4 py-2.5 text-left font-bold">Teams</th>
-                  <th className="px-4 py-2.5 text-right font-bold">Coefficient</th>
+                  <th className="px-4 py-2.5 text-right font-bold">
+                    Coefficient
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.04]">
@@ -99,9 +106,15 @@ export default function TeamRankingInfoPage() {
                   return (
                     <tr
                       key={row.teams}
-                      className={isRef ? "bg-blue-500/10" : "hover:bg-white/[0.03] transition-colors"}
+                      className={
+                        isRef
+                          ? "bg-blue-500/10"
+                          : "hover:bg-white/[0.03] transition-colors"
+                      }
                     >
-                      <td className={`px-4 py-2 font-medium ${isRef ? "text-blue-300" : "text-slate-300"}`}>
+                      <td
+                        className={`px-4 py-2 font-medium ${isRef ? "text-blue-300" : "text-slate-300"}`}
+                      >
                         {row.teams}
                         {isRef && (
                           <span className="ml-2 text-xs font-normal text-blue-500">
@@ -109,7 +122,9 @@ export default function TeamRankingInfoPage() {
                           </span>
                         )}
                       </td>
-                      <td className={`px-4 py-2 text-right font-black tabular-nums ${isRef ? "text-blue-300" : "text-slate-300"}`}>
+                      <td
+                        className={`px-4 py-2 text-right font-black tabular-nums ${isRef ? "text-blue-300" : "text-slate-300"}`}
+                      >
                         {row.coeff}
                       </td>
                     </tr>
@@ -126,11 +141,13 @@ export default function TeamRankingInfoPage() {
 
         <div>
           <SectionLabel className="mb-3">Rules</SectionLabel>
-          <RulesList items={[
-            "A team must have at least 3 finishers per distance to score — these are the eligible teams used in the coefficient.",
-            "The top 3 finishers' positions are summed — lowest combined score wins (overall position, not gender).",
-            "Rankings are per distance.",
-          ]} />
+          <RulesList
+            items={[
+              "A team must have at least 3 finishers per distance to score — these are the eligible teams used in the coefficient.",
+              "The top 3 finishers' positions are summed — lowest combined score wins (overall position, not gender).",
+              "Rankings are per distance.",
+            ]}
+          />
         </div>
       </div>
     </div>

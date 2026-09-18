@@ -49,7 +49,9 @@ export default function CareerHighlights({ results }: Props) {
                   #{best}
                 </span>
               </div>
-              <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${distBadgeClass(dist)}`}>
+              <span
+                className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${distBadgeClass(dist)}`}
+              >
                 {dist}
               </span>
             </div>

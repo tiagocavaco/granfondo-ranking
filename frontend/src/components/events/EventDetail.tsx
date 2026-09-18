@@ -52,7 +52,9 @@ export default function EventDetail() {
     year: "numeric",
   });
   const heroDay = dateObj.toLocaleDateString("en-GB", { day: "numeric" });
-  const heroMonth = dateObj.toLocaleDateString("en-GB", { month: "short" }).toUpperCase();
+  const heroMonth = dateObj
+    .toLocaleDateString("en-GB", { month: "short" })
+    .toUpperCase();
   const heroYear = dateObj.getFullYear();
   const heroWeekday = dateObj.toLocaleDateString("en-GB", { weekday: "long" });
 
@@ -98,11 +100,15 @@ export default function EventDetail() {
                 !isPast
                   ? "bg-amber-400/15 text-amber-300 border border-amber-400/25"
                   : isPast && !event.hasResults
-                  ? "bg-amber-500/10 text-amber-600/70 border border-amber-600/20"
-                  : "bg-emerald-500/10 text-emerald-600/70 border border-emerald-600/20"
+                    ? "bg-amber-500/10 text-amber-600/70 border border-amber-600/20"
+                    : "bg-emerald-500/10 text-emerald-600/70 border border-emerald-600/20"
               }`}
             >
-              {!isPast ? "Upcoming" : !event.hasResults ? "Results pending" : "Finished"}
+              {!isPast
+                ? "Upcoming"
+                : !event.hasResults
+                  ? "Results pending"
+                  : "Finished"}
             </span>
             <span className="text-slate-500 text-xs font-medium">
               {heroWeekday} · {heroDay} {heroMonth} {heroYear}
@@ -157,24 +163,38 @@ export default function EventDetail() {
               {event.name}
             </h1>
             <div className="sm:hidden shrink-0 text-right select-none pt-1 opacity-20">
-              <div className="text-[38px] font-black text-white leading-none tabular-nums">{heroDay}</div>
-              <div className="text-[11px] font-black text-amber-400 tracking-widest mt-0.5">{heroMonth}</div>
-              <div className="text-[9px] font-bold text-slate-400 mt-0.5">{heroYear}</div>
+              <div className="text-[38px] font-black text-white leading-none tabular-nums">
+                {heroDay}
+              </div>
+              <div className="text-[11px] font-black text-amber-400 tracking-widest mt-0.5">
+                {heroMonth}
+              </div>
+              <div className="text-[9px] font-bold text-slate-400 mt-0.5">
+                {heroYear}
+              </div>
             </div>
           </div>
 
           {/* Location + finishers row */}
           <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 mb-4 text-sm text-slate-500">
             <span className="flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5 text-slate-600 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              <svg
+                className="w-3.5 h-3.5 text-slate-600 shrink-0"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
               </svg>
               <span>{event.location}</span>
             </span>
             {event.hasResults && event.finisherCount > 0 && (
               <span className="flex items-center gap-1.5">
-                <svg className="w-3.5 h-3.5 text-slate-600 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/>
+                <svg
+                  className="w-3.5 h-3.5 text-slate-600 shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z" />
                 </svg>
                 <span>
                   <strong className="text-slate-200 font-bold">
@@ -186,8 +206,12 @@ export default function EventDetail() {
             )}
             {!event.hasResults && event.participantCount > 0 && (
               <span className="flex items-center gap-1.5">
-                <svg className="w-3.5 h-3.5 text-slate-600 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                <svg
+                  className="w-3.5 h-3.5 text-slate-600 shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
                 </svg>
                 <span>
                   <strong className="text-amber-400 font-bold">

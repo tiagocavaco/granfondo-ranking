@@ -269,8 +269,13 @@ export default function ComparisonPage() {
       {!aData && !aLoading && (
         <div className="mt-8 rounded-2xl border border-white/[0.06] bg-[#0c1628]/60 px-8 py-12 text-center">
           <div className="text-4xl mb-4 opacity-30 select-none">⚡ VS ⚡</div>
-          <p className="text-slate-300 font-semibold text-sm mb-1">Pick two athletes to compare</p>
-          <p className="text-slate-600 text-xs">Head-to-head results across every shared event — times, positions, and ranking points side by side.</p>
+          <p className="text-slate-300 font-semibold text-sm mb-1">
+            Pick two athletes to compare
+          </p>
+          <p className="text-slate-600 text-xs">
+            Head-to-head results across every shared event — times, positions,
+            and ranking points side by side.
+          </p>
         </div>
       )}
     </div>

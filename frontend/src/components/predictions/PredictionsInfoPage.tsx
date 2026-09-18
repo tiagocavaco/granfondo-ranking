@@ -19,7 +19,10 @@ export default function PredictionsInfoPage() {
         onClick={() => navigate(-1)}
         className="text-sm text-slate-500 hover:text-slate-300 transition-colors mb-4 inline-flex items-center gap-1 group"
       >
-        <span className="group-hover:-translate-x-0.5 transition-transform">←</span> Back
+        <span className="group-hover:-translate-x-0.5 transition-transform">
+          ←
+        </span>{" "}
+        Back
       </button>
 
       <div className="mb-8">
@@ -67,7 +70,10 @@ export default function PredictionsInfoPage() {
                 </thead>
                 <tbody className="divide-y divide-white/[0.04]">
                   {DISTANCES.map((hist) => (
-                    <tr key={hist} className="hover:bg-white/[0.03] transition-colors">
+                    <tr
+                      key={hist}
+                      className="hover:bg-white/[0.03] transition-colors"
+                    >
                       <td className="px-4 py-2 text-slate-400 font-medium">
                         <span className="sm:hidden">
                           {DISTANCE_ABBR[hist] ?? hist}
@@ -111,7 +117,9 @@ export default function PredictionsInfoPage() {
                 <thead>
                   <tr className="bg-[#060d1a] text-[10px] text-slate-600 uppercase tracking-widest border-b border-white/[0.05]">
                     <th className="px-4 py-2.5 text-left font-bold">Season</th>
-                    <th className="px-4 py-2.5 text-right font-bold">Coefficient</th>
+                    <th className="px-4 py-2.5 text-right font-bold">
+                      Coefficient
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/[0.04]">
@@ -122,9 +130,15 @@ export default function PredictionsInfoPage() {
                     return (
                       <tr
                         key={year}
-                        className={i === 0 ? "bg-blue-500/10" : "hover:bg-white/[0.03] transition-colors"}
+                        className={
+                          i === 0
+                            ? "bg-blue-500/10"
+                            : "hover:bg-white/[0.03] transition-colors"
+                        }
                       >
-                        <td className={`px-4 py-2 font-medium ${i === 0 ? "text-blue-300" : "text-slate-300"}`}>
+                        <td
+                          className={`px-4 py-2 font-medium ${i === 0 ? "text-blue-300" : "text-slate-300"}`}
+                        >
                           {year}
                           {i === 0 && (
                             <span className="ml-2 text-xs font-normal text-blue-500">
@@ -132,7 +146,9 @@ export default function PredictionsInfoPage() {
                             </span>
                           )}
                         </td>
-                        <td className={`px-4 py-2 text-right font-black tabular-nums ${i === 0 ? "text-blue-300" : "text-slate-300"}`}>
+                        <td
+                          className={`px-4 py-2 text-right font-black tabular-nums ${i === 0 ? "text-blue-300" : "text-slate-300"}`}
+                        >
                           {coeff.toFixed(1)}×
                         </td>
                       </tr>
@@ -159,14 +175,20 @@ export default function PredictionsInfoPage() {
         {/* Right column: Rules */}
         <div className="sm:flex-1 mt-6 sm:mt-0">
           <SectionLabel className="mb-3">Rules</SectionLabel>
-          <RulesList items={[
-            "Only athletes whose registration is linked to an existing profile are ranked.",
-            <>Participants with no profile are counted as <span className="font-medium text-slate-300">unranked</span> in each category.</>,
-            "An athlete strong in longer distances is rewarded when racing shorter — dropping from Granfondo to Minifondo adds a 1.4× bonus.",
-            "Moving up in distance is penalized — a Minifondo specialist in a Granfondo scores at 0.6× of their career points.",
-            "Time Trial points are isolated and do not count toward road race predictions.",
-            "Favorites are shown per category, with an overall male/female leader across all categories.",
-          ]} />
+          <RulesList
+            items={[
+              "Only athletes whose registration is linked to an existing profile are ranked.",
+              <>
+                Participants with no profile are counted as{" "}
+                <span className="font-medium text-slate-300">unranked</span> in
+                each category.
+              </>,
+              "An athlete strong in longer distances is rewarded when racing shorter — dropping from Granfondo to Minifondo adds a 1.4× bonus.",
+              "Moving up in distance is penalized — a Minifondo specialist in a Granfondo scores at 0.6× of their career points.",
+              "Time Trial points are isolated and do not count toward road race predictions.",
+              "Favorites are shown per category, with an overall male/female leader across all categories.",
+            ]}
+          />
         </div>
       </div>
     </div>

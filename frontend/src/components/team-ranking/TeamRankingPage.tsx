@@ -140,10 +140,22 @@ export default function TeamRankingPage() {
             value={distance}
             onChange={handleDistChange}
             colorMap={{
-              Granfondo: { active: "bg-blue-500/30 text-blue-300 border-r border-blue-500/20" },
-              Mediofondo: { active: "bg-violet-500/30 text-violet-300 border-r border-violet-500/20" },
-              Minifondo: { active: "bg-emerald-500/30 text-emerald-300 border-r border-emerald-500/20" },
-              "Time Trial": { active: "bg-amber-500/30 text-amber-300 border-r border-amber-500/20" },
+              Granfondo: {
+                active:
+                  "bg-blue-500/30 text-blue-300 border-r border-blue-500/20",
+              },
+              Mediofondo: {
+                active:
+                  "bg-violet-500/30 text-violet-300 border-r border-violet-500/20",
+              },
+              Minifondo: {
+                active:
+                  "bg-emerald-500/30 text-emerald-300 border-r border-emerald-500/20",
+              },
+              "Time Trial": {
+                active:
+                  "bg-amber-500/30 text-amber-300 border-r border-amber-500/20",
+              },
             }}
             shortLabelMap={{
               Granfondo: "GF",
@@ -168,62 +180,100 @@ export default function TeamRankingPage() {
       {!loading && !error && ranked.length > 0 && (
         <>
           {/* Podium — top 3 */}
-          {topThree.length >= 3 && !search && (() => {
-            const first = topThree[0]!;
-            const second = topThree[1]!;
-            const third = topThree[2]!;
+          {topThree.length >= 3 &&
+            !search &&
+            (() => {
+              const first = topThree[0]!;
+              const second = topThree[1]!;
+              const third = topThree[2]!;
 
-            const TeamCard = ({ t, animDelay, isMobileFirst = false }: { t: typeof first; animDelay: number; isMobileFirst?: boolean }) => {
-              const isFirst = t.rank === 1;
-              const isSecond = t.rank === 2;
-              const cardBase = "rounded-2xl relative overflow-hidden border transition-all duration-300";
-              const cardStyle = isFirst
-                ? `${cardBase} bg-gradient-to-b from-amber-500/10 to-[#0c1628] border-amber-500/25 glow-gold hover:border-amber-400/40`
-                : isSecond
-                  ? `${cardBase} bg-gradient-to-b from-slate-400/10 to-[#0c1628] border-white/[0.08] hover:border-white/[0.15]`
-                  : `${cardBase} bg-gradient-to-b from-orange-500/10 to-[#0c1628] border-orange-500/20 hover:border-orange-400/35`;
+              const TeamCard = ({
+                t,
+                animDelay,
+                isMobileFirst = false,
+              }: {
+                t: typeof first;
+                animDelay: number;
+                isMobileFirst?: boolean;
+              }) => {
+                const isFirst = t.rank === 1;
+                const isSecond = t.rank === 2;
+                const cardBase =
+                  "rounded-2xl relative overflow-hidden border transition-all duration-300";
+                const cardStyle = isFirst
+                  ? `${cardBase} bg-gradient-to-b from-amber-500/10 to-[#0c1628] border-amber-500/25 glow-gold hover:border-amber-400/40`
+                  : isSecond
+                    ? `${cardBase} bg-gradient-to-b from-slate-400/10 to-[#0c1628] border-white/[0.08] hover:border-white/[0.15]`
+                    : `${cardBase} bg-gradient-to-b from-orange-500/10 to-[#0c1628] border-orange-500/20 hover:border-orange-400/35`;
+                return (
+                  <div
+                    key={t.team}
+                    style={{ animationDelay: `${animDelay}ms` }}
+                    className={`animate-in ${cardStyle}`}
+                  >
+                    {isFirst && (
+                      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-amber-400/0 via-amber-300 to-amber-400/0" />
+                    )}
+                    <Link
+                      to={`/team/${t.teamId}`}
+                      className="absolute inset-0 z-10"
+                      aria-label={t.team}
+                    />
+                    <div
+                      className={`text-center ${isMobileFirst ? "px-4 pt-5 pb-4" : "px-2.5 pt-4 pb-3"}`}
+                    >
+                      <div className="mb-2 flex justify-center">
+                        <MedalBadge
+                          rank={t.rank as 1 | 2 | 3}
+                          size={isMobileFirst ? "lg" : "sm"}
+                        />
+                      </div>
+                      <div
+                        className={`leading-tight mb-1.5 line-clamp-2 ${isMobileFirst ? "font-black text-amber-100 text-sm" : "font-bold text-slate-200 text-xs"}`}
+                      >
+                        {t.team}
+                      </div>
+                      <div
+                        className={`font-black tabular-nums ${isMobileFirst ? "text-2xl text-amber-400" : "text-lg text-slate-300"}`}
+                      >
+                        {t.totalPoints}
+                      </div>
+                      <div
+                        className={`text-[10px] font-medium ${isMobileFirst ? "text-amber-500" : "text-slate-600"}`}
+                      >
+                        pts
+                      </div>
+                      <div className="text-[10px] text-slate-600 mt-0.5 hidden sm:block">
+                        {t.eventsScored} events · best #{t.bestRank}
+                      </div>
+                    </div>
+                  </div>
+                );
+              };
+
               return (
-                <div key={t.team} style={{ animationDelay: `${animDelay}ms` }} className={`animate-in ${cardStyle}`}>
-                  {isFirst && <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-amber-400/0 via-amber-300 to-amber-400/0" />}
-                  <Link to={`/team/${t.teamId}`} className="absolute inset-0 z-10" aria-label={t.team} />
-                  <div className={`text-center ${isMobileFirst ? "px-4 pt-5 pb-4" : "px-2.5 pt-4 pb-3"}`}>
-                    <div className="mb-2 flex justify-center">
-                      <MedalBadge rank={t.rank as 1 | 2 | 3} size={isMobileFirst ? "lg" : "sm"} />
+                <div className="mb-8">
+                  {/* Mobile: 1st full-width on top, 2nd+3rd side by side */}
+                  <div className="sm:hidden space-y-2">
+                    <TeamCard t={first} animDelay={0} isMobileFirst />
+                    <div className="grid grid-cols-2 gap-2">
+                      <TeamCard t={second} animDelay={150} />
+                      <TeamCard t={third} animDelay={300} />
                     </div>
-                    <div className={`leading-tight mb-1.5 line-clamp-2 ${isMobileFirst ? "font-black text-amber-100 text-sm" : "font-bold text-slate-200 text-xs"}`}>
-                      {t.team}
+                  </div>
+                  {/* Desktop: [2nd] [1st] [3rd] */}
+                  <div className="hidden sm:grid sm:grid-cols-3 sm:gap-3 sm:items-end">
+                    <div className="mt-4">
+                      <TeamCard t={second} animDelay={150} />
                     </div>
-                    <div className={`font-black tabular-nums ${isMobileFirst ? "text-2xl text-amber-400" : "text-lg text-slate-300"}`}>
-                      {t.totalPoints}
-                    </div>
-                    <div className={`text-[10px] font-medium ${isMobileFirst ? "text-amber-500" : "text-slate-600"}`}>pts</div>
-                    <div className="text-[10px] text-slate-600 mt-0.5 hidden sm:block">
-                      {t.eventsScored} events · best #{t.bestRank}
+                    <TeamCard t={first} animDelay={0} isMobileFirst />
+                    <div className="mt-4">
+                      <TeamCard t={third} animDelay={300} />
                     </div>
                   </div>
                 </div>
               );
-            };
-
-            return (
-              <div className="mb-8">
-                {/* Mobile: 1st full-width on top, 2nd+3rd side by side */}
-                <div className="sm:hidden space-y-2">
-                  <TeamCard t={first} animDelay={0} isMobileFirst />
-                  <div className="grid grid-cols-2 gap-2">
-                    <TeamCard t={second} animDelay={150} />
-                    <TeamCard t={third} animDelay={300} />
-                  </div>
-                </div>
-                {/* Desktop: [2nd] [1st] [3rd] */}
-                <div className="hidden sm:grid sm:grid-cols-3 sm:gap-3 sm:items-end">
-                  <div className="mt-4"><TeamCard t={second} animDelay={150} /></div>
-                  <TeamCard t={first} animDelay={0} isMobileFirst />
-                  <div className="mt-4"><TeamCard t={third} animDelay={300} /></div>
-                </div>
-              </div>
-            );
-          })()}
+            })()}
 
           <div className="mb-4 flex items-center justify-between">
             <p className="text-sm text-slate-500">
@@ -266,7 +316,9 @@ export default function TeamRankingPage() {
                         expanded === t.team ? "bg-blue-500/[0.06]" : ""
                       } ${t.rank <= 3 ? "bg-white/[0.02]" : ""}`}
                     >
-                      <td className={`py-3 pl-2 pr-4 ${rankBorderAccent(t.rank)}`}>
+                      <td
+                        className={`py-3 pl-2 pr-4 ${rankBorderAccent(t.rank)}`}
+                      >
                         <RankBadge rank={t.rank} />
                       </td>
                       <td className="px-4 py-3">
@@ -282,7 +334,9 @@ export default function TeamRankingPage() {
                         {t.eventsScored}
                       </td>
                       <td className="px-4 py-3 text-center hidden md:table-cell">
-                        <span className={`font-semibold tabular-nums ${rankTextColor(t.bestRank, "text-slate-400")}`}>
+                        <span
+                          className={`font-semibold tabular-nums ${rankTextColor(t.bestRank, "text-slate-400")}`}
+                        >
                           #{t.bestRank}
                         </span>
                       </td>
@@ -296,7 +350,9 @@ export default function TeamRankingPage() {
                               }}
                             />
                           </div>
-                          <span className={`font-extrabold tabular-nums inline-block w-14 text-right ${rankTextColor(t.rank, "text-blue-400")}`}>
+                          <span
+                            className={`font-extrabold tabular-nums inline-block w-14 text-right ${rankTextColor(t.rank, "text-blue-400")}`}
+                          >
                             {t.totalPoints.toFixed(1)}
                           </span>
                         </div>
@@ -328,7 +384,9 @@ export default function TeamRankingPage() {
                                     </div>
                                   </div>
                                   <div className="flex items-center gap-1.5 shrink-0 text-xs">
-                                    <span className={`font-semibold tabular-nums ${r.teamRank <= 3 ? "text-amber-400" : "text-slate-300"}`}>
+                                    <span
+                                      className={`font-semibold tabular-nums ${r.teamRank <= 3 ? "text-amber-400" : "text-slate-300"}`}
+                                    >
                                       #{r.teamRank}
                                     </span>
                                     <span className="text-slate-600">
@@ -391,7 +449,11 @@ export default function TeamRankingPage() {
                 ))}
               </tbody>
             </table>
-            <ScrollSentinel sentinelRef={sentinelRef} visible={visibleCount} total={ranked.length} />
+            <ScrollSentinel
+              sentinelRef={sentinelRef}
+              visible={visibleCount}
+              total={ranked.length}
+            />
           </div>
         </>
       )}

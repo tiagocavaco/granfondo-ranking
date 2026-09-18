@@ -8,7 +8,9 @@ export function SectionLabel({
   className?: string;
 }) {
   return (
-    <p className={`text-[10px] font-bold text-slate-600 uppercase tracking-widest ${className}`}>
+    <p
+      className={`text-[10px] font-bold text-slate-600 uppercase tracking-widest ${className}`}
+    >
       {children}
     </p>
   );

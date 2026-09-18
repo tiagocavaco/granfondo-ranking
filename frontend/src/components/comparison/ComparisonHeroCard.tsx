@@ -18,11 +18,16 @@ interface Props {
 export function ComparisonHeroCard({ data, color, wins }: Props) {
   const finished = data.results.filter((r) => !r.dnf && !r.dns);
   const genderFinished = finished.filter((r) => r.genderPos > 0);
-  const bestGenderPos = genderFinished.length > 0
-    ? Math.min(...genderFinished.map((r) => r.genderPos))
-    : null;
-  const overallPodiums = finished.filter((r) => r.genderPos > 0 && r.genderPos <= 3).length;
-  const catPodiums = finished.filter((r) => r.catPos > 0 && r.catPos <= 3).length;
+  const bestGenderPos =
+    genderFinished.length > 0
+      ? Math.min(...genderFinished.map((r) => r.genderPos))
+      : null;
+  const overallPodiums = finished.filter(
+    (r) => r.genderPos > 0 && r.genderPos <= 3,
+  ).length;
+  const catPodiums = finished.filter(
+    (r) => r.catPos > 0 && r.catPos <= 3,
+  ).length;
 
   return (
     <div
@@ -50,33 +55,49 @@ export function ComparisonHeroCard({ data, color, wins }: Props) {
           <div className="text-lg font-extrabold" style={{ color }}>
             {wins}
           </div>
-          <div className="text-[10px] text-slate-600 uppercase tracking-wider">Wins</div>
+          <div className="text-[10px] text-slate-600 uppercase tracking-wider">
+            Wins
+          </div>
         </div>
         <div>
-          <div className={`text-lg font-extrabold ${overallPodiums > 0 ? "text-amber-400" : "text-slate-600"}`}>
+          <div
+            className={`text-lg font-extrabold ${overallPodiums > 0 ? "text-amber-400" : "text-slate-600"}`}
+          >
             {overallPodiums}
           </div>
-          <div className="text-[10px] text-slate-600 uppercase tracking-wider">Podiums</div>
+          <div className="text-[10px] text-slate-600 uppercase tracking-wider">
+            Podiums
+          </div>
         </div>
         <div>
-          <div className={`text-lg font-extrabold ${catPodiums > 0 ? "text-amber-400" : "text-slate-600"}`}>
+          <div
+            className={`text-lg font-extrabold ${catPodiums > 0 ? "text-amber-400" : "text-slate-600"}`}
+          >
             {catPodiums}
           </div>
-          <div className="text-[10px] text-slate-600 uppercase tracking-wider">Cat Podiums</div>
+          <div className="text-[10px] text-slate-600 uppercase tracking-wider">
+            Cat Podiums
+          </div>
         </div>
         {bestGenderPos && (
           <div>
-            <div className={`text-lg font-extrabold ${bestPosColor(bestGenderPos)}`}>
+            <div
+              className={`text-lg font-extrabold ${bestPosColor(bestGenderPos)}`}
+            >
               #{bestGenderPos}
             </div>
-            <div className="text-[10px] text-slate-600 uppercase tracking-wider">Best</div>
+            <div className="text-[10px] text-slate-600 uppercase tracking-wider">
+              Best
+            </div>
           </div>
         )}
         <div>
           <div className="text-lg font-extrabold text-white">
             {finished.length}
           </div>
-          <div className="text-[10px] text-slate-600 uppercase tracking-wider">Races</div>
+          <div className="text-[10px] text-slate-600 uppercase tracking-wider">
+            Races
+          </div>
         </div>
       </div>
     </div>

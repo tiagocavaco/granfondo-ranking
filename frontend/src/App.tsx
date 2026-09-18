@@ -27,21 +27,54 @@ function DbLoadingScreen() {
   return (
     <div className="min-h-screen bg-[#060d1a] flex flex-col items-center justify-center gap-5">
       <div className="w-12 h-12 rounded-2xl bg-[#0b1d3a] flex items-center justify-center border border-white/[0.14] shadow-[0_0_20px_rgba(212,175,55,0.12)]">
-        <svg viewBox="0 0 28 28" className="w-[22px] h-[22px]" fill="none" aria-hidden="true">
-          <circle cx="7.5" cy="20" r="5.5" stroke="#16a34a" strokeWidth="2.5"/>
-          <circle cx="20.5" cy="20" r="5.5" stroke="#dc2626" strokeWidth="2.5"/>
-          <path d="M7.5 20 L12 10 L17 10 L14 20 Z" stroke="white" strokeWidth="2" strokeLinejoin="round" fill="none"/>
-          <path d="M17 10 L20.5 20" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-          <path d="M10 9 L13.5 9" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round"/>
+        <svg
+          viewBox="0 0 28 28"
+          className="w-[22px] h-[22px]"
+          fill="none"
+          aria-hidden="true"
+        >
+          <circle cx="7.5" cy="20" r="5.5" stroke="#16a34a" strokeWidth="2.5" />
+          <circle
+            cx="20.5"
+            cy="20"
+            r="5.5"
+            stroke="#dc2626"
+            strokeWidth="2.5"
+          />
+          <path
+            d="M7.5 20 L12 10 L17 10 L14 20 Z"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinejoin="round"
+            fill="none"
+          />
+          <path
+            d="M17 10 L20.5 20"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M10 9 L13.5 9"
+            stroke="#f59e0b"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
         </svg>
       </div>
       <div className="text-center">
         <div className="text-white font-display font-bold text-lg uppercase tracking-wide leading-none mb-1">
           Granfondo Portugal
         </div>
-        <p className="text-slate-600 text-xs tracking-widest uppercase">Loading race data…</p>
+        <p className="text-slate-600 text-xs tracking-widest uppercase">
+          Loading race data…
+        </p>
       </div>
-      <div className="animate-spin rounded-full h-5 w-5 border-[2px] border-white/10 border-t-blue-400" aria-label="Loading" role="status" />
+      <div
+        className="animate-spin rounded-full h-5 w-5 border-[2px] border-white/10 border-t-blue-400"
+        aria-label="Loading"
+        role="status"
+      />
     </div>
   );
 }
@@ -125,17 +158,49 @@ function AppShell() {
           {/* Logo */}
           <div className="flex items-center gap-2.5 shrink-0">
             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#0b1d3a] flex items-center justify-center border border-white/[0.14] shadow-[0_0_20px_rgba(212,175,55,0.12)] shrink-0">
-              <svg viewBox="0 0 28 28" className="w-[19px] h-[19px] sm:w-[22px] sm:h-[22px]" fill="none">
+              <svg
+                viewBox="0 0 28 28"
+                className="w-[19px] h-[19px] sm:w-[22px] sm:h-[22px]"
+                fill="none"
+              >
                 {/* Rear wheel — Portugal green */}
-                <circle cx="7.5" cy="20" r="5.5" stroke="#16a34a" strokeWidth="2.5"/>
+                <circle
+                  cx="7.5"
+                  cy="20"
+                  r="5.5"
+                  stroke="#16a34a"
+                  strokeWidth="2.5"
+                />
                 {/* Front wheel — Portugal red */}
-                <circle cx="20.5" cy="20" r="5.5" stroke="#dc2626" strokeWidth="2.5"/>
+                <circle
+                  cx="20.5"
+                  cy="20"
+                  r="5.5"
+                  stroke="#dc2626"
+                  strokeWidth="2.5"
+                />
                 {/* Diamond frame */}
-                <path d="M7.5 20 L12 10 L17 10 L14 20 Z" stroke="white" strokeWidth="2" strokeLinejoin="round" fill="none"/>
+                <path
+                  d="M7.5 20 L12 10 L17 10 L14 20 Z"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                  fill="none"
+                />
                 {/* Fork */}
-                <path d="M17 10 L20.5 20" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                <path
+                  d="M17 10 L20.5 20"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
                 {/* Saddle — gold accent */}
-                <path d="M10 9 L13.5 9" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round"/>
+                <path
+                  d="M10 9 L13.5 9"
+                  stroke="#f59e0b"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
               </svg>
             </div>
             <div className="hidden sm:block">
@@ -181,8 +246,13 @@ function AppShell() {
                 `hidden sm:flex items-center gap-1.5 ${navLink(isActive)}`
               }
             >
-              <svg aria-hidden="true" className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
+              <svg
+                aria-hidden="true"
+                className="w-3.5 h-3.5 shrink-0"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z" />
               </svg>
               Athlete Ranking
             </NavLink>
@@ -192,8 +262,13 @@ function AppShell() {
                 `hidden sm:flex items-center gap-1.5 ${navLink(isActive)}`
               }
             >
-              <svg aria-hidden="true" className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+              <svg
+                aria-hidden="true"
+                className="w-3.5 h-3.5 shrink-0"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
               </svg>
               Team Ranking
             </NavLink>
@@ -202,7 +277,10 @@ function AppShell() {
 
         {/* Mobile rankings panel */}
         {rankingsOpen && (
-          <div className="sm:hidden flex border-t border-white/[0.06] bg-[#020810]" role="menu">
+          <div
+            className="sm:hidden flex border-t border-white/[0.06] bg-[#020810]"
+            role="menu"
+          >
             <button
               role="menuitem"
               onClick={() => navigate("/ranking")}
@@ -212,8 +290,13 @@ function AppShell() {
                   : "text-slate-400 hover:text-white hover:bg-white/5"
               }`}
             >
-              <svg aria-hidden="true" className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
+              <svg
+                aria-hidden="true"
+                className="w-3.5 h-3.5 shrink-0"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z" />
               </svg>
               Athletes
             </button>
@@ -226,8 +309,13 @@ function AppShell() {
                   : "text-slate-400 hover:text-white hover:bg-white/5"
               }`}
             >
-              <svg aria-hidden="true" className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+              <svg
+                aria-hidden="true"
+                className="w-3.5 h-3.5 shrink-0"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
               </svg>
               Teams
             </button>
@@ -237,12 +325,14 @@ function AppShell() {
 
       {lookupsFailed && (
         <div className="bg-amber-500/10 border-b border-amber-500/20 text-amber-300 text-sm px-4 py-2 text-center">
-          Athlete profile links are unavailable — data may be loading or out of date.
+          Athlete profile links are unavailable — data may be loading or out of
+          date.
         </div>
       )}
       {teamsUnavailable && (
         <div className="bg-amber-500/10 border-b border-amber-500/20 text-amber-300 text-sm px-4 py-2 text-center">
-          Team profile links are unavailable — a re-scrape is needed to enable them.
+          Team profile links are unavailable — a re-scrape is needed to enable
+          them.
         </div>
       )}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-12">
@@ -259,7 +349,10 @@ function AppShell() {
           <Route path="/ranking-info" element={<AthleteRankingInfoPage />} />
           <Route path="/teams-info" element={<TeamRankingInfoPage />} />
           <Route path="/predictions-info" element={<PredictionsInfoPage />} />
-          <Route path="/event/:id/predictions/info" element={<PredictionsInfoPage />} />
+          <Route
+            path="/event/:id/predictions/info"
+            element={<PredictionsInfoPage />}
+          />
         </Routes>
       </main>
       <Footer />
@@ -280,7 +373,9 @@ function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between text-xs text-slate-600">
         <span className="font-semibold text-slate-500">Granfondo Portugal</span>
         {scrapedAt && (
-          <span className="text-slate-600">Data updated {formatAge(scrapedAt)}</span>
+          <span className="text-slate-600">
+            Data updated {formatAge(scrapedAt)}
+          </span>
         )}
       </div>
     </footer>

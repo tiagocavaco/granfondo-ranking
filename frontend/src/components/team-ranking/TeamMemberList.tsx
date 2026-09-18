@@ -33,10 +33,7 @@ export function TeamMemberList({ members }: { members: Member[] }) {
     <div className="mb-8">
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">
-          Members{" "}
-          <span className="text-slate-700">
-            ({members.length})
-          </span>
+          Members <span className="text-slate-700">({members.length})</span>
         </h2>
         <input
           type="search"
