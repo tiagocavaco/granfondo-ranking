@@ -3,9 +3,23 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner } from "../shared/Spinner";
+import { BackButton } from "../shared/BackButton";
+import { PointsBadge } from "../shared/PointsBadge";
 import { distBadgeClass } from "../../utils/distance";
 import { DISTANCES } from "@granfondo/utils/distance";
 import { TeamMemberList } from "./TeamMemberList";
+
+function TeamNotFound({ navigate }: { navigate: (delta: number) => void }) {
+  return (
+    <div className="text-center py-16 text-slate-400">
+      <svg className="w-12 h-12 mx-auto mb-3 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <p className="font-semibold text-slate-600 text-lg">Team not found</p>
+      <button onClick={() => navigate(-1)} className="mt-4 text-sm text-blue-600 hover:underline">
+        ← Go back
+      </button>
+    </div>
+  );
+}
 
 export default function TeamProfile() {
   const { teamId: teamIdParam } = useParams<{ teamId: string }>();
@@ -207,18 +221,7 @@ export default function TeamProfile() {
   }
 
   if (error || !data) {
-    return (
-      <div className="text-center py-16 text-slate-400">
-        <svg className="w-12 h-12 mx-auto mb-3 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-        <p className="font-semibold text-slate-600 text-lg">Team not found</p>
-        <button
-          onClick={() => navigate(-1)}
-          className="mt-4 text-sm text-blue-600 hover:underline"
-        >
-          ← Go back
-        </button>
-      </div>
-    );
+    return <TeamNotFound navigate={navigate} />;
   }
 
   if (teamEntries.length === 0) {
@@ -227,18 +230,7 @@ export default function TeamProfile() {
     }
 
     if (teamDetail === null) {
-      return (
-        <div className="text-center py-16 text-slate-400">
-          <svg className="w-12 h-12 mx-auto mb-3 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          <p className="font-semibold text-slate-600 text-lg">Team not found</p>
-          <button
-            onClick={() => navigate(-1)}
-            className="mt-4 text-sm text-blue-600 hover:underline"
-          >
-            ← Go back
-          </button>
-        </div>
-      );
+      return <TeamNotFound navigate={navigate} />;
     }
   }
 
@@ -259,12 +251,7 @@ export default function TeamProfile() {
 
   return (
     <div>
-      <button
-        onClick={() => navigate(-1)}
-        className="text-sm text-slate-500 hover:text-slate-300 transition-colors mb-4 inline-flex items-center gap-1"
-      >
-        ← Back
-      </button>
+      <BackButton />
 
       {/* Hero */}
       <div className="relative bg-[#0c1628] rounded-2xl p-6 sm:p-8 mb-8 text-white overflow-hidden border border-white/[0.07]">
@@ -425,9 +412,7 @@ export default function TeamProfile() {
                             <span className="text-slate-600">
                               {r.basePoints}×{r.coefficient}
                             </span>
-                            <span className="font-bold text-blue-300 bg-blue-500/15 px-2 py-0.5 rounded border border-blue-500/20">
-                              +{r.points}
-                            </span>
+                            <PointsBadge points={r.points} />
                           </div>
                         </div>
                         <div className="flex flex-col sm:flex-row sm:flex-wrap gap-1 sm:gap-1.5">

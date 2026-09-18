@@ -7,6 +7,8 @@ import type {
 import { countryFlag } from "@granfondo/database/normalize";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import { RankBadge } from "../shared/RankBadge";
+import { ScrollSentinel } from "../shared/ScrollSentinel";
+import { PointsBadge } from "../shared/PointsBadge";
 import { TeamLink } from "../shared/TeamLink";
 import { pointsBarColor } from "../../utils/pointsBarColor";
 import { rankTextColor, rankBorderAccent } from "../../utils/posStyle";
@@ -37,9 +39,7 @@ function RaceBreakdown({ results }: { results: AggregateResult[] }) {
             <span className="text-slate-600 hidden sm:inline">
               ({r.distanceFinishers} fin.)
             </span>
-            <span className="font-bold text-blue-300 bg-blue-500/15 px-2 py-0.5 rounded border border-blue-500/20">
-              +{r.points}
-            </span>
+            <PointsBadge points={r.points} />
           </div>
         </div>
       ))}
@@ -75,7 +75,7 @@ export function AggregateRankingTable({ ranked, maxPoints, resetKey }: Props) {
               Races
             </th>
             <th className="px-4 py-3 text-center hidden md:table-cell w-20">
-              Best Pos
+              Best
             </th>
             <th className="px-2 sm:px-4 py-3 text-right w-20 sm:w-32">
               Points
@@ -161,14 +161,7 @@ export function AggregateRankingTable({ ranked, maxPoints, resetKey }: Props) {
           ))}
         </tbody>
       </table>
-      {visibleCount < ranked.length && (
-        <div
-          ref={sentinelRef}
-          className="px-4 py-3 text-xs text-slate-600 border-t border-white/[0.06] text-center"
-        >
-          Showing {visibleCount} of {ranked.length}…
-        </div>
-      )}
+      <ScrollSentinel sentinelRef={sentinelRef} visible={visibleCount} total={ranked.length} />
     </div>
   );
 }

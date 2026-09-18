@@ -1,4 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { BackButton } from "../shared/BackButton";
+import { FormulaBox } from "../shared/FormulaBox";
+import { RulesList } from "../shared/RulesList";
+import { SectionLabel } from "../shared/SectionLabel";
 import {
   TEAM_POINTS_TABLE,
   TEAM_COEFFICIENT_REFERENCE,
@@ -23,19 +26,15 @@ const COEFF_SAMPLES = [5, 10, TEAM_COEFFICIENT_REFERENCE, 50, 100].map((t) => ({
 }));
 
 export default function TeamRankingInfoPage() {
-  const navigate = useNavigate();
-
   return (
     <div>
-      <button
-        onClick={() => navigate(-1)}
-        className="text-sm text-slate-500 hover:text-slate-300 transition-colors mb-4 inline-flex items-center gap-1"
-      >
-        ← Back
-      </button>
+      <BackButton />
 
+      <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
+        Team Ranking
+      </div>
       <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase mb-2">
-        Team Ranking — How it works
+        How it works
       </h1>
       <p className="text-slate-500 text-sm mb-8">
         Points are awarded per event based on the sum of finishing positions of
@@ -43,10 +42,7 @@ export default function TeamRankingInfoPage() {
         on how many teams competed.
       </p>
 
-      <div className="bg-[#0c1628] border border-white/[0.07] rounded-2xl px-6 py-5 mb-8 font-mono text-sm">
-        <div className="text-slate-600 text-[10px] uppercase tracking-widest mb-2 font-bold">
-          Formula
-        </div>
+      <FormulaBox>
         <div className="text-blue-300">points = base_points × coefficient</div>
         <div className="text-slate-500 mt-1 text-xs">
           coefficient = √(eligible_teams / 25) · rounded to 2 decimal places
@@ -54,13 +50,11 @@ export default function TeamRankingInfoPage() {
         <div className="text-slate-500 text-xs">
           team rank = lowest sum of top 3 finishing positions wins
         </div>
-      </div>
+      </FormulaBox>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <div>
-          <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-3">
-            Base points by team rank
-          </h2>
+          <SectionLabel className="mb-3">Base points by team rank</SectionLabel>
           <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
             <table className="w-full text-sm">
               <thead>
@@ -90,9 +84,7 @@ export default function TeamRankingInfoPage() {
         </div>
 
         <div>
-          <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-3">
-            Difficulty coefficient
-          </h2>
+          <SectionLabel className="mb-3">Difficulty coefficient</SectionLabel>
           <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
             <table className="w-full text-sm">
               <thead>
@@ -133,29 +125,12 @@ export default function TeamRankingInfoPage() {
         </div>
 
         <div>
-          <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-3">Rules</h2>
-          <div className="rounded-2xl border border-white/[0.07] bg-[#0c1628] px-6 py-5 text-sm text-slate-400">
-            <ol className="space-y-3">
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">01</span>
-                <span>
-                  A team must have at least 3 finishers per distance to score —
-                  these are the eligible teams used in the coefficient.
-                </span>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">02</span>
-                <span>
-                  The top 3 finishers' positions are summed — lowest combined
-                  score wins (overall position, not gender).
-                </span>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">03</span>
-                <span>Rankings are per distance.</span>
-              </li>
-            </ol>
-          </div>
+          <SectionLabel className="mb-3">Rules</SectionLabel>
+          <RulesList items={[
+            "A team must have at least 3 finishers per distance to score — these are the eligible teams used in the coefficient.",
+            "The top 3 finishers' positions are summed — lowest combined score wins (overall position, not gender).",
+            "Rankings are per distance.",
+          ]} />
         </div>
       </div>
     </div>

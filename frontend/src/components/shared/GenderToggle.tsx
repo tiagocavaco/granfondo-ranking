@@ -6,15 +6,20 @@ export function GenderToggle({
   onChange: (v: string) => void;
 }) {
   return (
-    <div className="flex rounded-xl border border-white/[0.07] overflow-hidden bg-[#0c1628] shrink-0">
+    <div
+      role="group"
+      aria-label="Filter by gender"
+      className="flex rounded-xl border border-white/[0.07] overflow-hidden bg-[#0c1628] shrink-0"
+    >
       {[
         { v: "M", label: "Men" },
         { v: "F", label: "Women" },
       ].map(({ v, label }) => (
         <button
           key={v}
+          aria-pressed={value === v}
           onClick={() => onChange(v)}
-          className={`px-3 py-1.5 text-sm font-semibold transition-all ${
+          className={`px-3 py-1.5 text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-400/60 ${
             value === v
               ? v === "M"
                 ? "bg-blue-500/30 text-blue-300 border border-blue-500/30"

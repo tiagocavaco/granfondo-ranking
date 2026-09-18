@@ -5,9 +5,10 @@
 :root {
   --bg-base: #060d1a;
   --bg-surface: #0c1628;
-  --bg-elevated: #111e35;
-  --border-subtle: rgba(255,255,255,0.07);
-  --border-medium: rgba(255,255,255,0.12);
+  --bg-elevated: #0f1a2e;
+  --border-subtle: rgba(255,255,255,0.09);
+  --border-medium: rgba(255,255,255,0.14);
+  --gold: rgba(212,175,55,0.35);
   --font-display: 'Barlow Condensed', system-ui, sans-serif;
   --font-body: 'Barlow', system-ui, sans-serif;
 }
@@ -48,6 +49,17 @@ body::after {
   pointer-events: none;
   z-index: 9998;
   mix-blend-mode: screen;
+}
+
+/* ─── Accessibility ─── */
+
+/* Show a consistent keyboard focus ring on all interactive elements.
+   Buttons inside overflow-hidden containers use ring-inset instead — see
+   GenderToggle and SegmentedControl which set focus-visible:outline-none. */
+*:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.65);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* ─── Animations ─── */
@@ -121,7 +133,7 @@ body::after {
   }
   .card-dark:hover {
     border-color: var(--border-medium);
-    box-shadow: 0 0 40px rgba(59,130,246,0.07), 0 8px 32px rgba(0,0,0,0.4);
+    box-shadow: 0 0 40px rgba(212,175,55,0.06), 0 8px 32px rgba(0,0,0,0.5);
     transform: translateY(-2px);
   }
 
@@ -135,16 +147,16 @@ body::after {
 
   /* Vivid glow for #1 */
   .glow-gold {
-    box-shadow: 0 0 40px rgba(245,158,11,0.18), 0 8px 32px rgba(0,0,0,0.5);
+    box-shadow: 0 0 60px rgba(212,175,55,0.22), 0 0 20px rgba(212,175,55,0.10), 0 8px 32px rgba(0,0,0,0.6);
   }
   .glow-blue {
     box-shadow: 0 0 30px rgba(59,130,246,0.2), 0 8px 32px rgba(0,0,0,0.5);
   }
   .glow-silver {
-    box-shadow: 0 0 30px rgba(203,213,225,0.12), 0 8px 32px rgba(0,0,0,0.5);
+    box-shadow: 0 0 40px rgba(203,213,225,0.15), 0 8px 32px rgba(0,0,0,0.5);
   }
   .glow-bronze {
-    box-shadow: 0 0 30px rgba(251,146,60,0.14), 0 8px 32px rgba(0,0,0,0.5);
+    box-shadow: 0 0 35px rgba(205,127,50,0.18), 0 8px 32px rgba(0,0,0,0.5);
   }
 
   /* Form controls — dark */

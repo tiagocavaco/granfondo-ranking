@@ -15,6 +15,8 @@ import {
   normalizeName,
 } from "@granfondo/database/normalize";
 import { Spinner } from "../shared/Spinner";
+import { ScrollSentinel } from "../shared/ScrollSentinel";
+import { GenderBadge } from "../shared/GenderBadge";
 import { posStyle, rankBorderAccent } from "../../utils/posStyle";
 import { TeamLink } from "../shared/TeamLink";
 
@@ -271,7 +273,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                 Gender
               </th>
               <th className="px-4 py-3 text-right">Time</th>
-              <th className="px-4 py-3 text-right hidden sm:table-cell">Gap</th>
+              <th className="px-4 py-3 text-right hidden lg:table-cell">Gap</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/[0.04]">
@@ -346,28 +348,20 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
                   })()}
                 </td>
                 <td className="px-4 py-3 text-center hidden sm:table-cell">
-                  <span
-                    className={`text-xs font-semibold px-1.5 py-0.5 rounded ${
-                      r.gender === "F"
-                        ? "bg-pink-500/15 text-pink-300"
-                        : "bg-blue-500/15 text-blue-300"
-                    }`}
-                  >
-                    {r.gender}
-                  </span>
+                  <GenderBadge gender={r.gender} />
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="font-mono text-xs font-semibold text-slate-300">
                     {r.raceTime}
                   </div>
-                  {r.gap && (
-                    <div className="font-mono text-xs text-slate-600 mt-0.5 sm:hidden">
+                  {r.gap && r.gap !== "00:00:00" && (
+                    <div className="font-mono text-xs text-slate-600 mt-0.5 lg:hidden">
                       {r.gap}
                     </div>
                   )}
                 </td>
-                <td className="px-4 py-3 text-right font-mono text-xs text-slate-600 hidden sm:table-cell">
-                  {r.gap}
+                <td className="px-4 py-3 text-right font-mono text-xs text-slate-600 hidden lg:table-cell">
+                  {r.gap && r.gap !== "00:00:00" ? r.gap : "—"}
                 </td>
               </tr>
             ))}
@@ -378,14 +372,7 @@ function ResultsTable({ distances }: { distances: StoredDistanceResults[] }) {
             No results found
           </div>
         )}
-        {visibleCount < filtered.length && (
-          <div
-            ref={sentinelRef}
-            className="px-4 py-3 text-xs text-slate-600 border-t border-white/[0.06] text-center"
-          >
-            Showing {visibleCount} of {filtered.length}…
-          </div>
-        )}
+        <ScrollSentinel sentinelRef={sentinelRef} visible={visibleCount} total={filtered.length} />
       </div>
     </div>
   );

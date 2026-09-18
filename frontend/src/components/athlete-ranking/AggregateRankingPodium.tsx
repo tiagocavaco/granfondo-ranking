@@ -23,10 +23,10 @@ function PodiumCard({
     ? `${cardBase} bg-gradient-to-b from-amber-500/10 to-[#0c1628] border-amber-500/25 glow-gold hover:border-amber-400/40`
     : isSecond
       ? `${cardBase} bg-gradient-to-b from-slate-400/10 to-[#0c1628] border-slate-400/20 glow-silver hover:border-slate-400/35`
-      : `${cardBase} bg-gradient-to-b from-orange-500/10 to-[#0c1628] border-orange-500/20 glow-bronze hover:border-orange-400/35`;
+      : `${cardBase} bg-gradient-to-b from-orange-500/15 to-[#0c1628] border-orange-500/30 glow-bronze hover:border-orange-400/45`;
 
   const ptsColor = isFirst ? "text-amber-400" : isSecond ? "text-slate-300" : "text-orange-400";
-  const subColor = isFirst ? "text-amber-500" : isSecond ? "text-slate-600" : "text-orange-700";
+  const subColor = isFirst ? "text-amber-500" : isSecond ? "text-slate-600" : "text-orange-600";
 
   const padding = isMobileFirst
     ? "px-4 pt-5 pb-4 sm:px-3 sm:pt-5 sm:pb-4"

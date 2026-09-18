@@ -8,6 +8,8 @@ import { RankBadge } from "../shared/RankBadge";
 import { MedalBadge } from "../shared/MedalBadge";
 import { SegmentedControl } from "../shared/SegmentedControl";
 import { rankTextColor, rankBorderAccent } from "../../utils/posStyle";
+import { ScrollSentinel } from "../shared/ScrollSentinel";
+import { PointsBadge } from "../shared/PointsBadge";
 
 export default function TeamRankingPage() {
   const [data, setData] = useState<TeamRanking | null>(null);
@@ -98,7 +100,7 @@ export default function TeamRankingPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 mb-8 sm:items-center">
+      <div className="flex flex-col sm:flex-row gap-3 mb-8 sm:items-center">
         <div className="flex items-center gap-2.5">
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
             Season
@@ -156,7 +158,7 @@ export default function TeamRankingPage() {
           placeholder="Search team…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-48 sm:ml-auto px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
+          className="w-full sm:w-48 sm:min-w-0 sm:ml-auto px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
         />
       </div>
 
@@ -335,9 +337,7 @@ export default function TeamRankingPage() {
                                     <span className="text-slate-600 hidden sm:inline">
                                       ({r.totalTeams} teams)
                                     </span>
-                                    <span className="font-bold text-blue-300 bg-blue-500/15 px-2 py-0.5 rounded border border-blue-500/20">
-                                      +{r.points}
-                                    </span>
+                                    <PointsBadge points={r.points} />
                                   </div>
                                 </div>
                                 <div className="space-y-0.5">
@@ -391,14 +391,7 @@ export default function TeamRankingPage() {
                 ))}
               </tbody>
             </table>
-            {visibleCount < ranked.length && (
-              <div
-                ref={sentinelRef}
-                className="px-4 py-3 text-xs text-slate-600 border-t border-white/[0.06] text-center"
-              >
-                Showing {visibleCount} of {ranked.length}…
-              </div>
-            )}
+            <ScrollSentinel sentinelRef={sentinelRef} visible={visibleCount} total={ranked.length} />
           </div>
         </>
       )}

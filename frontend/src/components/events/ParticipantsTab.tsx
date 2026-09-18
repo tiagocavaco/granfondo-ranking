@@ -4,6 +4,8 @@ import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import { api } from "@granfondo/api";
 import type { StoredParticipant } from "@granfondo/database/types";
 import { Spinner } from "../shared/Spinner";
+import { ScrollSentinel } from "../shared/ScrollSentinel";
+import { GenderBadge } from "../shared/GenderBadge";
 import {
   normalizeName,
   normalizeDistance,
@@ -265,15 +267,7 @@ export default function ParticipantsTab({ eventId }: Props) {
                   {p.category}
                 </td>
                 <td className="px-4 py-3 text-center hidden sm:table-cell">
-                  <span
-                    className={`text-xs font-semibold px-1.5 py-0.5 rounded ${
-                      p.gender === "F"
-                        ? "bg-pink-500/15 text-pink-300"
-                        : "bg-blue-500/15 text-blue-300"
-                    }`}
-                  >
-                    {p.gender}
-                  </span>
+                  <GenderBadge gender={p.gender} />
                 </td>
               </tr>
             ))}
@@ -284,14 +278,7 @@ export default function ParticipantsTab({ eventId }: Props) {
             No participants found
           </div>
         )}
-        {visibleCount < filtered.length && (
-          <div
-            ref={sentinelRef}
-            className="px-4 py-3 text-xs text-slate-600 border-t border-white/[0.06] text-center"
-          >
-            Showing {visibleCount} of {filtered.length}…
-          </div>
-        )}
+        <ScrollSentinel sentinelRef={sentinelRef} visible={visibleCount} total={filtered.length} />
       </div>
     </div>
   );

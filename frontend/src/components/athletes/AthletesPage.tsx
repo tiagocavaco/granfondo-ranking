@@ -70,6 +70,9 @@ export default function AthletesPage() {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="mb-8">
+        <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
+          Portuguese Granfondo Series
+        </div>
         <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase mb-1">
           Athletes
         </h1>

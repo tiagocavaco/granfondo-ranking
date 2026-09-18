@@ -45,7 +45,7 @@ export function TeamMemberList({ members }: { members: Member[] }) {
             setSearch(e.target.value);
             setExpanded(false);
           }}
-          placeholder="Search name or category…"
+          placeholder="Name or category…"
           className="w-48 sm:w-56 px-3 py-1.5 text-sm rounded-xl input-dark focus:outline-none placeholder-slate-600"
         />
       </div>

@@ -79,7 +79,7 @@ export default function AggregateRankingPage() {
             Athlete Ranking
           </h2>
         </div>
-        <div className="sm:hidden">
+        <div className="sm:hidden mt-7">
           <GenderToggle
             value={gender}
             onChange={(next) => {
@@ -90,7 +90,7 @@ export default function AggregateRankingPage() {
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 mb-8 sm:items-center">
+      <div className="flex flex-col sm:flex-row gap-3 mb-8 sm:items-center">
         <div className="flex items-center gap-2.5">
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
             Season
@@ -174,7 +174,7 @@ export default function AggregateRankingPage() {
           placeholder="Search athlete or team…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-52 sm:ml-auto px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
+          className="w-full sm:w-52 sm:min-w-0 sm:ml-auto px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
         />
       </div>
 

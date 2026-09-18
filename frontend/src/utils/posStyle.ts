@@ -25,3 +25,19 @@ export function rankBorderAccent(rank: number): string {
   if (rank <= 10) return "border-l-[3px] border-blue-500/30";
   return "border-l-[3px] border-transparent";
 }
+
+/** Subtle row background tint for top-3 (used in predictions list). */
+export function rankRowBg(rank: number): string {
+  if (rank === 1) return "bg-amber-400/[0.04]";
+  if (rank === 2) return "bg-slate-400/[0.03]";
+  if (rank === 3) return "bg-orange-500/[0.03]";
+  return "";
+}
+
+/** Glass-style rank circle badge for top-3 (used in predictions list). */
+export function rankBadgeStyle(rank: number): string {
+  if (rank === 1) return "bg-amber-400/20 text-amber-300 border border-amber-400/40";
+  if (rank === 2) return "bg-slate-400/15 text-slate-300 border border-slate-400/30";
+  if (rank === 3) return "bg-orange-500/15 text-orange-300 border border-orange-500/30";
+  return "bg-white/[0.07] text-slate-500";
+}

@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { StoredEvent } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "../shared/Spinner";
 import { distBadgeClass } from "../../utils/distance";
+import { ShieldCheckIcon } from "../shared/ShieldCheckIcon";
 
 type SeasonFilter = "all" | string;
 type StatusFilter = "all" | "past" | "upcoming";
@@ -14,6 +15,7 @@ export default function EventList() {
   const [error, setError] = useState<string | null>(null);
   const [season, setSeason] = useState<SeasonFilter>("all");
   const [status, setStatus] = useState<StatusFilter>("past");
+  const [query, setQuery] = useState("");
   const [stats, setStats] = useState<{
     uniqueAthletes: number;
     uniqueByYear: Record<string, number>;
@@ -52,6 +54,7 @@ export default function EventList() {
   }, [allEvents]);
 
   const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
     return allEvents
       .filter((e) => {
         const isPast = new Date(e.date + "T12:00:00") < new Date();
@@ -60,7 +63,11 @@ export default function EventList() {
           status === "all" ||
           (status === "past" && isPast) ||
           (status === "upcoming" && !isPast);
-        return matchSeason && matchStatus;
+        const matchQuery =
+          !q ||
+          e.name.toLowerCase().includes(q) ||
+          (e.location ?? "").toLowerCase().includes(q);
+        return matchSeason && matchStatus && matchQuery;
       })
       .sort((a, b) => {
         const aDate = new Date(a.date).getTime();
@@ -96,7 +103,7 @@ export default function EventList() {
             Portuguese Granfondo Series
           </div>
           <h1 className="font-display font-bold text-5xl sm:text-7xl text-white tracking-wide uppercase leading-none">
-            Race Results<span className="text-blue-400">.</span>
+            Race Events<span className="text-blue-400">.</span>
           </h1>
         </div>
       )}
@@ -112,19 +119,19 @@ export default function EventList() {
           <StatPill
             value={filtered.length}
             label="events"
-            color="text-blue-400"
+            color="text-white"
           />
           <div className="w-[1px] h-6 bg-white/[0.07]" />
           <StatPill
             value={filtered.filter((e) => e.hasResults).length}
             label={<><span className="sm:hidden">w/ results</span><span className="hidden sm:inline">with results</span></>}
-            color="text-emerald-400"
+            color="text-amber-400"
           />
           <div className="w-[1px] h-6 bg-white/[0.07]" />
           <StatPill
             value={totalFinishers.toLocaleString()}
             label="finishers"
-            color="text-violet-400"
+            color="text-amber-300"
           />
           {uniqueAthleteCount !== undefined && (
             <>
@@ -165,6 +172,13 @@ export default function EventList() {
           onChange={(v) => setStatus(v as StatusFilter)}
           format={(s) => s.charAt(0).toUpperCase() + s.slice(1)}
         />
+        <input
+          type="search"
+          placeholder="Search events…"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-full sm:w-52 sm:ml-auto px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
+        />
       </div>
 
       {loading && <Spinner />}
@@ -188,6 +202,7 @@ export default function EventList() {
 }
 
 function EventHero({ event }: { event: StoredEvent }) {
+  const navigate = useNavigate();
   const date = new Date(event.date + "T12:00:00");
   const day = date.toLocaleDateString("en-GB", { day: "numeric" });
   const month = date.toLocaleDateString("en-GB", { month: "short" }).toUpperCase();
@@ -203,7 +218,10 @@ function EventHero({ event }: { event: StoredEvent }) {
   );
 
   return (
-    <Link to={`/event/${event.id}`} className="block mb-8 group">
+    <div
+      onClick={() => navigate(`/event/${event.id}`)}
+      className="block mb-8 group cursor-pointer"
+    >
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0a1628] via-[#0d1d3a] to-[#0a1628] border border-white/[0.08] hover:border-white/[0.14] transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10">
         {/* Ambient glow */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
@@ -212,39 +230,58 @@ function EventHero({ event }: { event: StoredEvent }) {
         {/* Top accent */}
         <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
 
-        {/* Mobile: big date as background watermark */}
-        <div className="absolute right-0 top-0 bottom-0 flex items-center pr-4 select-none pointer-events-none opacity-[0.07] md:hidden">
-          <div className="text-right">
-            <div className="text-[110px] font-black text-white leading-none tabular-nums">
-              {day}
+        <div className="relative p-6 sm:p-8 md:p-10">
+          {/* Label row — full card width so ml-auto reaches the card edge */}
+          <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+              <span className="text-[11px] font-black tracking-[0.25em] text-amber-400 uppercase">
+                Next Race
+              </span>
             </div>
-            <div className="text-[36px] font-black text-amber-400 tracking-widest -mt-3">
-              {month}
-            </div>
-          </div>
-        </div>
-
-        <div className="relative p-6 sm:p-8 md:p-10 flex flex-col md:flex-row md:items-center gap-6">
-          <div className="flex-1 min-w-0">
-            {/* Label */}
-            <div className="flex items-center gap-3 mb-5">
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                <span className="text-[11px] font-black tracking-[0.25em] text-amber-400 uppercase">
-                  Next Race
-                </span>
-              </div>
-              {daysUntil > 0 && (
-                <span className="text-[11px] font-bold tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/25 px-2 py-0.5 rounded-full">
-                  {daysUntil === 1 ? "Tomorrow" : `${daysUntil} days`}
-                </span>
+            {daysUntil > 0 && (
+              <span className="text-[11px] font-bold tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/25 px-2 py-0.5 rounded-full">
+                {daysUntil === 1 ? "Tomorrow" : `${daysUntil} days`}
+              </span>
+            )}
+            <div className="hidden sm:flex items-center gap-2 ml-auto">
+              {event.participantCount > 0 && (
+                <Link
+                  to={`/event/${event.id}/predictions`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-400/10 text-amber-300 border border-amber-400/20 hover:bg-amber-400/20 transition-colors"
+                >
+                  Predictions ✦
+                </Link>
+              )}
+              {event.officialUrl && (
+                <a
+                  href={event.officialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 border border-white/[0.1] hover:text-white hover:border-white/25 transition-colors"
+                >
+                  <ShieldCheckIcon />
+                  Official Page ↗
+                </a>
               )}
             </div>
+          </div>
 
+          <div className="flex flex-col md:flex-row md:items-center gap-6">
+          <div className="flex-1 min-w-0">
             {/* Event name */}
-            <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight mb-4 tracking-wide uppercase group-hover:text-amber-100 transition-colors">
-              {event.name}
-            </h2>
+            <div className="flex items-start justify-between gap-3 mb-4">
+              <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight tracking-wide uppercase group-hover:text-amber-100 transition-colors">
+                {event.name}
+              </h2>
+              <div className="md:hidden shrink-0 text-right select-none pt-1 opacity-20">
+                <div className="text-[38px] font-black text-white leading-none tabular-nums">{day}</div>
+                <div className="text-[11px] font-black text-amber-400 tracking-widest mt-0.5">{month}</div>
+                <div className="text-[9px] font-bold text-slate-400 mt-0.5">{year}</div>
+              </div>
+            </div>
 
             {/* Date row — visible and bold on mobile */}
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-4">
@@ -284,6 +321,33 @@ function EventHero({ event }: { event: StoredEvent }) {
                 </span>
               ))}
             </div>
+
+            {/* Mobile links — desktop versions are in the label row */}
+            {(event.participantCount > 0 || event.officialUrl) && (
+              <div className="flex sm:hidden flex-wrap gap-2 mt-4 pt-4 border-t border-white/[0.06]">
+                {event.participantCount > 0 && (
+                  <Link
+                    to={`/event/${event.id}/predictions`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-400/10 text-amber-300 border border-amber-400/20 hover:bg-amber-400/20 transition-colors"
+                  >
+                    Predictions ✦
+                  </Link>
+                )}
+                {event.officialUrl && (
+                  <a
+                    href={event.officialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 border border-white/[0.1] hover:text-white hover:border-white/25 transition-colors"
+                  >
+                    <ShieldCheckIcon />
+                    Page ↗
+                  </a>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Large date on desktop */}
@@ -296,9 +360,10 @@ function EventHero({ event }: { event: StoredEvent }) {
             </div>
             <div className="text-lg text-slate-500 font-bold">{year}</div>
           </div>
+          </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
@@ -360,7 +425,7 @@ function EventRow({ event, isFirst, animIndex = 0 }: { event: StoredEvent; isFir
       }`}
     >
       {/* Left accent — faint at rest, bright on hover */}
-      <div className={`absolute left-0 inset-y-3 w-[2px] rounded-full transition-all duration-300 opacity-20 group-hover:opacity-100 ${isPast ? "bg-blue-400/60" : "bg-amber-400/80"}`} />
+      <div className={`absolute left-0 inset-y-3 w-[2px] rounded-full transition-all duration-300 opacity-20 group-hover:opacity-100 ${!isPast ? "bg-amber-400/80" : event.hasResults ? "bg-emerald-500/70" : "bg-orange-400/70"}`} />
       {/* Date column */}
       <div className="w-12 sm:w-14 shrink-0 text-center">
         <div className={`text-xl sm:text-2xl font-black leading-none ${isPast ? "text-slate-400" : "text-amber-300"}`}>
@@ -409,16 +474,20 @@ function EventRow({ event, isFirst, animIndex = 0 }: { event: StoredEvent; isFir
               </span>
             </>
           )}
+          {isPast && !event.hasResults && (
+            <>
+              <span>·</span>
+              <span className="inline-flex items-center gap-1 text-[9px] font-semibold uppercase tracking-wider text-amber-600/60 border border-amber-600/20 bg-amber-500/[0.05] px-1.5 py-px rounded-full">
+                <span className="w-1 h-1 rounded-full bg-amber-500/50 shrink-0" />
+                Results pending
+              </span>
+            </>
+          )}
         </div>
         {/* Mobile distance badges */}
         <div className="flex gap-1.5 mt-1.5 sm:hidden flex-wrap">
           {event.distances.map((d) => (
-            <span
-              key={d.id}
-              className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${distBadgeClass(d.name)}`}
-            >
-              {d.name}
-            </span>
+            <DistanceBadge key={d.id} name={d.name} />
           ))}
         </div>
       </div>
@@ -426,12 +495,7 @@ function EventRow({ event, isFirst, animIndex = 0 }: { event: StoredEvent; isFir
       {/* Desktop distance badges */}
       <div className="hidden sm:flex gap-1.5 shrink-0 flex-nowrap justify-end">
         {event.distances.map((d) => (
-          <span
-            key={d.id}
-            className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${distBadgeClass(d.name)}`}
-          >
-            {d.name}
-          </span>
+          <DistanceBadge key={d.id} name={d.name} />
         ))}
       </div>
 
@@ -464,6 +528,14 @@ function StatPill({
         {label}
       </span>
     </div>
+  );
+}
+
+function DistanceBadge({ name }: { name: string }) {
+  return (
+    <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${distBadgeClass(name)}`}>
+      {name}
+    </span>
   );
 }
 

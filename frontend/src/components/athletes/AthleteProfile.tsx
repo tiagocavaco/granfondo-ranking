@@ -14,6 +14,8 @@ import CareerHighlights from "./CareerHighlights";
 import { distBadgeClass } from "../../utils/distance";
 import { resolveTeamId, mostRecentCountry } from "@granfondo/api";
 import { posStyle, rankTextColor } from "../../utils/posStyle";
+import { BackButton } from "../shared/BackButton";
+import { GenderBadge } from "../shared/GenderBadge";
 
 export default function AthleteProfile() {
   const { id } = useParams<{ id: string }>();
@@ -81,13 +83,7 @@ export default function AthleteProfile() {
 
   return (
     <div>
-      {/* Back */}
-      <button
-        onClick={() => navigate(-1)}
-        className="text-sm text-slate-500 hover:text-slate-300 transition-colors mb-4 inline-flex items-center gap-1"
-      >
-        ← Back
-      </button>
+      <BackButton />
 
       {/* Hero */}
       <div className="animate-scale relative bg-[#0c1628] rounded-2xl p-6 sm:p-8 mb-8 text-white overflow-hidden border border-white/[0.07]">
@@ -110,15 +106,7 @@ export default function AthleteProfile() {
           {/* Top row: gender + flag + compare */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <span
-                className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-widest ${
-                  gender === "F"
-                    ? "bg-pink-500/15 text-pink-300 border border-pink-500/20"
-                    : "bg-blue-500/15 text-blue-300 border border-blue-500/20"
-                }`}
-              >
-                {gender === "F" ? "Women" : "Men"}
-              </span>
+              <GenderBadge gender={gender} variant="hero" />
               {country && (
                 <span className="text-sm" title={country}>
                   {countryFlag(country)}
@@ -232,7 +220,7 @@ export default function AthleteProfile() {
                     <col className="hidden md:table-column w-32" />
                     <col className="w-12 sm:w-16" />
                     <col className="w-28" />
-                    <col className="hidden sm:table-column w-28" />
+                    <col className="hidden lg:table-column w-28" />
                   </colgroup>
                   <thead>
                     <tr className="bg-[#060d1a] text-xs text-slate-500 uppercase tracking-wider border-b border-white/[0.06]">
@@ -245,7 +233,7 @@ export default function AthleteProfile() {
                       </th>
                       <th className="px-4 py-3 text-center">Pos</th>
                       <th className="px-4 py-3 text-right">Time</th>
-                      <th className="px-4 py-3 text-right hidden sm:table-cell">
+                      <th className="px-4 py-3 text-right hidden lg:table-cell">
                         Gap
                       </th>
                     </tr>
@@ -297,9 +285,14 @@ export default function AthleteProfile() {
                         </td>
                         <td className="px-4 py-3 text-right font-mono text-xs font-semibold text-slate-300">
                           {r.raceTime}
+                          {r.gap && r.gap !== "00:00:00" && (
+                            <div className="font-mono text-xs text-slate-600 mt-0.5 lg:hidden">
+                              {r.gap}
+                            </div>
+                          )}
                         </td>
-                        <td className="px-4 py-3 text-right font-mono text-xs text-slate-600 hidden sm:table-cell">
-                          {r.gap}
+                        <td className="px-4 py-3 text-right font-mono text-xs text-slate-600 hidden lg:table-cell">
+                          {r.gap && r.gap !== "00:00:00" ? r.gap : "—"}
                         </td>
                       </tr>
                     ))}

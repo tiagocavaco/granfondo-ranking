@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { FormulaBox } from "../shared/FormulaBox";
+import { RulesList } from "../shared/RulesList";
+import { SectionLabel } from "../shared/SectionLabel";
 import {
   DISTANCES,
   DISTANCE_ABBR,
@@ -20,39 +23,33 @@ export default function PredictionsInfoPage() {
       </button>
 
       <div className="mb-8">
-        <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase leading-none mb-1">
-          Predictions
-        </h1>
-        <p className="text-[10px] font-bold text-amber-400/70 uppercase tracking-widest mb-3">
+        <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
+          Pre-Race Predictions
+        </div>
+        <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase leading-none mb-3">
           How it works
-        </p>
+        </h1>
         <p className="text-slate-500 text-sm">
           Favorites are ranked by a weighted career score that accounts for the
           relevance of each distance to the upcoming race.
         </p>
       </div>
 
-      {/* Formula */}
-      <div className="bg-[#0c1628] border border-white/[0.07] rounded-2xl px-6 py-5 mb-8 font-mono text-sm">
-        <div className="text-slate-600 text-[10px] uppercase tracking-widest mb-2 font-bold">
-          Formula
-        </div>
+      <FormulaBox>
         <div className="text-blue-300">
           score = Σ points[dist, year] × dist_coeff × year_coeff
         </div>
         <div className="text-slate-500 mt-1 text-xs">
           summed across all (distance, year) pairs the athlete has scored in
         </div>
-      </div>
+      </FormulaBox>
 
       <div className="sm:flex sm:gap-6 mb-8">
         {/* Left column: Distance coefficient + Year decay stacked */}
         <div className="sm:flex-1 space-y-6">
           {/* Coefficient matrix */}
           <div>
-            <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-3">
-              Distance coefficients
-            </h2>
+            <SectionLabel className="mb-3">Distance coefficients</SectionLabel>
             <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628] overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -108,9 +105,7 @@ export default function PredictionsInfoPage() {
 
           {/* Year decay */}
           <div>
-            <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-3">
-              Year decay
-            </h2>
+            <SectionLabel className="mb-3">Year decay</SectionLabel>
             <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
               <table className="w-full text-sm">
                 <thead>
@@ -163,69 +158,15 @@ export default function PredictionsInfoPage() {
 
         {/* Right column: Rules */}
         <div className="sm:flex-1 mt-6 sm:mt-0">
-          <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-3">
-            Rules
-          </h2>
-          <div className="rounded-2xl border border-white/[0.07] bg-[#0c1628] px-6 py-5 text-sm text-slate-400">
-            <ol className="space-y-3">
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">
-                  01
-                </span>
-                <span>
-                  Only athletes whose registration is linked to an existing
-                  profile are ranked.
-                </span>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">
-                  02
-                </span>
-                <span>
-                  Participants with no profile are counted as{" "}
-                  <span className="font-medium text-slate-300">unranked</span>{" "}
-                  in each category.
-                </span>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">
-                  03
-                </span>
-                <span>
-                  An athlete strong in longer distances is rewarded when racing
-                  shorter — dropping from Granfondo to Minifondo adds a 1.4×
-                  bonus.
-                </span>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">
-                  04
-                </span>
-                <span>
-                  Moving up in distance is penalized — a Minifondo specialist
-                  in a Granfondo scores at 0.6× of their career points.
-                </span>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">
-                  05
-                </span>
-                <span>
-                  Time Trial points are isolated and do not count toward road
-                  race predictions.
-                </span>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">
-                  06
-                </span>
-                <span>
-                  Favorites are shown per category, with an overall male/female
-                  leader across all categories.
-                </span>
-              </li>
-            </ol>
-          </div>
+          <SectionLabel className="mb-3">Rules</SectionLabel>
+          <RulesList items={[
+            "Only athletes whose registration is linked to an existing profile are ranked.",
+            <>Participants with no profile are counted as <span className="font-medium text-slate-300">unranked</span> in each category.</>,
+            "An athlete strong in longer distances is rewarded when racing shorter — dropping from Granfondo to Minifondo adds a 1.4× bonus.",
+            "Moving up in distance is penalized — a Minifondo specialist in a Granfondo scores at 0.6× of their career points.",
+            "Time Trial points are isolated and do not count toward road race predictions.",
+            "Favorites are shown per category, with an overall male/female leader across all categories.",
+          ]} />
         </div>
       </div>
     </div>

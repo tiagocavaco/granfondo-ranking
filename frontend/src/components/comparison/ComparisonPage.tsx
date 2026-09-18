@@ -6,6 +6,7 @@ import { Spinner } from "../shared/Spinner";
 import { ComparisonHeroCard } from "./ComparisonHeroCard";
 import { HeadToHeadChart } from "./HeadToHeadChart";
 import { SharedEventsTable } from "./SharedEventsTable";
+import { BackButton } from "../shared/BackButton";
 
 type AthleteRow = {
   id: number;
@@ -180,12 +181,7 @@ export default function ComparisonPage() {
 
   return (
     <div>
-      <button
-        onClick={() => navigate(-1)}
-        className="text-sm text-slate-500 hover:text-slate-300 transition-colors mb-4 inline-flex items-center gap-1"
-      >
-        ← Back
-      </button>
+      <BackButton />
 
       <div className="mb-8">
         <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
@@ -271,8 +267,10 @@ export default function ComparisonPage() {
         </div>
       )}
       {!aData && !aLoading && (
-        <div className="text-center py-12 text-slate-500 text-sm">
-          Search for two athletes above to get started
+        <div className="mt-8 rounded-2xl border border-white/[0.06] bg-[#0c1628]/60 px-8 py-12 text-center">
+          <div className="text-4xl mb-4 opacity-30 select-none">⚡ VS ⚡</div>
+          <p className="text-slate-300 font-semibold text-sm mb-1">Pick two athletes to compare</p>
+          <p className="text-slate-600 text-xs">Head-to-head results across every shared event — times, positions, and ranking points side by side.</p>
         </div>
       )}
     </div>

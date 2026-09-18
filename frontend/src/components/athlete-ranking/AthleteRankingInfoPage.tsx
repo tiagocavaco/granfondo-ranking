@@ -1,4 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { BackButton } from "../shared/BackButton";
+import { FormulaBox } from "../shared/FormulaBox";
+import { RulesList } from "../shared/RulesList";
+import { SectionLabel } from "../shared/SectionLabel";
 import {
   ATHLETE_POINTS_TABLE,
   ATHLETE_COEFFICIENT_REFERENCE,
@@ -29,19 +32,15 @@ const COEFF_SAMPLES = [75, 150, ATHLETE_COEFFICIENT_REFERENCE, 600, 900].map(
 );
 
 export default function AthleteRankingInfoPage() {
-  const navigate = useNavigate();
-
   return (
     <div>
-      <button
-        onClick={() => navigate(-1)}
-        className="text-sm text-slate-500 hover:text-slate-300 transition-colors mb-4 inline-flex items-center gap-1"
-      >
-        ← Back
-      </button>
+      <BackButton />
 
+      <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
+        Athlete Ranking
+      </div>
       <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase mb-2">
-        Athlete Ranking — How it works
+        How it works
       </h1>
       <p className="text-slate-500 text-sm mb-8">
         Points are awarded per race based on finishing position within your
@@ -49,21 +48,16 @@ export default function AthleteRankingInfoPage() {
         finishers per distance.
       </p>
 
-      <div className="bg-[#0c1628] border border-white/[0.07] rounded-2xl px-6 py-5 mb-8 font-mono text-sm">
-        <div className="text-slate-600 text-[10px] uppercase tracking-widest mb-2 font-bold">
-          Formula
-        </div>
+      <FormulaBox>
         <div className="text-blue-300">points = base_points × coefficient</div>
         <div className="text-slate-500 mt-1 text-xs">
           coefficient = √(finishers / 300) · rounded to 2 decimal places
         </div>
-      </div>
+      </FormulaBox>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <div>
-          <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-3">
-            Base points by position
-          </h2>
+          <SectionLabel className="mb-3">Base points by position</SectionLabel>
           <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
             <table className="w-full text-sm">
               <thead>
@@ -93,9 +87,7 @@ export default function AthleteRankingInfoPage() {
         </div>
 
         <div>
-          <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-3">
-            Difficulty coefficient
-          </h2>
+          <SectionLabel className="mb-3">Difficulty coefficient</SectionLabel>
           <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
             <table className="w-full text-sm">
               <thead>
@@ -136,23 +128,12 @@ export default function AthleteRankingInfoPage() {
         </div>
 
         <div>
-          <h2 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-3">Rules</h2>
-          <div className="rounded-2xl border border-white/[0.07] bg-[#0c1628] px-6 py-5 text-sm text-slate-400">
-            <ol className="space-y-3">
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">01</span>
-                <span>Points are awarded per gender.</span>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">02</span>
-                <span>Only the top 50 finishers score points.</span>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="shrink-0 text-[10px] font-black text-slate-700 tabular-nums mt-0.5 w-4">03</span>
-                <span>Rankings are per distance.</span>
-              </li>
-            </ol>
-          </div>
+          <SectionLabel className="mb-3">Rules</SectionLabel>
+          <RulesList items={[
+            "Points are awarded per gender.",
+            "Only the top 50 finishers score points.",
+            "Rankings are per distance.",
+          ]} />
         </div>
       </div>
     </div>
