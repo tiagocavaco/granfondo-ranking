@@ -1,9 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import {
-  render,
-  screen,
-  waitForElementToBeRemoved,
-} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import PredictionsPage from "./PredictionsPage";
 import type { DistancePredictions, FavoritePrediction } from "@granfondo/api";
@@ -84,23 +80,19 @@ describe("PredictionsPage", () => {
     expect(await screen.findByText("Granfondo Algarve")).toBeInTheDocument();
   });
 
-  it("redirects to the event page when the event already has results", async () => {
+  it("shows the no-predictions empty state for a past event with results but no predictions data", async () => {
+    // Past events with results still show the predictions page — no redirect.
+    // If predictions are empty, the NoPredictionsState is rendered.
     mockGetEvents.mockResolvedValue([
       { id: 5, name: "Granfondo Algarve", hasResults: true },
     ]);
     mockGetPredictions.mockResolvedValue({});
 
     renderAt("/event/5/predictions");
-    await waitForElementToBeRemoved(
-      () => screen.queryByRole("status", { hidden: true }),
-      {
-        timeout: 2000,
-      },
-    ).catch(() => {});
-    // Navigation happens after the events resolve.
-    await vi.waitFor(() =>
-      expect(mockNavigate).toHaveBeenCalledWith("/event/5", { replace: true }),
-    );
+    expect(
+      await screen.findByText(/No predictions available yet/i),
+    ).toBeInTheDocument();
+    expect(mockNavigate).not.toHaveBeenCalledWith("/event/5", { replace: true });
   });
 
   it("renders the 'no predictions available' empty state when distance buckets are empty", async () => {
