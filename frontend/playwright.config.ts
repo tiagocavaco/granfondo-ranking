@@ -4,6 +4,7 @@ const isCI = !!process.env.CI;
 // CI: build step runs first, preview serves the dist on port 4173.
 // Local: reuse an already-running dev server on port 5173.
 const port = isCI ? 4173 : 5173;
+const baseURL = `http://localhost:${port}/granfondo-ranking`;
 
 export default defineConfig({
   testDir: "./e2e",
@@ -12,12 +13,14 @@ export default defineConfig({
   retries: isCI ? 1 : 0,
   reporter: "list",
   use: {
-    baseURL: `http://localhost:${port}/granfondo-ranking`,
+    baseURL,
     trace: "on-first-retry",
   },
   webServer: {
     command: isCI ? "npm run preview" : "npm run dev",
-    url: `http://localhost:${port}/granfondo-ranking`,
+    // Trailing slash gets a 200 from Vite; without it Vite redirects (301)
+    // which Playwright's health check does not accept.
+    url: `${baseURL}/`,
     reuseExistingServer: !isCI,
     timeout: isCI ? 30_000 : 120_000,
   },
