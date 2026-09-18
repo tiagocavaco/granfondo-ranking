@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 // Navigate to a finished event (one with results) via the home page.
 async function goToFinishedEvent(page: import("@playwright/test").Page) {
-  await page.goto("/");
+  await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   const link = page
     .locator('a[href*="/event/"]')
@@ -47,7 +47,7 @@ test("finished event shows location text", async ({ page }) => {
 test("finished event shows finisher count", async ({ page }) => {
   await goToFinishedEvent(page);
   await expect(page.getByText(/\d[\d,]*/).first()).toBeVisible();
-  await expect(page.getByText("finishers")).toBeVisible();
+  await expect(page.getByText("finishers").first()).toBeVisible();
 });
 
 test("event detail has back-to-events link", async ({ page }) => {

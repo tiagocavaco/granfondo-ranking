@@ -4,7 +4,9 @@ const isCI = !!process.env.CI;
 // CI: build step runs first, preview serves the dist on port 4173.
 // Local: reuse an already-running dev server on port 5173.
 const port = isCI ? 4173 : 5173;
-const baseURL = `http://localhost:${port}/granfondo-ranking`;
+// Trailing slash is required: relative goto("athlete/22") resolves correctly
+// against "…/granfondo-ranking/" but NOT against "…/granfondo-ranking" (no slash).
+const baseURL = `http://localhost:${port}/granfondo-ranking/`;
 
 export default defineConfig({
   testDir: "./e2e",

@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 // Use a stable athlete ID for deterministic tests (athlete 22 has a long career).
-const ATHLETE_URL = "/athlete/22";
+const ATHLETE_URL = "athlete/22";
 
 test.beforeEach(async ({ page }) => {
   await page.goto(ATHLETE_URL);
@@ -31,7 +31,8 @@ test("athlete profile shows team link when athlete has a team", async ({
 
 test("stats strip shows all four labels", async ({ page }) => {
   await expect(page.getByText("Races")).toBeVisible();
-  await expect(page.getByText("Podiums")).toBeVisible();
+  // exact: true avoids matching the "Cat Podiums" label as well
+  await expect(page.getByText("Podiums", { exact: true })).toBeVisible();
   await expect(page.getByText("Cat Podiums")).toBeVisible();
 });
 
@@ -55,20 +56,21 @@ test("Compare link is present and links to /compare with athlete id", async ({
 // ── Career table structure ────────────────────────────────────────────────────
 
 test("career table has Event column header", async ({ page }) => {
+  // .first() — one table per year, each has the same header row
   await expect(
-    page.getByRole("columnheader", { name: /^Event$/i }),
+    page.getByRole("columnheader", { name: /^Event$/i }).first(),
   ).toBeVisible();
 });
 
 test("career table has Pos column header", async ({ page }) => {
   await expect(
-    page.getByRole("columnheader", { name: /^Pos$/i }),
+    page.getByRole("columnheader", { name: /^Pos$/i }).first(),
   ).toBeVisible();
 });
 
 test("career table has Time column header", async ({ page }) => {
   await expect(
-    page.getByRole("columnheader", { name: /^Time$/i }),
+    page.getByRole("columnheader", { name: /^Time$/i }).first(),
   ).toBeVisible();
 });
 
@@ -84,7 +86,11 @@ test("career table rows link to event pages", async ({ page }) => {
 });
 
 test("career table shows year section headings", async ({ page }) => {
-  const yearHeading = page.getByText(/^20\d{2}$/).first();
+  // Use span to avoid matching hidden <option> elements in the season selector
+  const yearHeading = page
+    .locator("span")
+    .filter({ hasText: /^20\d{2}$/ })
+    .first();
   await expect(yearHeading).toBeVisible();
 });
 
@@ -107,14 +113,14 @@ test("Gap column is hidden on mobile, visible on desktop", async ({
 test("athletes search page shows subtitle and search input", async ({
   page,
 }) => {
-  await page.goto("/athletes");
+  await page.goto("athletes");
   await page.waitForSelector("h1", { timeout: 15000 });
   await expect(page.getByText(/Search by name or team/i).first()).toBeVisible();
   await expect(page.getByPlaceholder(/search by name or team/i)).toBeVisible();
 });
 
 test("athletes search returns results for a common name", async ({ page }) => {
-  await page.goto("/athletes");
+  await page.goto("athletes");
   await page.waitForSelector("h1", { timeout: 15000 });
   const input = page.getByPlaceholder(/search by name or team/i);
   await input.fill("João");
@@ -126,7 +132,7 @@ test("athletes search returns results for a common name", async ({ page }) => {
 test("clicking an athlete in search results navigates to their profile", async ({
   page,
 }) => {
-  await page.goto("/athletes");
+  await page.goto("athletes");
   await page.waitForSelector("h1", { timeout: 15000 });
   const input = page.getByPlaceholder(/search by name or team/i);
   await input.fill("João");
@@ -137,7 +143,7 @@ test("clicking an athlete in search results navigates to their profile", async (
 });
 
 test("most active athletes list shows athlete links", async ({ page }) => {
-  await page.goto("/athletes");
+  await page.goto("athletes");
   await page.waitForSelector("h1", { timeout: 15000 });
   await expect(page.getByText(/most active athletes/i)).toBeVisible();
   const athleteLink = page.locator('a[href*="/athlete/"]').first();

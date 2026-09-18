@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/");
+  await page.goto("");
   // Wait for DB to load — spinner disappears, heading appears
   await page.waitForSelector("h1", { timeout: 15000 });
 });

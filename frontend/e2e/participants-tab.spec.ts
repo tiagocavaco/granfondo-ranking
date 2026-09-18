@@ -4,7 +4,7 @@ import { test, expect } from "@playwright/test";
 // We find it by looking for the "Next Race" hero card which always points
 // to the next upcoming event.
 async function goToUpcomingEvent(page: import("@playwright/test").Page) {
-  await page.goto("/");
+  await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   const heroLabel = page.getByText("Next Race");
   if ((await heroLabel.count()) === 0) {
@@ -23,8 +23,13 @@ test("upcoming event shows Participants tab content", async ({ page }) => {
     return;
   }
   // Upcoming events show ParticipantsTab, not ResultsTab
-  // The tab shows a count label like "X participants"
-  const participantsText = page.getByText(/participants/i).first();
+  // Wait for the table to render (participants load async), then check count label
+  await page.waitForSelector("table", { timeout: 10000 });
+  // The desktop count label is a span — options inside closed selects are hidden
+  const participantsText = page
+    .locator("span")
+    .filter({ hasText: /participants/i })
+    .first();
   await expect(participantsText).toBeVisible();
 });
 
@@ -67,12 +72,16 @@ test("participants tab distance filter changes visible count", async ({
     test.skip();
     return;
   }
-  // The distance filter select lists distances, first option is "All distances"
-  const distSelect = page.locator("select").first();
-  const options = await distSelect.locator("option").allTextContents();
-  // Must have at least one option
-  expect(options.length).toBeGreaterThan(0);
-  expect(options[0]).toMatch(/all distances/i);
+  // Wait for participants to load so the distance select options are populated
+  // state: "attached" — options inside a closed <select> are always hidden from Playwright
+  await page.waitForSelector("option[value='all']", {
+    state: "attached",
+    timeout: 10000,
+  });
+  // Query the first "all" option directly — avoids ambiguity with select.first()
+  const firstOption = page.locator("option[value='all']").first();
+  const text = await firstOption.textContent();
+  expect(text).toMatch(/all distances/i);
 });
 
 test("participants search filters results", async ({ page }) => {

@@ -3,10 +3,10 @@ import { test, expect } from "@playwright/test";
 // Navigate to a team profile by clicking through from the ranking page
 // so we don't hardcode a team ID that might shift between scrapes.
 async function goToFirstTeamProfile(page: import("@playwright/test").Page) {
-  await page.goto("/teams");
-  await page.waitForSelector("h1", { timeout: 15000 });
-  // Click the first team link in the ranking table
-  const teamLink = page.locator('a[href*="/team/"]').first();
+  await page.goto("teams");
+  await page.waitForSelector("h2", { timeout: 15000 });
+  // Click the first team link inside the table body (not invisible podium overlay anchors)
+  const teamLink = page.locator("tbody").locator('a[href*="/team/"]').first();
   await teamLink.click();
   await page.waitForURL(/\/team\/\d+/);
   await page.waitForSelector("h1, [class*='font-display']", { timeout: 15000 });
@@ -34,8 +34,10 @@ test("team profile shows Members stat", async ({ page }) => {
 
 test("team profile member list renders with member names", async ({ page }) => {
   await goToFirstTeamProfile(page);
-  // TeamMemberList header
-  await expect(page.getByText(/^Members/)).toBeVisible();
+  // TeamMemberList heading — use heading role to avoid matching the stat label "Members"
+  await expect(
+    page.getByRole("heading", { name: /Members/i }).first(),
+  ).toBeVisible();
   // At least one athlete link is visible in the member list
   const memberLinks = page.locator('a[href*="/athlete/"]');
   await expect(memberLinks.first()).toBeVisible();
@@ -60,12 +62,13 @@ test("team profile season selector appears when multiple seasons", async ({
 }) => {
   await goToFirstTeamProfile(page);
   // Season selector is only rendered when allSeasons.length > 1
-  // Check if a year-like label (e.g. "2024", "2025") exists anywhere on the page
-  const seasonText = page.getByText(/^20\d{2}$/).first();
+  // Season selector is a native <select>; check its current value instead of option visibility
   // It may or may not exist for the first team — just assert the page loaded cleanly
   await expect(page.locator("h1")).toBeVisible();
-  if ((await seasonText.count()) > 0) {
-    await expect(seasonText).toBeVisible();
+  const selects = page.locator("select");
+  if ((await selects.count()) > 0) {
+    const value = await selects.first().inputValue();
+    expect(value).toMatch(/^20\d{2}$/);
   }
 });
 

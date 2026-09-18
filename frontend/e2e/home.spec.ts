@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/");
+  await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
 });
 
@@ -75,8 +75,11 @@ test("each event row has a visible event name", async ({ page }) => {
 });
 
 test("year separator labels are rendered", async ({ page }) => {
-  // Ghost year numbers (e.g. 2025, 2024) are rendered between event groups
-  const yearLabel = page.locator("text=/^20\\d{2}$/").first();
+  // Ghost year numbers (e.g. 2025, 2024) are rendered between event groups as spans
+  const yearLabel = page
+    .locator("span")
+    .filter({ hasText: /^20\d{2}$/ })
+    .first();
   await expect(yearLabel).toBeVisible();
 });
 

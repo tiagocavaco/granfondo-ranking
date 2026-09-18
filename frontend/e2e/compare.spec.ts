@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
 
 // Athletes 22 and 24 share multiple events — reliable for comparison tests.
-const COMPARE_URL = "/compare?a=22&b=24";
+const COMPARE_URL = "compare?a=22&b=24";
 
 test.describe("Compare — empty state", () => {
   test("heading reads Head-to-Head", async ({ page }) => {
-    await page.goto("/compare");
+    await page.goto("compare");
     await page.waitForSelector("h1", { timeout: 15000 });
     await expect(
       page.getByRole("heading", { name: /head.to.head/i }),
@@ -13,14 +13,14 @@ test.describe("Compare — empty state", () => {
   });
 
   test("shows VS prompt and subtitle", async ({ page }) => {
-    await page.goto("/compare");
+    await page.goto("compare");
     await page.waitForSelector("h1", { timeout: 15000 });
     await expect(page.getByText(/pick two athletes/i)).toBeVisible();
     await expect(page.locator("text=⚡ VS ⚡")).toBeVisible();
   });
 
   test("shows Compare athletes subtitle text", async ({ page }) => {
-    await page.goto("/compare");
+    await page.goto("compare");
     await page.waitForSelector("h1", { timeout: 15000 });
     await expect(page.getByText(/compare two athletes/i)).toBeVisible();
   });
@@ -77,14 +77,15 @@ test.describe("Compare — loaded with two athletes", () => {
   // ── Shared events table ─────────────────────────────────────────────────────
 
   test("shared events table has Event column header", async ({ page }) => {
+    // .first() — one table per year group, each repeats the header
     await expect(
-      page.getByRole("columnheader", { name: /^Event$/i }),
+      page.getByRole("columnheader", { name: /^Event$/i }).first(),
     ).toBeVisible();
   });
 
   test("shared events table has Winner column header", async ({ page }) => {
     await expect(
-      page.getByRole("columnheader", { name: /^Winner$/i }),
+      page.getByRole("columnheader", { name: /^Winner$/i }).first(),
     ).toBeVisible();
   });
 
@@ -103,7 +104,11 @@ test.describe("Compare — loaded with two athletes", () => {
   });
 
   test("shared events table year heading is shown", async ({ page }) => {
-    const yearHeading = page.getByText(/^20\d{2}$/).first();
+    // Year headings are h2 elements in SharedEventsTable
+    const yearHeading = page
+      .locator("h2")
+      .filter({ hasText: /^20\d{2}$/ })
+      .first();
     await expect(yearHeading).toBeVisible();
   });
 

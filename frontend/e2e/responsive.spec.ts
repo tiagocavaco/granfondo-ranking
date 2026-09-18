@@ -10,13 +10,13 @@ async function noHorizontalScroll(page: import("@playwright/test").Page) {
 // ── No horizontal scroll on any page ─────────────────────────────────────────
 
 test("no horizontal scroll on home page", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   await noHorizontalScroll(page);
 });
 
 test("no horizontal scroll on finished event detail", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   await page
     .locator('a[href*="/event/"]')
@@ -28,37 +28,37 @@ test("no horizontal scroll on finished event detail", async ({ page }) => {
 });
 
 test("no horizontal scroll on athletes page", async ({ page }) => {
-  await page.goto("/athletes");
+  await page.goto("athletes");
   await page.waitForSelector("h1", { timeout: 15000 });
   await noHorizontalScroll(page);
 });
 
 test("no horizontal scroll on athlete profile", async ({ page }) => {
-  await page.goto("/athlete/22");
+  await page.goto("athlete/22");
   await page.waitForSelector("h1", { timeout: 15000 });
   await noHorizontalScroll(page);
 });
 
 test("no horizontal scroll on athlete ranking", async ({ page }) => {
-  await page.goto("/ranking");
-  await page.waitForSelector("h1", { timeout: 15000 });
+  await page.goto("ranking");
+  await page.waitForSelector("h2", { timeout: 15000 });
   await noHorizontalScroll(page);
 });
 
 test("no horizontal scroll on team ranking", async ({ page }) => {
-  await page.goto("/teams");
-  await page.waitForSelector("h1", { timeout: 15000 });
+  await page.goto("teams");
+  await page.waitForSelector("h2", { timeout: 15000 });
   await noHorizontalScroll(page);
 });
 
 test("no horizontal scroll on compare page", async ({ page }) => {
-  await page.goto("/compare?a=22&b=24");
+  await page.goto("compare?a=22&b=24");
   await page.waitForSelector("h1", { timeout: 15000 });
   await noHorizontalScroll(page);
 });
 
 test("no horizontal scroll on ranking info page", async ({ page }) => {
-  await page.goto("/ranking-info");
+  await page.goto("ranking-info");
   await page.waitForSelector("h1", { timeout: 15000 });
   await noHorizontalScroll(page);
 });
@@ -74,7 +74,7 @@ test("results table Gap column is hidden below lg breakpoint", async ({
     return;
   }
 
-  await page.goto("/");
+  await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   const finishedLink = page
     .locator('a[href*="/event/"]')
@@ -105,7 +105,7 @@ test("results table Gap column is visible at lg+ (desktop)", async ({
     test.skip();
     return;
   }
-  await page.goto("/");
+  await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   await page
     .locator('a[href*="/event/"]')
@@ -126,7 +126,7 @@ test("athlete career table Gap column hidden below lg breakpoint", async ({
     test.skip();
     return;
   }
-  await page.goto("/athlete/22");
+  await page.goto("athlete/22");
   await page.waitForSelector("h1", { timeout: 15000 });
   const gapHeaders = page.getByRole("columnheader", { name: /^Gap$/i });
   if ((await gapHeaders.count()) === 0) {
@@ -142,7 +142,7 @@ test("athlete career table Gap column hidden below lg breakpoint", async ({
 // ── Mobile nav visibility ─────────────────────────────────────────────────────
 
 test("header is visible at all viewports", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   await expect(page.locator("header").first()).toBeVisible();
   await expect(
@@ -157,7 +157,7 @@ test("main content is not obscured by header on mobile", async ({
     test.skip();
     return;
   }
-  await page.goto("/");
+  await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   // h1 bounding box should be below the header bottom
   const headerBox = await page.locator("header").first().boundingBox();

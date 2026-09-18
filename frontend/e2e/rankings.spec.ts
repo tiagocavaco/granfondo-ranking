@@ -4,8 +4,8 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Athlete ranking", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/ranking");
-    await page.waitForSelector("h1", { timeout: 15000 });
+    await page.goto("ranking");
+    await page.waitForSelector("h2", { timeout: 15000 });
   });
 
   test("page heading reads Athlete Ranking", async ({ page }) => {
@@ -19,11 +19,10 @@ test.describe("Athlete ranking", () => {
   });
 
   test("podium shows three cards for ranks 1, 2, 3", async ({ page }) => {
-    // All three podium positions are rendered — check for rank numbers in cards
-    const podiumNumbers = page
-      .locator('[class*="font-black"]')
-      .filter({ hasText: /^[123]$/ });
-    expect(await podiumNumbers.count()).toBeGreaterThanOrEqual(3);
+    // Cards use glow-gold/silver/bronze CSS classes; toBeAttached avoids animation-timing flakiness
+    await expect(page.locator('[class*="glow-gold"]').first()).toBeAttached();
+    await expect(page.locator('[class*="glow-silver"]').first()).toBeAttached();
+    await expect(page.locator('[class*="glow-bronze"]').first()).toBeAttached();
   });
 
   test("rank-1 podium card has amber/gold styling", async ({ page }) => {
@@ -75,13 +74,15 @@ test.describe("Athlete ranking", () => {
   });
 
   test("season filter shows year options", async ({ page }) => {
-    // Season buttons or segmented control renders year options like "2025"
-    const seasonOption = page.getByText(/^20\d{2}$/).first();
-    await expect(seasonOption).toBeVisible();
+    // Season filter uses a native <select>; read its current value (options are hidden inside closed selects)
+    const selectedYear = await page.locator("select").first().inputValue();
+    expect(selectedYear).toMatch(/^20\d{2}$/);
   });
 
-  test("How it works link navigates to ranking-info page", async ({ page }) => {
-    await page.getByRole("link", { name: /how it works/i }).click();
+  test("How scoring works link navigates to ranking-info page", async ({
+    page,
+  }) => {
+    await page.getByRole("link", { name: /how scoring works/i }).click();
     await expect(page).toHaveURL(/\/ranking-info/);
   });
 });
@@ -90,8 +91,8 @@ test.describe("Athlete ranking", () => {
 
 test.describe("Team ranking", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/teams");
-    await page.waitForSelector("h1", { timeout: 15000 });
+    await page.goto("teams");
+    await page.waitForSelector("h2", { timeout: 15000 });
   });
 
   test("page heading reads Team Ranking", async ({ page }) => {
@@ -144,8 +145,10 @@ test.describe("Team ranking", () => {
     await expect(page).toHaveURL(/\/team\/\d+/);
   });
 
-  test("How it works link navigates to teams-info page", async ({ page }) => {
-    await page.getByRole("link", { name: /how it works/i }).click();
+  test("How scoring works link navigates to teams-info page", async ({
+    page,
+  }) => {
+    await page.getByRole("link", { name: /how scoring works/i }).click();
     await expect(page).toHaveURL(/\/teams-info/);
   });
 });
@@ -156,15 +159,16 @@ test.describe("Ranking info pages", () => {
   test("athlete ranking info shows points table with 1st row", async ({
     page,
   }) => {
-    await page.goto("/ranking-info");
+    await page.goto("ranking-info");
     await page.waitForSelector("h1", { timeout: 15000 });
     await expect(page.getByText(/how it works/i)).toBeVisible();
     await expect(page.getByText(/base_points/i)).toBeVisible();
-    await expect(page.getByText("1st")).toBeVisible();
+    // exact: true avoids strict-mode collision with "51st+" which contains "1st"
+    await expect(page.getByText("1st", { exact: true })).toBeVisible();
   });
 
   test("team ranking info shows eligible_teams formula", async ({ page }) => {
-    await page.goto("/teams-info");
+    await page.goto("teams-info");
     await page.waitForSelector("h1", { timeout: 15000 });
     await expect(page.getByText(/how it works/i)).toBeVisible();
     await expect(page.getByText(/eligible_teams/i)).toBeVisible();

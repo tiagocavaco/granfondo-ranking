@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 // Find the next upcoming event's predictions page by following the hero card.
 async function goToPredictions(page: import("@playwright/test").Page) {
-  await page.goto("/");
+  await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   const predictionsLink = page
     .getByRole("link", { name: /predictions/i })
@@ -212,9 +212,12 @@ test("predictions panel has gender toggle (M/F)", async ({ page }) => {
     test.skip();
     return;
   }
-  // GenderToggle renders M and F buttons
-  await expect(page.getByRole("button", { name: "M" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "F" })).toBeVisible();
+  // GenderToggle is a role="group" with two buttons
+  const genderGroup = page.getByRole("group", { name: /filter by gender/i });
+  const genderButtons = genderGroup.getByRole("button");
+  expect(await genderButtons.count()).toBe(2);
+  await expect(genderButtons.first()).toBeVisible();
+  await expect(genderButtons.last()).toBeVisible();
 });
 
 test("predictions gender toggle switches to female athletes", async ({
@@ -225,11 +228,12 @@ test("predictions gender toggle switches to female athletes", async ({
     test.skip();
     return;
   }
-  const femaleBtn = page.getByRole("button", { name: "F" });
+  // Click the Women/F button (second in the group)
+  const genderGroup = page.getByRole("group", { name: /filter by gender/i });
+  const femaleBtn = genderGroup.getByRole("button").last();
   await femaleBtn.click();
-  // After switching, F button should have active styling
-  const cls = await femaleBtn.getAttribute("class");
-  expect(cls).toContain("text-white");
+  // After switching, F/Women button should be aria-pressed
+  await expect(femaleBtn).toHaveAttribute("aria-pressed", "true");
 });
 
 // ── Info page ─────────────────────────────────────────────────────────────────
