@@ -57,6 +57,12 @@ jobs:
         run: npx playwright install chromium --with-deps
         working-directory: frontend
 
+      - name: Build frontend
+        run: npm run build
+        working-directory: frontend
+        env:
+          VITE_DATA_KEY: ${{ secrets.DATA_KEY }}
+
       - name: E2E tests
         run: npm run test:e2e
         working-directory: frontend

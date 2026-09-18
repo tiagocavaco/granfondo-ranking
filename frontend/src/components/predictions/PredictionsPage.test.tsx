@@ -92,7 +92,9 @@ describe("PredictionsPage", () => {
     expect(
       await screen.findByText(/No predictions available yet/i),
     ).toBeInTheDocument();
-    expect(mockNavigate).not.toHaveBeenCalledWith("/event/5", { replace: true });
+    expect(mockNavigate).not.toHaveBeenCalledWith("/event/5", {
+      replace: true,
+    });
   });
 
   it("renders the 'no predictions available' empty state when distance buckets are empty", async () => {

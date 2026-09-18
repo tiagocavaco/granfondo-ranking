@@ -17,7 +17,9 @@ test("athlete profile shows name in h1", async ({ page }) => {
   expect(text?.trim().length).toBeGreaterThan(2);
 });
 
-test("athlete profile shows team link when athlete has a team", async ({ page }) => {
+test("athlete profile shows team link when athlete has a team", async ({
+  page,
+}) => {
   // If athlete has a team, a link to /team/:id appears below the name
   const teamLink = page.locator('a[href*="/team/"]').first();
   if ((await teamLink.count()) > 0) {
@@ -41,7 +43,9 @@ test("stats strip Races count is a positive integer", async ({ page }) => {
   expect(parseInt(countText ?? "0", 10)).toBeGreaterThan(0);
 });
 
-test("Compare link is present and links to /compare with athlete id", async ({ page }) => {
+test("Compare link is present and links to /compare with athlete id", async ({
+  page,
+}) => {
   const compareLink = page.getByRole("link", { name: /compare/i });
   await expect(compareLink).toBeVisible();
   const href = await compareLink.getAttribute("href");
@@ -51,15 +55,21 @@ test("Compare link is present and links to /compare with athlete id", async ({ p
 // ── Career table structure ────────────────────────────────────────────────────
 
 test("career table has Event column header", async ({ page }) => {
-  await expect(page.getByRole("columnheader", { name: /^Event$/i })).toBeVisible();
+  await expect(
+    page.getByRole("columnheader", { name: /^Event$/i }),
+  ).toBeVisible();
 });
 
 test("career table has Pos column header", async ({ page }) => {
-  await expect(page.getByRole("columnheader", { name: /^Pos$/i })).toBeVisible();
+  await expect(
+    page.getByRole("columnheader", { name: /^Pos$/i }),
+  ).toBeVisible();
 });
 
 test("career table has Time column header", async ({ page }) => {
-  await expect(page.getByRole("columnheader", { name: /^Time$/i })).toBeVisible();
+  await expect(
+    page.getByRole("columnheader", { name: /^Time$/i }),
+  ).toBeVisible();
 });
 
 test("career table has at least 5 result rows", async ({ page }) => {
@@ -78,7 +88,9 @@ test("career table shows year section headings", async ({ page }) => {
   await expect(yearHeading).toBeVisible();
 });
 
-test("Gap column is hidden on mobile, visible on desktop", async ({ page }, testInfo) => {
+test("Gap column is hidden on mobile, visible on desktop", async ({
+  page,
+}, testInfo) => {
   const gapHeader = page.getByRole("columnheader", { name: /^Gap$/i }).first();
   if (testInfo.project.name === "desktop") {
     await expect(gapHeader).toBeVisible();
@@ -92,15 +104,13 @@ test("Gap column is hidden on mobile, visible on desktop", async ({ page }, test
 
 // ── Search page ───────────────────────────────────────────────────────────────
 
-test("athletes search page shows subtitle and search input", async ({ page }) => {
+test("athletes search page shows subtitle and search input", async ({
+  page,
+}) => {
   await page.goto("/athletes");
   await page.waitForSelector("h1", { timeout: 15000 });
-  await expect(
-    page.getByText(/Search by name or team/i).first(),
-  ).toBeVisible();
-  await expect(
-    page.getByPlaceholder(/search by name or team/i),
-  ).toBeVisible();
+  await expect(page.getByText(/Search by name or team/i).first()).toBeVisible();
+  await expect(page.getByPlaceholder(/search by name or team/i)).toBeVisible();
 });
 
 test("athletes search returns results for a common name", async ({ page }) => {
@@ -109,13 +119,13 @@ test("athletes search returns results for a common name", async ({ page }) => {
   const input = page.getByPlaceholder(/search by name or team/i);
   await input.fill("João");
   // Results appear — at least one athlete link
-  const result = page
-    .locator('a[href*="/athlete/"]')
-    .first();
+  const result = page.locator('a[href*="/athlete/"]').first();
   await expect(result).toBeVisible({ timeout: 5000 });
 });
 
-test("clicking an athlete in search results navigates to their profile", async ({ page }) => {
+test("clicking an athlete in search results navigates to their profile", async ({
+  page,
+}) => {
   await page.goto("/athletes");
   await page.waitForSelector("h1", { timeout: 15000 });
   const input = page.getByPlaceholder(/search by name or team/i);

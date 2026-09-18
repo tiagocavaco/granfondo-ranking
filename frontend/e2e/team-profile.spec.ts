@@ -55,7 +55,9 @@ test("team profile results show a distance badge", async ({ page }) => {
   await expect(distBadge).toBeVisible();
 });
 
-test("team profile season selector appears when multiple seasons", async ({ page }) => {
+test("team profile season selector appears when multiple seasons", async ({
+  page,
+}) => {
   await goToFirstTeamProfile(page);
   // Season selector is only rendered when allSeasons.length > 1
   // Check if a year-like label (e.g. "2024", "2025") exists anywhere on the page

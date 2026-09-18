@@ -26,14 +26,18 @@ test("hero card shows Next Race label with pulsing dot", async ({ page }) => {
 
 test("hero card shows event name", async ({ page }) => {
   // Event name is an h2 inside the hero card (below the Next Race label)
-  const heroSection = page.getByText("Next Race").locator("xpath=ancestor::div[4]");
+  const heroSection = page
+    .getByText("Next Race")
+    .locator("xpath=ancestor::div[4]");
   const eventName = heroSection.locator("h2, [class*='font-display']").first();
   await expect(eventName).toBeVisible();
   const text = await eventName.textContent();
   expect(text?.trim().length).toBeGreaterThan(3);
 });
 
-test("hero card shows a days-until badge when event is in the future", async ({ page }) => {
+test("hero card shows a days-until badge when event is in the future", async ({
+  page,
+}) => {
   // The badge shows "X days" or "Tomorrow"
   const badge = page.getByText(/^\d+ days$|^Tomorrow$/);
   await expect(badge.first()).toBeVisible();
@@ -77,14 +81,14 @@ test("year separator labels are rendered", async ({ page }) => {
 });
 
 test("finished event rows show finisher count badge", async ({ page }) => {
-  await expect(
-    page.getByText(/\d[\d,]*\s*finishers/i).first(),
-  ).toBeVisible();
+  await expect(page.getByText(/\d[\d,]*\s*finishers/i).first()).toBeVisible();
 });
 
 // ── Navigation from event rows ────────────────────────────────────────────────
 
-test("clicking a finished event row navigates to event detail", async ({ page }) => {
+test("clicking a finished event row navigates to event detail", async ({
+  page,
+}) => {
   const finishedLink = page
     .locator('a[href*="/event/"]')
     .filter({ hasText: /finishers/i })

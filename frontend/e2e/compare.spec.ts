@@ -77,11 +77,15 @@ test.describe("Compare — loaded with two athletes", () => {
   // ── Shared events table ─────────────────────────────────────────────────────
 
   test("shared events table has Event column header", async ({ page }) => {
-    await expect(page.getByRole("columnheader", { name: /^Event$/i })).toBeVisible();
+    await expect(
+      page.getByRole("columnheader", { name: /^Event$/i }),
+    ).toBeVisible();
   });
 
   test("shared events table has Winner column header", async ({ page }) => {
-    await expect(page.getByRole("columnheader", { name: /^Winner$/i })).toBeVisible();
+    await expect(
+      page.getByRole("columnheader", { name: /^Winner$/i }),
+    ).toBeVisible();
   });
 
   test("shared events table has at least one data row", async ({ page }) => {
@@ -91,7 +95,10 @@ test.describe("Compare — loaded with two athletes", () => {
   });
 
   test("shared events rows link to event pages", async ({ page }) => {
-    const eventLink = page.locator("tbody").locator('a[href*="/event/"]').first();
+    const eventLink = page
+      .locator("tbody")
+      .locator('a[href*="/event/"]')
+      .first();
     await expect(eventLink).toBeVisible();
   });
 
@@ -102,7 +109,9 @@ test.describe("Compare — loaded with two athletes", () => {
 
   // ── URL state ───────────────────────────────────────────────────────────────
 
-  test("page URL contains both athlete IDs as query params", async ({ page }) => {
+  test("page URL contains both athlete IDs as query params", async ({
+    page,
+  }) => {
     await expect(page).toHaveURL(/a=22/);
     await expect(page).toHaveURL(/b=24/);
   });

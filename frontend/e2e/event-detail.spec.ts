@@ -38,7 +38,9 @@ test("finished event shows location text", async ({ page }) => {
   await goToFinishedEvent(page);
   // Location appears as plain text in the hero — non-empty
   // The location is inside a row below the heading
-  const locationRow = page.getByText(/Portugal|Lisboa|Porto|Algarve|Setúbal|Sintra|Cascais|Évora|Aveiro|Braga|Coimbra|Alentejo|Madeira/i);
+  const locationRow = page.getByText(
+    /Portugal|Lisboa|Porto|Algarve|Setúbal|Sintra|Cascais|Évora|Aveiro|Braga|Coimbra|Alentejo|Madeira/i,
+  );
   await expect(locationRow.first()).toBeVisible();
 });
 
@@ -52,7 +54,10 @@ test("event detail has back-to-events link", async ({ page }) => {
   await goToFinishedEvent(page);
   // "← " or similar back arrow exists somewhere
   await expect(
-    page.locator("a").filter({ hasText: /events|back/i }).first(),
+    page
+      .locator("a")
+      .filter({ hasText: /events|back/i })
+      .first(),
   ).toBeVisible();
 });
 
@@ -60,17 +65,23 @@ test("event detail has back-to-events link", async ({ page }) => {
 
 test("results table has Pos column header", async ({ page }) => {
   await goToFinishedEvent(page);
-  await expect(page.getByRole("columnheader", { name: /^Pos$/i })).toBeVisible();
+  await expect(
+    page.getByRole("columnheader", { name: /^Pos$/i }),
+  ).toBeVisible();
 });
 
 test("results table has Athlete column header", async ({ page }) => {
   await goToFinishedEvent(page);
-  await expect(page.getByRole("columnheader", { name: /^Athlete$/i })).toBeVisible();
+  await expect(
+    page.getByRole("columnheader", { name: /^Athlete$/i }),
+  ).toBeVisible();
 });
 
 test("results table has Time column header", async ({ page }) => {
   await goToFinishedEvent(page);
-  await expect(page.getByRole("columnheader", { name: /^Time$/i })).toBeVisible();
+  await expect(
+    page.getByRole("columnheader", { name: /^Time$/i }),
+  ).toBeVisible();
 });
 
 test("results table has at least 10 data rows", async ({ page }) => {
@@ -87,16 +98,23 @@ test("results table row 1 has position badge with rank 1", async ({ page }) => {
   await expect(firstRow).toContainText("1");
 });
 
-test("results table athlete names link to athlete profiles", async ({ page }) => {
+test("results table athlete names link to athlete profiles", async ({
+  page,
+}) => {
   await goToFinishedEvent(page);
-  const athleteLink = page.locator("tbody").locator('a[href*="/athlete/"]').first();
+  const athleteLink = page
+    .locator("tbody")
+    .locator('a[href*="/athlete/"]')
+    .first();
   await expect(athleteLink).toBeVisible();
 });
 
 test("results table has distance filter above the table", async ({ page }) => {
   await goToFinishedEvent(page);
   // Distance selector / segmented control above the table
-  const distanceControl = page.getByText(/Granfondo|Mediofondo|Minifondo/).first();
+  const distanceControl = page
+    .getByText(/Granfondo|Mediofondo|Minifondo/)
+    .first();
   await expect(distanceControl).toBeVisible();
 });
 
@@ -114,8 +132,13 @@ test("results table search input filters rows", async ({ page }) => {
 
 // ── Desktop Gap column ─────────────────────────────────────────────────────────
 
-test("Gap column header is visible at desktop width", async ({ page }, testInfo) => {
-  if (testInfo.project.name !== "desktop") { test.skip(); return; }
+test("Gap column header is visible at desktop width", async ({
+  page,
+}, testInfo) => {
+  if (testInfo.project.name !== "desktop") {
+    test.skip();
+    return;
+  }
   await goToFinishedEvent(page);
   const gapHeader = page.getByRole("columnheader", { name: /^Gap$/i });
   await expect(gapHeader).toBeVisible();
@@ -123,9 +146,14 @@ test("Gap column header is visible at desktop width", async ({ page }, testInfo)
 
 // ── Athlete profile navigation ────────────────────────────────────────────────
 
-test("clicking athlete name in results navigates to athlete profile", async ({ page }) => {
+test("clicking athlete name in results navigates to athlete profile", async ({
+  page,
+}) => {
   await goToFinishedEvent(page);
-  const athleteLink = page.locator("tbody").locator('a[href*="/athlete/"]').first();
+  const athleteLink = page
+    .locator("tbody")
+    .locator('a[href*="/athlete/"]')
+    .first();
   await athleteLink.click();
   await expect(page).toHaveURL(/\/athlete\/\d+/);
   await expect(page.locator("h1")).toBeVisible();

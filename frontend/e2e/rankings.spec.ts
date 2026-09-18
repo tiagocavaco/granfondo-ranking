@@ -20,7 +20,9 @@ test.describe("Athlete ranking", () => {
 
   test("podium shows three cards for ranks 1, 2, 3", async ({ page }) => {
     // All three podium positions are rendered — check for rank numbers in cards
-    const podiumNumbers = page.locator('[class*="font-black"]').filter({ hasText: /^[123]$/ });
+    const podiumNumbers = page
+      .locator('[class*="font-black"]')
+      .filter({ hasText: /^[123]$/ });
     expect(await podiumNumbers.count()).toBeGreaterThanOrEqual(3);
   });
 
@@ -30,15 +32,21 @@ test.describe("Athlete ranking", () => {
   });
 
   test("table has Rank column header", async ({ page }) => {
-    await expect(page.getByRole("columnheader", { name: /^Rank$/i })).toBeVisible();
+    await expect(
+      page.getByRole("columnheader", { name: /^Rank$/i }),
+    ).toBeVisible();
   });
 
   test("table has Athlete column header", async ({ page }) => {
-    await expect(page.getByRole("columnheader", { name: /^Athlete$/i })).toBeVisible();
+    await expect(
+      page.getByRole("columnheader", { name: /^Athlete$/i }),
+    ).toBeVisible();
   });
 
   test("table has Points column header", async ({ page }) => {
-    await expect(page.getByRole("columnheader", { name: /^Points$/i })).toBeVisible();
+    await expect(
+      page.getByRole("columnheader", { name: /^Points$/i }),
+    ).toBeVisible();
   });
 
   test("table has at least 10 data rows", async ({ page }) => {
@@ -48,12 +56,20 @@ test.describe("Athlete ranking", () => {
   });
 
   test("table rows have athlete links", async ({ page }) => {
-    const athleteLink = page.locator("tbody").locator('a[href*="/athlete/"]').first();
+    const athleteLink = page
+      .locator("tbody")
+      .locator('a[href*="/athlete/"]')
+      .first();
     await expect(athleteLink).toBeVisible();
   });
 
-  test("clicking athlete in table navigates to athlete profile", async ({ page }) => {
-    const athleteLink = page.locator("tbody").locator('a[href*="/athlete/"]').first();
+  test("clicking athlete in table navigates to athlete profile", async ({
+    page,
+  }) => {
+    const athleteLink = page
+      .locator("tbody")
+      .locator('a[href*="/athlete/"]')
+      .first();
     await athleteLink.click();
     await expect(page).toHaveURL(/\/athlete\/\d+/);
   });
@@ -94,15 +110,21 @@ test.describe("Team ranking", () => {
   });
 
   test("table has Rank column header", async ({ page }) => {
-    await expect(page.getByRole("columnheader", { name: /^Rank$/i })).toBeVisible();
+    await expect(
+      page.getByRole("columnheader", { name: /^Rank$/i }),
+    ).toBeVisible();
   });
 
   test("table has Team column header", async ({ page }) => {
-    await expect(page.getByRole("columnheader", { name: /^Team$/i })).toBeVisible();
+    await expect(
+      page.getByRole("columnheader", { name: /^Team$/i }),
+    ).toBeVisible();
   });
 
   test("table has Points column header", async ({ page }) => {
-    await expect(page.getByRole("columnheader", { name: /^Points$/i })).toBeVisible();
+    await expect(
+      page.getByRole("columnheader", { name: /^Points$/i }),
+    ).toBeVisible();
   });
 
   test("table has at least 5 data rows", async ({ page }) => {
@@ -131,7 +153,9 @@ test.describe("Team ranking", () => {
 // ── Info pages ────────────────────────────────────────────────────────────────
 
 test.describe("Ranking info pages", () => {
-  test("athlete ranking info shows points table with 1st row", async ({ page }) => {
+  test("athlete ranking info shows points table with 1st row", async ({
+    page,
+  }) => {
     await page.goto("/ranking-info");
     await page.waitForSelector("h1", { timeout: 15000 });
     await expect(page.getByText(/how it works/i)).toBeVisible();

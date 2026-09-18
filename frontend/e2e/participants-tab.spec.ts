@@ -59,7 +59,9 @@ test("participants tab shows participant rows", async ({ page }) => {
   await expect(athleteLink).toBeVisible();
 });
 
-test("participants tab distance filter changes visible count", async ({ page }) => {
+test("participants tab distance filter changes visible count", async ({
+  page,
+}) => {
   const found = await goToUpcomingEvent(page);
   if (!found) {
     test.skip();

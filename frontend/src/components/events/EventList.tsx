@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { StoredEvent } from "@granfondo/database/types";
+import { normalizeName } from "@granfondo/database/normalize";
 import { Spinner, ErrorBanner } from "../shared/Spinner";
 import { distBadgeClass } from "../../utils/distance";
 import { ShieldCheckIcon } from "../shared/ShieldCheckIcon";
@@ -55,7 +56,7 @@ export default function EventList() {
   }, [allEvents]);
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = normalizeName(query);
     return allEvents
       .filter((e) => {
         const isPast = new Date(e.date + "T12:00:00") < new Date();
@@ -66,8 +67,8 @@ export default function EventList() {
           (status === "upcoming" && !isPast);
         const matchQuery =
           !q ||
-          e.name.toLowerCase().includes(q) ||
-          (e.location ?? "").toLowerCase().includes(q);
+          normalizeName(e.name).includes(q) ||
+          normalizeName(e.location ?? "").includes(q);
         return matchSeason && matchStatus && matchQuery;
       })
       .sort((a, b) => {
@@ -80,7 +81,7 @@ export default function EventList() {
         if (!aPast && !bPast) return aDate - bDate;
         return aPast ? 1 : -1;
       });
-  }, [allEvents, season, status]);
+  }, [allEvents, season, status, query]);
 
   const totalFinishers = useMemo(
     () =>

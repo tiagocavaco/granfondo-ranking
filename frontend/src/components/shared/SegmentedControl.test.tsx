@@ -7,16 +7,28 @@ const OPTIONS = ["all", "past", "upcoming"];
 describe("SegmentedControl", () => {
   it("renders all option buttons", () => {
     render(
-      <SegmentedControl label="Status" options={OPTIONS} value="all" onChange={() => {}} />,
+      <SegmentedControl
+        label="Status"
+        options={OPTIONS}
+        value="all"
+        onChange={() => {}}
+      />,
     );
     expect(screen.getByRole("button", { name: "all" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "past" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "upcoming" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "upcoming" }),
+    ).toBeInTheDocument();
   });
 
   it("marks selected option as aria-pressed", () => {
     render(
-      <SegmentedControl label="Status" options={OPTIONS} value="past" onChange={() => {}} />,
+      <SegmentedControl
+        label="Status"
+        options={OPTIONS}
+        value="past"
+        onChange={() => {}}
+      />,
     );
     expect(screen.getByRole("button", { name: "past" })).toHaveAttribute(
       "aria-pressed",
@@ -31,7 +43,12 @@ describe("SegmentedControl", () => {
   it("calls onChange with the clicked option value", () => {
     const onChange = vi.fn();
     render(
-      <SegmentedControl label="Status" options={OPTIONS} value="all" onChange={onChange} />,
+      <SegmentedControl
+        label="Status"
+        options={OPTIONS}
+        value="all"
+        onChange={onChange}
+      />,
     );
     fireEvent.click(screen.getByRole("button", { name: "past" }));
     expect(onChange).toHaveBeenCalledWith("past");
@@ -48,7 +65,9 @@ describe("SegmentedControl", () => {
         labelMap={labelMap}
       />,
     );
-    expect(screen.getByRole("button", { name: "All Events" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "All Events" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Past" })).toBeInTheDocument();
   });
 
@@ -72,7 +91,12 @@ describe("SegmentedControl", () => {
 
   it("renders accessible group with the label", () => {
     render(
-      <SegmentedControl label="Season" options={["2025"]} value="2025" onChange={() => {}} />,
+      <SegmentedControl
+        label="Season"
+        options={["2025"]}
+        value="2025"
+        onChange={() => {}}
+      />,
     );
     expect(screen.getByRole("group", { name: "Season" })).toBeInTheDocument();
   });
