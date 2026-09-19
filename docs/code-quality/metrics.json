@@ -1,0 +1,79 @@
+{
+  "measured_at": "2026-09-19",
+  "commit": "bfc4f8e",
+  "scope": "non-test .ts/.tsx under scraper/src, database/src, utils/src, api/src, frontend/src, backoffice/src, backoffice/server",
+  "shape": {
+    "files": 142,
+    "total_lines": 27360,
+    "functions": 441,
+    "functions_over_50_lines": 104,
+    "functions_over_100_lines": 56,
+    "files_over_300_lines": 24,
+    "any_occurrences": 23,
+    "non_null_assertions": 235,
+    "todo_fixme": 0,
+    "console_calls": 285,
+    "eslint_disable": 0,
+    "exports": 390
+  },
+  "longest_functions": [
+    { "lines": 530, "file": "frontend/src/components/team-ranking/TeamProfile.tsx", "name": "TeamProfile" },
+    { "lines": 458, "file": "frontend/src/components/team-ranking/TeamRankingPage.tsx", "name": "TeamRankingPage" },
+    { "lines": 442, "file": "scraper/src/index.ts", "name": "main" },
+    { "lines": 322, "file": "frontend/src/components/events/ResultsTab.tsx", "name": "ResultsTable" },
+    { "lines": 304, "file": "frontend/src/components/athletes/AthleteProfile.tsx", "name": "AthleteProfile" },
+    { "lines": 289, "file": "frontend/src/components/events/EventDetail.tsx", "name": "EventDetail" },
+    { "lines": 279, "file": "frontend/src/components/events/ParticipantsTab.tsx", "name": "ParticipantsTab" },
+    { "lines": 273, "file": "scraper/src/pipeline/results/passes/build-licence-profiles.ts", "name": "buildLicenceProfiles" },
+    { "lines": 268, "file": "frontend/src/components/athletes/PerformanceChart.tsx", "name": "PerformanceChart" },
+    { "lines": 249, "file": "frontend/src/App.tsx", "name": "AppShell" },
+    { "lines": 245, "file": "scraper/src/scrapers/apedalar.ts", "name": "scrapeApedalarEvent" },
+    { "lines": 239, "file": "scraper/src/pipeline/results/passes/solo-intra-year.ts", "name": "groupSoloIntraYear" },
+    { "lines": 231, "file": "frontend/src/components/comparison/HeadToHeadChart.tsx", "name": "HeadToHeadChart" },
+    { "lines": 230, "file": "scraper/src/scripts/find-split-candidates.ts", "name": "scorePairEntry" },
+    { "lines": 227, "file": "scraper/src/pipeline/results/passes/category-sweep-eviction.ts", "name": "sweepCategoryEviction" },
+    { "lines": 223, "file": "scraper/src/pipeline/ranking.ts", "name": "buildTeamRanking" },
+    { "lines": 223, "file": "frontend/src/components/athlete-ranking/AggregateRankingPage.tsx", "name": "AggregateRankingPage" },
+    { "lines": 201, "file": "backoffice/server/admin-middleware.ts", "name": "handleAdminRequest" },
+    { "lines": 195, "file": "frontend/src/components/events/EventList.tsx", "name": "EventList" },
+    { "lines": 194, "file": "scraper/src/pipeline/results/passes/manual-result-assignments.ts", "name": "applyManualResultAssignments" },
+    { "lines": 193, "file": "scraper/src/pipeline/participants/participants-refresh.ts", "name": "scrapeParticipants" },
+    { "lines": 193, "file": "scraper/src/pipeline/results/passes/team-solo-merge.ts", "name": "mergeTeamSoloProfiles" },
+    { "lines": 189, "file": "scraper/src/pipeline/results/passes/team-cross-year.ts", "name": "mergeTeamCrossYear" }
+  ],
+  "lint": {
+    "errors": 0,
+    "warnings": 122,
+    "by_rule": { "padding-line-between-statements": 104, "id-length": 12, "@typescript-eslint/no-unused-vars": 5, "@typescript-eslint/no-explicit-any": 1 },
+    "note": "scraper/src/scripts/** is excluded from lint by eslint.config.mjs"
+  },
+  "duplication_jscpd": {
+    "clones": 60,
+    "duplicated_lines": 946,
+    "duplicated_pct": 3.48,
+    "largest_pairs_lines": {
+      "scraper/src/scripts/find-licence-splits.ts <-> scraper/src/scripts/find-split-candidates.ts": 120,
+      "backoffice/src/pages/AssignmentsPage.tsx <-> backoffice/src/pages/BlocksPage.tsx": 119,
+      "frontend/src/components/athlete-ranking/AggregateRankingPage.tsx <-> frontend/src/components/team-ranking/TeamRankingPage.tsx": 84,
+      "api/src/admin.ts (internal)": 64,
+      "backoffice/src/pages/RawAthletePage.tsx <-> backoffice/src/pages/RawEventPage.tsx": 62,
+      "scraper/src/db/manage-db.ts <-> scraper/src/scripts/apply-team-aliases.ts": 49,
+      "frontend/src/components/athletes/PerformanceChart.tsx <-> frontend/src/components/comparison/HeadToHeadChart.tsx": 44,
+      "backoffice/server/admin-middleware.ts (internal)": 39,
+      "frontend/src/components/athlete-ranking/AthleteRankingInfoPage.tsx <-> frontend/src/components/team-ranking/TeamRankingInfoPage.tsx": 36,
+      "scraper/src/scrapers/stopandgo.ts (internal)": 33,
+      "scraper/src/db/decrypt-db.ts <-> scraper/src/db/manage-db.ts (env loading)": 23,
+      "scraper/src/scripts/check-post-scrape.ts <-> scraper/src/scripts/compact-athlete-ids.ts": 22
+    }
+  },
+  "dependencies": {
+    "circular_imports": 0,
+    "outdated_major": ["@types/node 20→26", "@types/react 18→19", "@types/react-dom 18→19", "@vitejs/plugin-react 4→6", "@vitest/coverage-v8 4→5", "better-sqlite3 12→13", "drizzle-kit 0.30→0.31", "@testing-library/jest-dom 6→7"],
+    "outdated_minor_pinned_by_lock": ["drizzle-orm 0.38.4 (wanted 0.45.2 in api/database)", "@typescript-eslint/* 8.59→8.70"],
+    "note": "React 18 and Vite 5 are current majors in use; upgrades are optional, but drizzle-orm is on different wanted ranges across workspaces"
+  },
+  "typescript": { "strict": true, "noUncheckedIndexedAccess": false, "exactOptionalPropertyTypes": false },
+  "git_churn_top": [
+    "scraper/src/index.ts (35 commits)", "frontend/src/App.tsx (20)", "scraper/src/normalize.ts (20)", "database/src/db-writer.ts (15)", "scraper/src/pipeline/ranking.ts (13)"
+  ]
+}
