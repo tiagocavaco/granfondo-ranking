@@ -20,19 +20,24 @@ export function SegmentedControl({
       <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
         {label}
       </span>
-      <div className="flex flex-1 sm:flex-none rounded-xl border border-slate-200 overflow-hidden bg-white shadow-sm">
+      <div
+        role="group"
+        aria-label={label}
+        className="flex flex-1 sm:flex-none rounded-xl border border-white/[0.07] overflow-hidden bg-[#0c1628]"
+      >
         {options.map((option) => {
           const colors = colorMap?.[option];
           const fullLabel = labelMap?.[option] ?? option;
           const shortLabel = shortLabelMap?.[option];
           const inactiveClass = colors?.base
-            ? `text-slate-600 hover:bg-slate-50 border-r last:border-r-0 ${colors.base}`
-            : "text-slate-600 hover:bg-slate-50";
+            ? `text-slate-500 hover:bg-white/5 border-r last:border-r-0 border-white/[0.07]`
+            : "text-slate-500 hover:text-slate-200 hover:bg-white/5";
           return (
             <button
               key={option}
+              aria-pressed={value === option}
               onClick={() => onChange(option)}
-              className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all ${
+              className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 text-sm font-semibold whitespace-nowrap transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-400/60 ${
                 value === option
                   ? (colors?.active ?? "bg-blue-600 text-white")
                   : inactiveClass

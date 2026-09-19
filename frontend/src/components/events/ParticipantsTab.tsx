@@ -4,6 +4,8 @@ import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import { api } from "@granfondo/api";
 import type { StoredParticipant } from "@granfondo/database/types";
 import { Spinner } from "../shared/Spinner";
+import { ScrollSentinel } from "../shared/ScrollSentinel";
+import { GenderBadge } from "../shared/GenderBadge";
 import {
   normalizeName,
   normalizeDistance,
@@ -114,7 +116,13 @@ export default function ParticipantsTab({ eventId }: Props) {
   if (error) {
     return (
       <div className="text-center py-16 text-slate-400">
-        <p className="text-5xl mb-3">👥</p>
+        <svg
+          className="w-12 h-12 mx-auto mb-3 text-slate-700"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+        </svg>
         <p className="font-semibold text-slate-600">
           Participants not available
         </p>
@@ -133,7 +141,7 @@ export default function ParticipantsTab({ eventId }: Props) {
           placeholder="Search name, team or bib…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:flex-1 sm:min-w-48 sm:max-w-xs px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full sm:flex-1 sm:min-w-48 sm:max-w-xs px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
         />
         {/* Mobile: counts in options */}
         <Select
@@ -185,18 +193,20 @@ export default function ParticipantsTab({ eventId }: Props) {
           <option value="F">Women</option>
         </Select>
         <span className="hidden sm:inline text-sm text-slate-500 sm:ml-auto">
-          <span className="font-semibold text-slate-700">
+          <span className="font-semibold text-slate-300">
             {filtered.length}
           </span>{" "}
           participants
         </span>
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm bg-white">
+      <div className="overflow-x-auto rounded-2xl border border-white/[0.07] bg-[#0c1628]">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-              <th className="px-4 py-3 text-left w-16">Bib</th>
+            <tr className="bg-[#060d1a] text-xs text-slate-500 uppercase tracking-wider border-b border-white/[0.06]">
+              <th className="px-4 py-3 text-left w-16 hidden sm:table-cell">
+                Bib
+              </th>
               <th className="px-4 py-3 text-left">Athlete</th>
               <th className="px-4 py-3 text-left hidden md:table-cell">Team</th>
               <th className="px-4 py-3 text-left">Distance</th>
@@ -208,41 +218,41 @@ export default function ParticipantsTab({ eventId }: Props) {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-white/[0.04]">
             {filtered.slice(0, visibleCount).map((p, i) => (
-              <tr key={i} className="hover:bg-slate-50/60 transition-colors">
-                <td className="px-4 py-3 font-mono text-xs text-slate-400">
+              <tr key={i} className="hover:bg-white/[0.03] transition-colors">
+                <td className="px-4 py-3 font-mono text-xs text-slate-600 hidden sm:table-cell">
                   {p.bib}
                 </td>
                 <td className="px-4 py-3 w-full max-w-0 overflow-hidden">
                   {p.athleteId > 0 ? (
                     <Link
                       to={`/athlete/${p.athleteId}`}
-                      className="block hover:text-blue-600 transition-colors"
+                      className="block hover:text-blue-300 transition-colors"
                     >
-                      <div className="font-semibold text-slate-900 truncate">
+                      <div className="font-semibold text-slate-100 truncate">
                         {p.fullName}
                       </div>
                       {p.team && (
-                        <div className="md:hidden text-xs text-slate-400 truncate mt-0.5">
+                        <div className="md:hidden text-xs text-slate-600 truncate mt-0.5">
                           {p.team}
                         </div>
                       )}
                     </Link>
                   ) : (
                     <>
-                      <div className="font-semibold text-slate-900 truncate">
+                      <div className="font-semibold text-slate-100 truncate">
                         {p.fullName}
                       </div>
                       {p.team && (
-                        <div className="md:hidden text-xs text-slate-400 truncate mt-0.5">
+                        <div className="md:hidden text-xs text-slate-600 truncate mt-0.5">
                           {p.team}
                         </div>
                       )}
                     </>
                   )}
                 </td>
-                <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell whitespace-nowrap">
+                <td className="px-4 py-3 text-slate-600 text-xs hidden md:table-cell whitespace-nowrap">
                   {p.team}
                 </td>
                 <td className="px-4 py-3">
@@ -255,43 +265,32 @@ export default function ParticipantsTab({ eventId }: Props) {
                       {p.distance}
                     </span>
                     {p.category && (
-                      <span className="sm:hidden text-xs text-slate-400 whitespace-nowrap">
+                      <span className="sm:hidden text-xs text-slate-600 whitespace-nowrap">
                         {p.category}
                       </span>
                     )}
                   </div>
                 </td>
-                <td className="px-4 py-3 text-slate-400 text-xs hidden sm:table-cell">
+                <td className="px-4 py-3 text-slate-600 text-xs hidden sm:table-cell">
                   {p.category}
                 </td>
                 <td className="px-4 py-3 text-center hidden sm:table-cell">
-                  <span
-                    className={`text-xs font-semibold px-1.5 py-0.5 rounded ${
-                      p.gender === "F"
-                        ? "bg-pink-50 text-pink-600"
-                        : "bg-blue-50 text-blue-600"
-                    }`}
-                  >
-                    {p.gender}
-                  </span>
+                  <GenderBadge gender={p.gender} />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
         {filtered.length === 0 && (
-          <div className="px-4 py-10 text-center text-sm text-slate-400">
+          <div className="px-4 py-10 text-center text-sm text-slate-600">
             No participants found
           </div>
         )}
-        {visibleCount < filtered.length && (
-          <div
-            ref={sentinelRef}
-            className="px-4 py-3 text-xs text-slate-400 border-t border-slate-100 text-center"
-          >
-            Showing {visibleCount} of {filtered.length}…
-          </div>
-        )}
+        <ScrollSentinel
+          sentinelRef={sentinelRef}
+          visible={visibleCount}
+          total={filtered.length}
+        />
       </div>
     </div>
   );
@@ -312,7 +311,7 @@ function Select({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className={`px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
+      className={`px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none ${className}`}
     >
       {children}
     </select>

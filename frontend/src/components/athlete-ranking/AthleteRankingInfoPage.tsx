@@ -1,4 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { BackButton } from "../shared/BackButton";
+import { FormulaBox } from "../shared/FormulaBox";
+import { RulesList } from "../shared/RulesList";
+import { SectionLabel } from "../shared/SectionLabel";
 import {
   ATHLETE_POINTS_TABLE,
   ATHLETE_COEFFICIENT_REFERENCE,
@@ -29,19 +32,15 @@ const COEFF_SAMPLES = [75, 150, ATHLETE_COEFFICIENT_REFERENCE, 600, 900].map(
 );
 
 export default function AthleteRankingInfoPage() {
-  const navigate = useNavigate();
-
   return (
     <div>
-      <button
-        onClick={() => navigate(-1)}
-        className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
-      >
-        ← Back
-      </button>
+      <BackButton />
 
-      <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
-        Athlete Ranking — How it works
+      <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
+        Athlete Ranking
+      </div>
+      <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase mb-2">
+        How it works
       </h1>
       <p className="text-slate-500 text-sm mb-8">
         Points are awarded per race based on finishing position within your
@@ -49,43 +48,43 @@ export default function AthleteRankingInfoPage() {
         finishers per distance.
       </p>
 
-      <div className="bg-slate-900 text-white rounded-2xl px-6 py-5 mb-8 font-mono text-sm">
-        <div className="text-slate-400 text-xs uppercase tracking-widest mb-2">
-          Formula
-        </div>
+      <FormulaBox>
         <div className="text-blue-300">points = base_points × coefficient</div>
-        <div className="text-slate-400 mt-1 text-xs">
+        <div className="text-slate-500 mt-1 text-xs">
           coefficient = √(finishers / 300) · rounded to 2 decimal places
         </div>
-      </div>
+      </FormulaBox>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <div>
-          <h2 className="text-base font-bold text-slate-800 mb-3">
-            Base points by position
-          </h2>
-          <div className="rounded-2xl border border-slate-200 overflow-hidden bg-white">
+          <SectionLabel className="mb-3">Base points by position</SectionLabel>
+          <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                  <th className="px-4 py-2 text-left">Gender position</th>
-                  <th className="px-4 py-2 text-right">Base pts</th>
+                <tr className="bg-[#060d1a] text-[10px] text-slate-600 uppercase tracking-widest border-b border-white/[0.05]">
+                  <th className="px-4 py-2.5 text-left font-bold">
+                    Gender position
+                  </th>
+                  <th className="px-4 py-2.5 text-right font-bold">Base pts</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-white/[0.04]">
                 {POINTS.map((row) => (
-                  <tr key={row.pos} className="hover:bg-slate-50/60">
-                    <td className="px-4 py-2 text-slate-700 font-medium">
+                  <tr
+                    key={row.pos}
+                    className="hover:bg-white/[0.03] transition-colors"
+                  >
+                    <td className="px-4 py-2 text-slate-300 font-medium">
                       {row.pos}
                     </td>
-                    <td className="px-4 py-2 text-right font-extrabold text-blue-700">
+                    <td className="px-4 py-2 text-right font-black text-blue-400 tabular-nums">
                       {row.pts}
                     </td>
                   </tr>
                 ))}
-                <tr className="bg-slate-50/40">
-                  <td className="px-4 py-2 text-slate-400 text-xs">51st+</td>
-                  <td className="px-4 py-2 text-right text-slate-400 text-xs">
+                <tr className="bg-white/[0.02]">
+                  <td className="px-4 py-2 text-slate-600 text-xs">51st+</td>
+                  <td className="px-4 py-2 text-right text-slate-600 text-xs">
                     0
                   </td>
                 </tr>
@@ -95,39 +94,41 @@ export default function AthleteRankingInfoPage() {
         </div>
 
         <div>
-          <h2 className="text-base font-bold text-slate-800 mb-3">
-            Difficulty coefficient
-          </h2>
-          <div className="rounded-2xl border border-slate-200 overflow-hidden bg-white">
+          <SectionLabel className="mb-3">Difficulty coefficient</SectionLabel>
+          <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                  <th className="px-4 py-2 text-left">Finishers</th>
-                  <th className="px-4 py-2 text-right">Coefficient</th>
+                <tr className="bg-[#060d1a] text-[10px] text-slate-600 uppercase tracking-widest border-b border-white/[0.05]">
+                  <th className="px-4 py-2.5 text-left font-bold">Finishers</th>
+                  <th className="px-4 py-2.5 text-right font-bold">
+                    Coefficient
+                  </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-white/[0.04]">
                 {COEFF_SAMPLES.map((row) => {
                   const isRef = row.finishers === ATHLETE_COEFFICIENT_REFERENCE;
                   return (
                     <tr
                       key={row.finishers}
                       className={
-                        isRef ? "bg-blue-50/60" : "hover:bg-slate-50/60"
+                        isRef
+                          ? "bg-blue-500/10"
+                          : "hover:bg-white/[0.03] transition-colors"
                       }
                     >
                       <td
-                        className={`px-4 py-2 font-medium ${isRef ? "text-blue-700" : "text-slate-700"}`}
+                        className={`px-4 py-2 font-medium ${isRef ? "text-blue-300" : "text-slate-300"}`}
                       >
                         {row.finishers}
                         {isRef && (
-                          <span className="ml-2 text-xs font-normal text-blue-400">
+                          <span className="ml-2 text-xs font-normal text-blue-500">
                             reference*
                           </span>
                         )}
                       </td>
                       <td
-                        className={`px-4 py-2 text-right font-extrabold tabular-nums ${isRef ? "text-blue-700" : "text-slate-700"}`}
+                        className={`px-4 py-2 text-right font-black tabular-nums ${isRef ? "text-blue-300" : "text-slate-300"}`}
                       >
                         {row.coeff}
                       </td>
@@ -137,21 +138,21 @@ export default function AthleteRankingInfoPage() {
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-slate-400 mt-3">
+          <p className="text-xs text-slate-600 mt-3">
             * 300 finishers per distance = 1.00. Races with more finishers
             reward more points.
           </p>
         </div>
 
         <div>
-          <h2 className="text-base font-bold text-slate-800 mb-3">Rules</h2>
-          <div className="rounded-2xl border border-slate-200 bg-white px-6 py-5 text-sm text-slate-600">
-            <ul className="space-y-2 list-disc list-inside marker:text-slate-300">
-              <li>Points are awarded per gender.</li>
-              <li>Only the top 50 finishers score points.</li>
-              <li>Rankings are per distance.</li>
-            </ul>
-          </div>
+          <SectionLabel className="mb-3">Rules</SectionLabel>
+          <RulesList
+            items={[
+              "Points are awarded per gender.",
+              "Only the top 50 finishers score points.",
+              "Rankings are per distance.",
+            ]}
+          />
         </div>
       </div>
     </div>

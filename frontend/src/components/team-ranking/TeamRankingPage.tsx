@@ -5,8 +5,11 @@ import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "../shared/Spinner";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import { RankBadge } from "../shared/RankBadge";
+import { MedalBadge } from "../shared/MedalBadge";
 import { SegmentedControl } from "../shared/SegmentedControl";
-import { rankLabel } from "../../utils/rankLabel";
+import { rankTextColor, rankBorderAccent } from "../../utils/posStyle";
+import { ScrollSentinel } from "../shared/ScrollSentinel";
+import { PointsBadge } from "../shared/PointsBadge";
 
 export default function TeamRankingPage() {
   const [data, setData] = useState<TeamRanking | null>(null);
@@ -88,13 +91,16 @@ export default function TeamRankingPage() {
     <div>
       {/* Page header */}
       <div className="mb-8">
-        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+        <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
+          Portuguese Granfondo Series
+        </div>
+        <h2 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase">
           Team Ranking
         </h2>
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 mb-8 sm:items-center">
+      <div className="flex flex-col sm:flex-row gap-3 mb-8 sm:items-center">
         <div className="flex items-center gap-2.5">
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">
             Season
@@ -102,10 +108,10 @@ export default function TeamRankingPage() {
           <select
             value={year}
             onChange={(e) => handleYearChange(e.target.value)}
-            className="flex-1 sm:flex-none px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+            className="flex-1 sm:flex-none px-3.5 py-1.5 text-sm font-semibold rounded-xl input-dark focus:outline-none"
           >
             {years.map((y) => (
-              <option key={y} value={y}>
+              <option key={y} value={y} className="bg-[#0c1628]">
                 {y}
               </option>
             ))}
@@ -118,10 +124,10 @@ export default function TeamRankingPage() {
           <select
             value={distance}
             onChange={(e) => handleDistChange(e.target.value)}
-            className="flex-1 px-3.5 py-1.5 text-sm font-semibold border border-slate-200 rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-600"
+            className="flex-1 px-3.5 py-1.5 text-sm font-semibold rounded-xl input-dark focus:outline-none"
           >
             {distances.map((d) => (
-              <option key={d} value={d}>
+              <option key={d} value={d} className="bg-[#0c1628]">
                 {d}
               </option>
             ))}
@@ -134,10 +140,22 @@ export default function TeamRankingPage() {
             value={distance}
             onChange={handleDistChange}
             colorMap={{
-              Granfondo: { active: "bg-blue-600 text-white" },
-              Mediofondo: { active: "bg-violet-600 text-white" },
-              Minifondo: { active: "bg-emerald-600 text-white" },
-              "Time Trial": { active: "bg-amber-500 text-white" },
+              Granfondo: {
+                active:
+                  "bg-blue-500/30 text-blue-300 border-r border-blue-500/20",
+              },
+              Mediofondo: {
+                active:
+                  "bg-violet-500/30 text-violet-300 border-r border-violet-500/20",
+              },
+              Minifondo: {
+                active:
+                  "bg-emerald-500/30 text-emerald-300 border-r border-emerald-500/20",
+              },
+              "Time Trial": {
+                active:
+                  "bg-amber-500/30 text-amber-300 border-r border-amber-500/20",
+              },
             }}
             shortLabelMap={{
               Granfondo: "GF",
@@ -152,7 +170,7 @@ export default function TeamRankingPage() {
           placeholder="Search team…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-48 sm:ml-auto px-3.5 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full sm:w-48 sm:min-w-0 sm:ml-auto px-3.5 py-2 text-sm rounded-xl input-dark focus:outline-none"
         />
       </div>
 
@@ -162,66 +180,120 @@ export default function TeamRankingPage() {
       {!loading && !error && ranked.length > 0 && (
         <>
           {/* Podium — top 3 */}
-          {topThree.length >= 3 && !search && (
-            <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-8">
-              {[topThree[1], topThree[0], topThree[2]].map((t, podiumIdx) => {
+          {topThree.length >= 3 &&
+            !search &&
+            (() => {
+              const first = topThree[0]!;
+              const second = topThree[1]!;
+              const third = topThree[2]!;
+
+              const TeamCard = ({
+                t,
+                animDelay,
+                isMobileFirst = false,
+              }: {
+                t: typeof first;
+                animDelay: number;
+                isMobileFirst?: boolean;
+              }) => {
                 const isFirst = t.rank === 1;
+                const isSecond = t.rank === 2;
+                const cardBase =
+                  "rounded-2xl relative overflow-hidden border transition-all duration-300";
+                const cardStyle = isFirst
+                  ? `${cardBase} bg-gradient-to-b from-amber-500/10 to-[#0c1628] border-amber-500/25 glow-gold hover:border-amber-400/40`
+                  : isSecond
+                    ? `${cardBase} bg-gradient-to-b from-slate-400/10 to-[#0c1628] border-white/[0.08] hover:border-white/[0.15]`
+                    : `${cardBase} bg-gradient-to-b from-orange-500/10 to-[#0c1628] border-orange-500/20 hover:border-orange-400/35`;
                 return (
                   <div
                     key={t.team}
-                    className={`rounded-2xl p-3 sm:p-5 text-center relative overflow-hidden border ${
-                      isFirst
-                        ? "bg-gradient-to-b from-amber-50 to-white border-amber-200 shadow-md"
-                        : podiumIdx === 0
-                          ? "bg-gradient-to-b from-slate-50 to-white border-slate-200"
-                          : "bg-gradient-to-b from-orange-50 to-white border-orange-200"
-                    } ${isFirst ? "mt-0" : "mt-4"}`}
+                    style={{ animationDelay: `${animDelay}ms` }}
+                    className={`animate-in ${cardStyle}`}
                   >
-                    <div className="text-2xl sm:text-4xl mb-1 sm:mb-2">
-                      {t.rank === 1 ? "🥇" : t.rank === 2 ? "🥈" : "🥉"}
-                    </div>
+                    {isFirst && (
+                      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-amber-400/0 via-amber-300 to-amber-400/0" />
+                    )}
                     <Link
                       to={`/team/${t.teamId}`}
-                      className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight mb-2 sm:mb-3 line-clamp-2 hover:text-blue-700 transition-colors block"
-                    >
-                      {t.team}
-                    </Link>
+                      className="absolute inset-0 z-10"
+                      aria-label={t.team}
+                    />
                     <div
-                      className={`text-lg sm:text-2xl font-black ${isFirst ? "text-amber-600" : "text-slate-700"}`}
+                      className={`text-center ${isMobileFirst ? "px-4 pt-5 pb-4" : "px-2.5 pt-4 pb-3"}`}
                     >
-                      {t.totalPoints}
-                    </div>
-                    <div className="text-[10px] sm:text-[11px] text-slate-400 font-medium">
-                      pts
-                    </div>
-                    <div className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 hidden sm:block">
-                      {t.eventsScored} events · best {rankLabel(t.bestRank)}
+                      <div className="mb-2 flex justify-center">
+                        <MedalBadge
+                          rank={t.rank as 1 | 2 | 3}
+                          size={isMobileFirst ? "lg" : "sm"}
+                        />
+                      </div>
+                      <div
+                        className={`leading-tight mb-1.5 line-clamp-2 ${isMobileFirst ? "font-black text-amber-100 text-sm" : "font-bold text-slate-200 text-xs"}`}
+                      >
+                        {t.team}
+                      </div>
+                      <div
+                        className={`font-black tabular-nums ${isMobileFirst ? "text-2xl text-amber-400" : "text-lg text-slate-300"}`}
+                      >
+                        {t.totalPoints}
+                      </div>
+                      <div
+                        className={`text-[10px] font-medium ${isMobileFirst ? "text-amber-500" : "text-slate-600"}`}
+                      >
+                        pts
+                      </div>
+                      <div className="text-[10px] text-slate-600 mt-0.5 hidden sm:block">
+                        {t.eventsScored} events · best #{t.bestRank}
+                      </div>
                     </div>
                   </div>
                 );
-              })}
-            </div>
-          )}
+              };
+
+              return (
+                <div className="mb-8">
+                  {/* Mobile: 1st full-width on top, 2nd+3rd side by side */}
+                  <div className="sm:hidden space-y-2">
+                    <TeamCard t={first} animDelay={0} isMobileFirst />
+                    <div className="grid grid-cols-2 gap-2">
+                      <TeamCard t={second} animDelay={150} />
+                      <TeamCard t={third} animDelay={300} />
+                    </div>
+                  </div>
+                  {/* Desktop: [2nd] [1st] [3rd] */}
+                  <div className="hidden sm:grid sm:grid-cols-3 sm:gap-3 sm:items-end">
+                    <div className="mt-4">
+                      <TeamCard t={second} animDelay={150} />
+                    </div>
+                    <TeamCard t={first} animDelay={0} isMobileFirst />
+                    <div className="mt-4">
+                      <TeamCard t={third} animDelay={300} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
 
           <div className="mb-4 flex items-center justify-between">
             <p className="text-sm text-slate-500">
-              <span className="font-semibold text-slate-700">
+              <span className="font-semibold text-slate-300">
                 {ranked.length}
               </span>{" "}
               teams scored
             </p>
             <Link
               to="/teams-info"
-              className="text-xs text-blue-600 hover:text-blue-800 hover:underline transition-colors"
+              className="text-xs text-blue-400 hover:text-blue-300 hover:underline transition-colors"
             >
               How scoring works →
             </Link>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
+          <div className="rounded-2xl border border-white/[0.07] overflow-hidden overflow-x-auto bg-[#0c1628]">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                <tr className="bg-[#060d1a] text-xs text-slate-500 uppercase tracking-wider border-b border-white/[0.06]">
                   <th className="px-4 py-3 text-left w-14">Rank</th>
                   <th className="px-4 py-3 text-left">Team</th>
                   <th className="px-4 py-3 text-center hidden sm:table-cell w-20">
@@ -233,48 +305,54 @@ export default function TeamRankingPage() {
                   <th className="px-4 py-3 text-right w-32">Points</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-white/[0.04]">
                 {ranked.slice(0, visibleCount).map((t) => (
                   <React.Fragment key={t.team}>
                     <tr
                       onClick={() =>
                         setExpanded(expanded === t.team ? null : t.team)
                       }
-                      className={`cursor-pointer transition-colors hover:bg-blue-50/40 ${
-                        expanded === t.team ? "bg-blue-50/60" : ""
-                      } ${t.rank <= 3 ? "bg-slate-50/40" : ""}`}
+                      className={`cursor-pointer transition-colors hover:bg-white/[0.03] ${
+                        expanded === t.team ? "bg-blue-500/[0.06]" : ""
+                      } ${t.rank <= 3 ? "bg-white/[0.02]" : ""}`}
                     >
-                      <td className="px-4 py-3">
+                      <td
+                        className={`py-3 pl-2 pr-4 ${rankBorderAccent(t.rank)}`}
+                      >
                         <RankBadge rank={t.rank} />
                       </td>
                       <td className="px-4 py-3">
                         <Link
                           to={`/team/${t.teamId}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="font-semibold text-slate-900 hover:text-blue-600 transition-colors"
+                          className={`hover:text-blue-300 transition-colors ${t.rank <= 10 ? "font-bold text-white" : "font-semibold text-slate-100"}`}
                         >
                           {t.team}
                         </Link>
                       </td>
-                      <td className="px-4 py-3 text-center text-slate-600 font-medium hidden sm:table-cell">
+                      <td className="px-4 py-3 text-center text-slate-500 font-medium hidden sm:table-cell">
                         {t.eventsScored}
                       </td>
                       <td className="px-4 py-3 text-center hidden md:table-cell">
-                        <span className="font-semibold text-slate-800">
-                          {rankLabel(t.bestRank)}
+                        <span
+                          className={`font-semibold tabular-nums ${rankTextColor(t.bestRank, "text-slate-400")}`}
+                        >
+                          #{t.bestRank}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right">
                         <div className="flex items-center justify-end gap-2">
-                          <div className="hidden sm:block w-20 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="hidden sm:block w-20 h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
                             <div
-                              className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-600"
+                              className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500"
                               style={{
                                 width: `${(t.totalPoints / maxPoints) * 100}%`,
                               }}
                             />
                           </div>
-                          <span className="font-extrabold text-blue-700 tabular-nums inline-block w-14 text-right">
+                          <span
+                            className={`font-extrabold tabular-nums inline-block w-14 text-right ${rankTextColor(t.rank, "text-blue-400")}`}
+                          >
                             {t.totalPoints.toFixed(1)}
                           </span>
                         </div>
@@ -285,7 +363,7 @@ export default function TeamRankingPage() {
                       <tr key={`${t.team}-detail`}>
                         <td
                           colSpan={5}
-                          className="px-4 pb-4 pt-1 bg-blue-50/60"
+                          className="px-4 pb-4 pt-1 bg-blue-500/[0.04]"
                         >
                           <div className="text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wide">
                             Race breakdown
@@ -294,33 +372,32 @@ export default function TeamRankingPage() {
                             {t.results.map((r) => (
                               <div
                                 key={r.eventId}
-                                className="bg-white rounded-xl border border-blue-100 p-3"
+                                className="bg-white/[0.03] rounded-xl border border-white/[0.07] p-3"
                               >
                                 <div className="flex items-start justify-between gap-2 mb-2">
                                   <div>
-                                    <div className="text-xs font-semibold text-slate-700">
+                                    <div className="text-xs font-semibold text-slate-300">
                                       {r.eventName}
                                     </div>
-                                    <div className="text-[11px] text-slate-400">
+                                    <div className="text-[11px] text-slate-600">
                                       {r.eventDate}
                                     </div>
                                   </div>
                                   <div className="flex items-center gap-1.5 shrink-0 text-xs">
-                                    <span className="font-semibold text-slate-700">
-                                      {rankLabel(r.teamRank)}
+                                    <span
+                                      className={`font-semibold tabular-nums ${r.teamRank <= 3 ? "text-amber-400" : "text-slate-300"}`}
+                                    >
+                                      #{r.teamRank}
                                     </span>
-                                    <span className="text-slate-400">
+                                    <span className="text-slate-600">
                                       {r.basePoints}×{r.coefficient}
                                     </span>
-                                    <span className="text-slate-400 hidden sm:inline">
+                                    <span className="text-slate-600 hidden sm:inline">
                                       ({r.totalTeams} teams)
                                     </span>
-                                    <span className="font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">
-                                      +{r.points}
-                                    </span>
+                                    <PointsBadge points={r.points} />
                                   </div>
                                 </div>
-                                {/* Top 3 athletes */}
                                 <div className="space-y-0.5">
                                   {r.athletes
                                     .filter((a) => a.scoring)
@@ -332,10 +409,10 @@ export default function TeamRankingPage() {
                                         <span
                                           className={`w-4 h-4 rounded-full flex items-center justify-center font-bold text-[10px] ${
                                             i === 0
-                                              ? "bg-yellow-100 text-yellow-700"
+                                              ? "bg-amber-500/20 text-amber-400"
                                               : i === 1
-                                                ? "bg-slate-100 text-slate-500"
-                                                : "bg-orange-100 text-orange-600"
+                                                ? "bg-white/10 text-slate-400"
+                                                : "bg-orange-500/20 text-orange-400"
                                           }`}
                                         >
                                           {i + 1}
@@ -343,21 +420,21 @@ export default function TeamRankingPage() {
                                         {a.id ? (
                                           <Link
                                             to={`/athlete/${a.id}`}
-                                            className="font-medium text-slate-700 hover:text-blue-600 transition-colors"
+                                            className="font-medium text-slate-400 hover:text-blue-300 transition-colors"
                                           >
                                             {a.name}
                                           </Link>
                                         ) : (
-                                          <span className="font-medium text-slate-700">
+                                          <span className="font-medium text-slate-400">
                                             {a.name}
                                           </span>
                                         )}
-                                        <span className="text-slate-400 ml-auto">
+                                        <span className="text-slate-600 ml-auto">
                                           pos #{a.pos}
                                         </span>
                                       </div>
                                     ))}
-                                  <div className="text-[11px] text-slate-400 mt-1 pt-1 border-t border-slate-100">
+                                  <div className="text-[11px] text-slate-600 mt-1 pt-1 border-t border-white/[0.06]">
                                     Combined score: {r.combinedScore} ·{" "}
                                     {r.eligibleTeams} eligible teams
                                   </div>
@@ -372,14 +449,11 @@ export default function TeamRankingPage() {
                 ))}
               </tbody>
             </table>
-            {visibleCount < ranked.length && (
-              <div
-                ref={sentinelRef}
-                className="px-4 py-3 text-xs text-slate-400 border-t border-slate-100 text-center"
-              >
-                Showing {visibleCount} of {ranked.length}…
-              </div>
-            )}
+            <ScrollSentinel
+              sentinelRef={sentinelRef}
+              visible={visibleCount}
+              total={ranked.length}
+            />
           </div>
         </>
       )}

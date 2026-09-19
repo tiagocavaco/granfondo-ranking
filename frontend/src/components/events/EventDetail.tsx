@@ -5,7 +5,8 @@ import type { StoredEvent } from "@granfondo/database/types";
 import ResultsTab from "./ResultsTab";
 import ParticipantsTab from "./ParticipantsTab";
 import { Spinner, ErrorBanner } from "../shared/Spinner";
-import { distBadgeClassBordered } from "../../utils/distance";
+import { distBadgeClass } from "../../utils/distance";
+import { ShieldCheckIcon } from "../shared/ShieldCheckIcon";
 
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>();
@@ -43,65 +44,92 @@ export default function EventDetail() {
   }
 
   const isPast = new Date(event.date + "T12:00:00") < new Date();
-  const date = new Date(event.date + "T00:00:00").toLocaleDateString("en-GB", {
+  const dateObj = new Date(event.date + "T00:00:00");
+  const date = dateObj.toLocaleDateString("en-GB", {
     weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
   });
+  const heroDay = dateObj.toLocaleDateString("en-GB", { day: "numeric" });
+  const heroMonth = dateObj
+    .toLocaleDateString("en-GB", { month: "short" })
+    .toUpperCase();
+  const heroYear = dateObj.getFullYear();
+  const heroWeekday = dateObj.toLocaleDateString("en-GB", { weekday: "long" });
 
   return (
     <div>
       <button
         onClick={() => navigate("/")}
-        className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
+        className="text-sm text-slate-500 hover:text-slate-300 transition-colors mb-4 inline-flex items-center gap-1"
       >
         ← Back
       </button>
 
       {/* Event hero */}
-      <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-900 rounded-2xl p-6 mb-6 text-white overflow-hidden relative">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-2 right-8 text-9xl">🚴</div>
+      <div className="relative bg-[#0c1628] rounded-2xl p-6 sm:p-8 mb-6 text-white overflow-hidden border border-white/[0.07]">
+        {/* Top accent line */}
+        <div
+          className={`absolute inset-x-0 top-0 h-[2px] ${
+            !isPast
+              ? "bg-gradient-to-r from-amber-400/0 via-amber-400 to-amber-400/0"
+              : event.hasResults
+                ? "bg-gradient-to-r from-emerald-500/0 via-emerald-500 to-emerald-500/0"
+                : "bg-gradient-to-r from-orange-500/0 via-orange-400 to-orange-500/0"
+          }`}
+        />
+        {/* Ghost date watermark — desktop only */}
+        <div className="absolute right-6 sm:right-8 top-0 bottom-0 hidden sm:flex flex-col items-end justify-end pb-4 sm:pb-6 select-none pointer-events-none [mask-image:linear-gradient(to_top,black_20%,transparent_75%)]">
+          <div className="text-[72px] sm:text-[88px] font-black text-white leading-none tabular-nums opacity-[0.05]">
+            {heroDay}
+          </div>
+          <div className="text-[20px] sm:text-[24px] font-black text-amber-400 tracking-widest -mt-1 opacity-[0.10]">
+            {heroMonth}
+          </div>
+          <div className="text-sm font-bold text-slate-500 opacity-60 mt-0.5">
+            {heroYear}
+          </div>
         </div>
+
         <div className="relative">
-          <div className="flex items-center gap-2 mb-2">
+          {/* Top meta row */}
+          <div className="flex items-center gap-2.5 mb-5">
             <span
-              className={`text-xs px-2.5 py-0.5 rounded-full font-semibold ${
-                isPast
-                  ? "bg-emerald-400/20 text-emerald-300 border border-emerald-400/30"
-                  : "bg-amber-400/20 text-amber-300 border border-amber-400/30"
+              className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-widest ${
+                !isPast
+                  ? "bg-amber-400/15 text-amber-300 border border-amber-400/25"
+                  : isPast && !event.hasResults
+                    ? "bg-amber-500/10 text-amber-600/70 border border-amber-600/20"
+                    : "bg-emerald-500/10 text-emerald-600/70 border border-emerald-600/20"
               }`}
             >
-              {isPast ? "Finished" : "Upcoming"}
+              {!isPast
+                ? "Upcoming"
+                : !event.hasResults
+                  ? "Results pending"
+                  : "Finished"}
             </span>
-            <span className="text-blue-300 text-xs font-medium">📅 {date}</span>
+            <span className="text-slate-500 text-xs font-medium">
+              {heroWeekday} · {heroDay} {heroMonth} {heroYear}
+            </span>
             <div className="hidden sm:flex gap-2 ml-auto">
-              {!isPast && event.participantCount > 0 && (
+              {!event.hasResults && event.participantCount > 0 && (
                 <Link
                   to={`/event/${event.id}/predictions`}
-                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/30 hover:bg-amber-400/30 transition-colors"
+                  className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-400/10 text-amber-300 border border-amber-400/20 hover:bg-amber-400/20 transition-colors"
                 >
                   Predictions ✦
                 </Link>
               )}
-              {!isPast && (event.officialUrl ?? event.resultsUrl) && (
-                <a
-                  href={event.officialUrl ?? event.resultsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
-                >
-                  Official Page ↗
-                </a>
-              )}
-              {isPast && event.officialUrl && (
+              {event.officialUrl && (
                 <a
                   href={event.officialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/[0.06] text-slate-300 border border-white/[0.08] hover:bg-white/[0.12] hover:text-white transition-colors"
                 >
+                  <ShieldCheckIcon />
                   Official Page ↗
                 </a>
               )}
@@ -110,29 +138,66 @@ export default function EventDetail() {
                   href={event.resultsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-semibold px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/[0.06] text-slate-300 border border-white/[0.08] hover:bg-white/[0.12] hover:text-white transition-colors"
                 >
+                  <ShieldCheckIcon />
                   Official Results ↗
+                </a>
+              )}
+              {!isPast && !event.officialUrl && event.resultsUrl && (
+                <a
+                  href={event.resultsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/[0.06] text-slate-300 border border-white/[0.08] hover:bg-white/[0.12] hover:text-white transition-colors"
+                >
+                  <ShieldCheckIcon />
+                  Official Page ↗
                 </a>
               )}
             </div>
           </div>
 
-          <h1 className="text-2xl font-extrabold text-white mb-4 leading-tight">
-            {event.name}
-          </h1>
+          <div className="flex items-start justify-between gap-3 mb-5">
+            <h1 className="font-display font-bold text-3xl sm:text-4xl text-white leading-tight tracking-wide uppercase">
+              {event.name}
+            </h1>
+            <div className="sm:hidden shrink-0 text-right select-none pt-1 opacity-20">
+              <div className="text-[38px] font-black text-white leading-none tabular-nums">
+                {heroDay}
+              </div>
+              <div className="text-[11px] font-black text-amber-400 tracking-widest mt-0.5">
+                {heroMonth}
+              </div>
+              <div className="text-[9px] font-bold text-slate-400 mt-0.5">
+                {heroYear}
+              </div>
+            </div>
+          </div>
 
-          {/* Mobile meta */}
-          <div className="sm:hidden flex flex-wrap items-center gap-x-4 gap-y-1 text-sm mb-4 text-blue-200">
+          {/* Location + finishers row */}
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 mb-4 text-sm text-slate-500">
             <span className="flex items-center gap-1.5">
-              <span>📍</span>
+              <svg
+                className="w-3.5 h-3.5 text-slate-600 shrink-0"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+              </svg>
               <span>{event.location}</span>
             </span>
             {event.hasResults && event.finisherCount > 0 && (
               <span className="flex items-center gap-1.5">
-                <span>🏁</span>
+                <svg
+                  className="w-3.5 h-3.5 text-slate-600 shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z" />
+                </svg>
                 <span>
-                  <strong className="text-white">
+                  <strong className="text-slate-200 font-bold">
                     {event.finisherCount.toLocaleString()}
                   </strong>{" "}
                   finishers
@@ -141,88 +206,55 @@ export default function EventDetail() {
             )}
             {!event.hasResults && event.participantCount > 0 && (
               <span className="flex items-center gap-1.5">
-                <span>📋</span>
+                <svg
+                  className="w-3.5 h-3.5 text-slate-600 shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                </svg>
                 <span>
-                  <strong className="text-white">
+                  <strong className="text-amber-400 font-bold">
                     {event.participantCount.toLocaleString()}
                   </strong>{" "}
-                  participants
+                  registered
                 </span>
               </span>
             )}
           </div>
 
-          {/* Pills row — on desktop also shows location + finishers on the right */}
-          <div className="flex items-center gap-2 mb-3">
-            <div className="flex gap-2">
-              {event.distances.map((d) => (
-                <span
-                  key={d.id}
-                  className={`shrink-0 text-xs px-3 py-1 rounded-full font-semibold ${distBadgeClassBordered(
-                    d.name,
-                  )}`}
-                >
-                  {d.name}
-                </span>
-              ))}
-            </div>
-            <div className="hidden sm:flex items-center gap-3 ml-auto text-sm text-blue-200">
-              <span className="flex items-center gap-1.5">
-                <span>📍</span>
-                <span>{event.location}</span>
+          {/* Distance badges */}
+          <div className="flex flex-wrap gap-2 mb-3">
+            {event.distances.map((d) => (
+              <span
+                key={d.id}
+                className={`shrink-0 text-xs px-3 py-1 rounded-full font-semibold ${distBadgeClass(d.name)}`}
+              >
+                {d.name}
               </span>
-              {event.hasResults && event.finisherCount > 0 && (
-                <span className="flex items-center gap-1.5">
-                  <span>🏁</span>
-                  <span>
-                    <strong className="text-white">
-                      {event.finisherCount.toLocaleString()}
-                    </strong>{" "}
-                    finishers
-                  </span>
-                </span>
-              )}
-              {!event.hasResults && event.participantCount > 0 && (
-                <span className="flex items-center gap-1.5">
-                  <span>📋</span>
-                  <span>
-                    <strong className="text-white">
-                      {event.participantCount.toLocaleString()}
-                    </strong>{" "}
-                    participants
-                  </span>
-                </span>
-              )}
-            </div>
+            ))}
           </div>
 
-          <div className="flex sm:hidden gap-2 mt-1">
-            {!isPast && event.participantCount > 0 && (
+          {/* Mobile CTAs — left-aligned, own row */}
+          <div className="flex sm:hidden gap-2 mt-4 pt-4 border-t border-white/[0.06]">
+            {!event.hasResults && event.participantCount > 0 && (
               <Link
                 to={`/event/${event.id}/predictions`}
-                className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/30 hover:bg-amber-400/30 transition-colors"
+                className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-400/10 text-amber-300 border border-amber-400/20 hover:bg-amber-400/20 transition-colors"
               >
                 Predictions ✦
               </Link>
             )}
-            {!isPast && (event.officialUrl ?? event.resultsUrl) && (
-              <a
-                href={event.officialUrl ?? event.resultsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
-              >
-                Official Page ↗
-              </a>
-            )}
-            {isPast && event.officialUrl && (
+            {event.officialUrl && (
               <a
                 href={event.officialUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
+                className="shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/[0.06] text-slate-300 border border-white/[0.08] hover:bg-white/[0.12] transition-colors"
               >
-                Official Page ↗
+                <ShieldCheckIcon />
+                <span className="sm:hidden">Page ↗</span>
+                <span className="hidden sm:inline">Official Page ↗</span>
               </a>
             )}
             {isPast && event.resultsUrl && (
@@ -230,9 +262,23 @@ export default function EventDetail() {
                 href={event.resultsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors"
+                className="shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/[0.06] text-slate-300 border border-white/[0.08] hover:bg-white/[0.12] transition-colors"
               >
-                Official Results ↗
+                <ShieldCheckIcon />
+                <span className="sm:hidden">Results ↗</span>
+                <span className="hidden sm:inline">Official Results ↗</span>
+              </a>
+            )}
+            {!isPast && !event.officialUrl && event.resultsUrl && (
+              <a
+                href={event.resultsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/[0.06] text-slate-300 border border-white/[0.08] hover:bg-white/[0.12] transition-colors"
+              >
+                <ShieldCheckIcon />
+                <span className="sm:hidden">Page ↗</span>
+                <span className="hidden sm:inline">Official Page ↗</span>
               </a>
             )}
           </div>

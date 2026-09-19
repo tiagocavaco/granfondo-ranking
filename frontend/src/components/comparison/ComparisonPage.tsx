@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
@@ -6,6 +6,7 @@ import { Spinner } from "../shared/Spinner";
 import { ComparisonHeroCard } from "./ComparisonHeroCard";
 import { HeadToHeadChart } from "./HeadToHeadChart";
 import { SharedEventsTable } from "./SharedEventsTable";
+import { BackButton } from "../shared/BackButton";
 
 type AthleteRow = {
   id: number;
@@ -82,25 +83,24 @@ function AthleteSearch({
         }}
         placeholder="Search athlete…"
         autoFocus={autoFocus}
-        className="w-full px-3.5 py-2.5 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:border-transparent shadow-sm"
-        style={{ "--tw-ring-color": color } as React.CSSProperties}
+        className="w-full px-3.5 py-2.5 text-sm rounded-xl input-dark focus:outline-none placeholder-slate-600"
         onFocus={() => results.length > 0 && setOpen(true)}
       />
       {open && results.length > 0 && (
-        <ul className="absolute z-20 mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-lg max-h-56 overflow-y-auto">
+        <ul className="absolute z-20 mt-1 w-full bg-[#111e35] border border-white/[0.1] rounded-xl shadow-2xl max-h-56 overflow-y-auto">
           {results.map((a) => (
             <li
               key={a.id}
-              className="px-4 py-2.5 text-sm cursor-pointer hover:bg-slate-50 flex items-center justify-between gap-2"
+              className="px-4 py-2.5 text-sm cursor-pointer hover:bg-white/[0.05] flex items-center justify-between gap-2 transition-colors"
               onMouseDown={() => {
                 onSelect(a);
                 setSearch(a.name);
                 setOpen(false);
               }}
             >
-              <span className="font-medium text-slate-800">{a.name}</span>
+              <span className="font-medium text-slate-100">{a.name}</span>
               {a.canonicalTeam && (
-                <span className="text-xs text-slate-400 truncate max-w-[120px]">
+                <span className="text-xs text-slate-600 truncate max-w-[120px]">
                   {a.canonicalTeam}
                 </span>
               )}
@@ -181,15 +181,13 @@ export default function ComparisonPage() {
 
   return (
     <div>
-      <button
-        onClick={() => navigate(-1)}
-        className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
-      >
-        ← Back
-      </button>
+      <BackButton />
 
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-1">
+        <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
+          Athlete Comparison
+        </div>
+        <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase mb-1">
           Head-to-Head
         </h1>
         <p className="text-sm text-slate-500">
@@ -211,7 +209,7 @@ export default function ComparisonPage() {
             })
           }
         />
-        <div className="text-slate-300 font-black text-2xl self-center pb-1 hidden sm:block">
+        <div className="text-white/20 font-black text-2xl self-center pb-1 hidden sm:block tracking-widest">
           vs
         </div>
         <AthleteSearch
@@ -240,7 +238,7 @@ export default function ComparisonPage() {
           </div>
 
           {shared.length === 0 ? (
-            <div className="text-center py-12 text-slate-400">
+            <div className="text-center py-12 text-slate-500">
               <p className="text-4xl mb-3">🤷</p>
               <p className="font-semibold text-slate-600">
                 No shared events found
@@ -264,13 +262,20 @@ export default function ComparisonPage() {
       )}
 
       {aData && !bData && !bLoading && (
-        <div className="text-center py-12 text-slate-400 text-sm">
+        <div className="text-center py-12 text-slate-500 text-sm">
           Select a second athlete to compare
         </div>
       )}
       {!aData && !aLoading && (
-        <div className="text-center py-12 text-slate-400 text-sm">
-          Search for two athletes above to get started
+        <div className="mt-8 rounded-2xl border border-white/[0.06] bg-[#0c1628]/60 px-8 py-12 text-center">
+          <div className="text-4xl mb-4 opacity-30 select-none">⚡ VS ⚡</div>
+          <p className="text-slate-300 font-semibold text-sm mb-1">
+            Pick two athletes to compare
+          </p>
+          <p className="text-slate-600 text-xs">
+            Head-to-head results across every shared event — times, positions,
+            and ranking points side by side.
+          </p>
         </div>
       )}
     </div>

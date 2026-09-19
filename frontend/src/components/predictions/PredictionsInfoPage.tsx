@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { FormulaBox } from "../shared/FormulaBox";
+import { RulesList } from "../shared/RulesList";
+import { SectionLabel } from "../shared/SectionLabel";
 import {
   DISTANCES,
   DISTANCE_ABBR,
@@ -14,47 +17,49 @@ export default function PredictionsInfoPage() {
     <div>
       <button
         onClick={() => navigate(-1)}
-        className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
+        className="text-sm text-slate-500 hover:text-slate-300 transition-colors mb-4 inline-flex items-center gap-1 group"
       >
-        ← Back
+        <span className="group-hover:-translate-x-0.5 transition-transform">
+          ←
+        </span>{" "}
+        Back
       </button>
 
-      <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
-        Predictions — How it works
-      </h1>
-      <p className="text-slate-500 text-sm mb-8">
-        Favorites are ranked by a weighted career score that accounts for the
-        relevance of each distance to the upcoming race.
-      </p>
-
-      {/* Formula */}
-      <div className="bg-slate-900 text-white rounded-2xl px-6 py-5 mb-8 font-mono text-sm">
-        <div className="text-slate-400 text-xs uppercase tracking-widest mb-2">
-          Formula
+      <div className="mb-8">
+        <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
+          Pre-Race Predictions
         </div>
+        <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase leading-none mb-3">
+          How it works
+        </h1>
+        <p className="text-slate-500 text-sm">
+          Favorites are ranked by a weighted career score that accounts for the
+          relevance of each distance to the upcoming race.
+        </p>
+      </div>
+
+      <FormulaBox>
         <div className="text-blue-300">
           score = Σ points[dist, year] × dist_coeff × year_coeff
         </div>
-        <div className="text-slate-400 mt-1 text-xs">
+        <div className="text-slate-500 mt-1 text-xs">
           summed across all (distance, year) pairs the athlete has scored in
         </div>
-      </div>
+      </FormulaBox>
 
       <div className="sm:flex sm:gap-6 mb-8">
         {/* Left column: Distance coefficient + Year decay stacked */}
         <div className="sm:flex-1 space-y-6">
           {/* Coefficient matrix */}
           <div>
-            <h2 className="text-base font-bold text-slate-800 mb-3">
-              Distance coefficients
-            </h2>
-            <div className="rounded-2xl border border-slate-200 overflow-hidden bg-white overflow-x-auto">
+            <SectionLabel className="mb-3">Distance coefficients</SectionLabel>
+            <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628] overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                    <th className="px-4 py-2"></th>
+                  <tr className="bg-[#060d1a] text-[10px] text-slate-600 uppercase tracking-widest border-b border-white/[0.05]">
+                    <th className="px-4 py-2.5 font-bold"></th>
                     {DISTANCES.map((d) => (
-                      <th key={d} className="px-3 py-2 text-center">
+                      <th key={d} className="px-3 py-2.5 text-center font-bold">
                         <span className="sm:hidden">
                           {DISTANCE_ABBR[d] ?? d}
                         </span>
@@ -63,30 +68,33 @@ export default function PredictionsInfoPage() {
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-white/[0.04]">
                   {DISTANCES.map((hist) => (
-                    <tr key={hist} className="hover:bg-slate-50/60">
-                      <td className="px-4 py-2 text-slate-700 font-medium">
+                    <tr
+                      key={hist}
+                      className="hover:bg-white/[0.03] transition-colors"
+                    >
+                      <td className="px-4 py-2 text-slate-400 font-medium">
                         <span className="sm:hidden">
                           {DISTANCE_ABBR[hist] ?? hist}
                         </span>
                         <span className="hidden sm:inline">{hist}</span>
                       </td>
                       {DISTANCES.map((reg) => {
-                        const c = predictionDistCoeff(reg, hist);
+                        const coeff = predictionDistCoeff(reg, hist);
                         const isSame = reg === hist;
                         return (
                           <td
                             key={reg}
-                            className={`px-3 py-2 text-center font-extrabold tabular-nums ${
+                            className={`px-3 py-2 text-center font-black tabular-nums ${
                               isSame
-                                ? "text-blue-700"
-                                : c > 1
-                                  ? "text-emerald-600"
-                                  : "text-slate-400"
+                                ? "text-blue-400"
+                                : coeff > 1
+                                  ? "text-emerald-400"
+                                  : "text-slate-600"
                             }`}
                           >
-                            {c.toFixed(1)}×
+                            {coeff.toFixed(1)}×
                           </td>
                         );
                       })}
@@ -95,7 +103,7 @@ export default function PredictionsInfoPage() {
                 </tbody>
               </table>
             </div>
-            <p className="text-xs text-slate-400 mt-3">
+            <p className="text-xs text-slate-600 mt-3">
               Rows = historical distance. Columns = registered distance for the
               upcoming race.
             </p>
@@ -103,18 +111,18 @@ export default function PredictionsInfoPage() {
 
           {/* Year decay */}
           <div>
-            <h2 className="text-base font-bold text-slate-800 mb-3">
-              Year decay
-            </h2>
-            <div className="rounded-2xl border border-slate-200 overflow-hidden bg-white">
+            <SectionLabel className="mb-3">Year decay</SectionLabel>
+            <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                    <th className="px-4 py-2 text-left">Season</th>
-                    <th className="px-4 py-2 text-right">Coefficient</th>
+                  <tr className="bg-[#060d1a] text-[10px] text-slate-600 uppercase tracking-widest border-b border-white/[0.05]">
+                    <th className="px-4 py-2.5 text-left font-bold">Season</th>
+                    <th className="px-4 py-2.5 text-right font-bold">
+                      Coefficient
+                    </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-white/[0.04]">
                   {Array.from({ length: 5 }, (_, i) => {
                     const currentYear = new Date().getFullYear();
                     const year = currentYear - i;
@@ -123,39 +131,41 @@ export default function PredictionsInfoPage() {
                       <tr
                         key={year}
                         className={
-                          i === 0 ? "bg-blue-50/60" : "hover:bg-slate-50/60"
+                          i === 0
+                            ? "bg-blue-500/10"
+                            : "hover:bg-white/[0.03] transition-colors"
                         }
                       >
                         <td
-                          className={`px-4 py-2 font-medium ${i === 0 ? "text-blue-700" : "text-slate-700"}`}
+                          className={`px-4 py-2 font-medium ${i === 0 ? "text-blue-300" : "text-slate-300"}`}
                         >
                           {year}
                           {i === 0 && (
-                            <span className="ml-2 text-xs font-normal text-blue-400">
+                            <span className="ml-2 text-xs font-normal text-blue-500">
                               current
                             </span>
                           )}
                         </td>
                         <td
-                          className={`px-4 py-2 text-right font-extrabold tabular-nums ${i === 0 ? "text-blue-700" : "text-slate-700"}`}
+                          className={`px-4 py-2 text-right font-black tabular-nums ${i === 0 ? "text-blue-300" : "text-slate-300"}`}
                         >
                           {coeff.toFixed(1)}×
                         </td>
                       </tr>
                     );
                   })}
-                  <tr className="bg-slate-50/40">
-                    <td className="px-4 py-2 text-slate-400 text-xs">
+                  <tr className="bg-white/[0.02]">
+                    <td className="px-4 py-2 text-slate-600 text-xs">
                       {new Date().getFullYear() - 10} and earlier
                     </td>
-                    <td className="px-4 py-2 text-right text-slate-400 text-xs">
+                    <td className="px-4 py-2 text-right text-slate-600 text-xs">
                       0×
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <p className="text-xs text-slate-400 mt-3">
+            <p className="text-xs text-slate-600 mt-3">
               Each year back loses {PRED_YEAR_STEP * 100}%. Results older than
               10 years contribute nothing.
             </p>
@@ -164,37 +174,21 @@ export default function PredictionsInfoPage() {
 
         {/* Right column: Rules */}
         <div className="sm:flex-1 mt-6 sm:mt-0">
-          <h2 className="text-base font-bold text-slate-800 mb-3">Rules</h2>
-          <div className="rounded-2xl border border-slate-200 bg-white px-6 py-5 text-sm text-slate-600">
-            <ul className="space-y-2 list-disc list-inside marker:text-slate-300">
-              <li>
-                Only athletes whose registration is linked to an existing
-                profile are ranked.
-              </li>
-              <li>
+          <SectionLabel className="mb-3">Rules</SectionLabel>
+          <RulesList
+            items={[
+              "Only athletes whose registration is linked to an existing profile are ranked.",
+              <>
                 Participants with no profile are counted as{" "}
-                <span className="font-medium text-slate-700">unranked</span> in
+                <span className="font-medium text-slate-300">unranked</span> in
                 each category.
-              </li>
-              <li>
-                An athlete strong in longer distances is rewarded when racing
-                shorter — dropping from Granfondo to Minifondo adds a 1.4×
-                bonus.
-              </li>
-              <li>
-                Moving up in distance is penalized — a Minifondo specialist in a
-                Granfondo scores at 0.6× of their career points.
-              </li>
-              <li>
-                Time Trial points are isolated and do not count toward road race
-                predictions.
-              </li>
-              <li>
-                Favorites are shown per category, with an overall male/female
-                leader across all categories.
-              </li>
-            </ul>
-          </div>
+              </>,
+              "An athlete strong in longer distances is rewarded when racing shorter — dropping from Granfondo to Minifondo adds a 1.4× bonus.",
+              "Moving up in distance is penalized — a Minifondo specialist in a Granfondo scores at 0.6× of their career points.",
+              "Time Trial points are isolated and do not count toward road race predictions.",
+              "Favorites are shown per category, with an overall male/female leader across all categories.",
+            ]}
+          />
         </div>
       </div>
     </div>

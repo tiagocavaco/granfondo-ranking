@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "../shared/Spinner";
+import { CatPosBadge } from "../shared/MedalBadge";
 import {
   countryFlag,
   SOLO_TEAM_KEYS,
@@ -12,8 +13,9 @@ import PerformanceChart from "./PerformanceChart";
 import CareerHighlights from "./CareerHighlights";
 import { distBadgeClass } from "../../utils/distance";
 import { resolveTeamId, mostRecentCountry } from "@granfondo/api";
-import { posStyle } from "../../utils/posStyle";
-import { Stat } from "../shared/Stat";
+import { posStyle, rankTextColor } from "../../utils/posStyle";
+import { BackButton } from "../shared/BackButton";
+import { GenderBadge } from "../shared/GenderBadge";
 
 export default function AthleteProfile() {
   const { id } = useParams<{ id: string }>();
@@ -45,7 +47,13 @@ export default function AthleteProfile() {
   if (error || !data) {
     return (
       <div className="text-center py-16 text-slate-400">
-        <p className="text-5xl mb-3">👤</p>
+        <svg
+          className="w-12 h-12 mx-auto mb-3 text-slate-700"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+        </svg>
         <p className="font-semibold text-slate-600 text-lg">
           Athlete not found
         </p>
@@ -62,8 +70,11 @@ export default function AthleteProfile() {
   const athlete = data;
 
   const finished = athlete.results.filter((r) => !r.dnf && !r.dns);
-  const podiums = finished.filter(
+  const overallPodiums = finished.filter(
     (r) => r.genderPos > 0 && r.genderPos <= 3,
+  ).length;
+  const catPodiums = finished.filter(
+    (r) => r.catPos > 0 && r.catPos <= 3,
   ).length;
   const bestPos =
     finished.length > 0 ? Math.min(...finished.map((r) => r.pos)) : null;
@@ -82,64 +93,107 @@ export default function AthleteProfile() {
 
   return (
     <div>
-      {/* Back */}
-      <button
-        onClick={() => navigate(-1)}
-        className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
-      >
-        ← Back
-      </button>
+      <BackButton />
 
       {/* Hero */}
-      <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-6 mb-8 text-white">
-        {/* Top row: badges + compare */}
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <span
-              className={`text-xs font-semibold px-2 py-0.5 rounded ${gender === "F" ? "bg-pink-500/30 text-pink-200" : "bg-blue-500/30 text-blue-200"}`}
-            >
-              {gender === "F" ? "Women" : "Men"}
-            </span>
-            {country && (
-              <span className="text-sm" title={country}>
-                {countryFlag(country)}
-              </span>
-            )}
+      <div className="animate-scale relative bg-[#0c1628] rounded-2xl p-6 sm:p-8 mb-8 text-white overflow-hidden border border-white/[0.07]">
+        {/* Top accent line — gender-coded */}
+        <div
+          className={`absolute inset-x-0 top-0 h-[2px] ${
+            gender === "F"
+              ? "bg-gradient-to-r from-pink-400/0 via-pink-400/70 to-pink-400/0"
+              : "bg-gradient-to-r from-blue-400/0 via-blue-400/50 to-blue-400/0"
+          }`}
+        />
+        {/* Ghost initial watermark */}
+        <div className="absolute right-0 top-0 bottom-0 flex items-center pr-4 select-none pointer-events-none opacity-[0.04]">
+          <div className="text-[180px] sm:text-[220px] font-black text-white leading-none">
+            {athlete.name.charAt(0)}
           </div>
-          <Link
-            to={`/compare?a=${athlete.id}`}
-            className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-blue-200 hover:text-white border border-white/10 transition-colors"
-          >
-            Compare ↗
-          </Link>
         </div>
 
-        {/* Name/team + stats */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-extrabold tracking-tight mb-1">
-              {athlete.name}
-            </h1>
-            {recentTeam &&
-              !SOLO_TEAM_KEYS.has(normalizeTeam(recentTeam)) &&
-              resolveTeamId(recentTeam) !== undefined && (
-                <Link
-                  to={`/team/${resolveTeamId(recentTeam)}`}
-                  className="text-blue-300 hover:text-white text-sm block transition-colors"
-                >
-                  {recentTeam}
-                </Link>
+        <div className="relative">
+          {/* Top row: gender + flag + compare */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <GenderBadge gender={gender} variant="hero" />
+              {country && (
+                <span className="text-sm" title={country}>
+                  {countryFlag(country)}
+                </span>
               )}
+            </div>
+            <Link
+              to={`/compare?a=${athlete.id}`}
+              className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/[0.06] text-slate-300 border border-white/[0.08] hover:bg-white/[0.12] hover:text-white transition-colors"
+            >
+              Compare ↗
+            </Link>
           </div>
-          <div className="flex gap-3 sm:shrink-0">
-            <Stat label="Races" value={athlete.results.length} />
-            <Stat label="Podiums" value={podiums} highlight={podiums > 0} />
+
+          {/* Name */}
+          <h1 className="font-display font-bold text-4xl sm:text-5xl tracking-wide mb-1 leading-none uppercase">
+            {athlete.name}
+          </h1>
+
+          {/* Team */}
+          {recentTeam &&
+            !SOLO_TEAM_KEYS.has(normalizeTeam(recentTeam)) &&
+            resolveTeamId(recentTeam) !== undefined && (
+              <Link
+                to={`/team/${resolveTeamId(recentTeam)}`}
+                className="text-slate-500 hover:text-blue-300 text-sm block transition-colors mt-1"
+              >
+                {recentTeam}
+              </Link>
+            )}
+
+          {/* Editorial stats strip */}
+          <div className="flex items-stretch mt-5 pt-5 border-t border-white/[0.06]">
+            <div className="flex flex-col items-center pr-3 sm:pr-5">
+              <span className="text-2xl sm:text-3xl font-black tabular-nums text-white leading-none">
+                {athlete.results.length}
+              </span>
+              <span className="text-[9px] sm:text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1 whitespace-nowrap">
+                Races
+              </span>
+            </div>
+            <div className="w-[1px] self-stretch bg-white/[0.08] shrink-0" />
+            <div className="flex flex-col items-center px-3 sm:px-5">
+              <span
+                className={`text-2xl sm:text-3xl font-black tabular-nums leading-none ${overallPodiums > 0 ? "text-amber-400" : "text-slate-500"}`}
+              >
+                {overallPodiums}
+              </span>
+              <span className="text-[9px] sm:text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1 whitespace-nowrap">
+                Podiums
+              </span>
+            </div>
+            <div className="w-[1px] self-stretch bg-white/[0.08] shrink-0" />
+            <div className="flex flex-col items-center px-3 sm:px-5">
+              <span
+                className={`text-2xl sm:text-3xl font-black tabular-nums leading-none ${catPodiums > 0 ? "text-amber-400" : "text-slate-500"}`}
+              >
+                {catPodiums}
+              </span>
+              <span className="text-[9px] sm:text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1 whitespace-nowrap">
+                Cat Podiums
+              </span>
+            </div>
             {bestPos && (
-              <Stat
-                label="Best Pos"
-                value={`#${bestPos}`}
-                highlight={bestPos <= 3}
-              />
+              <>
+                <div className="w-[1px] self-stretch bg-white/[0.08] shrink-0" />
+                <div className="flex flex-col items-center pl-3 sm:pl-5">
+                  <span
+                    className={`text-2xl sm:text-3xl font-black tabular-nums leading-none ${rankTextColor(bestPos, "text-white")}`}
+                  >
+                    #{bestPos}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1 whitespace-nowrap">
+                    Best
+                  </span>
+                </div>
+              </>
             )}
           </div>
         </div>
@@ -158,20 +212,23 @@ export default function AthleteProfile() {
           const yearTeam = yearResults[yearResults.length - 1]?.team ?? "";
           return (
             <div key={year} className="mb-8">
-              <h2 className="text-lg font-bold text-slate-800 mb-3 flex items-baseline gap-2">
-                {year}
+              <div className="flex items-center gap-4 mb-3">
+                <span className="text-4xl font-black text-white/[0.07] tabular-nums select-none leading-none">
+                  {year}
+                </span>
+                <div className="flex-1 h-[1px] bg-gradient-to-r from-white/[0.08] to-transparent" />
                 {yearTeam &&
                   !SOLO_TEAM_KEYS.has(normalizeTeam(yearTeam)) &&
                   resolveTeamId(yearTeam) !== undefined && (
                     <Link
                       to={`/team/${resolveTeamId(yearTeam)}`}
-                      className="text-sm font-normal text-slate-400 hover:text-blue-600 transition-colors"
+                      className="text-[10px] font-bold text-slate-600 uppercase tracking-widest hover:text-blue-400 transition-colors whitespace-nowrap"
                     >
                       {yearTeam}
                     </Link>
                   )}
-              </h2>
-              <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden overflow-x-auto bg-white">
+              </div>
+              <div className="rounded-2xl border border-white/[0.07] overflow-hidden overflow-x-auto bg-[#0c1628]">
                 <table className="w-full text-sm table-fixed">
                   <colgroup>
                     <col />
@@ -179,10 +236,10 @@ export default function AthleteProfile() {
                     <col className="hidden md:table-column w-32" />
                     <col className="w-12 sm:w-16" />
                     <col className="w-28" />
-                    <col className="hidden sm:table-column w-28" />
+                    <col className="hidden lg:table-column w-28" />
                   </colgroup>
                   <thead>
-                    <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                    <tr className="bg-[#060d1a] text-xs text-slate-500 uppercase tracking-wider border-b border-white/[0.06]">
                       <th className="px-4 py-3 text-left">Event</th>
                       <th className="px-4 py-3 text-left hidden sm:table-cell">
                         Distance
@@ -192,25 +249,25 @@ export default function AthleteProfile() {
                       </th>
                       <th className="px-4 py-3 text-center">Pos</th>
                       <th className="px-4 py-3 text-right">Time</th>
-                      <th className="px-4 py-3 text-right hidden sm:table-cell">
+                      <th className="px-4 py-3 text-right hidden lg:table-cell">
                         Gap
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-white/[0.04]">
                     {byYear[Number(year)]!.map((r) => (
                       <tr
                         key={`${r.eventId}-${r.distance}`}
-                        className={`hover:bg-slate-50/60 transition-colors ${r.dnf || r.dns ? "opacity-40" : ""}`}
+                        className={`hover:bg-white/[0.03] transition-colors ${r.dnf || r.dns ? "opacity-40" : ""}`}
                       >
                         <td className="px-4 py-3">
                           <Link
                             to={`/event/${r.eventId}`}
-                            className="font-semibold text-slate-900 hover:text-blue-600 transition-colors"
+                            className="font-semibold text-slate-100 hover:text-blue-300 transition-colors"
                           >
                             {r.eventName}
                           </Link>
-                          <div className="text-xs text-slate-400 mt-0.5">
+                          <div className="text-xs text-slate-600 mt-0.5">
                             {r.eventDate}
                           </div>
                         </td>
@@ -222,22 +279,16 @@ export default function AthleteProfile() {
                           </span>
                         </td>
                         <td className="px-4 py-3 text-xs hidden md:table-cell">
-                          <span className="text-slate-400">{r.category}</span>
-                          {r.catPos > 0 && r.catPos <= 4 && (
+                          <span className="text-slate-500">{r.category}</span>
+                          {r.catPos > 0 && (
                             <span className="ml-1">
-                              {r.catPos === 1
-                                ? "🥇"
-                                : r.catPos === 2
-                                  ? "🥈"
-                                  : r.catPos === 3
-                                    ? "🥉"
-                                    : "🍫"}
+                              <CatPosBadge pos={r.catPos} />
                             </span>
                           )}
                         </td>
                         <td className="px-4 py-3 text-center">
                           {r.dnf || r.dns ? (
-                            <span className="text-xs text-slate-400 font-bold">
+                            <span className="text-xs text-slate-500 font-bold">
                               {r.dnf ? "DNF" : "DNS"}
                             </span>
                           ) : (
@@ -248,11 +299,16 @@ export default function AthleteProfile() {
                             </span>
                           )}
                         </td>
-                        <td className="px-4 py-3 text-right font-mono text-xs font-semibold text-slate-700">
+                        <td className="px-4 py-3 text-right font-mono text-xs font-semibold text-slate-300">
                           {r.raceTime}
+                          {r.gap && r.gap !== "00:00:00" && (
+                            <div className="font-mono text-xs text-slate-600 mt-0.5 lg:hidden">
+                              {r.gap}
+                            </div>
+                          )}
                         </td>
-                        <td className="px-4 py-3 text-right font-mono text-xs text-slate-400 hidden sm:table-cell">
-                          {r.gap}
+                        <td className="px-4 py-3 text-right font-mono text-xs text-slate-600 hidden lg:table-cell">
+                          {r.gap && r.gap !== "00:00:00" ? r.gap : "—"}
                         </td>
                       </tr>
                     ))}

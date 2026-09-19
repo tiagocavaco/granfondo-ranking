@@ -1,4 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { BackButton } from "../shared/BackButton";
+import { FormulaBox } from "../shared/FormulaBox";
+import { RulesList } from "../shared/RulesList";
+import { SectionLabel } from "../shared/SectionLabel";
 import {
   TEAM_POINTS_TABLE,
   TEAM_COEFFICIENT_REFERENCE,
@@ -23,19 +26,15 @@ const COEFF_SAMPLES = [5, 10, TEAM_COEFFICIENT_REFERENCE, 50, 100].map((t) => ({
 }));
 
 export default function TeamRankingInfoPage() {
-  const navigate = useNavigate();
-
   return (
     <div>
-      <button
-        onClick={() => navigate(-1)}
-        className="text-sm text-slate-400 hover:text-slate-600 transition-colors mb-4 inline-flex items-center gap-1"
-      >
-        ← Back
-      </button>
+      <BackButton />
 
-      <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
-        Team Ranking — How it works
+      <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
+        Team Ranking
+      </div>
+      <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase mb-2">
+        How it works
       </h1>
       <p className="text-slate-500 text-sm mb-8">
         Points are awarded per event based on the sum of finishing positions of
@@ -43,46 +42,44 @@ export default function TeamRankingInfoPage() {
         on how many teams competed.
       </p>
 
-      <div className="bg-slate-900 text-white rounded-2xl px-6 py-5 mb-8 font-mono text-sm">
-        <div className="text-slate-400 text-xs uppercase tracking-widest mb-2">
-          Formula
-        </div>
+      <FormulaBox>
         <div className="text-blue-300">points = base_points × coefficient</div>
-        <div className="text-slate-400 mt-1 text-xs">
+        <div className="text-slate-500 mt-1 text-xs">
           coefficient = √(eligible_teams / 25) · rounded to 2 decimal places
         </div>
-        <div className="text-slate-400 text-xs">
+        <div className="text-slate-500 text-xs">
           team rank = lowest sum of top 3 finishing positions wins
         </div>
-      </div>
+      </FormulaBox>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <div>
-          <h2 className="text-base font-bold text-slate-800 mb-3">
-            Base points by team rank
-          </h2>
-          <div className="rounded-2xl border border-slate-200 overflow-hidden bg-white">
+          <SectionLabel className="mb-3">Base points by team rank</SectionLabel>
+          <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                  <th className="px-4 py-2 text-left">Team rank</th>
-                  <th className="px-4 py-2 text-right">Base pts</th>
+                <tr className="bg-[#060d1a] text-[10px] text-slate-600 uppercase tracking-widest border-b border-white/[0.05]">
+                  <th className="px-4 py-2.5 text-left font-bold">Team rank</th>
+                  <th className="px-4 py-2.5 text-right font-bold">Base pts</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-white/[0.04]">
                 {POINTS.map((row) => (
-                  <tr key={row.rank} className="hover:bg-slate-50/60">
-                    <td className="px-4 py-2 text-slate-700 font-medium">
+                  <tr
+                    key={row.rank}
+                    className="hover:bg-white/[0.03] transition-colors"
+                  >
+                    <td className="px-4 py-2 text-slate-300 font-medium">
                       {row.rank}
                     </td>
-                    <td className="px-4 py-2 text-right font-extrabold text-blue-700">
+                    <td className="px-4 py-2 text-right font-black text-blue-400 tabular-nums">
                       {row.pts}
                     </td>
                   </tr>
                 ))}
-                <tr className="bg-slate-50/40">
-                  <td className="px-4 py-2 text-slate-400 text-xs">11th+</td>
-                  <td className="px-4 py-2 text-right text-slate-400 text-xs">
+                <tr className="bg-white/[0.02]">
+                  <td className="px-4 py-2 text-slate-600 text-xs">11th+</td>
+                  <td className="px-4 py-2 text-right text-slate-600 text-xs">
                     0
                   </td>
                 </tr>
@@ -92,39 +89,41 @@ export default function TeamRankingInfoPage() {
         </div>
 
         <div>
-          <h2 className="text-base font-bold text-slate-800 mb-3">
-            Difficulty coefficient
-          </h2>
-          <div className="rounded-2xl border border-slate-200 overflow-hidden bg-white">
+          <SectionLabel className="mb-3">Difficulty coefficient</SectionLabel>
+          <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0c1628]">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 text-xs text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                  <th className="px-4 py-2 text-left">Teams</th>
-                  <th className="px-4 py-2 text-right">Coefficient</th>
+                <tr className="bg-[#060d1a] text-[10px] text-slate-600 uppercase tracking-widest border-b border-white/[0.05]">
+                  <th className="px-4 py-2.5 text-left font-bold">Teams</th>
+                  <th className="px-4 py-2.5 text-right font-bold">
+                    Coefficient
+                  </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-white/[0.04]">
                 {COEFF_SAMPLES.map((row) => {
                   const isRef = row.teams === TEAM_COEFFICIENT_REFERENCE;
                   return (
                     <tr
                       key={row.teams}
                       className={
-                        isRef ? "bg-blue-50/60" : "hover:bg-slate-50/60"
+                        isRef
+                          ? "bg-blue-500/10"
+                          : "hover:bg-white/[0.03] transition-colors"
                       }
                     >
                       <td
-                        className={`px-4 py-2 font-medium ${isRef ? "text-blue-700" : "text-slate-700"}`}
+                        className={`px-4 py-2 font-medium ${isRef ? "text-blue-300" : "text-slate-300"}`}
                       >
                         {row.teams}
                         {isRef && (
-                          <span className="ml-2 text-xs font-normal text-blue-400">
+                          <span className="ml-2 text-xs font-normal text-blue-500">
                             reference*
                           </span>
                         )}
                       </td>
                       <td
-                        className={`px-4 py-2 text-right font-extrabold tabular-nums ${isRef ? "text-blue-700" : "text-slate-700"}`}
+                        className={`px-4 py-2 text-right font-black tabular-nums ${isRef ? "text-blue-300" : "text-slate-300"}`}
                       >
                         {row.coeff}
                       </td>
@@ -134,27 +133,21 @@ export default function TeamRankingInfoPage() {
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-slate-400 mt-3">
+          <p className="text-xs text-slate-600 mt-3">
             * 25 eligible teams = 1.00. Races with more teams reward more
             points.
           </p>
         </div>
 
         <div>
-          <h2 className="text-base font-bold text-slate-800 mb-3">Rules</h2>
-          <div className="rounded-2xl border border-slate-200 bg-white px-6 py-5 text-sm text-slate-600">
-            <ul className="space-y-2 list-disc list-inside marker:text-slate-300">
-              <li>
-                A team must have at least 3 finishers per distance to score —
-                these are the eligible teams used in the coefficient.
-              </li>
-              <li>
-                The top 3 finishers' positions are summed — lowest combined
-                score wins (overall position, not gender).
-              </li>
-              <li>Rankings are per distance.</li>
-            </ul>
-          </div>
+          <SectionLabel className="mb-3">Rules</SectionLabel>
+          <RulesList
+            items={[
+              "A team must have at least 3 finishers per distance to score — these are the eligible teams used in the coefficient.",
+              "The top 3 finishers' positions are summed — lowest combined score wins (overall position, not gender).",
+              "Rankings are per distance.",
+            ]}
+          />
         </div>
       </div>
     </div>
