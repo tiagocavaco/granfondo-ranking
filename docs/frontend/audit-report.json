@@ -1,0 +1,2853 @@
+{
+  "pages": [
+    {
+      "name": "01-events-past",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/01-events-past-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 6,
+      "smallSample": [
+        {
+          "tag": "A",
+          "text": "Predictions ✦",
+          "h": 30,
+          "w": 101
+        },
+        {
+          "tag": "A",
+          "text": "Official Page ↗",
+          "h": 30,
+          "w": 121
+        },
+        {
+          "tag": "SELECT",
+          "text": "All seasons2026202520242023",
+          "h": 33,
+          "w": 122
+        },
+        {
+          "tag": "BUTTON",
+          "text": "All",
+          "h": 32,
+          "w": 43
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Past",
+          "h": 32,
+          "w": 56
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Upcoming",
+          "h": 32,
+          "w": 93
+        }
+      ],
+      "tinyText": 609,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Portuguese Granfondo Series"
+        },
+        {
+          "fs": 9,
+          "text": "2026"
+        },
+        {
+          "fs": 10,
+          "text": "16 events"
+        },
+        {
+          "fs": 10,
+          "text": "SEPT"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 10041
+    },
+    {
+      "name": "02-events-upcoming",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/02-events-upcoming-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 6,
+      "smallSample": [
+        {
+          "tag": "A",
+          "text": "Predictions ✦",
+          "h": 30,
+          "w": 101
+        },
+        {
+          "tag": "A",
+          "text": "Official Page ↗",
+          "h": 30,
+          "w": 121
+        },
+        {
+          "tag": "SELECT",
+          "text": "All seasons2026202520242023",
+          "h": 33,
+          "w": 122
+        },
+        {
+          "tag": "BUTTON",
+          "text": "All",
+          "h": 32,
+          "w": 43
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Past",
+          "h": 32,
+          "w": 56
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Upcoming",
+          "h": 32,
+          "w": 93
+        }
+      ],
+      "tinyText": 45,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Portuguese Granfondo Series"
+        },
+        {
+          "fs": 9,
+          "text": "2026"
+        },
+        {
+          "fs": 10,
+          "text": "5 events"
+        },
+        {
+          "fs": 10,
+          "text": "SEPT"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 1467
+    },
+    {
+      "name": "03-event-detail-results",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/event/1956",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/03-event-detail-results-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 0,
+      "smallSample": [],
+      "tinyText": 2,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 900
+    },
+    {
+      "name": "04-event-upcoming-participants",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/event/1943",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/04-event-upcoming-participants-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 69,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        },
+        {
+          "tag": "A",
+          "text": "Predictions ✦",
+          "h": 30,
+          "w": 101
+        },
+        {
+          "tag": "A",
+          "text": "Official Page ↗",
+          "h": 30,
+          "w": 121
+        },
+        {
+          "tag": "A",
+          "text": "Bruna SilvaIndividual",
+          "h": 20,
+          "w": 585
+        },
+        {
+          "tag": "A",
+          "text": "Miguel CarvalhoIndividual",
+          "h": 20,
+          "w": 585
+        },
+        {
+          "tag": "A",
+          "text": "Fermín ArinesIndividual",
+          "h": 20,
+          "w": 585
+        },
+        {
+          "tag": "A",
+          "text": "Artur CostaIndividual",
+          "h": 20,
+          "w": 585
+        },
+        {
+          "tag": "A",
+          "text": "Alcino CunhaIndividual",
+          "h": 20,
+          "w": 585
+        }
+      ],
+      "tinyText": 4,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Upcoming"
+        },
+        {
+          "fs": 9,
+          "text": "2026"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 6314
+    },
+    {
+      "name": "05-predictions",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/event/1943/predictions",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/05-predictions-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 5,
+      "smallSample": [
+        {
+          "tag": "A",
+          "text": "← Back to event",
+          "h": 20,
+          "w": 104
+        },
+        {
+          "tag": "A",
+          "text": "How it works ↗",
+          "h": 16,
+          "w": 78
+        },
+        {
+          "tag": "A",
+          "text": "Page ↗Official Page ↗",
+          "h": 30,
+          "w": 121
+        },
+        {
+          "tag": "BUTTON",
+          "text": "MMen",
+          "h": 34,
+          "w": 52
+        },
+        {
+          "tag": "BUTTON",
+          "text": "FWomen",
+          "h": 34,
+          "w": 72
+        }
+      ],
+      "tinyText": 41,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Pre-Race Predictions"
+        },
+        {
+          "fs": 9,
+          "text": "Overall Favorites"
+        },
+        {
+          "fs": 10,
+          "text": "Male Favorite"
+        },
+        {
+          "fs": 10,
+          "text": "59 events"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 2308
+    },
+    {
+      "name": "06-athlete-ranking",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/ranking",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/06-athlete-ranking-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 200,
+      "smallSample": [
+        {
+          "tag": "SELECT",
+          "text": "2026202520242023",
+          "h": 33,
+          "w": 83
+        },
+        {
+          "tag": "BUTTON",
+          "text": "GFGranfondo",
+          "h": 32,
+          "w": 99
+        },
+        {
+          "tag": "BUTTON",
+          "text": "MFMediofondo",
+          "h": 32,
+          "w": 108
+        },
+        {
+          "tag": "BUTTON",
+          "text": "MiniMinifondo",
+          "h": 32,
+          "w": 95
+        },
+        {
+          "tag": "BUTTON",
+          "text": "MMen",
+          "h": 34,
+          "w": 52
+        },
+        {
+          "tag": "BUTTON",
+          "text": "FWomen",
+          "h": 34,
+          "w": 72
+        },
+        {
+          "tag": "A",
+          "text": "Love Tiles",
+          "h": 15,
+          "w": 377
+        },
+        {
+          "tag": "A",
+          "text": "Love Tiles",
+          "h": 15,
+          "w": 377
+        }
+      ],
+      "tinyText": 21,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Portuguese Granfondo Series"
+        },
+        {
+          "fs": 10,
+          "text": "Love Tiles"
+        },
+        {
+          "fs": 10,
+          "text": "pts"
+        },
+        {
+          "fs": 10,
+          "text": "9 races"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 6908
+    },
+    {
+      "name": "07-team-ranking",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/teams",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/07-team-ranking-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 93,
+      "smallSample": [
+        {
+          "tag": "SELECT",
+          "text": "2026202520242023",
+          "h": 33,
+          "w": 83
+        },
+        {
+          "tag": "BUTTON",
+          "text": "GFGranfondo",
+          "h": 32,
+          "w": 99
+        },
+        {
+          "tag": "BUTTON",
+          "text": "MFMediofondo",
+          "h": 32,
+          "w": 108
+        },
+        {
+          "tag": "BUTTON",
+          "text": "MiniMinifondo",
+          "h": 32,
+          "w": 95
+        },
+        {
+          "tag": "A",
+          "text": "How scoring works →",
+          "h": 16,
+          "w": 117
+        },
+        {
+          "tag": "A",
+          "text": "Love Tiles",
+          "h": 17,
+          "w": 66
+        },
+        {
+          "tag": "A",
+          "text": "Penacova Firstbike Reconco",
+          "h": 17,
+          "w": 183
+        },
+        {
+          "tag": "A",
+          "text": "Casa Benfica Almodôvar",
+          "h": 17,
+          "w": 156
+        }
+      ],
+      "tinyText": 15,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Portuguese Granfondo Series"
+        },
+        {
+          "fs": 10,
+          "text": "pts"
+        },
+        {
+          "fs": 10,
+          "text": "12 events · best #1"
+        },
+        {
+          "fs": 10,
+          "text": "pts"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 6122
+    },
+    {
+      "name": "08-athlete-profile",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/athlete/58",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/08-athlete-profile-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 47,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        },
+        {
+          "tag": "A",
+          "text": "Compare ↗",
+          "h": 30,
+          "w": 84
+        },
+        {
+          "tag": "A",
+          "text": "Casa Benfica Almodôvar/Banco P",
+          "h": 20,
+          "w": 1166
+        },
+        {
+          "tag": "SELECT",
+          "text": "All seasons2026202520242023",
+          "h": 26,
+          "w": 104
+        },
+        {
+          "tag": "A",
+          "text": "Casa Benfica Almodôvar/Banco P",
+          "h": 15,
+          "w": 276
+        },
+        {
+          "tag": "A",
+          "text": "Algarve Granfondo 2026",
+          "h": 17,
+          "w": 153
+        },
+        {
+          "tag": "A",
+          "text": "Aveiro Spring Classic 2026",
+          "h": 17,
+          "w": 169
+        },
+        {
+          "tag": "A",
+          "text": "EuroBEC Granfondo 2026",
+          "h": 17,
+          "w": 161
+        }
+      ],
+      "tinyText": 121,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Men"
+        },
+        {
+          "fs": 10,
+          "text": "Races"
+        },
+        {
+          "fs": 10,
+          "text": "Podiums"
+        },
+        {
+          "fs": 10,
+          "text": "Cat Podiums"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 4051
+    },
+    {
+      "name": "09-team-profile",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/team/7",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/09-team-profile-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 79,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        },
+        {
+          "tag": "BUTTON",
+          "text": "2026",
+          "h": 32,
+          "w": 64
+        },
+        {
+          "tag": "BUTTON",
+          "text": "2025",
+          "h": 32,
+          "w": 64
+        },
+        {
+          "tag": "BUTTON",
+          "text": "2024",
+          "h": 32,
+          "w": 65
+        },
+        {
+          "tag": "BUTTON",
+          "text": "2023",
+          "h": 32,
+          "w": 64
+        },
+        {
+          "tag": "INPUT",
+          "text": "",
+          "h": 34,
+          "w": 224
+        },
+        {
+          "tag": "A",
+          "text": "🇵🇹[athlete]",
+          "h": 20,
+          "w": 894
+        },
+        {
+          "tag": "A",
+          "text": "🇵🇹António  Novo",
+          "h": 20,
+          "w": 894
+        }
+      ],
+      "tinyText": 7,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Seasons"
+        },
+        {
+          "fs": 10,
+          "text": "Members"
+        },
+        {
+          "fs": 10,
+          "text": "Events"
+        },
+        {
+          "fs": 10,
+          "text": "Members (143)"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 3317
+    },
+    {
+      "name": "10-athletes",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/athletes",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/10-athletes-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 0,
+      "smallSample": [],
+      "tinyText": 4,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Portuguese Granfondo Series"
+        },
+        {
+          "fs": 10,
+          "text": "Most active athletes"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 4001
+    },
+    {
+      "name": "11-compare-empty",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/compare",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/11-compare-empty-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 1,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        }
+      ],
+      "tinyText": 3,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Athlete Comparison"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 900
+    },
+    {
+      "name": "12-compare-filled",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/compare?a=68&b=486",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/12-compare-filled-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 19,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        },
+        {
+          "tag": "A",
+          "text": "[athlete]",
+          "h": 28,
+          "w": 134
+        },
+        {
+          "tag": "A",
+          "text": "[athlete]",
+          "h": 28,
+          "w": 123
+        },
+        {
+          "tag": "SELECT",
+          "text": "All seasons202620242023",
+          "h": 26,
+          "w": 104
+        },
+        {
+          "tag": "A",
+          "text": "Figueira Champions Classic 202",
+          "h": 17,
+          "w": 212
+        },
+        {
+          "tag": "A",
+          "text": "Viana Granfondo by KTM 2026",
+          "h": 17,
+          "w": 189
+        },
+        {
+          "tag": "A",
+          "text": "Granfondo Torres Vedras 2026",
+          "h": 17,
+          "w": 192
+        },
+        {
+          "tag": "A",
+          "text": "Love Tiles Douro Granfondo 202",
+          "h": 17,
+          "w": 212
+        }
+      ],
+      "tinyText": 44,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Athlete Comparison"
+        },
+        {
+          "fs": 10,
+          "text": "Wins"
+        },
+        {
+          "fs": 10,
+          "text": "Podiums"
+        },
+        {
+          "fs": 10,
+          "text": "Cat Podiums"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 2255
+    },
+    {
+      "name": "13-ranking-info",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/ranking-info",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/13-ranking-info-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 1,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        }
+      ],
+      "tinyText": 14,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Athlete Ranking"
+        },
+        {
+          "fs": 10,
+          "text": "Formula"
+        },
+        {
+          "fs": 10,
+          "text": "Base points by position"
+        },
+        {
+          "fs": 10,
+          "text": "Gender position"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 1430
+    },
+    {
+      "name": "14-teams-info",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/teams-info",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/14-teams-info-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 1,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        }
+      ],
+      "tinyText": 14,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Team Ranking"
+        },
+        {
+          "fs": 10,
+          "text": "Formula"
+        },
+        {
+          "fs": 10,
+          "text": "Base points by team rank"
+        },
+        {
+          "fs": 10,
+          "text": "Team rank"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 1076
+    },
+    {
+      "name": "15-predictions-info",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/predictions-info",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/15-predictions-info-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 1,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 49
+        }
+      ],
+      "tinyText": 23,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Pre-Race Predictions"
+        },
+        {
+          "fs": 10,
+          "text": "Formula"
+        },
+        {
+          "fs": 10,
+          "text": "Distance coefficients"
+        },
+        {
+          "fs": 10,
+          "text": "GF"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 1176
+    },
+    {
+      "name": "16-404",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/does-not-exist",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/16-404-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 0,
+      "smallSample": [],
+      "tinyText": 2,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 900
+    },
+    {
+      "name": "17-athlete-missing",
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/athlete/999999999",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/17-athlete-missing-desktop.png",
+      "overflow": false,
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "smallTargets": 1,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Go back",
+          "h": 20,
+          "w": 67
+        }
+      ],
+      "tinyText": 2,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 900
+    },
+    {
+      "name": "01-events-past",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/01-events-past-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 6,
+      "smallSample": [
+        {
+          "tag": "A",
+          "text": "Predictions ✦",
+          "h": 30,
+          "w": 104
+        },
+        {
+          "tag": "A",
+          "text": "Page ↗",
+          "h": 30,
+          "w": 82
+        },
+        {
+          "tag": "SELECT",
+          "text": "All seasons2026202520242023",
+          "h": 33,
+          "w": 297
+        },
+        {
+          "tag": "BUTTON",
+          "text": "All",
+          "h": 32,
+          "w": 99
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Past",
+          "h": 32,
+          "w": 99
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Upcoming",
+          "h": 32,
+          "w": 99
+        }
+      ],
+      "tinyText": 609,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Portuguese Granfondo Series"
+        },
+        {
+          "fs": 9,
+          "text": "2026"
+        },
+        {
+          "fs": 10,
+          "text": "16 events"
+        },
+        {
+          "fs": 9,
+          "text": "SEPT"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 10003
+    },
+    {
+      "name": "02-events-upcoming",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/02-events-upcoming-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 6,
+      "smallSample": [
+        {
+          "tag": "A",
+          "text": "Predictions ✦",
+          "h": 30,
+          "w": 104
+        },
+        {
+          "tag": "A",
+          "text": "Page ↗",
+          "h": 30,
+          "w": 82
+        },
+        {
+          "tag": "SELECT",
+          "text": "All seasons2026202520242023",
+          "h": 33,
+          "w": 297
+        },
+        {
+          "tag": "BUTTON",
+          "text": "All",
+          "h": 32,
+          "w": 99
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Past",
+          "h": 32,
+          "w": 99
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Upcoming",
+          "h": 32,
+          "w": 99
+        }
+      ],
+      "tinyText": 45,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Portuguese Granfondo Series"
+        },
+        {
+          "fs": 9,
+          "text": "2026"
+        },
+        {
+          "fs": 10,
+          "text": "5 events"
+        },
+        {
+          "fs": 9,
+          "text": "SEPT"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 1519
+    },
+    {
+      "name": "03-event-detail-results",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/event/1956",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/03-event-detail-results-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 0,
+      "smallSample": [],
+      "tinyText": 2,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 844
+    },
+    {
+      "name": "04-event-upcoming-participants",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/event/1943",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/04-event-upcoming-participants-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 3,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        },
+        {
+          "tag": "A",
+          "text": "Predictions ✦",
+          "h": 30,
+          "w": 104
+        },
+        {
+          "tag": "A",
+          "text": "Page ↗Official Page ↗",
+          "h": 30,
+          "w": 82
+        }
+      ],
+      "tinyText": 4,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Upcoming"
+        },
+        {
+          "fs": 9,
+          "text": "2026"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 7700
+    },
+    {
+      "name": "05-predictions",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/event/1943/predictions",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/05-predictions-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 5,
+      "smallSample": [
+        {
+          "tag": "A",
+          "text": "← Back to event",
+          "h": 20,
+          "w": 105
+        },
+        {
+          "tag": "A",
+          "text": "How it works ↗",
+          "h": 16,
+          "w": 79
+        },
+        {
+          "tag": "A",
+          "text": "Page ↗Official Page ↗",
+          "h": 30,
+          "w": 82
+        },
+        {
+          "tag": "BUTTON",
+          "text": "MMen",
+          "h": 34,
+          "w": 36
+        },
+        {
+          "tag": "BUTTON",
+          "text": "FWomen",
+          "h": 34,
+          "w": 32
+        }
+      ],
+      "tinyText": 41,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Pre-Race Predictions"
+        },
+        {
+          "fs": 9,
+          "text": "Overall Favorites"
+        },
+        {
+          "fs": 10,
+          "text": "Male Favorite"
+        },
+        {
+          "fs": 10,
+          "text": "59 events"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 2504
+    },
+    {
+      "name": "06-athlete-ranking",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/ranking",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/06-athlete-ranking-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 198,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "MMen",
+          "h": 34,
+          "w": 36
+        },
+        {
+          "tag": "BUTTON",
+          "text": "FWomen",
+          "h": 34,
+          "w": 32
+        },
+        {
+          "tag": "SELECT",
+          "text": "2026202520242023",
+          "h": 33,
+          "w": 297
+        },
+        {
+          "tag": "SELECT",
+          "text": "GranfondoMediofondoMinifondo",
+          "h": 33,
+          "w": 286
+        },
+        {
+          "tag": "A",
+          "text": "Love Tiles",
+          "h": 15,
+          "w": 324
+        },
+        {
+          "tag": "A",
+          "text": "Love Tiles",
+          "h": 15,
+          "w": 145
+        },
+        {
+          "tag": "A",
+          "text": "Penacova Firstbikereconco",
+          "h": 15,
+          "w": 145
+        },
+        {
+          "tag": "A",
+          "text": "How scoring works →",
+          "h": 16,
+          "w": 119
+        }
+      ],
+      "tinyText": 21,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Portuguese Granfondo Series"
+        },
+        {
+          "fs": 10,
+          "text": "Love Tiles"
+        },
+        {
+          "fs": 10,
+          "text": "pts"
+        },
+        {
+          "fs": 10,
+          "text": "9 races"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 7351
+    },
+    {
+      "name": "07-team-ranking",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/teams",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/07-team-ranking-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 43,
+      "smallSample": [
+        {
+          "tag": "SELECT",
+          "text": "2026202520242023",
+          "h": 33,
+          "w": 297
+        },
+        {
+          "tag": "SELECT",
+          "text": "GranfondoMediofondoMinifondo",
+          "h": 33,
+          "w": 286
+        },
+        {
+          "tag": "A",
+          "text": "How scoring works →",
+          "h": 16,
+          "w": 119
+        },
+        {
+          "tag": "A",
+          "text": "Love Tiles",
+          "h": 17,
+          "w": 70
+        },
+        {
+          "tag": "A",
+          "text": "Dbl Bike",
+          "h": 17,
+          "w": 54
+        },
+        {
+          "tag": "A",
+          "text": "Tany Nature",
+          "h": 17,
+          "w": 82
+        },
+        {
+          "tag": "A",
+          "text": "Paredes Aventura",
+          "h": 17,
+          "w": 117
+        },
+        {
+          "tag": "A",
+          "text": "RoadTrainingCentre",
+          "h": 17,
+          "w": 131
+        }
+      ],
+      "tinyText": 15,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Portuguese Granfondo Series"
+        },
+        {
+          "fs": 10,
+          "text": "pts"
+        },
+        {
+          "fs": 10,
+          "text": "12 events · best #1"
+        },
+        {
+          "fs": 10,
+          "text": "pts"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 6802
+    },
+    {
+      "name": "08-athlete-profile",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/athlete/68",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/08-athlete-profile-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 13,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        },
+        {
+          "tag": "A",
+          "text": "Compare ↗",
+          "h": 30,
+          "w": 86
+        },
+        {
+          "tag": "A",
+          "text": "Love Tiles",
+          "h": 20,
+          "w": 308
+        },
+        {
+          "tag": "SELECT",
+          "text": "All seasons2026202520242023",
+          "h": 26,
+          "w": 108
+        },
+        {
+          "tag": "A",
+          "text": "Love Tiles",
+          "h": 15,
+          "w": 66
+        },
+        {
+          "tag": "A",
+          "text": "Gerês Granfondo 2026",
+          "h": 17,
+          "w": 145
+        },
+        {
+          "tag": "A",
+          "text": "Love Tiles",
+          "h": 15,
+          "w": 66
+        },
+        {
+          "tag": "A",
+          "text": "Gerês Granfondo 2025",
+          "h": 17,
+          "w": 145
+        }
+      ],
+      "tinyText": 65,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Men"
+        },
+        {
+          "fs": 9,
+          "text": "Races"
+        },
+        {
+          "fs": 9,
+          "text": "Podiums"
+        },
+        {
+          "fs": 9,
+          "text": "Cat Podiums"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 4152
+    },
+    {
+      "name": "09-team-profile",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/team/7",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/09-team-profile-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 71,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        },
+        {
+          "tag": "SELECT",
+          "text": "2026202520242023",
+          "h": 33,
+          "w": 295
+        },
+        {
+          "tag": "INPUT",
+          "text": "",
+          "h": 34,
+          "w": 192
+        },
+        {
+          "tag": "A",
+          "text": "🇵🇹[athlete]",
+          "h": 20,
+          "w": 196
+        },
+        {
+          "tag": "A",
+          "text": "🇵🇹António  Novo",
+          "h": 20,
+          "w": 196
+        },
+        {
+          "tag": "A",
+          "text": "🇵🇹Ivo  Almeida",
+          "h": 20,
+          "w": 196
+        },
+        {
+          "tag": "A",
+          "text": "🇵🇹Tiago Novo",
+          "h": 20,
+          "w": 196
+        },
+        {
+          "tag": "A",
+          "text": "🇵🇹Joaquim Aires",
+          "h": 20,
+          "w": 196
+        }
+      ],
+      "tinyText": 7,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 9,
+          "text": "Seasons"
+        },
+        {
+          "fs": 9,
+          "text": "Members"
+        },
+        {
+          "fs": 9,
+          "text": "Events"
+        },
+        {
+          "fs": 10,
+          "text": "Members (143)"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 4365
+    },
+    {
+      "name": "10-athletes",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/athletes",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/10-athletes-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 0,
+      "smallSample": [],
+      "tinyText": 4,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Portuguese Granfondo Series"
+        },
+        {
+          "fs": 10,
+          "text": "Most active athletes"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 3995
+    },
+    {
+      "name": "11-compare-empty",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/compare",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/11-compare-empty-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 1,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        }
+      ],
+      "tinyText": 3,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Athlete Comparison"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 844
+    },
+    {
+      "name": "12-compare-filled",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/compare?a=68&b=486",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/12-compare-filled-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 2,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        },
+        {
+          "tag": "SELECT",
+          "text": "All seasons202620242023",
+          "h": 26,
+          "w": 108
+        }
+      ],
+      "tinyText": 41,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Athlete Comparison"
+        },
+        {
+          "fs": 10,
+          "text": "Wins"
+        },
+        {
+          "fs": 10,
+          "text": "Podiums"
+        },
+        {
+          "fs": 10,
+          "text": "Cat Podiums"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 2995
+    },
+    {
+      "name": "13-ranking-info",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/ranking-info",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/13-ranking-info-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 1,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        }
+      ],
+      "tinyText": 14,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Athlete Ranking"
+        },
+        {
+          "fs": 10,
+          "text": "Formula"
+        },
+        {
+          "fs": 10,
+          "text": "Base points by position"
+        },
+        {
+          "fs": 10,
+          "text": "Gender position"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 1983
+    },
+    {
+      "name": "14-teams-info",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/teams-info",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/14-teams-info-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 1,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 48
+        }
+      ],
+      "tinyText": 14,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Team Ranking"
+        },
+        {
+          "fs": 10,
+          "text": "Formula"
+        },
+        {
+          "fs": 10,
+          "text": "Base points by team rank"
+        },
+        {
+          "fs": 10,
+          "text": "Team rank"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 1721
+    },
+    {
+      "name": "15-predictions-info",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/predictions-info",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/15-predictions-info-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 1,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Back",
+          "h": 20,
+          "w": 49
+        }
+      ],
+      "tinyText": 23,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        },
+        {
+          "fs": 10,
+          "text": "Pre-Race Predictions"
+        },
+        {
+          "fs": 10,
+          "text": "Formula"
+        },
+        {
+          "fs": 10,
+          "text": "Distance coefficients"
+        },
+        {
+          "fs": 10,
+          "text": "GF"
+        }
+      ],
+      "h1": 1,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 1725
+    },
+    {
+      "name": "16-404",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/does-not-exist",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/16-404-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 0,
+      "smallSample": [],
+      "tinyText": 2,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 844
+    },
+    {
+      "name": "17-athlete-missing",
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/athlete/999999999",
+      "file": "/home/ubunto-dev/.claude/jobs/a6d5d8b6/tmp/shots/17-athlete-missing-mobile.png",
+      "overflow": false,
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "smallTargets": 1,
+      "smallSample": [
+        {
+          "tag": "BUTTON",
+          "text": "← Go back",
+          "h": 20,
+          "w": 67
+        }
+      ],
+      "tinyText": 2,
+      "tinySample": [
+        {
+          "fs": 10,
+          "text": "Race Events · Rankings"
+        },
+        {
+          "fs": 10,
+          "text": "▾"
+        }
+      ],
+      "h1": 0,
+      "title": "Granfondo Portugal",
+      "metaDesc": false,
+      "lang": "en",
+      "height": 844
+    }
+  ],
+  "console": [
+    {
+      "vp": "desktop",
+      "type": "warning",
+      "text": "No routes matched location \"/does-not-exist\" ",
+      "url": "http://localhost:5173/granfondo-ranking/does-not-exist"
+    },
+    {
+      "vp": "desktop",
+      "type": "warning",
+      "text": "No routes matched location \"/does-not-exist\" ",
+      "url": "http://localhost:5173/granfondo-ranking/does-not-exist"
+    },
+    {
+      "vp": "mobile",
+      "type": "warning",
+      "text": "No routes matched location \"/does-not-exist\" ",
+      "url": "http://localhost:5173/granfondo-ranking/does-not-exist"
+    },
+    {
+      "vp": "mobile",
+      "type": "warning",
+      "text": "No routes matched location \"/does-not-exist\" ",
+      "url": "http://localhost:5173/granfondo-ranking/does-not-exist"
+    }
+  ],
+  "timing": {
+    "desktop": {
+      "dbReadyMs": 2498,
+      "resources": [
+        {
+          "n": "sql-wasm-browser.wasm?import&url",
+          "size": 1072,
+          "dec": 772,
+          "dur": 104
+        },
+        {
+          "n": "sql-wasm-browser.wasm",
+          "size": 660030,
+          "dec": 659730,
+          "dur": 11
+        },
+        {
+          "n": "data.db.enc",
+          "size": 50913608,
+          "dec": 50913308,
+          "dur": 508
+        }
+      ],
+      "memory": {
+        "usedJSHeapMB": 273,
+        "totalJSHeapMB": 273
+      }
+    },
+    "mobile": {
+      "dbReadyMs": 2430,
+      "resources": [
+        {
+          "n": "sql-wasm-browser.wasm?import&url",
+          "size": 1072,
+          "dec": 772,
+          "dur": 120
+        },
+        {
+          "n": "sql-wasm-browser.wasm",
+          "size": 660030,
+          "dec": 659730,
+          "dur": 18
+        },
+        {
+          "n": "data.db.enc",
+          "size": 50913608,
+          "dec": 50913308,
+          "dur": 456
+        }
+      ],
+      "memory": {
+        "usedJSHeapMB": 273,
+        "totalJSHeapMB": 273
+      }
+    }
+  },
+  "network": [
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "desktop",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 200,
+      "len": "772"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm?import&url",
+      "status": 304
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/@fs/home/ubunto-dev/Projects/granfondo-ranking/node_modules/sql.js/dist/sql-wasm-browser.wasm",
+      "status": 200,
+      "len": "659730"
+    },
+    {
+      "vp": "mobile",
+      "url": "http://localhost:5173/granfondo-ranking/data/data.db.enc",
+      "status": 200,
+      "len": "50913308"
+    }
+  ],
+  "searchBugRows": 92,
+  "eventHrefs": [
+    "/granfondo-ranking/event/1943/predictions",
+    "https://bikeservice.pt/event/moncao-e-melgaco-granfondo/",
+    "/granfondo-ranking/event/1956",
+    "/granfondo-ranking/event/2071",
+    "/granfondo-ranking/event/1883"
+  ]
+}

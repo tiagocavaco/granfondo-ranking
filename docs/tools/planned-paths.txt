@@ -1,0 +1,24 @@
+# Paths referenced in docs that do not exist yet because they are proposed
+# by a plan or spec. check-refs.mjs skips these. Remove a line once the
+# path exists.
+scraper/fixtures/
+scraper/flags-summary.json
+scraper/events.yaml
+scraper/events.schema.json
+scraper/registry-proposals.yaml
+scraper/routes/
+scraper/state.db.enc
+scraper/review/
+scraper/review/decisions.json
+scraper/src/db/overrides.ts
+scraper/src/scripts/export-registry.ts
+scraper/src/scrapers/adapter.ts
+scraper/scripts/ci-window.py
+frontend/src/ui/
+backoffice/server/index.ts
+scraper/src/run/
+scraper/src/db/open.ts
+utils/src/log.ts
+utils/src/errors.ts
+frontend/src/ui/
+scraper/overrides.json
