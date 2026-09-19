@@ -19,6 +19,7 @@ import AthleteRankingInfoPage from "./components/athlete-ranking/AthleteRankingI
 import TeamRankingInfoPage from "./components/team-ranking/TeamRankingInfoPage";
 import PredictionsPage from "./components/predictions/PredictionsPage";
 import PredictionsInfoPage from "./components/predictions/PredictionsInfoPage";
+import NotFoundPage from "./components/shared/NotFoundPage";
 import { api, setGetDb } from "@granfondo/api";
 import { getDb } from "./db/db-client";
 import { formatAge } from "./utils/date";
@@ -353,6 +354,7 @@ function AppShell() {
             path="/event/:id/predictions/info"
             element={<PredictionsInfoPage />}
           />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       <Footer />

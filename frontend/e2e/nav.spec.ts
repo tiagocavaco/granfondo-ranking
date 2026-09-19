@@ -20,6 +20,18 @@ test("nav logo shows cycling icon", async ({ page }) => {
   await expect(page.locator("header svg circle").first()).toBeVisible();
 });
 
+test("home page title is Granfondo Portugal", async ({ page }) => {
+  await expect(page).toHaveTitle("Granfondo Portugal");
+});
+
+test("unknown route shows 404 page", async ({ page }) => {
+  await page.goto("does-not-exist");
+  await expect(page.getByRole("heading", { name: "404" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: /back to events/i }),
+  ).toBeVisible();
+});
+
 test("nav shows site name", async ({ page }) => {
   // Brand name is inside "hidden sm:block" — hidden on mobile but always in the DOM
   await expect(

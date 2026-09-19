@@ -7,6 +7,7 @@ import { SegmentedControl } from "../shared/SegmentedControl";
 import { GenderToggle } from "../shared/GenderToggle";
 import { AggregateRankingPodium } from "./AggregateRankingPodium";
 import { AggregateRankingTable } from "./AggregateRankingTable";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 export default function AggregateRankingPage() {
   const [data, setData] = useState<AggregateRanking | null>(null);
@@ -17,6 +18,8 @@ export default function AggregateRankingPage() {
   const [distance, setDistance] = useState("");
   const [gender, setGender] = useState<"M" | "F">("M");
   const [search, setSearch] = useState("");
+
+  usePageTitle("Athlete Ranking");
 
   useEffect(() => {
     api
@@ -84,9 +87,9 @@ export default function AggregateRankingPage() {
           <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
             Portuguese Granfondo Series
           </div>
-          <h2 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase">
+          <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase">
             Athlete Ranking
-          </h2>
+          </h1>
         </div>
         <div className="sm:hidden mt-7">
           <GenderToggle

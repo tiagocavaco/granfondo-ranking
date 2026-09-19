@@ -41,13 +41,13 @@ test("no horizontal scroll on athlete profile", async ({ page }) => {
 
 test("no horizontal scroll on athlete ranking", async ({ page }) => {
   await page.goto("ranking");
-  await page.waitForSelector("h2", { timeout: 15000 });
+  await page.waitForSelector("h1", { timeout: 15000 });
   await noHorizontalScroll(page);
 });
 
 test("no horizontal scroll on team ranking", async ({ page }) => {
   await page.goto("teams");
-  await page.waitForSelector("h2", { timeout: 15000 });
+  await page.waitForSelector("h1", { timeout: 15000 });
   await noHorizontalScroll(page);
 });
 

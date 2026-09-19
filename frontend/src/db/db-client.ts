@@ -13,20 +13,22 @@ export type { DrizzleDb } from "@granfondo/database/db-client";
 
 const { getDb } = createDbClient({
   fetchWasm: async () => {
-    const r = await fetch(sqlWasmUrl);
-    if (!r.ok) {
-      throw new Error(`Failed to fetch WASM: ${r.status}`);
+    const response = await fetch(sqlWasmUrl);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch WASM: ${response.status}`);
     }
 
-    return r.arrayBuffer();
+    return response.arrayBuffer();
   },
   fetchEncryptedDb: async () => {
-    const r = await fetch(`${import.meta.env.BASE_URL}data/data.db.enc`);
-    if (!r.ok) {
-      throw new Error(`Failed to fetch data.db.enc: ${r.status}`);
+    const gitSha = (import.meta.env.VITE_GIT_SHA as string | undefined) ?? "";
+    const dbUrl = `${import.meta.env.BASE_URL}data/data.db.enc${gitSha ? `?v=${gitSha.slice(0, 8)}` : ""}`;
+    const response = await fetch(dbUrl);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data.db.enc: ${response.status}`);
     }
 
-    return r.arrayBuffer();
+    return response.arrayBuffer();
   },
   decryptDb: (enc: ArrayBuffer) => {
     const keyHex = import.meta.env.VITE_DATA_KEY as string | undefined;
