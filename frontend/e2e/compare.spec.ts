@@ -84,9 +84,14 @@ test.describe("Compare — loaded with two athletes", () => {
   });
 
   test("shared events table has Winner column header", async ({ page }) => {
+    // Winner column is hidden md:table-cell — display:none below 768px so getByRole can't find it
+    // Use a CSS locator so DOM-attached but non-visible elements are matched
     await expect(
-      page.getByRole("columnheader", { name: /^Winner$/i }).first(),
-    ).toBeVisible();
+      page
+        .locator("th")
+        .filter({ hasText: /^Winner$/ })
+        .first(),
+    ).toBeAttached();
   });
 
   test("shared events table has at least one data row", async ({ page }) => {

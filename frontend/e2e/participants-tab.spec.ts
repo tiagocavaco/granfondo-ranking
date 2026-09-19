@@ -23,14 +23,13 @@ test("upcoming event shows Participants tab content", async ({ page }) => {
     return;
   }
   // Upcoming events show ParticipantsTab, not ResultsTab
-  // Wait for the table to render (participants load async), then check count label
+  // Wait for the table to render (participants load async)
   await page.waitForSelector("table", { timeout: 10000 });
-  // The desktop count label is a span — options inside closed selects are hidden
-  const participantsText = page
-    .locator("span")
-    .filter({ hasText: /participants/i })
-    .first();
-  await expect(participantsText).toBeVisible();
+  // Verify the Athlete column header is visible — confirms ParticipantsTab rendered
+  // (the count label is desktop-only; the Athlete column is always visible)
+  await expect(
+    page.getByRole("columnheader", { name: /^Athlete$/i }),
+  ).toBeVisible();
 });
 
 test("participants tab has search input", async ({ page }) => {
@@ -50,7 +49,8 @@ test("participants tab shows Bib column", async ({ page }) => {
     test.skip();
     return;
   }
-  await expect(page.getByText("Bib")).toBeVisible();
+  // Bib column is hidden sm:table-cell — in DOM on all viewports, visible only on desktop
+  await expect(page.getByText("Bib")).toBeAttached();
 });
 
 test("participants tab shows participant rows", async ({ page }) => {

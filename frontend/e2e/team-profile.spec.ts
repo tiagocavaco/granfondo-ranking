@@ -9,7 +9,8 @@ async function goToFirstTeamProfile(page: import("@playwright/test").Page) {
   const teamLink = page.locator("tbody").locator('a[href*="/team/"]').first();
   await teamLink.click();
   await page.waitForURL(/\/team\/\d+/);
-  await page.waitForSelector("h1, [class*='font-display']", { timeout: 15000 });
+  // Wait for h1 only — [class*='font-display'] also matches the nav logo which is hidden on mobile
+  await page.waitForSelector("h1", { timeout: 15000 });
 }
 
 test("team profile shows team name heading", async ({ page }) => {

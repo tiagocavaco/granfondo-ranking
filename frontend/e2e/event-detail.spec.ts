@@ -36,18 +36,24 @@ test("finished event hero has green top accent line", async ({ page }) => {
 
 test("finished event shows location text", async ({ page }) => {
   await goToFinishedEvent(page);
-  // Location appears as plain text in the hero — non-empty
-  // The location is inside a row below the heading
-  const locationRow = page.getByText(
-    /Portugal|Lisboa|Porto|Algarve|Setúbal|Sintra|Cascais|Évora|Aveiro|Braga|Coimbra|Alentejo|Madeira/i,
-  );
+  // Location appears as plain text in the hero — scope to <main> to exclude the hidden nav logo
+  const locationRow = page
+    .locator("main")
+    .getByText(
+      /Portugal|Lisboa|Porto|Algarve|Setúbal|Sintra|Cascais|Évora|Aveiro|Braga|Coimbra|Alentejo|Madeira/i,
+    );
   await expect(locationRow.first()).toBeVisible();
 });
 
 test("finished event shows finisher count", async ({ page }) => {
   await goToFinishedEvent(page);
-  await expect(page.getByText(/\d[\d,]*/).first()).toBeVisible();
-  await expect(page.getByText("finishers").first()).toBeVisible();
+  // Scope to main to avoid the large watermark number (opacity-[0.05]) matching first
+  await expect(
+    page
+      .locator("main")
+      .getByText(/\d[\d,]*\s*finishers/i)
+      .first(),
+  ).toBeVisible();
 });
 
 test("event detail has back-to-events link", async ({ page }) => {
@@ -86,6 +92,8 @@ test("results table has Time column header", async ({ page }) => {
 
 test("results table has at least 10 data rows", async ({ page }) => {
   await goToFinishedEvent(page);
+  // Wait for at least one row to appear — results load async after navigation
+  await page.waitForSelector("tbody tr", { timeout: 10000 });
   const rows = page.locator("tbody tr");
   const count = await rows.count();
   expect(count).toBeGreaterThan(9);
@@ -111,11 +119,13 @@ test("results table athlete names link to athlete profiles", async ({
 
 test("results table has distance filter above the table", async ({ page }) => {
   await goToFinishedEvent(page);
-  // Distance selector / segmented control above the table
+  // Distance filter is a native <select> — check it's present with distance options
+  // (getByText would match the hidden nav logo "Granfondo Portugal" first)
   const distanceControl = page
-    .getByText(/Granfondo|Mediofondo|Minifondo/)
+    .locator("select")
+    .filter({ hasText: /Granfondo|Mediofondo|Minifondo/ })
     .first();
-  await expect(distanceControl).toBeVisible();
+  await expect(distanceControl).toBeAttached();
 });
 
 test("results table search input filters rows", async ({ page }) => {

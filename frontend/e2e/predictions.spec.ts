@@ -12,7 +12,8 @@ async function goToPredictions(page: import("@playwright/test").Page) {
   }
   await predictionsLink.click();
   await page.waitForURL(/\/predictions$/);
-  await page.waitForSelector("h2, [class*='font-display']", { timeout: 15000 });
+  // Wait for h2 only — [class*='font-display'] also matches the nav logo which is hidden on mobile
+  await page.waitForSelector("h2", { timeout: 15000 });
   return true;
 }
 

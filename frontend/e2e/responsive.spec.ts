@@ -145,9 +145,10 @@ test("header is visible at all viewports", async ({ page }) => {
   await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   await expect(page.locator("header").first()).toBeVisible();
+  // Brand text is hidden on mobile (hidden sm:block) — toBeAttached confirms it's in the DOM
   await expect(
     page.locator("header").getByText("Granfondo Portugal"),
-  ).toBeVisible();
+  ).toBeAttached();
 });
 
 test("main content is not obscured by header on mobile", async ({

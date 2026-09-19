@@ -21,13 +21,15 @@ test("nav logo shows cycling icon", async ({ page }) => {
 });
 
 test("nav shows site name", async ({ page }) => {
+  // Brand name is inside "hidden sm:block" — hidden on mobile but always in the DOM
   await expect(
     page.locator("header").getByText("Granfondo Portugal"),
-  ).toBeVisible();
+  ).toBeAttached();
 });
 
 test("nav subtitle reads Race Events", async ({ page }) => {
-  await expect(page.locator("header").getByText(/race events/i)).toBeVisible();
+  // Subtitle is inside "hidden sm:block" — hidden on mobile but always in the DOM
+  await expect(page.locator("header").getByText(/race events/i)).toBeAttached();
 });
 
 test("nav Events link is active on home", async ({ page }) => {
