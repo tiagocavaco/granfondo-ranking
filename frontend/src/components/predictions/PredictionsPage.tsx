@@ -183,7 +183,7 @@ function CategorySection({
     <div className="border-b border-white/[0.05] last:border-0">
       <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-[#060d1a] border-b border-white/[0.05]">
         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-          {category}
+          {category || "No category"}
         </span>
         {preds.newcomers > 0 && preds.ranked.length > 0 && (
           <span className="shrink-0 text-[10px] text-slate-600 font-medium">

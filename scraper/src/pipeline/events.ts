@@ -153,7 +153,7 @@ export async function scrapeEvent(
   };
 
   const loadUpcomingFromDb = (previousCount: number, warning?: string): ScrapeResult => {
-    if (warning) console.warn(`  ⚠️  ${warning}`);
+    if (warning) { console.warn(`  ⚠️  ${warning}`); }
     event.participantCount = previousCount;
     const storedDistances = loadEventDistancesFromDb(sourceDb!, event.id);
     event.distances = storedDistances.length > 0 ? storedDistances : resolveDistances([], event.id);
