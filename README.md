@@ -3,7 +3,7 @@
 [![CI](https://github.com/tiagocavaco/granfondo-ranking/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/tiagocavaco/granfondo-ranking/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Unofficial season ranking tracker for the Portuguese granfondo cycling series. The series runs several road cycling events per year across Portugal (Granfondo, Mediofondo, Minifondo distances) but publishes no cross-event standings — this site scrapes each event's results and computes athlete and team rankings for the full season.
+Season ranking tracker for the Portuguese granfondo cycling series. The series runs several road cycling events per year across Portugal (Granfondo, Mediofondo, Minifondo distances) but publishes no cross-event standings — this site scrapes each event's results and computes athlete and team rankings for the full season.
 
 **[tiagocavaco.github.io/granfondo-ranking](https://tiagocavaco.github.io/granfondo-ranking/)**
 
@@ -25,7 +25,7 @@ Unofficial season ranking tracker for the Portuguese granfondo cycling series. T
 ![SQLite](https://img.shields.io/badge/SQLite_WASM-003B57?style=flat&logo=sqlite&logoColor=white)
 ![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222222?style=flat&logo=github&logoColor=white)
 
-Results are scraped into an AES-256-GCM encrypted SQLite database committed to git. The frontend decrypts and queries it in the browser via WASM (sql.js + Web Crypto) — no backend.
+Results are scraped into an AES-256-GCM encrypted SQLite database committed to git. The frontend decrypts and queries it in the browser via WASM (sql.js + Web Crypto) — no live server at runtime.
 
 ## Setup
 
@@ -41,11 +41,11 @@ VITE_DATA_KEY=<64 hex chars>
 
 ## Scripts
 
-| Command | What it does |
-|---------|-------------|
-| `npm run dev` | Frontend dev server at `localhost:5173/granfondo-ranking/` |
-| `npm run build` | Production build into `frontend/dist/` (needs `VITE_DATA_KEY`) |
-| `npm test` | Unit tests across all packages |
+| Command          | What it does                                                     |
+| ---------------- | ---------------------------------------------------------------- |
+| `npm run dev`    | Frontend dev server at `localhost:5173/granfondo-ranking/`       |
+| `npm run build`  | Production build into `frontend/dist/` (needs `VITE_DATA_KEY`)   |
+| `npm test`       | Unit tests across all packages                                   |
 | `npm run scrape` | Fetch and rebuild the database (`scraper/.env` needs `DATA_KEY`) |
 
 ## E2E tests
@@ -59,13 +59,13 @@ npm run test:e2e -- --project=mobile
 
 ## Packages
 
-| Package | Purpose |
-|---------|---------|
-| `database` | Schema, types, normalisation |
-| `utils` | Scoring formulas |
-| `api` | Query logic, environment-agnostic |
-| `scraper` | Scrapes results, builds and encrypts the DB |
-| `frontend` | React + Vite SPA |
+| Package    | Purpose                                     |
+| ---------- | ------------------------------------------- |
+| `database` | Schema, types, normalisation                |
+| `utils`    | Scoring formulas                            |
+| `api`      | Query logic, environment-agnostic           |
+| `scraper`  | Scrapes results, builds and encrypts the DB |
+| `frontend` | React + Vite SPA                            |
 
 ## Docs
 
@@ -73,4 +73,4 @@ npm run test:e2e -- --project=mobile
 
 ## License
 
-[MIT](LICENSE). Race results are public data from StopAndGo and apedalar.pt.
+[MIT](LICENSE). Race results are public data from various sources.
