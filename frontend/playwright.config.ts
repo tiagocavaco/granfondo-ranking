@@ -38,6 +38,8 @@ export default defineConfig({
       name: "mobile",
       use: {
         ...devices["iPhone 14"],
+        // Override to Chromium so CI only needs to install one browser
+        defaultBrowserType: "chromium",
         viewport: { width: 390, height: 844 },
       },
     },
