@@ -40,17 +40,42 @@ jobs:
         run: npm test
 
   changes:
+    name: Detect Changes (frontend)
     runs-on: ubuntu-latest
     outputs:
       frontend: ${{ steps.filter.outputs.frontend }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: |
             frontend:
               - 'frontend/**'
+
+      - uses: actions/setup-node@v4
+        if: steps.filter.outputs.frontend == 'true'
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.filter.outputs.frontend == 'true'
+        run: npm install
+
+      - name: Cache Playwright browsers
+        if: steps.filter.outputs.frontend == 'true'
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ hashFiles('frontend/package-lock.json') }}
+
+      - name: Install Playwright browsers
+        if: steps.filter.outputs.frontend == 'true' && steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install chromium --with-deps
+        working-directory: frontend
 
   e2e:
     needs: [test, changes]
@@ -74,20 +99,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Cache Playwright browsers
+      - name: Restore Playwright browsers
         uses: actions/cache@v4
-        id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ hashFiles('frontend/package-lock.json') }}
 
-      - name: Install Playwright browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install chromium --with-deps
-        working-directory: frontend
-
       - name: Install Playwright system deps
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
         working-directory: frontend
 
