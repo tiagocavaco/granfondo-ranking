@@ -27,7 +27,9 @@ test("home page title is Granfondo Portugal", async ({ page }) => {
 test("unknown route shows 404 page", async ({ page }) => {
   await page.goto("does-not-exist");
   await expect(page.getByRole("heading", { name: "404" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /back to events/i })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: /back to events/i }),
+  ).toBeVisible();
 });
 
 test("nav shows site name", async ({ page }) => {
