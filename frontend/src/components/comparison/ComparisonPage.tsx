@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "../shared/Spinner";
@@ -125,7 +125,6 @@ const COLORS = ["#3b82f6", "#f43f5e"] as const;
 
 export default function ComparisonPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
 
   const aId = Number(searchParams.get("a") ?? 0);
   const bId = Number(searchParams.get("b") ?? 0);
