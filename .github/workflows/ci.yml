@@ -40,7 +40,7 @@ jobs:
         run: npm test
 
   changes:
-    name: Detect Changes (frontend)
+    name: Detect FE Changes
     runs-on: ubuntu-latest
     outputs:
       frontend: ${{ steps.filter.outputs.frontend }}
