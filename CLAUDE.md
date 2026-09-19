@@ -15,6 +15,7 @@ Monorepo tracking the Portuguese granfondo cycling series. Four npm workspaces:
 ```bash
 npm run scrape          # full scrape (uses cached results where available)
 npm run scrape:force    # ignore cache, re-scrape everything
+npm run scrape:fast     # skip participant API calls for upcoming events — use after alias/assignment changes
 npm run dev             # start frontend dev server
 npm run build           # production frontend build
 ```
@@ -118,6 +119,7 @@ already knows what `ca` and `tokB` mean.
 | How athlete identity is resolved | `scraper/src/pipeline/results/results.ts` (orchestrator) + `passes/` |
 | How rankings are computed | `scraper/src/pipeline/ranking.ts` |
 | How participant lists are refreshed | `scraper/src/pipeline/participants/participants-refresh.ts` |
+| Participant drop guard (protect against API returning 0) | `scraper/src/pipeline/participants/helpers.ts` |
 | How the DB is built and encrypted | `scraper/src/db/write-db.ts` |
 | How the frontend queries data | `api/src/` (shared package) |
 | Manual DB overrides (aliases, assignments) | `scraper/src/db/manage-db.ts` |

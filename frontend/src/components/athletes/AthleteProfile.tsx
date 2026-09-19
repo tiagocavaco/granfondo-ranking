@@ -49,20 +49,19 @@ export default function AthleteProfile() {
 
   if (error || !data) {
     return (
-      <div className="text-center py-16 text-slate-400">
-        <svg
-          className="w-12 h-12 mx-auto mb-3 text-slate-700"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-        </svg>
-        <p className="font-semibold text-slate-600 text-lg">
+      <div className="flex flex-col items-center justify-center py-32 gap-6 text-center">
+        <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase">
           Athlete not found
+        </div>
+        <h1 className="font-display font-bold text-5xl sm:text-6xl text-white tracking-wide uppercase">
+          404
+        </h1>
+        <p className="text-slate-400 text-sm max-w-xs">
+          This athlete doesn&apos;t exist or may have been removed.
         </p>
         <button
           onClick={() => navigate(-1)}
-          className="mt-4 text-sm text-blue-600 hover:underline"
+          className="mt-2 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-semibold text-slate-400 border border-white/[0.1] hover:text-white hover:border-white/25 transition-colors"
         >
           ← Go back
         </button>
