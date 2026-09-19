@@ -25,7 +25,7 @@ export const adminApi = {
     note?: string;
   }) => request("POST", "/aliases", params),
 
-  removeAlias: (params: { name: string; team: string }) =>
+  removeAlias: (params: { id: number }) =>
     request("DELETE", "/aliases", params),
 
   addAssignment: (params: {

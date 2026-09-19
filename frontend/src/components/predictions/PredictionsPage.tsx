@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { DistancePredictions, FavoritePrediction } from "@granfondo/api";
@@ -328,6 +329,8 @@ export default function PredictionsPage() {
   const [hasTabOverflow, setHasTabOverflow] = useState(false);
   const tabListRef = useRef<HTMLDivElement>(null);
 
+  usePageTitle(event ? `${event.name} — Predictions` : undefined);
+
   useEffect(() => {
     if (!id) {
       return;
@@ -422,9 +425,9 @@ export default function PredictionsPage() {
             How it works ↗
           </Link>
         </div>
-        <h2 className="font-display font-bold text-2xl sm:text-4xl text-white leading-tight tracking-wide uppercase">
+        <h1 className="font-display font-bold text-2xl sm:text-4xl text-white leading-tight tracking-wide uppercase">
           {event.name}
-        </h2>
+        </h1>
         <p className="text-sm text-slate-500 mt-2">
           Favorites based on distance-weighted career ranking points
         </p>

@@ -4,6 +4,7 @@ import { api } from "@granfondo/api";
 import type { TeamRanking, TeamEntry } from "@granfondo/database/types";
 import { Spinner, ErrorBanner } from "../shared/Spinner";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { RankBadge } from "../shared/RankBadge";
 import { MedalBadge } from "../shared/MedalBadge";
 import { SegmentedControl } from "../shared/SegmentedControl";
@@ -20,6 +21,8 @@ export default function TeamRankingPage() {
   const [distance, setDistance] = useState<string>("");
   const [expanded, setExpanded] = useState<string | null>(null);
   const [search, setSearch] = useState("");
+
+  usePageTitle("Team Ranking");
 
   useEffect(() => {
     api
@@ -94,9 +97,9 @@ export default function TeamRankingPage() {
         <div className="text-[10px] font-black tracking-[0.3em] text-blue-500/70 uppercase mb-2">
           Portuguese Granfondo Series
         </div>
-        <h2 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase">
+        <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-wide uppercase">
           Team Ranking
-        </h2>
+        </h1>
       </div>
 
       {/* Filters */}
