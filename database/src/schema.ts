@@ -292,7 +292,7 @@ export const aggregateResults = sqliteTable(
     eventId: integer("event_id").notNull(),
     eventName: text("event_name").notNull().default(""),
     eventDate: text("event_date").notNull().default(""),
-    distanceFinishers: integer("distance_finishers").notNull().default(0),
+    genderFinishers: integer("gender_finishers").notNull().default(0),
     coefficient: real("coefficient").notNull().default(0),
     pos: integer("pos").notNull().default(0),
     basePoints: real("base_points").notNull().default(0),

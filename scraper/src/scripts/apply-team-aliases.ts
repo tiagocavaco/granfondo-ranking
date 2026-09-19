@@ -30,6 +30,10 @@ const candPath = path.resolve(
   import.meta.dirname,
   "../../team-alias-candidates.json",
 );
+const approvedPath = path.resolve(
+  import.meta.dirname,
+  "../../approved-team-aliases.json",
+);
 const migrationsPath = path.resolve(
   import.meta.dirname,
   "../../../database/migrations",
@@ -41,6 +45,8 @@ if (!keyHex) {
   process.exit(1);
 }
 
+type AliasCandidate = { from: string; to: string; approved: boolean | null };
+
 if (!fs.existsSync(candPath)) {
   console.error(
     "team-alias-candidates.json not found — run npm run db:find-team-aliases first",
@@ -48,12 +54,9 @@ if (!fs.existsSync(candPath)) {
   process.exit(1);
 }
 
-const candidates: Array<{
-  from: string;
-  to: string;
-  approved: boolean | null;
-}> = JSON.parse(fs.readFileSync(candPath, "utf-8"));
-
+const candidates: AliasCandidate[] = JSON.parse(
+  fs.readFileSync(candPath, "utf-8"),
+);
 const approved = candidates.filter((c) => c.approved === true);
 if (approved.length === 0) {
   console.log("No approved candidates — nothing to do.");
@@ -187,6 +190,40 @@ fs.writeFileSync(encPath, encrypted);
 try {
   fs.unlinkSync(tmpPath);
 } catch {}
+
+// Track applied aliases in approved-team-aliases.json and clear them from candidates
+if (added > 0) {
+  const existingApproved: Array<{
+    from: string;
+    to: string;
+    reasoning?: string;
+  }> = fs.existsSync(approvedPath)
+    ? JSON.parse(fs.readFileSync(approvedPath, "utf-8"))
+    : [];
+  const alreadyApprovedKeys = new Set(
+    existingApproved.map((a) => `${a.from}|||${a.to}`),
+  );
+  for (const c of approved) {
+    const key = `${c.from}|||${c.to}`;
+    if (!alreadyApprovedKeys.has(key)) {
+      existingApproved.push({ from: c.from, to: c.to });
+    }
+  }
+  fs.writeFileSync(approvedPath, JSON.stringify(existingApproved, null, 2));
+
+  // Remove applied entries from candidates file (keep only unapplied ones)
+  const candData: AliasCandidate[] = JSON.parse(
+    fs.readFileSync(candPath, "utf-8"),
+  );
+  fs.writeFileSync(
+    candPath,
+    JSON.stringify(
+      candData.filter((c) => c.approved !== true),
+      null,
+      2,
+    ),
+  );
+}
 
 console.log(
   `✓ Added ${added} team alias(es) to data.db.enc${skipped ? ` (${skipped} skipped — cycle or chain detected)` : ""}`,

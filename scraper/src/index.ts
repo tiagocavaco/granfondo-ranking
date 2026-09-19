@@ -359,6 +359,7 @@ async function main() {
   for (const [key, id] of updatedIdStore) {
     nameToId[key] = id;
   }
+
   for (const [key, entry] of athletesIndex) {
     nameToId[key] = entry.id;
   }
@@ -383,9 +384,15 @@ async function main() {
   // scrape.
   for (const [, entry] of athletesIndex) {
     for (const teamKey of entry.teams) {
-      if (!teamKey) continue;
+      if (!teamKey) {
+        continue;
+      }
+
       const teamId = extendedTeamIdStore.get(teamKey) ?? 0;
-      if (teamId === 0) continue;
+      if (teamId === 0) {
+        continue;
+      }
+
       const allTeamsKey = `${entry.nameLower}|${teamId}`;
       if (!(allTeamsKey in seedNameToId)) {
         seedNameToId[allTeamsKey] = entry.id;
@@ -411,6 +418,7 @@ async function main() {
       if (!(aliasKey in nameToId)) {
         nameToId[aliasKey] = canonId;
       }
+
       if (!(aliasKey in seedNameToId)) {
         seedNameToId[aliasKey] = canonId;
       }

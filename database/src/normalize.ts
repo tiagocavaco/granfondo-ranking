@@ -16,13 +16,17 @@ export function normalizeName(name: string): string {
 
 export function fixRawTeamName(name: string): string {
   // Dash-only placeholders (e.g. "------" from apedalar.pt) mean no team.
-  if (/^[-\s]+$/.test(name)) return "Individual";
+  if (/^[-\s]+$/.test(name)) {
+    return "Individual";
+  }
+
   // Decode HTML entities that the StopAndGo API embeds in JSON strings
   // (e.g. "&amp;" → "&", double-encoded "&amp;amp;" → "&").
   let s = name;
   while (s.includes("&amp;")) {
     s = s.replace(/&amp;/g, "&");
   }
+
   s = s
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
@@ -81,6 +85,7 @@ export const SOLO_TEAM_KEYS = new Set([
 
 export const DISTANCE_ALIASES: Record<string, string> = {
   granfondo: "Granfondo",
+  grandfondo: "Granfondo",
   mediofondo: "Mediofondo",
   minifondo: "Minifondo",
   "time trial": "Time Trial",

@@ -64,7 +64,10 @@ function computeWeightedScore(
   entries: DistYearEntry[] | undefined,
   currentYear: number,
 ): number {
-  if (!entries) return 0;
+  if (!entries) {
+    return 0;
+  }
+
   let total = 0;
   for (const { distance, year, pts } of entries) {
     total +=
@@ -72,6 +75,7 @@ function computeWeightedScore(
       predictionDistCoeff(registeredDist, distance) *
       predictionYearCoeff(year, currentYear);
   }
+
   return total;
 }
 
@@ -125,7 +129,9 @@ function loadAthleteContext(db: Db, linkedIds: number[]): AthleteContext {
     mainDist: new Map(),
     country: new Map(),
   };
-  if (linkedIds.length === 0) return ctx;
+  if (linkedIds.length === 0) {
+    return ctx;
+  }
 
   const raceCountRows = db
     .select({
@@ -136,7 +142,9 @@ function loadAthleteContext(db: Db, linkedIds: number[]): AthleteContext {
     .where(inArray(schema.athleteResults.athleteId, linkedIds))
     .groupBy(schema.athleteResults.athleteId)
     .all();
-  for (const r of raceCountRows) ctx.raceCount.set(r.athleteId, r.cnt);
+  for (const r of raceCountRows) {
+    ctx.raceCount.set(r.athleteId, r.cnt);
+  }
 
   const ptsByDistRows = db
     .select({
@@ -156,17 +164,22 @@ function loadAthleteContext(db: Db, linkedIds: number[]): AthleteContext {
 
   const mainDistAccum = new Map<number, Map<string, number>>();
   for (const r of ptsByDistRows) {
-    if (!ctx.ptsByAthlete.has(r.athleteId))
+    if (!ctx.ptsByAthlete.has(r.athleteId)) {
       ctx.ptsByAthlete.set(r.athleteId, []);
+    }
+
     ctx.ptsByAthlete
       .get(r.athleteId)!
       .push({ distance: r.distance, year: r.year, pts: r.pts });
 
-    if (!mainDistAccum.has(r.athleteId))
+    if (!mainDistAccum.has(r.athleteId)) {
       mainDistAccum.set(r.athleteId, new Map());
+    }
+
     const distanceMap = mainDistAccum.get(r.athleteId)!;
     distanceMap.set(r.distance, (distanceMap.get(r.distance) ?? 0) + r.pts);
   }
+
   for (const [athleteId, distanceMap] of mainDistAccum) {
     let bestDist: string | null = null;
     let bestPts = -Infinity;
@@ -176,7 +189,10 @@ function loadAthleteContext(db: Db, linkedIds: number[]): AthleteContext {
         bestPts = pts;
       }
     }
-    if (bestDist) ctx.mainDist.set(athleteId, bestDist);
+
+    if (bestDist) {
+      ctx.mainDist.set(athleteId, bestDist);
+    }
   }
 
   const countryRows = db
@@ -235,6 +251,7 @@ function groupPredictions(
         categories: {},
       };
     }
+
     return result[distance]!;
   };
 
@@ -249,6 +266,7 @@ function groupPredictions(
       ) {
         distPreds.overallMale = pred;
       }
+
       if (
         pred.gender === "F" &&
         (!distPreds.overallFemale ||
@@ -264,6 +282,7 @@ function groupPredictions(
         newcomers: newcomerMap.get(`${pred.distance}|${pred.category}`) ?? 0,
       };
     }
+
     if (pred.weightedScore > 0) {
       distPreds.categories[pred.category]!.ranked.push(pred);
     } else {

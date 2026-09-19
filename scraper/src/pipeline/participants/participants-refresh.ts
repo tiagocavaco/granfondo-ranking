@@ -6,6 +6,7 @@
  */
 
 import fs from "fs";
+import { fileURLToPath } from "url";
 
 import {
   openSourceDb,
@@ -44,6 +45,7 @@ export async function scrapeParticipants() {
   if (SKIP_EVENT_IDS.size > 0) {
     console.log(`    Skipping events: ${[...SKIP_EVENT_IDS].join(", ")}`);
   }
+
   console.log();
 
   const keyHex = process.env.DATA_KEY;
@@ -102,29 +104,56 @@ export async function scrapeParticipants() {
     Array<{ name: string; team: string; category: string }>
   >();
 
+  const checkAndAdd = (event: StoredEvent, athletes: StoredParticipant[]) => {
+    const existing = sourceDb
+      .prepare("SELECT participant_count FROM events WHERE id = ?")
+      .get(event.id) as { participant_count: number } | undefined;
+    const previousCount = existing?.participant_count ?? 0;
+    const drop = previousCount - athletes.length;
+    const dropPercent = previousCount > 0 ? drop / previousCount : 0;
+    if (athletes.length === 0 && previousCount > 0) {
+      console.warn(
+        `  ⚠️  API returned 0 — keeping existing ${previousCount} participants`,
+      );
+      return;
+    }
+
+    if (drop >= 10 && dropPercent >= 0.2) {
+      console.warn(
+        `  ⚠️  ${previousCount} → ${athletes.length} (−${drop}, −${Math.round(dropPercent * 100)}%) — keeping existing`,
+      );
+      return;
+    }
+
+    const distances = resolveDistances(athletes, event.id);
+    event.distances = distances;
+    event.participantCount = athletes.length;
+    updatedParticipants.set(event.id, { event, athletes });
+    allParticipantsForResolution.set(
+      event.id,
+      athletes.map((a) => ({
+        name: a.name,
+        team: a.team,
+        category: a.category,
+      })),
+    );
+    const distanceLabel =
+      distances.length > 0
+        ? `, ${distances.map((d) => d.name).join(" / ")}`
+        : "";
+    console.log(`  ⏳ ${athletes.length} confirmed${distanceLabel}`);
+  };
+
   for (const event of events) {
     if (!isPast(event.date)) {
       if (SKIP_EVENT_IDS.has(event.id)) {
         console.log(`⏭  [${event.id}] ${event.name} — skipped`);
         continue;
       }
+
       console.log(`⏳ [${event.id}] ${event.name}`);
       try {
-        const athletes = await fetchEventParticipants(event.id);
-        event.distances = resolveDistances(athletes, event.id);
-        event.participantCount = athletes.length;
-        updatedParticipants.set(event.id, { event, athletes });
-        allParticipantsForResolution.set(
-          event.id,
-          athletes.map((a) => ({
-            name: a.name,
-            team: a.team,
-            category: a.category,
-          })),
-        );
-        console.log(
-          `  ⏳ ${athletes.length} confirmed, ${event.distances.map((d) => d.name).join(" / ")}`,
-        );
+        checkAndAdd(event, await fetchEventParticipants(event.id));
       } catch (err) {
         console.error(`  ✗ ${err}`);
       }
@@ -137,21 +166,10 @@ export async function scrapeParticipants() {
         console.log(`⏭  [${event.id}] ${event.name} — skipped`);
         continue;
       }
+
       console.log(`⏳ [${event.id}] ${event.name}`);
       try {
-        const athletes = await fetchEventParticipants(event.id);
-        event.distances = resolveDistances(athletes, event.id);
-        event.participantCount = athletes.length;
-        updatedParticipants.set(event.id, { event, athletes });
-        allParticipantsForResolution.set(
-          event.id,
-          athletes.map((a) => ({
-            name: a.name,
-            team: a.team,
-            category: a.category,
-          })),
-        );
-        console.log(`  ⏳ ${athletes.length} confirmed`);
+        checkAndAdd(event, await fetchEventParticipants(event.id));
       } catch (err) {
         console.error(`  ✗ ${err}`);
       }
@@ -183,20 +201,6 @@ export async function scrapeParticipants() {
     }
   }
 
-  // Snapshot previous participant counts before overwriting
-  const previousCounts = new Map<number, { count: number; name: string }>();
-  for (const eventId of updatedParticipants.keys()) {
-    const row = sourceDb
-      .prepare("SELECT participant_count, name FROM events WHERE id = ?")
-      .get(eventId) as { participant_count: number; name: string } | undefined;
-    if (row) {
-      previousCounts.set(eventId, {
-        count: row.participant_count,
-        name: row.name,
-      });
-    }
-  }
-
   writeParticipantsToDb(sourceDb, updatedParticipants, existingEventIds);
 
   const dbBuffer = sourceDb.serialize() as Buffer;
@@ -209,25 +213,12 @@ export async function scrapeParticipants() {
 
   closeSourceDb(sourceDb);
 
-  // Fail if any event dropped ≥10 participants AND ≥20% — prevents committing silently broken data
-  const regressions: string[] = [];
-  for (const [eventId, { event, athletes }] of updatedParticipants) {
-    const previous = previousCounts.get(eventId);
-    if (!previous || previous.count === 0) continue;
-    const drop = previous.count - athletes.length;
-    const dropPercent = drop / previous.count;
-    if (drop >= 10 && dropPercent >= 0.2) {
-      regressions.push(
-        `  [${eventId}] ${event.name}: ${previous.count} → ${athletes.length} (−${drop}, −${Math.round(dropPercent * 100)}%)`,
-      );
-    }
-  }
-
-  if (regressions.length > 0) {
-    console.error("\n❌ Participant count regressions detected:");
-    for (const line of regressions) console.error(line);
-    process.exit(1);
-  }
-
   console.log("\n✅ Done.");
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  scrapeParticipants().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
 }

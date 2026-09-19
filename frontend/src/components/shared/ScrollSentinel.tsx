@@ -9,7 +9,10 @@ export function ScrollSentinel({
   visible: number;
   total: number;
 }) {
-  if (visible >= total) return null;
+  if (visible >= total) {
+    return null;
+  }
+
   return (
     <div
       ref={sentinelRef}

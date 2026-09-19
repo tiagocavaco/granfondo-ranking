@@ -11,5 +11,6 @@ export function getDb(): Promise<DrizzleDb> {
   if (!_getDb) {
     throw new Error("@granfondo/api: call setGetDb() before using the API");
   }
+
   return _getDb();
 }

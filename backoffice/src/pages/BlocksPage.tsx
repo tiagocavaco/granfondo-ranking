@@ -10,11 +10,26 @@ import { adminApi } from "../lib/admin-api";
 
 function matchesSearch(block: BlockedResultEntry, term: string): boolean {
   const lower = term.toLowerCase();
-  if (String(block.eventId).includes(lower)) return true;
-  if (block.bib.toLowerCase().includes(lower)) return true;
-  if (String(block.blockedAthleteId).includes(lower)) return true;
-  if (block.blockedAthleteName?.toLowerCase().includes(lower)) return true;
-  if (block.note?.toLowerCase().includes(lower)) return true;
+  if (String(block.eventId).includes(lower)) {
+    return true;
+  }
+
+  if (block.bib.toLowerCase().includes(lower)) {
+    return true;
+  }
+
+  if (String(block.blockedAthleteId).includes(lower)) {
+    return true;
+  }
+
+  if (block.blockedAthleteName?.toLowerCase().includes(lower)) {
+    return true;
+  }
+
+  if (block.note?.toLowerCase().includes(lower)) {
+    return true;
+  }
+
   return false;
 }
 
@@ -49,9 +64,11 @@ function AddBlockForm() {
         if (!Number.isInteger(eventId) || eventId <= 0) {
           throw new Error("Select a valid event");
         }
+
         if (!Number.isInteger(athleteId) || athleteId <= 0) {
           throw new Error("Athlete ID must be a positive integer");
         }
+
         await adminApi.addBlock({
           eventId,
           bib: form.bib.trim(),

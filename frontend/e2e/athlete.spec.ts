@@ -102,7 +102,10 @@ test("Gap column is hidden on mobile, visible on desktop", async ({
     await expect(gapHeader).toBeVisible();
   } else {
     // Column may not be in DOM at all on mobile — either case counts as hidden
-    if ((await gapHeader.count()) === 0) return;
+    if ((await gapHeader.count()) === 0) {
+      return;
+    }
+
     const display = await gapHeader.evaluate(
       (el) => getComputedStyle(el).display,
     );

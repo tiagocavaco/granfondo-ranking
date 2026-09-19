@@ -34,7 +34,10 @@ type SplitFilter = "pending" | "applied" | "rejected";
 
 async function fetchJson<T>(url: string): Promise<T> {
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`${res.status} ${url}`);
+  if (!res.ok) {
+    throw new Error(`${res.status} ${url}`);
+  }
+
   return res.json() as Promise<T>;
 }
 
@@ -127,7 +130,9 @@ function SplitsTab() {
       );
   }, []);
 
-  if (candidates === null) return <LoadingState error={error} />;
+  if (candidates === null) {
+    return <LoadingState error={error} />;
+  }
 
   const counts = {
     pending: candidates.filter((c) => c.status === "pending").length,
@@ -136,8 +141,14 @@ function SplitsTab() {
   };
 
   const filtered = candidates.filter((c) => {
-    if (c.status !== filter) return false;
-    if (!search) return true;
+    if (c.status !== filter) {
+      return false;
+    }
+
+    if (!search) {
+      return true;
+    }
+
     const lower = search.toLowerCase();
     return (
       c.keep.name.toLowerCase().includes(lower) ||
@@ -234,7 +245,9 @@ function TeamAliasesTab() {
       );
   }, []);
 
-  if (candidates === null) return <LoadingState error={error} />;
+  if (candidates === null) {
+    return <LoadingState error={error} />;
+  }
 
   const filtered = candidates.filter(
     (c) =>

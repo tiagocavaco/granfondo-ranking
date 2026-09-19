@@ -60,14 +60,22 @@ export function MedalBadge({
 }
 
 function catPosStyle(pos: number): string {
-  if (pos === 1)
+  if (pos === 1) {
     return "bg-amber-400/20 text-amber-300 border border-amber-400/30";
-  if (pos === 2)
+  }
+
+  if (pos === 2) {
     return "bg-slate-400/20 text-slate-300 border border-slate-400/30";
-  if (pos === 3)
+  }
+
+  if (pos === 3) {
     return "bg-orange-400/20 text-orange-300 border border-orange-400/30";
-  if (pos === 4)
+  }
+
+  if (pos === 4) {
     return "bg-white/[0.05] text-slate-500 border border-white/[0.10]";
+  }
+
   return "text-slate-600";
 }
 
@@ -79,6 +87,7 @@ export function CatPosBadge({ pos }: { pos: number }) {
       </span>
     );
   }
+
   return (
     <span
       className={`inline-flex items-center justify-center w-4 h-4 rounded text-[9px] font-black leading-none shrink-0 ${catPosStyle(pos)}`}

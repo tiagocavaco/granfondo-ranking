@@ -13,6 +13,7 @@ function buildBestByDist(results: AthleteResultRef[]) {
       bestByDist.set(d, r.pos);
     }
   }
+
   return bestByDist;
 }
 

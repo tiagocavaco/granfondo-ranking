@@ -5,6 +5,7 @@ import type { StoredEvent } from "@granfondo/database/types";
 import { normalizeName } from "@granfondo/database/normalize";
 import { Spinner, ErrorBanner } from "../shared/Spinner";
 import { distBadgeClass } from "../../utils/distance";
+import { isEventPast } from "../../utils/date";
 import { ShieldCheckIcon } from "../shared/ShieldCheckIcon";
 
 type SeasonFilter = "all" | string;
@@ -59,7 +60,7 @@ export default function EventList() {
     const q = normalizeName(query);
     return allEvents
       .filter((e) => {
-        const isPast = new Date(e.date + "T12:00:00") < new Date();
+        const isPast = isEventPast(e.date, e.hasResults);
         const matchSeason = season === "all" || String(e.year) === season;
         const matchStatus =
           status === "all" ||
@@ -77,8 +78,14 @@ export default function EventList() {
         const now = Date.now();
         const aPast = aDate < now;
         const bPast = bDate < now;
-        if (aPast && bPast) return bDate - aDate;
-        if (!aPast && !bPast) return aDate - bDate;
+        if (aPast && bPast) {
+          return bDate - aDate;
+        }
+
+        if (!aPast && !bPast) {
+          return aDate - bDate;
+        }
+
         return aPast ? 1 : -1;
       });
   }, [allEvents, season, status, query]);
@@ -400,6 +407,7 @@ function EventListByYear({ events }: { events: StoredEvent[] }) {
         groups.push({ year, events: [event] });
       }
     }
+
     return groups.sort((a, b) => b.year - a.year);
   }, [events]);
 
@@ -443,7 +451,7 @@ function EventRow({
   isFirst: boolean;
   animIndex?: number;
 }) {
-  const isPast = new Date(event.date + "T12:00:00") < new Date();
+  const isPast = isEventPast(event.date, event.hasResults);
   const date = new Date(event.date + "T12:00:00");
   const day = date.toLocaleDateString("en-GB", { day: "numeric" });
   const month = date

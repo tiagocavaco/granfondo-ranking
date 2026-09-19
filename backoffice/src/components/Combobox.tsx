@@ -30,12 +30,16 @@ export default function Combobox<T>({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (timerRef.current) clearTimeout(timerRef.current);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+
     if (value.length < 2) {
       setResults([]);
       setOpen(false);
       return;
     }
+
     timerRef.current = setTimeout(() => {
       search(value)
         .then((items) => {
@@ -49,7 +53,9 @@ export default function Combobox<T>({
         });
     }, DEBOUNCE_MS);
     return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
     };
   }, [value, search]);
 
@@ -62,12 +68,16 @@ export default function Combobox<T>({
         setOpen(false);
       }
     }
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   function handleKeyDown(event: React.KeyboardEvent) {
-    if (!open) return;
+    if (!open) {
+      return;
+    }
+
     if (event.key === "ArrowDown") {
       event.preventDefault();
       setActiveIndex((prev) => Math.min(prev + 1, results.length - 1));

@@ -29,9 +29,9 @@ jobs:
 
           for event in events:
               d = datetime.date.fromisoformat(event['date'])
-              # Run 2 nights before (diff=-2) or 3 nights before as buffer (diff=-3)
+              # diff=-2: event is Sunday (2 days out); diff=-1: event is Saturday (1 day out)
               diff = (today - d).days
-              if -3 <= diff <= -2:
+              if -2 <= diff <= -1:
                   print(f"Upcoming event: {event['name']} on {event['date']}")
                   open(os.environ['GITHUB_OUTPUT'], 'a').write('run=true\n')
                   sys.exit(0)

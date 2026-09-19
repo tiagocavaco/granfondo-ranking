@@ -154,7 +154,7 @@ describe("scrapeListaParticipants", () => {
     expect(p!.distanceId).toBe("3");
   });
 
-  it("defaults distanceId=1 for unknown distance", async () => {
+  it("drops rows with unknown distance", async () => {
     const html = `<table><tbody>
       <tr>
         <td>4</td><td>Athlete D</td><td>Unknown Route</td>
@@ -163,10 +163,11 @@ describe("scrapeListaParticipants", () => {
       </tr>
     </tbody></table>`;
     mockFetch(html);
-    const [p] = await scrapeListaParticipants(
+    const result = await scrapeListaParticipants(
       "https://example.com/lista/test/",
     );
-    expect(p!.distanceId).toBe("1");
+    // Unknown distances are dropped — they can't be scored or matched.
+    expect(result).toHaveLength(0);
   });
 
   it("skips rows with fewer than 6 tds", async () => {

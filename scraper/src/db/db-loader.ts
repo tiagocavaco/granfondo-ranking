@@ -221,7 +221,7 @@ export function writeParticipantsToDb(
       }
 
       db.update(schema.events)
-        .set({ participantCount: event.participantCount })
+        .set({ participantCount: event.participantCount, date: event.date })
         .where(eq(schema.events.id, eventId))
         .run();
 

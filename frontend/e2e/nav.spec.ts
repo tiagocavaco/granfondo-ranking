@@ -61,6 +61,7 @@ test("desktop nav shows Athlete Ranking and Team Ranking links", async ({
     test.skip();
     return;
   }
+
   await expect(
     page.locator("header").getByRole("link", { name: /athlete ranking/i }),
   ).toBeVisible();
@@ -76,6 +77,7 @@ test("desktop Athlete Ranking link navigates to /ranking", async ({
     test.skip();
     return;
   }
+
   await page
     .locator("header")
     .getByRole("link", { name: /athlete ranking/i })
@@ -90,6 +92,7 @@ test("desktop Team Ranking link navigates to /teams", async ({
     test.skip();
     return;
   }
+
   await page
     .locator("header")
     .getByRole("link", { name: /team ranking/i })
@@ -104,6 +107,7 @@ test("mobile nav has Rankings dropdown button", async ({ page }, testInfo) => {
     test.skip();
     return;
   }
+
   const rankingsBtn = page
     .locator("header")
     .getByRole("button", { name: /rankings/i });
@@ -117,6 +121,7 @@ test("mobile nav Rankings dropdown reveals Athletes and Teams options", async ({
     test.skip();
     return;
   }
+
   const rankingsBtn = page
     .locator("header")
     .getByRole("button", { name: /rankings/i });
@@ -134,6 +139,7 @@ test("mobile nav Rankings dropdown navigates to athlete ranking", async ({
     test.skip();
     return;
   }
+
   await page
     .locator("header")
     .getByRole("button", { name: /rankings/i })
@@ -152,6 +158,7 @@ test("mobile nav Rankings dropdown navigates to team ranking", async ({
     test.skip();
     return;
   }
+
   await page
     .locator("header")
     .getByRole("button", { name: /rankings/i })

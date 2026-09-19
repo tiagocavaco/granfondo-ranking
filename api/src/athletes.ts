@@ -40,7 +40,10 @@ export async function getAthlete(id: number): Promise<AthleteEntry> {
   const categories: Record<string, string[]> = {};
   for (const row of categoryRows) {
     const year = String(row.year);
-    if (!categories[year]) categories[year] = [];
+    if (!categories[year]) {
+      categories[year] = [];
+    }
+
     categories[year].push(row.category);
   }
 
@@ -114,7 +117,9 @@ export async function getTopAthletes(limit = 30): Promise<
     .slice(0, limit)
     .map(([id]) => id);
 
-  if (topIds.length === 0) return [];
+  if (topIds.length === 0) {
+    return [];
+  }
 
   const athleteRows = db
     .select()
@@ -148,7 +153,9 @@ export async function searchAthletes(search: string): Promise<
 > {
   const db = await getDb();
   const term = search.trim();
-  if (term.length < 2) return [];
+  if (term.length < 2) {
+    return [];
+  }
 
   const pattern = `%${term.toLowerCase().replace(/[%_]/g, "\\$&")}%`;
   const rows = db
@@ -161,7 +168,9 @@ export async function searchAthletes(search: string): Promise<
     .all();
 
   const ids = rows.map((r) => r.id);
-  if (ids.length === 0) return [];
+  if (ids.length === 0) {
+    return [];
+  }
 
   const resultRows = db
     .select()

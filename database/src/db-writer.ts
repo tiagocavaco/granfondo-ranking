@@ -382,7 +382,7 @@ function insertRankings(
                 eventId: r.eventId,
                 eventName: r.eventName,
                 eventDate: r.eventDate,
-                distanceFinishers: r.distanceFinishers,
+                genderFinishers: r.genderFinishers,
                 coefficient: r.coefficient,
                 pos: r.pos,
                 basePoints: r.basePoints,

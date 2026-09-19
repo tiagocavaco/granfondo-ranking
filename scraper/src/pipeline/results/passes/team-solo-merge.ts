@@ -25,12 +25,16 @@ export function mergeTeamSoloProfiles(ctx: PipelineCtx): void {
   // which causes a UNIQUE constraint violation in the DB writer.
   const idToEventIds = new Map<number, Set<number>>();
   for (const [key, entry] of index) {
-    if (key.includes("|solo:") || entry.id === undefined) continue;
+    if (key.includes("|solo:") || entry.id === undefined) {
+      continue;
+    }
+
     let eventSet = idToEventIds.get(entry.id);
     if (!eventSet) {
       eventSet = new Set();
       idToEventIds.set(entry.id, eventSet);
     }
+
     for (const result of entry.results) {
       eventSet.add(result.eventId);
     }
@@ -74,9 +78,15 @@ export function mergeTeamSoloProfiles(ctx: PipelineCtx): void {
     // that doesn't itself have the event, but another profile sharing the same athlete ID
     // does, resulting in two entries with the same (athlete_id, event_id, distance).
     candidates = candidates.filter((candidate) => {
-      if (candidate.entry.id === undefined) return true;
+      if (candidate.entry.id === undefined) {
+        return true;
+      }
+
       const siblingEventIds = idToEventIds.get(candidate.entry.id);
-      if (!siblingEventIds) return true;
+      if (!siblingEventIds) {
+        return true;
+      }
+
       return !setsIntersect(soloEventIds, siblingEventIds);
     });
     if (candidates.length === 0) {
@@ -174,6 +184,7 @@ export function mergeTeamSoloProfiles(ctx: PipelineCtx): void {
             eventSet = new Set();
             idToEventIds.set(mergeTarget.entry.id, eventSet);
           }
+
           eventSet.add(result.eventId);
         }
       }

@@ -261,6 +261,7 @@ function cmdAdd(args: Record<string, string>): void {
           .prepare("UPDATE teams SET alias_keys = ? WHERE canonical_key = ?")
           .run(JSON.stringify(canonAliases), canonicalKey);
       }
+
       const subTeamRow = sqlite
         .prepare("SELECT id FROM teams WHERE canonical_key = ?")
         .get(subAlias) as { id: number } | undefined;
@@ -277,6 +278,7 @@ function cmdAdd(args: Record<string, string>): void {
         }
       }
     }
+
     if (subAliasesToMigrate.length > 0) {
       sqlite
         .prepare("UPDATE teams SET alias_keys = '[]' WHERE canonical_key = ?")

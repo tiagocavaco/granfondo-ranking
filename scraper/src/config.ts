@@ -44,6 +44,24 @@ export const CANONICAL_EVENT_NAMES: Record<number, string> = {
   2115: "Granfondo Serra d'Ossa 2026", // API uses all-caps
 };
 
+/**
+ * Date overrides for events where the StopAndGo API returns the wrong date
+ * (e.g. a multi-day event where the first day is a kids/caminhada variant
+ * and the cycling race runs the following day).
+ */
+export const EVENT_DATE_OVERRIDES: Record<number, string> = {
+  1943: "2026-09-20", // Monção e Melgaço GF 2026 — API returns Sep 19 (kids day)
+};
+
+/**
+ * Per-event distance name remaps applied after scraping. Used when registration
+ * distances don't match the actual courses run (e.g. heat-wave cancellation).
+ * Key: eventId. Value: { "RegistrationLabel": "ActualLabel" }.
+ */
+export const EVENT_DISTANCE_REMAPS: Record<number, Record<string, string>> = {
+  1956: { Granfondo: "Mediofondo", Mediofondo: "Minifondo" }, // Lousã 2026 — Granfondo cancelled due to heat wave
+};
+
 const SMALL_WORDS = new Set([
   "de",
   "da",

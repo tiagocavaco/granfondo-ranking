@@ -224,7 +224,10 @@ export default function RawEventPage() {
   const numericId = eventId ? parseInt(eventId, 10) : null;
 
   useEffect(() => {
-    if (!numericId) return;
+    if (!numericId) {
+      return;
+    }
+
     setLoading(true);
     setEvent(null);
     setNotFound(false);
@@ -232,8 +235,11 @@ export default function RawEventPage() {
     api
       .getRawEvent(numericId)
       .then((result) => {
-        if (!result) setNotFound(true);
-        else setEvent(result);
+        if (!result) {
+          setNotFound(true);
+        } else {
+          setEvent(result);
+        }
       })
       .catch((err: unknown) =>
         setError(err instanceof Error ? err.message : String(err)),
@@ -253,20 +259,23 @@ export default function RawEventPage() {
     );
   }
 
-  if (loading)
+  if (loading) {
     return (
       <div>
         <PageHeader title={`Event #${numericId}`} />
         <LoadingState />
       </div>
     );
-  if (error)
+  }
+
+  if (error) {
     return (
       <div>
         <PageHeader title={`Event #${numericId}`} />
         <LoadingState error={error} />
       </div>
     );
+  }
 
   if (notFound) {
     return (
@@ -282,7 +291,9 @@ export default function RawEventPage() {
     );
   }
 
-  if (!event) return null;
+  if (!event) {
+    return null;
+  }
 
   return (
     <div>

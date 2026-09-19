@@ -10,11 +10,26 @@ import { adminApi } from "../lib/admin-api";
 
 function matchesSearch(assignment: ResultAssignment, term: string): boolean {
   const lower = term.toLowerCase();
-  if (String(assignment.eventId).includes(lower)) return true;
-  if (assignment.bib.toLowerCase().includes(lower)) return true;
-  if (String(assignment.athleteId).includes(lower)) return true;
-  if (assignment.athleteName?.toLowerCase().includes(lower)) return true;
-  if (assignment.note?.toLowerCase().includes(lower)) return true;
+  if (String(assignment.eventId).includes(lower)) {
+    return true;
+  }
+
+  if (assignment.bib.toLowerCase().includes(lower)) {
+    return true;
+  }
+
+  if (String(assignment.athleteId).includes(lower)) {
+    return true;
+  }
+
+  if (assignment.athleteName?.toLowerCase().includes(lower)) {
+    return true;
+  }
+
+  if (assignment.note?.toLowerCase().includes(lower)) {
+    return true;
+  }
+
   return false;
 }
 
@@ -49,9 +64,11 @@ function AddAssignmentForm() {
         if (!Number.isInteger(eventId) || eventId <= 0) {
           throw new Error("Select a valid event");
         }
+
         if (!Number.isInteger(athleteId) || athleteId <= 0) {
           throw new Error("Athlete ID must be a positive integer");
         }
+
         await adminApi.addAssignment({
           eventId,
           bib: form.bib.trim(),

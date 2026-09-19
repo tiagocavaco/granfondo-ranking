@@ -9,9 +9,18 @@ import {
 } from "@granfondo/utils/scoring";
 
 function ordinal(n: number) {
-  if (n === 1) return "st";
-  if (n === 2) return "nd";
-  if (n === 3) return "rd";
+  if (n === 1) {
+    return "st";
+  }
+
+  if (n === 2) {
+    return "nd";
+  }
+
+  if (n === 3) {
+    return "rd";
+  }
+
   return "th";
 }
 
@@ -45,13 +54,13 @@ export default function AthleteRankingInfoPage() {
       <p className="text-slate-500 text-sm mb-8">
         Points are awarded per race based on finishing position within your
         gender, then scaled by a difficulty coefficient based on the number of
-        finishers per distance.
+        finishers in your gender group.
       </p>
 
       <FormulaBox>
         <div className="text-blue-300">points = base_points × coefficient</div>
         <div className="text-slate-500 mt-1 text-xs">
-          coefficient = √(finishers / 300) · rounded to 2 decimal places
+          coefficient = √(gender_finishers / 300) · rounded to 2 decimal places
         </div>
       </FormulaBox>
 
@@ -139,7 +148,7 @@ export default function AthleteRankingInfoPage() {
             </table>
           </div>
           <p className="text-xs text-slate-600 mt-3">
-            * 300 finishers per distance = 1.00. Races with more finishers
+            * 300 finishers per gender group = 1.00. Races with more finishers
             reward more points.
           </p>
         </div>

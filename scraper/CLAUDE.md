@@ -127,7 +127,8 @@ The pipeline lives in `pipeline/results/`. `results.ts` is the orchestrator; eac
 | 8 | `team-cross-year.ts` | Merges team profiles where the athlete changed club between years. |
 | 9 | `team-solo-merge.ts` | Merges team and solo profiles that belong to the same athlete. Depends on passes 6–7 having already built solo profiles. |
 | 10 | `manual-result-assignments.ts` | Applies manual result assignments from the DB. Runs last so it can override any pipeline decision. |
-| post | `category-sweep-eviction.ts` | Evicts results that are category outliers on a profile, guarding against misidentification. |
+| post-1 | `evict-blocked-results.ts` | Evicts results that are explicitly blocked (block rules from the DB), giving them a stable `BLOCK:eventId:bib` profile. Runs before the category sweep so blocked results are gone before the sweep evaluates the remaining profile. |
+| post-2 | `category-sweep-eviction.ts` | Evicts results that are category outliers on a profile, guarding against misidentification. |
 
 Shared infrastructure (`helpers.ts`, `types.ts`) lives alongside `results.ts`, one level above the pass files.
 

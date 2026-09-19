@@ -71,6 +71,13 @@
       "when": 1783200000000,
       "tag": "0009_blocked_results",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1790000000000,
+      "tag": "0010_gender_finishers",
+      "breakpoints": true
     }
   ]
 }

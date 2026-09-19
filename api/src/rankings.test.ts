@@ -50,7 +50,7 @@ beforeAll(() => {
                     eventId: 10,
                     eventName: "Granfondo Algarve",
                     eventDate: "2025-04-01",
-                    distanceFinishers: 300,
+                    genderFinishers: 300,
                     coefficient: 1.0,
                     pos: 1,
                     basePoints: 75,
@@ -160,6 +160,7 @@ describe("getAggregateRanking", () => {
     expect(athlete.results[0]!.eventId).toBe(10);
     expect(athlete.results[0]!.points).toBe(75.0);
     expect(athlete.results[0]!.coefficient).toBe(1.0);
+    expect(athlete.results[0]!.genderFinishers).toBe(300);
   });
 
   it("returns empty object when no ranking data", async () => {

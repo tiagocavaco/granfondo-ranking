@@ -245,7 +245,9 @@ export async function getRawAthlete(id: number): Promise<RawAthlete | null> {
     .from(schema.athletes)
     .where(eq(schema.athletes.id, id))
     .get();
-  if (!athleteRow) return null;
+  if (!athleteRow) {
+    return null;
+  }
 
   const teamRows = db
     .select({
@@ -324,7 +326,9 @@ export async function getRawTeam(
     .from(schema.teams)
     .where(eq(schema.teams.canonicalKey, canonicalKey))
     .get();
-  if (!teamRow) return null;
+  if (!teamRow) {
+    return null;
+  }
 
   const athleteTeamRows = db
     .select({
@@ -376,7 +380,9 @@ export async function getRawEvent(id: number): Promise<RawEvent | null> {
     .from(schema.events)
     .where(eq(schema.events.id, id))
     .get();
-  if (!eventRow) return null;
+  if (!eventRow) {
+    return null;
+  }
 
   const distanceRows = db
     .select()
@@ -445,7 +451,9 @@ export async function listRawEvents(): Promise<EventMatch[]> {
 export async function searchEvents(query: string): Promise<EventMatch[]> {
   const db = await getDb();
   const term = query.trim();
-  if (term.length < 2) return [];
+  if (term.length < 2) {
+    return [];
+  }
 
   const byId = Number(term);
   if (!isNaN(byId)) {
@@ -480,7 +488,9 @@ export async function searchEvents(query: string): Promise<EventMatch[]> {
 export async function searchTeams(query: string): Promise<string[]> {
   const db = await getDb();
   const term = query.trim();
-  if (term.length < 2) return [];
+  if (term.length < 2) {
+    return [];
+  }
 
   const pattern = `%${term.toLowerCase().replace(/[%_]/g, "\\$&")}%`;
   const rows = db
@@ -506,7 +516,9 @@ export async function listRawAthletes(): Promise<RawNameMatch[]> {
     .orderBy(schema.athletes.id)
     .all();
 
-  if (rows.length === 0) return [];
+  if (rows.length === 0) {
+    return [];
+  }
 
   const countRows = db
     .select({
@@ -571,7 +583,9 @@ export async function getBlockedResults(): Promise<BlockedResultEntry[]> {
 export async function searchRawNames(query: string): Promise<RawNameMatch[]> {
   const db = await getDb();
   const term = query.trim();
-  if (term.length < 2) return [];
+  if (term.length < 2) {
+    return [];
+  }
 
   const pattern = `%${term.toLowerCase().replace(/[%_]/g, "\\$&")}%`;
 
@@ -587,7 +601,9 @@ export async function searchRawNames(query: string): Promise<RawNameMatch[]> {
     .limit(100)
     .all();
 
-  if (rows.length === 0) return [];
+  if (rows.length === 0) {
+    return [];
+  }
 
   const athleteIds = rows.map((row) => row.id);
   const resultRows = db

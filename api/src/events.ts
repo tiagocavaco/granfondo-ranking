@@ -23,6 +23,7 @@ export async function getEvents(): Promise<StoredEvent[]> {
     if (!distByEvent.has(d.eventId)) {
       distByEvent.set(d.eventId, []);
     }
+
     distByEvent.get(d.eventId)!.push({ id: d.id, name: d.name });
   }
 
@@ -56,6 +57,7 @@ export async function getStats(): Promise<{
   if (!row) {
     return { uniqueAthletes: 0, uniqueByYear: {}, scrapedAt: "" };
   }
+
   return JSON.parse(row.value) as {
     uniqueAthletes: number;
     uniqueByYear: Record<string, number>;

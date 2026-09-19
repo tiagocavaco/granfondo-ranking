@@ -65,6 +65,7 @@ export async function getResults(id: number): Promise<StoredEventResults> {
       if (!licencesByResultId.has(row.resultId)) {
         licencesByResultId.set(row.resultId, []);
       }
+
       licencesByResultId.get(row.resultId)!.push(row.licence);
     }
 

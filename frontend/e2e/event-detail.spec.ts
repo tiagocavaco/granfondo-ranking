@@ -150,6 +150,7 @@ test("Gap column header is visible at desktop width", async ({
     test.skip();
     return;
   }
+
   await goToFinishedEvent(page);
   const gapHeader = page.getByRole("columnheader", { name: /^Gap$/i });
   await expect(gapHeader).toBeVisible();

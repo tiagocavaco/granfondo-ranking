@@ -1,3 +1,8 @@
+export function isEventPast(eventDate: string, hasResults: boolean): boolean {
+  const today = new Date().toISOString().slice(0, 10);
+  return eventDate < today || hasResults;
+}
+
 export function formatAge(isoDate: string): string {
   const mins = Math.floor((Date.now() - new Date(isoDate).getTime()) / 60_000);
   if (mins < 60) {

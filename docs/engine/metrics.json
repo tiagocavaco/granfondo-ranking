@@ -87,7 +87,7 @@
   },
   "ranking_coefficient_check": {
     "event": "Granfondo Paredes 2026 / Granfondo",
-    "distance_finishers": 185,
+    "gender_finishers": 185,
     "male_finishers": 178,
     "male_coefficient": 0.77,
     "female_finishers": 7,

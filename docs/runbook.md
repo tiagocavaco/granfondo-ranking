@@ -90,9 +90,8 @@ The command refuses to write if an event loses ≥10 and ≥20% of registrants; 
 
 **Fix:**
 ```bash
-cd scraper && npm run db:find-team-aliases            # fuzzy suggestions → team-alias-candidates.json
-npm run db:find-athlete-anchored-aliases              # suggestions backed by shared athletes
-# review, set approved: true, then
+cd scraper && npm run db:find-team-aliases            # fuzzy suggestions (athlete overlap + name similarity) → team-alias-candidates.json
+# review, set approved: true to accept or false to skip (false entries go to rejected-team-aliases.json)
 npm run db:apply-team-aliases
 ```
 Or one at a time in the backoffice → Team Aliases → Add (From = variant key, To = canonical key; both are normalised keys, use the search). Then scrape, check, commit.

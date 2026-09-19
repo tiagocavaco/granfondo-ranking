@@ -7,6 +7,7 @@ import { DISTANCES } from "@granfondo/utils/distance";
 import { Spinner } from "../shared/Spinner";
 import { GenderToggle } from "../shared/GenderToggle";
 import { distBadgeClass } from "../../utils/distance";
+import { isEventPast } from "../../utils/date";
 import {
   rankBorderAccent,
   rankRowBg,
@@ -353,7 +354,10 @@ export default function PredictionsPage() {
 
   useEffect(() => {
     const el = tabListRef.current;
-    if (!el) return;
+    if (!el) {
+      return;
+    }
+
     const check = () => setHasTabOverflow(el.scrollWidth > el.clientWidth);
     check();
     const observer = new ResizeObserver(check);
@@ -393,7 +397,7 @@ export default function PredictionsPage() {
     return <NoPredictionsState />;
   }
 
-  const isPast = new Date(event.date + "T12:00:00") < new Date();
+  const isPast = isEventPast(event.date, event.hasResults);
 
   return (
     <div>

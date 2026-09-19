@@ -392,8 +392,13 @@ export default function App() {
       .catch((err: unknown) => setDbError(String(err)));
   }, []);
 
-  if (dbError) return <DbErrorScreen error={dbError} />;
-  if (!dbReady) return <DbLoadingScreen />;
+  if (dbError) {
+    return <DbErrorScreen error={dbError} />;
+  }
+
+  if (!dbReady) {
+    return <DbLoadingScreen />;
+  }
 
   return (
     <BrowserRouter

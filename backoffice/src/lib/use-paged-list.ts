@@ -13,7 +13,10 @@ export function usePagedList<T>(items: T[], pageSize = DEFAULT_PAGE_SIZE) {
 
   const sentinelRef = useCallback((node: HTMLElement | null) => {
     observerRef.current?.disconnect();
-    if (!node) return;
+    if (!node) {
+      return;
+    }
+
     observerRef.current = new IntersectionObserver(([entry]) => {
       if (entry?.isIntersecting) {
         setVisibleCount((prev) => prev + pageSize);
