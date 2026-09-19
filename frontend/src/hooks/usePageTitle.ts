@@ -4,7 +4,7 @@ const SITE = "Granfondo Portugal";
 
 export function usePageTitle(title?: string): void {
   useEffect(() => {
-    document.title = title ? `${title} · ${SITE}` : SITE;
+    document.title = title ? `${SITE} · ${title}` : SITE;
     return () => {
       document.title = SITE;
     };
