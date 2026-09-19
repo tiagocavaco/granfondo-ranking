@@ -6,6 +6,7 @@ import ResultsTab from "./ResultsTab";
 import ParticipantsTab from "./ParticipantsTab";
 import { Spinner, ErrorBanner } from "../shared/Spinner";
 import { distBadgeClass } from "../../utils/distance";
+import { isEventPast } from "../../utils/date";
 import { ShieldCheckIcon } from "../shared/ShieldCheckIcon";
 
 export default function EventDetail() {
@@ -43,7 +44,7 @@ export default function EventDetail() {
     return <ErrorBanner>{error ?? "Event not found"}</ErrorBanner>;
   }
 
-  const isPast = new Date(event.date + "T12:00:00") < new Date();
+  const isPast = isEventPast(event.date, event.hasResults);
   const dateObj = new Date(event.date + "T00:00:00");
   const date = dateObj.toLocaleDateString("en-GB", {
     weekday: "long",

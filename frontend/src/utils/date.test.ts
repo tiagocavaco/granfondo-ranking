@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { formatAge } from "./date";
+import { formatAge, isEventPast } from "./date";
 
 function isoAt(msAgo: number): string {
   return new Date(Date.now() - msAgo).toISOString();
@@ -11,6 +11,31 @@ const DAY = 24 * HOUR;
 
 afterEach(() => {
   vi.useRealTimers();
+});
+
+describe("isEventPast", () => {
+  it("returns false for today's date with no results", () => {
+    const today = new Date().toISOString().slice(0, 10);
+    expect(isEventPast(today, false)).toBe(false);
+  });
+
+  it("returns true for today's date when results are available", () => {
+    const today = new Date().toISOString().slice(0, 10);
+    expect(isEventPast(today, true)).toBe(true);
+  });
+
+  it("returns true for a past date regardless of hasResults", () => {
+    expect(isEventPast("2020-01-01", false)).toBe(true);
+    expect(isEventPast("2020-01-01", true)).toBe(true);
+  });
+
+  it("returns false for a future date with no results", () => {
+    expect(isEventPast("2099-12-31", false)).toBe(false);
+  });
+
+  it("returns true for a future date when results are already available", () => {
+    expect(isEventPast("2099-12-31", true)).toBe(true);
+  });
 });
 
 describe("formatAge", () => {
