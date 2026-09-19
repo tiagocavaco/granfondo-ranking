@@ -7,6 +7,7 @@ Node.js scraper that fetches granfondo results, runs the athlete identity pipeli
 ```bash
 npm run scrape                    # incremental scrape (skips events in scraped-events.json)
 npm run scrape:force              # re-scrape everything, ignore cache
+npm run scrape:fast               # skip participant API calls for upcoming events — load from DB cache instead (~4× faster, use after alias/assignment changes)
 npm run scrape:participants       # refresh upcoming event participant lists only
 npm run db:manage -- list         # list manual overrides (aliases, assignments, team aliases)
 npm run db:manage -- add team-alias --from F --to T
@@ -58,6 +59,7 @@ src/
     participants/
       participants.ts         Resolves participant names → athlete IDs using multi-pass matching
       participants-refresh.ts Lightweight scrape that refreshes participant lists without the full pipeline
+      helpers.ts              Shared guard: shouldKeepExistingParticipants — protects existing data when API returns 0 or drops >20%
 
     results/            Athlete identity pipeline — builds the master athlete index
       results.ts        Orchestrator — runs all passes in order, owns PipelineCtx
@@ -110,6 +112,10 @@ src/
 9. Write encrypted DB (`write-db.ts`), update `scraped-events.json`.
 
 `--participants` mode runs `scrapeParticipants()` in `participants/participants-refresh.ts` — refreshes participant lists for upcoming events without running the full athlete pipeline or rebuilding the DB from scratch.
+
+`--fast` mode skips participant API calls for upcoming events and loads them from the existing DB instead. Use this after alias or result-assignment changes where fresh participant data isn't needed — typically ~4× faster than a full scrape.
+
+Both the full scrape and `--participants` mode share a **participant drop guard** (`participants/helpers.ts`): if the API returns 0 participants (or drops ≥10 entries and ≥20%) for an upcoming event that previously had data, the existing participants and distances are kept from the DB unchanged. This protects events like Tavira whose registrations API permanently returns 0.
 
 ## Athlete identity pipeline
 

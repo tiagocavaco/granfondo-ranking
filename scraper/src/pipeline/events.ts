@@ -34,7 +34,12 @@ import {
   APEDALAR_PARTICIPANT_URLS,
   EVENT_DISTANCE_REMAPS,
 } from "../config.js";
-import { loadResultsFromDb, loadParticipantsFromDb } from "../db/db-loader.js";
+import {
+  loadResultsFromDb,
+  loadParticipantsFromDb,
+  loadEventDistancesFromDb,
+} from "../db/db-loader.js";
+import { shouldKeepExistingParticipants } from "./participants/helpers.js";
 import type {
   StoredEvent,
   StoredEventResults,
@@ -108,6 +113,7 @@ export async function scrapeEvent(
   scrapedEvents: Record<string, string>,
   sourceDb: BetterSqlite3.Database | null,
   force: boolean,
+  fast: boolean,
 ): Promise<ScrapeResult> {
   const label = `[${event.id}] ${event.name} (${event.date})`;
   const isStable =
@@ -143,6 +149,38 @@ export async function scrapeEvent(
     }
   }
 
+  const loadPreviousCount = (): number => {
+    const existing = sourceDb!
+      .prepare("SELECT participant_count FROM events WHERE id = ?")
+      .get(event.id) as { participant_count: number } | undefined;
+    return existing?.participant_count ?? 0;
+  };
+
+  const loadUpcomingFromDb = (
+    previousCount: number,
+    warning?: string,
+  ): ScrapeResult => {
+    if (warning) {
+      console.warn(`  ⚠️  ${warning}`);
+    }
+    event.participantCount = previousCount;
+    const storedDistances = loadEventDistancesFromDb(sourceDb!, event.id);
+    event.distances =
+      storedDistances.length > 0
+        ? storedDistances
+        : resolveDistances([], event.id);
+    const participants = loadParticipantsFromDb(sourceDb!, event.id);
+    console.log(
+      `  · participants from cache — ${event.participantCount} registered`,
+    );
+    return { event, participants };
+  };
+
+  // For upcoming events with --fast: load from DB, no API call.
+  if (!isPast(event.date) && fast && sourceDb !== null) {
+    return loadUpcomingFromDb(loadPreviousCount());
+  }
+
   // Live fetch — participants first (distance discovery), then results per distance
   let athletes: StoredParticipant[] = [];
   try {
@@ -156,6 +194,17 @@ export async function scrapeEvent(
   event.participantCount = athletes.length;
 
   if (!isPast(event.date)) {
+    if (sourceDb !== null) {
+      const previousCount = loadPreviousCount();
+      const dropCheck = shouldKeepExistingParticipants(
+        athletes.length,
+        previousCount,
+      );
+      if (dropCheck.keep) {
+        return loadUpcomingFromDb(previousCount, dropCheck.reason);
+      }
+    }
+
     console.log(
       `  ⏳ upcoming — ${athletes.length} registered, ${event.distances.map((distance) => distance.name).join(" / ")}`,
     );

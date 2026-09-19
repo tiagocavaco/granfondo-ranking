@@ -13,6 +13,7 @@
     "generate-schema": "npm run generate-schema --workspace=@granfondo/database",
     "scrape": "npm run scrape --workspace=scraper",
     "scrape:force": "npm run scrape:force --workspace=scraper",
+    "scrape:fast": "npm run scrape:fast --workspace=scraper",
     "dev": "npm run dev --workspace=frontend",
     "dev:backoffice": "npm run dev --workspace=backoffice",
     "build": "npm run build --workspace=frontend",

@@ -170,6 +170,17 @@ export function loadExistingEventIds(
   return new Set(rows.map((r) => r.id));
 }
 
+export function loadEventDistancesFromDb(
+  sourceDb: BetterSqlite3.Database,
+  eventId: number,
+): Array<{ id: string; name: string }> {
+  return drizzle(sourceDb, { schema })
+    .select({ id: schema.eventDistances.id, name: schema.eventDistances.name })
+    .from(schema.eventDistances)
+    .where(eq(schema.eventDistances.eventId, eventId))
+    .all();
+}
+
 export function loadParticipantsFromDb(
   sourceDb: BetterSqlite3.Database,
   eventId: number,
