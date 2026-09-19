@@ -86,7 +86,9 @@ const eventRows = db
   .all() as EventRow[];
 
 db.close();
-try { fs.unlinkSync(tmpPath); } catch {}
+try {
+  fs.unlinkSync(tmpPath);
+} catch {}
 
 // ── Build lookup maps ─────────────────────────────────────────────────────────
 
@@ -114,7 +116,10 @@ for (const team of teamRows) {
 const athletesByTeam = new Map<number, Set<number>>();
 for (const row of athleteTeamRows) {
   let set = athletesByTeam.get(row.team_id);
-  if (!set) { set = new Set(); athletesByTeam.set(row.team_id, set); }
+  if (!set) {
+    set = new Set();
+    athletesByTeam.set(row.team_id, set);
+  }
   set.add(row.athlete_id);
 }
 
@@ -172,7 +177,10 @@ type Candidate = {
 const teamIdsByAthlete = new Map<number, Set<number>>();
 for (const row of athleteTeamRows) {
   let set = teamIdsByAthlete.get(row.athlete_id);
-  if (!set) { set = new Set(); teamIdsByAthlete.set(row.athlete_id, set); }
+  if (!set) {
+    set = new Set();
+    teamIdsByAthlete.set(row.athlete_id, set);
+  }
   set.add(row.team_id);
 }
 
@@ -182,7 +190,10 @@ for (const [athleteId, teamIds] of teamIdsByAthlete) {
   const [idA, idB] = [...teamIds].sort((x, y) => x - y) as [number, number];
   const pairKey = `${idA}|${idB}`;
   let list = pairEvidence.get(pairKey);
-  if (!list) { list = []; pairEvidence.set(pairKey, list); }
+  if (!list) {
+    list = [];
+    pairEvidence.set(pairKey, list);
+  }
   list.push(athleteId);
 }
 
@@ -214,7 +225,9 @@ for (const [pairKey, sharedAthleteIds] of pairEvidence) {
 
   const fromEvents = teamEventIds(fromId);
   const toEvents = teamEventIds(toId);
-  const sharedEventCount = [...fromEvents].filter((id) => toEvents.has(id)).length;
+  const sharedEventCount = [...fromEvents].filter((id) =>
+    toEvents.has(id),
+  ).length;
 
   athleteAnchoredCandidates.set(pairNorm, {
     from: fromKey,
@@ -250,11 +263,14 @@ function trigramSet(s: string): Set<string> {
 }
 
 function trigramSimilarity(a: string, b: string): number {
-  if (Math.abs(a.length - b.length) / Math.max(a.length, b.length) > 0.6) return 0;
+  if (Math.abs(a.length - b.length) / Math.max(a.length, b.length) > 0.6)
+    return 0;
   const ta = trigramSet(a);
   const tb = trigramSet(b);
   let intersection = 0;
-  for (const t of ta) { if (tb.has(t)) intersection++; }
+  for (const t of ta) {
+    if (tb.has(t)) intersection++;
+  }
   const union = ta.size + tb.size - intersection;
   return union === 0 ? 0 : intersection / union;
 }
@@ -330,16 +346,19 @@ function emitNamePair(a: string, b: string, score: number) {
 
   const teamIdA = keyToTeamId.get(a);
   const teamIdB = keyToTeamId.get(b);
-  const sizeA = teamIdA !== undefined ? (athletesByTeam.get(teamIdA)?.size ?? 0) : 0;
-  const sizeB = teamIdB !== undefined ? (athletesByTeam.get(teamIdB)?.size ?? 0) : 0;
+  const sizeA =
+    teamIdA !== undefined ? (athletesByTeam.get(teamIdA)?.size ?? 0) : 0;
+  const sizeB =
+    teamIdB !== undefined ? (athletesByTeam.get(teamIdB)?.size ?? 0) : 0;
   const [fromKey, toKey, fromId, toId] =
-    sizeA <= sizeB
-      ? [a, b, teamIdA, teamIdB]
-      : [b, a, teamIdB, teamIdA];
+    sizeA <= sizeB ? [a, b, teamIdA, teamIdB] : [b, a, teamIdB, teamIdA];
 
-  const fromEvents = fromId !== undefined ? teamEventIds(fromId) : new Set<number>();
+  const fromEvents =
+    fromId !== undefined ? teamEventIds(fromId) : new Set<number>();
   const toEvents = toId !== undefined ? teamEventIds(toId) : new Set<number>();
-  const sharedEventCount = [...fromEvents].filter((id) => toEvents.has(id)).length;
+  const sharedEventCount = [...fromEvents].filter((id) =>
+    toEvents.has(id),
+  ).length;
 
   nameSimilarityCandidates.push({
     from: fromKey,
@@ -370,7 +389,10 @@ for (const [, group] of tokenIndex) {
       if (sharedDistinctive < 1) continue;
       const tokSim = teamKeySimilarity(a, b);
       if (tokSim >= 1) {
-        if (Math.min(significantTokens(a).length, significantTokens(b).length) >= 2) {
+        if (
+          Math.min(significantTokens(a).length, significantTokens(b).length) >=
+          2
+        ) {
           emitNamePair(a, b, 1.0);
         }
       } else if (tokSim >= 0.6 && sharedRare >= 1) {
@@ -417,15 +439,22 @@ const candidates = [...anchoredSorted, ...nameSorted];
 
 let existingRejected: Array<{ from: string; to: string }> = [];
 if (fs.existsSync(rejectedPath)) {
-  try { existingRejected = JSON.parse(fs.readFileSync(rejectedPath, "utf-8")); } catch {}
+  try {
+    existingRejected = JSON.parse(fs.readFileSync(rejectedPath, "utf-8"));
+  } catch {}
 }
 let existingCandidates: Candidate[] = [];
 if (fs.existsSync(outPath)) {
-  try { existingCandidates = JSON.parse(fs.readFileSync(outPath, "utf-8")); } catch {}
+  try {
+    existingCandidates = JSON.parse(fs.readFileSync(outPath, "utf-8"));
+  } catch {}
 }
 
 const rejectedMap = new Map<string, false>([
-  ...existingRejected.map((r): [string, false] => [`${r.from}|||${r.to}`, false]),
+  ...existingRejected.map((r): [string, false] => [
+    `${r.from}|||${r.to}`,
+    false,
+  ]),
   ...existingCandidates
     .filter((c) => c.approved === false)
     .map((c): [string, false] => [`${c.from}|||${c.to}`, false]),
@@ -448,7 +477,11 @@ fs.writeFileSync(outPath, JSON.stringify(candidates, null, 2));
 
 const anchored = candidates.filter((c) => c.shared_athletes > 0).length;
 const nameOnly = candidates.filter((c) => c.shared_athletes === 0).length;
-console.log(`✓ ${candidates.length} candidates written to scraper/team-alias-candidates.json`);
-console.log(`  ${anchored} athlete-anchored (sorted first), ${nameOnly} name-similarity only`);
+console.log(
+  `✓ ${candidates.length} candidates written to scraper/team-alias-candidates.json`,
+);
+console.log(
+  `  ${anchored} athlete-anchored (sorted first), ${nameOnly} name-similarity only`,
+);
 console.log(`  Review: set "approved": true to add, false to skip`);
 console.log(`  Then run: npm run db:apply-team-aliases`);

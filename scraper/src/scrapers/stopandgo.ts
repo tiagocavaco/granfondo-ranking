@@ -588,7 +588,8 @@ export async function scrapeRegistrationsParticipants(
     const trackSeen = new Set<string>();
 
     // Set filter (or no-op if no track filter) and get the first page of this track
-    const updates: Record<string, string> = trackId !== null ? { track: trackId } : {};
+    const updates: Record<string, string> =
+      trackId !== null ? { track: trackId } : {};
     const firstComponent = await livewirePost(initialSnapshot, updates, []);
     if (!firstComponent) return trackAthletes;
 

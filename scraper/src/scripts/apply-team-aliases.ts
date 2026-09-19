@@ -54,7 +54,9 @@ if (!fs.existsSync(candPath)) {
   process.exit(1);
 }
 
-const candidates: AliasCandidate[] = JSON.parse(fs.readFileSync(candPath, "utf-8"));
+const candidates: AliasCandidate[] = JSON.parse(
+  fs.readFileSync(candPath, "utf-8"),
+);
 const approved = candidates.filter((c) => c.approved === true);
 if (approved.length === 0) {
   console.log("No approved candidates — nothing to do.");
@@ -191,9 +193,16 @@ try {
 
 // Track applied aliases in approved-team-aliases.json and clear them from candidates
 if (added > 0) {
-  const existingApproved: Array<{ from: string; to: string; reasoning?: string }> =
-    fs.existsSync(approvedPath) ? JSON.parse(fs.readFileSync(approvedPath, "utf-8")) : [];
-  const alreadyApprovedKeys = new Set(existingApproved.map((a) => `${a.from}|||${a.to}`));
+  const existingApproved: Array<{
+    from: string;
+    to: string;
+    reasoning?: string;
+  }> = fs.existsSync(approvedPath)
+    ? JSON.parse(fs.readFileSync(approvedPath, "utf-8"))
+    : [];
+  const alreadyApprovedKeys = new Set(
+    existingApproved.map((a) => `${a.from}|||${a.to}`),
+  );
   for (const c of approved) {
     const key = `${c.from}|||${c.to}`;
     if (!alreadyApprovedKeys.has(key)) {
@@ -203,8 +212,17 @@ if (added > 0) {
   fs.writeFileSync(approvedPath, JSON.stringify(existingApproved, null, 2));
 
   // Remove applied entries from candidates file (keep only unapplied ones)
-  const candData: AliasCandidate[] = JSON.parse(fs.readFileSync(candPath, "utf-8"));
-  fs.writeFileSync(candPath, JSON.stringify(candData.filter((c) => c.approved !== true), null, 2));
+  const candData: AliasCandidate[] = JSON.parse(
+    fs.readFileSync(candPath, "utf-8"),
+  );
+  fs.writeFileSync(
+    candPath,
+    JSON.stringify(
+      candData.filter((c) => c.approved !== true),
+      null,
+      2,
+    ),
+  );
 }
 
 console.log(

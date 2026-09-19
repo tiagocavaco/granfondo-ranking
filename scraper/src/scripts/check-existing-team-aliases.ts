@@ -28,7 +28,10 @@ const encPath = path.resolve(
 );
 
 const keyHex = process.env.DATA_KEY;
-if (!keyHex) { console.error("DATA_KEY not set"); process.exit(1); }
+if (!keyHex) {
+  console.error("DATA_KEY not set");
+  process.exit(1);
+}
 
 const tmpPath = path.join(os.tmpdir(), "granfondo_check_aliases.db");
 const enc = fs.readFileSync(encPath);
@@ -41,7 +44,9 @@ type AthleteResultRow = { athlete_id: number; event_id: number };
 type EventRow = { id: number; name: string; year: number };
 
 const teamRows = db
-  .prepare("SELECT id, canonical_key, alias_keys FROM teams WHERE alias_keys != '[]'")
+  .prepare(
+    "SELECT id, canonical_key, alias_keys FROM teams WHERE alias_keys != '[]'",
+  )
   .all() as TeamRow[];
 
 // athlete_lookup: "name|teamId" → athlete_id
@@ -60,7 +65,9 @@ const eventRows = db
   .all() as EventRow[];
 
 db.close();
-try { fs.unlinkSync(tmpPath); } catch {}
+try {
+  fs.unlinkSync(tmpPath);
+} catch {}
 
 const eventNameById = new Map<number, string>(
   eventRows.map((e) => [e.id, `${e.name} ${e.year}`]),
@@ -72,7 +79,10 @@ for (const row of lookupRows) {
   const teamId = parseInt(row.key.split("|").at(-1)!, 10);
   if (isNaN(teamId) || teamId === 0) continue;
   let set = athletesByTeamId.get(teamId);
-  if (!set) { set = new Set(); athletesByTeamId.set(teamId, set); }
+  if (!set) {
+    set = new Set();
+    athletesByTeamId.set(teamId, set);
+  }
   set.add(row.athlete_id);
 }
 
@@ -80,7 +90,10 @@ for (const row of lookupRows) {
 const eventsByAthleteId = new Map<number, Set<number>>();
 for (const row of athleteResultRows) {
   let set = eventsByAthleteId.get(row.athlete_id);
-  if (!set) { set = new Set(); eventsByAthleteId.set(row.athlete_id, set); }
+  if (!set) {
+    set = new Set();
+    eventsByAthleteId.set(row.athlete_id, set);
+  }
   set.add(row.event_id);
 }
 
@@ -97,7 +110,9 @@ function teamEventIds(teamId: number): Set<number> {
 }
 
 // canonical_key → team id (for alias-side lookups)
-const teamIdByKey = new Map<string, number>(teamRows.map((t) => [t.canonical_key, t.id]));
+const teamIdByKey = new Map<string, number>(
+  teamRows.map((t) => [t.canonical_key, t.id]),
+);
 
 // For each alias pair, audit the merge
 type Audit = {
@@ -117,7 +132,8 @@ const audits: Audit[] = [];
 for (const team of teamRows) {
   const aliases: string[] = JSON.parse(team.alias_keys);
   const canonTeamId = team.id;
-  const canonAthletesSet = athletesByTeamId.get(canonTeamId) ?? new Set<number>();
+  const canonAthletesSet =
+    athletesByTeamId.get(canonTeamId) ?? new Set<number>();
   const canonEventsSet = teamEventIds(canonTeamId);
 
   for (const aliasKey of aliases) {
@@ -128,9 +144,13 @@ for (const team of teamRows) {
     const aliasAthletesSet = aliasTeamId
       ? (athletesByTeamId.get(aliasTeamId) ?? new Set<number>())
       : new Set<number>();
-    const aliasEventsSet = aliasTeamId ? teamEventIds(aliasTeamId) : new Set<number>();
+    const aliasEventsSet = aliasTeamId
+      ? teamEventIds(aliasTeamId)
+      : new Set<number>();
 
-    const sharedEvents = [...aliasEventsSet].filter((id) => canonEventsSet.has(id)).length;
+    const sharedEvents = [...aliasEventsSet].filter((id) =>
+      canonEventsSet.has(id),
+    ).length;
     const similarity = teamKeySimilarity(aliasKey, team.canonical_key);
 
     // An alias with no distinct athlete_lookup entries on its own side means all its
@@ -150,7 +170,9 @@ for (const team of teamRows) {
     if (sharedEvents > 0) continue;
     if (aliasEventCount < 2) continue;
 
-    const flags: string[] = [`alias=${aliasActive} athletes / ${aliasEventCount} events, canonical=${canonActive} athletes — no shared events`];
+    const flags: string[] = [
+      `alias=${aliasActive} athletes / ${aliasEventCount} events, canonical=${canonActive} athletes — no shared events`,
+    ];
     if (similarity < 0.25) {
       flags.push(`low name similarity (${Math.round(similarity * 100)}%)`);
     }
@@ -183,11 +205,7 @@ for (const team of teamRows) {
 }
 
 // Sort by most suspicious: lowest event overlap first, then lowest name similarity
-audits.sort(
-  (x, y) =>
-    x.shared_events - y.shared_events ||
-    x.score - y.score,
-);
+audits.sort((x, y) => x.shared_events - y.shared_events || x.score - y.score);
 
 if (audits.length === 0) {
   console.log("✓ All applied aliases look clean — no flags raised.");
