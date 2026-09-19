@@ -23,6 +23,7 @@ import { LISTA_URLS } from "../../config.js";
 import { isPast, initTeamAliases } from "../../normalize.js";
 import { fetchEventParticipants, resolveDistances } from "../events.js";
 import { resolveParticipantAthleteIds } from "./participants.js";
+import { shouldKeepExistingParticipants } from "./helpers.js";
 import { encryptBuffer } from "../../db/encrypt.js";
 import { DB_ENC_PATH, DATA_DIR } from "../../paths.js";
 import type { StoredEvent, StoredParticipant } from "@granfondo/database/types";
@@ -109,19 +110,9 @@ export async function scrapeParticipants() {
       .prepare("SELECT participant_count FROM events WHERE id = ?")
       .get(event.id) as { participant_count: number } | undefined;
     const previousCount = existing?.participant_count ?? 0;
-    const drop = previousCount - athletes.length;
-    const dropPercent = previousCount > 0 ? drop / previousCount : 0;
-    if (athletes.length === 0 && previousCount > 0) {
-      console.warn(
-        `  ⚠️  API returned 0 — keeping existing ${previousCount} participants`,
-      );
-      return;
-    }
-
-    if (drop >= 10 && dropPercent >= 0.2) {
-      console.warn(
-        `  ⚠️  ${previousCount} → ${athletes.length} (−${drop}, −${Math.round(dropPercent * 100)}%) — keeping existing`,
-      );
+    const dropCheck = shouldKeepExistingParticipants(athletes.length, previousCount);
+    if (dropCheck.keep) {
+      console.warn(`  ⚠️  ${dropCheck.reason}`);
       return;
     }
 

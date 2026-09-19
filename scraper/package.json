@@ -21,6 +21,7 @@
     "db:check": "tsx src/scripts/check-post-scrape.ts",
     "scrape": "tsx src/index.ts",
     "scrape:force": "tsx src/index.ts --force",
+    "scrape:fast": "tsx src/index.ts --fast",
     "scrape:participants": "tsx src/index.ts --participants",
     "test": "vitest run",
     "test:watch": "vitest",

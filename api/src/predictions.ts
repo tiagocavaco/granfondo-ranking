@@ -99,6 +99,7 @@ function loadParticipantRows(
       and(
         eq(schema.participants.eventId, eventId),
         sql`${schema.participants.athleteId} != 0`,
+        sql`${schema.participants.category} != ''`,
       ),
     )
     .all();
@@ -114,6 +115,7 @@ function loadParticipantRows(
       and(
         eq(schema.participants.eventId, eventId),
         eq(schema.participants.athleteId, 0),
+        sql`${schema.participants.category} != ''`,
       ),
     )
     .groupBy(schema.participants.distance, schema.participants.category)

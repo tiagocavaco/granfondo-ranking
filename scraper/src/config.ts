@@ -307,23 +307,21 @@ export const DEFAULT_DISTANCES: Record<
     { id: "1", name: "Granfondo" },
     { id: "2", name: "Mediofondo" },
   ],
-  // Aveiro Spring Classic (GF + MF)
+  // Aveiro Spring Classic, Tavira, Serra da Estrela (GF + MF)
   1944: [
     { id: "1", name: "Granfondo" },
     { id: "2", name: "Mediofondo" },
   ],
-  // São Mamede, Tavira, Serra da Estrela (GF + MF + Mini)
-  1798: [
-    { id: "1", name: "Granfondo" },
-    { id: "2", name: "Mediofondo" },
-    { id: "3", name: "Minifondo" },
-  ],
   1942: [
     { id: "1", name: "Granfondo" },
     { id: "2", name: "Mediofondo" },
-    { id: "3", name: "Minifondo" },
   ],
   1700: [
+    { id: "1", name: "Granfondo" },
+    { id: "2", name: "Mediofondo" },
+  ],
+  // São Mamede (GF + MF + Mini)
+  1798: [
     { id: "1", name: "Granfondo" },
     { id: "2", name: "Mediofondo" },
     { id: "3", name: "Minifondo" },
