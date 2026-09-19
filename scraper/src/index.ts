@@ -125,7 +125,13 @@ async function main() {
   for (const event of events.filter((e) => !EXCLUDED_EVENT_IDS.has(e.id))) {
     const past = isPast(event.date);
     console.log(`${past ? "✅" : "⏳"} [${event.id}] ${event.name}`);
-    const result = await scrapeEvent(event, scrapedEvents, sourceDb, FORCE, FAST);
+    const result = await scrapeEvent(
+      event,
+      scrapedEvents,
+      sourceDb,
+      FORCE,
+      FAST,
+    );
     scraped.push(result.event);
     if (result.results) {
       allResults.set(result.event.id, result.results);

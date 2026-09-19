@@ -34,7 +34,11 @@ import {
   APEDALAR_PARTICIPANT_URLS,
   EVENT_DISTANCE_REMAPS,
 } from "../config.js";
-import { loadResultsFromDb, loadParticipantsFromDb, loadEventDistancesFromDb } from "../db/db-loader.js";
+import {
+  loadResultsFromDb,
+  loadParticipantsFromDb,
+  loadEventDistancesFromDb,
+} from "../db/db-loader.js";
 import { shouldKeepExistingParticipants } from "./participants/helpers.js";
 import type {
   StoredEvent,
@@ -152,13 +156,23 @@ export async function scrapeEvent(
     return existing?.participant_count ?? 0;
   };
 
-  const loadUpcomingFromDb = (previousCount: number, warning?: string): ScrapeResult => {
-    if (warning) { console.warn(`  ⚠️  ${warning}`); }
+  const loadUpcomingFromDb = (
+    previousCount: number,
+    warning?: string,
+  ): ScrapeResult => {
+    if (warning) {
+      console.warn(`  ⚠️  ${warning}`);
+    }
     event.participantCount = previousCount;
     const storedDistances = loadEventDistancesFromDb(sourceDb!, event.id);
-    event.distances = storedDistances.length > 0 ? storedDistances : resolveDistances([], event.id);
+    event.distances =
+      storedDistances.length > 0
+        ? storedDistances
+        : resolveDistances([], event.id);
     const participants = loadParticipantsFromDb(sourceDb!, event.id);
-    console.log(`  · participants from cache — ${event.participantCount} registered`);
+    console.log(
+      `  · participants from cache — ${event.participantCount} registered`,
+    );
     return { event, participants };
   };
 
@@ -182,7 +196,10 @@ export async function scrapeEvent(
   if (!isPast(event.date)) {
     if (sourceDb !== null) {
       const previousCount = loadPreviousCount();
-      const dropCheck = shouldKeepExistingParticipants(athletes.length, previousCount);
+      const dropCheck = shouldKeepExistingParticipants(
+        athletes.length,
+        previousCount,
+      );
       if (dropCheck.keep) {
         return loadUpcomingFromDb(previousCount, dropCheck.reason);
       }

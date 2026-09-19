@@ -110,7 +110,10 @@ export async function scrapeParticipants() {
       .prepare("SELECT participant_count FROM events WHERE id = ?")
       .get(event.id) as { participant_count: number } | undefined;
     const previousCount = existing?.participant_count ?? 0;
-    const dropCheck = shouldKeepExistingParticipants(athletes.length, previousCount);
+    const dropCheck = shouldKeepExistingParticipants(
+      athletes.length,
+      previousCount,
+    );
     if (dropCheck.keep) {
       console.warn(`  ⚠️  ${dropCheck.reason}`);
       return;

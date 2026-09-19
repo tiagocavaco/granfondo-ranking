@@ -1,6 +1,4 @@
-type DropCheckResult =
-  | { keep: false }
-  | { keep: true; reason: string };
+type DropCheckResult = { keep: false } | { keep: true; reason: string };
 
 export function shouldKeepExistingParticipants(
   fetchedCount: number,
