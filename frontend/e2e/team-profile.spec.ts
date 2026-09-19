@@ -4,7 +4,7 @@ import { test, expect } from "@playwright/test";
 // so we don't hardcode a team ID that might shift between scrapes.
 async function goToFirstTeamProfile(page: import("@playwright/test").Page) {
   await page.goto("teams");
-  await page.waitForSelector("h2", { timeout: 15000 });
+  await page.waitForSelector("h1", { timeout: 15000 });
   // Click the first team link inside the table body (not invisible podium overlay anchors)
   const teamLink = page.locator("tbody").locator('a[href*="/team/"]').first();
   await teamLink.click();
