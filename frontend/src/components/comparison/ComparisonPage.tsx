@@ -7,6 +7,7 @@ import { ComparisonHeroCard } from "./ComparisonHeroCard";
 import { HeadToHeadChart } from "./HeadToHeadChart";
 import { SharedEventsTable } from "./SharedEventsTable";
 import { BackButton } from "../shared/BackButton";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 type AthleteRow = {
   id: number;
@@ -135,6 +136,10 @@ export default function ComparisonPage() {
   const [bLoading, setBLoading] = useState(false);
   const [aName, setAName] = useState("");
   const [bName, setBName] = useState("");
+
+  const comparisonTitle =
+    aData && bData ? `${aData.name} vs ${bData.name}` : "Compare Athletes";
+  usePageTitle(comparisonTitle);
 
   useEffect(() => {
     if (!aId) {

@@ -21,7 +21,9 @@ const { getDb } = createDbClient({
     return r.arrayBuffer();
   },
   fetchEncryptedDb: async () => {
-    const r = await fetch(`${import.meta.env.BASE_URL}data/data.db.enc`);
+    const sha = (import.meta.env.VITE_GIT_SHA as string | undefined) ?? "";
+    const url = `${import.meta.env.BASE_URL}data/data.db.enc${sha ? `?v=${sha.slice(0, 8)}` : ""}`;
+    const r = await fetch(url);
     if (!r.ok) {
       throw new Error(`Failed to fetch data.db.enc: ${r.status}`);
     }

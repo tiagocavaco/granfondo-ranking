@@ -8,6 +8,7 @@ import { Spinner, ErrorBanner } from "../shared/Spinner";
 import { distBadgeClass } from "../../utils/distance";
 import { isEventPast } from "../../utils/date";
 import { ShieldCheckIcon } from "../shared/ShieldCheckIcon";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 export default function EventDetail() {
   const { id } = useParams<{ id: string }>();
@@ -15,6 +16,8 @@ export default function EventDetail() {
   const [event, setEvent] = useState<StoredEvent | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  usePageTitle(event?.name);
 
   useEffect(() => {
     if (!id) {

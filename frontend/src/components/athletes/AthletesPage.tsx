@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { api } from "@granfondo/api";
 import { Spinner } from "../shared/Spinner";
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { countryFlag } from "@granfondo/database/normalize";
 
 type AthleteRow = {
@@ -21,6 +22,8 @@ export default function AthletesPage() {
   const [searched, setSearched] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  usePageTitle("Athletes");
 
   useEffect(() => {
     inputRef.current?.focus();
