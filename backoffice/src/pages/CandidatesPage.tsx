@@ -23,10 +23,10 @@ type SplitCandidate = {
 };
 
 type TeamAliasCandidate = {
-  fromKey: string;
-  toKey: string;
+  from: string;
+  to: string;
   score: number;
-  reason?: string;
+  approved: boolean | null;
 };
 
 type Tab = "splits" | "team-aliases";
@@ -252,8 +252,8 @@ function TeamAliasesTab() {
   const filtered = candidates.filter(
     (c) =>
       !search ||
-      c.fromKey.toLowerCase().includes(search.toLowerCase()) ||
-      c.toKey.toLowerCase().includes(search.toLowerCase()),
+      c.from.toLowerCase().includes(search.toLowerCase()) ||
+      c.to.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -292,7 +292,7 @@ function TeamAliasesTab() {
                   Score
                 </th>
                 <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Reason
+                  Status
                 </th>
               </tr>
             </thead>
@@ -300,16 +300,20 @@ function TeamAliasesTab() {
               {filtered.map((candidate, idx) => (
                 <tr key={idx} className="hover:bg-gray-50">
                   <td className="px-3 py-2 font-mono text-sm">
-                    {candidate.fromKey}
+                    {candidate.from}
                   </td>
                   <td className="px-3 py-2 font-mono text-sm">
-                    {candidate.toKey}
+                    {candidate.to}
                   </td>
                   <td className="px-3 py-2">
                     <ConfidencePip value={candidate.score} />
                   </td>
                   <td className="px-3 py-2 text-xs text-gray-500 italic">
-                    {candidate.reason ?? "—"}
+                    {candidate.approved === true
+                      ? "approved"
+                      : candidate.approved === false
+                        ? "rejected"
+                        : "pending"}
                   </td>
                 </tr>
               ))}

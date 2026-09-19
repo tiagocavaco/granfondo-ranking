@@ -115,13 +115,13 @@ export async function handleAdminRequest(
   }
 
   if (route === "aliases" && method === "DELETE") {
-    const name = str("name");
-    if (!name) {
-      jsonError(res, 400, "Missing required field: name");
+    const id = str("id");
+    if (!id) {
+      jsonError(res, 400, "Missing required field: id");
       return true;
     }
 
-    const result = runManageDb(["remove", "alias", "--name", name]);
+    const result = runManageDb(["remove", "alias", "--id", id]);
     result.ok
       ? jsonOk(res, { message: result.output })
       : jsonError(res, 500, result.output);

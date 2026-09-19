@@ -348,20 +348,25 @@ function cmdRemove(args: Record<string, string>): void {
   const { sqlite, db } = openDb();
 
   if (target === "alias") {
-    const { name } = args;
-    if (!name) {
-      console.error("Usage: remove alias --name X");
+    const { id, name } = args;
+    if (!id && !name) {
+      console.error("Usage: remove alias --id N");
       process.exit(1);
     }
 
-    const result = db
-      .delete(schema.athleteAliasRules)
-      .where(eq(schema.athleteAliasRules.name, name))
-      .run() as unknown as { changes: number };
+    const result = id
+      ? (db
+          .delete(schema.athleteAliasRules)
+          .where(eq(schema.athleteAliasRules.id, Number(id)))
+          .run() as unknown as { changes: number })
+      : (db
+          .delete(schema.athleteAliasRules)
+          .where(eq(schema.athleteAliasRules.name, name!))
+          .run() as unknown as { changes: number });
     console.log(
       result.changes
-        ? `✓ Removed alias rule for "${name}"`
-        : `⚠ No alias rule found for "${name}"`,
+        ? `✓ Removed alias rule ${id ? `#${id}` : `for "${name}"`}`
+        : `⚠ No alias rule found`,
     );
   } else if (target === "assignment") {
     const { eventId, bib } = args;

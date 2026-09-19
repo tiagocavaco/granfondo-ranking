@@ -16,6 +16,7 @@ import { resolveTeamId, mostRecentCountry } from "@granfondo/api";
 import { posStyle, rankTextColor } from "../../utils/posStyle";
 import { BackButton } from "../shared/BackButton";
 import { GenderBadge } from "../shared/GenderBadge";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 export default function AthleteProfile() {
   const { id } = useParams<{ id: string }>();
@@ -23,6 +24,8 @@ export default function AthleteProfile() {
   const [data, setData] = useState<AthleteEntry | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  usePageTitle(data?.name);
 
   useEffect(() => {
     const numId = Number(id);

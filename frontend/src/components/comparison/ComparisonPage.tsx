@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "../shared/Spinner";
@@ -7,6 +7,7 @@ import { ComparisonHeroCard } from "./ComparisonHeroCard";
 import { HeadToHeadChart } from "./HeadToHeadChart";
 import { SharedEventsTable } from "./SharedEventsTable";
 import { BackButton } from "../shared/BackButton";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 type AthleteRow = {
   id: number;
@@ -124,7 +125,6 @@ const COLORS = ["#3b82f6", "#f43f5e"] as const;
 
 export default function ComparisonPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
 
   const aId = Number(searchParams.get("a") ?? 0);
   const bId = Number(searchParams.get("b") ?? 0);
@@ -135,6 +135,10 @@ export default function ComparisonPage() {
   const [bLoading, setBLoading] = useState(false);
   const [aName, setAName] = useState("");
   const [bName, setBName] = useState("");
+
+  const comparisonTitle =
+    aData && bData ? `${aData.name} vs ${bData.name}` : "Compare Athletes";
+  usePageTitle(comparisonTitle);
 
   useEffect(() => {
     if (!aId) {

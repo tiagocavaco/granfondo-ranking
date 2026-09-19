@@ -285,10 +285,7 @@ export default function AliasesPage() {
                 </div>
                 <DeleteButton
                   onDelete={async () => {
-                    await adminApi.removeAlias({
-                      name: rule.name,
-                      team: rule.canonicalTeam,
-                    });
+                    await adminApi.removeAlias({ id: rule.id });
                     window.location.reload();
                   }}
                 />

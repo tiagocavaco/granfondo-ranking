@@ -8,6 +8,7 @@ import { PointsBadge } from "../shared/PointsBadge";
 import { distBadgeClass } from "../../utils/distance";
 import { DISTANCES } from "@granfondo/utils/distance";
 import { TeamMemberList } from "./TeamMemberList";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 function TeamNotFound({ navigate }: { navigate: (delta: number) => void }) {
   return (
@@ -121,6 +122,8 @@ export default function TeamProfile() {
   const [selectedSeason, setSelectedSeason] = useState<string>("");
   const [expandedDists, setExpandedDists] = useState<Set<string>>(new Set());
   const RESULTS_PREVIEW = 5;
+
+  usePageTitle(teamDetail?.displayName);
   const effectiveSeason = selectedSeason || allSeasons[0] || "";
 
   // All athletes who raced for this team in the selected season.

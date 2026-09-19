@@ -5,7 +5,11 @@ import { test, expect } from "@playwright/test";
 test.describe("Athlete ranking", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("ranking");
-    await page.waitForSelector("h2", { timeout: 15000 });
+    await page.waitForSelector("h1", { timeout: 15000 });
+  });
+
+  test("page title includes Athlete Ranking", async ({ page }) => {
+    await expect(page).toHaveTitle(/Granfondo Portugal.*Athlete Ranking/);
   });
 
   test("page heading reads Athlete Ranking", async ({ page }) => {
@@ -92,7 +96,11 @@ test.describe("Athlete ranking", () => {
 test.describe("Team ranking", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("teams");
-    await page.waitForSelector("h2", { timeout: 15000 });
+    await page.waitForSelector("h1", { timeout: 15000 });
+  });
+
+  test("page title includes Team Ranking", async ({ page }) => {
+    await expect(page).toHaveTitle(/Granfondo Portugal.*Team Ranking/);
   });
 
   test("page heading reads Team Ranking", async ({ page }) => {

@@ -43,6 +43,8 @@ export default [
             "_",
             "a", "b", "c", "d", "f", "n", "m", "p", "s", "t", "v",
             "db", "id", "ok", "el", "fn", "cb", "ev", "e", "r",
+            // from/to are domain-standard for alias rules (fromKey → toKey direction)
+            "to",
             "fs", "os", "ms",
             // Crypto convention: iv = initialization vector, ct = ciphertext.
             "iv", "ct",
