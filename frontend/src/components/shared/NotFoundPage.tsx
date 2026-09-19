@@ -14,9 +14,9 @@ export default function NotFoundPage() {
       </p>
       <Link
         to="/"
-        className="mt-2 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold transition-colors"
+        className="mt-2 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-semibold text-slate-400 border border-white/[0.1] hover:text-white hover:border-white/25 transition-colors"
       >
-        Back to events
+        ← Back to events
       </Link>
     </div>
   );
