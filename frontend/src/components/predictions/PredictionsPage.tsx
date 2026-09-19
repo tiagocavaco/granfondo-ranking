@@ -353,7 +353,10 @@ export default function PredictionsPage() {
 
   useEffect(() => {
     const el = tabListRef.current;
-    if (!el) return;
+    if (!el) {
+      return;
+    }
+
     const check = () => setHasTabOverflow(el.scrollWidth > el.clientWidth);
     check();
     const observer = new ResizeObserver(check);

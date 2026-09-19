@@ -9,9 +9,18 @@ import {
 } from "@granfondo/utils/scoring";
 
 function ordinal(n: number) {
-  if (n === 1) return "st";
-  if (n === 2) return "nd";
-  if (n === 3) return "rd";
+  if (n === 1) {
+    return "st";
+  }
+
+  if (n === 2) {
+    return "nd";
+  }
+
+  if (n === 3) {
+    return "rd";
+  }
+
   return "th";
 }
 

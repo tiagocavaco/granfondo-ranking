@@ -10,6 +10,7 @@ async function goToPredictions(page: import("@playwright/test").Page) {
   if ((await predictionsLink.count()) === 0) {
     return false;
   }
+
   await predictionsLink.click();
   await page.waitForURL(/\/predictions$/);
   // Wait for h2 only — [class*='font-display'] also matches the nav logo which is hidden on mobile
@@ -25,6 +26,7 @@ test("predictions page shows Pre-Race Predictions label", async ({ page }) => {
     test.skip();
     return;
   }
+
   await expect(page.getByText("Pre-Race Predictions")).toBeVisible();
 });
 
@@ -34,6 +36,7 @@ test("predictions page shows event name in hero", async ({ page }) => {
     test.skip();
     return;
   }
+
   // The h2 inside the hero block shows the event name — non-empty
   const heroHeading = page.locator("h2").first();
   await expect(heroHeading).toBeVisible();
@@ -47,6 +50,7 @@ test("predictions hero has amber top accent", async ({ page }) => {
     test.skip();
     return;
   }
+
   const accent = page.locator('[class*="via-amber-400"]').first();
   await expect(accent).toBeAttached();
 });
@@ -57,6 +61,7 @@ test("predictions page shows How it works link", async ({ page }) => {
     test.skip();
     return;
   }
+
   await expect(page.getByRole("link", { name: /how it works/i })).toBeVisible();
 });
 
@@ -66,6 +71,7 @@ test("predictions page shows Back to event link", async ({ page }) => {
     test.skip();
     return;
   }
+
   await expect(
     page.getByRole("link", { name: /back to event/i }),
   ).toBeVisible();
@@ -81,12 +87,14 @@ test("predictions distance tabs are visible when multiple distances", async ({
     test.skip();
     return;
   }
+
   const tablist = page.locator('[role="tablist"]').first();
   if ((await tablist.count()) === 0) {
     // Only one distance — no tablist rendered, just assert the panel exists
     await expect(page.locator('[class*="rounded-2xl"]').first()).toBeVisible();
     return;
   }
+
   await expect(tablist).toBeVisible();
 });
 
@@ -96,11 +104,13 @@ test("predictions tab buttons have flex-1 stretch class", async ({ page }) => {
     test.skip();
     return;
   }
+
   const tablist = page.locator('[role="tablist"]').first();
   if ((await tablist.count()) === 0) {
     test.skip();
     return;
   }
+
   const firstTab = tablist.locator('[role="tab"]').first();
   const cls = await firstTab.getAttribute("class");
   expect(cls).toContain("flex-1");
@@ -112,11 +122,13 @@ test("predictions active tab has selected aria state", async ({ page }) => {
     test.skip();
     return;
   }
+
   const tablist = page.locator('[role="tablist"]').first();
   if ((await tablist.count()) === 0) {
     test.skip();
     return;
   }
+
   const selectedTab = tablist.locator('[aria-selected="true"]');
   await expect(selectedTab).toBeVisible();
 });
@@ -127,16 +139,19 @@ test("predictions tab click switches active tab", async ({ page }) => {
     test.skip();
     return;
   }
+
   const tablist = page.locator('[role="tablist"]').first();
   if ((await tablist.count()) === 0) {
     test.skip();
     return;
   }
+
   const tabs = tablist.locator('[role="tab"]');
   if ((await tabs.count()) < 2) {
     test.skip();
     return;
   }
+
   const secondTab = tabs.nth(1);
   const secondTabText = await secondTab.textContent();
   await secondTab.click();
@@ -154,6 +169,7 @@ test("predictions fade gradient appears when tabs overflow viewport", async ({
     test.skip();
     return;
   }
+
   const tablist = page.locator('[role="tablist"]').first();
   if ((await tablist.count()) === 0) {
     test.skip();
@@ -189,6 +205,7 @@ test("predictions panel shows athlete prediction cards", async ({ page }) => {
     test.skip();
     return;
   }
+
   // At least one athlete link in the prediction list
   const athleteLink = page.locator('a[href*="/athlete/"]').first();
   await expect(athleteLink).toBeVisible();
@@ -200,6 +217,7 @@ test("predictions athlete cards link to athlete profiles", async ({ page }) => {
     test.skip();
     return;
   }
+
   const firstAthleteLink = page.locator('a[href*="/athlete/"]').first();
   await firstAthleteLink.click();
   await expect(page).toHaveURL(/\/athlete\/\d+/);
@@ -213,6 +231,7 @@ test("predictions panel has gender toggle (M/F)", async ({ page }) => {
     test.skip();
     return;
   }
+
   // GenderToggle is a role="group" with two buttons
   const genderGroup = page.getByRole("group", { name: /filter by gender/i });
   const genderButtons = genderGroup.getByRole("button");
@@ -229,6 +248,7 @@ test("predictions gender toggle switches to female athletes", async ({
     test.skip();
     return;
   }
+
   // Click the Women/F button (second in the group)
   const genderGroup = page.getByRole("group", { name: /filter by gender/i });
   const femaleBtn = genderGroup.getByRole("button").last();
@@ -245,6 +265,7 @@ test("predictions info page shows How it works heading", async ({ page }) => {
     test.skip();
     return;
   }
+
   await page.getByRole("link", { name: /how it works/i }).click();
   await page.waitForURL(/\/predictions\/info$/);
   await expect(

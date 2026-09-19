@@ -39,7 +39,10 @@ function ChartTooltip({
   aName: string;
   bName: string;
 }) {
-  if (!active || !payload?.length) return null;
+  if (!active || !payload?.length) {
+    return null;
+  }
+
   const row = payload[0]?.payload;
   return (
     <div className="bg-[#0c1628] border border-white/[0.12] rounded-xl shadow-2xl px-4 py-3 text-xs backdrop-blur-sm">
@@ -120,7 +123,9 @@ export function HeadToHeadChart({ shared, aName, bName }: Props) {
     [filtered],
   );
 
-  if (chartData.length < 2) return null;
+  if (chartData.length < 2) {
+    return null;
+  }
 
   return (
     <div className="bg-[#0c1628] rounded-2xl border border-white/[0.07] p-4 mb-6">
@@ -234,8 +239,10 @@ export function HeadToHeadChart({ shared, aName, bName }: Props) {
             strokeWidth={2}
             dot={(props) => {
               const { cx, cy } = props;
-              if (cx == null || cy == null)
+              if (cx == null || cy == null) {
                 return <g key={String(props.key ?? "")} />;
+              }
+
               return (
                 <g key={String(props.key ?? "")}>
                   <circle
@@ -271,8 +278,10 @@ export function HeadToHeadChart({ shared, aName, bName }: Props) {
             strokeWidth={2}
             dot={(props) => {
               const { cx, cy } = props;
-              if (cx == null || cy == null)
+              if (cx == null || cy == null) {
                 return <g key={String(props.key ?? "")} />;
+              }
+
               return (
                 <g key={String(props.key ?? "")}>
                   <circle

@@ -57,10 +57,11 @@ export default [
   },
   // Disables ESLint formatting rules that conflict with Prettier.
   prettier,
-  // Re-add padding-line after prettier (prettier disables it).
+  // Re-add rules after prettier (prettier disables both of these).
   {
     files: ["**/*.ts", "**/*.tsx"],
     rules: {
+      "curly": ["error", "all"],
       "padding-line-between-statements": [
         "warn",
         { blankLine: "always", prev: "block-like", next: "*" },

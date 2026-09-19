@@ -45,6 +45,7 @@ export async function scrapeParticipants() {
   if (SKIP_EVENT_IDS.size > 0) {
     console.log(`    Skipping events: ${[...SKIP_EVENT_IDS].join(", ")}`);
   }
+
   console.log();
 
   const keyHex = process.env.DATA_KEY;
@@ -116,12 +117,14 @@ export async function scrapeParticipants() {
       );
       return;
     }
+
     if (drop >= 10 && dropPercent >= 0.2) {
       console.warn(
         `  ⚠️  ${previousCount} → ${athletes.length} (−${drop}, −${Math.round(dropPercent * 100)}%) — keeping existing`,
       );
       return;
     }
+
     const distances = resolveDistances(athletes, event.id);
     event.distances = distances;
     event.participantCount = athletes.length;
@@ -147,6 +150,7 @@ export async function scrapeParticipants() {
         console.log(`⏭  [${event.id}] ${event.name} — skipped`);
         continue;
       }
+
       console.log(`⏳ [${event.id}] ${event.name}`);
       try {
         checkAndAdd(event, await fetchEventParticipants(event.id));
@@ -162,6 +166,7 @@ export async function scrapeParticipants() {
         console.log(`⏭  [${event.id}] ${event.name} — skipped`);
         continue;
       }
+
       console.log(`⏳ [${event.id}] ${event.name}`);
       try {
         checkAndAdd(event, await fetchEventParticipants(event.id));

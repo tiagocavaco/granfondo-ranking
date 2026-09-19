@@ -30,7 +30,10 @@ const { getDb } = createDbClient({
   },
   decryptDb: (enc: ArrayBuffer) => {
     const keyHex = import.meta.env.VITE_DATA_KEY as string | undefined;
-    if (!keyHex) throw new Error("VITE_DATA_KEY is not set");
+    if (!keyHex) {
+      throw new Error("VITE_DATA_KEY is not set");
+    }
+
     return decryptDatabase(enc, keyHex);
   },
 });

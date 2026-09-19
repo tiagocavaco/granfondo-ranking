@@ -83,7 +83,10 @@ describe("sweepCategoryEviction", () => {
     });
     ctx.index.set("test athlete|1", entry);
     ctx.loader = (id): StoredEventResults | null => {
-      if (id !== 4) return null;
+      if (id !== 4) {
+        return null;
+      }
+
       return {
         eventId: 4,
         eventName: "Test",
@@ -210,7 +213,10 @@ describe("sweepCategoryEviction", () => {
     });
     ctx.index.set("test athlete|1", entry);
     ctx.loader = (id): StoredEventResults | null => {
-      if (id !== 1) return null;
+      if (id !== 1) {
+        return null;
+      }
+
       return {
         eventId: 1,
         eventName: "Test",

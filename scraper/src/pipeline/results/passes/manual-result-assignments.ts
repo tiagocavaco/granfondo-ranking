@@ -174,6 +174,7 @@ export function applyManualResultAssignments(ctx: PipelineCtx): void {
         if (conflictIdx >= 0) {
           target.results.splice(conflictIdx, 1);
         }
+
         const ref = toRef(rawResult.r, rawResult.event, rawResult.dist);
         target.results.push(ref);
         addToTeamsAndCategories(target, ref);

@@ -3,9 +3,18 @@ import type { AthleteEntry } from "@granfondo/database/types";
 import { countryFlag } from "@granfondo/database/normalize";
 
 function bestPosColor(rank: number): string {
-  if (rank === 1) return "text-amber-400";
-  if (rank === 2) return "text-slate-400";
-  if (rank === 3) return "text-orange-400";
+  if (rank === 1) {
+    return "text-amber-400";
+  }
+
+  if (rank === 2) {
+    return "text-slate-400";
+  }
+
+  if (rank === 3) {
+    return "text-orange-400";
+  }
+
   return "text-slate-500";
 }
 

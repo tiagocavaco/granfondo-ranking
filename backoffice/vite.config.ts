@@ -15,7 +15,9 @@ export default defineConfig({
         server.middlewares.use((req, res, next) => {
           const url = req.url ?? "";
 
-          if (serveCandidateFile(url, res, resolve(__dirname))) return;
+          if (serveCandidateFile(url, res, resolve(__dirname))) {
+            return;
+          }
 
           if (url.startsWith("/api/admin/")) {
             handleAdminRequest(req, res).catch((err: unknown) => {

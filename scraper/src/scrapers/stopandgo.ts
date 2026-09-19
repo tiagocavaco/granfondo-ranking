@@ -322,6 +322,7 @@ export async function scrapeListaParticipants(
     if (!DISTANCES.includes(canonicalDistance)) {
       continue;
     }
+
     const distanceId = String(DISTANCES.indexOf(canonicalDistance) + 1);
 
     const gender = category.toUpperCase().includes("FEM") ? "F" : "M";
@@ -388,6 +389,7 @@ function parseRegistrationsPage(html: string): {
       if (status !== "Confirmado") {
         continue;
       }
+
       bib = tds[0] ?? "";
       // td[1] contains [avatar_initial?], name, team, category as newline-separated text nodes.
       // The avatar initial is a single letter and is not always present.
@@ -398,6 +400,7 @@ function parseRegistrationsPage(html: string): {
       if (nameParts[0]?.length === 1) {
         nameParts.shift();
       }
+
       name = nameParts[0] ?? "";
       team = fixRawTeamName(nameParts[1] ?? "");
       category = nameParts[2] ?? "";
@@ -408,6 +411,7 @@ function parseRegistrationsPage(html: string): {
       if (status !== "Confirmado") {
         continue;
       }
+
       bib = tds[0] ?? "";
       name = tds[1] ?? "";
       gender = (tds[3] ?? "").toUpperCase() === "F" ? "F" : "M";
@@ -428,6 +432,7 @@ function parseRegistrationsPage(html: string): {
     if (!DISTANCES.includes(canonicalDistance)) {
       continue;
     }
+
     const distanceId = String(DISTANCES.indexOf(canonicalDistance) + 1);
 
     athletes.push({
@@ -467,6 +472,7 @@ export async function scrapeRegistrationsParticipants(
   if (!initRes.ok) {
     throw new Error(`registrations HTTP ${initRes.status}: ${url}`);
   }
+
   const initHtml = await initRes.text();
 
   // Session cookies must be replayed in Livewire POST requests — extract from each response
@@ -483,6 +489,7 @@ export async function scrapeRegistrationsParticipants(
       }
     }
   };
+
   collectCookies(initRes);
 
   const { athletes: firstAthletes, rowCount: firstRowCount } =
@@ -491,7 +498,9 @@ export async function scrapeRegistrationsParticipants(
     firstAthletes.map((a) => `${a.name}|${a.distance}`),
   );
   const all: StoredParticipant[] = [...firstAthletes];
-  if (firstRowCount === 0) return all;
+  if (firstRowCount === 0) {
+    return all;
+  }
 
   // The Livewire <script> tag carries data-csrf (CSRF token) and data-update-uri (update endpoint).
   const csrfToken = initHtml.match(/data-csrf="([^"]+)"/)?.[1];
@@ -509,20 +518,30 @@ export async function scrapeRegistrationsParticipants(
       const res = await fetchWithRetry(`${baseUrl}?page=${page}`, {
         headers: browserHeaders,
       });
-      if (!res.ok) break;
+      if (!res.ok) {
+        break;
+      }
+
       const { athletes, rowCount } = parseRegistrationsPage(await res.text());
       // Detect loop: Livewire returns the last page again when page > lastPage.
       // Only update prevPageKey when the page has real athletes — Caminhada/Kids-only
       // pages return empty athletes after filtering and must not reset the sentinel.
       const pageKey = athletes.map((a) => `${a.name}|${a.distance}`).join("|");
-      if (rowCount === 0 || (pageKey !== "" && pageKey === prevPageKey)) break;
-      if (pageKey !== "") prevPageKey = pageKey;
+      if (rowCount === 0 || (pageKey !== "" && pageKey === prevPageKey)) {
+        break;
+      }
+
+      if (pageKey !== "") {
+        prevPageKey = pageKey;
+      }
+
       const newAthletes = athletes.filter(
         (a) => !seen.has(`${a.name}|${a.distance}`),
       );
       newAthletes.forEach((a) => seen.add(`${a.name}|${a.distance}`));
       all.push(...newAthletes);
     }
+
     return all;
   }
 
@@ -573,7 +592,10 @@ export async function scrapeRegistrationsParticipants(
         components: [{ snapshot: snapshotArg, updates, calls }],
       }),
     });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      return null;
+    }
+
     collectCookies(res);
     const json = (await res.json()) as {
       components: Array<{ snapshot: string; effects: { html?: string } }>;
@@ -591,11 +613,15 @@ export async function scrapeRegistrationsParticipants(
     const updates: Record<string, string> =
       trackId !== null ? { track: trackId } : {};
     const firstComponent = await livewirePost(initialSnapshot, updates, []);
-    if (!firstComponent) return trackAthletes;
+    if (!firstComponent) {
+      return trackAthletes;
+    }
 
     let currentSnapshot = firstComponent.snapshot;
     const firstHtml = firstComponent.effects?.html ?? "";
-    if (!firstHtml) return trackAthletes;
+    if (!firstHtml) {
+      return trackAthletes;
+    }
 
     const { athletes: firstPageAthletes } = parseRegistrationsPage(firstHtml);
     for (const athlete of firstPageAthletes) {
@@ -614,16 +640,25 @@ export async function scrapeRegistrationsParticipants(
       const component = await livewirePost(currentSnapshot, {}, [
         { method: "gotoPage", params: [page, "page"], metadata: {} },
       ]);
-      if (!component) break;
+      if (!component) {
+        break;
+      }
 
       currentSnapshot = component.snapshot;
       const html = component.effects?.html ?? "";
-      if (!html) break;
+      if (!html) {
+        break;
+      }
 
       const { athletes, rowCount } = parseRegistrationsPage(html);
       const pageKey = athletes.map((a) => `${a.name}|${a.distance}`).join("|");
-      if (rowCount === 0 || (pageKey !== "" && pageKey === prevPageKey)) break;
-      if (pageKey !== "") prevPageKey = pageKey;
+      if (rowCount === 0 || (pageKey !== "" && pageKey === prevPageKey)) {
+        break;
+      }
+
+      if (pageKey !== "") {
+        prevPageKey = pageKey;
+      }
 
       for (const athlete of athletes) {
         const key = `${athlete.name}|${athlete.distance}`;
@@ -645,6 +680,7 @@ export async function scrapeRegistrationsParticipants(
     for (const track of trackOptions) {
       trackResults.push(await scrapeTrack(track.id));
     }
+
     const combined = new Set<string>();
     for (const athletes of trackResults) {
       for (const athlete of athletes) {

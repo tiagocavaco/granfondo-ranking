@@ -47,13 +47,18 @@ export function evictBlockedResults(
 
       // Remove from the source athlete's profile
       for (const [, entry] of ctx.index) {
-        if (entry.id !== blockedAthleteId) continue;
+        if (entry.id !== blockedAthleteId) {
+          continue;
+        }
+
         const before = entry.results.length;
         entry.results = entry.results.filter(
           (result) =>
             !(result.eventId === block.eventId && result.bib === block.bib),
         );
-        if (entry.results.length < before) break;
+        if (entry.results.length < before) {
+          break;
+        }
       }
 
       // Accumulate onto the shared destination profile

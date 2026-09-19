@@ -60,7 +60,9 @@ export async function handleAdminRequest(
   const url = req.url ?? "";
   const method = req.method ?? "";
 
-  if (!url.startsWith("/api/admin/")) return false;
+  if (!url.startsWith("/api/admin/")) {
+    return false;
+  }
 
   const route = url.replace("/api/admin/", "");
   let body: Record<string, unknown> = {};
@@ -88,6 +90,7 @@ export async function handleAdminRequest(
       );
       return true;
     }
+
     const args = [
       "add",
       "alias",
@@ -100,7 +103,10 @@ export async function handleAdminRequest(
       "--alias-team",
       aliasTeam,
     ];
-    if (note) args.push("--note", note);
+    if (note) {
+      args.push("--note", note);
+    }
+
     const result = runManageDb(args);
     result.ok
       ? jsonOk(res, { message: result.output })
@@ -114,6 +120,7 @@ export async function handleAdminRequest(
       jsonError(res, 400, "Missing required field: name");
       return true;
     }
+
     const result = runManageDb(["remove", "alias", "--name", name]);
     result.ok
       ? jsonOk(res, { message: result.output })
@@ -130,6 +137,7 @@ export async function handleAdminRequest(
       jsonError(res, 400, "Missing required fields: eventId, bib, athleteId");
       return true;
     }
+
     const args = [
       "add",
       "block",
@@ -140,7 +148,10 @@ export async function handleAdminRequest(
       "--athlete-id",
       athleteId,
     ];
-    if (note) args.push("--note", note);
+    if (note) {
+      args.push("--note", note);
+    }
+
     const result = runManageDb(args);
     result.ok
       ? jsonOk(res, { message: result.output })
@@ -155,6 +166,7 @@ export async function handleAdminRequest(
       jsonError(res, 400, "Missing required fields: eventId, bib");
       return true;
     }
+
     const result = runManageDb([
       "remove",
       "block",
@@ -178,6 +190,7 @@ export async function handleAdminRequest(
       jsonError(res, 400, "Missing required fields: eventId, bib, athleteId");
       return true;
     }
+
     const args = [
       "add",
       "assignment",
@@ -188,7 +201,10 @@ export async function handleAdminRequest(
       "--athlete-id",
       athleteId,
     ];
-    if (note) args.push("--note", note);
+    if (note) {
+      args.push("--note", note);
+    }
+
     const result = runManageDb(args);
     result.ok
       ? jsonOk(res, { message: result.output })
@@ -203,6 +219,7 @@ export async function handleAdminRequest(
       jsonError(res, 400, "Missing required fields: eventId, bib");
       return true;
     }
+
     const result = runManageDb([
       "remove",
       "assignment",
@@ -224,6 +241,7 @@ export async function handleAdminRequest(
       jsonError(res, 400, "Missing required fields: from, to");
       return true;
     }
+
     const result = runManageDb([
       "add",
       "team-alias",
@@ -244,6 +262,7 @@ export async function handleAdminRequest(
       jsonError(res, 400, "Missing required field: from");
       return true;
     }
+
     const result = runManageDb(["remove", "team-alias", "--from", from]);
     result.ok
       ? jsonOk(res, { message: result.output })
@@ -261,7 +280,10 @@ export function serveCandidateFile(
   configDir: string,
 ): boolean {
   const filePath = CANDIDATE_FILES[url];
-  if (!filePath) return false;
+  if (!filePath) {
+    return false;
+  }
+
   try {
     const data = readFileSync(resolve(configDir, filePath), "utf-8");
     res.setHeader("Content-Type", "application/json");
@@ -270,5 +292,6 @@ export function serveCandidateFile(
     res.setHeader("Content-Type", "application/json");
     res.end("[]");
   }
+
   return true;
 }

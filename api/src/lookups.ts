@@ -32,6 +32,7 @@ export async function initLookups(): Promise<{ teamsLoaded: boolean }> {
           newIdCache.set(alias, t.id);
         }
       }
+
       teamAliasesCache = newAliasCache;
       teamKeyToIdCache = newIdCache;
       return { teamsLoaded: true };

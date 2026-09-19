@@ -84,6 +84,7 @@ test("results table Gap column is hidden below lg breakpoint", async ({
     test.skip();
     return;
   }
+
   await finishedLink.click();
   await page.waitForURL(/\/event\/\d+/);
 
@@ -92,6 +93,7 @@ test("results table Gap column is hidden below lg breakpoint", async ({
     test.skip();
     return;
   }
+
   const display = await gapHeader.evaluate(
     (el) => getComputedStyle(el).display,
   );
@@ -105,6 +107,7 @@ test("results table Gap column is visible at lg+ (desktop)", async ({
     test.skip();
     return;
   }
+
   await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   await page
@@ -126,6 +129,7 @@ test("athlete career table Gap column hidden below lg breakpoint", async ({
     test.skip();
     return;
   }
+
   await page.goto("athlete/22");
   await page.waitForSelector("h1", { timeout: 15000 });
   const gapHeaders = page.getByRole("columnheader", { name: /^Gap$/i });
@@ -133,6 +137,7 @@ test("athlete career table Gap column hidden below lg breakpoint", async ({
     test.skip();
     return;
   }
+
   const display = await gapHeaders
     .first()
     .evaluate((el) => getComputedStyle(el).display);
@@ -158,6 +163,7 @@ test("main content is not obscured by header on mobile", async ({
     test.skip();
     return;
   }
+
   await page.goto("");
   await page.waitForSelector("h1", { timeout: 15000 });
   // h1 bounding box should be below the header bottom
@@ -167,5 +173,6 @@ test("main content is not obscured by header on mobile", async ({
     test.skip();
     return;
   }
+
   expect(h1Box.y).toBeGreaterThan(headerBox.y);
 });

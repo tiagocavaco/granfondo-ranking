@@ -87,9 +87,15 @@ export default function PerformanceChart({ results }: Props) {
     active?: boolean;
     payload?: Array<{ payload: FlatPoint }>;
   }) => {
-    if (!active || !payload?.length) return null;
+    if (!active || !payload?.length) {
+      return null;
+    }
+
     const point: FlatPoint = payload[0]?.payload;
-    if (!point) return null;
+    if (!point) {
+      return null;
+    }
+
     const isPodium = point.pos <= 3;
 
     return (

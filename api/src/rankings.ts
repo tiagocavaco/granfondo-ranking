@@ -31,6 +31,7 @@ export async function getAggregateRanking(): Promise<AggregateRanking> {
     if (!resultsByAthlete.has(row.aggregateAthleteId)) {
       resultsByAthlete.set(row.aggregateAthleteId, []);
     }
+
     resultsByAthlete.get(row.aggregateAthleteId)!.push({
       eventId: row.eventId,
       eventName: row.eventName,
@@ -63,8 +64,14 @@ export async function getAggregateRanking(): Promise<AggregateRanking> {
   const ranking: AggregateRanking = {};
   for (const row of rows) {
     const y = String(row.year);
-    if (!ranking[y]) ranking[y] = {};
-    if (!ranking[y][row.distance]) ranking[y][row.distance] = {};
+    if (!ranking[y]) {
+      ranking[y] = {};
+    }
+
+    if (!ranking[y][row.distance]) {
+      ranking[y][row.distance] = {};
+    }
+
     if (!ranking[y][row.distance][row.gender]) {
       ranking[y][row.distance][row.gender] = [];
     }
@@ -107,6 +114,7 @@ export async function getTeamRanking(): Promise<TeamRanking> {
     if (!athletesByResult.has(tra.teamRaceResultId)) {
       athletesByResult.set(tra.teamRaceResultId, []);
     }
+
     athletesByResult.get(tra.teamRaceResultId)!.push({
       id: tra.athleteId,
       name: tra.name,
@@ -122,6 +130,7 @@ export async function getTeamRanking(): Promise<TeamRanking> {
     if (!resultsByRanking.has(trr.teamRankingId)) {
       resultsByRanking.set(trr.teamRankingId, []);
     }
+
     resultsByRanking.get(trr.teamRankingId)!.push({
       eventId: trr.eventId,
       eventName: trr.eventName,
@@ -140,8 +149,13 @@ export async function getTeamRanking(): Promise<TeamRanking> {
   const ranking: TeamRanking = {};
   for (const row of rows) {
     const y = String(row.year);
-    if (!ranking[y]) ranking[y] = {};
-    if (!ranking[y][row.distance]) ranking[y][row.distance] = [];
+    if (!ranking[y]) {
+      ranking[y] = {};
+    }
+
+    if (!ranking[y][row.distance]) {
+      ranking[y][row.distance] = [];
+    }
 
     const entry: TeamEntry = {
       rank: row.rank,

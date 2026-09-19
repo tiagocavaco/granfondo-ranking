@@ -10,6 +10,7 @@ async function goToUpcomingEvent(page: import("@playwright/test").Page) {
   if ((await heroLabel.count()) === 0) {
     return false;
   }
+
   // Click the outer wrapper div three levels up from the label span
   await heroLabel.locator("..").locator("..").locator("..").click();
   await page.waitForURL(/\/event\/\d+/);
@@ -22,6 +23,7 @@ test("upcoming event shows Participants tab content", async ({ page }) => {
     test.skip();
     return;
   }
+
   // Upcoming events show ParticipantsTab, not ResultsTab
   // Wait for the table to render (participants load async)
   await page.waitForSelector("table", { timeout: 10000 });
@@ -38,6 +40,7 @@ test("participants tab has search input", async ({ page }) => {
     test.skip();
     return;
   }
+
   await expect(
     page.getByPlaceholder(/search name, team or bib/i),
   ).toBeVisible();
@@ -49,6 +52,7 @@ test("participants tab shows Bib column", async ({ page }) => {
     test.skip();
     return;
   }
+
   // Bib column is hidden sm:table-cell — in DOM on all viewports, visible only on desktop
   await expect(page.getByText("Bib")).toBeAttached();
 });
@@ -59,6 +63,7 @@ test("participants tab shows participant rows", async ({ page }) => {
     test.skip();
     return;
   }
+
   // Wait for participants table to render (WASM decrypt + query is async)
   await page.waitForSelector("table", { timeout: 10000 });
   const athleteLinks = page.locator('a[href*="/athlete/"]');
@@ -67,6 +72,7 @@ test("participants tab shows participant rows", async ({ page }) => {
     test.skip();
     return;
   }
+
   await expect(athleteLinks.first()).toBeVisible();
 });
 
@@ -78,6 +84,7 @@ test("participants tab distance filter changes visible count", async ({
     test.skip();
     return;
   }
+
   // Wait for participants table to render before checking selects
   await page.waitForSelector("table", { timeout: 10000 });
   // ParticipantsTab renders two distance selects (mobile/desktop) and category/gender selects.
@@ -94,6 +101,7 @@ test("participants search filters results", async ({ page }) => {
     test.skip();
     return;
   }
+
   const search = page.getByPlaceholder(/search name, team or bib/i);
   // Type a common name fragment that exists in any dataset
   await search.fill("zzznomatch999");

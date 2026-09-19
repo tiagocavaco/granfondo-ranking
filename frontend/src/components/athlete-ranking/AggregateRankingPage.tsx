@@ -42,10 +42,16 @@ export default function AggregateRankingPage() {
   );
 
   const ranked = useMemo(() => {
-    if (!data || !year || !distance) return [];
+    if (!data || !year || !distance) {
+      return [];
+    }
+
     const list = data[year]?.[distance]?.[gender] ?? [];
     const withRank = list.map((a, i) => ({ ...a, rank: i + 1 }));
-    if (!search) return withRank;
+    if (!search) {
+      return withRank;
+    }
+
     const query = search.toLowerCase();
     return withRank.filter(
       (athlete) =>
@@ -55,7 +61,10 @@ export default function AggregateRankingPage() {
   }, [data, year, distance, gender, search]);
 
   const maxPoints = useMemo(() => {
-    if (!data || !year || !distance) return 1;
+    if (!data || !year || !distance) {
+      return 1;
+    }
+
     return data[year]?.[distance]?.[gender]?.[0]?.totalPoints ?? 1;
   }, [data, year, distance, gender]);
 

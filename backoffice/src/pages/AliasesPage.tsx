@@ -12,8 +12,14 @@ import { usePagedList } from "../lib/use-paged-list";
 
 function matchesSearch(rule: AthleteAliasRule, term: string): boolean {
   const lower = term.toLowerCase();
-  if (rule.name.toLowerCase().includes(lower)) return true;
-  if (rule.canonicalTeam.toLowerCase().includes(lower)) return true;
+  if (rule.name.toLowerCase().includes(lower)) {
+    return true;
+  }
+
+  if (rule.canonicalTeam.toLowerCase().includes(lower)) {
+    return true;
+  }
+
   return rule.aliases.some(
     (alias) =>
       alias.name.toLowerCase().includes(lower) ||

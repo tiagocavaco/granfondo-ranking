@@ -45,23 +45,31 @@ function AthleteSearch({
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node))
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
         setOpen(false);
+      }
     };
+
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
   useEffect(() => {
-    if (debounce.current) clearTimeout(debounce.current);
+    if (debounce.current) {
+      clearTimeout(debounce.current);
+    }
+
     if (search.trim().length < 2) {
       setResults([]);
       return;
     }
+
     debounce.current = setTimeout(() => {
       api.searchAthletes(search.trim()).then((rows) => {
         setResults(rows.filter((r) => r.id !== excluded));
-        if (userTyped.current) setOpen(true);
+        if (userTyped.current) {
+          setOpen(true);
+        }
       });
     }, 250);
   }, [search, excluded]);
@@ -133,6 +141,7 @@ export default function ComparisonPage() {
       setAData(null);
       return;
     }
+
     setALoading(true);
     api
       .getAthlete(aId)
@@ -146,6 +155,7 @@ export default function ComparisonPage() {
       setBData(null);
       return;
     }
+
     setBLoading(true);
     api
       .getAthlete(bId)
@@ -162,17 +172,29 @@ export default function ComparisonPage() {
   }, [bData]);
 
   const shared = useMemo(() => {
-    if (!aData || !bData) return [];
+    if (!aData || !bData) {
+      return [];
+    }
+
     const bMap = new Map<string, AthleteResultRef>();
     for (const r of bData.results) {
-      if (!r.dnf && !r.dns) bMap.set(`${r.eventId}|${r.distance}`, r);
+      if (!r.dnf && !r.dns) {
+        bMap.set(`${r.eventId}|${r.distance}`, r);
+      }
     }
+
     const pairs: Array<{ a: AthleteResultRef; b: AthleteResultRef }> = [];
     for (const r of aData.results) {
-      if (r.dnf || r.dns) continue;
+      if (r.dnf || r.dns) {
+        continue;
+      }
+
       const match = bMap.get(`${r.eventId}|${r.distance}`);
-      if (match) pairs.push({ a: r, b: match });
+      if (match) {
+        pairs.push({ a: r, b: match });
+      }
     }
+
     return pairs.sort((x, y) => x.a.eventDate.localeCompare(y.a.eventDate));
   }, [aData, bData]);
 

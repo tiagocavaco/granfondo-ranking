@@ -23,6 +23,7 @@ export function TeamLink({
       </Link>
     );
   }
+
   return (
     <span className={className} onClick={onClick}>
       {team}

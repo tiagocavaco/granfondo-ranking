@@ -146,8 +146,13 @@ function AthleteOverrides({ athlete }: { athlete: RawAthlete }) {
   const resultAssignments = assignments ?? [];
   const loading = rules === null || assignments === null;
 
-  if (loading) return null;
-  if (aliasRules.length === 0 && resultAssignments.length === 0) return null;
+  if (loading) {
+    return null;
+  }
+
+  if (aliasRules.length === 0 && resultAssignments.length === 0) {
+    return null;
+  }
 
   return (
     <section>
@@ -409,7 +414,10 @@ export default function RawAthletePage() {
   const numericId = athleteId ? parseInt(athleteId, 10) : null;
 
   useEffect(() => {
-    if (!numericId) return;
+    if (!numericId) {
+      return;
+    }
+
     setLoading(true);
     setAthlete(null);
     setNotFound(false);
@@ -417,8 +425,11 @@ export default function RawAthletePage() {
     api
       .getRawAthlete(numericId)
       .then((result) => {
-        if (!result) setNotFound(true);
-        else setAthlete(result);
+        if (!result) {
+          setNotFound(true);
+        } else {
+          setAthlete(result);
+        }
       })
       .catch((err: unknown) =>
         setError(err instanceof Error ? err.message : String(err)),
@@ -470,7 +481,9 @@ export default function RawAthletePage() {
     );
   }
 
-  if (!athlete) return null;
+  if (!athlete) {
+    return null;
+  }
 
   return (
     <div>

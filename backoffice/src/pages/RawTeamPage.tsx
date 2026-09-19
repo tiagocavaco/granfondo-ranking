@@ -108,15 +108,21 @@ export default function RawTeamPage() {
   } = usePagedList(team?.athletes ?? []);
 
   useEffect(() => {
-    if (!decodedKey) return;
+    if (!decodedKey) {
+      return;
+    }
+
     setLoading(true);
     setNotFound(false);
     setError(null);
     api
       .getRawTeam(decodedKey)
       .then((result) => {
-        if (!result) setNotFound(true);
-        else setTeam(result);
+        if (!result) {
+          setNotFound(true);
+        } else {
+          setTeam(result);
+        }
       })
       .catch((err: unknown) =>
         setError(err instanceof Error ? err.message : String(err)),
@@ -168,7 +174,9 @@ export default function RawTeamPage() {
     );
   }
 
-  if (!team) return null;
+  if (!team) {
+    return null;
+  }
 
   return (
     <div>

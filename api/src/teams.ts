@@ -39,7 +39,10 @@ export async function getTeamById(id: number): Promise<TeamDetail | null> {
     .from(schema.teams)
     .where(eq(schema.teams.id, id))
     .get();
-  if (!teamRow) return null;
+  if (!teamRow) {
+    return null;
+  }
+
   return getTeamByKey(teamRow.canonicalKey);
 }
 
@@ -72,7 +75,9 @@ export async function getTeamByKey(
     .where(teamRow ? eq(schema.athleteTeams.teamId, teamRow.id) : sql`0`)
     .all();
 
-  if (memberRows.length === 0) return null;
+  if (memberRows.length === 0) {
+    return null;
+  }
 
   const ownKeys = new Set(allTeamKeys);
   const displayName =
@@ -116,10 +121,14 @@ export async function getTeamByKey(
     { date: string; category: string }[]
   >();
   for (const r of teamResults) {
-    if (!r.category) continue;
+    if (!r.category) {
+      continue;
+    }
+
     if (!recentByAthlete.has(r.athleteId)) {
       recentByAthlete.set(r.athleteId, []);
     }
+
     recentByAthlete
       .get(r.athleteId)!
       .push({ date: r.eventDate, category: r.category });
@@ -134,6 +143,7 @@ export async function getTeamByKey(
       for (const { category } of recent) {
         freq.set(category, (freq.get(category) ?? 0) + 1);
       }
+
       return [id, [...freq.entries()].sort((a, b) => b[1] - a[1])[0]![0]];
     }),
   );
@@ -153,6 +163,7 @@ export async function getTeamByKey(
         athletes: [],
       });
     }
+
     eventMap.get(key)!.athletes.push({
       id: r.athleteId,
       name: nameById.get(r.athleteId) ?? "",

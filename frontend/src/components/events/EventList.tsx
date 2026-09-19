@@ -77,8 +77,14 @@ export default function EventList() {
         const now = Date.now();
         const aPast = aDate < now;
         const bPast = bDate < now;
-        if (aPast && bPast) return bDate - aDate;
-        if (!aPast && !bPast) return aDate - bDate;
+        if (aPast && bPast) {
+          return bDate - aDate;
+        }
+
+        if (!aPast && !bPast) {
+          return aDate - bDate;
+        }
+
         return aPast ? 1 : -1;
       });
   }, [allEvents, season, status, query]);
@@ -400,6 +406,7 @@ function EventListByYear({ events }: { events: StoredEvent[] }) {
         groups.push({ year, events: [event] });
       }
     }
+
     return groups.sort((a, b) => b.year - a.year);
   }, [events]);
 

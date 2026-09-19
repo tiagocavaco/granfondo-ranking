@@ -19,6 +19,7 @@ export function GenderBadge({
       </span>
     );
   }
+
   return (
     <span
       className={`text-xs font-semibold px-1.5 py-0.5 rounded ${
