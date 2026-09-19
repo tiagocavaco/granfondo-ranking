@@ -19,3 +19,4 @@ scraper/licence-split-candidates.json
 scraper/athlete-anchored-team-aliases.json
 scraper/approved-team-aliases.json
 scraper/athlete-merge-candidates.json
+scraper/rejected-team-aliases.json

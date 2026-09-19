@@ -151,7 +151,7 @@ export function buildAggregateRanking(
             eventId: event.id,
             eventName: event.name,
             eventDate: event.date,
-            distanceFinishers: finishers.length,
+            genderFinishers: finishers.length,
             coefficient: coeff,
             pos: genderPos,
             basePoints,

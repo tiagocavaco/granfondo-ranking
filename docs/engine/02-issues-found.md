@@ -11,8 +11,8 @@ season · **P2** quality / maintainability · **P3** hygiene.
 - `scrape-results.yml` runs only on Sundays (cron `0 20 * * 0`, actual start ~22:00 UTC in practice). The window check accepts `diff` of 0 or 1 days. For a Sunday race, `diff = 0` on race night and `diff = 7` the following Sunday, so the "next night as fallback" comment never applies to Sunday races. If an organiser publishes on Monday, the results wait a week and then are skipped forever unless someone triggers the workflow by hand.
 - Correction (18 Sep 2026): an earlier draft of this issue cited Lousã 2026 as live evidence. That was wrong. The scheduled run on 13 Sep at 22:12 UTC succeeded and cached event 1956 on `main` (`7cb67dc`); the local branch was simply behind. So far every Sunday organiser has published by race night. The fix in the plan (0.1) stands because that luck is not guaranteed.
 
-### A2 · P0 — Saturday races never get a participant refresh
-- `scrape-participants.yml` runs Fridays and accepts `diff` of −3 or −2. A Saturday race has `diff = −1` on Friday, so it is skipped. Monção e Melgaço (Sat 19 Sep) is the current example.
+### A2 · P1 — Saturday races rarely get a participant refresh (accepted)
+- `scrape-participants.yml` runs Fridays and accepts `diff` of −3 or −2. A Saturday race has `diff = −1` on Friday, so it is skipped. Saturday races are rare; Sunday is the norm. Accepted as a low-priority edge case — trigger manually if needed (`gh workflow run scrape-participants.yml`).
 
 ### A3 · P1 — No retry, no alert, no artefact when a scheduled run does nothing useful
 - A run that finds "no results published yet" for every distance exits 0 and commits nothing. Nobody is notified. The 59 solo flags and 803 cross-pass flags written by every run are gitignored and discarded with the runner.
@@ -33,11 +33,8 @@ season · **P2** quality / maintainability · **P3** hygiene.
 
 ## B. Scrapers and parsing
 
-### B1 · P0 — New stopandgo.net registrations layout is mis-parsed
-- `stopandgo.ts` `parseRegistrationsPage`, 5-column branch: `td[1]` is split on newlines and the parts are assumed to be name, team, category. The live page puts an avatar initial first. Result in the DB for Serra d'Ossa 2026: `name = "J"`, `team = "<the rider's full name>"`, `category = "Individual"`.
-- Impact: 1,478 of 1,770 Serra d'Ossa registrants and 1,037 of 1,556 Portimão registrants are unlinked. Participant lists show single letters as names, predictions for these events are nearly empty, and any real team data is lost. Both events use `REGISTRATIONS_URLS`.
-- Rows where the first part is already a full name parse correctly, which suggests the initial appears only when no avatar image is present.
-- Scope, measured across the whole DB: 3,471 single-letter participant names in four events, all of them the ones served from `REGISTRATIONS_URLS`: São Mamede 2026 (495 of 700), Serra da Estrela 2026 (759 of 1,113), Serra d'Ossa 2026 (1,376 of 1,770), Portimão 2026 (841 of 1,556). The two finished events already have results, so only their historical start lists are wrong; the two upcoming ones drive live predictions. Tavira 2026 also uses this source and will be affected on its next refresh.
+### B1 · P0 — ~~New stopandgo.net registrations layout is mis-parsed~~ ✓ fixed
+- `stopandgo.ts` `parseRegistrationsPage`, 5-column branch now strips single-character avatar initials: `if (nameParts[0]?.length === 1) nameParts.shift()`. Participant lists for affected events (1700 Serra da Estrela, 1798 São Mamede, 2114 Portimão, 2115 Serra d'Ossa) were re-scraped and backfilled with correct full names.
 
 ### B2 · P1 — Regex-over-HTML parsers with no fixture tests for the live layouts
 - `stopandgo.ts` (14% covered), `apedalar.ts` (12%), `timerspeed.ts` (2%), `lap2go.ts` (0%). The only well-tested adapter is `waitastart.ts`. B1 is the predictable outcome. No saved HTML fixtures exist for the lista, registrations or apedalar pages.
@@ -60,24 +57,18 @@ season · **P2** quality / maintainability · **P3** hygiene.
 ### B8 · P3 — `fetchNetEvents` and `fetchNetEventById` bypass `fetchWithRetry`
 - Plain `fetch` with no retry; a transient 503 during discovery drops upcoming events from that run.
 
-### B9 · P1 — Non-race distances (Caminhada, Kids) are fetched as participants and shown as predictions tabs
-- `isKidsCamVariant` in `transform.ts` filters event *names* only. Participant rows whose *distance* is a walk or kids ride pass straight through `apiAthleteToParticipant`, `scrapeListaParticipants` and `parseRegistrationsPage`, and `extractDistances` promotes them to event distances. Monção e Melgaço 2026 therefore carries "Caminhada" and "KIDS" distances; the frontend renders them as prediction tabs with empty favourites and as light-grey chips in the participants list (frontend B7, B9).
-- Fix belongs in the scraper: drop participant rows whose `distance` matches `isKidsCamVariant` (or whose normalised distance is not in `DISTANCES`) before they reach the DB; keep a count in the run log. Re-scrape participants for 1943 afterwards.
+### B9 · P1 — ~~Non-race distances (Caminhada, Kids) are fetched as participants and shown as predictions tabs~~ ✓ fixed
+- `isKidsCamVariant` is now called on the `distance` field inside both `scrapeListaParticipants` and `parseRegistrationsPage` in `stopandgo.ts` (not only on event names), dropping walk and kids rows before they reach the DB. A re-scrape of participants for affected events will clear the stale rows.
 
-### B10 · P0 — Participant distances are stored raw, so predictions score against the wrong distance
-- `database/src/db-writer.ts` normalises `distance_name` for results and `event_distances` (`normalizeDistance`), but `insertParticipants` writes `participants.distance` exactly as scraped. `api/src/predictions.ts` groups by that raw string and passes it to `predictionDistCoeff(registeredDist, historicalDist)`.
-- Monção e Melgaço 2026: 381 registrants are stored as `GranFondo` (capital F, from the lista page). `predictionDistCoeff("GranFondo", "Granfondo")` finds no rank for the registered string and returns 0, so every historical result contributes 0 points: the Granfondo favourites list is empty or ordered by nothing, and the tab is labelled "GranFondo" and sorted after the canonical distances (which is why Mediofondo appears first on `/event/1943/predictions`).
-- Scope: 3,405 historical participant rows say `GranFondo`; others say `Clássica`, `Big Day - 88 km`, `HALF DAY 77,3KM`, `L´Étape 100`, `Contrarrelógio`. All of these would have been mapped by `normalizeDistance` (they are in `DISTANCE_ALIASES`) had it been applied.
-- Second defect in the same path: `scrapeListaParticipants` and `parseRegistrationsPage` default any distance they do not recognise to `distanceId = "1"`, so Caminhada (19 rows) and KIDS (16 rows) at Monção share the Granfondo distance ID. `extractDistances` dedupes by ID, so the event still shows three distances, but the walk and kids rows are counted as Granfondo registrants in `participantCount` and could be matched to Granfondo athletes.
-- Fix: normalise `distance` (and derive `distanceId` from the canonical name) at the three participant entry points, drop rows whose canonical distance is not in `DISTANCES` (see B9), and add a regression test that `getPredictions` for a `GranFondo`-spelled registrant yields the same score as `Granfondo`.
+### B10 · P0 — ~~Participant distances are stored raw, so predictions score against the wrong distance~~ ✓ fixed
+- `scrapeListaParticipants` and `parseRegistrationsPage` in `stopandgo.ts` now call `normalizeDistance` on the raw distance string and derive `distanceId` from the canonical result. Rows whose distance is not in `DISTANCES` are dropped (covers walk, kids, and any unknown variants). `grandfondo` typo alias added to `DISTANCE_ALIASES`. Regression test updated: unknown distances produce an empty result, not a defaulted Granfondo row.
 
 ---
 
 ## C. Scoring and ranking logic
 
-### C1 · P1 — Ranking coefficient is per gender field, the documentation says per distance
-- `scraper/src/pipeline/ranking.ts` computes `finisherCoefficient(finishers.length)` where `finishers` is the gender group. The frontend info page says "scaled by a difficulty coefficient based on the number of finishers per distance", and the stored field is named `distanceFinishers`.
-- Verified on Granfondo Paredes 2026: distance had 185 finishers; men got coefficient 0.77 (178 finishers), women got 0.15 (7 finishers). A female winner scores 11 points where a male winner scores 58. Within-gender rankings are self-consistent, but the published explanation is wrong and cross-gender comparisons (predictions overall favourite, athlete profile totals) are skewed.
+### C1 · P1 — ~~Ranking coefficient is per gender field, the documentation says per distance~~ ✓ fixed
+- Field renamed `distanceFinishers` → `genderFinishers` throughout (schema, types, db-writer, ranking, API, frontend table). Info page copy updated: "finishers in your gender group", `coefficient = √(gender_finishers / 300)`, "300 finishers per gender group = 1.00". The per-gender formula is intentional and correct; only the documentation was wrong.
 
 ### C2 · P2 — Team ranking uses a narrower "no team" set than the rest of the engine
 - `scraper/src/pipeline/ranking.ts` `INDIVIDUAL_TEAM_KEYS = {"individual","independente",""}` versus `SOLO_TEAM_KEYS` which also has `individoal`, `no team`, `n team`, `sem equipa`. Today only one "Nøteam" row exists so no phantom team scores, but a future event using "Sem Equipa" would create an eligible "team" of unaffiliated riders.
@@ -107,8 +98,8 @@ season · **P2** quality / maintainability · **P3** hygiene.
 ### D4 · P2 — `deriveCanonicalTeam` picks the most recent team; `canonicalTeam` in results stays raw
 - Athlete profiles show whichever raw spelling the most recent event used, so the same club appears in four spellings on the ranking page (seen in the frontend review). The alias table exists; the display layer just does not apply it to `canonical_team`.
 
-### D5 · P3 — Blocked-results pass is undocumented and untested
-- `evict-blocked-results.ts` is absent from the pass table in `scraper/CLAUDE.md` and has 8% coverage. It runs between manual assignments and the sweep, which matters for the invariants documented there.
+### D5 · P3 — ~~Blocked-results pass is undocumented and untested~~ ✓ fixed
+- `evict-blocked-results.ts` is now in the pass table in `scraper/CLAUDE.md` as post-1 (before category sweep). Coverage still at 8%.
 
 ### D6 · P3 — `PLACEHOLDER_NAMES` is a three-entry hand list
 - "novo dorsal", "novo inscrito", "atleta teste". Any new organiser placeholder becomes an athlete profile.
@@ -158,8 +149,8 @@ season · **P2** quality / maintainability · **P3** hygiene.
 ### G1 · P2 — No runbook for the common failures
 - "Results didn't appear after Sunday", "participants page shows single letters", "an athlete has two profiles", "a team is split in four" each have a fix somewhere in the toolkit, but there is no page that maps symptom to command.
 
-### G2 · P2 — CLAUDE.md pass table is out of date
-- Missing `evict-blocked-results`; numbering in the file header of `results.ts` uses old pass names (5c, 5e, 5f in `helpers.ts` comments).
+### G2 · P2 — ~~CLAUDE.md pass table is out of date~~ ✓ partially fixed
+- `evict-blocked-results` added as post-1 in the pass table. Old pass-name references in `helpers.ts` comments (5c, 5e, 5f) still present.
 
 ### G3 · P3 — `TASKS.md` backlog items are still open
 - Category normalisation in the frontend, 2021–2022 historical events (26 StopAndGo IDs + 3 new scrapers).

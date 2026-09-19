@@ -35,7 +35,7 @@ export async function getAggregateRanking(): Promise<AggregateRanking> {
       eventId: row.eventId,
       eventName: row.eventName,
       eventDate: row.eventDate,
-      distanceFinishers: row.distanceFinishers,
+      genderFinishers: row.genderFinishers,
       coefficient: row.coefficient,
       pos: row.pos,
       basePoints: row.basePoints,

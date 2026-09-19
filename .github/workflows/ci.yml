@@ -85,7 +85,6 @@ jobs:
       fail-fast: false
       matrix:
         project: [desktop, mobile]
-    name: E2E (${{ matrix.project }})
     steps:
       - uses: actions/checkout@v4
         with:

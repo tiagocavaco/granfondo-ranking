@@ -102,7 +102,7 @@ export interface AggregateResult {
   eventId: number;
   eventName: string;
   eventDate: string;
-  distanceFinishers: number;
+  genderFinishers: number;
   coefficient: number;
   pos: number;
   basePoints: number;

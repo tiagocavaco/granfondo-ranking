@@ -32,6 +32,7 @@ import {
   LISTA_URLS,
   REGISTRATIONS_URLS,
   APEDALAR_PARTICIPANT_URLS,
+  EVENT_DISTANCE_REMAPS,
 } from "../config.js";
 import { loadResultsFromDb, loadParticipantsFromDb } from "../db/db-loader.js";
 import type {
@@ -224,21 +225,27 @@ export async function scrapeEvent(
     });
     const CANONICAL_ORDER = ["Granfondo", "Mediofondo", "Minifondo"];
     const canonicals = expectedNames.map((name) => normalizeDistance(name));
-    // Gap: a known canonical appears at the wrong position (e.g. Mini at index 1 instead of MF)
-    const hasGap = canonicals.some((canonical, index) => {
-      const expected = CANONICAL_ORDER[index];
-      return (
-        expected !== undefined &&
-        CANONICAL_ORDER.includes(canonical) &&
-        canonical !== expected
-      );
-    });
+    // Gap: a hole in the middle of the canonical sequence (e.g. GF + Mini, missing MF).
+    // MF + Mini (missing GF at the start) is NOT a gap — they are consecutive.
+    const canonicalIndices = canonicals
+      .map((c) => CANONICAL_ORDER.indexOf(c))
+      .filter((i) => i !== -1);
+    const hasGap = canonicalIndices.some(
+      (idx, i) => i > 0 && idx - canonicalIndices[i - 1]! > 1,
+    );
     distanceResults.forEach((distance, index) => {
       distance.name = hasGap
         ? (CANONICAL_ORDER[index] ?? distance.name)
         : (expectedNames[index] ?? distance.name);
       distance.id = String(index + 1);
     });
+  }
+
+  const distanceRemap = EVENT_DISTANCE_REMAPS[event.id];
+  if (distanceRemap) {
+    for (const distance of distanceResults) {
+      distance.name = distanceRemap[distance.name] ?? distance.name;
+    }
   }
 
   for (const distance of distanceResults) {

@@ -81,6 +81,7 @@ export const SOLO_TEAM_KEYS = new Set([
 
 export const DISTANCE_ALIASES: Record<string, string> = {
   granfondo: "Granfondo",
+  grandfondo: "Granfondo",
   mediofondo: "Mediofondo",
   minifondo: "Minifondo",
   "time trial": "Time Trial",

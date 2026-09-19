@@ -309,7 +309,11 @@ export function getYear(isoDate: string): number {
 }
 
 export function isPast(isoDate: string): boolean {
-  return new Date(isoDate + "T00:00:00") < new Date();
+  // Compare date strings directly to avoid timezone-dependent Date construction
+  // (new Date("2026-09-19T00:00:00") is local midnight, which on a UTC runner
+  // flips an hour before or after Lisbon midnight)
+  const today = new Date().toISOString().slice(0, 10);
+  return isoDate < today;
 }
 
 // ── Category normalization ─────────────────────────────────────────────────────

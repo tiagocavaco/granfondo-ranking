@@ -10,7 +10,7 @@
     "db:check-participant-links": "tsx src/scripts/check-participant-links.ts",
     "db:find-unlinked": "tsx src/scripts/find-unlinked-participants.ts",
     "db:find-team-aliases": "tsx src/scripts/find-team-alias-candidates.ts",
-    "db:find-athlete-anchored-aliases": "tsx src/scripts/find-athlete-anchored-team-aliases.ts",
+    "db:check-team-aliases": "tsx src/scripts/check-existing-team-aliases.ts",
     "db:apply-team-aliases": "tsx src/scripts/apply-team-aliases.ts",
     "db:find-splits": "tsx src/scripts/find-split-candidates.ts",
     "db:find-licence-splits": "tsx src/scripts/find-licence-splits.ts",

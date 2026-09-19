@@ -37,7 +37,7 @@ function RaceBreakdown({ results }: { results: AggregateResult[] }) {
               {r.basePoints} × {r.coefficient}
             </span>
             <span className="text-slate-600 hidden sm:inline">
-              ({r.distanceFinishers} fin.)
+              ({r.genderFinishers} fin.)
             </span>
             <PointsBadge points={r.points} />
           </div>
