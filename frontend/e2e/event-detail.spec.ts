@@ -36,13 +36,14 @@ test("finished event hero has green top accent line", async ({ page }) => {
 
 test("finished event shows location text", async ({ page }) => {
   await goToFinishedEvent(page);
-  // Location appears as plain text in the hero — scope to <main> to exclude the hidden nav logo
-  const locationRow = page
-    .locator("main")
-    .getByText(
-      /Portugal|Lisboa|Porto|Algarve|Setúbal|Sintra|Cascais|Évora|Aveiro|Braga|Coimbra|Alentejo|Madeira/i,
-    );
-  await expect(locationRow.first()).toBeVisible();
+  // event.location renders as <span> inside the location+finishers row (mb-4 text-slate-500)
+  // Use DOM structure rather than matching specific city names (locations vary across events)
+  const locationSpan = page
+    .locator("main .mb-4.text-slate-500 > span > span")
+    .first();
+  await expect(locationSpan).toBeVisible();
+  const text = await locationSpan.textContent();
+  expect(text?.trim().length).toBeGreaterThan(0);
 });
 
 test("finished event shows finisher count", async ({ page }) => {
