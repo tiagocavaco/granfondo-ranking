@@ -13,8 +13,7 @@ async function goToPredictions(page: import("@playwright/test").Page) {
 
   await predictionsLink.click();
   await page.waitForURL(/\/predictions$/);
-  // Wait for h2 only — [class*='font-display'] also matches the nav logo which is hidden on mobile
-  await page.waitForSelector("h2", { timeout: 15000 });
+  await page.waitForSelector("h1", { timeout: 15000 });
   return true;
 }
 
@@ -37,8 +36,8 @@ test("predictions page shows event name in hero", async ({ page }) => {
     return;
   }
 
-  // The h2 inside the hero block shows the event name — non-empty
-  const heroHeading = page.locator("h2").first();
+  // The h1 inside the hero block shows the event name — non-empty
+  const heroHeading = page.locator("h1").first();
   await expect(heroHeading).toBeVisible();
   const text = await heroHeading.textContent();
   expect(text?.trim().length).toBeGreaterThan(0);
