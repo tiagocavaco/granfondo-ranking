@@ -34,9 +34,9 @@ jobs:
 
           for event in events:
               d = datetime.date.fromisoformat(event['date'])
-              # Run on the night of the event (diff=0) or next night as fallback (diff=1)
+              # diff=0: event is today (Sunday race, Sunday cron at 20:00 UTC)
               diff = (today - d).days
-              if 0 <= diff <= 1:
+              if diff == 0:
                   print(f"Event match: {event['name']} on {event['date']}")
                   open(os.environ['GITHUB_OUTPUT'], 'a').write('run=true\n')
                   sys.exit(0)
