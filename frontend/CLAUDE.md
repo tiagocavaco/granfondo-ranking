@@ -26,14 +26,14 @@ src/hooks/useInfiniteScroll.ts     Infinite scroll hook used by ranking pages
 All query logic lives in `@granfondo/api`. Components import directly from there. `App.tsx` wires the DB once at module scope:
 
 ```typescript
-import { api, setGetDb } from "@granfondo/api";
+import { setGetDb } from "@granfondo/api";
 import { getDb } from "./db/db-client";
 setGetDb(getDb);
 ```
 
 `src/db/db-client.ts` is the Vite-specific wiring file. It uses `import.meta.env` (to read `VITE_DATA_KEY`) and the `?url` asset import transform (for WASM). The AES-GCM decrypt logic itself lives in `@granfondo/database/decrypt` and is shared with the backoffice.
 
-`initLookups()` must be called once at startup (done in `App.tsx`) to populate the in-memory team alias and athlete lookup caches used by `resolveTeamKey` and `lookupAthleteId`.
+`initLookups()` must be called once at startup (done in `NavBar.tsx`) to populate the in-memory team alias and athlete lookup caches used by `resolveTeamKey` and `lookupAthleteId`.
 
 ## Key rules for team links
 
@@ -51,7 +51,7 @@ For the alias resolver details see `api/CLAUDE.md`.
 
 ## Component map
 
-Components live under `src/components/` grouped by route:
+Components live under `src/components/` grouped by domain:
 
 ```
 events/           EventList, EventCard, EventDetail, ResultsTab, ParticipantsTab
@@ -60,33 +60,42 @@ athlete-ranking/  AggregateRankingPage, AggregateRankingPodium, AggregateRanking
 team-ranking/     TeamRankingPage, TeamProfile, TeamMemberList, TeamRankingInfoPage
 comparison/       ComparisonPage, ComparisonHeroCard, HeadToHeadChart, SharedEventsTable
 predictions/      PredictionsPage, PredictionsInfoPage
-shared/           Spinner, ErrorBanner, TeamLink, RankBadge, SegmentedControl,
-                  GenderToggle, Stat
+legal/            PrivacyPage, TermsPage
+shared/           NavBar, Footer, NotFoundState, NotFoundPage, BackButton,
+                  Spinner, TeamLink, RankBadge, MedalBadge, SegmentedControl,
+                  GenderToggle, GenderBadge, ShieldCheckIcon, FormulaBox,
+                  RulesList, SectionLabel, ScrollSentinel, PointsBadge
 ```
 
 | Component | Route | Purpose |
 |-----------|-------|---------|
-| `EventList` | `/` | List of all events with cards |
-| `EventCard` | — | Single event card used by EventList |
+| `EventList` | `/` | List of all events with hero card and status tabs |
 | `EventDetail` | `/event/:id` | Event detail with Results / Participants tabs |
 | `ResultsTab` | — | Race results table with search and filters |
 | `ParticipantsTab` | — | Upcoming event participant list |
+| `AthletesPage` | `/athletes` | Athlete search with "most active" default list |
 | `AthleteProfile` | `/athlete/:id` | Athlete career page with chart and highlights |
 | `CareerHighlights` | — | Highlights bar inside AthleteProfile |
 | `PerformanceChart` | — | Points-over-time chart inside AthleteProfile |
-| `AthletesPage` | `/athletes` | Athlete search |
-| `AggregateRankingPage` | `/ranking` | Season athlete ranking with infinite scroll |
+| `AggregateRankingPage` | `/athlete-ranking` | Season athlete ranking with podium and infinite-scroll table |
 | `AggregateRankingPodium` | — | Top-3 podium cards inside AggregateRankingPage |
 | `AggregateRankingTable` | — | Infinite-scroll table inside AggregateRankingPage |
-| `TeamRankingPage` | `/teams` | Season team ranking |
+| `AthleteRankingInfoPage` | `/athlete-ranking-info` | Athlete ranking rules — points table, coefficient, scoring rules |
+| `TeamRankingPage` | `/team-ranking` | Season team ranking with podium and table |
 | `TeamProfile` | `/team/:teamId` | Team season view — members, ranking entries, non-ranked events |
+| `TeamRankingInfoPage` | `/team-ranking-info` | Team ranking rules — eligible teams formula, scoring rules |
 | `ComparisonPage` | `/compare` | Side-by-side athlete comparison |
 | `ComparisonHeroCard` | — | Athlete hero card inside ComparisonPage |
 | `HeadToHeadChart` | — | Recharts scatter plot inside ComparisonPage |
 | `SharedEventsTable` | — | Shared events table inside ComparisonPage |
 | `PredictionsPage` | `/event/:id/predictions` | Start-list predictions for upcoming event |
-| `AthleteRankingInfoPage` | `/ranking-info` | Athlete ranking rules — points table, coefficient, scoring rules |
-| `TeamRankingInfoPage` | `/teams-info` | Team ranking rules — points table, coefficient, scoring rules |
+| `PredictionsInfoPage` | `/predictions-info` | How predictions work |
+| `PrivacyPage` | `/privacy` | Privacy policy (GDPR) |
+| `TermsPage` | `/terms` | Terms of use / disclaimer |
+| `NavBar` | — | Sticky header with logo, nav links, mobile Rankings dropdown, lookup banners |
+| `Footer` | — | Site name, Privacy/Terms links, data age |
+| `NotFoundPage` | `*` | Catch-all 404 luxury state |
+| `NotFoundState` | — | Shared 404 template used by profile pages when an ID is not found |
 
 ## TeamProfile member list
 
