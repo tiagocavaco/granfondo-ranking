@@ -79,6 +79,34 @@ test.describe("Terms page", () => {
   });
 });
 
+// ── Scroll reset on navigation ────────────────────────────────────────────────
+
+test.describe("Scroll reset", () => {
+  test("Privacy page opens at top when navigated from footer", async ({
+    page,
+  }) => {
+    await page.goto("");
+    await page.waitForSelector("h1", { timeout: 15000 });
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.locator("footer").getByRole("link", { name: /privacy/i }).click();
+    await expect(page).toHaveURL(/\/privacy/);
+    const scrollY = await page.evaluate(() => window.scrollY);
+    expect(scrollY).toBe(0);
+  });
+
+  test("Terms page opens at top when navigated from footer", async ({
+    page,
+  }) => {
+    await page.goto("");
+    await page.waitForSelector("h1", { timeout: 15000 });
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.locator("footer").getByRole("link", { name: /terms/i }).click();
+    await expect(page).toHaveURL(/\/terms/);
+    const scrollY = await page.evaluate(() => window.scrollY);
+    expect(scrollY).toBe(0);
+  });
+});
+
 // ── Footer links (from home) ──────────────────────────────────────────────────
 
 test.describe("Footer legal links", () => {
