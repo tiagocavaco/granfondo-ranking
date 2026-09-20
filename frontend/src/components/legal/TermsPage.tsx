@@ -96,12 +96,14 @@ export default function TermsPage() {
 
       <Section title="Contact">
         <p>
-          Questions about these terms can be sent to{" "}
+          Questions about these terms can be raised via{" "}
           <a
-            href="mailto:tiago.cavaco@gmail.com"
+            href="https://github.com/tiagocavaco/granfondo-ranking/issues"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition-colors"
           >
-            tiago.cavaco@gmail.com
+            GitHub Issues
           </a>
           .
         </p>
