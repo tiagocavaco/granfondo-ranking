@@ -72,13 +72,13 @@ database. Nothing in the codebase was changed while producing them.
 | Priority | What | Where to read |
 |----------|------|---------------|
 | P1 | Sunday races get one scrape attempt (latent; has not bitten yet); Saturday races never get a participant refresh | [engine A1, A2](engine/02-issues-found.md#a-scheduling-and-automation) |
-| P0 | Participant distances stored raw: `GranFondo` at Monção 2026 zeroes the prediction coefficient and mis-orders the tabs; walk and kids distances ingested as races and given Granfondo's distance ID | [engine B10, B9](engine/02-issues-found.md#b-scrapers-and-parsing) |
+| ~~P0~~ | ~~Participant distances stored raw; walk and kids distances ingested as races~~ (engine B9, B10 fixed) | [engine B10, B9](engine/02-issues-found.md#b-scrapers-and-parsing) |
 | P0 | New registrations page layout mis-parsed → single-letter participant names, 16% link rate | [engine B1](engine/02-issues-found.md#b-scrapers-and-parsing) |
 | P0 | 49 MB download before first paint | [frontend A1](frontend/02-issues-found.md#a-performance-and-loading), fix in [engine Phase 4](engine/03-improvement-plan.md#phase-4--data-model-and-output-l) |
 | P1 | Ranking coefficient is per gender field but documented as per distance | [engine C1](engine/02-issues-found.md#c-scoring-and-ranking-logic) |
-| P1 | Unknown routes now show a 404 page (B2 fixed — `NotFoundPage` + `*` catch-all route); ranking pages still lack `h1` (B3); page title still doesn't change (B4) | [frontend B2–B4](frontend/02-issues-found.md#b-functional-bugs) |
+| ~~P1~~ | ~~Unknown routes blank (B2); ranking pages no h1 (B3); page title never changes (B4)~~ — all fixed in commit `12f43ba` | [frontend B2–B4](frontend/02-issues-found.md#b-functional-bugs) |
 | P1 | Manual overrides exist only inside an encrypted blob; a folder backup exists but cannot be diffed, and the key is held by one person | [features §1](features/project-level-additions.md), roadmap 0.11 |
-| P0 | Backoffice "Delete" on an alias rule removes every rule with that name (31 names affected); candidates tab renders blank | [backoffice A1, B1](backoffice/02-issues-found.md) |
+| ~~P0~~ | ~~Backoffice "Delete" on an alias rule removes every rule with that name; candidates tab renders blank~~ (A1, B1 fixed — commit `12f43ba`) | [backoffice A1, B1](backoffice/02-issues-found.md) |
 
 ## Layout of this folder
 

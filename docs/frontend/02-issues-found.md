@@ -41,11 +41,11 @@ relevant, the screenshot in `screenshots/`.
 - Note: `public/404.html` correctly redirects deep links on GitHub Pages, so this is about the in-app catch-all, not hosting.
 - `App.tsx` had no catch-all `<Route path="*">`. Fixed: `NotFoundPage` component added and wired as `<Route path="*">` in `App.tsx`. Unknown paths now render a branded 404 page.
 
-### B3 · P1 — Ranking pages have no `h1`
-- `/ranking`, `/teams`, `/event/:id/predictions`, event detail hero uses `h1` but ranking pages use `h2` for the page title. Audit: `h1: 0` on those routes. Hurts screen readers and SEO.
+### B3 · P1 — Ranking pages have no `h1` — FIXED in commit `12f43ba`
+- `AggregateRankingPage`, `TeamRankingPage`, and `PredictionsPage` headings promoted from `h2` to `h1`.
 
-### B4 · P1 — Document title never changes
-- `<title>Granfondo Portugal</title>` on every route. Browser tabs, history and shared links are indistinguishable. No `meta description`, no Open Graph tags.
+### B4 · P1 — Document title never changes — FIXED in commit `12f43ba`
+- `usePageTitle` hook added and applied to every page: events, athletes, athlete/team profiles, ranking pages, comparison, predictions, legal pages. Title format: `Granfondo Portugal · <Page Name>`.
 
 ### B5 · P1 — Filter state is not in the URL
 - Ranking season/distance/gender, results distance/category/gender/search, event status filter, athlete year in charts: all component state. You cannot link to "2026 Mediofondo Women" or "Granfondo Paredes 2026 → Masters B". Browser back loses the view.
@@ -53,17 +53,17 @@ relevant, the screenshot in `screenshots/`.
 ### B6 · P1 — Inconsistent "Back" behaviour
 - `EventDetail` does `navigate("/")` (always home, even if you came from an athlete profile). `BackButton` does `navigate(-1)` (leaves the site if you arrived via a shared link). `PredictionsPage` links to the event. Three behaviours for one affordance.
 
-### B7 · P2 — Prediction tabs include non-race distances
-- `05-predictions-desktop-a.jpg`: tabs show "Caminhada" (walk) and "KIDS". `frontend/src/components/predictions/PredictionsPage.tsx` appends every key of the predictions object that is not in `DISTANCES`. These produce empty or meaningless favourite lists.
+### B7 · P2 — Prediction tabs include non-race distances — FIXED
+- PredictionsPage now builds tabs from `DISTANCES.filter((d) => d in predictions)` only. Unknown keys (Caminhada, KIDS) are no longer appended.
 
 ### B8 · P2 — Category strings are raw and inconsistent
-- Already noted in `TASKS.md`. Visible on the same athlete profile as "Master A #9" and "MASTERS B" (`v08-athlete-desktop-b.jpg`), and "SEM ESCALÃO" in participants (`v04-participants-mobile-b.jpg`). `canonicalizeCategory` exists in `@granfondo/utils/category` but is not applied in `AthleteProfile`, `ResultsTab`, `ParticipantsTab`, `TeamMemberList`.
+- Visible on the same athlete profile as "Master A #9" and "MASTERS B", and "SEM ESCALÃO" in participants. `canonicalizeCategory` in `@granfondo/utils/category` maps known raw strings to canonical form but falls back to `"Unknown"` for unrecognised inputs — not safe for display. A `displayCategory` helper that falls back to the raw value is needed before this can be applied in the UI.
 
 ### B9 · P2 — Distance chip falls back to a light-grey style in dark UI
 - `frontend/src/utils/distance.ts`: unknown distances get `bg-slate-100 text-slate-600` (a light-mode pill). See the white "Caminhada" pills in `v04-participants-mobile-b.jpg`.
 
-### B10 · P2 — `PerformanceChart` breaks the Rules of Hooks
-- `frontend/src/components/athletes/PerformanceChart.tsx` returns `null` before `useMemo`/`useState` are called when `finished.length < 2`. Works today because the condition rarely flips on a mounted component, but it is undefined behaviour and ESLint's hooks rule would flag it.
+### B10 · P2 — `PerformanceChart` breaks the Rules of Hooks — FIXED
+- Early `return null` moved to after `useMemo` and `useState` calls. All hooks now run unconditionally on every render.
 
 ### B11 · P2 — Team/athlete unavailable banners can stack permanently
 - `App.tsx` shows amber banners for `lookupsFailed` / `teamsUnavailable` with no dismiss and no retry.

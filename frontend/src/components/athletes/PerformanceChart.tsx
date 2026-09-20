@@ -39,9 +39,6 @@ interface Props {
 
 export default function PerformanceChart({ results }: Props) {
   const finished = results.filter((r) => !r.dnf && !r.dns && r.pos > 0);
-  if (finished.length < 2) {
-    return null;
-  }
 
   const years = useMemo(
     () =>
@@ -53,6 +50,10 @@ export default function PerformanceChart({ results }: Props) {
   const [selectedYear, setSelectedYear] = useState<number | "all">(() =>
     window.innerWidth >= 640 ? "all" : (years[0] ?? "all"),
   );
+
+  if (finished.length < 2) {
+    return null;
+  }
 
   const filteredFinished =
     selectedYear === "all"
