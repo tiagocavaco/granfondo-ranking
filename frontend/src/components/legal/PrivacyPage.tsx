@@ -89,6 +89,18 @@ export default function PrivacyPage() {
         </p>
       </Section>
 
+      <Section title="Legal basis (GDPR)">
+        <p>
+          The legal basis for displaying athlete race results is{" "}
+          <strong className="text-slate-300">legitimate interests</strong>{" "}
+          (Article 6(1)(f) GDPR) — specifically, providing a public record of
+          sporting achievements that were voluntarily entered into public
+          competitions and published by the race organisers. The data is limited
+          to what is already publicly available and is used solely for
+          informational purposes.
+        </p>
+      </Section>
+
       <Section title="Your rights (GDPR)">
         <p>
           If you are an athlete whose data appears on this site and you wish to
@@ -107,13 +119,15 @@ export default function PrivacyPage() {
 
       <Section title="Contact">
         <p>
-          For any privacy-related requests, including data removal, contact us
-          at{" "}
+          For any privacy-related requests, including data removal, open an
+          issue on{" "}
           <a
-            href="mailto:tiago.cavaco@gmail.com"
+            href="https://github.com/tiagocavaco/granfondo-ranking/issues"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition-colors"
           >
-            tiago.cavaco@gmail.com
+            GitHub
           </a>
           .
         </p>
