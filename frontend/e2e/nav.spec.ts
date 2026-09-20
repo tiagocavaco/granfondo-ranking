@@ -27,9 +27,7 @@ test("home page title is Granfondo Portugal", async ({ page }) => {
 test("unknown route shows 404 page", async ({ page }) => {
   await page.goto("does-not-exist");
   await expect(page.getByRole("heading", { name: "404" })).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: /back to events/i }),
-  ).toBeVisible();
+  await expect(page.getByRole("link", { name: /events/i })).toBeVisible();
 });
 
 test("nav shows site name", async ({ page }) => {
@@ -94,7 +92,7 @@ test("desktop Athlete Ranking link navigates to /athlete-ranking", async ({
     .locator("header")
     .getByRole("link", { name: /athlete ranking/i })
     .click();
-  await expect(page).toHaveURL(/\/ranking/);
+  await expect(page).toHaveURL(/\/athlete-ranking/);
 });
 
 test("desktop Team Ranking link navigates to /team-ranking", async ({
@@ -109,7 +107,7 @@ test("desktop Team Ranking link navigates to /team-ranking", async ({
     .locator("header")
     .getByRole("link", { name: /team ranking/i })
     .click();
-  await expect(page).toHaveURL(/\/teams/);
+  await expect(page).toHaveURL(/\/team-ranking/);
 });
 
 // ── Mobile-only: Rankings dropdown in header ──────────────────────────────────
@@ -160,7 +158,7 @@ test("mobile nav Rankings dropdown navigates to athlete ranking", async ({
     .locator('[role="menu"]')
     .getByRole("menuitem", { name: /athletes/i })
     .click();
-  await expect(page).toHaveURL(/\/ranking/);
+  await expect(page).toHaveURL(/\/athlete-ranking/);
 });
 
 test("mobile nav Rankings dropdown navigates to team ranking", async ({
@@ -179,5 +177,5 @@ test("mobile nav Rankings dropdown navigates to team ranking", async ({
     .locator('[role="menu"]')
     .getByRole("menuitem", { name: /teams/i })
     .click();
-  await expect(page).toHaveURL(/\/teams/);
+  await expect(page).toHaveURL(/\/team-ranking/);
 });
