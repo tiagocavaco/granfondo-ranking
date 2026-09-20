@@ -18,7 +18,7 @@ database. Nothing in the codebase was changed while producing them.
 | Fix a wrong athlete profile or team | `runbook.md` §3–5, `backoffice/CLAUDE.md` | |
 | Translate the site | `specs/i18n.md` | do it inside the component split (`code-quality/02-refactors.md` R1) |
 | Restyle or add a theme | `specs/design-system.md` → `code-quality/02-refactors.md` R3, R4 | `docs/frontend/03-improvement-plan.md` Phase 3 |
-| Publish privacy/terms pages or take money | `legal/`, `monetization/03-plan.md` legal hygiene | |
+| Publish privacy/terms pages (done — `/privacy` and `/terms` are live) or take money | `legal/`, `monetization/03-plan.md` legal hygiene | |
 | Change the ranking formula | `engine/02-issues-found.md` C1–C3, `roadmap.md` open decision 1 | `test-plans.md` §5 |
 | Refactor / reduce duplication | `code-quality/02-refactors.md` (pick the next PR in the order table) | `code-quality/metrics.json` before/after |
 | Write tests | `test-plans.md` | `engine/metrics.json` → `tests` for current coverage |
@@ -76,7 +76,7 @@ database. Nothing in the codebase was changed while producing them.
 | P0 | New registrations page layout mis-parsed → single-letter participant names, 16% link rate | [engine B1](engine/02-issues-found.md#b-scrapers-and-parsing) |
 | P0 | 49 MB download before first paint | [frontend A1](frontend/02-issues-found.md#a-performance-and-loading), fix in [engine Phase 4](engine/03-improvement-plan.md#phase-4--data-model-and-output-l) |
 | P1 | Ranking coefficient is per gender field but documented as per distance | [engine C1](engine/02-issues-found.md#c-scoring-and-ranking-logic) |
-| P0 | Unknown routes render blank; ranking pages lack `h1`; titles never change | [frontend B2–B4](frontend/02-issues-found.md#b-functional-bugs) |
+| P1 | Unknown routes now show a 404 page (B2 fixed — `NotFoundPage` + `*` catch-all route); ranking pages still lack `h1` (B3); page title still doesn't change (B4) | [frontend B2–B4](frontend/02-issues-found.md#b-functional-bugs) |
 | P1 | Manual overrides exist only inside an encrypted blob; a folder backup exists but cannot be diffed, and the key is held by one person | [features §1](features/project-level-additions.md), roadmap 0.11 |
 | P0 | Backoffice "Delete" on an alias rule removes every rule with that name (31 names affected); candidates tab renders blank | [backoffice A1, B1](backoffice/02-issues-found.md) |
 
@@ -150,7 +150,7 @@ only file outside `docs/` written by this review.
 
 ## Working-tree state when these docs were written
 
-Analysis baseline: branch `fe-luxury-ux`, commit `ca65da4`. Three commits landed
+Analysis baseline: branch `fe-luxury-ux`, commit `ca65da4` (now merged to `main`). Three commits landed
 during the review and were re-checked on 18 Sep 2026:
 
 | Commit | What it changed | Effect on these docs |
@@ -166,3 +166,13 @@ files was verified still present at `bfc4f8e`: both scrape-workflow windows, the
 the per-gender ranking coefficient, the missing 404 route and per-page titles,
 the backoffice delete-by-name and candidates key mismatch, and `ci.yml` still
 running `npm test` without coverage thresholds.
+
+Additional work on `main` after the analysis baseline (not in the original review):
+
+| What changed | Effect on these docs |
+|---|---|
+| `App.tsx` split into `NavBar.tsx` + `Footer.tsx`; `App.tsx` reduced from 406 to ~150 lines | Code-quality A8 is substantially resolved; `api/CLAUDE.md` `initLookups` call site updated to `NavBar.tsx` |
+| `NotFoundPage` added + `<Route path="*">` wired | Frontend B2 fixed |
+| Date logic unified: sort + `isEventPast` use string comparison, `isEventDatePast` removed | Frontend B13 fixed |
+| `/privacy` and `/terms` legal pages added | `docs/README.md` task row and `docs/legal/` drafts updated |
+| ESLint `no-unused-vars` upgraded to error; `id-length` allowlist extended with `q`, `h1`–`h6` | `CLAUDE.md` naming allowlist updated |

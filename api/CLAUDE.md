@@ -41,4 +41,4 @@ The discrepancy is intentional: `resolveTeamKey` is synchronous for navigation, 
 
 ## initLookups
 
-Must be called once at startup before any team link or athlete lookup is rendered. In the frontend this is done in `App.tsx`'s initial `useEffect`. It populates two module-level Maps used by `resolveTeamKey` and `lookupAthleteId`.
+Must be called once at startup before any team link or athlete lookup is rendered. In the frontend this is done in `NavBar.tsx`'s initial `useEffect`. It populates two module-level Maps used by `resolveTeamKey` and `lookupAthleteId`.

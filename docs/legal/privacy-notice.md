@@ -3,8 +3,9 @@
 **Status:** draft written by an engineer, not legal advice. Have it reviewed
 by a lawyer or the CNPD guidance before publishing, especially the legal
 basis section. Portuguese version first (the audience), English below.
-Replace bracketed fields. Publish at `/privacidade` and `/privacy` and link
-from the footer and the support page.
+Replace bracketed fields. Publish at `/privacy` and link from the footer.
+Note: the EN version is live at `/privacy` (`frontend/src/components/legal/PrivacyPage.tsx`).
+The PT draft below is for reference; a Portuguese-language route is not yet implemented.
 
 ---
 
@@ -62,8 +63,8 @@ correcção/remoção: registo mínimo para evitar republicação.
 oposição e portabilidade, nos termos do RGPD. Em particular:
 
 - *Correcção*: se um resultado está associado à pessoa errada ou o nome
-  está mal, escreva para [email] com o link da página; corrigimos em 30
-  dias.
+  está mal, abra um issue em https://github.com/tiagocavaco/granfondo-ranking/issues
+  com o link da página; corrigimos em 30 dias.
 - *Oposição/remoção*: pode pedir que o seu perfil deixe de ser mostrado.
   Mantemos os resultados brutos tal como publicados pelo organizador, mas
   deixamos de os agregar num perfil com o seu nome e o perfil deixa de ser
@@ -82,8 +83,8 @@ versão em vigor.
 
 **Last updated:** [date]
 
-**Who we are.** Granfondo Portugal ([URL]) is an independent project run by
-[name], [city], Portugal. Data questions: [email].
+**Who we are.** Granfondo Portugal ([URL]) is an independent project. Data questions:
+https://github.com/tiagocavaco/granfondo-ranking/issues
 
 **What we process and where it comes from.**
 
@@ -119,8 +120,8 @@ sporting record. Accounts: until you delete them. Correction/removal
 requests: minimal record to prevent re-publication.
 
 **Your rights.** Access, rectification, erasure, restriction, objection,
-portability. In particular: *correction* (wrong person or wrong name: email
-[email] with the page link; fixed within 30 days) and *objection/removal*
+portability. In particular: *correction* (wrong person or wrong name: open an issue at
+https://github.com/tiagocavaco/granfondo-ranking/issues with the page link; fixed within 30 days) and *objection/removal*
 (your profile stops being shown and searched; raw results stay as the
 organiser published them but are no longer aggregated under your name).
 Complaints: CNPD (cnpd.pt).

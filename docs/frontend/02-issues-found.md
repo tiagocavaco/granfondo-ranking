@@ -37,9 +37,9 @@ relevant, the screenshot in `screenshots/`.
 - Reproduced: typing `zzzzqqq` left 92 event links on the page (`audit-report.json → searchBugRows`).
 - Status: `query` was added to the dependency array in commit 65c4805 after this audit. The committed e2e suite (`frontend/e2e/home.spec.ts`) should assert that a non-matching search empties the list; check before closing.
 
-### B2 · P0 — Unknown routes render a blank page
+### B2 · P0 — Unknown routes render a blank page — FIXED
 - Note: `public/404.html` correctly redirects deep links on GitHub Pages, so this is about the in-app catch-all, not hosting.
-- `App.tsx` has no catch-all `<Route path="*">`. `/does-not-exist` shows header + footer and nothing else (`16-404-mobile.jpg`). React Router logs a warning. Shared links with typos or removed IDs land users on emptiness.
+- `App.tsx` had no catch-all `<Route path="*">`. Fixed: `NotFoundPage` component added and wired as `<Route path="*">` in `App.tsx`. Unknown paths now render a branded 404 page.
 
 ### B3 · P1 — Ranking pages have no `h1`
 - `/ranking`, `/teams`, `/event/:id/predictions`, event detail hero uses `h1` but ranking pages use `h2` for the page title. Audit: `h1: 0` on those routes. Hurts screen readers and SEO.
@@ -71,8 +71,8 @@ relevant, the screenshot in `screenshots/`.
 ### B12 · P3 — `key={i}` on result rows
 - `frontend/src/components/events/ResultsTab.tsx`, `ParticipantsTab.tsx` use array index keys; filtering causes full row re-renders and can mis-associate hover/expanded state.
 
-### B13 · P3 — Timezone-sensitive date logic
-- `new Date(e.date + "T12:00:00")` and `"T00:00:00"` are mixed (`EventList` vs `EventDetail`). Day-of-race "isPast" flips at local noon in one place and midnight in another.
+### B13 · P3 — Timezone-sensitive date logic — FIXED
+- `new Date(e.date + "T12:00:00")` and `"T00:00:00"` were mixed (`EventList` vs `EventDetail`). Fixed: sort and "isPast" now use date strings directly (no `new Date` construction), avoiding all timezone drift. `isEventDatePast` was removed; `isEventPast(date, hasResults)` is the single function.
 
 ### B14 · P2 — "Best" means two different things on two pages
 - `AthleteProfile.tsx` computes Best from overall `pos`; `frontend/src/components/comparison/ComparisonHeroCard.tsx` computes it from `genderPos`. The same athlete can show "#1" on the profile and "#2" on the compare card. Pick one (gender position is the ranking basis) and label it.

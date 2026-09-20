@@ -57,10 +57,14 @@ of Recharts setup, custom dot rendering and tooltip styling. → R3.
 use `key={i}`. Both are noted in the frontend issues; they are symptoms of
 A1 (too much in one component to see the rule). → R1.
 
-### A8 — `App.tsx` is 406 lines
+### A8 — `App.tsx` is 406 lines — PARTIALLY RESOLVED
 Loading screen, error screen, header with two navigation variants, mobile
-menu, banners, routes and footer in one file; the SVG logo is inlined
-twice. → R1.
+menu, banners, routes and footer were all in one file. Resolved: `App.tsx`
+is now ~150 lines; `NavBar.tsx` owns the sticky header, logo, nav links,
+mobile Rankings dropdown, and lookup banners; `Footer.tsx` is a separate
+component. `DbLoadingScreen` and `DbErrorScreen` remain in `App.tsx` (tightly
+coupled to the DB init lifecycle). The SVG logo duplication is also gone.
+→ R1 is substantially done for this file.
 
 ## B. Scraper (`scraper/src`)
 

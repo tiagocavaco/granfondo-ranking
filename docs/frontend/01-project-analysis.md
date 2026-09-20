@@ -67,11 +67,11 @@ Contributing factors inside the DB:
 | `/event/:id/predictions` | `PredictionsPage` | 494 | Per-distance tabs, favourites |
 | `/athletes` | `AthletesPage` | 182 | Search + most active |
 | `/athlete/:id` | `AthleteProfile` + chart + highlights | 323 + 307 + 63 | |
-| `/ranking` | `AggregateRankingPage` + podium + table | 233 + 121 + 177 | |
-| `/teams` | `TeamRankingPage` | 471 | |
+| `/athlete-ranking` | `AggregateRankingPage` + podium + table | 233 + 121 + 177 | |
+| `/team-ranking` | `TeamRankingPage` | 471 | |
 | `/team/:teamId` | `TeamProfile` + `TeamMemberList` | 562 + 136 | |
 | `/compare` | `ComparisonPage` + hero + chart + table | 283 + 105 + 307 + 119 | |
-| `/ranking-info`, `/teams-info`, `/predictions-info` | Info pages | ~160 each | |
+| `/athlete-ranking-info`, `/team-ranking-info`, `/predictions-info` | Info pages | ~160 each | |
 
 Observations:
 
@@ -80,7 +80,7 @@ Observations:
 - **Data fetching is ad hoc.** Every page owns its own `useEffect` + `useState` triple and re-queries on mount. `EventDetail` calls `getEvents()` and scans the full array to find one event. No caching layer, no suspense, no loading skeletons.
 - **No URL state.** Season, distance, gender, search and expanded rows live in component state. A link to "2026 Granfondo Women" cannot exist. Back navigation loses filters.
 - **Charts are hand-rolled on Recharts** with custom dots and labels. They look good on desktop but labels collide (see issues doc).
-- **Tests:** unit tests cover utilities and a few components; an e2e suite of ~45 Playwright tests exists on this branch (untracked, not yet committed) and checks presence of elements rather than behaviour.
+- **Tests:** unit tests cover utilities and a few components; an e2e suite of ~45 Playwright tests is committed (`frontend/e2e/`, commit `f38635e`) and runs in CI. Tests check presence of elements rather than behaviour.
 
 ## 4. What is already strong (keep these)
 

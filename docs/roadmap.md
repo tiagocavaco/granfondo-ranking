@@ -43,7 +43,7 @@ and in the audience's language. Everything beyond that is growth.
 
 | Date | Event | Why it matters for the roadmap |
 |------|-------|--------------------------------|
-| Sat 19 Sep | Monção e Melgaço | Participant data is wrong today (E-B9, E-B10). Too late to fix before, fix after |
+| Sat 19 Sep | Monção e Melgaço (past) | Participant data was wrong (E-B9, E-B10). Fix in next scrape cycle |
 | Sun 27 Sep | Tavira | First race after the Phase-0 fixes; uses the registrations source, so it validates E-B1 |
 | Sun 4 Oct | Serra d'Ossa | Registrations source; 1,770 registrants, 84% currently unlinked |
 | Sun 18 Oct | Ourém-Fátima | Lista source |
@@ -64,9 +64,9 @@ Correctness only. Every item is small, isolated and testable.
 | 0.5 | Results workflow: nightly cron, window 0–3 days | E-0.1 | — |
 | 0.6 | Participants workflow: nightly cron, window −4…−1 | E-0.2 | — |
 | 0.7 | Backoffice: delete alias by id; fix candidates key names | B-0.1, B-0.2 | — |
-| 0.8 | Frontend: catch-all route, per-page titles, `h1` on ranking pages, prediction tabs limited to road distances | F-0.2–0.5 | — |
+| 0.8 | Frontend: catch-all route (done — `NotFoundPage` + `*`), per-page titles (partial — `usePageTitle` hook added, used on legal/info pages), `h1` on ranking pages, prediction tabs limited to road distances | F-0.2–0.5 | — |
 | 0.9 | Ranking coefficient: decide semantics, align info page | E-0.4 | decision by owner |
-| 0.10 | Analytics script + `/support` page + privacy notice | M-Phase 0 | — |
+| 0.10 | Analytics script + `/support` page + privacy notice (partial — `/privacy` and `/terms` are live; analytics and `/support` remain) | M-Phase 0 | — |
 | 0.11 | Override export: the four override tables to a committed JSON on every scrape and write (readable diff; the existing folder backup covers file loss); restore command; key and PAT in a shared vault; confirm the folder backup includes `scraper/.env` | `features/project-level-additions.md` §1 | — |
 
 Exit check: Tavira's start list links > 60%; predictions open on Granfondo;
