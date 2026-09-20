@@ -9,8 +9,8 @@ first. Effort is rough: **S** ≤ 1 day, **M** 2–4 days, **L** 1–2 weeks.
 
 | # | Change | Where |
 |---|--------|-------|
-| 0.1 | Add `query` to the `filtered` memo dependencies | `frontend/src/components/events/EventList.tsx` |
-| 0.2 | Add a `NotFound` route with a branded page, search box and links to Events / Rankings | `App.tsx` |
+| ~~0.1~~ | ~~Add `query` to the `filtered` memo dependencies~~ — done (commit `65c4805`) | `frontend/src/components/events/EventList.tsx` |
+| ~~0.2~~ | ~~Add a `NotFound` route with a branded page, search box and links to Events / Rankings~~ — done (`NotFoundPage` + `<Route path="*">`) | `App.tsx` |
 | 0.3 | Use `h1` on ranking, team ranking and predictions pages | 3 files |
 | 0.4 | Per-route `<title>` and `<meta name="description">` via a tiny `usePageMeta` hook | new hook + every page |
 | 0.5 | Filter prediction tabs to `ROAD_DISTANCES` only (or a whitelist in `@granfondo/utils/distance`) | `PredictionsPage.tsx` |
@@ -216,11 +216,11 @@ during the component split.
 ## Phase 6 — Quality gates (S, ongoing)
 
 - **Performance budget in CI:** fail the deploy if `core.db.enc` > 3 MB or main JS > 300 KB.
-- **Lighthouse CI** on `/`, `/event/:id`, `/ranking` mobile, threshold 90 performance / 100 accessibility.
+- **Lighthouse CI** on `/`, `/event/:id`, `/athlete-ranking` mobile, threshold 90 performance / 100 accessibility.
 - **Playwright behaviour tests:** search filters, filters combine, URL round-trips, back preserves state, 404 renders, no console errors.
 - **Visual regression** (Playwright `toHaveScreenshot`) for hero, podium, results row, at both viewports and both themes.
 - **axe-core** in e2e for every route.
-- Commit the untracked `frontend/e2e/` and `playwright.config.ts` on this branch.
+- ~~Commit the untracked `frontend/e2e/` and `playwright.config.ts`~~ — done (commit `f38635e`).
 
 ---
 

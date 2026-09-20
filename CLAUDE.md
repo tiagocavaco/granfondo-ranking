@@ -80,7 +80,8 @@ already knows what `ca` and `tokB` mean.
   - Numeric loop indices: `i`, `j`, `k`
   - Coordinates: `x`, `y`
   - Intentional unused: `_`
-  - Domain abbreviations: `db`, `id`, `ok`, `el`, `fn`, `cb`, `ev`, `e`, `r`
+  - Domain abbreviations: `db`, `id`, `ok`, `el`, `fn`, `cb`, `ev`, `e`, `r`, `q`
+  - HTML heading tag names: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`
 - **No single-letter parameters in exported functions.** `function f(a, b)` is
   not OK; `function teamKeySimilarity(keyA, keyB)` is.
 - **Loop variables in nested scopes get real names.** Not

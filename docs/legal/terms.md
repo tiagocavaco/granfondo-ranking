@@ -1,7 +1,9 @@
 # Terms of use — draft
 
 **Status:** draft, not legal advice; review before publishing. Publish at
-`/termos` and `/terms`. Portuguese first, English below. Keep both short:
+`/terms`. Portuguese first, English below.
+Note: the EN version is live at `/terms` (`frontend/src/components/legal/TermsPage.tsx`).
+The PT draft below is for reference; a Portuguese-language route is not yet implemented. Keep both short:
 riders will not read a long page, and a short honest one is better protection.
 
 ---
@@ -19,7 +21,8 @@ riders will not read a long page, and a short honest one is better protection.
    estimativas deste site são calculados automaticamente a partir desses
    dados e podem conter erros, incluindo associações incorrectas de
    resultados a atletas com o mesmo nome. Em caso de discrepância, prevalece
-   a publicação oficial. Pode reportar erros para [email].
+   a publicação oficial. Pode reportar erros em
+   https://github.com/tiagocavaco/granfondo-ranking/issues
 3. **Utilização aceitável.** Pode consultar, partilhar links e descarregar
    os ficheiros CSV disponibilizados para uso pessoal e não comercial, com
    indicação da fonte. Não pode extrair massivamente dados do site, vender
@@ -41,7 +44,7 @@ riders will not read a long page, and a short honest one is better protection.
 7. **Responsabilidade.** O site é fornecido tal como está, sem garantias de
    disponibilidade ou exactidão. Na medida permitida por lei, não somos
    responsáveis por decisões tomadas com base nos dados aqui apresentados.
-8. **Dados pessoais.** Ver a [política de privacidade](/privacidade).
+8. **Dados pessoais.** Ver a [política de privacidade](/privacy).
 9. **Alterações e lei aplicável.** Estes termos podem ser actualizados.
    Aplica-se a lei portuguesa; foro de [comarca].
 
@@ -58,7 +61,8 @@ riders will not read a long page, and a short honest one is better protection.
    timing companies. Rankings, profiles, predictions and estimates here are
    computed automatically and may contain errors, including results
    attributed to the wrong athlete of the same name. Where they differ, the
-   official publication prevails. Report errors to [email].
+   official publication prevails. Report errors at
+   https://github.com/tiagocavaco/granfondo-ranking/issues
 3. **Acceptable use.** You may browse, share links and download the CSV
    files provided, for personal, non-commercial use with attribution. You
    may not bulk-extract the site, sell athlete data, or use the site to
