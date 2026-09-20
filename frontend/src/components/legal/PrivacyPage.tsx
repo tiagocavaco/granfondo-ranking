@@ -49,8 +49,8 @@ export default function PrivacyPage() {
 
       <Section title="Data we display">
         <p>
-          This site shows athlete information sourced from public race timing
-          systems (StopAndGo and others). This includes:
+          This site shows athlete information sourced from publicly available
+          race results published by event organisers. This includes:
         </p>
         <ul className="list-disc list-inside space-y-1 text-slate-400 ml-2">
           <li>Name as registered with the race organiser</li>
