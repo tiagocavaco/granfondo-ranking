@@ -4,7 +4,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Athlete ranking", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("ranking");
+    await page.goto("athlete-ranking");
     await page.waitForSelector("h1", { timeout: 15000 });
   });
 
@@ -83,11 +83,29 @@ test.describe("Athlete ranking", () => {
     expect(selectedYear).toMatch(/^20\d{2}$/);
   });
 
-  test("How scoring works link navigates to ranking-info page", async ({
+  test("first table row has a non-empty athlete name", async ({ page }) => {
+    const firstLink = page
+      .locator("tbody")
+      .locator('a[href*="/athlete/"]')
+      .first();
+    const name = await firstLink.textContent();
+    expect(name?.trim().length).toBeGreaterThan(2);
+  });
+
+  test("first table row shows a numeric points value", async ({ page }) => {
+    // Points cell is the last visible td — contains a plain number like "312"
+    const firstRow = page.locator("tbody tr").first();
+    const cells = firstRow.locator("td");
+    const lastCell = cells.last();
+    const text = await lastCell.textContent();
+    expect(Number(text?.trim().replace(/,/g, ""))).toBeGreaterThan(0);
+  });
+
+  test("How scoring works link navigates to athlete-ranking-info page", async ({
     page,
   }) => {
     await page.getByRole("link", { name: /how scoring works/i }).click();
-    await expect(page).toHaveURL(/\/ranking-info/);
+    await expect(page).toHaveURL(/\/athlete-ranking-info/);
   });
 });
 
@@ -95,7 +113,7 @@ test.describe("Athlete ranking", () => {
 
 test.describe("Team ranking", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("teams");
+    await page.goto("team-ranking");
     await page.waitForSelector("h1", { timeout: 15000 });
   });
 
@@ -153,11 +171,28 @@ test.describe("Team ranking", () => {
     await expect(page).toHaveURL(/\/team\/\d+/);
   });
 
-  test("How scoring works link navigates to teams-info page", async ({
+  test("first table row has a non-empty team name", async ({ page }) => {
+    const firstLink = page
+      .locator("tbody")
+      .locator('a[href*="/team/"]')
+      .first();
+    const name = await firstLink.textContent();
+    expect(name?.trim().length).toBeGreaterThan(2);
+  });
+
+  test("first table row shows a numeric points value", async ({ page }) => {
+    const firstRow = page.locator("tbody tr").first();
+    const cells = firstRow.locator("td");
+    const lastCell = cells.last();
+    const text = await lastCell.textContent();
+    expect(Number(text?.trim().replace(/,/g, ""))).toBeGreaterThan(0);
+  });
+
+  test("How scoring works link navigates to team-ranking-info page", async ({
     page,
   }) => {
     await page.getByRole("link", { name: /how scoring works/i }).click();
-    await expect(page).toHaveURL(/\/teams-info/);
+    await expect(page).toHaveURL(/\/team-ranking-info/);
   });
 });
 
@@ -167,7 +202,7 @@ test.describe("Ranking info pages", () => {
   test("athlete ranking info shows points table with 1st row", async ({
     page,
   }) => {
-    await page.goto("ranking-info");
+    await page.goto("athlete-ranking-info");
     await page.waitForSelector("h1", { timeout: 15000 });
     await expect(page.getByText(/how it works/i)).toBeVisible();
     await expect(page.getByText(/base_points/i)).toBeVisible();
@@ -176,7 +211,7 @@ test.describe("Ranking info pages", () => {
   });
 
   test("team ranking info shows eligible_teams formula", async ({ page }) => {
-    await page.goto("teams-info");
+    await page.goto("team-ranking-info");
     await page.waitForSelector("h1", { timeout: 15000 });
     await expect(page.getByText(/how it works/i)).toBeVisible();
     await expect(page.getByText(/eligible_teams/i)).toBeVisible();

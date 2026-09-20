@@ -215,7 +215,6 @@ function EventDetail({ event }: { event: RawEvent }) {
 
 export default function RawEventPage() {
   const { eventId } = useParams<{ eventId?: string }>();
-  const navigate = useNavigate();
   const [event, setEvent] = useState<RawEvent | null>(null);
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(false);

@@ -286,7 +286,7 @@ export default function TeamRankingPage() {
               teams scored
             </p>
             <Link
-              to="/teams-info"
+              to="/team-ranking-info"
               className="text-xs text-blue-400 hover:text-blue-300 hover:underline transition-colors"
             >
               How scoring works →

@@ -179,8 +179,6 @@ describe("applyManualResultAssignments", () => {
 
   it("silently skips assignments whose target athleteId does not exist", () => {
     // Stale assignment (athlete was merged/deleted) — must not throw.
-    const event = mkEvent({ id: 1 });
-    const dist = mkDistance();
     const ctx = mkPipelineCtx({
       assignments: [
         { eventId: 1, bib: "100", athleteId: 999, note: undefined },

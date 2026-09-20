@@ -4,7 +4,8 @@ import { api } from "@granfondo/api";
 import type { StoredEvent } from "@granfondo/database/types";
 import ResultsTab from "./ResultsTab";
 import ParticipantsTab from "./ParticipantsTab";
-import { Spinner, ErrorBanner } from "../shared/Spinner";
+import { Spinner } from "../shared/Spinner";
+import { NotFoundState, ghostButtonClass } from "../shared/NotFoundState";
 import { distBadgeClass } from "../../utils/distance";
 import { isEventPast } from "../../utils/date";
 import { ShieldCheckIcon } from "../shared/ShieldCheckIcon";
@@ -44,17 +45,21 @@ export default function EventDetail() {
   }
 
   if (error || !event) {
-    return <ErrorBanner>{error ?? "Event not found"}</ErrorBanner>;
+    return (
+      <NotFoundState
+        label="Event not found"
+        description="This event doesn't exist or may have been removed."
+        action={
+          <Link to="/" className={ghostButtonClass}>
+            ← Events
+          </Link>
+        }
+      />
+    );
   }
 
   const isPast = isEventPast(event.date, event.hasResults);
   const dateObj = new Date(event.date + "T00:00:00");
-  const date = dateObj.toLocaleDateString("en-GB", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
   const heroDay = dateObj.toLocaleDateString("en-GB", { day: "numeric" });
   const heroMonth = dateObj
     .toLocaleDateString("en-GB", { month: "short" })

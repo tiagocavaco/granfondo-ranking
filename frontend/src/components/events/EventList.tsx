@@ -46,10 +46,9 @@ export default function EventList() {
   );
 
   const nextUpcoming = useMemo(() => {
-    const now = Date.now();
     return (
       allEvents
-        .filter((e) => new Date(e.date + "T12:00:00").getTime() >= now)
+        .filter((e) => !isEventPast(e.date, e.hasResults))
         .sort(
           (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
         )[0] ?? null
@@ -73,17 +72,15 @@ export default function EventList() {
         return matchSeason && matchStatus && matchQuery;
       })
       .sort((a, b) => {
-        const aDate = new Date(a.date).getTime();
-        const bDate = new Date(b.date).getTime();
-        const now = Date.now();
-        const aPast = aDate < now;
-        const bPast = bDate < now;
+        const today = new Date().toISOString().slice(0, 10);
+        const aPast = isEventPast(a.date, a.hasResults) && a.date < today;
+        const bPast = isEventPast(b.date, b.hasResults) && b.date < today;
         if (aPast && bPast) {
-          return bDate - aDate;
+          return b.date < a.date ? -1 : b.date > a.date ? 1 : 0;
         }
 
         if (!aPast && !bPast) {
-          return aDate - bDate;
+          return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
         }
 
         return aPast ? 1 : -1;
@@ -227,9 +224,11 @@ function EventHero({ event }: { event: StoredEvent }) {
     month: "long",
     year: "numeric",
   });
-  const daysUntil = Math.ceil(
-    (date.getTime() - Date.now()) / (1000 * 60 * 60 * 24),
-  );
+  const today = new Date().toISOString().slice(0, 10);
+  const daysUntil =
+    event.date === today
+      ? 0
+      : Math.ceil((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
 
   return (
     <div
@@ -253,9 +252,13 @@ function EventHero({ event }: { event: StoredEvent }) {
                 Next Race
               </span>
             </div>
-            {daysUntil > 0 && (
+            {daysUntil >= 0 && (
               <span className="text-[11px] font-bold tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/25 px-2 py-0.5 rounded-full">
-                {daysUntil === 1 ? "Tomorrow" : `${daysUntil} days`}
+                {daysUntil === 0
+                  ? "Today"
+                  : daysUntil === 1
+                    ? "Tomorrow"
+                    : `${daysUntil} days`}
               </span>
             )}
             <div className="hidden sm:flex items-center gap-2 ml-auto">

@@ -28,7 +28,7 @@ test("unknown route shows 404 page", async ({ page }) => {
   await page.goto("does-not-exist");
   await expect(page.getByRole("heading", { name: "404" })).toBeVisible();
   await expect(
-    page.getByRole("link", { name: /back to events/i }),
+    page.locator("main").getByRole("link", { name: /events/i }),
   ).toBeVisible();
 });
 
@@ -82,7 +82,7 @@ test("desktop nav shows Athlete Ranking and Team Ranking links", async ({
   ).toBeVisible();
 });
 
-test("desktop Athlete Ranking link navigates to /ranking", async ({
+test("desktop Athlete Ranking link navigates to /athlete-ranking", async ({
   page,
 }, testInfo) => {
   if (testInfo.project.name !== "desktop") {
@@ -94,10 +94,10 @@ test("desktop Athlete Ranking link navigates to /ranking", async ({
     .locator("header")
     .getByRole("link", { name: /athlete ranking/i })
     .click();
-  await expect(page).toHaveURL(/\/ranking/);
+  await expect(page).toHaveURL(/\/athlete-ranking/);
 });
 
-test("desktop Team Ranking link navigates to /teams", async ({
+test("desktop Team Ranking link navigates to /team-ranking", async ({
   page,
 }, testInfo) => {
   if (testInfo.project.name !== "desktop") {
@@ -109,7 +109,7 @@ test("desktop Team Ranking link navigates to /teams", async ({
     .locator("header")
     .getByRole("link", { name: /team ranking/i })
     .click();
-  await expect(page).toHaveURL(/\/teams/);
+  await expect(page).toHaveURL(/\/team-ranking/);
 });
 
 // ── Mobile-only: Rankings dropdown in header ──────────────────────────────────
@@ -160,7 +160,7 @@ test("mobile nav Rankings dropdown navigates to athlete ranking", async ({
     .locator('[role="menu"]')
     .getByRole("menuitem", { name: /athletes/i })
     .click();
-  await expect(page).toHaveURL(/\/ranking/);
+  await expect(page).toHaveURL(/\/athlete-ranking/);
 });
 
 test("mobile nav Rankings dropdown navigates to team ranking", async ({
@@ -179,5 +179,5 @@ test("mobile nav Rankings dropdown navigates to team ranking", async ({
     .locator('[role="menu"]')
     .getByRole("menuitem", { name: /teams/i })
     .click();
-  await expect(page).toHaveURL(/\/teams/);
+  await expect(page).toHaveURL(/\/team-ranking/);
 });

@@ -211,7 +211,7 @@ export default function AggregateRankingPage() {
               athletes scored
             </p>
             <Link
-              to="/ranking-info"
+              to="/athlete-ranking-info"
               className="text-xs text-blue-400 hover:text-blue-300 hover:underline transition-colors"
             >
               How scoring works →

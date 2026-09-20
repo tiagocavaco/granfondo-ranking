@@ -35,11 +35,11 @@ test("hero card shows event name", async ({ page }) => {
   expect(text?.trim().length).toBeGreaterThan(3);
 });
 
-test("hero card shows a days-until badge when event is in the future", async ({
+test("hero card shows a days-until badge for the next event", async ({
   page,
 }) => {
-  // The badge shows "X days" or "Tomorrow"
-  const badge = page.getByText(/^\d+ days$|^Tomorrow$/);
+  // Badge shows "Today", "Tomorrow", or "X days"
+  const badge = page.getByText(/^Today$|^\d+ days$|^Tomorrow$/);
   await expect(badge.first()).toBeVisible();
 });
 
