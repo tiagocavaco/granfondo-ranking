@@ -88,7 +88,10 @@ test.describe("Scroll reset", () => {
     await page.goto("");
     await page.waitForSelector("h1", { timeout: 15000 });
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await page.locator("footer").getByRole("link", { name: /privacy/i }).click();
+    await page
+      .locator("footer")
+      .getByRole("link", { name: /privacy/i })
+      .click();
     await expect(page).toHaveURL(/\/privacy/);
     const scrollY = await page.evaluate(() => window.scrollY);
     expect(scrollY).toBe(0);
