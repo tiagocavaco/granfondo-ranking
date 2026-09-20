@@ -3,6 +3,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
   NavLink,
   useNavigate,
   useLocation,
@@ -119,7 +120,7 @@ function AppShell() {
   const location = useLocation();
   const headerRef = useRef<HTMLElement>(null);
   const isRankingsActive =
-    location.pathname === "/ranking" || location.pathname === "/teams";
+    location.pathname === "/athlete-ranking" || location.pathname === "/team-ranking";
 
   useEffect(() => {
     api
@@ -242,7 +243,7 @@ function AppShell() {
             </button>
             {/* Desktop: direct links */}
             <NavLink
-              to="/ranking"
+              to="/athlete-ranking"
               className={({ isActive }) =>
                 `hidden sm:flex items-center gap-1.5 ${navLink(isActive)}`
               }
@@ -258,7 +259,7 @@ function AppShell() {
               Athlete Ranking
             </NavLink>
             <NavLink
-              to="/teams"
+              to="/team-ranking"
               className={({ isActive }) =>
                 `hidden sm:flex items-center gap-1.5 ${navLink(isActive)}`
               }
@@ -284,9 +285,9 @@ function AppShell() {
           >
             <button
               role="menuitem"
-              onClick={() => navigate("/ranking")}
+              onClick={() => navigate("/athlete-ranking")}
               className={`flex-1 py-3 text-sm font-semibold transition-colors flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-400/60 ${
-                location.pathname === "/ranking"
+                location.pathname === "/athlete-ranking"
                   ? "text-blue-300 bg-blue-500/10"
                   : "text-slate-400 hover:text-white hover:bg-white/5"
               }`}
@@ -303,9 +304,9 @@ function AppShell() {
             </button>
             <button
               role="menuitem"
-              onClick={() => navigate("/teams")}
+              onClick={() => navigate("/team-ranking")}
               className={`flex-1 py-3 text-sm font-semibold border-l border-white/[0.06] transition-colors flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-400/60 ${
-                location.pathname === "/teams"
+                location.pathname === "/team-ranking"
                   ? "text-blue-300 bg-blue-500/10"
                   : "text-slate-400 hover:text-white hover:bg-white/5"
               }`}
@@ -339,16 +340,17 @@ function AppShell() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-12">
         <Routes>
           <Route path="/" element={<EventList />} />
+          <Route path="/events" element={<Navigate to="/" replace />} />
           <Route path="/event/:id" element={<EventDetail />} />
           <Route path="/event/:id/predictions" element={<PredictionsPage />} />
           <Route path="/athletes" element={<AthletesPage />} />
           <Route path="/athlete/:id" element={<AthleteProfile />} />
-          <Route path="/ranking" element={<AggregateRankingPage />} />
-          <Route path="/teams" element={<TeamRankingPage />} />
+          <Route path="/athlete-ranking" element={<AggregateRankingPage />} />
+          <Route path="/team-ranking" element={<TeamRankingPage />} />
           <Route path="/team/:teamId" element={<TeamProfile />} />
           <Route path="/compare" element={<ComparisonPage />} />
-          <Route path="/ranking-info" element={<AthleteRankingInfoPage />} />
-          <Route path="/teams-info" element={<TeamRankingInfoPage />} />
+          <Route path="/athlete-ranking-info" element={<AthleteRankingInfoPage />} />
+          <Route path="/team-ranking-info" element={<TeamRankingInfoPage />} />
           <Route path="/predictions-info" element={<PredictionsInfoPage />} />
           <Route
             path="/event/:id/predictions/info"

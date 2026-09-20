@@ -82,7 +82,7 @@ test("desktop nav shows Athlete Ranking and Team Ranking links", async ({
   ).toBeVisible();
 });
 
-test("desktop Athlete Ranking link navigates to /ranking", async ({
+test("desktop Athlete Ranking link navigates to /athlete-ranking", async ({
   page,
 }, testInfo) => {
   if (testInfo.project.name !== "desktop") {
@@ -97,7 +97,7 @@ test("desktop Athlete Ranking link navigates to /ranking", async ({
   await expect(page).toHaveURL(/\/ranking/);
 });
 
-test("desktop Team Ranking link navigates to /teams", async ({
+test("desktop Team Ranking link navigates to /team-ranking", async ({
   page,
 }, testInfo) => {
   if (testInfo.project.name !== "desktop") {
