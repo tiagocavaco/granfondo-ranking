@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { api } from "@granfondo/api";
 import type { AthleteEntry, AthleteResultRef } from "@granfondo/database/types";
 import { Spinner } from "../shared/Spinner";
@@ -21,7 +21,6 @@ import { usePageTitle } from "../../hooks/usePageTitle";
 
 export default function AthleteProfile() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const [data, setData] = useState<AthleteEntry | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

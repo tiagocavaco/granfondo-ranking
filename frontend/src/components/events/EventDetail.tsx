@@ -60,12 +60,6 @@ export default function EventDetail() {
 
   const isPast = isEventPast(event.date, event.hasResults);
   const dateObj = new Date(event.date + "T00:00:00");
-  const date = dateObj.toLocaleDateString("en-GB", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
   const heroDay = dateObj.toLocaleDateString("en-GB", { day: "numeric" });
   const heroMonth = dateObj
     .toLocaleDateString("en-GB", { month: "short" })

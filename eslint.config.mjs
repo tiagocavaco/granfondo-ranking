@@ -24,8 +24,8 @@ export default [
       "@typescript-eslint": tseslint,
     },
     rules: {
-      "curly": ["error", "all"],
-      "eqeqeq": ["error", "always", { "null": "ignore" }],
+      curly: ["error", "all"],
+      eqeqeq: ["error", "always", { null: "ignore" }],
       // See "Code style" in CLAUDE.md. Allowlist covers conventional shorts
       // (numeric loop indices, coordinates, intentional unused, common
       // domain abbreviations). Anything else needs ≥3 chars.
@@ -38,23 +38,60 @@ export default [
         {
           min: 3,
           exceptions: [
-            "i", "j", "k",
-            "x", "y",
+            "i",
+            "j",
+            "k",
+            "x",
+            "y",
             "_",
-            "a", "b", "c", "d", "f", "n", "m", "p", "s", "t", "v",
-            "db", "id", "ok", "el", "fn", "cb", "ev", "e", "r",
+            "a",
+            "b",
+            "c",
+            "d",
+            "f",
+            "n",
+            "m",
+            "p",
+            "s",
+            "t",
+            "v",
+            "db",
+            "id",
+            "ok",
+            "el",
+            "fn",
+            "cb",
+            "ev",
+            "e",
+            "r",
             // from/to are domain-standard for alias rules (fromKey → toKey direction)
             "to",
-            "fs", "os", "ms",
+            "fs",
+            "os",
+            "ms",
             // Crypto convention: iv = initialization vector, ct = ciphertext.
-            "iv", "ct",
+            "iv",
+            "ct",
             // Chart convention (Recharts cx/cy = circle center coords).
-            "cx", "cy",
+            "cx",
+            "cy",
+            // Search query parameter (URL ?q= convention)
+            "q",
+            // HTML heading element names (h1–h6 appear in JSX / DOM queries)
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
           ],
         },
       ],
       "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
     },
   },
   // Disables ESLint formatting rules that conflict with Prettier.
@@ -63,7 +100,7 @@ export default [
   {
     files: ["**/*.ts", "**/*.tsx"],
     rules: {
-      "curly": ["error", "all"],
+      curly: ["error", "all"],
       "padding-line-between-statements": [
         "warn",
         { blankLine: "always", prev: "block-like", next: "*" },
@@ -73,7 +110,12 @@ export default [
   // Test files use (a, b) in sort comparators heavily — a convention the
   // id-length rule fights against without benefit. Disable it for tests.
   {
-    files: ["**/*.test.ts", "**/*.test.tsx", "**/test-fixture.ts", "**/test-db.ts"],
+    files: [
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/test-fixture.ts",
+      "**/test-db.ts",
+    ],
     rules: {
       "id-length": "off",
     },
