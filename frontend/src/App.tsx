@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
   NavLink,
+  Link,
   useNavigate,
   useLocation,
 } from "react-router-dom";
@@ -21,6 +22,8 @@ import TeamRankingInfoPage from "./components/team-ranking/TeamRankingInfoPage";
 import PredictionsPage from "./components/predictions/PredictionsPage";
 import PredictionsInfoPage from "./components/predictions/PredictionsInfoPage";
 import NotFoundPage from "./components/shared/NotFoundPage";
+import PrivacyPage from "./components/legal/PrivacyPage";
+import TermsPage from "./components/legal/TermsPage";
 import { api, setGetDb } from "@granfondo/api";
 import { getDb } from "./db/db-client";
 import { formatAge } from "./utils/date";
@@ -360,6 +363,8 @@ function AppShell() {
             path="/event/:id/predictions/info"
             element={<PredictionsInfoPage />}
           />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
@@ -378,8 +383,21 @@ function Footer() {
   }, []);
   return (
     <footer className="border-t border-white/[0.06] mt-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between text-xs text-slate-600">
-        <span className="font-semibold text-slate-500">Granfondo Portugal</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
+        <div className="flex items-center gap-4">
+          <span className="font-semibold text-slate-500">
+            Granfondo Portugal
+          </span>
+          <Link
+            to="/privacy"
+            className="hover:text-slate-400 transition-colors"
+          >
+            Privacy
+          </Link>
+          <Link to="/terms" className="hover:text-slate-400 transition-colors">
+            Terms
+          </Link>
+        </div>
         {scrapedAt && (
           <span className="text-slate-600">
             Data updated {formatAge(scrapedAt)}
