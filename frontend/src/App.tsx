@@ -17,6 +17,7 @@ import PrivacyPage from "./components/legal/PrivacyPage";
 import TermsPage from "./components/legal/TermsPage";
 import { NavBar } from "./components/shared/NavBar";
 import { Footer } from "./components/shared/Footer";
+import { ScrollToTop } from "./components/shared/ScrollToTop";
 import { getDb } from "./db/db-client";
 import { setGetDb } from "@granfondo/api";
 
@@ -103,6 +104,7 @@ function DbErrorScreen({ error }: { error: string }) {
 function AppShell() {
   return (
     <div className="min-h-screen relative z-[1]">
+      <ScrollToTop />
       <NavBar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-12">
         <Routes>
