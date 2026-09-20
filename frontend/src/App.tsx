@@ -120,7 +120,8 @@ function AppShell() {
   const location = useLocation();
   const headerRef = useRef<HTMLElement>(null);
   const isRankingsActive =
-    location.pathname === "/athlete-ranking" || location.pathname === "/team-ranking";
+    location.pathname === "/athlete-ranking" ||
+    location.pathname === "/team-ranking";
 
   useEffect(() => {
     api
@@ -349,7 +350,10 @@ function AppShell() {
           <Route path="/team-ranking" element={<TeamRankingPage />} />
           <Route path="/team/:teamId" element={<TeamProfile />} />
           <Route path="/compare" element={<ComparisonPage />} />
-          <Route path="/athlete-ranking-info" element={<AthleteRankingInfoPage />} />
+          <Route
+            path="/athlete-ranking-info"
+            element={<AthleteRankingInfoPage />}
+          />
           <Route path="/team-ranking-info" element={<TeamRankingInfoPage />} />
           <Route path="/predictions-info" element={<PredictionsInfoPage />} />
           <Route

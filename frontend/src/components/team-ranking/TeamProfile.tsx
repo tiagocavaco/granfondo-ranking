@@ -213,15 +213,17 @@ export default function TeamProfile() {
   }
 
   if (error || !data) {
-    return <NotFoundState
-      label="Team not found"
-      description="This team doesn't exist or may have been removed."
-      action={
-        <Link to="/" className={ghostButtonClass}>
-          ← Events
-        </Link>
-      }
-    />;
+    return (
+      <NotFoundState
+        label="Team not found"
+        description="This team doesn't exist or may have been removed."
+        action={
+          <Link to="/" className={ghostButtonClass}>
+            ← Events
+          </Link>
+        }
+      />
+    );
   }
 
   if (teamEntries.length === 0) {
@@ -230,15 +232,17 @@ export default function TeamProfile() {
     }
 
     if (teamDetail === null) {
-      return <NotFoundState
-      label="Team not found"
-      description="This team doesn't exist or may have been removed."
-      action={
-        <Link to="/" className={ghostButtonClass}>
-          ← Events
-        </Link>
-      }
-    />;
+      return (
+        <NotFoundState
+          label="Team not found"
+          description="This team doesn't exist or may have been removed."
+          action={
+            <Link to="/" className={ghostButtonClass}>
+              ← Events
+            </Link>
+          }
+        />
+      );
     }
   }
 
