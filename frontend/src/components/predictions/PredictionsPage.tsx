@@ -346,9 +346,7 @@ export default function PredictionsPage() {
 
         setEvent(found);
         setPredictions(preds);
-        const tabs = DISTANCES.filter((d) => d in preds).concat(
-          Object.keys(preds).filter((d) => !DISTANCES.includes(d)),
-        );
+        const tabs = DISTANCES.filter((d) => d in preds);
         setActiveTab(tabs[0] ?? "");
       })
       .catch((e: unknown) => setError(String(e)))
@@ -392,9 +390,7 @@ export default function PredictionsPage() {
     return null;
   }
 
-  const tabs = DISTANCES.filter((d) => d in predictions).concat(
-    Object.keys(predictions).filter((d) => !DISTANCES.includes(d)),
-  );
+  const tabs = DISTANCES.filter((d) => d in predictions);
 
   if (tabs.length === 0) {
     return <NoPredictionsState />;

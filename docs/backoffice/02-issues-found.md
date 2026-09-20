@@ -7,11 +7,8 @@ Severity: **P0** can corrupt or lose override data, or a core page is broken ·
 
 ## A. Data integrity
 
-### A1 · P0 — Deleting one alias rule deletes every rule with the same athlete name
-- Client: `backoffice/src/pages/AliasesPage.tsx` and `backoffice/src/pages/RawAthletePage.tsx` call `adminApi.removeAlias({ name, team })`.
-- Server: `server/admin-middleware.ts` reads only `name` and runs `remove alias --name X`.
-- CLI: `scraper/src/db/manage-db.ts` `cmdRemove` does `DELETE FROM athlete_alias_rules WHERE name = ?`.
-- Live data: 31 names have more than one rule; one name has 6 rules across three canonical teams, two others have 4 each. Clicking Delete on any one of them silently removes all of them. The row shows `#id`, so the fix is to delete by `id`.
+### A1 · P0 — Deleting one alias rule deletes every rule with the same athlete name — FIXED in commit `12f43ba`
+- `manage-db.ts` now accepts `--id N` for exact-row deletion. `admin-middleware.ts` passes `id` instead of `name`. `AliasesPage` and `RawAthletePage` pass `rule.id` to `removeAlias`.
 
 ### A2 · P1 — Adding an alias rule creates a new row even when one exists for the same canonical athlete
 - `cmdAdd` always inserts a fresh `athlete_alias_rules` row with a one-element `aliases_json`. The schema supports many aliases per rule; the UI creates one rule per alias. This is why A1 has 31 multi-rule names, and it makes the pipeline apply the same canonical merge repeatedly. Not harmful to output, but it multiplies the blast radius of A1.
@@ -29,8 +26,8 @@ Severity: **P0** can corrupt or lose override data, or a core page is broken ·
 
 ## B. Broken or misleading UI
 
-### B1 · P0 — Team Aliases candidates tab renders 141 blank rows
-- `backoffice/src/pages/CandidatesPage.tsx` types the file as `{ fromKey, toKey, score, reason }`. The real file (`scraper/team-alias-candidates.json`, produced by `find-team-alias-candidates.ts`) has `{ from, to, score, approved }`. Both columns are empty and every "reason" is "—". See `screenshots/06-candidates-team-aliases.jpg`.
+### B1 · P0 — Team Aliases candidates tab renders 141 blank rows — FIXED in commit `12f43ba`
+- `CandidatesPage` type updated from `{ fromKey, toKey, reason }` to `{ from, to, approved }`. Status now renders correctly as approved/rejected/pending.
 
 ### B2 · P1 — Split candidates ignore the `approved` field and the licence/anchored files
 - `SplitsTab` derives status from which file a pair sits in. The pending file also carries `approved: true|false|null` set by the reviewer; the page does not show or edit it. `licence-split-candidates.json` (78 undecided) and `athlete-anchored-team-aliases.json` (80) are not surfaced at all.
