@@ -37,10 +37,11 @@ test("athlete profile shows team link when athlete has a team", async ({
 // ── Stats strip ───────────────────────────────────────────────────────────────
 
 test("stats strip shows all four labels", async ({ page }) => {
-  await expect(page.getByText("Races")).toBeVisible();
-  // exact: true avoids matching the "Cat Podiums" label as well
-  await expect(page.getByText("Podiums", { exact: true })).toBeVisible();
-  await expect(page.getByText("Cat Podiums")).toBeVisible();
+  // .first() avoids strict-mode violations when the label appears in
+  // multiple year-section headers on a prolific athlete's profile
+  await expect(page.getByText("Races").first()).toBeVisible();
+  await expect(page.getByText("Podiums").first()).toBeVisible();
+  await expect(page.getByText("Cat Podiums").first()).toBeVisible();
 });
 
 test("stats strip Races count is a positive integer", async ({ page }) => {

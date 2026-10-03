@@ -5,7 +5,6 @@ import { test, expect, type Page } from "@playwright/test";
 // and top granfondo finishers race multiple events per season, making the
 // head-to-head chart (which needs ≥2 shared events) reliable.
 async function findTwoRacemates(page: Page): Promise<string> {
-  // Navigate to home and click the first event that has results
   await page.goto("");
   await page.waitForSelector('a[href*="/event/"]', { timeout: 30000 });
   const eventLink = page
@@ -24,6 +23,12 @@ async function findTwoRacemates(page: Page): Promise<string> {
 
   return `compare?a=${idA}&b=${idB}`;
 }
+
+// Module-level cache — populated on the first beforeEach call per worker.
+// Playwright does not support page/context fixtures in beforeAll, so we
+// lazily discover athlete IDs the first time beforeEach runs and reuse
+// them for the rest of the tests in that worker.
+let cachedCompareUrl = "";
 
 test.describe("Compare — empty state", () => {
   test("heading reads Head-to-Head", async ({ page }) => {
@@ -48,20 +53,12 @@ test.describe("Compare — empty state", () => {
   });
 });
 
-// serial mode: all tests run in one worker sharing one page — beforeAll gets
-// the page fixture directly, the DB is downloaded once, and beforeEach just
-// navigates to the compare URL on the already-loaded page.
 test.describe("Compare — loaded with two athletes", () => {
-  test.describe.configure({ mode: "serial" });
-
-  let compareUrl = "";
-
-  test.beforeAll(async ({ page }) => {
-    compareUrl = await findTwoRacemates(page);
-  });
-
   test.beforeEach(async ({ page }) => {
-    await page.goto(compareUrl);
+    if (!cachedCompareUrl) {
+      cachedCompareUrl = await findTwoRacemates(page);
+    }
+    await page.goto(cachedCompareUrl);
     await page.waitForSelector("h1", { timeout: 15000 });
   });
 
