@@ -44,7 +44,9 @@ export default async function globalSetup() {
       const idA = href0.match(/\/athlete\/(\d+)/)?.[1] ?? "";
       const idB = href1.match(/\/athlete\/(\d+)/)?.[1] ?? "";
 
-      if (!idA || !idB) continue;
+      if (!idA || !idB) {
+        continue;
+      }
 
       // Check if these two athletes have enough shared events for the chart
       await page.goto(`${baseURL}compare?a=${idA}&b=${idB}`);
