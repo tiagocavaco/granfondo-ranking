@@ -70,7 +70,9 @@ db.transaction(() => {
     }
   }
 
-  console.log(`✓ Fixed ${fixedNames} name variants, ${fixedTeams} team variants`);
+  console.log(
+    `✓ Fixed ${fixedNames} name variants, ${fixedTeams} team variants`,
+  );
 })();
 
 const plainFixed = db.serialize();
@@ -80,7 +82,10 @@ const newIv = Buffer.allocUnsafe(12);
 randomFillSync(newIv);
 
 const encCipher = createCipheriv("aes-256-gcm", key, newIv);
-const encData = Buffer.concat([encCipher.update(plainFixed), encCipher.final()]);
+const encData = Buffer.concat([
+  encCipher.update(plainFixed),
+  encCipher.final(),
+]);
 const authTag = encCipher.getAuthTag();
 
 writeFileSync(DB_ENC_PATH, Buffer.concat([newIv, authTag, encData]));
