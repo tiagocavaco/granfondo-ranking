@@ -1,32 +1,10 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
-// Pick the first two athletes from a finished event's results page.
-// Athletes who finished the same race definitely share at least one event,
-// and top granfondo finishers race multiple events per season, making the
-// head-to-head chart (which needs ≥2 shared events) reliable.
-async function findTwoRacemates(page: Page): Promise<string> {
-  await page.goto("");
-  await page.waitForSelector('a[href*="/event/"]', { timeout: 60000 });
-  const eventLink = page
-    .locator('a[href*="/event/"]')
-    .filter({ hasText: /\d+\s*finishers/i })
-    .first();
-  await eventLink.click();
-  await page.waitForURL(/\/event\/\d+/);
-  await page.waitForSelector("tbody tr", { timeout: 60000 });
-
-  const athleteLinks = page.locator("tbody").locator('a[href*="/athlete/"]');
-  const href0 = (await athleteLinks.nth(0).getAttribute("href")) ?? "";
-  const href1 = (await athleteLinks.nth(1).getAttribute("href")) ?? "";
-  const idA = href0.match(/\/athlete\/(\d+)/)?.[1] ?? "";
-  const idB = href1.match(/\/athlete\/(\d+)/)?.[1] ?? "";
-
-  return `compare?a=${idA}&b=${idB}`;
-}
-
-// Module-level cache — serial mode keeps all tests in one worker, so the
-// URL found on the first beforeEach call is reused by subsequent tests.
-let cachedCompareUrl = "";
+// The compare URL (compare?a=N&b=M) is discovered once in global-setup.ts
+// before any workers start, stored in process.env.E2E_COMPARE_URL, and
+// inherited by all worker processes. This avoids doing home + event
+// navigation inside a test worker under concurrent-load CPU pressure.
+const compareUrl = process.env.E2E_COMPARE_URL ?? "compare";
 
 test.describe("Compare — empty state", () => {
   test("heading reads Head-to-Head", async ({ page }) => {
@@ -52,13 +30,8 @@ test.describe("Compare — empty state", () => {
 });
 
 test.describe("Compare — loaded with two athletes", () => {
-  test.describe.configure({ mode: "serial" });
-
   test.beforeEach(async ({ page }) => {
-    if (!cachedCompareUrl) {
-      cachedCompareUrl = await findTwoRacemates(page);
-    }
-    await page.goto(cachedCompareUrl);
+    await page.goto(compareUrl);
     await page.waitForSelector("h1", { timeout: 15000 });
   });
 
