@@ -93,8 +93,8 @@ test.describe("Scroll reset", () => {
       .getByRole("link", { name: /privacy/i })
       .click();
     await expect(page).toHaveURL(/\/privacy/);
-    const scrollY = await page.evaluate(() => window.scrollY);
-    expect(scrollY).toBe(0);
+    // ScrollToTop fires in a useEffect — poll until the scroll position resets
+    await page.waitForFunction(() => window.scrollY === 0, { timeout: 3000 });
   });
 
   test("Terms page opens at top when navigated from footer", async ({
@@ -105,8 +105,8 @@ test.describe("Scroll reset", () => {
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await page.locator("footer").getByRole("link", { name: /terms/i }).click();
     await expect(page).toHaveURL(/\/terms/);
-    const scrollY = await page.evaluate(() => window.scrollY);
-    expect(scrollY).toBe(0);
+    // ScrollToTop fires in a useEffect — poll until the scroll position resets
+    await page.waitForFunction(() => window.scrollY === 0, { timeout: 3000 });
   });
 });
 

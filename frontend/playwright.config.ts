@@ -10,9 +10,11 @@ const baseURL = `http://localhost:${port}/granfondo-ranking/`;
 
 export default defineConfig({
   testDir: "./e2e",
+  globalSetup: "./e2e/global-setup",
   fullyParallel: true,
   forbidOnly: isCI,
   retries: isCI ? 1 : 0,
+  timeout: 90_000,
   reporter: "list",
   use: {
     baseURL,

@@ -1,7 +1,10 @@
 import { test, expect } from "@playwright/test";
 
-// Athletes 22 and 24 share multiple events — reliable for comparison tests.
-const COMPARE_URL = "compare?a=22&b=24";
+// The compare URL (compare?a=N&b=M) is discovered once in global-setup.ts
+// before any workers start, stored in process.env.E2E_COMPARE_URL, and
+// inherited by all worker processes. This avoids doing home + event
+// navigation inside a test worker under concurrent-load CPU pressure.
+const compareUrl = process.env.E2E_COMPARE_URL ?? "compare";
 
 test.describe("Compare — empty state", () => {
   test("heading reads Head-to-Head", async ({ page }) => {
@@ -28,17 +31,21 @@ test.describe("Compare — empty state", () => {
 
 test.describe("Compare — loaded with two athletes", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(COMPARE_URL);
+    await page.goto(compareUrl);
     await page.waitForSelector("h1", { timeout: 15000 });
   });
 
   // ── Two hero cards ──────────────────────────────────────────────────────────
 
-  test("shows two athlete name headings", async ({ page }) => {
-    // Each ComparisonHeroCard renders an h2 with the athlete name
-    const heroHeadings = page.locator("h2").filter({ hasText: /\w{3,}/ });
-    const count = await heroHeadings.count();
+  test("shows two athlete names", async ({ page }) => {
+    // ComparisonHeroCard renders the athlete name as a profile link
+    const nameLinks = page.locator('a[href*="/athlete/"]');
+    const count = await nameLinks.count();
     expect(count).toBeGreaterThanOrEqual(2);
+    const name0 = await nameLinks.nth(0).textContent();
+    const name1 = await nameLinks.nth(1).textContent();
+    expect(name0?.trim().length).toBeGreaterThan(2);
+    expect(name1?.trim().length).toBeGreaterThan(2);
   });
 
   test("each hero card shows Wins stat", async ({ page }) => {
@@ -122,7 +129,7 @@ test.describe("Compare — loaded with two athletes", () => {
   test("page URL contains both athlete IDs as query params", async ({
     page,
   }) => {
-    await expect(page).toHaveURL(/a=22/);
-    await expect(page).toHaveURL(/b=24/);
+    await expect(page).toHaveURL(/a=\d+/);
+    await expect(page).toHaveURL(/b=\d+/);
   });
 });
