@@ -53,12 +53,17 @@ test.describe("Compare — empty state", () => {
   });
 });
 
+// serial: all tests run in one worker so cachedCompareUrl is shared and
+// findTwoRacemates (home + event navigation) runs only once per project.
+// Without serial, fullyParallel spins up one worker per test and all
+// workers download the 49 MB DB simultaneously, hitting the 30s timeout.
 test.describe("Compare — loaded with two athletes", () => {
+  test.describe.configure({ mode: "serial" });
+
   test.beforeEach(async ({ page }) => {
     if (!cachedCompareUrl) {
-      // Discovery navigates home + event before the compare URL, which
-      // includes a full 49 MB DB decrypt on mobile. Extend this test's
-      // timeout so the beforeEach doesn't hit the default 30s limit.
+      // First test: extend timeout to cover discovery (49 MB DB decrypt
+      // + two page navigations) before the compare URL load.
       test.setTimeout(90000);
       cachedCompareUrl = await findTwoRacemates(page);
     }
