@@ -1,23 +1,24 @@
-import { test, expect, type Browser } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 
 // Pick the first two athletes from a finished event's results page.
 // Athletes who finished the same race definitely share at least one event,
 // and top granfondo finishers race multiple events per season, making the
 // head-to-head chart (which needs ≥2 shared events) reliable.
-async function findTwoRacemates(browser: Browser): Promise<string> {
-  const ctx = await browser.newContext();
-  const page = await ctx.newPage();
-
+//
+// Takes the worker's shared browserContext page so the 49 MB DB download is
+// not duplicated — creating a new context in beforeAll causes all 4 CI workers
+// to download simultaneously and hit the 15s timeout on mobile.
+async function findTwoRacemates(page: Page): Promise<string> {
   // Navigate to home and click the first event that has results
   await page.goto("");
-  await page.waitForSelector('a[href*="/event/"]', { timeout: 15000 });
+  await page.waitForSelector('a[href*="/event/"]', { timeout: 30000 });
   const eventLink = page
     .locator('a[href*="/event/"]')
     .filter({ hasText: /\d+\s*finishers/i })
     .first();
   await eventLink.click();
   await page.waitForURL(/\/event\/\d+/);
-  await page.waitForSelector("tbody tr", { timeout: 15000 });
+  await page.waitForSelector("tbody tr", { timeout: 30000 });
 
   const athleteLinks = page.locator("tbody").locator('a[href*="/athlete/"]');
   const href0 = (await athleteLinks.nth(0).getAttribute("href")) ?? "";
@@ -25,7 +26,6 @@ async function findTwoRacemates(browser: Browser): Promise<string> {
   const idA = href0.match(/\/athlete\/(\d+)/)?.[1] ?? "";
   const idB = href1.match(/\/athlete\/(\d+)/)?.[1] ?? "";
 
-  await ctx.close();
   return `compare?a=${idA}&b=${idB}`;
 }
 
@@ -55,8 +55,10 @@ test.describe("Compare — empty state", () => {
 test.describe("Compare — loaded with two athletes", () => {
   let compareUrl = "";
 
-  test.beforeAll(async ({ browser }) => {
-    compareUrl = await findTwoRacemates(browser);
+  test.beforeAll(async ({ browserContext }) => {
+    const page = await browserContext.newPage();
+    compareUrl = await findTwoRacemates(page);
+    await page.close();
   });
 
   test.beforeEach(async ({ page }) => {

@@ -82,6 +82,10 @@ test("career table has Time column header", async ({ page }) => {
 });
 
 test("career table has at least 5 result rows", async ({ page }) => {
+  // Table data loads after h1 — wait for at least one row before counting
+  await expect(page.locator("tbody tr").first()).toBeVisible({
+    timeout: 10000,
+  });
   const rows = page.locator("tbody tr");
   const count = await rows.count();
   expect(count).toBeGreaterThan(4);
