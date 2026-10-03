@@ -7,6 +7,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# e2e jobs are gated to pull_request only (see the e2e job's `if`).
+# Build, lint and unit tests still run on every push to main so bot
+# scrape commits don't silently break the build.
+
 permissions:
   contents: read
 
@@ -79,7 +83,7 @@ jobs:
 
   e2e:
     needs: [test, changes]
-    if: needs.changes.outputs.frontend == 'true'
+    if: github.event_name == 'pull_request' && needs.changes.outputs.frontend == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

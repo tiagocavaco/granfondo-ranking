@@ -6,14 +6,14 @@ import { test, expect, type Page } from "@playwright/test";
 // head-to-head chart (which needs ≥2 shared events) reliable.
 async function findTwoRacemates(page: Page): Promise<string> {
   await page.goto("");
-  await page.waitForSelector('a[href*="/event/"]', { timeout: 30000 });
+  await page.waitForSelector('a[href*="/event/"]', { timeout: 60000 });
   const eventLink = page
     .locator('a[href*="/event/"]')
     .filter({ hasText: /\d+\s*finishers/i })
     .first();
   await eventLink.click();
   await page.waitForURL(/\/event\/\d+/);
-  await page.waitForSelector("tbody tr", { timeout: 30000 });
+  await page.waitForSelector("tbody tr", { timeout: 60000 });
 
   const athleteLinks = page.locator("tbody").locator('a[href*="/athlete/"]');
   const href0 = (await athleteLinks.nth(0).getAttribute("href")) ?? "";
@@ -24,10 +24,8 @@ async function findTwoRacemates(page: Page): Promise<string> {
   return `compare?a=${idA}&b=${idB}`;
 }
 
-// Module-level cache — populated on the first beforeEach call per worker.
-// Playwright does not support page/context fixtures in beforeAll, so we
-// lazily discover athlete IDs the first time beforeEach runs and reuse
-// them for the rest of the tests in that worker.
+// Module-level cache — serial mode keeps all tests in one worker, so the
+// URL found on the first beforeEach call is reused by subsequent tests.
 let cachedCompareUrl = "";
 
 test.describe("Compare — empty state", () => {
@@ -53,18 +51,11 @@ test.describe("Compare — empty state", () => {
   });
 });
 
-// serial: all tests run in one worker so cachedCompareUrl is shared and
-// findTwoRacemates (home + event navigation) runs only once per project.
-// Without serial, fullyParallel spins up one worker per test and all
-// workers download the 49 MB DB simultaneously, hitting the 30s timeout.
 test.describe("Compare — loaded with two athletes", () => {
   test.describe.configure({ mode: "serial" });
 
   test.beforeEach(async ({ page }) => {
     if (!cachedCompareUrl) {
-      // First test: extend timeout to cover discovery (49 MB DB decrypt
-      // + two page navigations) before the compare URL load.
-      test.setTimeout(90000);
       cachedCompareUrl = await findTwoRacemates(page);
     }
     await page.goto(cachedCompareUrl);
