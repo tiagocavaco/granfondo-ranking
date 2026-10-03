@@ -11,6 +11,16 @@ import sqlWasmUrl from "sql.js/dist/sql-wasm-browser.wasm?url";
 
 export type { DrizzleDb } from "@granfondo/database/db-client";
 
+type ProgressCallback = (
+  phase: "downloading" | "decrypting",
+  pct: number,
+) => void;
+let progressCallback: ProgressCallback | null = null;
+
+export function setDbProgressCallback(cb: ProgressCallback) {
+  progressCallback = cb;
+}
+
 const { getDb } = createDbClient({
   fetchWasm: async () => {
     const response = await fetch(sqlWasmUrl);
@@ -28,7 +38,38 @@ const { getDb } = createDbClient({
       throw new Error(`Failed to fetch data.db.enc: ${response.status}`);
     }
 
-    return response.arrayBuffer();
+    const contentLength = response.headers.get("content-length");
+    const total = contentLength ? parseInt(contentLength, 10) : 0;
+
+    if (!total || !response.body) {
+      return response.arrayBuffer();
+    }
+
+    const reader = response.body.getReader();
+    const chunks: Uint8Array[] = [];
+    let received = 0;
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+
+      chunks.push(value);
+      received += value.length;
+      progressCallback?.("downloading", Math.round((received / total) * 100));
+    }
+
+    progressCallback?.("decrypting", 100);
+
+    const buffer = new Uint8Array(received);
+    let position = 0;
+    for (const chunk of chunks) {
+      buffer.set(chunk, position);
+      position += chunk.length;
+    }
+
+    return buffer.buffer;
   },
   decryptDb: (enc: ArrayBuffer) => {
     const keyHex = import.meta.env.VITE_DATA_KEY as string | undefined;

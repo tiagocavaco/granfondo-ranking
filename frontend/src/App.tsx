@@ -18,12 +18,25 @@ import TermsPage from "./components/legal/TermsPage";
 import { NavBar } from "./components/shared/NavBar";
 import { Footer } from "./components/shared/Footer";
 import { ScrollToTop } from "./components/shared/ScrollToTop";
-import { getDb } from "./db/db-client";
+import { getDb, setDbProgressCallback } from "./db/db-client";
 import { setGetDb } from "@granfondo/api";
 
 setGetDb(getDb);
 
-function DbLoadingScreen() {
+function DbLoadingScreen({
+  phase,
+  pct,
+}: {
+  phase: "downloading" | "decrypting" | null;
+  pct: number;
+}) {
+  const label =
+    phase === "decrypting"
+      ? "Decrypting…"
+      : phase === "downloading" && pct > 0
+        ? `Downloading… ${pct}%`
+        : "Loading race data…";
+
   return (
     <div className="min-h-screen bg-[#060d1a] flex flex-col items-center justify-center gap-5">
       <div className="w-12 h-12 rounded-2xl bg-[#0b1d3a] flex items-center justify-center border border-white/[0.14] shadow-[0_0_20px_rgba(212,175,55,0.12)]">
@@ -67,14 +80,25 @@ function DbLoadingScreen() {
           Granfondo Portugal
         </div>
         <p className="text-slate-600 text-xs tracking-widest uppercase">
-          Loading race data…
+          {label}
         </p>
       </div>
-      <div
-        className="animate-spin rounded-full h-5 w-5 border-[2px] border-white/10 border-t-blue-400"
-        aria-label="Loading"
-        role="status"
-      />
+      <div className="w-48 flex flex-col items-center gap-2">
+        {phase === "downloading" && pct > 0 ? (
+          <div className="w-full h-[3px] bg-white/10 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-blue-400 rounded-full transition-all duration-200"
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+        ) : (
+          <div
+            className="animate-spin rounded-full h-5 w-5 border-[2px] border-white/10 border-t-blue-400"
+            aria-label="Loading"
+            role="status"
+          />
+        )}
+      </div>
     </div>
   );
 }
@@ -141,8 +165,16 @@ function AppShell() {
 export default function App() {
   const [dbReady, setDbReady] = useState(false);
   const [dbError, setDbError] = useState<string | null>(null);
+  const [loadPhase, setLoadPhase] = useState<
+    "downloading" | "decrypting" | null
+  >(null);
+  const [loadPct, setLoadPct] = useState(0);
 
   useEffect(() => {
+    setDbProgressCallback((phase, pct) => {
+      setLoadPhase(phase);
+      setLoadPct(pct);
+    });
     getDb()
       .then(() => setDbReady(true))
       .catch((err: unknown) => setDbError(String(err)));
@@ -153,7 +185,7 @@ export default function App() {
   }
 
   if (!dbReady) {
-    return <DbLoadingScreen />;
+    return <DbLoadingScreen phase={loadPhase} pct={loadPct} />;
   }
 
   return (
