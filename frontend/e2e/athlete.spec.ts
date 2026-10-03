@@ -1,11 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 
-// Use a stable athlete ID for deterministic tests (athlete 22 has a long career).
-const ATHLETE_URL = "athlete/22";
+// Navigate to the first athlete in the "most active athletes" list.
+// This is more reliable than a hardcoded ID because the most-active athletes
+// always have many results and are unlikely to disappear across scrapes.
+async function goToMostActiveAthlete(page: Page): Promise<void> {
+  await page.goto("athletes");
+  await page.waitForSelector('a[href*="/athlete/"]', { timeout: 15000 });
+  const link = page.locator('a[href*="/athlete/"]').first();
+  await link.click();
+  await page.waitForSelector("h1", { timeout: 15000 });
+}
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(ATHLETE_URL);
-  await page.waitForSelector("h1", { timeout: 15000 });
+  await goToMostActiveAthlete(page);
 });
 
 // ── Hero block ────────────────────────────────────────────────────────────────
@@ -50,7 +57,7 @@ test("Compare link is present and links to /compare with athlete id", async ({
   const compareLink = page.getByRole("link", { name: /compare/i });
   await expect(compareLink).toBeVisible();
   const href = await compareLink.getAttribute("href");
-  expect(href).toMatch(/\/compare\?a=22/);
+  expect(href).toMatch(/\/compare\?a=\d+/);
 });
 
 // ── Career table structure ────────────────────────────────────────────────────
