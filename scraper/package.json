@@ -19,6 +19,7 @@
     "db:compact-ids": "tsx src/scripts/compact-athlete-ids.ts",
     "db:force-id": "tsx src/scripts/force-athlete-id.ts",
     "db:check": "tsx src/scripts/check-post-scrape.ts",
+    "db:fix-whitespace": "tsx src/scripts/fix-result-whitespace.ts",
     "scrape": "tsx src/index.ts",
     "scrape:force": "tsx src/index.ts --force",
     "scrape:fast": "tsx src/index.ts --fast",

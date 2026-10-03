@@ -165,7 +165,7 @@ export function transformResult(r: ApiResult): StoredResult {
     catPos: 0,
     athleteId: 0,
     bib: r.dorsal,
-    name: r.nome,
+    name: r.nome.trim().replace(/\s+/g, " "),
     gender: r.sexo || "M",
     team: fixRawTeamName(r.equipa ?? ""),
     category: r.escalao ?? "",
