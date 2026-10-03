@@ -53,13 +53,13 @@ test.describe("Compare — empty state", () => {
   });
 });
 
-// 90s timeout: the first test per worker runs findTwoRacemates in beforeEach
-// which includes a full home-page load (49 MB DB decrypt) + event navigation.
 test.describe("Compare — loaded with two athletes", () => {
-  test.describe.configure({ timeout: 90000 });
-
   test.beforeEach(async ({ page }) => {
     if (!cachedCompareUrl) {
+      // Discovery navigates home + event before the compare URL, which
+      // includes a full 49 MB DB decrypt on mobile. Extend this test's
+      // timeout so the beforeEach doesn't hit the default 30s limit.
+      test.setTimeout(90000);
       cachedCompareUrl = await findTwoRacemates(page);
     }
     await page.goto(cachedCompareUrl);
