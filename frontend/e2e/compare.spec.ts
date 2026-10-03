@@ -4,10 +4,6 @@ import { test, expect, type Page } from "@playwright/test";
 // Athletes who finished the same race definitely share at least one event,
 // and top granfondo finishers race multiple events per season, making the
 // head-to-head chart (which needs ≥2 shared events) reliable.
-//
-// Takes the worker's shared browserContext page so the 49 MB DB download is
-// not duplicated — creating a new context in beforeAll causes all 4 CI workers
-// to download simultaneously and hit the 15s timeout on mobile.
 async function findTwoRacemates(page: Page): Promise<string> {
   // Navigate to home and click the first event that has results
   await page.goto("");
@@ -52,13 +48,16 @@ test.describe("Compare — empty state", () => {
   });
 });
 
+// serial mode: all tests run in one worker sharing one page — beforeAll gets
+// the page fixture directly, the DB is downloaded once, and beforeEach just
+// navigates to the compare URL on the already-loaded page.
 test.describe("Compare — loaded with two athletes", () => {
+  test.describe.configure({ mode: "serial" });
+
   let compareUrl = "";
 
-  test.beforeAll(async ({ browserContext }) => {
-    const page = await browserContext.newPage();
+  test.beforeAll(async ({ page }) => {
     compareUrl = await findTwoRacemates(page);
-    await page.close();
   });
 
   test.beforeEach(async ({ page }) => {
