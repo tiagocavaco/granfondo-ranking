@@ -100,7 +100,9 @@ const { getDb } = createDbClient({
 
         return buffer.buffer;
       } catch (err) {
-        if (attempt === MAX_ATTEMPTS - 1) {throw err;}
+        if (attempt === MAX_ATTEMPTS - 1) {
+          throw err;
+        }
 
         // Reset progress indicator before retrying
         progressCallback?.("downloading", 0);
