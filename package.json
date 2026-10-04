@@ -27,7 +27,7 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "**/*.{ts,tsx}": ["prettier --write", "eslint --fix"]
+    "**/*.{ts,tsx}": ["eslint --fix", "prettier --write"]
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.59.4",
